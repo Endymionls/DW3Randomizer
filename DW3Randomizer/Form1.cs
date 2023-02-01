@@ -58,8 +58,7 @@ namespace DW3Randomizer
                 {
                     using (var stream = File.OpenRead(txtFileName.Text))
                     {
-                        lblSHAChecksum.Text = BitConverter.ToString(md5.ComputeHash(stream)).ToLower().Replace("-", "");
-                    }
+                        lblSHAChecksum.Text = BitConverter.ToString(md5.ComputeHash(stream)).ToLower().Replace("-", "");}
                 }
             } catch
             {
@@ -78,9 +77,9 @@ namespace DW3Randomizer
                     txtFileName.Text = reader.ReadLine();
                     txtFlags.Text = reader.ReadLine();
                     determineChecks(null, null);
-                    txtDefault1.Text = reader.ReadLine();
-                    txtDefault2.Text = reader.ReadLine();
-                    txtDefault3.Text = reader.ReadLine();
+                    txtCharName1.Text = reader.ReadLine();
+                    txtCharName2.Text = reader.ReadLine();
+                    txtCharName3.Text = reader.ReadLine();
 					cboClass1.SelectedIndex = Convert.ToInt32(reader.ReadLine());
 					cboClass2.SelectedIndex = Convert.ToInt32(reader.ReadLine());
 					cboClass3.SelectedIndex = Convert.ToInt32(reader.ReadLine());
@@ -93,9 +92,9 @@ namespace DW3Randomizer
             catch
             {
                 // ignore error
-                txtDefault1.Text = "Ragnar";
-                txtDefault2.Text = "Cristo";
-                txtDefault3.Text = "Mara";
+                txtCharName1.Text = "Ragnar";
+                txtCharName2.Text = "Cristo";
+                txtCharName3.Text = "Mara";
 				cboClass1.SelectedIndex = 0;
 				cboClass2.SelectedIndex = 1;
 				cboClass3.SelectedIndex = 2;
@@ -252,7 +251,7 @@ namespace DW3Randomizer
             }
 
 			for (int lnI = 0; lnI < 3; lnI++) {
-				string name = (lnI == 0 ? txtDefault1.Text : lnI == 1 ? txtDefault2.Text : txtDefault3.Text);
+				string name = (lnI == 0 ? txtCharName1.Text : lnI == 1 ? txtCharName2.Text : txtCharName3.Text);
 				for (int lnJ = 0; lnJ < 8; lnJ++)
 				{
 					romData[0x1ed52 + (8 * lnI * 4) + lnJ] = romData[0x1ed52 + (8 * lnI * 4) + 8 + lnJ] = romData[0x1ed52 + (8 * lnI * 4) + 16 + lnJ] = romData[0x1ed52 + (8 * lnI * 4) + 24 + lnJ] = 0;
@@ -1747,6 +1746,188 @@ namespace DW3Randomizer
 			return true;
         }
 
+        private bool randomizeNames(Random r1)
+        {
+            string[] maleNames = {"Bran","Glynn","Talint","Numor","Lars","Orfeo","Artho","Esgar","Ragnar","Cristo","Brey","Taloon","Pankraz","Parry","Carver","Nevan","Terry","Amos","Kiefer","Gabo","Melvin","Angelo","Yangus","Erik","Sylvando"};
+            string[] femaleNames = {"Varia","Elani","Ollisa","Roz","Kailin","Peta","Illith","Gwen","Alena","Nara","Mara","Bianca","Debora","Madchen","Nera","Maria","Patty","Milly","Ashlynn","Maribel","Aira","Jessica","Jade","Veronica","Serena"};
+
+            int maleNameCount = maleNames.Length;
+            int femaleNameCount = femaleNames.Length;
+
+            int index1 = r1.Next() % maleNameCount;
+            int index2 = r1.Next() % maleNameCount;
+            int index3 = r1.Next() % maleNameCount;
+
+            if (index1 == index2)
+            {
+                if (index2 == maleNameCount)
+                {
+                    index2 -= 1;
+                }
+                else
+                {
+                    index2 += 1;
+                }
+            }
+
+            if (index1 == index3)
+            {
+                if (index3 == maleNameCount)
+                {
+                    index3 -= 1;
+                }
+                else
+                {
+                    index3 += 1;
+                }
+            }
+
+            if (index2 == index3)
+            {
+                if (index3 == maleNameCount)
+                {
+                    index3 -= 1;
+                }
+                else
+                { 
+                    index3 += 1;
+                }
+                if (index1 == index3)
+                {
+                    index3 -= 2;
+                }
+            }
+
+            if (cboGender1.SelectedIndex == 0)
+            {
+                txtCharName1.Text = maleNames[index1];
+            }
+            else
+            {
+                txtCharName1.Text = femaleNames[index1];
+            }
+
+            if (cboGender2.SelectedIndex == 0)
+            {
+                txtCharName2.Text = maleNames[index2];
+            }
+            else
+            {
+                txtCharName2.Text = femaleNames[index2];
+            }
+
+            if (cboGender3.SelectedIndex == 0)
+            {
+                txtCharName3.Text = maleNames[index3];
+            }
+            else
+            {
+                txtCharName3.Text = femaleNames[index3];
+            }
+            return true;
+        }
+
+
+        private bool randomizeGender(Random r1)
+        {
+            if (r1.Next() % 2 == 0)
+            {
+                cboGender1.SelectedIndex = 0;
+            }
+            else
+            {
+                cboGender1.SelectedIndex = 1;
+            }
+
+            if (r1.Next() % 2 == 0)
+            {
+                cboGender2.SelectedIndex = 0;
+            }
+            else
+            {
+                cboGender2.SelectedIndex = 1;
+            }
+
+            if (r1.Next() % 2 == 0)
+            {
+                cboGender3.SelectedIndex = 0;
+            }
+            else
+            {
+                cboGender3.SelectedIndex = 1;
+            }
+            return true;
+        }
+
+        private bool randomizeClass(Random r1)
+        {
+            int[] availableClasses = new int[8];
+            int stringIndex = 0;
+            int selectIndex = 0;
+
+            if (chk_RandSoldier.Checked == true)
+            {
+                availableClasses[stringIndex] = 0;
+                stringIndex += 1;
+            }
+
+            if (chk_RandPilgrim.Checked == true)
+            {
+                availableClasses[stringIndex] = 1;
+                stringIndex += 1;
+            }
+
+            if (chk_RandWizard.Checked == true)
+            {
+                availableClasses[stringIndex] = 2;
+                stringIndex += 1;
+            }
+
+            if (chk_RandFighter.Checked == true)
+            {
+                availableClasses[stringIndex] = 3;
+                stringIndex += 1;
+            }
+
+            if (chk_RandMerchant.Checked == true)
+            {
+                availableClasses[stringIndex] = 4;
+                stringIndex += 1;
+            }
+
+            if (chk_RandGoofOff.Checked == true)
+            {
+                availableClasses[stringIndex] = 5;
+                stringIndex += 1;
+            }
+
+            if (chk_RandSage.Checked == true)
+            {
+                availableClasses[stringIndex] = 6;
+                stringIndex += 1;
+            }
+
+            if (chk_RandHero.Checked == true)
+            {
+                availableClasses[stringIndex] = 7;
+                stringIndex += 1;
+            }
+
+            if (stringIndex == 0)
+            {
+                MessageBox.Show("No classes selected. Please select at least 1 class");
+                return false;
+            }
+//            stringIndex -= 1;
+            selectIndex = r1.Next() % stringIndex;
+            cboClass1.SelectedIndex = availableClasses[selectIndex];
+            selectIndex = r1.Next() % stringIndex;
+            cboClass2.SelectedIndex = availableClasses[selectIndex];
+            selectIndex = r1.Next() % stringIndex;
+            cboClass3.SelectedIndex = availableClasses[selectIndex];
+
+            return true;
+        }
         private void markZoneSides()
         {
             for (int x = 0; x < 16; x++)
@@ -3177,6 +3358,21 @@ namespace DW3Randomizer
                 randomizeMapv5(r1);
             }
 
+            if (chk_RandomGender.Checked)
+            {
+                randomizeGender(r1);
+            }
+
+            if (chk_RandomName.Checked)
+            {
+                randomizeNames(r1);
+            }
+
+            if (chk_RandomClass.Checked)
+            {
+                randomizeClass(r1);
+            }
+
             if (chkRandEnemyPatterns.Checked)
             {
                 byte[] monsterSize = { 8, 4, 4, 4, 4, 4, 7, 4, 4, 8, 4, 4, 4, 2, 4, 4,
@@ -3869,7 +4065,7 @@ namespace DW3Randomizer
                 0x2925c, // isis meteorite band
                 0x29249, 0x2924a, 0x2924b, 0x2924c, 0x2924d, 0x2924e, 0x2924f, 0x292b4, 0x292b5, 0x292b6 }; // Pyramid -> Magic key - 28
                 int[] treasureAddrZ3 = { 0x292c3, 0x317f4, // Pyramid continued
-                0x29255, 0x29256, 0x29257, 0x29258, 0x29249, 0x2924a, // Aliahan continued
+                0x29255, 0x29256, 0x29257, 0x29258, 0x29259, 0x2925a, // Aliahan continued
                 0x31b9c, 0x2925d, 0x2925e, 0x2925f, 0x29260, 0x29261, 0x29262, 0x29263, 0x29264, // Isis continued
                 0x29269, 0x2926a, 0x2926b }; // Portuga -> Royal Scroll - 20
                 int[] treasureAddrZ4 = { 0x2923c, 0x2923d, // Dwarf's Cave
@@ -4710,9 +4906,9 @@ namespace DW3Randomizer
                 {
                     writer.WriteLine(txtFileName.Text);
                     writer.WriteLine(txtFlags.Text);
-                    writer.WriteLine(txtDefault1.Text);
-                    writer.WriteLine(txtDefault2.Text);
-                    writer.WriteLine(txtDefault3.Text);
+                    writer.WriteLine(txtCharName1.Text);
+                    writer.WriteLine(txtCharName2.Text);
+                    writer.WriteLine(txtCharName3.Text);
 					writer.WriteLine(cboClass1.SelectedIndex);
 					writer.WriteLine(cboClass2.SelectedIndex);
 					writer.WriteLine(cboClass3.SelectedIndex);
@@ -4821,6 +5017,21 @@ namespace DW3Randomizer
             chkRandSpellStrength.Checked = (number % 16 >= 8);
             chkRandomizeMap.Checked = (number % 32 >= 16);
             chkSmallMap.Checked = (number >= 32);
+
+            number = convertChartoInt(Convert.ToChar(flags.Substring(5, 1)));
+            chk_RandomName.Checked = (number % 2 == 1);
+            chk_RandomClass.Checked = (number % 4 >= 2);
+            chk_RandomGender.Checked = (number % 8 >= 4);
+            chk_RandSoldier.Checked = (number % 16 >= 8);
+            chk_RandPilgrim.Checked = (number % 32 >= 16);
+            chk_RandWizard.Checked = (number >= 32);
+
+            number = convertChartoInt(Convert.ToChar(flags.Substring(6,1)));
+            chk_RandFighter.Checked = (number % 2 == 1);
+            chk_RandMerchant.Checked = (number % 4 >= 2);
+            chk_RandGoofOff.Checked = (number % 8 >= 4);
+            chk_RandSage.Checked = (number % 16 >= 8);
+            chk_RandHero.Checked = (number % 32 >= 16);
         }
 
         private void determineFlags(object sender, EventArgs e)
@@ -4833,7 +5044,10 @@ namespace DW3Randomizer
             flags += convertIntToChar((cboGoldReq.SelectedIndex) + (chkRandomizeXP.Checked ? 4 : 0) + (chkRandomizeGP.Checked ? 8 : 0) + (chkFasterBattles.Checked ? 16 : 0) + (chkSpeedText.Checked ? 32 : 0));
             flags += convertIntToChar((chkRandStores.Checked ? 1 : 0) + (chkRandEnemyPatterns.Checked ? 2 : 0) + (chkRandSpellLearning.Checked ? 4 : 0) + (chkRandStatGains.Checked ? 8 : 0) + (chkRandTreasures.Checked ? 16 : 0) + (chkRandMonsterZones.Checked ? 32 : 0));
             flags += convertIntToChar((chkRandEquip.Checked ? 1 : 0) + (chkRandItemEffects.Checked ? 2 : 0) + (chkRandWhoCanEquip.Checked ? 4 : 0) + (chkRandSpellStrength.Checked ? 8 : 0) + (chkRandomizeMap.Checked ? 16 : 0) + (chkSmallMap.Checked ? 32 : 0));
+            flags += convertIntToChar((chk_RandomName.Checked ? 1 : 0) + (chk_RandomClass.Checked ? 2 : 0) + (chk_RandomGender.Checked ? 4 : 0) + (chk_RandSoldier.Checked ? 8 :0) + (chk_RandPilgrim.Checked ? 16 : 0) + (chk_RandWizard.Checked ? 32 : 0));
+            flags += convertIntToChar((chk_RandFighter.Checked ? 1 : 0) + (chk_RandMerchant.Checked ? 2 : 0) + (chk_RandGoofOff.Checked ? 4 : 0) + (chk_RandSage.Checked ? 8 : 0) + (chk_RandHero.Checked ? 16 : 0));
             txtFlags.Text = flags;
+            enableDisableFields(null,null);
         }
 
         private string convertIntToChar(int number)
@@ -4877,5 +5091,26 @@ namespace DW3Randomizer
             var filePaths = (string[])e.Data.GetData(DataFormats.FileDrop);
             txtFileName.Text = filePaths[0];
         }
+        private void enableDisableFields(object sender, DragEventArgs e)
+        {
+            this.txtCharName1.Enabled = !this.chk_RandomName.Checked;
+            this.txtCharName2.Enabled = !this.chk_RandomName.Checked;
+            this.txtCharName3.Enabled = !this.chk_RandomName.Checked;
+            this.cboClass1.Enabled = !this.chk_RandomClass.Checked;
+            this.cboClass2.Enabled = !this.chk_RandomClass.Checked;
+            this.cboClass3.Enabled = !this.chk_RandomClass.Checked;
+            this.cboGender1.Enabled = !this.chk_RandomGender.Checked;
+            this.cboGender2.Enabled = !this.chk_RandomGender.Checked;
+            this.cboGender3.Enabled = !this.chk_RandomGender.Checked;
+            this.chk_RandSoldier.Enabled = this.chk_RandomClass.Checked;
+            this.chk_RandPilgrim.Enabled = this.chk_RandomClass.Checked;
+            this.chk_RandWizard.Enabled = this.chk_RandomClass.Checked;
+            this.chk_RandFighter.Enabled = this.chk_RandomClass.Checked;
+            this.chk_RandMerchant.Enabled = this.chk_RandomClass.Checked;
+            this.chk_RandGoofOff.Enabled = this.chk_RandomClass.Checked;
+            this.chk_RandSage.Enabled = this.chk_RandomClass.Checked;
+            this.chk_RandHero.Enabled = this.chk_RandomClass.Checked;
+        }
+
     }
 }
