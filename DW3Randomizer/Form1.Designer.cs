@@ -56,6 +56,7 @@ namespace DW3Randomizer
             this.optMonsterLight = new System.Windows.Forms.RadioButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.chk_Caturday = new System.Windows.Forms.CheckBox();
             this.chkNoLamiaOrbs = new System.Windows.Forms.CheckBox();
             this.chkRemoveParryFight = new System.Windows.Forms.CheckBox();
             this.chkFourJobFiesta = new System.Windows.Forms.CheckBox();
@@ -253,16 +254,15 @@ namespace DW3Randomizer
             // 
             // lblIntensityDesc
             // 
-            this.lblIntensityDesc.Location = new System.Drawing.Point(13, 404);
+            this.lblIntensityDesc.Location = new System.Drawing.Point(13, 376);
             this.lblIntensityDesc.Name = "lblIntensityDesc";
             this.lblIntensityDesc.Size = new System.Drawing.Size(400, 18);
             this.lblIntensityDesc.TabIndex = 35;
-            this.lblIntensityDesc.Text = "a867549bad1cba4cd6f6dd51743e78596b982bd8";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(17, 159);
+            this.label9.Location = new System.Drawing.Point(17, 155);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(76, 13);
             this.label9.TabIndex = 39;
@@ -274,7 +274,7 @@ namespace DW3Randomizer
             this.grpMonsterStat.Controls.Add(this.optMonsterHeavy);
             this.grpMonsterStat.Controls.Add(this.optMonsterMedium);
             this.grpMonsterStat.Controls.Add(this.optMonsterLight);
-            this.grpMonsterStat.Location = new System.Drawing.Point(119, 148);
+            this.grpMonsterStat.Location = new System.Drawing.Point(119, 144);
             this.grpMonsterStat.Name = "grpMonsterStat";
             this.grpMonsterStat.Size = new System.Drawing.Size(271, 30);
             this.grpMonsterStat.TabIndex = 38;
@@ -340,6 +340,7 @@ namespace DW3Randomizer
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.chk_Caturday);
             this.tabPage1.Controls.Add(this.chkNoLamiaOrbs);
             this.tabPage1.Controls.Add(this.chkRemoveParryFight);
             this.tabPage1.Controls.Add(this.chkFourJobFiesta);
@@ -362,10 +363,22 @@ namespace DW3Randomizer
             this.tabPage1.Text = "Adjustments";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // chk_Caturday
+            // 
+            this.chk_Caturday.AutoSize = true;
+            this.chk_Caturday.Location = new System.Drawing.Point(370, 105);
+            this.chk_Caturday.Name = "chk_Caturday";
+            this.chk_Caturday.Size = new System.Drawing.Size(68, 17);
+            this.chk_Caturday.TabIndex = 22;
+            this.chk_Caturday.Text = "Caturday";
+            this.adjustments.SetToolTip(this.chk_Caturday, "Ensures that Animal Suits will be found in at least 1 weapon shop.");
+            this.chk_Caturday.UseVisualStyleBackColor = true;
+            this.chk_Caturday.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
             // chkNoLamiaOrbs
             // 
             this.chkNoLamiaOrbs.AutoSize = true;
-            this.chkNoLamiaOrbs.Location = new System.Drawing.Point(370, 98);
+            this.chkNoLamiaOrbs.Location = new System.Drawing.Point(370, 86);
             this.chkNoLamiaOrbs.Name = "chkNoLamiaOrbs";
             this.chkNoLamiaOrbs.Size = new System.Drawing.Size(151, 17);
             this.chkNoLamiaOrbs.TabIndex = 21;
@@ -377,7 +390,7 @@ namespace DW3Randomizer
             // chkRemoveParryFight
             // 
             this.chkRemoveParryFight.AutoSize = true;
-            this.chkRemoveParryFight.Location = new System.Drawing.Point(370, 75);
+            this.chkRemoveParryFight.Location = new System.Drawing.Point(370, 66);
             this.chkRemoveParryFight.Name = "chkRemoveParryFight";
             this.chkRemoveParryFight.Size = new System.Drawing.Size(143, 17);
             this.chkRemoveParryFight.TabIndex = 20;
@@ -389,7 +402,7 @@ namespace DW3Randomizer
             // chkFourJobFiesta
             // 
             this.chkFourJobFiesta.AutoSize = true;
-            this.chkFourJobFiesta.Location = new System.Drawing.Point(370, 52);
+            this.chkFourJobFiesta.Location = new System.Drawing.Point(370, 46);
             this.chkFourJobFiesta.Name = "chkFourJobFiesta";
             this.chkFourJobFiesta.Size = new System.Drawing.Size(157, 17);
             this.chkFourJobFiesta.TabIndex = 19;
@@ -516,7 +529,7 @@ namespace DW3Randomizer
             this.chkSpeedText.AutoSize = true;
             this.chkSpeedText.Checked = true;
             this.chkSpeedText.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSpeedText.Location = new System.Drawing.Point(370, 29);
+            this.chkSpeedText.Location = new System.Drawing.Point(370, 26);
             this.chkSpeedText.Name = "chkSpeedText";
             this.chkSpeedText.Size = new System.Drawing.Size(115, 17);
             this.chkSpeedText.TabIndex = 10;
@@ -563,7 +576,7 @@ namespace DW3Randomizer
             // chkRandomizeMap
             // 
             this.chkRandomizeMap.AutoSize = true;
-            this.chkRandomizeMap.Location = new System.Drawing.Point(178, 96);
+            this.chkRandomizeMap.Location = new System.Drawing.Point(179, 5);
             this.chkRandomizeMap.Name = "chkRandomizeMap";
             this.chkRandomizeMap.Size = new System.Drawing.Size(102, 17);
             this.chkRandomizeMap.TabIndex = 52;
@@ -576,7 +589,7 @@ namespace DW3Randomizer
             this.chkRandWhoCanEquip.AutoSize = true;
             this.chkRandWhoCanEquip.Checked = true;
             this.chkRandWhoCanEquip.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandWhoCanEquip.Location = new System.Drawing.Point(179, 50);
+            this.chkRandWhoCanEquip.Location = new System.Drawing.Point(179, 120);
             this.chkRandWhoCanEquip.Name = "chkRandWhoCanEquip";
             this.chkRandWhoCanEquip.Size = new System.Drawing.Size(152, 17);
             this.chkRandWhoCanEquip.TabIndex = 51;
@@ -589,7 +602,7 @@ namespace DW3Randomizer
             this.chkRandItemEffects.AutoSize = true;
             this.chkRandItemEffects.Checked = true;
             this.chkRandItemEffects.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandItemEffects.Location = new System.Drawing.Point(179, 28);
+            this.chkRandItemEffects.Location = new System.Drawing.Point(5, 120);
             this.chkRandItemEffects.Name = "chkRandItemEffects";
             this.chkRandItemEffects.Size = new System.Drawing.Size(136, 17);
             this.chkRandItemEffects.TabIndex = 50;
@@ -601,7 +614,7 @@ namespace DW3Randomizer
             // chkSmallMap
             // 
             this.chkSmallMap.AutoSize = true;
-            this.chkSmallMap.Location = new System.Drawing.Point(179, 120);
+            this.chkSmallMap.Location = new System.Drawing.Point(179, 28);
             this.chkSmallMap.Name = "chkSmallMap";
             this.chkSmallMap.Size = new System.Drawing.Size(125, 17);
             this.chkSmallMap.TabIndex = 49;
@@ -627,7 +640,7 @@ namespace DW3Randomizer
             this.chkRandTreasures.AutoSize = true;
             this.chkRandTreasures.Checked = true;
             this.chkRandTreasures.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandTreasures.Location = new System.Drawing.Point(5, 120);
+            this.chkRandTreasures.Location = new System.Drawing.Point(179, 74);
             this.chkRandTreasures.Name = "chkRandTreasures";
             this.chkRandTreasures.Size = new System.Drawing.Size(125, 17);
             this.chkRandTreasures.TabIndex = 47;
@@ -640,7 +653,7 @@ namespace DW3Randomizer
             this.chkRandSpellStrength.AutoSize = true;
             this.chkRandSpellStrength.Checked = true;
             this.chkRandSpellStrength.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandSpellStrength.Location = new System.Drawing.Point(179, 74);
+            this.chkRandSpellStrength.Location = new System.Drawing.Point(5, 74);
             this.chkRandSpellStrength.Name = "chkRandSpellStrength";
             this.chkRandSpellStrength.Size = new System.Drawing.Size(149, 17);
             this.chkRandSpellStrength.TabIndex = 46;
@@ -653,7 +666,7 @@ namespace DW3Randomizer
             this.chkRandSpellLearning.AutoSize = true;
             this.chkRandSpellLearning.Checked = true;
             this.chkRandSpellLearning.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandSpellLearning.Location = new System.Drawing.Point(5, 74);
+            this.chkRandSpellLearning.Location = new System.Drawing.Point(5, 51);
             this.chkRandSpellLearning.Name = "chkRandSpellLearning";
             this.chkRandSpellLearning.Size = new System.Drawing.Size(143, 17);
             this.chkRandSpellLearning.TabIndex = 45;
@@ -666,7 +679,7 @@ namespace DW3Randomizer
             this.chkRandEquip.AutoSize = true;
             this.chkRandEquip.Checked = true;
             this.chkRandEquip.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandEquip.Location = new System.Drawing.Point(179, 5);
+            this.chkRandEquip.Location = new System.Drawing.Point(179, 97);
             this.chkRandEquip.Name = "chkRandEquip";
             this.chkRandEquip.Size = new System.Drawing.Size(163, 17);
             this.chkRandEquip.TabIndex = 44;
@@ -679,7 +692,7 @@ namespace DW3Randomizer
             this.chkRandMonsterZones.AutoSize = true;
             this.chkRandMonsterZones.Checked = true;
             this.chkRandMonsterZones.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandMonsterZones.Location = new System.Drawing.Point(5, 51);
+            this.chkRandMonsterZones.Location = new System.Drawing.Point(5, 28);
             this.chkRandMonsterZones.Name = "chkRandMonsterZones";
             this.chkRandMonsterZones.Size = new System.Drawing.Size(150, 17);
             this.chkRandMonsterZones.TabIndex = 43;
@@ -692,7 +705,7 @@ namespace DW3Randomizer
             this.chkRandEnemyPatterns.AutoSize = true;
             this.chkRandEnemyPatterns.Checked = true;
             this.chkRandEnemyPatterns.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandEnemyPatterns.Location = new System.Drawing.Point(5, 28);
+            this.chkRandEnemyPatterns.Location = new System.Drawing.Point(5, 5);
             this.chkRandEnemyPatterns.Name = "chkRandEnemyPatterns";
             this.chkRandEnemyPatterns.Size = new System.Drawing.Size(154, 17);
             this.chkRandEnemyPatterns.TabIndex = 42;
@@ -705,7 +718,7 @@ namespace DW3Randomizer
             this.chkRandStores.AutoSize = true;
             this.chkRandStores.Checked = true;
             this.chkRandStores.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandStores.Location = new System.Drawing.Point(5, 5);
+            this.chkRandStores.Location = new System.Drawing.Point(179, 51);
             this.chkRandStores.Name = "chkRandStores";
             this.chkRandStores.Size = new System.Drawing.Size(123, 17);
             this.chkRandStores.TabIndex = 41;
@@ -845,7 +858,7 @@ namespace DW3Randomizer
             // chk_RandomGender
             // 
             this.chk_RandomGender.AutoSize = true;
-            this.chk_RandomGender.Location = new System.Drawing.Point(128, 3);
+            this.chk_RandomGender.Location = new System.Drawing.Point(128, 7);
             this.chk_RandomGender.Name = "chk_RandomGender";
             this.chk_RandomGender.Size = new System.Drawing.Size(117, 17);
             this.chk_RandomGender.TabIndex = 49;
@@ -856,7 +869,7 @@ namespace DW3Randomizer
             // chk_RandomClass
             // 
             this.chk_RandomClass.AutoSize = true;
-            this.chk_RandomClass.Location = new System.Drawing.Point(251, 3);
+            this.chk_RandomClass.Location = new System.Drawing.Point(251, 7);
             this.chk_RandomClass.Name = "chk_RandomClass";
             this.chk_RandomClass.Size = new System.Drawing.Size(107, 17);
             this.chk_RandomClass.TabIndex = 48;
@@ -867,7 +880,7 @@ namespace DW3Randomizer
             // chk_RandomName
             // 
             this.chk_RandomName.AutoSize = true;
-            this.chk_RandomName.Location = new System.Drawing.Point(7, 4);
+            this.chk_RandomName.Location = new System.Drawing.Point(7, 8);
             this.chk_RandomName.Name = "chk_RandomName";
             this.chk_RandomName.Size = new System.Drawing.Size(115, 17);
             this.chk_RandomName.TabIndex = 47;
@@ -882,7 +895,7 @@ namespace DW3Randomizer
             this.cboGender3.Items.AddRange(new object[] {
             "Male",
             "Female"});
-            this.cboGender3.Location = new System.Drawing.Point(128, 80);
+            this.cboGender3.Location = new System.Drawing.Point(128, 84);
             this.cboGender3.Name = "cboGender3";
             this.cboGender3.Size = new System.Drawing.Size(117, 21);
             this.cboGender3.TabIndex = 46;
@@ -894,7 +907,7 @@ namespace DW3Randomizer
             this.cboGender2.Items.AddRange(new object[] {
             "Male",
             "Female"});
-            this.cboGender2.Location = new System.Drawing.Point(128, 53);
+            this.cboGender2.Location = new System.Drawing.Point(128, 57);
             this.cboGender2.Name = "cboGender2";
             this.cboGender2.Size = new System.Drawing.Size(117, 21);
             this.cboGender2.TabIndex = 45;
@@ -906,7 +919,7 @@ namespace DW3Randomizer
             this.cboGender1.Items.AddRange(new object[] {
             "Male",
             "Female"});
-            this.cboGender1.Location = new System.Drawing.Point(128, 26);
+            this.cboGender1.Location = new System.Drawing.Point(128, 30);
             this.cboGender1.Name = "cboGender1";
             this.cboGender1.Size = new System.Drawing.Size(117, 21);
             this.cboGender1.TabIndex = 44;
@@ -924,7 +937,7 @@ namespace DW3Randomizer
             "Goof-off",
             "Sage",
             "Hero"});
-            this.cboClass3.Location = new System.Drawing.Point(251, 80);
+            this.cboClass3.Location = new System.Drawing.Point(251, 84);
             this.cboClass3.Name = "cboClass3";
             this.cboClass3.Size = new System.Drawing.Size(138, 21);
             this.cboClass3.TabIndex = 43;
@@ -942,7 +955,7 @@ namespace DW3Randomizer
             "Goof-off",
             "Sage",
             "Hero"});
-            this.cboClass2.Location = new System.Drawing.Point(251, 53);
+            this.cboClass2.Location = new System.Drawing.Point(251, 57);
             this.cboClass2.Name = "cboClass2";
             this.cboClass2.Size = new System.Drawing.Size(138, 21);
             this.cboClass2.TabIndex = 42;
@@ -960,14 +973,14 @@ namespace DW3Randomizer
             "Goof-off",
             "Sage",
             "Hero"});
-            this.cboClass1.Location = new System.Drawing.Point(251, 26);
+            this.cboClass1.Location = new System.Drawing.Point(251, 30);
             this.cboClass1.Name = "cboClass1";
             this.cboClass1.Size = new System.Drawing.Size(138, 21);
             this.cboClass1.TabIndex = 41;
             // 
             // txtCharName2
             // 
-            this.txtCharName2.Location = new System.Drawing.Point(7, 53);
+            this.txtCharName2.Location = new System.Drawing.Point(7, 57);
             this.txtCharName2.MaxLength = 8;
             this.txtCharName2.Name = "txtCharName2";
             this.txtCharName2.Size = new System.Drawing.Size(115, 20);
@@ -975,7 +988,7 @@ namespace DW3Randomizer
             // 
             // txtCharName3
             // 
-            this.txtCharName3.Location = new System.Drawing.Point(7, 80);
+            this.txtCharName3.Location = new System.Drawing.Point(7, 84);
             this.txtCharName3.MaxLength = 8;
             this.txtCharName3.Name = "txtCharName3";
             this.txtCharName3.Size = new System.Drawing.Size(115, 20);
@@ -983,7 +996,7 @@ namespace DW3Randomizer
             // 
             // txtCharName1
             // 
-            this.txtCharName1.Location = new System.Drawing.Point(7, 27);
+            this.txtCharName1.Location = new System.Drawing.Point(7, 31);
             this.txtCharName1.MaxLength = 8;
             this.txtCharName1.Name = "txtCharName1";
             this.txtCharName1.Size = new System.Drawing.Size(115, 20);
@@ -1024,7 +1037,6 @@ namespace DW3Randomizer
             this.lblNewChecksum.Size = new System.Drawing.Size(247, 13);
             this.lblNewChecksum.TabIndex = 45;
             this.lblNewChecksum.Text = "????????????????????????????????????????";
-            this.lblNewChecksum.Click += new System.EventHandler(this.lblNewChecksum_Click);
             // 
             // label14
             // 
@@ -1034,7 +1046,6 @@ namespace DW3Randomizer
             this.label14.Size = new System.Drawing.Size(82, 13);
             this.label14.TabIndex = 44;
             this.label14.Text = "New Checksum";
-            this.label14.Click += new System.EventHandler(this.label14_Click);
             // 
             // Form1
             // 
@@ -1067,7 +1078,7 @@ namespace DW3Randomizer
             this.Controls.Add(this.txtFileName);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Dragon Warrior 3 Randomizer 2.3.4 ~ 2023/02/01";
+            this.Text = "Dragon Warrior 3 Randomizer 2.3.4a ~ 2023/02/03";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.grpMonsterStat.ResumeLayout(false);
@@ -1082,16 +1093,6 @@ namespace DW3Randomizer
             this.ResumeLayout(false);
             this.PerformLayout();
 
-        }
-
-        private void label14_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void lblNewChecksum_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         #endregion
@@ -1173,6 +1174,7 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_RandHero;
         private System.Windows.Forms.CheckBox chk_RandSage;
         private System.Windows.Forms.CheckBox chk_RandGoofOff;
+        private System.Windows.Forms.CheckBox chk_Caturday;
     }
 }
 

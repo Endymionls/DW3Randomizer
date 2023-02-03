@@ -4,6 +4,8 @@ using System.Security.Cryptography;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Drawing;
 
 namespace DW3Randomizer
 {
@@ -28,6 +30,7 @@ namespace DW3Randomizer
 		int[,] zone = new int[16, 16];
         int[] maxIsland = new int[4];
         List<int> islands = new List<int>();
+        int[] heroComSpell, pilgrimComSpell, wizardComSpell, heroComLvl, pilgrimComLvl, wizardComLvl, heroBatSpell, pilgrimBatSpell, wizardBatSpell, heroBatLvl, pilgrimBatLvl, wizardBatLvl;
 
         public Form1()
         {
@@ -38,7 +41,8 @@ namespace DW3Randomizer
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
-            openFileDialog1.InitialDirectory = "c:\\";
+            openFileDialog1.InitialDirectory = Path.Combine(Application.StartupPath);
+//            openFileDialog1.InitialDirectory = "c:\\";
             openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
             openFileDialog1.FilterIndex = 2;
             openFileDialog1.RestoreDirectory = true;
@@ -243,15 +247,20 @@ namespace DW3Randomizer
 			// Rename the starting characters.
 			for (int lnI = 0; lnI < 3; lnI ++)
             {
-				byte value = (byte)(lnI == 0 ? cboClass1.SelectedIndex : lnI == 1 ? cboClass2.SelectedIndex : cboClass3.SelectedIndex);
-				byte gender = (byte)(lnI == 0 ? cboGender1.SelectedIndex : lnI == 1 ? cboGender2.SelectedIndex : cboGender3.SelectedIndex);
-				byte intValue = (byte)(value == 0 ? 4 : value == 1 ? 2 : value == 2 ? 1 : value == 3 ? 6 : value == 4 ? 5 : value == 5 ? 7 : value == 6 ? 3 : 0);
+                byte value;
+                byte gender;
+
+                value = (byte)(lnI == 0 ? cboClass1.SelectedIndex : lnI == 1 ? cboClass2.SelectedIndex : cboClass3.SelectedIndex);
+
+                byte intValue = (byte)(value == 0 ? 4 : value == 1 ? 2 : value == 2 ? 1 : value == 3 ? 6 : value == 4 ? 5 : value == 5 ? 7 : value == 6 ? 3 : 0);
+
+                gender = (byte)(lnI == 0 ? cboGender1.SelectedIndex : lnI == 1 ? cboGender2.SelectedIndex : cboGender3.SelectedIndex);
 
 				romData[0x1ed4f + lnI] = (byte)(intValue + (gender == 0 ? 0 : 8));
             }
 
 			for (int lnI = 0; lnI < 3; lnI++) {
-				string name = (lnI == 0 ? txtCharName1.Text : lnI == 1 ? txtCharName2.Text : txtCharName3.Text);
+                string name = (lnI == 0 ? txtCharName1.Text : lnI == 1 ? txtCharName2.Text : txtCharName3.Text);
 				for (int lnJ = 0; lnJ < 8; lnJ++)
 				{
 					romData[0x1ed52 + (8 * lnI * 4) + lnJ] = romData[0x1ed52 + (8 * lnI * 4) + 8 + lnJ] = romData[0x1ed52 + (8 * lnI * 4) + 16 + lnJ] = romData[0x1ed52 + (8 * lnI * 4) + 24 + lnJ] = 0;
@@ -270,13 +279,13 @@ namespace DW3Randomizer
 						romData[0x1ed52 + (8 * lnI * 4) + lnJ] = 0; // no more characters to process - make the rest of the characters blank
 					}
 				}
-			}
 
-			// Remove the golden claw 100/256 encounter rate - Can't because the king won't check if you have the black pepper.
-			//romData[0x185c] = 0x4c;
-			//romData[0x185d] = 0x5b;
-			//romData[0x185e] = 0x98;
-			saveRom(false);
+            // Remove the golden claw 100/256 encounter rate - Can't because the king won't check if you have the black pepper.
+            //romData[0x185c] = 0x4c;
+            //romData[0x185d] = 0x5b;
+            //romData[0x185e] = 0x98;
+            saveRom(false);
+            }
         }
 
         private void fourJobFiesta()
@@ -379,7 +388,7 @@ namespace DW3Randomizer
                 if (extra)
                     romData2 = File.ReadAllBytes(txtCompare.Text);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("Empty file name(s) or unable to open files.  Please verify the files exist.");
                 return false;
@@ -411,7 +420,8 @@ namespace DW3Randomizer
 					lblNewChecksum.Text = "????????????????????????????????????????";
 				}
 			}
-		}
+
+        }
 
         private bool randomizeMapv5(Random r1)
         {
@@ -1482,7 +1492,7 @@ namespace DW3Randomizer
 							}
 							else
 							{
-								if (y == 199 && x == 157) y = y;
+//								if (y == 199 && x == 157) y = y; // Why redeclare?
 								if (validPlot(y - 2, x - 2, 5, 5, (locIslands[lnI] <= 6 ? new int[] { maxIsland[locIslands[lnI]] } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
 									locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], maxLake, locIslands[lnI] == 6))
 								{
@@ -1586,7 +1596,7 @@ namespace DW3Randomizer
             for (int mzX = 0; mzX < 16; mzX++)
                 for (int mzY = 0; mzY < 16; mzY++)
                 {
-					if (mzX == 10) mzX = mzX;
+//					if (mzX == 10) mzX = mzX; // Why redeclare?
                     if (zone[mzY, mzX] / 1000 == 1)
                     {
                         if (Math.Abs(midenMZX - mzX) == 0 && Math.Abs(midenMZY - mzY) == 0)
@@ -1987,7 +1997,7 @@ namespace DW3Randomizer
                             int lnX = points[lnI];
                             int lnY = points[lnI + 1];
 
-                            if (lnX == 127 && lnY == 56) lnX = lnX;
+//                            if (lnX == 127 && lnY == 56) lnX = lnX; // Why redeclare?
 
                             int direction = (r1.Next() % 16);
                             if (zoneToUse != -1000)
@@ -3343,6 +3353,7 @@ namespace DW3Randomizer
         private void superRandomize()
         {
             Random r1;
+ 
             try
             {
                 r1 = new Random(int.Parse(txtSeed.Text));
@@ -3352,6 +3363,7 @@ namespace DW3Randomizer
                 MessageBox.Show("Invalid seed.  It must be a number from 0 to 2147483648.");
                 return;
             }
+
 
             if (chkRandomizeMap.Checked)
             {
@@ -4021,6 +4033,21 @@ namespace DW3Randomizer
                 romData[0x29d6 + 125] = 0xff;
                 romData[0x29d6 + 188] = 0xff;
                 romData[0x29d6 + 251] = 0xff;
+
+                // Copy arrays to be written out later
+                heroComSpell = heroCommand2;
+                heroComLvl = heroCommandLevels;
+                heroBatSpell = heroFight2;
+                heroBatLvl = heroFightLevels;
+                pilgrimComSpell = pilgrimCommand2;
+                pilgrimComLvl = pilgrimCommandLevels;
+                pilgrimBatSpell = pilgrimFight2;
+                pilgrimBatLvl= pilgrimFightLevels;
+                wizardComSpell = wizardCommand2;
+                wizardComLvl = wizardCommandLevels;
+                wizardBatSpell= wizardFight2;
+                wizardBatLvl= wizardFightLevels;
+
             }
 
             if (chkRandSpellStrength.Checked)
@@ -4306,6 +4333,11 @@ namespace DW3Randomizer
                         }
                         lnJ++;
                     } while (!lastItem);
+                }
+                if (chk_Caturday.Checked == true)
+                {
+                    int selectStore = r1.Next() % weaponStores.Length;
+                    romData[selectStore] = 0x2a;
                 }
                 for (int lnI = 0; lnI < itemStores.Length; lnI++)
                 {
@@ -4898,10 +4930,10 @@ namespace DW3Randomizer
             }
             return writer;
         }
-
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (txtFileName.Text != "")
+            {
                 using (StreamWriter writer = File.CreateText("lastFile.txt"))
                 {
                     writer.WriteLine(txtFileName.Text);
@@ -4909,14 +4941,15 @@ namespace DW3Randomizer
                     writer.WriteLine(txtCharName1.Text);
                     writer.WriteLine(txtCharName2.Text);
                     writer.WriteLine(txtCharName3.Text);
-					writer.WriteLine(cboClass1.SelectedIndex);
-					writer.WriteLine(cboClass2.SelectedIndex);
-					writer.WriteLine(cboClass3.SelectedIndex);
-					writer.WriteLine(cboGender1.SelectedIndex);
-					writer.WriteLine(cboGender2.SelectedIndex);
-					writer.WriteLine(cboGender3.SelectedIndex);
-				}
-		}
+                    writer.WriteLine(cboClass1.SelectedIndex);
+                    writer.WriteLine(cboClass2.SelectedIndex);
+                    writer.WriteLine(cboClass3.SelectedIndex);
+                    writer.WriteLine(cboGender1.SelectedIndex);
+                    writer.WriteLine(cboGender2.SelectedIndex);
+                    writer.WriteLine(cboGender3.SelectedIndex);
+                }
+            }
+        }
 
         private void txtFileName_Leave(object sender, EventArgs e)
         {
@@ -4927,7 +4960,8 @@ namespace DW3Randomizer
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
-            openFileDialog1.InitialDirectory = "c:\\";
+            openFileDialog1.InitialDirectory = Path.Combine(Application.StartupPath);
+//            openFileDialog1.InitialDirectory = "c:\\";
             openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
             openFileDialog1.FilterIndex = 2;
             openFileDialog1.RestoreDirectory = true;
@@ -5032,6 +5066,7 @@ namespace DW3Randomizer
             chk_RandGoofOff.Checked = (number % 8 >= 4);
             chk_RandSage.Checked = (number % 16 >= 8);
             chk_RandHero.Checked = (number % 32 >= 16);
+            chk_Caturday.Checked = (number >= 32);
         }
 
         private void determineFlags(object sender, EventArgs e)
@@ -5045,7 +5080,7 @@ namespace DW3Randomizer
             flags += convertIntToChar((chkRandStores.Checked ? 1 : 0) + (chkRandEnemyPatterns.Checked ? 2 : 0) + (chkRandSpellLearning.Checked ? 4 : 0) + (chkRandStatGains.Checked ? 8 : 0) + (chkRandTreasures.Checked ? 16 : 0) + (chkRandMonsterZones.Checked ? 32 : 0));
             flags += convertIntToChar((chkRandEquip.Checked ? 1 : 0) + (chkRandItemEffects.Checked ? 2 : 0) + (chkRandWhoCanEquip.Checked ? 4 : 0) + (chkRandSpellStrength.Checked ? 8 : 0) + (chkRandomizeMap.Checked ? 16 : 0) + (chkSmallMap.Checked ? 32 : 0));
             flags += convertIntToChar((chk_RandomName.Checked ? 1 : 0) + (chk_RandomClass.Checked ? 2 : 0) + (chk_RandomGender.Checked ? 4 : 0) + (chk_RandSoldier.Checked ? 8 :0) + (chk_RandPilgrim.Checked ? 16 : 0) + (chk_RandWizard.Checked ? 32 : 0));
-            flags += convertIntToChar((chk_RandFighter.Checked ? 1 : 0) + (chk_RandMerchant.Checked ? 2 : 0) + (chk_RandGoofOff.Checked ? 4 : 0) + (chk_RandSage.Checked ? 8 : 0) + (chk_RandHero.Checked ? 16 : 0));
+            flags += convertIntToChar((chk_RandFighter.Checked ? 1 : 0) + (chk_RandMerchant.Checked ? 2 : 0) + (chk_RandGoofOff.Checked ? 4 : 0) + (chk_RandSage.Checked ? 8 : 0) + (chk_RandHero.Checked ? 16 : 0) + (chk_Caturday.Checked ? 32 : 0));
             txtFlags.Text = flags;
             enableDisableFields(null,null);
         }
@@ -5111,6 +5146,5 @@ namespace DW3Randomizer
             this.chk_RandSage.Enabled = this.chk_RandomClass.Checked;
             this.chk_RandHero.Enabled = this.chk_RandomClass.Checked;
         }
-
     }
 }
