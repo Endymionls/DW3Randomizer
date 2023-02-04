@@ -4337,7 +4337,7 @@ namespace DW3Randomizer
                 if (chk_Caturday.Checked == true)
                 {
                     int selectStore = r1.Next() % weaponStores.Length;
-                    romData[selectStore] = 0x2a;
+                    romData[weaponStores[selectStore]] = 0x2a;
                 }
                 for (int lnI = 0; lnI < itemStores.Length; lnI++)
                 {
