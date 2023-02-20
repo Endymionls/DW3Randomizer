@@ -141,7 +141,7 @@ namespace DW3Randomizer
             }
             else
             {
-                if (chkRandStores.Checked) forceItemSell();
+                if (chkRandItemStores.Checked) forceItemSell();
                 boostGP();
                 superRandomize();
 
@@ -188,14 +188,25 @@ namespace DW3Randomizer
             romData[0x3c36a] = romData[0x7c36a] = 0xc3;
 
             // Speed up item menu loading
-            romData[0x2b0d] = 0x00;
-            romData[0x2b0e] = 0xf0;
-            romData[0x2b0f] = 0x01;
-            romData[0x2b10] = 0x00;
+            if (chk_SpeedUpMenus.Checked == true)
+            {
+                romData[0x2b0d] = 0x00;
+                romData[0x2b0e] = 0xf0;
+                romData[0x2b0f] = 0x01;
+                romData[0x2b10] = 0x00;
 
-            // All ROM hacks will revive ALL characters on a ColdAsACod.
-            // There will be a temporary graphical error if you use less than four characters, but I'm going to leave it be.
-            byte[] codData1 = { 0xa0, 0x00, // Make sure Y is 0 first.
+            }
+
+            if (chk_FixSlimeSnail.Checked == true)
+            {
+                romData[0xb5f7] = 0x16; // Slime Snaii > Slime Snail
+            }
+
+            if (chk_Cod.Checked == true)
+            {
+                // All ROM hacks will revive ALL characters on a ColdAsACod.
+                // There will be a temporary graphical error if you use less than four characters, but I'm going to leave it be.
+                byte[] codData1 = { 0xa0, 0x00, // Make sure Y is 0 first.
                 0xb9, 0x3c, 0x07,
                 0xc9, 0x80,
                 0x90, 0x03, // If less than 0x80, skip.
@@ -207,7 +218,7 @@ namespace DW3Randomizer
                 0xea, 0xea, 0xea, 0xea, 0xea,
                 0xea, 0xea, 0xea, 0xea, 0xea,
                 0xea, 0xea }; // 12 NOPs, since I have nothing else to do.
-            byte[] codData2 = { 0xa9, 0x80, // Load 80, the status for alive
+                byte[] codData2 = { 0xa9, 0x80, // Load 80, the status for alive
                 0x99, 0x3c, 0x07, // store to two status bytes
                 0x99, 0x3d, 0x07,
                 0xb9, 0x24, 0x07, // Load max HP
@@ -220,10 +231,13 @@ namespace DW3Randomizer
                 0x99, 0x2d, 0x07,
                 0x60 }; // end JSR
 
-            for (int lnI = 0; lnI < codData1.Length; lnI++)
-                romData[0x22b3 + lnI] = codData1[lnI];
-            for (int lnI = 0; lnI < codData2.Length; lnI++)
-                romData[0x3fc2 + lnI] = codData2[lnI];
+                for (int lnI = 0; lnI < codData1.Length; lnI++)
+                    romData[0x22b3 + lnI] = codData1[lnI];
+                for (int lnI = 0; lnI < codData2.Length; lnI++)
+                    romData[0x3fc2 + lnI] = codData2[lnI];
+
+                romData[0x3cc6a] = 0x4c; // Forces a jump out of the king scolding routine, saving at least 13 seconds / party wipe.  There are graphical errors, but I'll take it!
+            }
 
             // Fix the "parry/fight" bug(as determined via gamefaqs board), via Zombero's DW3 Hardtype IPS patch.
             if (chkRemoveParryFight.Checked)
@@ -236,7 +250,6 @@ namespace DW3Randomizer
                     romData[0xa402 + lnI] = parryFightFix2[lnI];
             }
 
-			romData[0x3cc6a] = 0x4c; // Forces a jump out of the king scolding routine, saving at least 13 seconds / party wipe.  There are graphical errors, but I'll take it!
 
 			// Force the same three names to be selected in the opening Lucia's Eatery
 			romData[0x1e9f8] = 0x29;
@@ -3312,7 +3325,7 @@ namespace DW3Randomizer
 
         private void forceItemSell()
         {
-            int[] forcedItemSell = { 0x16, 0x1c, 0x28, 0x32, 0x34, 0x36, 0x3b, 0x3f, 0x42, 0x48, 0x4b, 0x4c, 0x50, 0x52, 0x53, 0x58, 0x59, 0x69, 0x6f, 0x70, 0x71 };
+            int[] forcedItemSell = { 0x16, 0x1c, 0x28, 0x32, 0x34, 0x36, 0x3b, 0x3f, 0x42, 0x48, 0x4b, 0x4c, 0x50, 0x52, 0x53, 0x55, 0x58, 0x59, 0x69, 0x6f, 0x70, 0x71 };
             for (int lnI = 0; lnI < forcedItemSell.Length; lnI++)
                 if (romData[0x11be + forcedItemSell[lnI]] % 32 >= 16) // Not allowed to be sold
                     romData[0x11be + forcedItemSell[lnI]] -= 16; // Now allowed to be sold!
@@ -4151,23 +4164,35 @@ namespace DW3Randomizer
                 romData[0x2914f] = (byte)(r1.Next() % 256);
 
                 List<byte> treasureList = new List<byte>();
+                List<byte> legalTreasuresList = new List<byte>();
                 byte[] legalTreasures = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
-                                      0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
-                                      0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
-                                      0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f,
-                                      0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x48, 0x49, 0x4b, 0x4c, 0x4e,
-                                      0x53, 0x55, 0x56, 0x5f,
-                                      0x60, 0x62, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6c, 0x6d,
-                                      0x71, 0x73, 0x74,
-                                      0x88, 0x90, 0x98, 0xa0, 0xa8, 0xb0, 0xb8, 0xc0, 0xc8, 0xd0, 0xd8, 0xe0, 0xe8, 0xf0, 0xf8,
-                                      0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff};
+                                          0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
+                                          0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
+                                          0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f,
+                                          0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x48, 0x49, 0x4b, 0x4c, 0x4e,
+                                          0x53, 0x55, 0x56, 0x5f,
+                                          0x60, 0x62, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6c, 0x6d,
+                                          0x71, 0x73, 0x74,
+                                          0x88, 0x90, 0x98, 0xa0, 0xa8, 0xb0, 0xb8, 0xc0, 0xc8, 0xd0, 0xd8, 0xe0, 0xe8, 0xf0, 0xf8,
+                                          0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff};
+ 
+                // Populate legalTreasuresList so we can add additional items if selected
+                for (int lnI=0; lnI < legalTreasures.Length; lnI++)
+                {
+                    legalTreasuresList.Add(legalTreasures[lnI]);
+                }
+                // Add Golden Claw if selected
+                if(chk_GoldenClaw.Enabled == true)
+                {
+                    legalTreasuresList.Add(0x4a);
+                }
                 for (int lnI = 0; lnI < allTreasureList.Count; lnI++)
                 {
                     legal = false;
                     while (!legal)
                     {
-                        byte treasure = (byte)(r1.Next() % legalTreasures.Length); // the last two items we can't get...
-                        treasure = legalTreasures[treasure];
+                        byte treasure = (byte)(r1.Next() % legalTreasuresList.Count); // the last two items we can't get...
+                        treasure = legalTreasuresList[treasure];
                         // Disallow earning gold for searchable items... this is because 0x80 = 0x00 in this scenario, so anything over 0x80 is useless.  
                         // (in fact, 0xfd = 0x7d, the Stick Slime, a null item.)
                         if (allTreasure[lnI] > 0x29400 && treasure >= 0x80)
@@ -4287,7 +4312,7 @@ namespace DW3Randomizer
                 romData[0x319a0] = romData[0x317f4];
             }
 
-            if (chkRandStores.Checked)
+            if (chkRandItemStores.Checked)
             {
                 // Totally randomize stores (19 weapon stores, 24 item stores, 248 items total)  No store can have more than 12 items.
                 // I would just create random values for 248 items, then determine weapon and item stores out of that!
@@ -4297,74 +4322,144 @@ namespace DW3Randomizer
                                       0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f,
                                       0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46
                 };
-                byte[] legalStoreItems = { 0x48, 0x49, 0x4b, 0x4c, 0x4e,
-                                      0x53, 0x55, 0x56, 0x5f,
-                                      0x60, 0x62, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6c, 0x6f,
-                                      0x71, 0x73, 0x74,
-                                      0x56, 0x65, 0x66, 0x67, 0x68, 0x6c, 0x73, 0x74,
-                                      0x56, 0x65, 0x66, 0x67, 0x68, 0x6c, 0x73, 0x74,
-                                      0x56, 0x65, 0x66, 0x67, 0x68, 0x6c, 0x73, 0x74
+                byte[] legalStoreItems = { 0x56,
+                                      0x65, 0x66, 0x67, 0x68, 0x6c,
+                                      0x74
                 };
+                // Create legalStoreItemsList to add new items
+                List<byte> legalStoreItemsList = new List<byte>();
+                // Populate legalStoreItemsList base items
+                for (int lnI = 0; lnI < legalStoreItems.Length; lnI++)
+                {
+                    legalStoreItemsList.Add(legalStoreItems[lnI]);
+                }
+
+                // Add Stone of Life to Item Shop Items
+                if(chk_StoneofLife.Checked == true && chk_StoneofLife.Enabled == true)
+                {
+                    legalStoreItemsList.Add(0x55);
+                }
+                // Add Seeds to Item Shop Items
+                if(chk_Seeds.Checked == true && chk_Seeds.Enabled)
+                {
+                    legalStoreItemsList.Add(0x5f);
+                    legalStoreItemsList.Add(0x60);
+                    legalStoreItemsList.Add(0x61);
+                    legalStoreItemsList.Add(0x62);
+                    legalStoreItemsList.Add(0x63);
+                    legalStoreItemsList.Add(0x64);
+                }
+                // Add Book of Satori to Item Shop Items
+                if(chk_BookofSatori.Checked == true && chk_BookofSatori.Enabled == true)
+                {
+                    legalStoreItemsList.Add(0x4c);
+                }
+                // Add Ring of Life to Item Shop Items
+                if(chk_RingofLife.Checked == true && chk_RingofLife.Enabled == true)
+                {
+                    legalStoreItemsList.Add(0x48);
+                }
+                // Add Echoing Flute to Item Shop Items
+                if(chk_EchoingFlute.Checked == true && chk_EchoingFlute.Enabled == true)
+                {
+                    legalStoreItemsList.Add(0x6f);
+                }
+                // Add Silver Harp to Item Shop Items
+                if(chk_SilverHarp.Checked == true && chk_SilverHarp.Enabled == true)
+                {
+                    legalStoreItemsList.Add(0x71);
+                }
+                // Add Shoes of Happiness to Item Shop Items
+                if(chk_ShoesofHappiness.Checked == true && chk_ShoesofHappiness.Enabled == true)
+                {
+                    legalStoreItemsList.Add(0x49);
+                }
+                // Add Meterorite Armband to Item Shop Items
+                if(chk_MeteoriteArmband.Checked == true && chk_MeteoriteArmband.Enabled == true)
+                {
+                    legalStoreItemsList.Add(0x4b);
+                }
+                if(chk_WizardsRing.Checked == true && chk_WizardsRing.Enabled == true)
+                {
+                    legalStoreItemsList.Add(0x4e);
+                }
+                if (chk_LampofDarkness.Checked == true && chk_LampofDarkness.Enabled == true)
+                {
+                    legalStoreItemsList.Add(0x53);
+                }
+                if (chk_LeafoftheWorldTree.Checked == true && chk_LeafoftheWorldTree.Enabled == true)
+                {
+                    legalStoreItemsList.Add(0x69);
+                }
+                if (chk_PoisonMothPowder.Checked == true && chk_PoisonMothPowder.Enabled == true)
+                {
+                    legalStoreItemsList.Add(0x73);
+                }
 
                 int[] weaponStores = { 0x36838, 0x3683f, 0x36846, 0x3684d, 0x36854, 0x3685b, 0x36862, 0x36869, 0x3686e, 0x36874, 0x3687a, 0x36880, 0x36887, 0x3688d, 0x36893, 0x3689a, 0x368a1, 0x368a7, 0x368ae }; // 42
                 int[] itemStores = { 0x368b4, 0x368b7, 0x368be, 0x368c4, 0x368ca, 0x368d0, 0x368d6, 0x368db, 0x368e0, 0x368e2, 0x368e6, 0x368ec, 0x368f2, 0x368f4, 0x368fa, 0x368ff, 0x36905, 0x36908, 0x3690e, 0x36914, 0x3691a, 0x36920, 0x36927, 0x3692b }; // 22
 
-                for (int lnI = 0; lnI < weaponStores.Length; lnI++)
+                if (chk_RandomizeWeaponShops.Checked == true)
                 {
-                    List<int> store = new List<int> { };
-                    bool lastItem = false;
-                    int byteToUse = weaponStores[lnI];
-                    int lnJ = 0;
-                    do
+                    for (int lnI = 0; lnI < weaponStores.Length; lnI++)
                     {
-                        if (romData[byteToUse + lnJ] >= 128)
-                            lastItem = true;
-                        romData[byteToUse + lnJ] = legalStoreWeapons[r1.Next() % legalStoreWeapons.Length];
-                        bool failure = false;
-                        for (int lnK = 0; lnK < lnJ; lnK++)
-                            if (romData[byteToUse + lnJ] == romData[byteToUse + lnK])
-                                failure = true;
-                        if (lastItem)
-                            romData[byteToUse + lnJ] += 128;
-                        if (failure)
+                        List<int> store = new List<int> { };
+                        bool lastItem = false;
+                        int byteToUse = weaponStores[lnI];
+                        int lnJ = 0;
+                        do
                         {
-                            lastItem = false;
-                            continue;
-                        }
-                        lnJ++;
-                    } while (!lastItem);
-                }
-                if (chk_Caturday.Checked == true)
-                {
-                    int selectStore = r1.Next() % weaponStores.Length;
-                    romData[weaponStores[selectStore]] = 0x2a;
-                }
-                for (int lnI = 0; lnI < itemStores.Length; lnI++)
-                {
-                    List<int> store = new List<int> { };
-                    bool lastItem = false;
-                    int byteToUse = itemStores[lnI];
-                    int lnJ = 0;
-                    do
+                            if (romData[byteToUse + lnJ] >= 128)
+                                lastItem = true;
+                            romData[byteToUse + lnJ] = legalStoreWeapons[r1.Next() % legalStoreWeapons.Length];
+                            bool failure = false;
+                            for (int lnK = 0; lnK < lnJ; lnK++)
+                                if (romData[byteToUse + lnJ] == romData[byteToUse + lnK])
+                                    failure = true;
+                            if (lastItem)
+                                romData[byteToUse + lnJ] += 128;
+                            if (failure)
+                            {
+                                lastItem = false;
+                                continue;
+                            }
+                            lnJ++;
+                        } while (!lastItem);
+                    }
+                    if (chk_Caturday.Checked == true)
                     {
-                        if (romData[byteToUse + lnJ] >= 128)
-                            lastItem = true;
-                        romData[byteToUse + lnJ] = legalStoreItems[r1.Next() % legalStoreItems.Length];
-                        bool failure = false;
-                        for (int lnK = 0; lnK < lnJ; lnK++)
-                            if (romData[byteToUse + lnJ] == romData[byteToUse + lnK])
-                                failure = true;
-                        if (lastItem)
-                            romData[byteToUse + lnJ] += 128;
-                        if (failure)
-                        {
-                            lastItem = false;
-                            continue;
-                        }
-                        lnJ++;
-                    } while (!lastItem);
+                        int selectStore = r1.Next() % weaponStores.Length;
+                        romData[weaponStores[selectStore]] = 0x2a;
+                    }
                 }
-
+                if (chkRandItemStores.Checked == true)
+                {
+                    for (int lnI = 0; lnI < itemStores.Length; lnI++)
+                    {
+                        List<int> store = new List<int> { };
+                        bool lastItem = false;
+                        int byteToUse = itemStores[lnI];
+                        int lnJ = 0;
+                        do
+                        {
+                            if (romData[byteToUse + lnJ] >= 128)
+                                lastItem = true;
+                            romData[byteToUse + lnJ] = legalStoreItemsList[r1.Next() % legalStoreItemsList.Count];
+                            bool failure = false;
+                            for (int lnK = 0; lnK < lnJ; lnK++)
+                                if (romData[byteToUse + lnJ] == romData[byteToUse + lnK])
+                                    failure = true;
+                            if (lastItem)
+                                romData[byteToUse + lnJ] += 128;
+                            if (failure)
+                            {
+                                lastItem = false;
+                                continue;
+                            }
+                            lnJ++;
+                        } while (!lastItem);
+                    }
+                }
                 //int[] storeItems = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 //                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 //                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -4431,11 +4526,14 @@ namespace DW3Randomizer
                 //}
 
                 // Inn prices randomized
-                for (int lnI = 0; lnI < 26; lnI++)
+                if (chk_RandomizeInnPrices.Checked == true)
                 {
-                    int innPrice = (r1.Next() % 20) + 1;
-                    romData[0x367c1 + lnI] -= (byte)(romData[0x367c1 + lnI] % 32);
-                    romData[0x367c1 + lnI] += (byte)innPrice;
+                    for (int lnI = 0; lnI < 26; lnI++)
+                    {
+                        int innPrice = (r1.Next() % 20) + 1;
+                        romData[0x367c1 + lnI] -= (byte)(romData[0x367c1 + lnI] % 32);
+                        romData[0x367c1 + lnI] += (byte)innPrice;
+                    }
                 }
             }
 
@@ -5023,6 +5121,7 @@ namespace DW3Randomizer
             chkFourJobFiesta.Checked = (number % 8 >= 4);
             chkRemoveParryFight.Checked = (number % 16 >= 8);
 			chkNoLamiaOrbs.Checked = (number % 32 >= 16);
+            chk_Cod.Checked = (number >= 32);
 
 			number = convertChartoInt(Convert.ToChar(flags.Substring(1, 1)));
             cboExpGains.SelectedIndex = (number % 8);
@@ -5036,7 +5135,7 @@ namespace DW3Randomizer
             chkSpeedText.Checked = (number >= 32);
 
             number = convertChartoInt(Convert.ToChar(flags.Substring(3, 1)));
-            chkRandStores.Checked = (number % 2 == 1);
+            chkRandItemStores.Checked = (number % 2 == 1);
             chkRandEnemyPatterns.Checked = (number % 4 >= 2);
             chkRandSpellLearning.Checked = (number % 8 >= 4);
             chkRandStatGains.Checked = (number % 16 >= 8);
@@ -5067,6 +5166,29 @@ namespace DW3Randomizer
             chk_RandSage.Checked = (number % 16 >= 8);
             chk_RandHero.Checked = (number % 32 >= 16);
             chk_Caturday.Checked = (number >= 32);
+            
+            number = convertChartoInt(Convert.ToChar(flags.Substring(7,1)));
+            chk_GoldenClaw.Checked = (number % 2 == 1);
+            chk_StoneofLife.Checked = (number % 4 >= 2);
+            chk_Seeds.Checked = (number % 8 >= 4);
+            chk_BookofSatori.Checked = (number % 16 >= 8);
+            chk_RingofLife.Checked = (number % 32 >= 16);
+            chk_EchoingFlute.Checked = (number >= 32);
+
+            number = convertChartoInt(Convert.ToChar(flags.Substring(8,1)));
+            chk_SilverHarp.Checked = (number % 2 == 1);
+            chk_ShoesofHappiness.Checked = (number % 4 >= 2);
+            chk_MeteoriteArmband.Checked = (number % 8 >= 4);
+            chk_WizardsRing.Checked = (number % 16 >= 8);
+            chk_LampofDarkness.Checked = (number % 32 >= 16);
+            chk_RandomizeWeaponShops.Checked = (number > 32);
+
+            number = convertChartoInt(Convert.ToChar(flags.Substring(9, 1)));
+            chk_RandomizeInnPrices.Checked = (number % 2 == 1);
+            chk_FixSlimeSnail.Checked = (number % 4 == 2);
+            chk_LeafoftheWorldTree.Checked = (number % 8 == 4);
+            chk_PoisonMothPowder.Checked = (number % 16 == 8);
+            chk_SpeedUpMenus.Checked = (number % 32 == 16);
         }
 
         private void determineFlags(object sender, EventArgs e)
@@ -5074,13 +5196,16 @@ namespace DW3Randomizer
             if (loading) return;
 
             string flags = "";
-            flags += convertIntToChar((optMonsterLight.Checked ? 0 : optMonsterSilly.Checked ? 1 : optMonsterMedium.Checked ? 2 : 3) + (chkFourJobFiesta.Checked ? 4 : 0) + (chkRemoveParryFight.Checked ? 8 : 0) + (chkNoLamiaOrbs.Checked ? 16 : 0));
+            flags += convertIntToChar((optMonsterLight.Checked ? 0 : optMonsterSilly.Checked ? 1 : optMonsterMedium.Checked ? 2 : 3) + (chkFourJobFiesta.Checked ? 4 : 0) + (chkRemoveParryFight.Checked ? 8 : 0) + (chkNoLamiaOrbs.Checked ? 16 : 0) + (chk_Cod.Checked ? 32 : 0));
             flags += convertIntToChar(cboExpGains.SelectedIndex + (8 * cboEncounterRate.SelectedIndex));
             flags += convertIntToChar((cboGoldReq.SelectedIndex) + (chkRandomizeXP.Checked ? 4 : 0) + (chkRandomizeGP.Checked ? 8 : 0) + (chkFasterBattles.Checked ? 16 : 0) + (chkSpeedText.Checked ? 32 : 0));
-            flags += convertIntToChar((chkRandStores.Checked ? 1 : 0) + (chkRandEnemyPatterns.Checked ? 2 : 0) + (chkRandSpellLearning.Checked ? 4 : 0) + (chkRandStatGains.Checked ? 8 : 0) + (chkRandTreasures.Checked ? 16 : 0) + (chkRandMonsterZones.Checked ? 32 : 0));
+            flags += convertIntToChar((chkRandItemStores.Checked ? 1 : 0) + (chkRandEnemyPatterns.Checked ? 2 : 0) + (chkRandSpellLearning.Checked ? 4 : 0) + (chkRandStatGains.Checked ? 8 : 0) + (chkRandTreasures.Checked ? 16 : 0) + (chkRandMonsterZones.Checked ? 32 : 0));
             flags += convertIntToChar((chkRandEquip.Checked ? 1 : 0) + (chkRandItemEffects.Checked ? 2 : 0) + (chkRandWhoCanEquip.Checked ? 4 : 0) + (chkRandSpellStrength.Checked ? 8 : 0) + (chkRandomizeMap.Checked ? 16 : 0) + (chkSmallMap.Checked ? 32 : 0));
-            flags += convertIntToChar((chk_RandomName.Checked ? 1 : 0) + (chk_RandomClass.Checked ? 2 : 0) + (chk_RandomGender.Checked ? 4 : 0) + (chk_RandSoldier.Checked ? 8 :0) + (chk_RandPilgrim.Checked ? 16 : 0) + (chk_RandWizard.Checked ? 32 : 0));
-            flags += convertIntToChar((chk_RandFighter.Checked ? 1 : 0) + (chk_RandMerchant.Checked ? 2 : 0) + (chk_RandGoofOff.Checked ? 4 : 0) + (chk_RandSage.Checked ? 8 : 0) + (chk_RandHero.Checked ? 16 : 0) + (chk_Caturday.Checked ? 32 : 0));
+            flags += convertIntToChar((chk_RandomName.Checked ? 1 : 0) + (chk_RandomClass.Checked ? 2 : 0) + (chk_RandomGender.Checked ? 4 : 0) + (chk_RandomClass.Checked ? (chk_RandSoldier.Checked ? 8 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandPilgrim.Checked ? 16 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandWizard.Checked ? 32 : 0) : 0));
+            flags += convertIntToChar((chk_RandomClass.Checked ? (chk_RandFighter.Checked ? 1 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandMerchant.Checked ? 2 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandGoofOff.Checked ? 4 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandSage.Checked ? 8 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandHero.Checked ? 16 : 0) : 0) + (chk_Caturday.Checked ? 32 : 0));
+            flags += convertIntToChar((chk_GoldenClaw.Checked ? 1 : 0) + (chkRandItemStores.Checked ? (chk_StoneofLife.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_Seeds.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_BookofSatori.Checked ? 8 : 0) : 0) + (chkRandItemStores.Checked ? (chk_RingofLife.Checked ? 16 : 0) : 0) + (chkRandItemStores.Checked ? (chk_EchoingFlute.Checked ? 32 : 0) : 0));
+            flags += convertIntToChar((chkRandItemStores.Checked ? (chk_SilverHarp.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_ShoesofHappiness.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_MeteoriteArmband.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_WizardsRing.Checked ? 8 : 0) : 0 ) + (chkRandItemStores.Checked ? (chk_LampofDarkness.Checked ? 16 : 0) : 0) + (chk_RandomizeWeaponShops.Checked ? 32 : 0));
+            flags += convertIntToChar((chk_RandomizeInnPrices.Checked ? 1 : 0) + (chk_FixSlimeSnail.Checked ? 2 : 0) + (chkRandItemStores.Checked ? (chk_LeafoftheWorldTree.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_PoisonMothPowder.Checked ? 8 : 0) : 0) + (chk_SpeedUpMenus.Checked ? 16 : 0));
             txtFlags.Text = flags;
             enableDisableFields(null,null);
         }
@@ -5145,6 +5270,18 @@ namespace DW3Randomizer
             this.chk_RandGoofOff.Enabled = this.chk_RandomClass.Checked;
             this.chk_RandSage.Enabled = this.chk_RandomClass.Checked;
             this.chk_RandHero.Enabled = this.chk_RandomClass.Checked;
+            this.chk_BookofSatori.Enabled = this.chkRandItemStores.Checked;
+            this.chk_StoneofLife.Enabled = this.chkRandItemStores.Checked;
+            this.chk_Seeds.Enabled = this.chkRandItemStores.Checked;
+            this.chk_RingofLife.Enabled = this.chkRandItemStores.Checked;
+            this.chk_EchoingFlute.Enabled = this.chkRandItemStores.Checked;
+            this.chk_SilverHarp.Enabled = this.chkRandItemStores.Checked;
+            this.chk_ShoesofHappiness.Enabled = this.chkRandItemStores.Checked;
+            this.chk_MeteoriteArmband.Enabled = this.chkRandItemStores.Checked;
+            this.chk_WizardsRing.Enabled = this.chkRandItemStores.Checked;
+            this.chk_LampofDarkness.Enabled = this.chkRandItemStores.Checked;
+            this.chk_LeafoftheWorldTree.Enabled = this.chkRandItemStores.Checked;
+            this.chk_PoisonMothPowder.Enabled = this.chkRandItemStores.Checked;
         }
     }
 }
