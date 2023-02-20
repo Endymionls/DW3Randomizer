@@ -71,6 +71,7 @@ namespace DW3Randomizer
             this.chkSpeedText = new System.Windows.Forms.CheckBox();
             this.chkFasterBattles = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.chk_SepBarGaia = new System.Windows.Forms.CheckBox();
             this.chkRandomizeMap = new System.Windows.Forms.CheckBox();
             this.chkSmallMap = new System.Windows.Forms.CheckBox();
             this.chkRandStatGains = new System.Windows.Forms.CheckBox();
@@ -575,6 +576,7 @@ namespace DW3Randomizer
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.chk_SepBarGaia);
             this.tabPage2.Controls.Add(this.chkRandomizeMap);
             this.tabPage2.Controls.Add(this.chkSmallMap);
             this.tabPage2.Controls.Add(this.chkRandStatGains);
@@ -590,6 +592,18 @@ namespace DW3Randomizer
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Randomization";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // chk_SepBarGaia
+            // 
+            this.chk_SepBarGaia.AutoSize = true;
+            this.chk_SepBarGaia.Location = new System.Drawing.Point(179, 51);
+            this.chk_SepBarGaia.Name = "chk_SepBarGaia";
+            this.adjustments.SetToolTip(this.chk_SepBarGaia, "Separates Baramos Castle and Gaia's Pit. 3 Wing of Wyverns will be in Baramos Castle. Prepare yourself so you don't softlock.");
+            this.chk_SepBarGaia.Size = new System.Drawing.Size(213, 17);
+            this.chk_SepBarGaia.TabIndex = 37;
+            this.chk_SepBarGaia.Text = "Separate Baramos Castle and Gaia\'s Pit";
+            this.chk_SepBarGaia.UseVisualStyleBackColor = true;
+            this.chk_SepBarGaia.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // chkRandomizeMap
             // 
@@ -1381,7 +1395,7 @@ namespace DW3Randomizer
             this.Controls.Add(this.txtFileName);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Dragon Warrior III Randomizer 2.34b ~ 2/19/2023";
+            this.Text = "Dragon Warrior III Randomizer 2.3.5 ~ 2/20/2023";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.grpMonsterStat.ResumeLayout(false);
@@ -1503,6 +1517,7 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_LeafoftheWorldTree;
         private System.Windows.Forms.CheckBox chk_Cod;
         private System.Windows.Forms.CheckBox chk_SpeedUpMenus;
+        private System.Windows.Forms.CheckBox chk_SepBarGaia;
     }
 }
 

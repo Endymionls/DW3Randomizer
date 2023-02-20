@@ -1016,38 +1016,88 @@ namespace DW3Randomizer
 
 							if (baramosLegal)
 							{
-								for (int lnJ = -3; lnJ < 3; lnJ++)
-									for (int lnK = -3; lnK < 3; lnK++)
-										island[y + lnJ, x + lnK] = 4001;
+                                if (chk_SepBarGaia.Checked == true)
+                                {
+                                    // draw mountains
+                                    for (int lnJ = -3; lnJ < 3; lnJ++)
+                                        for (int lnK = -3; lnK < 3; lnK++)
+                                            island[y + lnJ, x + lnK] = 4001;
+                                    for (int lnJ = -3; lnJ < 1; lnJ++)
+                                    {
+                                        map[y - 3, x + lnJ] = 0x06;
+                                        map[y + 2, x + lnJ] = 0x06;
+                                    }
+                                    map[y - 2, x - 3] = 0x06;
+                                    map[y - 1, x - 3] = 0x06;
+                                    map[y, x - 3] = 0x06;
+                                    map[y + 1, x - 3] = 0x06;
+                                    map[y - 3, x + 1] = 0x06;
+                                    map[y - 3, x + 2] = 0x06;
+                                    map[y + 1, x + 1] = 0x06;
+                                    map[y - 2, x + 2] = 0x06;
+                                    map[y - 1, x + 2] = 0x06;
+                                    map[y, x + 2] = 0x06;
+                                    // draw swamp
+                                    for (int lnj = -2; lnj < 1; lnj++)
+                                    {
+                                        map[y - 2, x + lnj] = 0x07;
+                                        map[y + lnj, x + 1] = 0x07;
+                                        map[y + 1, x + lnj] = 0x07;
+                                    }
+                                    map[y - 1, x - 2] = 0x07;
+                                    map[y - 1, x - 1] = 0x07;
+                                    map[y + 1, x + 2] = 0x07;
+                                    map[y + 2, x + 1] = 0x07;
+                                    // draw castle
+                                    map[y - 1, x - 1] = 0xe8;
+                                    map[y - 1, x + 0] = 0xe9;
+                                    map[y + 0, x - 1] = 0xec;
+                                    map[y + 0, x + 0] = 0xed;
+                                    // Let's also get the Pit Of Giaga!
+                                    map[y + 2, x + 2] = 0xf4;
+                                    romData[0x1b3f1] = (byte)(x + 2);
+                                    romData[0x1b3f2] = (byte)(y + 2);
 
-								for (int lnJ = -3; lnJ < 3; lnJ++)
-								{
-									map[y + lnJ, x - 3] = 0x06;
-									map[y + lnJ, x + 2] = 0x06;
-									map[y - 3, x + lnJ] = 0x06;
-									map[y + 2, x + lnJ] = 0x06;
-								}
-								for (int lnJ = -2; lnJ < 2; lnJ++)
-								{
-									map[y + lnJ, x - 2] = 0x07;
-									map[y + lnJ, x + 1] = 0x07;
-									map[y - 2, x + lnJ] = 0x07;
-									map[y + 1, x + lnJ] = 0x07;
-								}
+                                    int byteToUse = 0x1b252 + (5 * 3);
+                                    romData[byteToUse] = (byte)(x - 1);
+                                    romData[byteToUse + 1] = (byte)y;
 
-								map[y - 1, x - 1] = 0xe8;
-								map[y - 1, x + 0] = 0xe9;
-								map[y + 0, x - 1] = 0xec;
-								map[y + 0, x + 0] = 0xed;
+                                }
+                                else
+                                {
+                                    for (int lnJ = -3; lnJ < 3; lnJ++)
+                                        for (int lnK = -3; lnK < 3; lnK++)
+                                            island[y + lnJ, x + lnK] = 4001;
 
-								// Let's also get the Pit Of Giaga!
-								map[y + 1, x + 1] = 0xf4;
-								romData[0x1b3f1] = (byte)(x + 1);
-								romData[0x1b3f2] = (byte)(y + 1);
+                                    for (int lnJ = -3; lnJ < 3; lnJ++)
+                                    {
+                                        map[y + lnJ, x - 3] = 0x06;
+                                        map[y + lnJ, x + 2] = 0x06;
+                                        map[y - 3, x + lnJ] = 0x06;
+                                        map[y + 2, x + lnJ] = 0x06;
+                                    }
+                                    for (int lnJ = -2; lnJ < 2; lnJ++)
+                                    {
+                                        map[y + lnJ, x - 2] = 0x07;
+                                        map[y + lnJ, x + 1] = 0x07;
+                                        map[y - 2, x + lnJ] = 0x07;
+                                        map[y + 1, x + lnJ] = 0x07;
+                                    }
 
-								int byteToUse = 0x1b252 + (5 * 3);
-								romData[byteToUse] = (byte)(x - 1);
-								romData[byteToUse + 1] = (byte)y;
+                                    map[y - 1, x - 1] = 0xe8;
+                                    map[y - 1, x + 0] = 0xe9;
+                                    map[y + 0, x - 1] = 0xec;
+                                    map[y + 0, x + 0] = 0xed;
+
+                                    // Let's also get the Pit Of Giaga!
+                                    map[y + 1, x + 1] = 0xf4;
+                                    romData[0x1b3f1] = (byte)(x + 1);
+                                    romData[0x1b3f2] = (byte)(y + 1);
+
+                                    int byteToUse = 0x1b252 + (5 * 3);
+                                    romData[byteToUse] = (byte)(x - 1);
+                                    romData[byteToUse + 1] = (byte)y;
+                                }
 							}
 							else
 								lnI--;
@@ -4213,6 +4263,12 @@ namespace DW3Randomizer
                         }
                     }
                 }
+                if (chk_SepBarGaia.Checked == true)
+                {
+                    romData[0x2922a] = 0x68;
+                    romData[0x29229] = 0x68;
+                    romData[0x29228] = 0x68;
+                }
 
                 // Verify that key items are available in either a store or a treasure chest in the right zone.
                 byte[] keyItems = { 0x58, 0x57, 0x59, 0x5d, 0x4f, 0x5a, 0x51, 0x54,
@@ -5153,7 +5209,7 @@ namespace DW3Randomizer
 
             number = convertChartoInt(Convert.ToChar(flags.Substring(5, 1)));
             chk_RandomName.Checked = (number % 2 == 1);
-            chk_RandomClass.Checked = (number % 4 >= 2);
+            chk_FixSlimeSnail.Checked = (number % 4 >= 2);
             chk_RandomGender.Checked = (number % 8 >= 4);
             chk_RandSoldier.Checked = (number % 16 >= 8);
             chk_RandPilgrim.Checked = (number % 32 >= 16);
@@ -5185,10 +5241,11 @@ namespace DW3Randomizer
 
             number = convertChartoInt(Convert.ToChar(flags.Substring(9, 1)));
             chk_RandomizeInnPrices.Checked = (number % 2 == 1);
-            chk_FixSlimeSnail.Checked = (number % 4 == 2);
-            chk_LeafoftheWorldTree.Checked = (number % 8 == 4);
-            chk_PoisonMothPowder.Checked = (number % 16 == 8);
-            chk_SpeedUpMenus.Checked = (number % 32 == 16);
+            chk_RandomClass.Checked = (number % 4 >= 2);
+            chk_LeafoftheWorldTree.Checked = (number % 8 >= 4);
+            chk_PoisonMothPowder.Checked = (number % 16 >= 8);
+            chk_SpeedUpMenus.Checked = (number % 32 >= 16);
+            chk_SepBarGaia.Checked = (number > 32);
         }
 
         private void determineFlags(object sender, EventArgs e)
@@ -5201,11 +5258,11 @@ namespace DW3Randomizer
             flags += convertIntToChar((cboGoldReq.SelectedIndex) + (chkRandomizeXP.Checked ? 4 : 0) + (chkRandomizeGP.Checked ? 8 : 0) + (chkFasterBattles.Checked ? 16 : 0) + (chkSpeedText.Checked ? 32 : 0));
             flags += convertIntToChar((chkRandItemStores.Checked ? 1 : 0) + (chkRandEnemyPatterns.Checked ? 2 : 0) + (chkRandSpellLearning.Checked ? 4 : 0) + (chkRandStatGains.Checked ? 8 : 0) + (chkRandTreasures.Checked ? 16 : 0) + (chkRandMonsterZones.Checked ? 32 : 0));
             flags += convertIntToChar((chkRandEquip.Checked ? 1 : 0) + (chkRandItemEffects.Checked ? 2 : 0) + (chkRandWhoCanEquip.Checked ? 4 : 0) + (chkRandSpellStrength.Checked ? 8 : 0) + (chkRandomizeMap.Checked ? 16 : 0) + (chkSmallMap.Checked ? 32 : 0));
-            flags += convertIntToChar((chk_RandomName.Checked ? 1 : 0) + (chk_RandomClass.Checked ? 2 : 0) + (chk_RandomGender.Checked ? 4 : 0) + (chk_RandomClass.Checked ? (chk_RandSoldier.Checked ? 8 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandPilgrim.Checked ? 16 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandWizard.Checked ? 32 : 0) : 0));
+            flags += convertIntToChar((chk_RandomName.Checked ? 1 : 0) + (chk_FixSlimeSnail.Checked ? 2 : 0) + (chk_RandomGender.Checked ? 4 : 0) + (chk_RandomClass.Checked ? (chk_RandSoldier.Checked ? 8 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandPilgrim.Checked ? 16 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandWizard.Checked ? 32 : 0) : 0));
             flags += convertIntToChar((chk_RandomClass.Checked ? (chk_RandFighter.Checked ? 1 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandMerchant.Checked ? 2 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandGoofOff.Checked ? 4 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandSage.Checked ? 8 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandHero.Checked ? 16 : 0) : 0) + (chk_Caturday.Checked ? 32 : 0));
             flags += convertIntToChar((chk_GoldenClaw.Checked ? 1 : 0) + (chkRandItemStores.Checked ? (chk_StoneofLife.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_Seeds.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_BookofSatori.Checked ? 8 : 0) : 0) + (chkRandItemStores.Checked ? (chk_RingofLife.Checked ? 16 : 0) : 0) + (chkRandItemStores.Checked ? (chk_EchoingFlute.Checked ? 32 : 0) : 0));
             flags += convertIntToChar((chkRandItemStores.Checked ? (chk_SilverHarp.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_ShoesofHappiness.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_MeteoriteArmband.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_WizardsRing.Checked ? 8 : 0) : 0 ) + (chkRandItemStores.Checked ? (chk_LampofDarkness.Checked ? 16 : 0) : 0) + (chk_RandomizeWeaponShops.Checked ? 32 : 0));
-            flags += convertIntToChar((chk_RandomizeInnPrices.Checked ? 1 : 0) + (chk_FixSlimeSnail.Checked ? 2 : 0) + (chkRandItemStores.Checked ? (chk_LeafoftheWorldTree.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_PoisonMothPowder.Checked ? 8 : 0) : 0) + (chk_SpeedUpMenus.Checked ? 16 : 0));
+            flags += convertIntToChar((chk_RandomizeInnPrices.Checked ? 1 : 0) + (chk_RandomClass.Checked ? 2 : 0) + (chkRandItemStores.Checked ? (chk_LeafoftheWorldTree.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_PoisonMothPowder.Checked ? 8 : 0) : 0) + (chk_SpeedUpMenus.Checked ? 16 : 0) + (chk_SepBarGaia.Checked ? 32 : 0));
             txtFlags.Text = flags;
             enableDisableFields(null,null);
         }
