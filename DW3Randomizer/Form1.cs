@@ -4219,22 +4219,26 @@ namespace DW3Randomizer
                                           0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
                                           0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
                                           0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f,
-                                          0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x48, 0x49, 0x4b, 0x4c, 0x4e,
+                                          0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x48, 0x49};
+                byte[] legalTreasures2 = {0x4b, 0x4c, 0x4e,
                                           0x53, 0x55, 0x56, 0x5f,
                                           0x60, 0x62, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6c, 0x6d,
                                           0x71, 0x73, 0x74,
                                           0x88, 0x90, 0x98, 0xa0, 0xa8, 0xb0, 0xb8, 0xc0, 0xc8, 0xd0, 0xd8, 0xe0, 0xe8, 0xf0, 0xf8,
                                           0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff};
- 
                 // Populate legalTreasuresList so we can add additional items if selected
                 for (int lnI=0; lnI < legalTreasures.Length; lnI++)
                 {
                     legalTreasuresList.Add(legalTreasures[lnI]);
                 }
                 // Add Golden Claw if selected
-                if(chk_GoldenClaw.Enabled == true)
+                if(chk_GoldenClaw.Checked == true)
                 {
                     legalTreasuresList.Add(0x4a);
+                }
+                for (int lnI=0; lnI < legalTreasures2.Length; lnI++)
+                {
+                    legalTreasuresList.Add(legalTreasures2[lnI]);
                 }
                 for (int lnI = 0; lnI < allTreasureList.Count; lnI++)
                 {
@@ -4306,6 +4310,8 @@ namespace DW3Randomizer
                             echoLocations = new byte[] { 0x98, 0xa0, 0xa1, 0xa2 };
                         else if (new int[] { 0x29234, 0x29235 }.Contains(treasureLocation))
                             echoLocations = new byte[] { 0x14 };
+                        else if (new int[] { 0x29252, 0x292d2, 0x292e6 }.Contains(treasureLocation))
+                            echoLocations = new byte[] { 0x3f, 0xe8, 0xe9, 0xea };
                         else if (new int[] { 0x2923a, 0x2923b, 0x29280, 0x29281, 0x29282, 0x29283, 0x29284, 0x29285, 0x29286, 0x29287 }.Contains(treasureLocation))
                             echoLocations = new byte[] { 0x2e, 0xa3, 0xa4, 0xa5 };
                         else if (new int[] { 0x2925c, 0x31b9c, 0x2925d, 0x2925e, 0x2925f, 0x29260, 0x29261, 0x29262, 0x29263, 0x29264 }.Contains(treasureLocation))
@@ -4328,7 +4334,7 @@ namespace DW3Randomizer
                             echoLocations = new byte[] { 0x18, 0x8b, 0x8c };
                         else if (new int[] { 0x292d1, 0x292d0, 0x292cf, 0x292cd, 0x292ce, 0x292cc, 0x292cb }.Contains(treasureLocation))
                             echoLocations = new byte[] { 0x3e, 0xe4, 0xe5, 0xe6, 0xe7 };
-                        else if (new int[] { 0x29299, 0x2929c, 0x2929b, 0x2929d, 0x2929a, 0x29298, 0x29293, 0x29294, 0x29295, 0x29291, 0x29292, 0x29296, 0x29297, 0x292a3, 0x292a4, 0x292a2, 0x2929f, 0x2929e, 0x292a0, 0x292a5, 0x292a6, 0x292a1, 0x292a7, 0x29296}.Contains(treasureLocation))
+                        else if (new int[] { 0x29299, 0x2929c, 0x2929b, 0x2929d, 0x2929a, 0x29298, 0x29293, 0x29294, 0x29295, 0x29291, 0x29292, 0x29296, 0x29297, 0x292a3, 0x292a4, 0x292a2, 0x2929f, 0x2929e, 0x292a0, 0x292a5, 0x292a6, 0x292a1, 0x292a7, 0x29296 }.Contains(treasureLocation))
                             echoLocations = new byte[] { 0x37, 0xbe, 0xbf };
                         else if (new int[] { 0x29246, 0x29248, 0x29247, 0x29245, 0x29244, 0x29290, 0x2928f }.Contains(treasureLocation))
                             echoLocations = new byte[] { 0x36, 0xbc, 0xbd };
@@ -4364,8 +4370,10 @@ namespace DW3Randomizer
                     romData[0x32228 + i] = echoingFlute[i];
                 }
 
-                // The Golden Claw location has a trigger that needs to be set so it can only be retrieved once instead of an infinite amount of times.
-                romData[0x319a0] = romData[0x317f4];
+                // The Golden Claw location has a tr
+                //
+                // igger that needs to be set so it can only be retrieved once instead of an infinite amount of times.
+                 romData[0x319a0] = romData[0x317f4];
             }
 
             if (chkRandItemStores.Checked)
