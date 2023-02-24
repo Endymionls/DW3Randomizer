@@ -3381,10 +3381,10 @@ namespace DW3Randomizer
                     romData[0x11be + forcedItemSell[lnI]] -= 16; // Now allowed to be sold!
 
             int[] itemstoAdjust = { 0x16, 0x1c, 0x28, 0x32, 0x34, 0x36, 0x3b, 0x3f, 0x42, 0x48, 0x4b, 0x4c, 0x50, 0x52, 0x53, 0x58, 0x59, 0x5a, 0x69, 0x6f, 0x70, 0x71, // forced items to sell AND...
-               0x5f, 0x60, 0x62, 0x64, 0x57, 0x75, 0x55, 0x4e, 0x4f, 0x49 }; // Some other items I want sold (see above)
+               0x5f, 0x60, 0x61, 0x62, 0x64, 0x57, 0x75, 0x55, 0x4e, 0x4f, 0x49 }; // Some other items I want sold (see above)
 
             int[] itemPriceAdjust = { 5000, 35000, 15000, 10000, 8000, 12000, 10000, 800, 10, 5000, 5000, 8000, 20000, 1000, 1000, 500, 2000, 5000, 5000, 500, 2000, 500,
-                5000, 3000, 2500, 5000, 800, 10000, 3000, 2000, 10000, 5000, 1000 };
+                5000, 3000, 2000, 2500, 5000, 800, 10000, 3000, 2000, 10000, 5000, 1000 };
 
             for (int lnI = 0; lnI < itemstoAdjust.Length; lnI++)
             {
@@ -4316,6 +4316,8 @@ namespace DW3Randomizer
                             echoLocations = new byte[] { 0x2e, 0xa3, 0xa4, 0xa5 };
                         else if (new int[] { 0x2925c, 0x31b9c, 0x2925d, 0x2925e, 0x2925f, 0x29260, 0x29261, 0x29262, 0x29263, 0x29264 }.Contains(treasureLocation))
                             echoLocations = new byte[] { 0x96, 0x50, 0x51, 0x52, 0x87, 0x55, 0x54, 0x53, 0x56, 0x57 };
+                        else if (new int[] { 0x29269, 0x2926a, 0x2926b }.Contains(treasureLocation))
+                            echoLocations = new byte[] { 0x0a, 0x70, 0x71 };
                         else if (new int[] { 0x29255, 0x29256, 0x29257, 0x29258, 0x29249, 0x2924a }.Contains(treasureLocation))
                             echoLocations = new byte[] { 0x00, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47 };
                         else if (new int[] { 0x29249, 0x2924a, 0x2924b, 0x2924c, 0x2924d, 0x2924e, 0x2924f, 0x292b4, 0x292b5, 0x292b6, 0x292c3, 0x317f4 }.Contains(treasureLocation))
