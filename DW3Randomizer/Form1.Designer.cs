@@ -132,6 +132,7 @@ namespace DW3Randomizer
             this.btnCopyChecksum = new System.Windows.Forms.Button();
             this.lblNewChecksum = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
+            this.chk_SwordOfGaia = new System.Windows.Forms.CheckBox();
             this.grpMonsterStat.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -598,10 +599,11 @@ namespace DW3Randomizer
             this.chk_SepBarGaia.AutoSize = true;
             this.chk_SepBarGaia.Location = new System.Drawing.Point(179, 51);
             this.chk_SepBarGaia.Name = "chk_SepBarGaia";
-            this.adjustments.SetToolTip(this.chk_SepBarGaia, "Separates Baramos Castle and Gaia's Pit. 3 Wing of Wyverns will be in Baramos Castle. Prepare yourself so you don't softlock.");
             this.chk_SepBarGaia.Size = new System.Drawing.Size(213, 17);
             this.chk_SepBarGaia.TabIndex = 37;
             this.chk_SepBarGaia.Text = "Separate Baramos Castle and Gaia\'s Pit";
+            this.adjustments.SetToolTip(this.chk_SepBarGaia, "Separates Baramos Castle and Gaia\'s Pit. 3 Wing of Wyverns will be in Baramos Cas" +
+        "tle. Prepare yourself so you don\'t softlock.");
             this.chk_SepBarGaia.UseVisualStyleBackColor = true;
             this.chk_SepBarGaia.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -698,6 +700,7 @@ namespace DW3Randomizer
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.chk_SwordOfGaia);
             this.tabPage4.Controls.Add(this.chk_PoisonMothPowder);
             this.tabPage4.Controls.Add(this.chk_LeafoftheWorldTree);
             this.tabPage4.Controls.Add(this.chk_RandomizeInnPrices);
@@ -759,7 +762,7 @@ namespace DW3Randomizer
             this.chk_RandomizeInnPrices.AutoSize = true;
             this.chk_RandomizeInnPrices.Checked = true;
             this.chk_RandomizeInnPrices.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_RandomizeInnPrices.Location = new System.Drawing.Point(6, 168);
+            this.chk_RandomizeInnPrices.Location = new System.Drawing.Point(205, 191);
             this.chk_RandomizeInnPrices.Name = "chk_RandomizeInnPrices";
             this.chk_RandomizeInnPrices.Size = new System.Drawing.Size(129, 17);
             this.chk_RandomizeInnPrices.TabIndex = 57;
@@ -840,6 +843,7 @@ namespace DW3Randomizer
             this.chk_GoldenClaw.Size = new System.Drawing.Size(189, 17);
             this.chk_GoldenClaw.TabIndex = 56;
             this.chk_GoldenClaw.Text = "Add Golden Claw to Treasure Pool";
+            this.adjustments.SetToolTip(this.chk_GoldenClaw, "Adds the Golden Claw to 1 random treasure chest");
             this.chk_GoldenClaw.UseVisualStyleBackColor = true;
             this.chk_GoldenClaw.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -1002,7 +1006,7 @@ namespace DW3Randomizer
             this.chk_Caturday.Size = new System.Drawing.Size(68, 17);
             this.chk_Caturday.TabIndex = 58;
             this.chk_Caturday.Text = "Caturday";
-            this.adjustments.SetToolTip(this.chk_Caturday, "Ensures that Animal Suits will be found in at least 1 weapon shop.");
+            this.adjustments.SetToolTip(this.chk_Caturday, "Ensures that Animal Suits will be found in at least 1 weapon shop. Will replace the first Item in the shop list");
             this.chk_Caturday.UseVisualStyleBackColor = true;
             this.chk_Caturday.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -1364,6 +1368,18 @@ namespace DW3Randomizer
             this.label14.TabIndex = 44;
             this.label14.Text = "New Checksum";
             // 
+            // chk_SwordOfGaia
+            // 
+            this.chk_SwordOfGaia.AutoSize = true;
+            this.chk_SwordOfGaia.Location = new System.Drawing.Point(4, 169);
+            this.chk_SwordOfGaia.Name = "chk_SwordOfGaia";
+            this.chk_SwordOfGaia.Size = new System.Drawing.Size(196, 17);
+            this.chk_SwordOfGaia.TabIndex = 72;
+            this.adjustments.SetToolTip(this.chk_SwordOfGaia, "Will add the Sword of Gaia in 1 random treasure chest.");
+            this.chk_SwordOfGaia.Text = "Add Sword of Gaia to Treasure Pool";
+            this.chk_SwordOfGaia.UseVisualStyleBackColor = true;
+            this.chk_SwordOfGaia.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1518,6 +1534,7 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_Cod;
         private System.Windows.Forms.CheckBox chk_SpeedUpMenus;
         private System.Windows.Forms.CheckBox chk_SepBarGaia;
+        private System.Windows.Forms.CheckBox chk_SwordOfGaia;
     }
 }
 
