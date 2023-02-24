@@ -5252,12 +5252,12 @@ namespace DW3Randomizer
             chkRandEquip.Checked = (number >= 32);
 
             number = convertChartoInt(Convert.ToChar(flags.Substring(6, 1)));
-            chk_GoldenClaw.Checked = (number >= 32);
-            chk_SwordOfGaia.Checked = (number % 2 == 1);
-            chk_Caturday.Checked = (number % 4 >= 2);
+            chk_GoldenClaw.Checked = (number % 2 == 1);
+            chk_SwordOfGaia.Checked = (number % 4 >= 2);
+            chk_Caturday.Checked = (number % 8 >= 4);
 
             number = convertChartoInt(Convert.ToChar(flags.Substring(7, 1)));
-            chk_StoneofLife.Checked = (number % 2 == 2);
+            chk_StoneofLife.Checked = (number % 2 == 1);
             chk_Seeds.Checked = (number % 4 >= 2);
             chk_BookofSatori.Checked = (number % 8 >= 4);
             chk_RingofLife.Checked = (number % 16 >= 8);
@@ -5288,7 +5288,7 @@ namespace DW3Randomizer
             chk_RandHero.Checked = (number % 32 >= 16);
 
             number = convertChartoInt(Convert.ToChar(flags.Substring(11, 1)));
-            chkRemoveParryFight.Checked = (number % 16 >= 8);
+            chkRemoveParryFight.Checked = (number % 2 == 1);
             chk_FixSlimeSnail.Checked = (number % 4 >= 2);
         }
 
