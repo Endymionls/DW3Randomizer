@@ -133,6 +133,7 @@ namespace DW3Randomizer
             this.btnCopyChecksum = new System.Windows.Forms.Button();
             this.lblNewChecksum = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
+            this.chk_EchoingFluteTreasure = new System.Windows.Forms.CheckBox();
             this.grpMonsterStat.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -153,7 +154,7 @@ namespace DW3Randomizer
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 23);
+            this.label1.Location = new System.Drawing.Point(17, 24);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(92, 13);
             this.label1.TabIndex = 1;
@@ -227,7 +228,7 @@ namespace DW3Randomizer
             // 
             // txtSeed
             // 
-            this.txtSeed.Location = new System.Drawing.Point(55, 155);
+            this.txtSeed.Location = new System.Drawing.Point(66, 150);
             this.txtSeed.Name = "txtSeed";
             this.txtSeed.Size = new System.Drawing.Size(133, 20);
             this.txtSeed.TabIndex = 7;
@@ -235,7 +236,7 @@ namespace DW3Randomizer
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(17, 158);
+            this.label3.Location = new System.Drawing.Point(17, 153);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(32, 13);
             this.label3.TabIndex = 20;
@@ -715,6 +716,7 @@ namespace DW3Randomizer
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.chk_EchoingFluteTreasure);
             this.tabPage4.Controls.Add(this.chk_SwordOfGaia);
             this.tabPage4.Controls.Add(this.chk_PoisonMothPowder);
             this.tabPage4.Controls.Add(this.chk_LeafoftheWorldTree);
@@ -748,7 +750,7 @@ namespace DW3Randomizer
             // chk_SwordOfGaia
             // 
             this.chk_SwordOfGaia.AutoSize = true;
-            this.chk_SwordOfGaia.Location = new System.Drawing.Point(4, 169);
+            this.chk_SwordOfGaia.Location = new System.Drawing.Point(6, 168);
             this.chk_SwordOfGaia.Name = "chk_SwordOfGaia";
             this.chk_SwordOfGaia.Size = new System.Drawing.Size(196, 17);
             this.chk_SwordOfGaia.TabIndex = 72;
@@ -1014,7 +1016,7 @@ namespace DW3Randomizer
             // chk_Caturday
             // 
             this.chk_Caturday.AutoSize = true;
-            this.chk_Caturday.Location = new System.Drawing.Point(6, 191);
+            this.chk_Caturday.Location = new System.Drawing.Point(205, 192);
             this.chk_Caturday.Name = "chk_Caturday";
             this.chk_Caturday.Size = new System.Drawing.Size(68, 17);
             this.chk_Caturday.TabIndex = 58;
@@ -1382,6 +1384,19 @@ namespace DW3Randomizer
             this.label14.TabIndex = 44;
             this.label14.Text = "New Checksum";
             // 
+            // chk_EchoingFluteTreasure
+            // 
+            this.chk_EchoingFluteTreasure.AutoSize = true;
+            this.chk_EchoingFluteTreasure.Location = new System.Drawing.Point(5, 191);
+            this.chk_EchoingFluteTreasure.Name = "chk_EchoingFluteTreasure";
+            this.chk_EchoingFluteTreasure.Size = new System.Drawing.Size(194, 17);
+            this.chk_EchoingFluteTreasure.TabIndex = 73;
+            this.chk_EchoingFluteTreasure.Text = "Add Echoing Flute to Treasure Pool";
+            this.adjustments.SetToolTip(this.chk_EchoingFluteTreasure, "Adds the Echoing Flute to the Treasure Pool");
+
+this.chk_EchoingFluteTreasure.CheckedChanged += new System.EventHandler(this.determineFlags);
+            this.chk_EchoingFluteTreasure.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1413,7 +1428,7 @@ namespace DW3Randomizer
             this.Controls.Add(this.txtFileName);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Dragon Warrior III Randomizer 2.3.6a ~ 2/23/2023";
+            this.Text = "Dragon Warrior III Randomizer 2.3.7 ~ 2/24/2023";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.grpMonsterStat.ResumeLayout(false);
@@ -1537,6 +1552,7 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_SpeedUpMenus;
         private System.Windows.Forms.CheckBox chk_SepBarGaia;
         private System.Windows.Forms.CheckBox chk_SwordOfGaia;
+        private System.Windows.Forms.CheckBox chk_EchoingFluteTreasure;
     }
 }
 

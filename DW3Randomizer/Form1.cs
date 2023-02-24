@@ -4309,6 +4309,14 @@ namespace DW3Randomizer
                     keyTreasureList.Add(125);
                 }
 
+                // Add Echoing Flute if chk_EchoingFluteTreasure is checked
+                if (chk_EchoingFluteTreasure.Checked == true)
+                {
+                    keyItemsList.Add(0x6f);
+                    minKeyTreasureList.Add(0);
+                    keyTreasureList.Add(125);
+                }
+
                 int echoingFluteMarker = 0;
                 for (int lnJ = 0; lnJ < keyItems.Length; lnJ++)
                 {
@@ -5254,7 +5262,8 @@ namespace DW3Randomizer
             number = convertChartoInt(Convert.ToChar(flags.Substring(6, 1)));
             chk_GoldenClaw.Checked = (number % 2 == 1);
             chk_SwordOfGaia.Checked = (number % 4 >= 2);
-            chk_Caturday.Checked = (number % 8 >= 4);
+            chk_EchoingFluteTreasure.Checked = (number % 8 >= 4);
+            chk_Caturday.Checked = (number % 16 >= 8);
 
             number = convertChartoInt(Convert.ToChar(flags.Substring(7, 1)));
             chk_StoneofLife.Checked = (number % 2 == 1);
@@ -5303,7 +5312,7 @@ namespace DW3Randomizer
             flags += convertIntToChar((chkRandEnemyPatterns.Checked ? 1 : 0) + (chkRandMonsterZones.Checked ? 2 : 0) + (chkRandSpellLearning.Checked ? 4 : 0) + (chkRandSpellStrength.Checked ? 8 : 0) + (chkRandStatGains.Checked ? 16 : 0) + (chk_RandomizeInnPrices.Checked ? 32 : 0));
             flags += convertIntToChar((chkRandomizeMap.Checked ? 1 : 0) + (chkSmallMap.Checked ? 2 : 0) + (chk_SepBarGaia.Checked ? 4 : 0));
             flags += convertIntToChar((chkRandItemEffects.Checked ? 2 : 0) + (chkRandItemStores.Checked ? 2 : 0) + (chk_RandomizeWeaponShops.Checked ? 4 : 0) + (chkRandTreasures.Checked ? 8 : 0) + (chkRandWhoCanEquip.Checked ? 16 : 0) + (chkRandEquip.Checked ? 32 : 0));
-            flags += convertIntToChar((chk_GoldenClaw.Checked ? 1 : 0) + (chk_SwordOfGaia.Checked ? 2 : 0) + (chk_Caturday.Checked ? 4 : 0));
+            flags += convertIntToChar((chk_GoldenClaw.Checked ? 1 : 0) + (chk_SwordOfGaia.Checked ? 2 : 0) + (chk_EchoingFluteTreasure.Checked ? 4 : 0) + (chk_Caturday.Checked ? 8 : 0));
             flags += convertIntToChar((chkRandItemStores.Checked ? (chk_StoneofLife.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_Seeds.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_BookofSatori.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_RingofLife.Checked ? 8 : 0) : 0) + (chkRandItemStores.Checked ? (chk_EchoingFlute.Checked ? 16 : 0) : 0) + (chkRandItemStores.Checked ? (chk_SilverHarp.Checked ? 32 : 0) : 0));
             flags += convertIntToChar((chkRandItemStores.Checked ? (chk_LeafoftheWorldTree.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_ShoesofHappiness.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_MeteoriteArmband.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_WizardsRing.Checked ? 8 : 0) : 0) + (chkRandItemStores.Checked ? (chk_LampofDarkness.Checked ? 16 : 0) : 0) + (chkRandItemStores.Checked ? (chk_PoisonMothPowder.Checked ? 32 : 0) : 0));
             flags += convertIntToChar((chk_RandomName.Checked ? 1 : 0) + (chk_RandomGender.Checked ? 2 : 0) + (chk_RandomClass.Checked ? 4 : 0) + (chk_RandomClass.Checked ? (chk_RandSoldier.Checked ? 8 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandPilgrim.Checked ? 16 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandWizard.Checked ? 32 : 0) : 0));
