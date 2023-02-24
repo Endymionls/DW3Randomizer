@@ -81,6 +81,8 @@ namespace DW3Randomizer
             this.chkRandEnemyPatterns = new System.Windows.Forms.CheckBox();
             this.chk_RandomizeInnPrices = new System.Windows.Forms.CheckBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.chk_RemoveStartEqRestrictions = new System.Windows.Forms.CheckBox();
+            this.chk_EchoingFluteTreasure = new System.Windows.Forms.CheckBox();
             this.chk_SwordOfGaia = new System.Windows.Forms.CheckBox();
             this.chk_PoisonMothPowder = new System.Windows.Forms.CheckBox();
             this.chk_LeafoftheWorldTree = new System.Windows.Forms.CheckBox();
@@ -133,7 +135,7 @@ namespace DW3Randomizer
             this.btnCopyChecksum = new System.Windows.Forms.Button();
             this.lblNewChecksum = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.chk_EchoingFluteTreasure = new System.Windows.Forms.CheckBox();
+            this.chk_RemMetalMonRun = new System.Windows.Forms.CheckBox();
             this.grpMonsterStat.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -579,6 +581,7 @@ namespace DW3Randomizer
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.chk_RemMetalMonRun);
             this.tabPage2.Controls.Add(this.chk_SepBarGaia);
             this.tabPage2.Controls.Add(this.chkRandomizeMap);
             this.tabPage2.Controls.Add(this.chkSmallMap);
@@ -641,7 +644,7 @@ namespace DW3Randomizer
             this.chkRandStatGains.AutoSize = true;
             this.chkRandStatGains.Checked = true;
             this.chkRandStatGains.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandStatGains.Location = new System.Drawing.Point(5, 97);
+            this.chkRandStatGains.Location = new System.Drawing.Point(5, 121);
             this.chkRandStatGains.Name = "chkRandStatGains";
             this.chkRandStatGains.Size = new System.Drawing.Size(127, 17);
             this.chkRandStatGains.TabIndex = 34;
@@ -654,7 +657,7 @@ namespace DW3Randomizer
             this.chkRandSpellStrength.AutoSize = true;
             this.chkRandSpellStrength.Checked = true;
             this.chkRandSpellStrength.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandSpellStrength.Location = new System.Drawing.Point(5, 74);
+            this.chkRandSpellStrength.Location = new System.Drawing.Point(5, 98);
             this.chkRandSpellStrength.Name = "chkRandSpellStrength";
             this.chkRandSpellStrength.Size = new System.Drawing.Size(149, 17);
             this.chkRandSpellStrength.TabIndex = 33;
@@ -667,7 +670,7 @@ namespace DW3Randomizer
             this.chkRandSpellLearning.AutoSize = true;
             this.chkRandSpellLearning.Checked = true;
             this.chkRandSpellLearning.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandSpellLearning.Location = new System.Drawing.Point(5, 51);
+            this.chkRandSpellLearning.Location = new System.Drawing.Point(5, 75);
             this.chkRandSpellLearning.Name = "chkRandSpellLearning";
             this.chkRandSpellLearning.Size = new System.Drawing.Size(143, 17);
             this.chkRandSpellLearning.TabIndex = 32;
@@ -706,7 +709,7 @@ namespace DW3Randomizer
             this.chk_RandomizeInnPrices.AutoSize = true;
             this.chk_RandomizeInnPrices.Checked = true;
             this.chk_RandomizeInnPrices.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_RandomizeInnPrices.Location = new System.Drawing.Point(5, 120);
+            this.chk_RandomizeInnPrices.Location = new System.Drawing.Point(5, 144);
             this.chk_RandomizeInnPrices.Name = "chk_RandomizeInnPrices";
             this.chk_RandomizeInnPrices.Size = new System.Drawing.Size(129, 17);
             this.chk_RandomizeInnPrices.TabIndex = 57;
@@ -716,6 +719,7 @@ namespace DW3Randomizer
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.chk_RemoveStartEqRestrictions);
             this.tabPage4.Controls.Add(this.chk_EchoingFluteTreasure);
             this.tabPage4.Controls.Add(this.chk_SwordOfGaia);
             this.tabPage4.Controls.Add(this.chk_PoisonMothPowder);
@@ -746,6 +750,30 @@ namespace DW3Randomizer
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Items/Weapons/Armor";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // chk_RemoveStartEqRestrictions
+            // 
+            this.chk_RemoveStartEqRestrictions.AutoSize = true;
+            this.chk_RemoveStartEqRestrictions.Location = new System.Drawing.Point(270, 193);
+            this.chk_RemoveStartEqRestrictions.Name = "chk_RemoveStartEqRestrictions";
+            this.chk_RemoveStartEqRestrictions.Size = new System.Drawing.Size(216, 17);
+            this.chk_RemoveStartEqRestrictions.TabIndex = 74;
+            this.chk_RemoveStartEqRestrictions.Text = "Remove Starting Equipment Restrictions";
+            this.adjustments.SetToolTip(this.chk_RemoveStartEqRestrictions, "Removes low equipment powers for starting equipment");
+            this.chk_RemoveStartEqRestrictions.UseVisualStyleBackColor = true;
+            this.chk_RemoveStartEqRestrictions.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // chk_EchoingFluteTreasure
+            // 
+            this.chk_EchoingFluteTreasure.AutoSize = true;
+            this.chk_EchoingFluteTreasure.Location = new System.Drawing.Point(6, 191);
+            this.chk_EchoingFluteTreasure.Name = "chk_EchoingFluteTreasure";
+            this.chk_EchoingFluteTreasure.Size = new System.Drawing.Size(194, 17);
+            this.chk_EchoingFluteTreasure.TabIndex = 73;
+            this.chk_EchoingFluteTreasure.Text = "Add Echoing Flute to Treasure Pool";
+            this.adjustments.SetToolTip(this.chk_EchoingFluteTreasure, "Adds the Echoing Flute to the Treasure Pool");
+            this.chk_EchoingFluteTreasure.UseVisualStyleBackColor = true;
+            this.chk_EchoingFluteTreasure.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // chk_SwordOfGaia
             // 
@@ -1384,18 +1412,17 @@ namespace DW3Randomizer
             this.label14.TabIndex = 44;
             this.label14.Text = "New Checksum";
             // 
-            // chk_EchoingFluteTreasure
+            // chk_RemMetalMonRun
             // 
-            this.chk_EchoingFluteTreasure.AutoSize = true;
-            this.chk_EchoingFluteTreasure.Location = new System.Drawing.Point(5, 191);
-            this.chk_EchoingFluteTreasure.Name = "chk_EchoingFluteTreasure";
-            this.chk_EchoingFluteTreasure.Size = new System.Drawing.Size(194, 17);
-            this.chk_EchoingFluteTreasure.TabIndex = 73;
-            this.chk_EchoingFluteTreasure.Text = "Add Echoing Flute to Treasure Pool";
-            this.adjustments.SetToolTip(this.chk_EchoingFluteTreasure, "Adds the Echoing Flute to the Treasure Pool");
-
-this.chk_EchoingFluteTreasure.CheckedChanged += new System.EventHandler(this.determineFlags);
-            this.chk_EchoingFluteTreasure.UseVisualStyleBackColor = true;
+            this.chk_RemMetalMonRun.AutoSize = true;
+            this.chk_RemMetalMonRun.Location = new System.Drawing.Point(5, 51);
+            this.chk_RemMetalMonRun.Name = "chk_RemMetalMonRun";
+            this.chk_RemMetalMonRun.Size = new System.Drawing.Size(145, 17);
+            this.chk_RemMetalMonRun.TabIndex = 58;
+            this.chk_RemMetalMonRun.Text = "Remove Metal Mon. Run";
+            this.chk_RemMetalMonRun.UseVisualStyleBackColor = true;
+            this.adjustments.SetToolTip(this.chk_RemMetalMonRun, "Metal Slimes and Metal Babble are less likely to have running in their logic");
+            this.chk_RemMetalMonRun.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // Form1
             // 
@@ -1553,6 +1580,8 @@ this.chk_EchoingFluteTreasure.CheckedChanged += new System.EventHandler(this.det
         private System.Windows.Forms.CheckBox chk_SepBarGaia;
         private System.Windows.Forms.CheckBox chk_SwordOfGaia;
         private System.Windows.Forms.CheckBox chk_EchoingFluteTreasure;
+        private System.Windows.Forms.CheckBox chk_RemoveStartEqRestrictions;
+        private System.Windows.Forms.CheckBox chk_RemMetalMonRun;
     }
 }
 
