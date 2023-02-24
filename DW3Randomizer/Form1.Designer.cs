@@ -79,10 +79,11 @@ namespace DW3Randomizer
             this.chkRandSpellLearning = new System.Windows.Forms.CheckBox();
             this.chkRandMonsterZones = new System.Windows.Forms.CheckBox();
             this.chkRandEnemyPatterns = new System.Windows.Forms.CheckBox();
+            this.chk_RandomizeInnPrices = new System.Windows.Forms.CheckBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.chk_SwordOfGaia = new System.Windows.Forms.CheckBox();
             this.chk_PoisonMothPowder = new System.Windows.Forms.CheckBox();
             this.chk_LeafoftheWorldTree = new System.Windows.Forms.CheckBox();
-            this.chk_RandomizeInnPrices = new System.Windows.Forms.CheckBox();
             this.chk_RandomizeWeaponShops = new System.Windows.Forms.CheckBox();
             this.chk_LampofDarkness = new System.Windows.Forms.CheckBox();
             this.chk_WizardsRing = new System.Windows.Forms.CheckBox();
@@ -132,7 +133,6 @@ namespace DW3Randomizer
             this.btnCopyChecksum = new System.Windows.Forms.Button();
             this.lblNewChecksum = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.chk_SwordOfGaia = new System.Windows.Forms.CheckBox();
             this.grpMonsterStat.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -144,7 +144,7 @@ namespace DW3Randomizer
             // 
             // txtFileName
             // 
-            this.txtFileName.Location = new System.Drawing.Point(119, 23);
+            this.txtFileName.Location = new System.Drawing.Point(119, 21);
             this.txtFileName.Name = "txtFileName";
             this.txtFileName.Size = new System.Drawing.Size(294, 20);
             this.txtFileName.TabIndex = 0;
@@ -227,15 +227,15 @@ namespace DW3Randomizer
             // 
             // txtSeed
             // 
-            this.txtSeed.Location = new System.Drawing.Point(119, 185);
+            this.txtSeed.Location = new System.Drawing.Point(55, 155);
             this.txtSeed.Name = "txtSeed";
-            this.txtSeed.Size = new System.Drawing.Size(100, 20);
+            this.txtSeed.Size = new System.Drawing.Size(133, 20);
             this.txtSeed.TabIndex = 7;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(17, 187);
+            this.label3.Location = new System.Drawing.Point(17, 158);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(32, 13);
             this.label3.TabIndex = 20;
@@ -254,7 +254,7 @@ namespace DW3Randomizer
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(17, 49);
+            this.label5.Location = new System.Drawing.Point(17, 52);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(94, 13);
             this.label5.TabIndex = 24;
@@ -269,7 +269,7 @@ namespace DW3Randomizer
             // 
             // btnNewSeed
             // 
-            this.btnNewSeed.Location = new System.Drawing.Point(231, 183);
+            this.btnNewSeed.Location = new System.Drawing.Point(221, 148);
             this.btnNewSeed.Name = "btnNewSeed";
             this.btnNewSeed.Size = new System.Drawing.Size(75, 23);
             this.btnNewSeed.TabIndex = 8;
@@ -287,11 +287,11 @@ namespace DW3Randomizer
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(17, 155);
+            this.label9.Location = new System.Drawing.Point(17, 188);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(76, 13);
+            this.label9.Size = new System.Drawing.Size(117, 13);
             this.label9.TabIndex = 39;
-            this.label9.Text = "Random Level";
+            this.label9.Text = "Monster Random Level";
             // 
             // grpMonsterStat
             // 
@@ -299,11 +299,12 @@ namespace DW3Randomizer
             this.grpMonsterStat.Controls.Add(this.optMonsterHeavy);
             this.grpMonsterStat.Controls.Add(this.optMonsterMedium);
             this.grpMonsterStat.Controls.Add(this.optMonsterLight);
-            this.grpMonsterStat.Location = new System.Drawing.Point(119, 144);
+            this.grpMonsterStat.Location = new System.Drawing.Point(142, 176);
             this.grpMonsterStat.Name = "grpMonsterStat";
             this.grpMonsterStat.Size = new System.Drawing.Size(271, 30);
             this.grpMonsterStat.TabIndex = 6;
             this.grpMonsterStat.TabStop = false;
+            this.grpMonsterStat.Enter += new System.EventHandler(this.grpMonsterStat_Enter);
             // 
             // optMonsterSilly
             // 
@@ -585,6 +586,7 @@ namespace DW3Randomizer
             this.tabPage2.Controls.Add(this.chkRandSpellLearning);
             this.tabPage2.Controls.Add(this.chkRandMonsterZones);
             this.tabPage2.Controls.Add(this.chkRandEnemyPatterns);
+            this.tabPage2.Controls.Add(this.chk_RandomizeInnPrices);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
@@ -698,12 +700,24 @@ namespace DW3Randomizer
             this.chkRandEnemyPatterns.UseVisualStyleBackColor = true;
             this.chkRandEnemyPatterns.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
+            // chk_RandomizeInnPrices
+            // 
+            this.chk_RandomizeInnPrices.AutoSize = true;
+            this.chk_RandomizeInnPrices.Checked = true;
+            this.chk_RandomizeInnPrices.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_RandomizeInnPrices.Location = new System.Drawing.Point(5, 120);
+            this.chk_RandomizeInnPrices.Name = "chk_RandomizeInnPrices";
+            this.chk_RandomizeInnPrices.Size = new System.Drawing.Size(129, 17);
+            this.chk_RandomizeInnPrices.TabIndex = 57;
+            this.chk_RandomizeInnPrices.Text = "Randomize Inn Prices";
+            this.chk_RandomizeInnPrices.UseVisualStyleBackColor = true;
+            this.chk_RandomizeInnPrices.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.chk_SwordOfGaia);
             this.tabPage4.Controls.Add(this.chk_PoisonMothPowder);
             this.tabPage4.Controls.Add(this.chk_LeafoftheWorldTree);
-            this.tabPage4.Controls.Add(this.chk_RandomizeInnPrices);
             this.tabPage4.Controls.Add(this.chk_RandomizeWeaponShops);
             this.tabPage4.Controls.Add(this.chk_LampofDarkness);
             this.tabPage4.Controls.Add(this.chk_WizardsRing);
@@ -731,6 +745,18 @@ namespace DW3Randomizer
             this.tabPage4.Text = "Items/Weapons/Armor";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // chk_SwordOfGaia
+            // 
+            this.chk_SwordOfGaia.AutoSize = true;
+            this.chk_SwordOfGaia.Location = new System.Drawing.Point(4, 169);
+            this.chk_SwordOfGaia.Name = "chk_SwordOfGaia";
+            this.chk_SwordOfGaia.Size = new System.Drawing.Size(196, 17);
+            this.chk_SwordOfGaia.TabIndex = 72;
+            this.chk_SwordOfGaia.Text = "Add Sword of Gaia to Treasure Pool";
+            this.adjustments.SetToolTip(this.chk_SwordOfGaia, "Will add the Sword of Gaia in 1 random treasure chest.");
+            this.chk_SwordOfGaia.UseVisualStyleBackColor = true;
+            this.chk_SwordOfGaia.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
             // chk_PoisonMothPowder
             // 
             this.chk_PoisonMothPowder.AutoSize = true;
@@ -756,19 +782,6 @@ namespace DW3Randomizer
             this.chk_LeafoftheWorldTree.Text = "Leaf of the World Tree";
             this.chk_LeafoftheWorldTree.UseVisualStyleBackColor = true;
             this.chk_LeafoftheWorldTree.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // chk_RandomizeInnPrices
-            // 
-            this.chk_RandomizeInnPrices.AutoSize = true;
-            this.chk_RandomizeInnPrices.Checked = true;
-            this.chk_RandomizeInnPrices.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_RandomizeInnPrices.Location = new System.Drawing.Point(205, 191);
-            this.chk_RandomizeInnPrices.Name = "chk_RandomizeInnPrices";
-            this.chk_RandomizeInnPrices.Size = new System.Drawing.Size(129, 17);
-            this.chk_RandomizeInnPrices.TabIndex = 57;
-            this.chk_RandomizeInnPrices.Text = "Randomize Inn Prices";
-            this.chk_RandomizeInnPrices.UseVisualStyleBackColor = true;
-            this.chk_RandomizeInnPrices.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // chk_RandomizeWeaponShops
             // 
@@ -1006,7 +1019,8 @@ namespace DW3Randomizer
             this.chk_Caturday.Size = new System.Drawing.Size(68, 17);
             this.chk_Caturday.TabIndex = 58;
             this.chk_Caturday.Text = "Caturday";
-            this.adjustments.SetToolTip(this.chk_Caturday, "Ensures that Animal Suits will be found in at least 1 weapon shop. Will replace the first Item in the shop list");
+            this.adjustments.SetToolTip(this.chk_Caturday, "Ensures that Animal Suits will be found in at least 1 weapon shop. Will replace t" +
+        "he first Item in the shop list");
             this.chk_Caturday.UseVisualStyleBackColor = true;
             this.chk_Caturday.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -1326,7 +1340,7 @@ namespace DW3Randomizer
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(312, 190);
+            this.label7.Location = new System.Drawing.Point(297, 153);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(32, 13);
             this.label7.TabIndex = 43;
@@ -1334,9 +1348,9 @@ namespace DW3Randomizer
             // 
             // txtFlags
             // 
-            this.txtFlags.Location = new System.Drawing.Point(350, 187);
+            this.txtFlags.Location = new System.Drawing.Point(335, 150);
             this.txtFlags.Name = "txtFlags";
-            this.txtFlags.Size = new System.Drawing.Size(152, 20);
+            this.txtFlags.Size = new System.Drawing.Size(167, 20);
             this.txtFlags.TabIndex = 9;
             this.txtFlags.Leave += new System.EventHandler(this.determineChecks);
             // 
@@ -1367,18 +1381,6 @@ namespace DW3Randomizer
             this.label14.Size = new System.Drawing.Size(82, 13);
             this.label14.TabIndex = 44;
             this.label14.Text = "New Checksum";
-            // 
-            // chk_SwordOfGaia
-            // 
-            this.chk_SwordOfGaia.AutoSize = true;
-            this.chk_SwordOfGaia.Location = new System.Drawing.Point(4, 169);
-            this.chk_SwordOfGaia.Name = "chk_SwordOfGaia";
-            this.chk_SwordOfGaia.Size = new System.Drawing.Size(196, 17);
-            this.chk_SwordOfGaia.TabIndex = 72;
-            this.adjustments.SetToolTip(this.chk_SwordOfGaia, "Will add the Sword of Gaia in 1 random treasure chest.");
-            this.chk_SwordOfGaia.Text = "Add Sword of Gaia to Treasure Pool";
-            this.chk_SwordOfGaia.UseVisualStyleBackColor = true;
-            this.chk_SwordOfGaia.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // Form1
             // 
