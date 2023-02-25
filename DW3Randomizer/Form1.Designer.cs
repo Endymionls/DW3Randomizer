@@ -71,6 +71,7 @@ namespace DW3Randomizer
             this.chkSpeedText = new System.Windows.Forms.CheckBox();
             this.chkFasterBattles = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.chk_RemMetalMonRun = new System.Windows.Forms.CheckBox();
             this.chk_SepBarGaia = new System.Windows.Forms.CheckBox();
             this.chkRandomizeMap = new System.Windows.Forms.CheckBox();
             this.chkSmallMap = new System.Windows.Forms.CheckBox();
@@ -135,7 +136,6 @@ namespace DW3Randomizer
             this.btnCopyChecksum = new System.Windows.Forms.Button();
             this.lblNewChecksum = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.chk_RemMetalMonRun = new System.Windows.Forms.CheckBox();
             this.grpMonsterStat.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -599,6 +599,18 @@ namespace DW3Randomizer
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Randomization";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // chk_RemMetalMonRun
+            // 
+            this.chk_RemMetalMonRun.AutoSize = true;
+            this.chk_RemMetalMonRun.Location = new System.Drawing.Point(5, 51);
+            this.chk_RemMetalMonRun.Name = "chk_RemMetalMonRun";
+            this.chk_RemMetalMonRun.Size = new System.Drawing.Size(145, 17);
+            this.chk_RemMetalMonRun.TabIndex = 58;
+            this.chk_RemMetalMonRun.Text = "Remove Metal Mon. Run";
+            this.adjustments.SetToolTip(this.chk_RemMetalMonRun, "Metal Slimes and Metal Babble are less likely to have running in their logic");
+            this.chk_RemMetalMonRun.UseVisualStyleBackColor = true;
+            this.chk_RemMetalMonRun.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // chk_SepBarGaia
             // 
@@ -1411,18 +1423,6 @@ namespace DW3Randomizer
             this.label14.Size = new System.Drawing.Size(82, 13);
             this.label14.TabIndex = 44;
             this.label14.Text = "New Checksum";
-            // 
-            // chk_RemMetalMonRun
-            // 
-            this.chk_RemMetalMonRun.AutoSize = true;
-            this.chk_RemMetalMonRun.Location = new System.Drawing.Point(5, 51);
-            this.chk_RemMetalMonRun.Name = "chk_RemMetalMonRun";
-            this.chk_RemMetalMonRun.Size = new System.Drawing.Size(145, 17);
-            this.chk_RemMetalMonRun.TabIndex = 58;
-            this.chk_RemMetalMonRun.Text = "Remove Metal Mon. Run";
-            this.chk_RemMetalMonRun.UseVisualStyleBackColor = true;
-            this.adjustments.SetToolTip(this.chk_RemMetalMonRun, "Metal Slimes and Metal Babble are less likely to have running in their logic");
-            this.chk_RemMetalMonRun.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // Form1
             // 

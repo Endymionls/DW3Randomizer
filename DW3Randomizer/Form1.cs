@@ -1821,8 +1821,8 @@ namespace DW3Randomizer
 
         private bool randomizeNames(Random r1)
         {
-            string[] maleNames = {"Bran","Glynn","Talint","Numor","Lars","Orfeo","Artho","Esgar","Ragnar","Cristo","Brey","Taloon","Pankraz","Parry","Carver","Nevan","Terry","Amos","Kiefer","Gabo","Melvin","Angelo","Yangus","Erik","Sylvando"};
-            string[] femaleNames = {"Varia","Elani","Ollisa","Roz","Kailin","Peta","Illith","Gwen","Alena","Nara","Mara","Bianca","Debora","Madchen","Nera","Maria","Patty","Milly","Ashlynn","Maribel","Aira","Jessica","Jade","Veronica","Serena"};
+            string[] maleNames = {"Bran","Glynn","Talint","Numor","Lars","Orfeo","Artho","Esgar","Ragnar","Cristo","Brey","Taloon","Pankraz","Parry","Carver","Nevan","Terry","Amos","Kiefer","Gabo","Melvin","Angelo","Yangus","Erik","Sylvando","Arus","Luceus","Lazarel"};
+            string[] femaleNames = {"Varia","Elani","Ollisa","Roz","Kailin","Peta","Illith","Gwen","Alena","Nara","Mara","Bianca","Debora","Madchen","Nera","Maria","Patty","Milly","Ashlynn","Maribel","Aira","Jessica","Jade","Veronica","Serena","Lunafrea","Aurora","Teresa"};
 
             int maleNameCount = maleNames.Length;
             int femaleNameCount = femaleNames.Length;
