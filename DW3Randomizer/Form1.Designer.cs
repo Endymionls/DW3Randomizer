@@ -942,7 +942,7 @@ namespace DW3Randomizer
             this.chk_RingofLife.AutoSize = true;
             this.chk_RingofLife.Checked = true;
             this.chk_RingofLife.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_RingofLife.Location = new System.Drawing.Point(206, 98);
+            this.chk_RingofLife.Location = new System.Drawing.Point(205, 98);
             this.chk_RingofLife.Name = "chk_RingofLife";
             this.chk_RingofLife.Size = new System.Drawing.Size(80, 17);
             this.chk_RingofLife.TabIndex = 63;
