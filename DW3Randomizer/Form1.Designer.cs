@@ -397,7 +397,7 @@ namespace DW3Randomizer
             // chk_Cod
             // 
             this.chk_Cod.AutoSize = true;
-            this.chk_Cod.Location = new System.Drawing.Point(321, 126);
+            this.chk_Cod.Location = new System.Drawing.Point(321, 78);
             this.chk_Cod.Name = "chk_Cod";
             this.chk_Cod.Size = new System.Drawing.Size(147, 17);
             this.chk_Cod.TabIndex = 21;
@@ -408,7 +408,7 @@ namespace DW3Randomizer
             // chk_SpeedUpMenus
             // 
             this.chk_SpeedUpMenus.AutoSize = true;
-            this.chk_SpeedUpMenus.Location = new System.Drawing.Point(321, 102);
+            this.chk_SpeedUpMenus.Location = new System.Drawing.Point(321, 55);
             this.chk_SpeedUpMenus.Name = "chk_SpeedUpMenus";
             this.chk_SpeedUpMenus.Size = new System.Drawing.Size(107, 17);
             this.chk_SpeedUpMenus.TabIndex = 20;
@@ -419,7 +419,7 @@ namespace DW3Randomizer
             // chkNoLamiaOrbs
             // 
             this.chkNoLamiaOrbs.AutoSize = true;
-            this.chkNoLamiaOrbs.Location = new System.Drawing.Point(321, 55);
+            this.chkNoLamiaOrbs.Location = new System.Drawing.Point(321, 101);
             this.chkNoLamiaOrbs.Name = "chkNoLamiaOrbs";
             this.chkNoLamiaOrbs.Size = new System.Drawing.Size(151, 17);
             this.chkNoLamiaOrbs.TabIndex = 18;
@@ -431,7 +431,7 @@ namespace DW3Randomizer
             // chkFourJobFiesta
             // 
             this.chkFourJobFiesta.AutoSize = true;
-            this.chkFourJobFiesta.Location = new System.Drawing.Point(321, 78);
+            this.chkFourJobFiesta.Location = new System.Drawing.Point(321, 124);
             this.chkFourJobFiesta.Name = "chkFourJobFiesta";
             this.chkFourJobFiesta.Size = new System.Drawing.Size(157, 17);
             this.chkFourJobFiesta.TabIndex = 19;
@@ -1455,7 +1455,7 @@ namespace DW3Randomizer
             this.Controls.Add(this.txtFileName);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Dragon Warrior III Randomizer 2.3.7 ~ 2/24/2023";
+            this.Text = "Dragon Warrior III Randomizer 2.3.7a ~ 2/25/2023";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.grpMonsterStat.ResumeLayout(false);

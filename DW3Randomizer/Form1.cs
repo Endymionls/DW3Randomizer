@@ -625,7 +625,7 @@ namespace DW3Randomizer
 				}
 			}
 
-			string[] locTypes = { "C", "C", "C", "?", "S", "X", "T", "T", "?", "T", "?", "T", "T", "X", "T", "?", // Aliahan, Romaly, Eginbear, Baramos, Drought Shrine, XXXXXX, Samanao Town, Brecconary, Charlock, Reeve, Portuga, Noaniels, Assaram, XXXXXX, Baharata, Lancel
+			string[] locTypes = { "C", "C", "C", "?", "S", "X", "T", "T", "?", "T", "X", "T", "T", "X", "T", "?", // Aliahan, Romaly, Eginbear, Baramos, Drought Shrine, XXXXXX, Samanao Town, Brecconary, Charlock, Reeve, Portuga, Noaniels, Assaram, XXXXXX, Baharata, Lancel
                                   // (16) Cantlin, Rimuldar, Hauksness, Luzami, Kanave, Tedanki, Moor, Jipang, Pirate's Den, Soo, Kol, Shrine before Enticement, Shrine S. of Portuga, Sword Of Gaia Shrine, Desert Shrine, Shrine south of Isis
                                   "T", "T", "T", "V", "V", "V", "V", "V", "V", "V", "V", "S", "S", "?", "S", "S",
                                   // (32) Silver Orb Shrine, Olivia Promenade, Olivia Canal Shrine, Dragon Queen Castle, Jipang Shrine, Liamland, Samanao Shrine, Shrine North of Soo, Garinham, Staff of rain shrine, Rainbow Drop Shrine, Portuga Shrine East, West, Promontory Cave, Ruby Cave, Norud Cave West
@@ -778,18 +778,19 @@ namespace DW3Randomizer
 								}
 								else
 								{
-									if (map[y + 2, x] == 0x00 || map[y + 2, x] == 0x06)
-										romData[byteToUseReturn + 1] = (byte)(y + 1);
-									else
-										romData[byteToUseReturn + 1] = (byte)(y + 0);
+                                    if (map[y + 2, x] == 0x00 || map[y + 2, x] == 0x06)
+                                        romData[byteToUseReturn + 1] = (byte)(y + 1);
+                                    else
+                                        romData[byteToUseReturn + 1] = (byte)(y + 0);
 								}
 								if (locIslands[lnI] != 6)
 									shipPlacement(byteToUseReturn + 2, y, x + 1, maxLake);
 								else
 									shipPlacement2(byteToUseReturn + 2, y, x + 1, maxLake2);
 
-								if (lnI == 10) // Portuga - set originating ship location to the return point
+								if (lnI == 10) // Portuga - set originating ship location to the return point & set x coordinate of return point to east side of portuga
                                 {
+//                                    romData[byteToUseReturn] = (byte)(x - 2);
                                     romData[0x3d126] = romData[0x7d126] = romData[byteToUseReturn + 2];
                                     romData[0x3d12a] = romData[0x7d12a] = romData[byteToUseReturn + 3];
                                 }
@@ -3416,7 +3417,7 @@ namespace DW3Randomizer
         private void superRandomize()
         {
             Random r1;
- 
+             
             try
             {
                 r1 = new Random(int.Parse(txtSeed.Text));
@@ -3871,10 +3872,10 @@ namespace DW3Randomizer
                         else
                             power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 903507); // max 35
                     }
-                    if (power == 0)
-                        power += 1; //To avoid 0 power
-
-//                  power += 2; // To avoid 0 power...
+                    if (power <= 1)
+                    {
+                        power += 2; //To avoid 0 power
+                    }
                     romData[0x279a0 + lnI] = power;
 
                     // You want a max price of about 20000, shields 18300, helmets 15000
@@ -4245,14 +4246,14 @@ namespace DW3Randomizer
                                           0x71, 0x73, 0x74,
                                           0x88, 0x90, 0x98, 0xa0, 0xa8, 0xb0, 0xb8, 0xc0, 0xc8, 0xd0, 0xd8, 0xe0, 0xe8, 0xf0, 0xf8,
                                           0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff};
-//                byte[] legalTreasures2 = {};
+                //                byte[] legalTreasures2 = {};
 
                 // Populate legalTreasuresList so we can add additional items if needed
-                for (int lnI=0; lnI < legalTreasures.Length; lnI++)
+                for (int lnI = 0; lnI < legalTreasures.Length; lnI++)
                 {
                     legalTreasuresList.Add(legalTreasures[lnI]);
                 }
-/*
+ /*
                 for (int lnI=0; lnI < legalTreasures2.Length; lnI++)
                 {
                     legalTreasuresList.Add(legalTreasures2[lnI]);
@@ -4334,7 +4335,7 @@ namespace DW3Randomizer
                 {
                     keyItemsList.Add(0x6f);
                     minKeyTreasureList.Add(0);
-                    keyTreasureList.Add(125);
+                    keyTreasureList.Add(128);
                 }
 
                 int echoingFluteMarker = 0;
