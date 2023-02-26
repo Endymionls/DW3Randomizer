@@ -3382,10 +3382,10 @@ namespace DW3Randomizer
                     romData[0x11be + forcedItemSell[lnI]] -= 16; // Now allowed to be sold!
 
             int[] itemstoAdjust = { 0x16, 0x1c, 0x28, 0x32, 0x34, 0x36, 0x3b, 0x3f, 0x42, 0x48, 0x4b, 0x4c, 0x50, 0x52, 0x53, 0x58, 0x59, 0x5a, 0x69, 0x6f, 0x70, 0x71, // forced items to sell AND...
-               0x5f, 0x60, 0x61, 0x62, 0x64, 0x57, 0x75, 0x55, 0x4e, 0x4f, 0x49 }; // Some other items I want sold (see above)
+               0x5f, 0x60, 0x61, 0x62, 0x63, 0x64, 0x57, 0x75, 0x55, 0x4e, 0x4f, 0x49 }; // Some other items I want sold (see above)
 
             int[] itemPriceAdjust = { 5000, 35000, 15000, 10000, 8000, 12000, 10000, 800, 10, 5000, 5000, 8000, 20000, 1000, 1000, 500, 2000, 5000, 5000, 500, 2000, 500,
-                5000, 3000, 2000, 2500, 5000, 800, 10000, 3000, 2000, 10000, 5000, 1000 };
+                5000, 3000, 2000, 2500, 2500, 5000, 800, 10000, 3000, 2000, 10000, 5000, 1000 };
 
             for (int lnI = 0; lnI < itemstoAdjust.Length; lnI++)
             {
@@ -4547,8 +4547,9 @@ namespace DW3Randomizer
                     }
                     if (chk_Caturday.Checked == true)
                     {
-                        int selectStore = r1.Next() % weaponStores.Length;
-                        romData[weaponStores[selectStore]] = 0x2a;
+                        int[] catWeaponStores = { 0x36838, 0x3683f, 0x36846, 0x3684d, 0x36854, 0x3685b, 0x36869, 0x3686e, 0x36874, 0x36880, 0x36887, 0x3688d, 0x36893, 0x3689a, 0x368a1, 0x368a7, 0x368ae };
+                        int selectStore = r1.Next() % catWeaponStores.Length;
+                        romData[catWeaponStores[selectStore]] = 0x2a;
                     }
                 }
                 if (chkRandItemStores.Checked == true)
