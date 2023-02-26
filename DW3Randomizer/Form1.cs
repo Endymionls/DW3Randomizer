@@ -4339,21 +4339,21 @@ namespace DW3Randomizer
                 }
 
                 int echoingFluteMarker = 0;
-                for (int lnJ = 0; lnJ < keyItems.Length; lnJ++)
+                for (int lnJ = 0; lnJ < keyItemsList.Count; lnJ++)
                 {
-                    int treasureLocation = allTreasure[minKeyTreasure[lnJ] + (r1.Next() % (keyTreasure[lnJ] - minKeyTreasure[lnJ]))];
-                    if (keyItems.Contains(romData[treasureLocation]))
+                    int treasureLocation = allTreasure[minKeyTreasureList[lnJ] + (r1.Next() % (keyTreasureList[lnJ] - minKeyTreasureList[lnJ]))];
+                    if (keyItemsList.Contains(romData[treasureLocation]))
                     {
                         lnJ--;
                         continue;
                     }
-                    romData[treasureLocation] = keyItems[lnJ];
+                    romData[treasureLocation] = keyItemsList[lnJ];
 
                     // Echoing Flute business.  01 = Silver, 02 = Red, 04 = Yellow, 08 = Purple, 10 = Blue, 20 = Green
-                    if (keyItems[lnJ] >= 0x77 && keyItems[lnJ] <= 0x7c)
+                    if (keyItemsList[lnJ] >= 0x77 && keyItemsList[lnJ] <= 0x7c)
                     {
                         byte[] echoLocations;
-                        byte orbNumber = (byte)(Math.Pow(2, Math.Abs(0x77 - keyItems[lnJ])));
+                        byte orbNumber = (byte)(Math.Pow(2, Math.Abs(0x77 - keyItemsList[lnJ])));
 
                         if (new int[] { 0x29237, 0x29238, 0x29239 }.Contains(treasureLocation))
                             echoLocations = new byte[] { 0x2d };
