@@ -4241,24 +4241,31 @@ namespace DW3Randomizer
                                           0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
                                           0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f,
                                           0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x48, 0x49, 0x4b, 0x4c, 0x4e,
-                                          0x53, 0x55, 0x56, 0x5f,
-                                          0x60, 0x62, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6c, 0x6d,
+                                          0x53, 0x55, 0x56, 0x5f };
+                byte[] legalTreasures2 = {0x60, 0x62, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6c, 0x6d, 0x6f,
                                           0x71, 0x73, 0x74,
                                           0x88, 0x90, 0x98, 0xa0, 0xa8, 0xb0, 0xb8, 0xc0, 0xc8, 0xd0, 0xd8, 0xe0, 0xe8, 0xf0, 0xf8,
-                                          0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff};
-                //                byte[] legalTreasures2 = {};
-
-                // Populate legalTreasuresList so we can add additional items if needed
-                for (int lnI = 0; lnI < legalTreasures.Length; lnI++)
+                                          0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff };
+                // Populate legalTreasuresList so we can add additional items if selected
+                for (int lnI=0; lnI < legalTreasures.Length; lnI++)
                 {
                     legalTreasuresList.Add(legalTreasures[lnI]);
                 }
- /*
+                // Add Golden Claw if selected
+                if(chk_GoldenClaw.Checked == true)
+                {
+                    legalTreasuresList.Add(0x4a);
+                }
+                // Add Sword of Gaia if selected
+                if(chk_SwordOfGaia.Checked == true)
+                {
+                    legalTreasuresList.Add(0x11);
+                }
                 for (int lnI=0; lnI < legalTreasures2.Length; lnI++)
                 {
                     legalTreasuresList.Add(legalTreasures2[lnI]);
                 }
-*/                for (int lnI = 0; lnI < allTreasureList.Count; lnI++)
+                for (int lnI = 0; lnI < allTreasureList.Count; lnI++)
                 {
                     legal = false;
                     while (!legal)
@@ -4277,7 +4284,7 @@ namespace DW3Randomizer
                         // We need to make sure key items doesn't exceed a certain point in the story.
 
                         // Verify that only one location exists for key items
-                        if (!(treasureList.Contains(treasure) && (treasure == 0x53 || treasure == 0x71)))
+                        if (!(treasureList.Contains(treasure) && (treasure == 0x53 || treasure == 0x71 || treasure == 0x4a || treasure == 0x11)))
                         {
                             legal = true;
                             treasureList.Add(treasure);
@@ -4294,66 +4301,31 @@ namespace DW3Randomizer
 
                 // Verify that key items are available in either a store or a treasure chest in the right zone.
                 byte[] keyItems = { 0x58, 0x57, 0x59, 0x5d, 0x4f, 0x5a, 0x51, 0x54,
-									0x6b, 0x5c, 0x77, 0x78, 0x79, 0x7a, 0x7b,
+									0x6b, 0x6f, 0x5c, 0x77, 0x78, 0x79, 0x7a, 0x7b,
 									0x7c, 0x10, 0x75, 0x72, 0x50, 0x70 };
                 byte[] minKeyTreasure = { 0, 0, 0, 0, 0, 0, 0, 0,
-										  0, 0, 0, 0, 0, 0, 0,
+										  0, 0, 0, 0, 0, 0, 0, 0,
 										  0, 129, 129, 129, 0, 129 };
                 byte[] keyTreasure = { 6, 8, 36, 56, 73, 87, 118, 119,
-									   119, 125, 128, 128, 128, 128, 128,
+									   119, 128, 125, 128, 128, 128, 128, 128,
 									   128, 158, 158, 165, 165, 158 };
 
-                List<byte> keyItemsList = new List<byte>();
-                List<byte> minKeyTreasureList = new List<byte>();
-                List<byte> keyTreasureList = new List<byte>();
-
-                for (int lnI = 0; lnI < keyItemsList.Count; lnI++)
-                {
-                    keyItemsList.Add(keyItems[lnI]);
-                    minKeyTreasureList.Add(minKeyTreasure[lnI]);
-                    keyTreasureList.Add(keyTreasure[lnI]);
-                }
-
-                // Add Golden Claw if chk_GoldenClaw is checked
-                if (chk_GoldenClaw.Checked == true)
-                {
-                    keyItemsList.Add(0x4a);
-                    minKeyTreasureList.Add(0);
-                    keyTreasureList.Add(128);
-                }
-
-                // Add Sword of Gaia if chk_SwordOfGaia is checked
-                if (chk_SwordOfGaia.Checked == true)
-                {
-                    keyItemsList.Add(0x11);
-                    minKeyTreasureList.Add(0);
-                    keyTreasureList.Add(125);
-                }
-
-                // Add Echoing Flute if chk_EchoingFluteTreasure is checked
-                if (chk_EchoingFluteTreasure.Checked == true)
-                {
-                    keyItemsList.Add(0x6f);
-                    minKeyTreasureList.Add(0);
-                    keyTreasureList.Add(128);
-                }
-
                 int echoingFluteMarker = 0;
-                for (int lnJ = 0; lnJ < keyItemsList.Count; lnJ++)
+                for (int lnJ = 0; lnJ < keyItems.Length; lnJ++)
                 {
-                    int treasureLocation = allTreasure[minKeyTreasureList[lnJ] + (r1.Next() % (keyTreasureList[lnJ] - minKeyTreasureList[lnJ]))];
-                    if (keyItemsList.Contains(romData[treasureLocation]))
+                    int treasureLocation = allTreasure[minKeyTreasure[lnJ] + (r1.Next() % (keyTreasure[lnJ] - minKeyTreasure[lnJ]))];
+                    if (keyItems.Contains(romData[treasureLocation]))
                     {
                         lnJ--;
                         continue;
                     }
-                    romData[treasureLocation] = keyItemsList[lnJ];
+                    romData[treasureLocation] = keyItems[lnJ];
 
                     // Echoing Flute business.  01 = Silver, 02 = Red, 04 = Yellow, 08 = Purple, 10 = Blue, 20 = Green
-                    if (keyItemsList[lnJ] >= 0x77 && keyItemsList[lnJ] <= 0x7c)
+                    if (keyItems[lnJ] >= 0x77 && keyItems[lnJ] <= 0x7c)
                     {
                         byte[] echoLocations;
-                        byte orbNumber = (byte)(Math.Pow(2, Math.Abs(0x77 - keyItemsList[lnJ])));
+                        byte orbNumber = (byte)(Math.Pow(2, Math.Abs(0x77 - keyItems[lnJ])));
 
                         if (new int[] { 0x29237, 0x29238, 0x29239 }.Contains(treasureLocation))
                             echoLocations = new byte[] { 0x2d };
@@ -4363,8 +4335,6 @@ namespace DW3Randomizer
                             echoLocations = new byte[] { 0x98, 0xa0, 0xa1, 0xa2 };
                         else if (new int[] { 0x29234, 0x29235 }.Contains(treasureLocation))
                             echoLocations = new byte[] { 0x14 };
-                        else if (new int[] { 0x29252, 0x292d2, 0x292e6 }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x3f, 0xe8, 0xe9, 0xea };
                         else if (new int[] { 0x2923a, 0x2923b, 0x29280, 0x29281, 0x29282, 0x29283, 0x29284, 0x29285, 0x29286, 0x29287 }.Contains(treasureLocation))
                             echoLocations = new byte[] { 0x2e, 0xa3, 0xa4, 0xa5 };
                         else if (new int[] { 0x2925c, 0x31b9c, 0x2925d, 0x2925e, 0x2925f, 0x29260, 0x29261, 0x29262, 0x29263, 0x29264 }.Contains(treasureLocation))
@@ -4389,7 +4359,7 @@ namespace DW3Randomizer
                             echoLocations = new byte[] { 0x18, 0x8b, 0x8c };
                         else if (new int[] { 0x292d1, 0x292d0, 0x292cf, 0x292cd, 0x292ce, 0x292cc, 0x292cb }.Contains(treasureLocation))
                             echoLocations = new byte[] { 0x3e, 0xe4, 0xe5, 0xe6, 0xe7 };
-                        else if (new int[] { 0x29299, 0x2929c, 0x2929b, 0x2929d, 0x2929a, 0x29298, 0x29293, 0x29294, 0x29295, 0x29291, 0x29292, 0x29296, 0x29297, 0x292a3, 0x292a4, 0x292a2, 0x2929f, 0x2929e, 0x292a0, 0x292a5, 0x292a6, 0x292a1, 0x292a7, 0x29296 }.Contains(treasureLocation))
+                        else if (new int[] { 0x29299, 0x2929c, 0x2929b, 0x2929d, 0x2929a, 0x29298, 0x29293, 0x29294, 0x29295, 0x29291, 0x29292, 0x29296, 0x29297, 0x292a3, 0x292a4, 0x292a2, 0x2929f, 0x2929e, 0x292a0, 0x292a5, 0x292a6, 0x292a1, 0x292a7, 0x29296}.Contains(treasureLocation))
                             echoLocations = new byte[] { 0x37, 0xbe, 0xbf };
                         else if (new int[] { 0x29246, 0x29248, 0x29247, 0x29245, 0x29244, 0x29290, 0x2928f }.Contains(treasureLocation))
                             echoLocations = new byte[] { 0x36, 0xbc, 0xbd };
@@ -4427,8 +4397,8 @@ namespace DW3Randomizer
 
                 // The Golden Claw location has a tr
                 //
-                // Trigger that needs to be set so it can only be retrieved once instead of an infinite amount of times.
-                 // romData[0x319a0] = romData[0x317f4];
+                // igger that needs to be set so it can only be retrieved once instead of an infinite amount of times.
+                 romData[0x319a0] = romData[0x317f4];
             }
 
             if (chkRandItemStores.Checked)
@@ -5285,9 +5255,8 @@ namespace DW3Randomizer
             number = convertChartoInt(Convert.ToChar(flags.Substring(6, 1)));
             chk_GoldenClaw.Checked = (number % 2 == 1);
             chk_SwordOfGaia.Checked = (number % 4 >= 2);
-            chk_EchoingFluteTreasure.Checked = (number % 8 >= 4);
-            chk_Caturday.Checked = (number % 16 >= 8);
-            chk_RemoveStartEqRestrictions.Checked = (number % 32 >= 16);
+            chk_Caturday.Checked = (number % 8 >= 4);
+            chk_RemoveStartEqRestrictions.Checked = (number % 16 >= 8);
 
             number = convertChartoInt(Convert.ToChar(flags.Substring(7, 1)));
             chk_StoneofLife.Checked = (number % 2 == 1);
@@ -5334,9 +5303,9 @@ namespace DW3Randomizer
             flags += convertIntToChar(cboExpGains.SelectedIndex + (8 * cboEncounterRate.SelectedIndex));
             flags += convertIntToChar((cboGoldReq.SelectedIndex) + (chkNoLamiaOrbs.Checked ? 4 : 0) + (chkFourJobFiesta.Checked ? 8 : 0) + (chk_SpeedUpMenus.Checked ? 16 : 0) + (chk_Cod.Checked ? 32 : 0));
             flags += convertIntToChar((chkRandEnemyPatterns.Checked ? 1 : 0) + (chkRandMonsterZones.Checked ? 2 : 0) + (chk_RemMetalMonRun.Checked ? 4 : 0) + (chkRandSpellLearning.Checked ? 8 : 0) + (chkRandSpellStrength.Checked ? 16 : 0) + (chkRandStatGains.Checked ? 32 : 0));
-            flags += convertIntToChar((chk_RandomizeInnPrices.Checked ? 1 : 0) + (chkRandomizeMap.Checked ? 2 : 0) + (chkSmallMap.Checked ? 4 : 0) + (chk_SepBarGaia.Checked ? 8 : 0));
+            flags += convertIntToChar((chk_RandomizeInnPrices.Checked ? 1 : 0) + (chkRandomizeMap.Checked ? 2 : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? 4 : 0) : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? (chk_SepBarGaia.Checked ? 8 : 0) : 0) : 0));
             flags += convertIntToChar((chkRandItemEffects.Checked ? 2 : 0) + (chkRandItemStores.Checked ? 2 : 0) + (chk_RandomizeWeaponShops.Checked ? 4 : 0) + (chkRandTreasures.Checked ? 8 : 0) + (chkRandWhoCanEquip.Checked ? 16 : 0) + (chkRandEquip.Checked ? 32 : 0));
-            flags += convertIntToChar((chk_GoldenClaw.Checked ? 1 : 0) + (chk_SwordOfGaia.Checked ? 2 : 0) + (chk_EchoingFluteTreasure.Checked ? 4 : 0) + (chk_Caturday.Checked ? 8 : 0) + (chk_RemoveStartEqRestrictions.Checked ? 16 : 0));
+            flags += convertIntToChar((chkRandTreasures.Checked ? (chk_GoldenClaw.Checked ? 1 : 0) :0) + (chkRandTreasures.Checked ? (chk_SwordOfGaia.Checked ? 2 : 0) : 0) + (chk_Caturday.Checked ? 4 : 0) + (chkRandEquip.Checked ? (chk_RemoveStartEqRestrictions.Checked ? 8 : 0):0));
             flags += convertIntToChar((chkRandItemStores.Checked ? (chk_StoneofLife.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_Seeds.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_BookofSatori.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_RingofLife.Checked ? 8 : 0) : 0) + (chkRandItemStores.Checked ? (chk_EchoingFlute.Checked ? 16 : 0) : 0) + (chkRandItemStores.Checked ? (chk_SilverHarp.Checked ? 32 : 0) : 0));
             flags += convertIntToChar((chkRandItemStores.Checked ? (chk_LeafoftheWorldTree.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_ShoesofHappiness.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_MeteoriteArmband.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_WizardsRing.Checked ? 8 : 0) : 0) + (chkRandItemStores.Checked ? (chk_LampofDarkness.Checked ? 16 : 0) : 0) + (chkRandItemStores.Checked ? (chk_PoisonMothPowder.Checked ? 32 : 0) : 0));
             flags += convertIntToChar((chk_RandomName.Checked ? 1 : 0) + (chk_RandomGender.Checked ? 2 : 0) + (chk_RandomClass.Checked ? 4 : 0) + (chk_RandomClass.Checked ? (chk_RandSoldier.Checked ? 8 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandPilgrim.Checked ? 16 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandWizard.Checked ? 32 : 0) : 0));
@@ -5389,35 +5358,42 @@ namespace DW3Randomizer
         }
         private void enableDisableFields(object sender, DragEventArgs e)
         {
-            this.txtCharName1.Enabled = !this.chk_RandomName.Checked;
-            this.txtCharName2.Enabled = !this.chk_RandomName.Checked;
-            this.txtCharName3.Enabled = !this.chk_RandomName.Checked;
-            this.cboClass1.Enabled = !this.chk_RandomClass.Checked;
-            this.cboClass2.Enabled = !this.chk_RandomClass.Checked;
-            this.cboClass3.Enabled = !this.chk_RandomClass.Checked;
-            this.cboGender1.Enabled = !this.chk_RandomGender.Checked;
-            this.cboGender2.Enabled = !this.chk_RandomGender.Checked;
-            this.cboGender3.Enabled = !this.chk_RandomGender.Checked;
-            this.chk_RandSoldier.Enabled = this.chk_RandomClass.Checked;
-            this.chk_RandPilgrim.Enabled = this.chk_RandomClass.Checked;
-            this.chk_RandWizard.Enabled = this.chk_RandomClass.Checked;
-            this.chk_RandFighter.Enabled = this.chk_RandomClass.Checked;
-            this.chk_RandMerchant.Enabled = this.chk_RandomClass.Checked;
-            this.chk_RandGoofOff.Enabled = this.chk_RandomClass.Checked;
-            this.chk_RandSage.Enabled = this.chk_RandomClass.Checked;
-            this.chk_RandHero.Enabled = this.chk_RandomClass.Checked;
-            this.chk_BookofSatori.Enabled = this.chkRandItemStores.Checked;
-            this.chk_StoneofLife.Enabled = this.chkRandItemStores.Checked;
-            this.chk_Seeds.Enabled = this.chkRandItemStores.Checked;
-            this.chk_RingofLife.Enabled = this.chkRandItemStores.Checked;
-            this.chk_EchoingFlute.Enabled = this.chkRandItemStores.Checked;
-            this.chk_SilverHarp.Enabled = this.chkRandItemStores.Checked;
-            this.chk_ShoesofHappiness.Enabled = this.chkRandItemStores.Checked;
-            this.chk_MeteoriteArmband.Enabled = this.chkRandItemStores.Checked;
-            this.chk_WizardsRing.Enabled = this.chkRandItemStores.Checked;
-            this.chk_LampofDarkness.Enabled = this.chkRandItemStores.Checked;
-            this.chk_LeafoftheWorldTree.Enabled = this.chkRandItemStores.Checked;
-            this.chk_PoisonMothPowder.Enabled = this.chkRandItemStores.Checked;
+            this.txtCharName1.Visible = !this.chk_RandomName.Checked;
+            this.txtCharName2.Visible = !this.chk_RandomName.Checked;
+            this.txtCharName3.Visible = !this.chk_RandomName.Checked;
+            this.cboClass1.Visible = !this.chk_RandomClass.Checked;
+            this.cboClass2.Visible = !this.chk_RandomClass.Checked;
+            this.cboClass3.Visible = !this.chk_RandomClass.Checked;
+            this.cboGender1.Visible = !this.chk_RandomGender.Checked;
+            this.cboGender2.Visible = !this.chk_RandomGender.Checked;
+            this.cboGender3.Visible = !this.chk_RandomGender.Checked;
+            this.chk_RandSoldier.Visible = this.chk_RandomClass.Checked;
+            this.chk_RandPilgrim.Visible = this.chk_RandomClass.Checked;
+            this.chk_RandWizard.Visible = this.chk_RandomClass.Checked;
+            this.chk_RandFighter.Visible = this.chk_RandomClass.Checked;
+            this.chk_RandMerchant.Visible = this.chk_RandomClass.Checked;
+            this.chk_RandGoofOff.Visible = this.chk_RandomClass.Checked;
+            this.chk_RandSage.Visible = this.chk_RandomClass.Checked;
+            this.chk_RandHero.Visible = this.chk_RandomClass.Checked;
+            this.lbl_ItemShops.Visible = this.chkRandItemStores.Checked;
+            this.chk_BookofSatori.Visible = this.chkRandItemStores.Checked;
+            this.chk_StoneofLife.Visible = this.chkRandItemStores.Checked;
+            this.chk_Seeds.Visible = this.chkRandItemStores.Checked;
+            this.chk_RingofLife.Visible = this.chkRandItemStores.Checked;
+            this.chk_EchoingFlute.Visible = this.chkRandItemStores.Checked;
+            this.chk_SilverHarp.Visible = this.chkRandItemStores.Checked;
+            this.chk_ShoesofHappiness.Visible = this.chkRandItemStores.Checked;
+            this.chk_MeteoriteArmband.Visible = this.chkRandItemStores.Checked;
+            this.chk_WizardsRing.Visible = this.chkRandItemStores.Checked;
+            this.chk_LampofDarkness.Visible = this.chkRandItemStores.Checked;
+            this.chk_LeafoftheWorldTree.Visible = this.chkRandItemStores.Checked;
+            this.chk_PoisonMothPowder.Visible = this.chkRandItemStores.Checked;
+            this.lbl_TreasurePool.Visible = this.chkRandTreasures.Checked;
+            this.chk_GoldenClaw.Visible = this.chkRandTreasures.Checked;
+            this.chk_SwordOfGaia.Visible = this.chkRandTreasures.Checked;
+            this.chk_RemoveStartEqRestrictions.Visible = this.chkRandEquip.Checked;
+            this.chkSmallMap.Visible = this.chkRandomizeMap.Checked;
+            this.chk_SepBarGaia.Visible = this.chkRandomizeMap.Checked;
         }
     }
 }
