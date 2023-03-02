@@ -4360,8 +4360,18 @@ namespace DW3Randomizer
                             echoLocations = new byte[] { 0x3d, 0xdb, 0xdc, 0xdd, 0xde }; // Garuna Tower
                         else if (new int[] { 0x29242, 0x29240, 0x2923f, 0x2923e, 0x29241, 0x29243, 0x2928b, 0x2928c, 0x2928e, 0x2928d }.Contains(treasureLocation))
                             echoLocations = new byte[] { 0x34, 0xb2 }; // Kidnapper's Cave
+                        else if (new int[] { 0x377d5 }.Contains(treasureLocation))
+                            echoLocations = new byte[] { 0x0e }; // Black Pepper
+                        else if (new int[] { 0x31b8c }.Contains(treasureLocation))
+                            echoLocations = new byte[] { 0x19 }; // Soo
+                        else if (new int[] { 0x2925b }.Contains(treasureLocation))
+                            echoLocations = new byte[] { 0x02 }; // Eginbear
+                        else if (new int[] { 0x2922b }.Contains(treasureLocation))
+                            echoLocations = new byte[] { 0x04 }; // Final Key Shrine
                         else if (new int[] { 0x31b94, 0x29270 }.Contains(treasureLocation))
                             echoLocations = new byte[] { 0x15, 0x85, 0x86 }; // Tedanki
+                        else if (new int[] { 0x377fe }.Contains(treasureLocation))
+                            echoLocations = new byte[] { 0x16 }; // Water Blaster NPC
                         else if (new int[] { 0x292e4, 0x292e7 }.Contains(treasureLocation))
                             echoLocations = new byte[] { 0x24, 0x8a }; // Cave of Jipang/Jipang
                         else if (new int[] { 0x29272, 0x29271, 0x29273 }.Contains(treasureLocation))
@@ -4378,19 +4388,8 @@ namespace DW3Randomizer
                             echoLocations = new byte[] { 0x9c, 0x9d }; // Ghost Ship
                         else if (new int[] { 0x29288, 0x29289, 0x2928a }.Contains(treasureLocation))
                             echoLocations = new byte[] { 0x32, 0xa8, 0xa9, 0xaa, 0x31 }; // Cave Of Necrogund
-                        else if (new int[] { 0x2925b }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x02 }; // Eginbear
-                        else if (new int[] { 0x377d5 }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x0e }; // Black Pepper
-                        else if (new int[] { 0x31b8c }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x19 }; // Soo
-                        else if (new int[] { 0x2922b }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x04 }; // Final Key Shrine
-                        else if (new int[] { 0x377fe }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x16 }; // Water Blaster NPC
                         else if (new int[] { 0x37929 }.Contains(treasureLocation))
                             echoLocations = new byte[] { 0x23 }; // Dragon Queen
-
                         else
                             echoLocations = new byte[] { };
 
@@ -4959,14 +4958,7 @@ namespace DW3Randomizer
             if (!loadRom(true)) return;
             using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "DW3Compare.txt")))
             {
-                compareComposeString("treasures-BlackPepperNPC", writer, 0x377D5, 1);
-                compareComposeString("treasures-WaterBlaster", writer, 0x377FE, 1);
-                compareComposeString("treasures-Soo", writer, 0x31B8C, 1);
-                compareComposeString("treasures-SphereOfLight", writer, 0x37929, 1);
-                compareComposeString("treasures-FinalKey", writer, 0x2922B, 1);
-
-
-                for (int lnI = 0; lnI < 0x8a; lnI++)
+               for (int lnI = 0; lnI < 0x8a; lnI++)
                     compareComposeString("monsters" + lnI.ToString("X2"), writer, (0x32e3 + (23 * lnI)), 23);
 
                 compareComposeString("itemPrice1", writer, 0x11be, 128);
