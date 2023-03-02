@@ -4167,7 +4167,7 @@ namespace DW3Randomizer
                 // Totally randomize treasures... but make sure key items exist before they are needed!
                 // Keep the Rainbow drop where it is
                 int[] treasureAddrZ0 = { 0x29237, 0x29238, 0x29239, // Promontory Cave
-                0x2927b, 0x292C4, 0x292C5, 0x292c6 }; // Najimi Tower - Thief's Key, Magic Ball - 7
+                0x2927b, 0x292c4, 0x292c5, 0x292c6 }; // Najimi Tower - Thief's Key, Magic Ball - 7
                 int[] treasureAddrZ1 = { 0x2927c, 0x2927d }; // Najimi Tower behind Thief's Key - Magic Ball - 2
                 int[] treasureAddrZ2 = { 0x2927e, 0x2927f, // Enticement cave
                 0x29234, 0x29235, // Kanave
@@ -4181,35 +4181,41 @@ namespace DW3Randomizer
                 0x29269, 0x2926a, 0x2926b }; // Portuga -> Royal Scroll - 20
                 int[] treasureAddrZ4 = { 0x2923c, 0x2923d, // Dwarf's Cave
                 0x29251, 0x292c7, 0x292c8, 0x292c9, 0x292ca, // Garuna Tower
-                0x29242, 0x29240, 0x2923f, 0x2923e, 0x29241, 0x29243, 0x2928b, 0x2928c, 0x2928e, 0x2928d }; // Kidnapper's Cave -> Black Pepper - 17
+                0x2923e, 0x2923f, 0x29240, 0x29241, 0x29242, 0x29243, 0x2928b, 0x2928c, 0x2928d, 0x2928e}; // Kidnapper's Cave -> Black Pepper - 17
                 int[] treasureAddrZ5 = { 0x31b94, 0x29270, // Tedan (except Green Orb)
                 0x292e4, 0x292e7, // Jipang
-                0x29272, 0x29271, 0x29273, // Pirate Cove
-                0x292d1, 0x292d0, 0x292cf, 0x292cd, 0x292ce, 0x292cc, 0x292cb }; // Arp Tower - Final Key - 14
-                int[] treasureAddrZ6 = { 0x29299, 0x2929c, 0x2929b, 0x2929d, 0x2929a, 0x29298, 0x29293, 0x29294, 0x29295, 0x29291, 0x29292, // Samanao Cave
-                0x29296, 0x29297, 0x292a3, 0x292a4, 0x292a2, 0x2929f, 0x2929e, 0x292a0, 0x292a5, 0x292a6, 0x292a1, 0x292a7, 0x29296, // Samanao Cave
-                0x29246, 0x29248, 0x29247, 0x29245, 0x29244, 0x29290, 0x2928f }; // Lancel Cave - Mirror Of Ra - 31
+                0x29271, 0x29272, 0x29273, // Pirate Cove
+                0x292cb, 0x292cc, 0x292cd, 0x292ce, 0x292cf, 0x292d0, 0x292d1}; // Arp Tower - Final Key - 14
+                int[] treasureAddrZ6 = { 0x29291, 0x29292, 0x29293, 0x29294, 0x29295, 0x29296, 0x29297, 0x29298, 0x29299, 0x2929a, 0x2929b, // Samanao Cave
+                0x2929c, 0x2929d, 0x2929e, 0x2929f, 0x292a0, 0x292a1, 0x292a2, 0x292a3, 0x292a4, 0x292a5, 0x292a6, 0x292a7, // Samanao Cave
+                0x29244, 0x29245, 0x29246, 0x29247, 0x29248, 0x2928f, 0x29290 }; // Lancel Cave - Mirror Of Ra - 30
                 int[] treasureAddrZ7 = { 0x292e5 }; // Staff Of Change - Samanao Castle - 1
-                int[] treasureAddrZ8 = { 0x29277, 0x29276, 0x29275, 0x29278, 0x29279, 0x2927a }; // Sword Of Gaia - Ghost ship - 6
+                int[] treasureAddrZ8 = { 0x29275, 0x29276, 0x29277, 0x29278, 0x29279, 0x2927a }; // Sword Of Gaia - Ghost ship - 6
+                int[] treasureAddrZ9 = { 0x37df1, // Thief Key Old Man
+                0x2925b, // Eginbear
+                0x31b8c, // Soo 
+                0x2922b, // Final Key Shrine
+                0x377d5, // Black Pepper NPC
+                0x377fe, // Water Blaster NPC
+                0x37929, // Dragon Queen - Additional Potential Orb Locations - 7
+                };
                 int[] treasureAddrZ10 = { 0x29288, 0x29289, 0x2928a }; // All orbs - Cave Of Necrogund - 3
-                int[] treasureAddrZ11 = { 0x29267, 0x29266, 0x29265, 0x29268, // Tantegel Castle
-                0x292a8, 0x292ab, 0x292ac, 0x292aa, 0x292a9, // Erdrick's Cave
+                int[] treasureAddrZ11 = { 0x29265, 0x29266, 0x29267, 0x29268, // Tantegel Castle
+                0x292a8, 0x292a9, 0x292aa, 0x292ab, 0x292ac, // Erdrick's Cave
                 0x29274, // Garin's home
-                0x292df, 0x292e3, 0x292e1, 0x292e2, 0x292e0, // Rocky Mountain Cave
+                0x292df, 0x292e0, 0x292e1, 0x292e2, 0x292e3, // Rocky Mountain Cave
                 0x31b90, // Hauksness
                 0x31b88, // Kol
-                0x29253, 0x29254, 0x292d7, 0x292d5, 0x292d6, 0x292d8, 0x292da, 0x292d9, 0x292db, 0x292dc, 0x292de, 0x292dd, // Kol Tower
-                0x29233 }; // Rimuldar - Staff Of Rain, Stones Of Sunlight, Sacred Amulet - 30
+                0x29253, 0x29254, 0x292d5, 0x292d6, 0x292d7, 0x292d8, 0x292d9, 0x292da, 0x292db, 0x292dc, 0x292dd, 0x292de, // Kol Tower
+                0x29233,// Rimuldar
+                0x37d9d }; // Staff of Rain NPC - Staff Of Rain, Stones Of Sunlight, Sacred Amulet - 30
                 int[] treasureAddrZ12 = { 0x292ad, 0x292ae, 0x292af, 0x292b0, 0x292b1, 0x292b2, 0x292b3 }; // Zoma's Castle - Sphere of Light - 7
-                int[] treasureAddrZ13 = { 0x2922a, 0x29229, 0x29228, // Baramos's Castle
+                int[] treasureAddrZ13 = { 0x29228, 0x29229, 0x2922a, // Baramos's Castle
                 0x292b7, 0x292b8, 0x292b9, 0x292ba, 0x292bb, 0x292bc, 0x292bd, 0x292be, 0x292bf, 0x292c0, 0x292c1, 0x292c2, // Pyramid Mummy Men Chests
-                0x2925b, // Eginbear
                 0x31b9f, // World Tree
                 0x31b97, // Luzami
-                0x31b8c, // Soo
-                0x2922b, // Final Key Shrine
                 0x2926c, 0x2926d, 0x31b80, // New Town  0x378A9
-                0x37DF1, 0x375aa, 0x37786, 0x37cb9, 0x377D5, 0x37828, 0x377fe, 0x37907, 0x37929, 0x37a25, 0x37d9d }; // NPCs - Dead zone - 32 , 0x37d5a
+                0x375aa, 0x37786, 0x37cb9, 0x37828, 0x37907, 0x37a25}; // NPCs - Dead zone - 32 , 0x37d5a
 
                 // NOTICE:  Using 0x3b785, supposedly the wake-up powder NPC, warps you to weird places after jumping off the rope in the tower of Garuna...
 
@@ -4224,6 +4230,7 @@ namespace DW3Randomizer
                 allTreasureList = addTreasure(allTreasureList, treasureAddrZ6);
                 allTreasureList = addTreasure(allTreasureList, treasureAddrZ7);
                 allTreasureList = addTreasure(allTreasureList, treasureAddrZ8);
+                allTreasureList = addTreasure(allTreasureList, treasureAddrZ9);
                 allTreasureList = addTreasure(allTreasureList, treasureAddrZ10);
                 allTreasureList = addTreasure(allTreasureList, treasureAddrZ11);
                 allTreasureList = addTreasure(allTreasureList, treasureAddrZ12);
@@ -4305,10 +4312,10 @@ namespace DW3Randomizer
 									0x7c, 0x10, 0x75, 0x72, 0x50, 0x70 };
                 byte[] minKeyTreasure = { 0, 0, 0, 0, 0, 0, 0, 0,
 										  0, 0, 0, 0, 0, 0, 0, 0,
-										  0, 129, 129, 129, 0, 129 };
-                byte[] keyTreasure = { 6, 8, 36, 56, 73, 87, 118, 119,
-									   119, 128, 125, 128, 128, 128, 128, 128,
-									   128, 158, 158, 165, 165, 158 };
+										  0, 135, 135, 135, 0, 135 };
+                byte[] keyTreasure = { 6, 8, 36, 56, 73, 87, 117, 118,
+									   118, 134, 131, 134, 134, 134, 134, 134,
+									   135, 165, 165, 172, 172, 165 };
 
                 int echoingFluteMarker = 0;
                 for (int lnJ = 0; lnJ < keyItems.Length; lnJ++)
@@ -4328,47 +4335,62 @@ namespace DW3Randomizer
                         byte orbNumber = (byte)(Math.Pow(2, Math.Abs(0x77 - keyItems[lnJ])));
 
                         if (new int[] { 0x29237, 0x29238, 0x29239 }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x2d };
-                        else if (new int[] { 0x2927b, 0x292C4, 0x292C5, 0x292c6, 0x2927c, 0x2927d }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x9f, 0x3c, 0xed, 0xd6, 0xd7, 0xd8 };
+                            echoLocations = new byte[] { 0x2d }; // Promontory Cave
+                        else if (new int[] { 0x2927b, 0x292c4, 0x292c5, 0x292c6, 0x2927c, 0x2927d, 0x37df1 }.Contains(treasureLocation))
+                            echoLocations = new byte[] { 0x9f, 0x3c, 0xed, 0xd6, 0xd7, 0xd8 }; // Najimi Tower
                         else if (new int[] { 0x2927e, 0x2927f }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x98, 0xa0, 0xa1, 0xa2 };
+                            echoLocations = new byte[] { 0x98, 0xa0, 0xa1, 0xa2 }; // Enticement cave
                         else if (new int[] { 0x29234, 0x29235 }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x14 };
+                            echoLocations = new byte[] { 0x14 }; // Kanave
                         else if (new int[] { 0x2923a, 0x2923b, 0x29280, 0x29281, 0x29282, 0x29283, 0x29284, 0x29285, 0x29286, 0x29287 }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x2e, 0xa3, 0xa4, 0xa5 };
+                            echoLocations = new byte[] { 0x2e, 0xa3, 0xa4, 0xa5 }; // Dream cave
+                        else if (new int[] { 0x29252, 0x292d2, 0x292e6 }.Contains(treasureLocation))
+                            echoLocations = new byte[] { 0x3f, 0xe8, 0xe9, 0xea }; // Tower of Champagne
                         else if (new int[] { 0x2925c, 0x31b9c, 0x2925d, 0x2925e, 0x2925f, 0x29260, 0x29261, 0x29262, 0x29263, 0x29264 }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x96, 0x50, 0x51, 0x52, 0x87, 0x55, 0x54, 0x53, 0x56, 0x57 };
+                            echoLocations = new byte[] { 0x96, 0x50, 0x51, 0x52, 0x87, 0x55, 0x54, 0x53, 0x56, 0x57 }; // Isis
                         else if (new int[] { 0x29269, 0x2926a, 0x2926b }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x0a, 0x70, 0x71 };
-                        else if (new int[] { 0x29255, 0x29256, 0x29257, 0x29258, 0x29249, 0x2924a }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x00, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47 };
+                            echoLocations = new byte[] { 0x0a, 0x70, 0x71 }; // Portoga
+                        else if (new int[] { 0x29255, 0x29256, 0x29257, 0x29258, 0x29259, 0x2925a }.Contains(treasureLocation))
+                            echoLocations = new byte[] { 0x00, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47 }; // Aliahan
                         else if (new int[] { 0x29249, 0x2924a, 0x2924b, 0x2924c, 0x2924d, 0x2924e, 0x2924f, 0x292b4, 0x292b5, 0x292b6, 0x292c3, 0x317f4 }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x3b, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4, 0xd5 };
+                            echoLocations = new byte[] { 0x3b, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4, 0xd5 }; // Pyramid
                         else if (new int[] { 0x2923c, 0x2923d }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x2f };
+                            echoLocations = new byte[] { 0x2f }; // Dwarf's Cave
                         else if (new int[] { 0x29251, 0x292c7, 0x292c8, 0x292c9, 0x292ca }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x3d, 0xdb, 0xdc, 0xdd, 0xde };
+                            echoLocations = new byte[] { 0x3d, 0xdb, 0xdc, 0xdd, 0xde }; // Garuna Tower
                         else if (new int[] { 0x29242, 0x29240, 0x2923f, 0x2923e, 0x29241, 0x29243, 0x2928b, 0x2928c, 0x2928e, 0x2928d }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x34, 0xb2 };
+                            echoLocations = new byte[] { 0x34, 0xb2 }; // Kidnapper's Cave
                         else if (new int[] { 0x31b94, 0x29270 }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x15, 0x85, 0x86 };
+                            echoLocations = new byte[] { 0x15, 0x85, 0x86 }; // Tedanki
                         else if (new int[] { 0x292e4, 0x292e7 }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x24, 0x8a };
+                            echoLocations = new byte[] { 0x24, 0x8a }; // Cave of Jipang/Jipang
                         else if (new int[] { 0x29272, 0x29271, 0x29273 }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x18, 0x8b, 0x8c };
+                            echoLocations = new byte[] { 0x18, 0x8b, 0x8c }; // Pirates Cove
                         else if (new int[] { 0x292d1, 0x292d0, 0x292cf, 0x292cd, 0x292ce, 0x292cc, 0x292cb }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x3e, 0xe4, 0xe5, 0xe6, 0xe7 };
-                        else if (new int[] { 0x29299, 0x2929c, 0x2929b, 0x2929d, 0x2929a, 0x29298, 0x29293, 0x29294, 0x29295, 0x29291, 0x29292, 0x29296, 0x29297, 0x292a3, 0x292a4, 0x292a2, 0x2929f, 0x2929e, 0x292a0, 0x292a5, 0x292a6, 0x292a1, 0x292a7, 0x29296}.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x37, 0xbe, 0xbf };
+                            echoLocations = new byte[] { 0x3e, 0xe4, 0xe5, 0xe6, 0xe7 }; // Arp Tower
+                        else if (new int[] { 0x29299, 0x2929c, 0x2929b, 0x2929d, 0x2929a, 0x29298, 0x29293, 0x29294, 0x29295, 0x29291, 0x29292, 0x29296, 0x29297, 0x292a3, 0x292a4, 0x292a2, 0x2929f, 0x2929e, 0x292a0, 0x292a5, 0x292a6, 0x292a1, 0x292a7, 0x29296 }.Contains(treasureLocation))
+                            echoLocations = new byte[] { 0x37, 0xbe, 0xbf }; // Samano Cave
                         else if (new int[] { 0x29246, 0x29248, 0x29247, 0x29245, 0x29244, 0x29290, 0x2928f }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x36, 0xbc, 0xbd };
+                            echoLocations = new byte[] { 0x36, 0xbc, 0xbd }; // Lancel Cave
                         else if (new int[] { 0x292e5 }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x06, 0x5d, 0x5e, 0x5f, 0x60, 0x61, 0x62, 0x63, 0x64, 0x99 };
+                            echoLocations = new byte[] { 0x06, 0x5d, 0x5e, 0x5f, 0x60, 0x61, 0x62, 0x63, 0x64, 0x99 }; // Samano Castle
                         else if (new int[] { 0x29277, 0x29276, 0x29275, 0x29278, 0x29279, 0x2927a }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x9c, 0x9d };
+                            echoLocations = new byte[] { 0x9c, 0x9d }; // Ghost Ship
                         else if (new int[] { 0x29288, 0x29289, 0x2928a }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x32, 0xa8, 0xa9, 0xaa, 0x31 };
+                            echoLocations = new byte[] { 0x32, 0xa8, 0xa9, 0xaa, 0x31 }; // Cave Of Necrogund
+                        else if (new int[] { 0x2925b }.Contains(treasureLocation))
+                            echoLocations = new byte[] { 0x02 }; // Eginbear
+                        else if (new int[] { 0x377d5 }.Contains(treasureLocation))
+                            echoLocations = new byte[] { 0x0e }; // Black Pepper
+                        else if (new int[] { 0x31b8c }.Contains(treasureLocation))
+                            echoLocations = new byte[] { 0x19 }; // Soo
+                        else if (new int[] { 0x2922b }.Contains(treasureLocation))
+                            echoLocations = new byte[] { 0x04 }; // Final Key Shrine
+                        else if (new int[] { 0x377fe }.Contains(treasureLocation))
+                            echoLocations = new byte[] { 0x16 }; // Water Blaster NPC
+                        else if (new int[] { 0x37929 }.Contains(treasureLocation))
+                            echoLocations = new byte[] { 0x23 }; // Dragon Queen
+
                         else
                             echoLocations = new byte[] { };
 
@@ -4937,6 +4959,13 @@ namespace DW3Randomizer
             if (!loadRom(true)) return;
             using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "DW3Compare.txt")))
             {
+                compareComposeString("treasures-BlackPepperNPC", writer, 0x377D5, 1);
+                compareComposeString("treasures-WaterBlaster", writer, 0x377FE, 1);
+                compareComposeString("treasures-Soo", writer, 0x31B8C, 1);
+                compareComposeString("treasures-SphereOfLight", writer, 0x37929, 1);
+                compareComposeString("treasures-FinalKey", writer, 0x2922B, 1);
+
+
                 for (int lnI = 0; lnI < 0x8a; lnI++)
                     compareComposeString("monsters" + lnI.ToString("X2"), writer, (0x32e3 + (23 * lnI)), 23);
 
