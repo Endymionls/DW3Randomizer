@@ -4249,9 +4249,9 @@ namespace DW3Randomizer
                                           0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
                                           0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f,
                                           0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x48, 0x49, 0x4b, 0x4c, 0x4e,
-                                          0x53, 0x55, 0x56, 0x5f };
+                                          0x55, 0x56, 0x5f };
                 byte[] legalTreasures2 = {0x60, 0x62, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6c, 0x6d, 0x6f,
-                                          0x71, 0x73, 0x74,
+                                          0x73, 0x74,
                                           0x88, 0x90, 0x98, 0xa0, 0xa8, 0xb0, 0xb8, 0xc0, 0xc8, 0xd0, 0xd8, 0xe0, 0xe8, 0xf0, 0xf8,
                                           0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff };
 
@@ -4260,18 +4260,6 @@ namespace DW3Randomizer
                 {
                     legalTreasuresList.Add(legalTreasures[lnI]);
                 }
-                // Add Golden Claw if selected
-                if(chk_GoldenClaw.Checked == true)
-                    legalTreasuresList.Add(0x4a);
-
-                // Add Sword of Gaia if selected
-                if(chk_SwordOfGaia.Checked == true)
-                    legalTreasuresList.Add(0x11);
-
-                // Add Vase of Draught if map isn't randomized
-                if (chkRandomizeMap.Checked == false)
-                    legalTreasuresList.Add(0x52);
-
                 // Populate legalTreasuresList so we can add additional items if selected (Second half)
                 for (int lnI=0; lnI < legalTreasures2.Length; lnI++) 
                 {
@@ -4296,16 +4284,18 @@ namespace DW3Randomizer
 
                         // We need to make sure key items doesn't exceed a certain point in the story.
 
-                        // Verify that only one location exists for key items
-                        if (!(treasureList.Contains(treasure) && (treasure == 0x53 || treasure == 0x71 || treasure == 0x4a || treasure == 0x11)))
+                        // Verify that only one location exists for key items -- Moved this down to the Key Items
+                        if (!(treasureList.Contains(treasure) && (treasure == 0x53 || treasure == 0x71)))
                         {
                             legal = true;
                             treasureList.Add(treasure);
                             romData[allTreasure[lnI]] = treasure;
                         }
+
                     }
                 }
-                if (chk_SepBarGaia.Checked == true)
+
+                if (chk_SepBarGaia.Checked == true) // Put Wing Of Wyvern in 3 chests in Baramos' Castle
                 {
                     romData[0x2922a] = 0x68;
                     romData[0x29229] = 0x68;
@@ -4313,18 +4303,19 @@ namespace DW3Randomizer
                 }
 
                 // Verify that key items are available in either a store or a treasure chest in the right zone.
-                byte[] keyItems = { 0x58, 0x57, 0x59, 0x5d, 0x4f, 0x5a, 0x51, 0x54,
-									0x6b, 0x6f, 0x5c, 0x77, 0x78, 0x79, 0x7a, 0x7b,
-									0x7c, 0x10, 0x75, 0x72, 0x50, 0x70 };
-                byte[] minKeyTreasure = { 0, 0, 0, 0, 0, 0, 0, 0,
-										  0, 0, 0, 0, 0, 0, 0, 0,
-										  0, 135, 135, 135, 0, 135 };
-                byte[] maxKeyTreasure = { 6, 8, 36, 56, 73, 87, 117, 118,
-									   118, 134, 131, 134, 134, 134, 134, 134,
-									   134, 165, 165, 172, 172, 165 }; // used if chkRandomizeMaps is true
-                byte[] maxKeyTreasure2 = { 6, 8, 36, 56, 73, 87, 117, 118,
-                                       118, 133, 131, 133, 133, 133, 133, 133,
-                                       133, 165, 165, 172, 172, 165 };
+                byte[] keyItems = { 0x58, 0x57, 0x59, 0x52, 0x5d, 0x4f, 0x5a, 0x51, 0x54,
+									0x6b, 0x6f, 0x5c, 0x11, 0x77, 0x78, 0x79, 0x7a, 0x7b,
+									0x7c, 0x10, 0x75, 0x72, 0x4a, 0x50, 0x70, 0x53, 0x71 };
+                byte[] minKeyTreasure = { 0, 0, 0, 0, 0, 0, 0, 0, 0,
+										  0, 0, 0, 0, 0, 0, 0, 0, 0,
+										  0, 135, 135, 135, 0, 0, 135, 0, 0 };
+                byte[] maxKeyTreasure = { 6, 8, 36, 36, 56, 73, 87, 117, 118,
+									   118, 134, 131, 124, 134, 134, 134, 134, 134,
+									   134, 165, 165, 172, 172, 172, 165, 172, 172 }; // used if chkRandomizeMaps is true
+                byte[] maxKeyTreasure2 = { 6, 8, 36, 36, 56, 73, 87, 117, 118,
+                                       118, 133, 131, 124, 133, 133, 133, 133, 133,
+                                       133, 165, 165, 172, 172, 172, 165, 172, 172 };
+
 
                 int echoingFluteMarker = 0;
                 for (int lnJ = 0; lnJ < keyItems.Length; lnJ++)
@@ -4334,6 +4325,18 @@ namespace DW3Randomizer
                         treasureLocation = allTreasure[minKeyTreasure[lnJ] + (r1.Next() % (maxKeyTreasure[lnJ] - minKeyTreasure[lnJ]))];
                     else
                         treasureLocation = allTreasure[minKeyTreasure[lnJ] + (r1.Next() % (maxKeyTreasure2[lnJ] - minKeyTreasure[lnJ]))];
+                    if (chkRandomizeMap.Checked == true && lnJ == 3)
+                    {
+                        continue; // Does not add Vase of Draught to treasure pool when map is randomized
+                    }
+                    if (chk_SwordOfGaia.Checked == false && lnJ == 11)
+                    {
+                        continue; // Does not add Sword of Gaia if not checked
+                    }
+                    if (chk_GoldenClaw.Checked == false && lnJ == 22)
+                    {
+                        continue; // Does not add Golden Claw if not checked
+                    }
                     if (keyItems.Contains(romData[treasureLocation]))
                     {
                         lnJ--;
