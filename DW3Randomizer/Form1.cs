@@ -4191,16 +4191,16 @@ namespace DW3Randomizer
                 0x29244, 0x29245, 0x29246, 0x29247, 0x29248, 0x2928f, 0x29290 }; // Lancel Cave - Mirror Of Ra - 30
                 int[] treasureAddrZ7 = { 0x292e5 }; // Staff Of Change - Samanao Castle - 1
                 int[] treasureAddrZ8 = { 0x29275, 0x29276, 0x29277, 0x29278, 0x29279, 0x2927a }; // Sword Of Gaia - Ghost ship - 6
-                int[] treasureAddrZ9 = { 0x37df1, // Thief Key Old Man
+                int[] treasureAddrZ9 = { 0x29288, 0x29289, 0x2928a }; // All orbs - Cave Of Necrogund - 3
+                int[] treasureAddrZ10 = { 0x37df1, // Thief Key Old Man
                 0x2925b, // Eginbear
                 0x31b8c, // Soo 
                 0x2922b, // Final Key Shrine
                 0x377d5, // Black Pepper NPC
-                0x377fe, // Water Blaster NPC
-                0x37929, // Dragon Queen - Additional Potential Orb Locations - 7
+                0x377fe  // Water Blaster NPC - Additional Potential Orb Locations - 6
                 };
-                int[] treasureAddrZ10 = { 0x29288, 0x29289, 0x2928a }; // All orbs - Cave Of Necrogund - 3
-                int[] treasureAddrZ11 = { 0x29265, 0x29266, 0x29267, 0x29268, // Tantegel Castle
+                int[] treasureAddrZ11 = { 0x37929 }; // Dragon Queen - Additional Potential Orb Location - 1
+                int[] treasureAddrZ12 = { 0x29265, 0x29266, 0x29267, 0x29268, // Tantegel Castle
                 0x292a8, 0x292a9, 0x292aa, 0x292ab, 0x292ac, // Erdrick's Cave
                 0x29274, // Garin's home
                 0x292df, 0x292e0, 0x292e1, 0x292e2, 0x292e3, // Rocky Mountain Cave
@@ -4209,8 +4209,8 @@ namespace DW3Randomizer
                 0x29253, 0x29254, 0x292d5, 0x292d6, 0x292d7, 0x292d8, 0x292d9, 0x292da, 0x292db, 0x292dc, 0x292dd, 0x292de, // Kol Tower
                 0x29233,// Rimuldar
                 0x37d9d }; // Staff of Rain NPC - Staff Of Rain, Stones Of Sunlight, Sacred Amulet - 30
-                int[] treasureAddrZ12 = { 0x292ad, 0x292ae, 0x292af, 0x292b0, 0x292b1, 0x292b2, 0x292b3 }; // Zoma's Castle - Sphere of Light - 7
-                int[] treasureAddrZ13 = { 0x29228, 0x29229, 0x2922a, // Baramos's Castle
+                int[] treasureAddrZ13 = { 0x292ad, 0x292ae, 0x292af, 0x292b0, 0x292b1, 0x292b2, 0x292b3 }; // Zoma's Castle - Sphere of Light - 7
+                int[] treasureAddrZ14 = { 0x29228, 0x29229, 0x2922a, // Baramos's Castle
                 0x292b7, 0x292b8, 0x292b9, 0x292ba, 0x292bb, 0x292bc, 0x292bd, 0x292be, 0x292bf, 0x292c0, 0x292c1, 0x292c2, // Pyramid Mummy Men Chests
                 0x31b9f, // World Tree
                 0x31b97, // Luzami
@@ -4235,6 +4235,7 @@ namespace DW3Randomizer
                 allTreasureList = addTreasure(allTreasureList, treasureAddrZ11);
                 allTreasureList = addTreasure(allTreasureList, treasureAddrZ12);
                 allTreasureList = addTreasure(allTreasureList, treasureAddrZ13);
+                allTreasureList = addTreasure(allTreasureList, treasureAddrZ14);
 
                 int[] allTreasure = allTreasureList.ToArray();
 
@@ -4253,25 +4254,30 @@ namespace DW3Randomizer
                                           0x71, 0x73, 0x74,
                                           0x88, 0x90, 0x98, 0xa0, 0xa8, 0xb0, 0xb8, 0xc0, 0xc8, 0xd0, 0xd8, 0xe0, 0xe8, 0xf0, 0xf8,
                                           0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff };
-                // Populate legalTreasuresList so we can add additional items if selected
+
+                // Populate legalTreasuresList so we can add additional items if selected (First half)
                 for (int lnI=0; lnI < legalTreasures.Length; lnI++)
                 {
                     legalTreasuresList.Add(legalTreasures[lnI]);
                 }
                 // Add Golden Claw if selected
                 if(chk_GoldenClaw.Checked == true)
-                {
                     legalTreasuresList.Add(0x4a);
-                }
+
                 // Add Sword of Gaia if selected
                 if(chk_SwordOfGaia.Checked == true)
-                {
                     legalTreasuresList.Add(0x11);
-                }
-                for (int lnI=0; lnI < legalTreasures2.Length; lnI++)
+
+                // Add Vase of Draught if map isn't randomized
+                if (chkRandomizeMap.Checked == false)
+                    legalTreasuresList.Add(0x52);
+
+                // Populate legalTreasuresList so we can add additional items if selected (Second half)
+                for (int lnI=0; lnI < legalTreasures2.Length; lnI++) 
                 {
                     legalTreasuresList.Add(legalTreasures2[lnI]);
                 }
+
                 for (int lnI = 0; lnI < allTreasureList.Count; lnI++)
                 {
                     legal = false;
@@ -4313,14 +4319,21 @@ namespace DW3Randomizer
                 byte[] minKeyTreasure = { 0, 0, 0, 0, 0, 0, 0, 0,
 										  0, 0, 0, 0, 0, 0, 0, 0,
 										  0, 135, 135, 135, 0, 135 };
-                byte[] keyTreasure = { 6, 8, 36, 56, 73, 87, 117, 118,
+                byte[] maxKeyTreasure = { 6, 8, 36, 56, 73, 87, 117, 118,
 									   118, 134, 131, 134, 134, 134, 134, 134,
-									   135, 165, 165, 172, 172, 165 };
+									   134, 165, 165, 172, 172, 165 }; // used if chkRandomizeMaps is true
+                byte[] maxKeyTreasure2 = { 6, 8, 36, 56, 73, 87, 117, 118,
+                                       118, 133, 131, 133, 133, 133, 133, 133,
+                                       133, 165, 165, 172, 172, 165 };
 
                 int echoingFluteMarker = 0;
                 for (int lnJ = 0; lnJ < keyItems.Length; lnJ++)
                 {
-                    int treasureLocation = allTreasure[minKeyTreasure[lnJ] + (r1.Next() % (keyTreasure[lnJ] - minKeyTreasure[lnJ]))];
+                    int treasureLocation = 0;
+                    if (chkRandomizeMap.Checked == true)
+                        treasureLocation = allTreasure[minKeyTreasure[lnJ] + (r1.Next() % (maxKeyTreasure[lnJ] - minKeyTreasure[lnJ]))];
+                    else
+                        treasureLocation = allTreasure[minKeyTreasure[lnJ] + (r1.Next() % (maxKeyTreasure2[lnJ] - minKeyTreasure[lnJ]))];
                     if (keyItems.Contains(romData[treasureLocation]))
                     {
                         lnJ--;
