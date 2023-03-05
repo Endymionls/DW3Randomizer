@@ -151,6 +151,8 @@ namespace DW3Randomizer
                 if (chkSpeedText.Checked) speedText();
                 if (chkFasterBattles.Checked) battleSpeed();
                 if (chkFourJobFiesta.Checked) fourJobFiesta();
+
+
             }
 
 			if (chkNoLamiaOrbs.Checked)
@@ -1166,8 +1168,9 @@ namespace DW3Randomizer
 						else if (lnI == 15) // Lancel / Lancel Cave
 						{
 							bool baramosLegal = true;
+//                            for (int lnJ = x - 2; lnJ <= x + 3; lnJ++)
 							for (int lnJ = x - 2; lnJ <= x + 2; lnJ++)
-								for (int lnK = y - 1; lnK <= y + 1; lnK++)
+                                for (int lnK = y - 1; lnK <= y + 1; lnK++)
 								{
 									if (map[lnK, lnJ] > 0x07)
 										baramosLegal = false;
@@ -1175,9 +1178,11 @@ namespace DW3Randomizer
 
 							if (baramosLegal)
 							{
-								for (int lnJ = -2; lnJ < 2; lnJ++)
-								{
-									map[y - 1, x + lnJ] = 0x06;
+//                                for (int lnJ = -2; lnJ < 3; lnJ++)
+                                for (int lnJ = -2; lnJ < 2; lnJ++)
+
+                                {
+                                    map[y - 1, x + lnJ] = 0x06;
 									map[y + 1, x + lnJ] = 0x06;
 									island[y - 1, x + lnJ] = 6000;
 									island[y, x + lnJ] = 6000;
@@ -3964,10 +3969,84 @@ namespace DW3Randomizer
                         equipOut += (romData[0x279a0 + lnI]);
                         writer.WriteLine(weaponText[lnI].PadRight(24) + equipOut);
                     }
+/*                    int atp = 0;
+                    int atph = 0;
+                    int atpt = 0;
+                    int atpo = 0;
+                    // Change Equipment Names to Attack
+                    // Copper Sword ad1e-ad23 / b0b7-b0bb
+                    romData[0xad1e] = 0x27; //C
+                    romData[0xad1f] = 0x1a; //p
+                    romData[0xad20] = 0x1c; //r
+                    romData[0xad21] = 0x37; //S
+                    romData[0xad22] = 0x21; //w
+                    romData[0xad23] = 0x0e; //d
+                    // Breakup ATP
+                    atp = romData[0x1149];
+                    atph = atp % 100;
+                    atp = atp - atph;
+                    atpt = atp / 10;
+                    atp = atp - atpt;
+                    atpo = atp;
+                    romData[0xb0e7] = 0x25;
+                    if (atph > 0)
+                        romData[0xb0e8] = 0x02;
+                    else
+                        romData[0xb0e8] = 0x50;
+                    if (atph == 0 && atpt == 0)
+                        romData[0xb0e9] = 0x50;
+                    else
+                    {
+                        if (atpt == 0)
+                            romData[0xb0e9] = 0x01;
+                        else if (atpt == 1)
+                            romData[0xb0e9] = 0x02;
+                        else if (atpt == 2)
+                            romData[0xb0e9] = 0x03;
+                        else if (atpt == 3)
+                            romData[0xb0e9] = 0x04;
+                        else if (atpt == 4)
+                            romData[0xb0e9] = 0x05;
+                        else if (atpt == 5)
+                            romData[0xb0e9] = 0x06;
+                        else if (atpt == 6)
+                            romData[0xb0e9] = 0x07;
+                        else if (atpt == 7)
+                            romData[0xb0e9] = 0x08;
+                        else if (atpt == 8)
+                            romData[0xb0e9] = 0x09;
+                        else
+                            romData[0xb0e9] = 0x0a;
+                    }
+                    if (atpo == 0)
+                        romData[0xb0ea] = 0x01;
+                    else if (atpo == 1)
+                        romData[0xb0ea] = 0x02;
+                    else if (atpo == 2)
+                        romData[0xb0ea] = 0x03;
+                    else if (atpo == 3)
+                        romData[0xb0ea] = 0x04;
+                    else if (atpo == 4)
+                        romData[0xb0ea] = 0x05;
+                    else if (atpo == 5)
+                        romData[0xb0ea] = 0x06;
+                    else if (atpo == 6)
+                        romData[0xb0ea] = 0x07;
+                    else if (atpo == 7)
+                        romData[0xb0ea] = 0x08;
+                    else if (atpo == 8)
+                        romData[0xb0ea] = 0x09;
+                    else
+                        romData[0xb0ea] = 0x0a;
+                romData[0xb0eb] = 0xff;
+*/
                 }
 
+
+
                 // Remove the lines that penalize a fighter for not equipping claws.
-                romData[0x1507] = romData[0x1508] = romData[0x1509] = romData[0x150a] = 0xea;
+                if (chk_RmFighterPenalty.Checked == true)
+                    romData[0x1507] = romData[0x1508] = romData[0x1509] = romData[0x150a] = 0xea;
             }
 
             if (chkRandSpellLearning.Checked)
@@ -4250,7 +4329,7 @@ namespace DW3Randomizer
                                           0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f,
                                           0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x48, 0x49, 0x4b, 0x4c, 0x4e,
                                           0x55, 0x56, 0x5f };
-                byte[] legalTreasures2 = {0x60, 0x62, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6c, 0x6d, 0x6f,
+                byte[] legalTreasures2 = {0x60, 0x62, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6c, 0x6d,
                                           0x73, 0x74,
                                           0x88, 0x90, 0x98, 0xa0, 0xa8, 0xb0, 0xb8, 0xc0, 0xc8, 0xd0, 0xd8, 0xe0, 0xe8, 0xf0, 0xf8,
                                           0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff };
@@ -4329,7 +4408,7 @@ namespace DW3Randomizer
                     {
                         continue; // Does not add Vase of Draught to treasure pool when map is randomized
                     }
-                    if (chk_SwordOfGaia.Checked == false && lnJ == 11)
+                    if (chk_SwordOfGaia.Checked == false && lnJ == 12)
                     {
                         continue; // Does not add Sword of Gaia if not checked
                     }
@@ -5290,10 +5369,11 @@ namespace DW3Randomizer
             chkRandEquip.Checked = (number >= 32);
 
             number = convertChartoInt(Convert.ToChar(flags.Substring(6, 1)));
-            chk_GoldenClaw.Checked = (number % 2 == 1);
-            chk_SwordOfGaia.Checked = (number % 4 >= 2);
-            chk_Caturday.Checked = (number % 8 >= 4);
-            chk_RemoveStartEqRestrictions.Checked = (number % 16 >= 8);
+            chk_RmFighterPenalty.Checked = (number % 2 == 1);
+            chk_GoldenClaw.Checked = (number % 4 >= 2);
+            chk_SwordOfGaia.Checked = (number % 8 >= 4);
+            chk_Caturday.Checked = (number % 16 >= 8);
+            chk_RemoveStartEqRestrictions.Checked = (number % 32 >= 16);
 
             number = convertChartoInt(Convert.ToChar(flags.Substring(7, 1)));
             chk_StoneofLife.Checked = (number % 2 == 1);
@@ -5342,7 +5422,7 @@ namespace DW3Randomizer
             flags += convertIntToChar((chkRandEnemyPatterns.Checked ? 1 : 0) + (chkRandMonsterZones.Checked ? 2 : 0) + (chk_RemMetalMonRun.Checked ? 4 : 0) + (chkRandSpellLearning.Checked ? 8 : 0) + (chkRandSpellStrength.Checked ? 16 : 0) + (chkRandStatGains.Checked ? 32 : 0));
             flags += convertIntToChar((chk_RandomizeInnPrices.Checked ? 1 : 0) + (chkRandomizeMap.Checked ? 2 : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? 4 : 0) : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? (chk_SepBarGaia.Checked ? 8 : 0) : 0) : 0));
             flags += convertIntToChar((chkRandItemEffects.Checked ? 2 : 0) + (chkRandItemStores.Checked ? 2 : 0) + (chk_RandomizeWeaponShops.Checked ? 4 : 0) + (chkRandTreasures.Checked ? 8 : 0) + (chkRandWhoCanEquip.Checked ? 16 : 0) + (chkRandEquip.Checked ? 32 : 0));
-            flags += convertIntToChar((chkRandTreasures.Checked ? (chk_GoldenClaw.Checked ? 1 : 0) :0) + (chkRandTreasures.Checked ? (chk_SwordOfGaia.Checked ? 2 : 0) : 0) + (chk_Caturday.Checked ? 4 : 0) + (chkRandEquip.Checked ? (chk_RemoveStartEqRestrictions.Checked ? 8 : 0):0));
+            flags += convertIntToChar((chkRandEquip.Checked ? (chk_RmFighterPenalty.Checked ? 1 : 0) : 0) + (chkRandTreasures.Checked ? (chk_GoldenClaw.Checked ? 2 : 0) :0) + (chkRandTreasures.Checked ? (chk_SwordOfGaia.Checked ? 4 : 0) : 0) + (chk_Caturday.Checked ? 8 : 0) + (chkRandEquip.Checked ? (chk_RemoveStartEqRestrictions.Checked ? 16 : 0) : 0));
             flags += convertIntToChar((chkRandItemStores.Checked ? (chk_StoneofLife.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_Seeds.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_BookofSatori.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_RingofLife.Checked ? 8 : 0) : 0) + (chkRandItemStores.Checked ? (chk_EchoingFlute.Checked ? 16 : 0) : 0) + (chkRandItemStores.Checked ? (chk_SilverHarp.Checked ? 32 : 0) : 0));
             flags += convertIntToChar((chkRandItemStores.Checked ? (chk_LeafoftheWorldTree.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_ShoesofHappiness.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_MeteoriteArmband.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_WizardsRing.Checked ? 8 : 0) : 0) + (chkRandItemStores.Checked ? (chk_LampofDarkness.Checked ? 16 : 0) : 0) + (chkRandItemStores.Checked ? (chk_PoisonMothPowder.Checked ? 32 : 0) : 0));
             flags += convertIntToChar((chk_RandomName.Checked ? 1 : 0) + (chk_RandomGender.Checked ? 2 : 0) + (chk_RandomClass.Checked ? 4 : 0) + (chk_RandomClass.Checked ? (chk_RandSoldier.Checked ? 8 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandPilgrim.Checked ? 16 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandWizard.Checked ? 32 : 0) : 0));
@@ -5431,6 +5511,7 @@ namespace DW3Randomizer
             this.chk_RemoveStartEqRestrictions.Visible = this.chkRandEquip.Checked;
             this.chkSmallMap.Visible = this.chkRandomizeMap.Checked;
             this.chk_SepBarGaia.Visible = this.chkRandomizeMap.Checked;
+            this.chk_RmFighterPenalty.Visible = this.chkRandEquip.Checked;
         }
     }
 }

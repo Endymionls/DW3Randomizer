@@ -82,6 +82,8 @@ namespace DW3Randomizer
             this.chkRandEnemyPatterns = new System.Windows.Forms.CheckBox();
             this.chk_RandomizeInnPrices = new System.Windows.Forms.CheckBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.chk_RmFighterPenalty = new System.Windows.Forms.CheckBox();
+            this.lbl_TreasurePool = new System.Windows.Forms.Label();
             this.chk_RemoveStartEqRestrictions = new System.Windows.Forms.CheckBox();
             this.chk_SwordOfGaia = new System.Windows.Forms.CheckBox();
             this.chk_PoisonMothPowder = new System.Windows.Forms.CheckBox();
@@ -135,7 +137,6 @@ namespace DW3Randomizer
             this.btnCopyChecksum = new System.Windows.Forms.Button();
             this.lblNewChecksum = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.lbl_TreasurePool = new System.Windows.Forms.Label();
             this.grpMonsterStat.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -350,6 +351,7 @@ namespace DW3Randomizer
             this.optMonsterLight.Name = "optMonsterLight";
             this.optMonsterLight.Size = new System.Drawing.Size(48, 17);
             this.optMonsterLight.TabIndex = 10;
+            this.optMonsterLight.TabStop = true;
             this.optMonsterLight.Text = "Light";
             this.optMonsterLight.UseVisualStyleBackColor = true;
             this.optMonsterLight.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -734,6 +736,7 @@ namespace DW3Randomizer
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.chk_RmFighterPenalty);
             this.tabPage4.Controls.Add(this.lbl_TreasurePool);
             this.tabPage4.Controls.Add(this.chk_RemoveStartEqRestrictions);
             this.tabPage4.Controls.Add(this.chk_SwordOfGaia);
@@ -766,6 +769,27 @@ namespace DW3Randomizer
             this.tabPage4.Text = "Items/Weapons/Armor";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // chk_RmFighterPenalty
+            // 
+            this.chk_RmFighterPenalty.AutoSize = true;
+            this.chk_RmFighterPenalty.Location = new System.Drawing.Point(6, 190);
+            this.chk_RmFighterPenalty.Name = "chk_RmFighterPenalty";
+            this.chk_RmFighterPenalty.Size = new System.Drawing.Size(183, 17);
+            this.chk_RmFighterPenalty.TabIndex = 82;
+            this.chk_RmFighterPenalty.Text = "Remove Fighter Weapon Penalty";
+            this.adjustments.SetToolTip(this.chk_RmFighterPenalty, "Removes attack power penalty from some equipment the Fighter can equip.");
+            this.chk_RmFighterPenalty.UseVisualStyleBackColor = true;
+            this.chk_RmFighterPenalty.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // lbl_TreasurePool
+            // 
+            this.lbl_TreasurePool.AutoSize = true;
+            this.lbl_TreasurePool.Location = new System.Drawing.Point(268, 171);
+            this.lbl_TreasurePool.Name = "lbl_TreasurePool";
+            this.lbl_TreasurePool.Size = new System.Drawing.Size(107, 13);
+            this.lbl_TreasurePool.TabIndex = 75;
+            this.lbl_TreasurePool.Text = "Add to Treasure Pool";
+            // 
             // chk_RemoveStartEqRestrictions
             // 
             this.chk_RemoveStartEqRestrictions.AutoSize = true;
@@ -774,14 +798,15 @@ namespace DW3Randomizer
             this.chk_RemoveStartEqRestrictions.Size = new System.Drawing.Size(216, 17);
             this.chk_RemoveStartEqRestrictions.TabIndex = 67;
             this.chk_RemoveStartEqRestrictions.Text = "Remove Starting Equipment Restrictions";
-            this.adjustments.SetToolTip(this.chk_RemoveStartEqRestrictions, "Removes low equipment stats for starting equipment (randomizer default is to keep these low).");
+            this.adjustments.SetToolTip(this.chk_RemoveStartEqRestrictions, "Removes low equipment stats for starting equipment (randomizer default is to keep" +
+        " these low).");
             this.chk_RemoveStartEqRestrictions.UseVisualStyleBackColor = true;
             this.chk_RemoveStartEqRestrictions.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // chk_SwordOfGaia
             // 
             this.chk_SwordOfGaia.AutoSize = true;
-            this.chk_SwordOfGaia.Location = new System.Drawing.Point(315, 193);
+            this.chk_SwordOfGaia.Location = new System.Drawing.Point(315, 190);
             this.chk_SwordOfGaia.Name = "chk_SwordOfGaia";
             this.chk_SwordOfGaia.Size = new System.Drawing.Size(93, 17);
             this.chk_SwordOfGaia.TabIndex = 81;
@@ -884,7 +909,7 @@ namespace DW3Randomizer
             // chk_GoldenClaw
             // 
             this.chk_GoldenClaw.AutoSize = true;
-            this.chk_GoldenClaw.Location = new System.Drawing.Point(205, 193);
+            this.chk_GoldenClaw.Location = new System.Drawing.Point(205, 190);
             this.chk_GoldenClaw.Name = "chk_GoldenClaw";
             this.chk_GoldenClaw.Size = new System.Drawing.Size(86, 17);
             this.chk_GoldenClaw.TabIndex = 80;
@@ -1418,15 +1443,6 @@ namespace DW3Randomizer
             this.label14.TabIndex = 44;
             this.label14.Text = "New Checksum";
             // 
-            // lbl_TreasurePool
-            // 
-            this.lbl_TreasurePool.AutoSize = true;
-            this.lbl_TreasurePool.Location = new System.Drawing.Point(268, 171);
-            this.lbl_TreasurePool.Name = "lbl_TreasurePool";
-            this.lbl_TreasurePool.Size = new System.Drawing.Size(107, 13);
-            this.lbl_TreasurePool.TabIndex = 75;
-            this.lbl_TreasurePool.Text = "Add to Treasure Pool";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1458,7 +1474,7 @@ namespace DW3Randomizer
             this.Controls.Add(this.txtFileName);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Dragon Warrior III Randomizer 2.4a ~ 3/3/2023";
+            this.Text = "Dragon Warrior III Randomizer 2.4b ~ 3/4/2023";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.grpMonsterStat.ResumeLayout(false);
@@ -1585,6 +1601,7 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_RemoveStartEqRestrictions;
         private System.Windows.Forms.CheckBox chk_RemMetalMonRun;
         private System.Windows.Forms.Label lbl_TreasurePool;
+        private System.Windows.Forms.CheckBox chk_RmFighterPenalty;
     }
 }
 
