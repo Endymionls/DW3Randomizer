@@ -162,6 +162,7 @@ namespace DW3Randomizer
 			}
 
 			// Implement DW4 RNG so any currently known manipulations won't work.
+/*
 			romData[0x3c351] = romData[0x7c351] = 0xAD;
             romData[0x3c352] = romData[0x7c352] = 0xd2;
             romData[0x3c353] = romData[0x7c353] = 0x06;
@@ -188,7 +189,7 @@ namespace DW3Randomizer
             romData[0x3c368] = romData[0x7c368] = 0x4c;
             romData[0x3c369] = romData[0x7c369] = 0x47;
             romData[0x3c36a] = romData[0x7c36a] = 0xc3;
-
+*/
             // Speed up item menu loading
             if (chk_SpeedUpMenus.Checked == true)
             {
@@ -1168,8 +1169,8 @@ namespace DW3Randomizer
 						else if (lnI == 15) // Lancel / Lancel Cave
 						{
 							bool baramosLegal = true;
-//                            for (int lnJ = x - 2; lnJ <= x + 3; lnJ++)
-							for (int lnJ = x - 2; lnJ <= x + 2; lnJ++)
+                            for (int lnJ = x - 2; lnJ <= x + 3; lnJ++)
+//							for (int lnJ = x - 2; lnJ <= x + 2; lnJ++)
                                 for (int lnK = y - 1; lnK <= y + 1; lnK++)
 								{
 									if (map[lnK, lnJ] > 0x07)
@@ -1178,8 +1179,8 @@ namespace DW3Randomizer
 
 							if (baramosLegal)
 							{
-//                                for (int lnJ = -2; lnJ < 3; lnJ++)
-                                for (int lnJ = -2; lnJ < 2; lnJ++)
+                                for (int lnJ = -2; lnJ < 3; lnJ++)
+//                                for (int lnJ = -2; lnJ < 2; lnJ++)
 
                                 {
                                     map[y - 1, x + lnJ] = 0x06;
@@ -1198,6 +1199,9 @@ namespace DW3Randomizer
 								map[y - 1, x + 2] = 0x01;
 								map[y + 1, x + 1] = 0x01;
 								map[y + 1, x + 2] = 0x01;
+                                map[y, x + 3] = 0x01;
+                                map[y - 1, x + 3] = 0x01;
+                                map[y + 1, x + 3] = 0x01;
 
 								romData[0x1b360] = (byte)(x - 1);
 								romData[0x1b361] = (byte)y;
@@ -3540,9 +3544,9 @@ namespace DW3Randomizer
                                     0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
                                     0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f,
                                     0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x48, 0x49, 0x4b, 0x4c, 0x4e,
-                                    0x50, 0x55, 0x56, 0x5f,
-                                    0x60, 0x62, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6c, 0x6d,
-                                    0x70, 0x71, 0x73, 0x74,
+                                    0x55, 0x56, 0x5f,
+                                    0x60, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6c, 0x6d,
+                                    0x73, 0x74,
                                     0x65, 0x66, 0x67, 0x68, 0x6c, 0x73, 0x74, 0x65, 0x66, 0x67, 0x68, 0x6c, 0x73, 0x74,
                                     0x65, 0x66, 0x67, 0x68, 0x6c, 0x73, 0x74, 0x65, 0x66, 0x67, 0x68, 0x6c, 0x73, 0x74 };
                     enemyStats[9] = (legalMonsterTreasures[r1.Next() % legalMonsterTreasures.Length]);
