@@ -3856,6 +3856,18 @@ namespace DW3Randomizer
                 for (int lnI = 0; lnI <= 70; lnI++)
                 {
                     byte power = 0;
+/*
+ 
+                    int[] attackPower = { 2, 7, 12, 14, 28, 40, 34, 15, 10, 30, 18, 48, 24, 100, 80, 90, 16, 48, 33, 100, 100, 55, 70, 65, 5, 65, 85, 30, 110, 63, 77, 35, 55 };
+                    int[] armorDefPower = { 4, 10, 12, 28, 25, 32, 40, 20, 75, 22, 8, 23, 30, 65, 40, 20, 8, 2, 40, 16, 50, 45, 55, 35 };
+                    int[] shieldDefPower = { 4, 12, 40, 50, 35, 7, 30 };
+                    int[] helmetDefPower = { 6, 16, 10, 35, 8, 45, 2, 25};
+
+                    if (lnI < 31)
+                    else if (lnI < 55)
+                    else if (lnI < 62)
+                    else
+ */
 
                     if (chk_RemoveStartEqRestrictions.Checked == true)
                     {
@@ -5265,6 +5277,21 @@ namespace DW3Randomizer
         }
 
         private void grpMonsterStat_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cboClass1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cboClass2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cboClass3_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
