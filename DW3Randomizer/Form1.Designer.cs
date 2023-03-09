@@ -56,6 +56,7 @@ namespace DW3Randomizer
             this.optMonsterLight = new System.Windows.Forms.RadioButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.chk_WeapArmPower = new System.Windows.Forms.CheckBox();
             this.chk_Cod = new System.Windows.Forms.CheckBox();
             this.chk_SpeedUpMenus = new System.Windows.Forms.CheckBox();
             this.chkNoLamiaOrbs = new System.Windows.Forms.CheckBox();
@@ -68,6 +69,7 @@ namespace DW3Randomizer
             this.chkSpeedText = new System.Windows.Forms.CheckBox();
             this.chkFasterBattles = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label11 = new System.Windows.Forms.Label();
             this.chkRandomizeGP = new System.Windows.Forms.CheckBox();
             this.chkRandomizeXP = new System.Windows.Forms.CheckBox();
             this.chk_RemMetalMonRun = new System.Windows.Forms.CheckBox();
@@ -77,6 +79,7 @@ namespace DW3Randomizer
             this.chkRandMonsterZones = new System.Windows.Forms.CheckBox();
             this.chkRandEnemyPatterns = new System.Windows.Forms.CheckBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.chk_UseVanEquipValues = new System.Windows.Forms.CheckBox();
             this.chk_RmFighterPenalty = new System.Windows.Forms.CheckBox();
             this.lbl_TreasurePool = new System.Windows.Forms.Label();
             this.chk_RemoveStartEqRestrictions = new System.Windows.Forms.CheckBox();
@@ -138,7 +141,6 @@ namespace DW3Randomizer
             this.btnCopyChecksum = new System.Windows.Forms.Button();
             this.lblNewChecksum = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.grpMonsterStat.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -168,7 +170,7 @@ namespace DW3Randomizer
             // 
             // btnBrowse
             // 
-            this.btnBrowse.Location = new System.Drawing.Point(576, 21);
+            this.btnBrowse.Location = new System.Drawing.Point(576, 18);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(75, 23);
             this.btnBrowse.TabIndex = 1;
@@ -250,7 +252,7 @@ namespace DW3Randomizer
             // 
             // btnCompareBrowse
             // 
-            this.btnCompareBrowse.Location = new System.Drawing.Point(576, 50);
+            this.btnCompareBrowse.Location = new System.Drawing.Point(576, 47);
             this.btnCompareBrowse.Name = "btnCompareBrowse";
             this.btnCompareBrowse.Size = new System.Drawing.Size(75, 23);
             this.btnCompareBrowse.TabIndex = 3;
@@ -263,9 +265,10 @@ namespace DW3Randomizer
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(17, 52);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(94, 13);
+            this.label5.Size = new System.Drawing.Size(86, 13);
             this.label5.TabIndex = 24;
-            this.label5.Text = "Comparison Image";
+            this.label5.Text = "Output ROM File";
+            this.adjustments.SetToolTip(this.label5, "This can be used to compare an existing ROM file as well.");
             // 
             // txtCompare
             // 
@@ -276,7 +279,7 @@ namespace DW3Randomizer
             // 
             // btnNewSeed
             // 
-            this.btnNewSeed.Location = new System.Drawing.Point(576, 151);
+            this.btnNewSeed.Location = new System.Drawing.Point(576, 153);
             this.btnNewSeed.Name = "btnNewSeed";
             this.btnNewSeed.Size = new System.Drawing.Size(75, 23);
             this.btnNewSeed.TabIndex = 8;
@@ -294,7 +297,7 @@ namespace DW3Randomizer
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(77, 13);
+            this.label9.Location = new System.Drawing.Point(103, 13);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(117, 13);
             this.label9.TabIndex = 39;
@@ -306,7 +309,7 @@ namespace DW3Randomizer
             this.grpMonsterStat.Controls.Add(this.optMonsterHeavy);
             this.grpMonsterStat.Controls.Add(this.optMonsterMedium);
             this.grpMonsterStat.Controls.Add(this.optMonsterLight);
-            this.grpMonsterStat.Location = new System.Drawing.Point(8, 29);
+            this.grpMonsterStat.Location = new System.Drawing.Point(28, 29);
             this.grpMonsterStat.Name = "grpMonsterStat";
             this.grpMonsterStat.Size = new System.Drawing.Size(271, 30);
             this.grpMonsterStat.TabIndex = 6;
@@ -376,6 +379,7 @@ namespace DW3Randomizer
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.chk_WeapArmPower);
             this.tabPage1.Controls.Add(this.chk_Cod);
             this.tabPage1.Controls.Add(this.chk_SpeedUpMenus);
             this.tabPage1.Controls.Add(this.chkNoLamiaOrbs);
@@ -395,6 +399,19 @@ namespace DW3Randomizer
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Adjustments";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // chk_WeapArmPower
+            // 
+            this.chk_WeapArmPower.AutoSize = true;
+            this.chk_WeapArmPower.Location = new System.Drawing.Point(321, 102);
+            this.chk_WeapArmPower.Name = "chk_WeapArmPower";
+            this.chk_WeapArmPower.Size = new System.Drawing.Size(146, 17);
+            this.chk_WeapArmPower.TabIndex = 27;
+            this.chk_WeapArmPower.Text = "Display Equipment Power";
+            this.adjustments.SetToolTip(this.chk_WeapArmPower, "Displays attack and defense power of equipment in Item menu. Item names are trunc" +
+        "ated to allow this.");
+            this.chk_WeapArmPower.UseVisualStyleBackColor = true;
+            this.chk_WeapArmPower.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // chk_Cod
             // 
@@ -425,10 +442,10 @@ namespace DW3Randomizer
             // chkNoLamiaOrbs
             // 
             this.chkNoLamiaOrbs.AutoSize = true;
-            this.chkNoLamiaOrbs.Location = new System.Drawing.Point(321, 101);
+            this.chkNoLamiaOrbs.Location = new System.Drawing.Point(321, 125);
             this.chkNoLamiaOrbs.Name = "chkNoLamiaOrbs";
             this.chkNoLamiaOrbs.Size = new System.Drawing.Size(151, 17);
-            this.chkNoLamiaOrbs.TabIndex = 27;
+            this.chkNoLamiaOrbs.TabIndex = 28;
             this.chkNoLamiaOrbs.Text = "Require No Orbs for Lamia";
             this.adjustments.SetToolTip(this.chkNoLamiaOrbs, "Able to hatch Lamia without any orbs.");
             this.chkNoLamiaOrbs.UseVisualStyleBackColor = true;
@@ -568,12 +585,21 @@ namespace DW3Randomizer
             this.tabPage2.Text = "Monsters & Map";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(449, 13);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(28, 13);
+            this.label11.TabIndex = 50;
+            this.label11.Text = "Map";
+            // 
             // chkRandomizeGP
             // 
             this.chkRandomizeGP.AutoSize = true;
             this.chkRandomizeGP.Checked = true;
             this.chkRandomizeGP.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandomizeGP.Location = new System.Drawing.Point(169, 98);
+            this.chkRandomizeGP.Location = new System.Drawing.Point(8, 98);
             this.chkRandomizeGP.Name = "chkRandomizeGP";
             this.chkRandomizeGP.Size = new System.Drawing.Size(102, 17);
             this.chkRandomizeGP.TabIndex = 48;
@@ -586,7 +612,7 @@ namespace DW3Randomizer
             this.chkRandomizeXP.AutoSize = true;
             this.chkRandomizeXP.Checked = true;
             this.chkRandomizeXP.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandomizeXP.Location = new System.Drawing.Point(168, 75);
+            this.chkRandomizeXP.Location = new System.Drawing.Point(8, 75);
             this.chkRandomizeXP.Name = "chkRandomizeXP";
             this.chkRandomizeXP.Size = new System.Drawing.Size(134, 17);
             this.chkRandomizeXP.TabIndex = 47;
@@ -597,7 +623,7 @@ namespace DW3Randomizer
             // chk_RemMetalMonRun
             // 
             this.chk_RemMetalMonRun.AutoSize = true;
-            this.chk_RemMetalMonRun.Location = new System.Drawing.Point(8, 121);
+            this.chk_RemMetalMonRun.Location = new System.Drawing.Point(169, 98);
             this.chk_RemMetalMonRun.Name = "chk_RemMetalMonRun";
             this.chk_RemMetalMonRun.Size = new System.Drawing.Size(145, 17);
             this.chk_RemMetalMonRun.TabIndex = 46;
@@ -650,7 +676,7 @@ namespace DW3Randomizer
             this.chkRandMonsterZones.AutoSize = true;
             this.chkRandMonsterZones.Checked = true;
             this.chkRandMonsterZones.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandMonsterZones.Location = new System.Drawing.Point(8, 98);
+            this.chkRandMonsterZones.Location = new System.Drawing.Point(375, 98);
             this.chkRandMonsterZones.Name = "chkRandMonsterZones";
             this.chkRandMonsterZones.Size = new System.Drawing.Size(150, 17);
             this.chkRandMonsterZones.TabIndex = 45;
@@ -663,7 +689,7 @@ namespace DW3Randomizer
             this.chkRandEnemyPatterns.AutoSize = true;
             this.chkRandEnemyPatterns.Checked = true;
             this.chkRandEnemyPatterns.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandEnemyPatterns.Location = new System.Drawing.Point(8, 75);
+            this.chkRandEnemyPatterns.Location = new System.Drawing.Point(169, 75);
             this.chkRandEnemyPatterns.Name = "chkRandEnemyPatterns";
             this.chkRandEnemyPatterns.Size = new System.Drawing.Size(154, 17);
             this.chkRandEnemyPatterns.TabIndex = 44;
@@ -673,6 +699,7 @@ namespace DW3Randomizer
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.chk_UseVanEquipValues);
             this.tabPage4.Controls.Add(this.chk_RmFighterPenalty);
             this.tabPage4.Controls.Add(this.lbl_TreasurePool);
             this.tabPage4.Controls.Add(this.chk_RemoveStartEqRestrictions);
@@ -690,13 +717,25 @@ namespace DW3Randomizer
             this.tabPage4.Text = "Weapons & Treasures";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // chk_UseVanEquipValues
+            // 
+            this.chk_UseVanEquipValues.AutoSize = true;
+            this.chk_UseVanEquipValues.Location = new System.Drawing.Point(245, 53);
+            this.chk_UseVanEquipValues.Name = "chk_UseVanEquipValues";
+            this.chk_UseVanEquipValues.Size = new System.Drawing.Size(204, 17);
+            this.chk_UseVanEquipValues.TabIndex = 66;
+            this.chk_UseVanEquipValues.Text = "Use vanilla values for equipment stats";
+            this.adjustments.SetToolTip(this.chk_UseVanEquipValues, "Randomizes equipment stats based on Vanilla game values");
+            this.chk_UseVanEquipValues.UseVisualStyleBackColor = true;
+            this.chk_UseVanEquipValues.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
             // chk_RmFighterPenalty
             // 
             this.chk_RmFighterPenalty.AutoSize = true;
-            this.chk_RmFighterPenalty.Location = new System.Drawing.Point(245, 76);
+            this.chk_RmFighterPenalty.Location = new System.Drawing.Point(245, 99);
             this.chk_RmFighterPenalty.Name = "chk_RmFighterPenalty";
             this.chk_RmFighterPenalty.Size = new System.Drawing.Size(183, 17);
-            this.chk_RmFighterPenalty.TabIndex = 67;
+            this.chk_RmFighterPenalty.TabIndex = 68;
             this.chk_RmFighterPenalty.Text = "Remove Fighter Weapon Penalty";
             this.adjustments.SetToolTip(this.chk_RmFighterPenalty, "Removes attack power penalty from some equipment the Fighter can equip.");
             this.chk_RmFighterPenalty.UseVisualStyleBackColor = true;
@@ -714,10 +753,10 @@ namespace DW3Randomizer
             // chk_RemoveStartEqRestrictions
             // 
             this.chk_RemoveStartEqRestrictions.AutoSize = true;
-            this.chk_RemoveStartEqRestrictions.Location = new System.Drawing.Point(245, 53);
+            this.chk_RemoveStartEqRestrictions.Location = new System.Drawing.Point(245, 76);
             this.chk_RemoveStartEqRestrictions.Name = "chk_RemoveStartEqRestrictions";
             this.chk_RemoveStartEqRestrictions.Size = new System.Drawing.Size(216, 17);
-            this.chk_RemoveStartEqRestrictions.TabIndex = 66;
+            this.chk_RemoveStartEqRestrictions.TabIndex = 67;
             this.chk_RemoveStartEqRestrictions.Text = "Remove Starting Equipment Restrictions";
             this.adjustments.SetToolTip(this.chk_RemoveStartEqRestrictions, "Removes low equipment stats for starting equipment (randomizer default is to keep" +
         " these low).");
@@ -1462,15 +1501,6 @@ namespace DW3Randomizer
             this.label14.TabIndex = 44;
             this.label14.Text = "New Checksum";
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(449, 13);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(28, 13);
-            this.label11.TabIndex = 50;
-            this.label11.Text = "Map";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1500,7 +1530,7 @@ namespace DW3Randomizer
             this.Controls.Add(this.txtFileName);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Dragon Warrior III Randomizer 2.4.1 ~ 3/5/2023";
+            this.Text = "Dragon Warrior III Randomizer 2.4.1 ~ 3/8/2023";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.grpMonsterStat.ResumeLayout(false);
@@ -1632,6 +1662,8 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_RmFighterPenalty;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.CheckBox chk_UseVanEquipValues;
+        private System.Windows.Forms.CheckBox chk_WeapArmPower;
     }
 }
 
