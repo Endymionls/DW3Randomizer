@@ -4570,9 +4570,6 @@ namespace DW3Randomizer
             romData[0x3a5e2] = 0x19;
             romData[0x3a5e3] = 0x18;
 
-
-
-
         }
         private void forceItemSell()
         {
@@ -7446,8 +7443,10 @@ namespace DW3Randomizer
                     }
                     if (chk_Caturday.Checked == true)
                     {
+                        Random caturday = new Random(int.Parse(txtSeed.Text));
+
                         int[] catWeaponStores = { 0x36838, 0x3683f, 0x36846, 0x3684d, 0x36854, 0x3685b, 0x36869, 0x3686e, 0x36874, 0x36880, 0x36887, 0x3688d, 0x36893, 0x3689a, 0x368a1, 0x368a7, 0x368ae };
-                        int selectStore = r1.Next() % catWeaponStores.Length;
+                        int selectStore = caturday.Next() % catWeaponStores.Length;
                         romData[catWeaponStores[selectStore]] = 0x2a;
                     }
                 }
