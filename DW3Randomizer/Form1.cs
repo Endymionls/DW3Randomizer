@@ -93,6 +93,14 @@ namespace DW3Randomizer
 					cboGender1.SelectedIndex = Convert.ToInt32(reader.ReadLine());
 					cboGender2.SelectedIndex = Convert.ToInt32(reader.ReadLine());
 					cboGender3.SelectedIndex = Convert.ToInt32(reader.ReadLine());
+                    if (reader.ReadLine() == "True") // Sets Lower Case Menus
+                        chk_LowerCaseMenus.Checked = true;
+                    else
+                        chk_LowerCaseMenus.Checked = false;
+                    if (reader.ReadLine() == "True") // Sets Fix Slime Snail Name
+                        chk_FixSlimeSnail.Checked = true;
+                    else
+                        chk_FixSlimeSnail.Checked = false;
 					runChecksum();
                 }
             }
@@ -111,6 +119,8 @@ namespace DW3Randomizer
 				cboEncounterRate.SelectedIndex = 4;
                 cboExpGains.SelectedIndex = 5;
                 cboGoldReq.SelectedIndex = 0;
+                chk_LowerCaseMenus.Checked = false;
+                chk_FixSlimeSnail.Checked = false;
             }
             btnNewSeed_Click(null, null);
             loading = false;
@@ -145,6 +155,7 @@ namespace DW3Randomizer
             else
             {
                 if (chkRandItemStores.Checked) forceItemSell();
+                if (chk_LowerCaseMenus.Checked) lowerCaseMenus();
                 boostGP();
                 superRandomize();
 
@@ -164,35 +175,36 @@ namespace DW3Randomizer
 				romData[0x3794c] = 0xea;
 			}
 
-			// Implement DW4 RNG so any currently known manipulations won't work.
-/*
-			romData[0x3c351] = romData[0x7c351] = 0xAD;
-            romData[0x3c352] = romData[0x7c352] = 0xd2;
-            romData[0x3c353] = romData[0x7c353] = 0x06;
-            romData[0x3c354] = romData[0x7c354] = 0x4c;
-            romData[0x3c355] = romData[0x7c355] = 0x53;
-            romData[0x3c356] = romData[0x7c356] = 0xc3;
-            romData[0x3c357] = romData[0x7c357] = 0xf0;
-            romData[0x3c358] = romData[0x7c358] = 0xfb;
-            romData[0x3c359] = romData[0x7c359] = 0x4c;
-            romData[0x3c35a] = romData[0x7c35a] = 0x0a;
-            romData[0x3c35b] = romData[0x7c35b] = 0xc9;
-            romData[0x3c35c] = romData[0x7c35c] = 0x20;
-            romData[0x3c35d] = romData[0x7c35d] = 0x41;
-            romData[0x3c35e] = romData[0x7c35e] = 0xc3;
-            romData[0x3c35f] = romData[0x7c35f] = 0xca;
-            romData[0x3c360] = romData[0x7c360] = 0xd0;
-            romData[0x3c361] = romData[0x7c361] = 0xfa;
-            romData[0x3c362] = romData[0x7c362] = 0x60;
-            romData[0x3c363] = romData[0x7c363] = 0xe6;
-            romData[0x3c364] = romData[0x7c364] = 0x1c;
-            romData[0x3c365] = romData[0x7c365] = 0xcd;
-            romData[0x3c366] = romData[0x7c366] = 0xd2;
-            romData[0x3c367] = romData[0x7c367] = 0x06;
-            romData[0x3c368] = romData[0x7c368] = 0x4c;
-            romData[0x3c369] = romData[0x7c369] = 0x47;
-            romData[0x3c36a] = romData[0x7c36a] = 0xc3;
-*/
+            // Implement DW4 RNG so any currently known manipulations won't work.
+            if (chk_RmManip.Checked == true)
+            {
+                romData[0x3c351] = romData[0x7c351] = 0xAD;
+                romData[0x3c352] = romData[0x7c352] = 0xd2;
+                romData[0x3c353] = romData[0x7c353] = 0x06;
+                romData[0x3c354] = romData[0x7c354] = 0x4c;
+                romData[0x3c355] = romData[0x7c355] = 0x53;
+                romData[0x3c356] = romData[0x7c356] = 0xc3;
+                romData[0x3c357] = romData[0x7c357] = 0xf0;
+                romData[0x3c358] = romData[0x7c358] = 0xfb;
+                romData[0x3c359] = romData[0x7c359] = 0x4c;
+                romData[0x3c35a] = romData[0x7c35a] = 0x0a;
+                romData[0x3c35b] = romData[0x7c35b] = 0xc9;
+                romData[0x3c35c] = romData[0x7c35c] = 0x20;
+                romData[0x3c35d] = romData[0x7c35d] = 0x41;
+                romData[0x3c35e] = romData[0x7c35e] = 0xc3;
+                romData[0x3c35f] = romData[0x7c35f] = 0xca;
+                romData[0x3c360] = romData[0x7c360] = 0xd0;
+                romData[0x3c361] = romData[0x7c361] = 0xfa;
+                romData[0x3c362] = romData[0x7c362] = 0x60;
+                romData[0x3c363] = romData[0x7c363] = 0xe6;
+                romData[0x3c364] = romData[0x7c364] = 0x1c;
+                romData[0x3c365] = romData[0x7c365] = 0xcd;
+                romData[0x3c366] = romData[0x7c366] = 0xd2;
+                romData[0x3c367] = romData[0x7c367] = 0x06;
+                romData[0x3c368] = romData[0x7c368] = 0x4c;
+                romData[0x3c369] = romData[0x7c369] = 0x47;
+                romData[0x3c36a] = romData[0x7c36a] = 0xc3;
+            }
             // Speed up item menu loading
             if (chk_SpeedUpMenus.Checked == true)
             {
@@ -2014,6 +2026,260 @@ namespace DW3Randomizer
 
             return true;
         }
+        private void randEnemyPatterns(Random r1)
+        {
+            byte[] monsterSize = { 8, 4, 4, 4, 4, 4, 7, 4, 4, 8, 4, 4, 4, 2, 4, 4,
+                4, 4, 5, 5, 2, 4, 4, 5, 4, 4, 4, 4, 4, 4, 3, 2,
+                4, 4, 4, 2, 4, 5, 4, 4, 4, 4, 4, 8, 4, 4, 4, 3,
+                2, 8, 4, 3, 4, 4, 2, 3, 4, 7, 3, 4, 2, 4, 4, 7,
+                8, 3, 3, 4, 3, 2, 3, 4, 4, 4, 4, 4, 4, 3, 3, 4,
+                2, 4, 3, 4, 3, 2, 2, 4, 3, 2, 2, 3, 2, 5, 1, 4,
+                3, 3, 2, 3, 4, 1, 3, 3, 8, 7, 4, 2, 7, 4, 3, 2,
+                3, 3, 3, 3, 3, 3, 3, 4, 4, 2, 1, 2, 4, 2, 3, 3,
+                3, 1, 1, 3, 1, 1, 1, 2, 3, 3, 4 };
+
+            // Totally randomize monsters (13805-13cd2)
+            for (int lnI = 0; lnI < 0x8a; lnI++)
+            {
+                if (lnI == 0x85 || lnI == 0x86)
+                    continue; // Do not adjust either Zoma.
+
+                //0 - Monster Level (probably used for running away)
+                //1 - EXP
+                //2 - EXP * 256
+                //3 - Agility
+                //4 - GP
+                //5 - Attack
+                //6 - Defense
+                //7 - HP
+                //8 - MP
+                //9 - Item dropped
+                //10 = Action 1
+                //11 = Action 2(first half related to "AI-Lv)
+                //12 = Action 3
+                //13 = Action 4(first half related to "Pattern")
+                //14 = Action 5(related to # atks, first bit)
+                //15 = Action 6(also related to # atks, first bit)
+                //16 = Action 7[1] = related to regen
+                //17 = Action 8[1] = also related to regen 
+                //18 - Bits 0-1 - GPx256, Bits 2-3 - Infernos resist, Bits 4-5 - Ice resist, Bits 6-7 - Fire resist
+                //19 - Bits 0-1 - Attackx256, 2-3 - Sacrifice resist, 4-5 - Beat resist, 6-7 - Lightning resist
+                //20 - Bits 0-1 - Defx256, 2-3 - Defense resist, 4-5 - Stopspell resist, 6-7 - Sleep resist
+                //21 - Bits 0-1 - HPx256, 2-3 - Chaos resist, 4-5 - RobMagic resist, 6-7 - Surround resist
+                //22 - Bits 0-3 - Drop chance (1/1, 8, 16, 32, 64, 128, 256, and 2048), 4-5 - Expel resist, 6-7 - Limbo/Slow resist
+                byte[] enemyStats = { romData[0x32e3 + (lnI * 23) + 0], romData[0x32e3 + (lnI * 23) + 1], romData[0x32e3 + (lnI * 23) + 2], romData[0x32e3 + (lnI * 23) + 3], romData[0x32e3 + (lnI * 23) + 4],
+                    romData[0x32e3 + (lnI * 23) + 5], romData[0x32e3 + (lnI * 23) + 6], romData[0x32e3 + (lnI * 23) + 7], romData[0x32e3 + (lnI * 23) + 8], romData[0x32e3 + (lnI * 23) + 9],
+                    romData[0x32e3 + (lnI * 23) + 10], romData[0x32e3 + (lnI * 23) + 11], romData[0x32e3 + (lnI * 23) + 12], romData[0x32e3 + (lnI * 23) + 13], romData[0x32e3 + (lnI * 23) + 14],
+                    romData[0x32e3 + (lnI * 23) + 15], romData[0x32e3 + (lnI * 23) + 16], romData[0x32e3 + (lnI * 23) + 17], romData[0x32e3 + (lnI * 23) + 18], romData[0x32e3 + (lnI * 23) + 19],
+                    romData[0x32e3 + (lnI * 23) + 20], romData[0x32e3 + (lnI * 23) + 21], romData[0x32e3 + (lnI * 23) + 22] };
+
+                int byteValStart = 0x32e3 + (23 * lnI);
+
+                for (int lnJ = 3; lnJ <= 7; lnJ++)
+                {
+                    int totalAtk = enemyStats[lnJ] + ((enemyStats[lnJ + 14] % 4) * 256);
+                    if (lnJ == 3) totalAtk = enemyStats[lnJ];
+                    if (lnJ == 7 && lnI == 0x87) totalAtk = 5; // We want Ortega to die quickly by giving him 5 HP.
+                    if (lnJ == 5 && lnI == 0x87) totalAtk = 2000; // ... or win the battle quickly by giving him hoards of strength!  (he still winds up "dead" I think)
+
+                    // Potentially add quadruple the possible gold for each monster.  Average 2 1/2 times...
+                    if (lnJ == 4 && totalAtk > 0)
+                        totalAtk += (r1.Next() % (totalAtk * 3));
+                    else
+                    {
+                        int atkRandom = (r1.Next() % 3);
+                        int atkDiv2 = (totalAtk / 2) + 1;
+                        if (atkRandom == 1)
+                            totalAtk += (r1.Next() % atkDiv2);
+                        else if (atkRandom == 2)
+                            totalAtk -= (r1.Next() % atkDiv2);
+                    }
+
+                    totalAtk = (totalAtk < 1 ? 1 : totalAtk);
+                    totalAtk = (totalAtk > 1020 ? 1020 : totalAtk);
+                    if (lnJ == 3)
+                        totalAtk = (totalAtk > 255 ? 255 : totalAtk);
+                    enemyStats[lnJ] = (byte)(totalAtk % 256);
+                    if (lnJ > 3)
+                        enemyStats[lnJ + 14] = (byte)(enemyStats[lnJ + 14] - (enemyStats[lnJ + 14] % 4) + (totalAtk / 256));
+                }
+                if (enemyStats[8] <= 16 && r1.Next() % 2 == 1) enemyStats[8] = (byte)(r1.Next() % 32);
+                //enemyStats[8] = 255; // Always make sure the monster has MP
+
+                // Needs to be a "legal treasure..."
+                byte[] legalMonsterTreasures = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
+                                    0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
+                                    0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
+                                    0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f,
+                                    0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x48, 0x49, 0x4b, 0x4c, 0x4e,
+                                    0x55, 0x56, 0x5f,
+                                    0x60, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6c, 0x6d,
+                                    0x73, 0x74,
+                                    0x65, 0x66, 0x67, 0x68, 0x6c, 0x73, 0x74, 0x65, 0x66, 0x67, 0x68, 0x6c, 0x73, 0x74,
+                                    0x65, 0x66, 0x67, 0x68, 0x6c, 0x73, 0x74, 0x65, 0x66, 0x67, 0x68, 0x6c, 0x73, 0x74 };
+                enemyStats[9] = (legalMonsterTreasures[r1.Next() % legalMonsterTreasures.Length]);
+
+                byte[] res1 = { 0, 0, 0, 0, 0, 1, 2, 3 };
+                byte[] res2 = { 0, 0, 0, 0, 1, 1, 2, 3 };
+                byte[] res3 = { 0, 0, 0, 1, 1, 2, 2, 3 };
+                byte[] res4 = { 0, 0, 1, 1, 2, 2, 3, 3 };
+                byte[] res5 = { 0, 1, 1, 2, 2, 3, 3, 3 };
+                byte[] res6 = { 0, 1, 2, 2, 3, 3, 3, 3 };
+                byte[] res7 = { 0, 1, 2, 3, 3, 3, 3, 3 };
+                byte[] finalRes = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+                for (int lnJ = 0; lnJ < finalRes.Length; lnJ++)
+                {
+                    if (lnI < 25)
+                        finalRes[lnJ] = (res1[r1.Next() % 8]);
+                    else if (lnI < 50)
+                        finalRes[lnJ] = (res2[r1.Next() % 8]);
+                    else if (lnI < 70)
+                        finalRes[lnJ] = (res3[r1.Next() % 8]);
+                    else if (lnI < 90)
+                        finalRes[lnJ] = (res4[r1.Next() % 8]);
+                    else if (lnI < 105)
+                        finalRes[lnJ] = (res5[r1.Next() % 8]);
+                    else if (lnI < 115)
+                        finalRes[lnJ] = (res6[r1.Next() % 8]);
+                    else
+                        finalRes[lnJ] = (res7[r1.Next() % 8]);
+                }
+
+                enemyStats[18] = (byte)(enemyStats[18] % 4 + (finalRes[0] * 4) + (finalRes[1] * 16) + (finalRes[2] * 64));
+                enemyStats[19] = (byte)(enemyStats[19] % 4 + (finalRes[3] * 4) + (finalRes[4] * 16) + (finalRes[5] * 64));
+                enemyStats[20] = (byte)(enemyStats[20] % 4 + (finalRes[6] * 4) + (finalRes[7] * 16) + (finalRes[8] * 64));
+                enemyStats[21] = (byte)(enemyStats[21] % 4 + (finalRes[9] * 4) + (finalRes[10] * 16) + (finalRes[11] * 64));
+                // First part:  item drop chance.  Make sure it's at best 1/8.
+                if (lnI == 0x36 || lnI == 0x62) // EXCEPT Man-eater Chests and Mimics
+                    enemyStats[22] = (byte)(0 + (finalRes[12] * 16) + (finalRes[13] * 64));
+                else
+                    enemyStats[22] = (byte)(((r1.Next() % 7) + 1) + (finalRes[12] * 16) + (finalRes[13] * 64));
+
+                byte[] enemyPatterns = { 2, 2, 2, 2, 2, 2, 2, 2 };
+
+                // Types of patterns... 0:  Attack only, 1:  "Goofy attack", 2:  Totally random, 3:  Annoying, 4:  Quite annyoing, 5:  Hell monster
+                byte[] pattern1 = { 45, 65, 100, 100, 100 };
+                byte[] pattern2 = { 35, 60, 90, 100, 100 };
+                byte[] pattern3 = { 25, 50, 80, 90, 100 };
+                byte[] pattern4 = { 15, 45, 75, 85, 100 };
+                byte[] pattern5 = { 10, 40, 70, 85, 100 };
+                byte[] pattern6 = { 5, 30, 70, 80, 100 };
+                byte[] pattern7 = { 0, 20, 60, 80, 100 };
+                byte[] pattern8 = { 0, 10, 50, 60, 100 };
+                byte[] pattern9 = { 0, 0, 15, 30, 100 };
+
+                int enemyPattern = r1.Next() % 100;
+
+                if (lnI < 15 || lnI == 0x87 || lnI == 0x68) // Ortega, so he dies quickly, and red slime, because that monster is WAY out of order
+                    enemyPattern = (enemyPattern < pattern1[0] ? 0 : enemyPattern < pattern1[1] ? 1 : enemyPattern < pattern1[2] ? 2 : enemyPattern < pattern1[3] ? 3 : 4);
+                else if (lnI < 30)
+                    enemyPattern = (enemyPattern < pattern2[0] ? 0 : enemyPattern < pattern2[1] ? 1 : enemyPattern < pattern2[2] ? 2 : enemyPattern < pattern2[3] ? 3 : 4);
+                else if (lnI < 45 || lnI == 0x88 || lnI == 0x8a) // Kandar 1 and Kandar Henchman
+                    enemyPattern = (enemyPattern < pattern3[0] ? 0 : enemyPattern < pattern3[1] ? 1 : enemyPattern < pattern3[2] ? 2 : enemyPattern < pattern3[3] ? 3 : 4);
+                else if (lnI < 60)
+                    enemyPattern = (enemyPattern < pattern4[0] ? 0 : enemyPattern < pattern4[1] ? 1 : enemyPattern < pattern4[2] ? 2 : enemyPattern < pattern4[3] ? 3 : 4);
+                else if (lnI < 75 || lnI == 0x89) // Kandar 2
+                    enemyPattern = (enemyPattern < pattern5[0] ? 0 : enemyPattern < pattern5[1] ? 1 : enemyPattern < pattern5[2] ? 2 : enemyPattern < pattern5[3] ? 3 : 4);
+                else if (lnI < 90)
+                    enemyPattern = (enemyPattern < pattern6[0] ? 0 : enemyPattern < pattern6[1] ? 1 : enemyPattern < pattern6[2] ? 2 : enemyPattern < pattern6[3] ? 3 : 4);
+                else if (lnI < 105)
+                    enemyPattern = (enemyPattern < pattern7[0] ? 0 : enemyPattern < pattern7[1] ? 1 : enemyPattern < pattern7[2] ? 2 : enemyPattern < pattern7[3] ? 3 : 4);
+                else if (lnI < 120)
+                    enemyPattern = (enemyPattern < pattern8[0] ? 0 : enemyPattern < pattern8[1] ? 1 : enemyPattern < pattern8[2] ? 2 : enemyPattern < pattern8[3] ? 3 : 4);
+                else
+                    enemyPattern = (enemyPattern < pattern9[0] ? 0 : enemyPattern < pattern9[1] ? 1 : enemyPattern < pattern9[2] ? 2 : enemyPattern < pattern9[3] ? 3 : 4);
+
+                switch (enemyPattern)
+                {
+                    case 0: // leave everything alone; it's a basic attack monster.
+                        break;
+                    case 1: // Give the monster a little goofyness to their attack...
+                        for (int lnJ = 0; lnJ < 8; lnJ++)
+                        {
+                            // 50% chance of setting a different attack.
+                            byte[] attackPattern = { 2, 2, 2, 2, 2, 0, 1, 3, 4, 5, 6, 8 };
+                            byte random = (attackPattern[r1.Next() % attackPattern.Length]);
+                            if (random != 2)
+                                enemyPatterns[lnJ] = random;
+                        }
+                        break;
+                    case 2:
+                        for (int lnJ = 0; lnJ < 8; lnJ++)
+                        {
+                            // 75% chance of setting a different attack.
+                            byte random = (byte)(r1.Next() % 80);
+                            if (random != 2 && random < 64 && random != 0x2b)
+                                enemyPatterns[lnJ] = random;
+                        }
+                        break;
+                    case 3:
+                        for (int lnJ = 0; lnJ < 8; lnJ++)
+                        {
+                            // Normal, heroic, poison, faint, heal, healmore (both self and others), sleep, stopspell, weak flames, 
+                            // poison and sweet breaths, call for help, double attacks, and strange jigs.
+                            byte[] attackPattern = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 3, 4, 5, 6, 8, 9, 10, 13, 16, 17, 19, 22, 23, 28, 34, 35, 36, 38, 39, 41, 45, 49, 54, 59 };
+                            byte random = (attackPattern[r1.Next() % attackPattern.Length]);
+                            if (random != 2 && random < 64)
+                                enemyPatterns[lnJ] = random;
+                        }
+                        break;
+                    case 4:
+                        for (int lnJ = 0; lnJ < 8; lnJ++)
+                        {
+                            byte[] attackPattern = { 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 6, 6, 8, 11, 12, 14, 15, 18, 20, 21, 24, 25, 26, 27, 29, 30, 31, 32, 33, 34, 40, 40, 42, 44, 47, 48, 51, 53, 56, 58, 60 };
+                            byte random = (attackPattern[r1.Next() % attackPattern.Length]);
+                            if (random != 2 && random < 64)
+                                enemyPatterns[lnJ] = random;
+                        }
+                        break;
+                }
+
+                if (lnI == 0x31 || lnI == 0x6c) // Metal slime, Metal Babble
+                {
+                    if (chk_RemMetalMonRun.Checked == false)
+                    {
+                        enemyPatterns[0] = 7; // run away
+                        enemyPatterns[1] = 7; // run away
+                        enemyPatterns[2] = 7; // run away
+                        enemyPatterns[3] = 7; // run away
+                        if (lnI == 0x41)
+                        {
+                            enemyPatterns[4] = 7; // run away
+                            enemyPatterns[5] = 7; // run away
+                        }
+                    }
+                }
+
+                // Both bits set = 2 attacks guaranteed.  2nd bit set = up to 3 attacks.  1st bit set = up to 2 attacks.
+                int badChance = (3 * lnI > 300 ? 300 : 3 * lnI);
+                if (r1.Next() % 1000 < badChance / 4)
+                    enemyPatterns[5] += 128;
+                else if (r1.Next() % 1000 < badChance / 3)
+                {
+                    enemyPatterns[4] += 128;
+                    enemyPatterns[5] += 128;
+                }
+                else if (r1.Next() % 1000 < badChance)
+                    enemyPatterns[4] += 128;
+
+                // Repeat for regeneration.  Both bits = 100 HP / round, 2nd bit = 50 HP / round, 3rd bit = 25 HP / round
+                if (r1.Next() % 1000 < badChance / 3)
+                {
+                    enemyPatterns[6] += 128;
+                    enemyPatterns[7] += 128;
+                }
+                else if (r1.Next() % 1000 < badChance / 2)
+                    enemyPatterns[7] += 128;
+                else if (r1.Next() % 1000 < badChance)
+                    enemyPatterns[6] += 128;
+
+                for (int lnJ = 0; lnJ < 8; lnJ++)
+                    enemyStats[10 + lnJ] = (enemyPatterns[lnJ]);
+
+                for (int lnJ = 0; lnJ < 23; lnJ++)
+                    romData[byteValStart + lnJ] = enemyStats[lnJ];
+            }
+        }
         private void markZoneSides()
         {
             for (int x = 0; x < 16; x++)
@@ -3386,6 +3652,887 @@ namespace DW3Randomizer
             }
         }
 
+        private void lowerCaseMenus()
+        // changes caps menus to lower case
+        {
+            //Another World
+            romData[0x38943] = 0x18;
+            romData[0x38944] = 0x19;
+            romData[0x38945] = 0x1e;
+            romData[0x38946] = 0x12;
+            romData[0x38947] = 0x0f;
+            romData[0x38948] = 0x1c;
+            romData[0x3894b] = 0x19;
+            romData[0x3894c] = 0x1c;
+            romData[0x3894d] = 0x16;
+            romData[0x3894e] = 0x0e;
+
+            //Non Equipped
+            romData[0x38a72] = 0x19;
+            romData[0x38a73] = 0x18;
+            romData[0x38a76] = 0x1b;
+            romData[0x38a77] = 0x1f;
+            romData[0x38a78] = 0x13;
+            romData[0x38a79] = 0x1a;
+            romData[0x38a7a] = 0x1a;
+            romData[0x38a7b] = 0x0f;
+            romData[0x38a7c] = 0x0e;
+
+            //Sex
+            romData[0x3913a] = 0x0f;
+            romData[0x3913b] = 0x22;
+
+            //Level
+            romData[0x39141] = 0x0f;
+            romData[0x39142] = 0x20;
+            romData[0x39143] = 0x0f;
+            romData[0x39144] = 0x16;
+
+            //Attack Power
+            romData[0x3925d] = 0x1e;
+            romData[0x3925e] = 0x1e;
+            romData[0x3925f] = 0x0b;
+            romData[0x39260] = 0x0d;
+            romData[0x39261] = 0x15;
+            romData[0x39265] = 0x19;
+            romData[0x39266] = 0x21;
+            romData[0x39267] = 0x0f;
+            romData[0x39268] = 0x1c;
+
+            //Defense Power
+            romData[0x3926f] = 0x0f;
+            romData[0x39270] = 0x10;
+            romData[0x39271] = 0x0f;
+            romData[0x39272] = 0x18;
+            romData[0x39273] = 0x1d;
+            romData[0x39274] = 0x0f;
+            romData[0x39278] = 0x19;
+            romData[0x39279] = 0x21;
+            romData[0x3927a] = 0x0f;
+            romData[0x3927b] = 0x1c;
+
+            //Talk
+            romData[0x3940d] = 0x0b;
+            romData[0x3940e] = 0x16;
+            romData[0x3940f] = 0x15;
+
+            //Spell
+            romData[0x39412] = 0x1a;
+            romData[0x39413] = 0x0f;
+            romData[0x39414] = 0x16;
+            romData[0x39415] = 0x16;
+
+            //Status
+            romData[0x39418] = 0x1e;
+            romData[0x39419] = 0x0b;
+            romData[0x3941a] = 0x1e;
+            romData[0x3941b] = 0x1f;
+            romData[0x3941c] = 0x1d;
+
+            //Item
+            romData[0x3941f] = 0x1e;
+            romData[0x39420] = 0x0f;
+            romData[0x39421] = 0x17;
+
+            //Search
+            romData[0x39424] = 0x0f;
+            romData[0x39425] = 0x0b;
+            romData[0x39426] = 0x1c;
+            romData[0x39427] = 0x0d;
+            romData[0x39428] = 0x12;
+
+            //Equip
+            romData[0x3942b] = 0x1b;
+            romData[0x3942c] = 0x1f;
+            romData[0x3942d] = 0x13;
+            romData[0x3942e] = 0x1a;
+
+            //Use
+            romData[0x3943c] = 0x1d;
+            romData[0x3943d] = 0x0f;
+
+            //Transfer
+            romData[0x39440] = 0x1c;
+            romData[0x39441] = 0x0b;
+            romData[0x39442] = 0x18;
+            romData[0x39443] = 0x1d;
+            romData[0x39444] = 0x10;
+            romData[0x39445] = 0x0f;
+            romData[0x39446] = 0x1c;
+
+            //Discard
+            romData[0x39449] = 0x13;
+            romData[0x3944a] = 0x1d;
+            romData[0x3944b] = 0x0d;
+            romData[0x3944c] = 0x0b;
+            romData[0x3944d] = 0x1c;
+            romData[0x3944e] = 0x0e;
+
+            //Buy
+            romData[0x3945b] = 0x1f;
+            romData[0x3945c] = 0x23;
+
+            //Sell
+            romData[0x39460] = 0x0f;
+            romData[0x39461] = 0x16;
+            romData[0x39462] = 0x16;
+
+            //Detoxicate
+            romData[0x39470] = 0x0e;
+            romData[0x39471] = 0x1e;
+            romData[0x39472] = 0x19;
+            romData[0x39473] = 0x22;
+            romData[0x39474] = 0x13;
+            romData[0x39475] = 0x0d;
+            romData[0x39476] = 0x0b;
+            romData[0x39477] = 0x1e;
+            romData[0x39478] = 0x0f;
+
+            //Uncurse
+            romData[0x3947b] = 0x18;
+            romData[0x3947c] = 0x0d;
+            romData[0x3947d] = 0x1f;
+            romData[0x3947e] = 0x1c;
+            romData[0x3947f] = 0x1d;
+            romData[0x39480] = 0x0f;
+
+            //Revive
+            romData[0x39483] = 0x0f;
+            romData[0x39484] = 0x20;
+            romData[0x39485] = 0x13;
+            romData[0x39486] = 0x20;
+            romData[0x39487] = 0x0f;
+
+            //Fight
+            romData[0x39495] = 0x13;
+            romData[0x39496] = 0x11;
+            romData[0x39497] = 0x12;
+            romData[0x39498] = 0x1e;
+
+            //Spell
+            romData[0x3949b] = 0x1a;
+            romData[0x3949c] = 0x0f;
+            romData[0x3949d] = 0x16;
+            romData[0x3949e] = 0x16;
+
+            //Run
+            romData[0x394a1] = 0x1f;
+            romData[0x394a2] = 0x18;
+
+            //Item
+            romData[0x394a5] = 0x1e;
+            romData[0x394a6] = 0x0f;
+            romData[0x394a7] = 0x17;
+
+            //Fight
+            romData[0x394b5] = 0x13;
+            romData[0x394b6] = 0x11;
+            romData[0x394b7] = 0x12;
+            romData[0x394b8] = 0x1e;
+
+            //Spell
+            romData[0x394bb] = 0x1a;
+            romData[0x394bc] = 0x0f;
+            romData[0x394bd] = 0x16;
+            romData[0x394be] = 0x16;
+
+            //Parry
+            romData[0x394c1] = 0x0b;
+            romData[0x394c2] = 0x1c;
+            romData[0x394c3] = 0x1c;
+            romData[0x394c4] = 0x23;
+
+            //Item
+            romData[0x394c7] = 0x1e;
+            romData[0x394c8] = 0x0f;
+            romData[0x394c9] = 0x17;
+
+            //Fight
+            romData[0x394d7] = 0x13;
+            romData[0x394d8] = 0x11;
+            romData[0x394d9] = 0x12;
+            romData[0x394da] = 0x1e;
+
+            //Run
+            romData[0x394dd] = 0x1f;
+            romData[0x394de] = 0x18;
+
+            //Parry
+            romData[0x394e1] = 0x0b;
+            romData[0x394e2] = 0x1c;
+            romData[0x394e3] = 0x1c;
+            romData[0x394e4] = 0x23;
+
+            //Item
+            romData[0x394e7] = 0x1e;
+            romData[0x394e8] = 0x0f;
+            romData[0x394e9] = 0x17;
+
+            //Fight
+            romData[0x394f7] = 0x13;
+            romData[0x394f8] = 0x11;
+            romData[0x394f9] = 0x12;
+            romData[0x394fa] = 0x1e;
+
+            //Parry
+            romData[0x394fd] = 0x0b;
+            romData[0x394fe] = 0x1c;
+            romData[0x394ff] = 0x1c;
+            romData[0x39500] = 0x23;
+
+            //Item
+            romData[0x39503] = 0x1e;
+            romData[0x39504] = 0x0f;
+            romData[0x39505] = 0x17;
+
+            //Yes
+            romData[0x39517] = 0x0f;
+            romData[0x39518] = 0x1d;
+
+            //No
+            romData[0x3951b] = 0x19;
+
+            //Info > Details
+            romData[0x39528] = 0x28;
+            romData[0x39529] = 0x0f;
+            romData[0x3952a] = 0x1e;
+            romData[0x3952b] = 0x0b;
+            romData[0x3952c] = 0x13;
+            romData[0x3952d] = 0x16;
+            romData[0x3952e] = 0x1d;
+            romData[0x3952f] = 0xff;
+
+            //Condition > HP-MP
+            romData[0x39530] = 0x2c;
+            romData[0x39531] = 0x34;
+            romData[0x39532] = 0x6b;
+            romData[0x39533] = 0x31;
+            romData[0x39534] = 0x34;
+            romData[0x39535] = 0x00;
+
+            //Formation
+            romData[0x39538] = 0x19;
+            romData[0x39539] = 0x1c;
+            romData[0x3953a] = 0x17;
+            romData[0x3953b] = 0x0b;
+            romData[0x3953c] = 0x1e;
+            romData[0x3953d] = 0x13;
+            romData[0x3953e] = 0x19;
+            romData[0x3953f] = 0x18;
+
+            //Gold
+            romData[0x39566] = 0x19;
+            romData[0x39567] = 0x16;
+            romData[0x39568] = 0x0e;
+
+            //Item
+            romData[0x3956b] = 0x1e;
+            romData[0x3956c] = 0x0f;
+            romData[0x3956d] = 0x17;
+
+            //Use
+            romData[0x3957b] = 0x0d;
+            romData[0x3957c] = 0x0f;
+
+            //Equip
+            romData[0x3957f] = 0x1b;
+            romData[0x39580] = 0x1f;
+            romData[0x39581] = 0x13;
+            romData[0x39582] = 0x1a;
+
+            //Back End
+            romData[0x39794] = 0x0b;
+            romData[0x39795] = 0x0d;
+            romData[0x39796] = 0x15;
+            romData[0x39799] = 0x18;
+            romData[0x3979a] = 0x0e;
+
+            //Male
+            romData[0x397bd] = 0x0b;
+            romData[0x397be] = 0x16;
+            romData[0x397bf] = 0x0f;
+
+            //Female
+            romData[0x397c2] = 0x0f;
+            romData[0x397c3] = 0x17;
+            romData[0x397c4] = 0x0b;
+            romData[0x397c5] = 0x16;
+            romData[0x397c6] = 0x0f;
+
+            //Add Member
+            romData[0x39839] = 0x0e;
+            romData[0x3983a] = 0x0e;
+            romData[0x3983d] = 0x0f;
+            romData[0x3983e] = 0x17;
+            romData[0x3983f] = 0x0c;
+            romData[0x39840] = 0x0f;
+            romData[0x39841] = 0x1c;
+
+            //Leave Member
+            romData[0x39844] = 0x0f;
+            romData[0x39845] = 0x0b;
+            romData[0x39846] = 0x20;
+            romData[0x39847] = 0x0f;
+            romData[0x3984a] = 0x0f;
+            romData[0x3984b] = 0x17;
+            romData[0x3984c] = 0x0c;
+            romData[0x3984d] = 0x0f;
+            romData[0x3984e] = 0x1c;
+
+            //See List
+            romData[0x39851] = 0x0f;
+            romData[0x39852] = 0x0f;
+            romData[0x39855] = 0x13;
+            romData[0x39856] = 0x1d;
+            romData[0x39857] = 0x1e;
+
+            //Use
+            romData[0x398d0] = 0x1d;
+            romData[0x398d1] = 0x0f;
+
+            //Transfer
+            romData[0x398d4] = 0x1c;
+            romData[0x398d5] = 0x0b;
+            romData[0x398d6] = 0x18;
+            romData[0x398d7] = 0x1d;
+            romData[0x398d8] = 0x10;
+            romData[0x398d9] = 0x0f;
+            romData[0x398da] = 0x1c;
+
+            //Discard
+            romData[0x398dd] = 0x13;
+            romData[0x398de] = 0x1d;
+            romData[0x398df] = 0x0d;
+            romData[0x398e0] = 0x0b;
+            romData[0x398e1] = 0x1c;
+            romData[0x398e2] = 0x0e;
+
+            //Appraise
+            romData[0x398e5] = 0x1a;
+            romData[0x398e6] = 0x1a;
+            romData[0x398e7] = 0x1c;
+            romData[0x398e8] = 0x0b;
+            romData[0x398e9] = 0x13;
+            romData[0x398ea] = 0x1d;
+            romData[0x398eb] = 0x0f;
+
+            //Adventure Log 1
+            romData[0x3993a] = 0x0e;
+            romData[0x3993b] = 0x20;
+            romData[0x3993c] = 0x0f;
+            romData[0x3993d] = 0x18;
+            romData[0x3993e] = 0x1e;
+            romData[0x3993f] = 0x1f;
+            romData[0x39940] = 0x1c;
+            romData[0x39941] = 0x0f;
+            romData[0x39944] = 0x19;
+            romData[0x39945] = 0x11;
+
+            //Adventure Log 2
+            romData[0x39955] = 0x0e;
+            romData[0x39956] = 0x20;
+            romData[0x39957] = 0x0f;
+            romData[0x39958] = 0x18;
+            romData[0x39959] = 0x1e;
+            romData[0x3995a] = 0x1f;
+            romData[0x3995b] = 0x1c;
+            romData[0x3995c] = 0x0f;
+            romData[0x3995f] = 0x19;
+            romData[0x39960] = 0x11;
+
+            //Adventure Log 1
+            romData[0x39970] = 0x0e;
+            romData[0x39971] = 0x20;
+            romData[0x39972] = 0x0f;
+            romData[0x39973] = 0x18;
+            romData[0x39974] = 0x1e;
+            romData[0x39975] = 0x1f;
+            romData[0x39976] = 0x1c;
+            romData[0x39977] = 0x0f;
+            romData[0x3997a] = 0x19;
+            romData[0x3997b] = 0x11;
+
+            //Adventure Log 2
+            romData[0x39980] = 0x0e;
+            romData[0x39981] = 0x20;
+            romData[0x39982] = 0x0f;
+            romData[0x39983] = 0x18;
+            romData[0x39984] = 0x1e;
+            romData[0x39985] = 0x1f;
+            romData[0x39986] = 0x1c;
+            romData[0x39987] = 0x0f;
+            romData[0x3998a] = 0x19;
+            romData[0x3998b] = 0x11;
+
+            //Adventure Log 3
+            romData[0x3999b] = 0x0e;
+            romData[0x3999c] = 0x20;
+            romData[0x3999d] = 0x0f;
+            romData[0x3999e] = 0x18;
+            romData[0x3999f] = 0x1e;
+            romData[0x399a0] = 0x1f;
+            romData[0x399a1] = 0x1c;
+            romData[0x399a2] = 0x0f;
+            romData[0x399a5] = 0x19;
+            romData[0x399a6] = 0x11;
+
+            //Adventure Log 1
+            romData[0x399b6] = 0x0e;
+            romData[0x399b7] = 0x20;
+            romData[0x399b8] = 0x0f;
+            romData[0x399b9] = 0x18;
+            romData[0x399ba] = 0x1e;
+            romData[0x399bb] = 0x1f;
+            romData[0x399bc] = 0x1c;
+            romData[0x399bd] = 0x0f;
+            romData[0x399c0] = 0x19;
+            romData[0x399c1] = 0x11;
+
+            //Adventure Log 3
+            romData[0x399c6] = 0x0e;
+            romData[0x399c7] = 0x20;
+            romData[0x399c8] = 0x0f;
+            romData[0x399c9] = 0x18;
+            romData[0x399ca] = 0x1e;
+            romData[0x399cb] = 0x1f;
+            romData[0x399cc] = 0x1c;
+            romData[0x399cd] = 0x0f;
+            romData[0x399d0] = 0x19;
+            romData[0x399d1] = 0x11;
+
+            //Adventure Log 2
+            romData[0x399e1] = 0x0e;
+            romData[0x399e2] = 0x20;
+            romData[0x399e2] = 0x0f;
+            romData[0x399e4] = 0x18;
+            romData[0x399e5] = 0x1e;
+            romData[0x399e6] = 0x1f;
+            romData[0x399e7] = 0x1c;
+            romData[0x399e8] = 0x0f;
+            romData[0x399eb] = 0x19;
+            romData[0x399ec] = 0x11;
+
+            //Adventure Log 3
+            romData[0x399f1] = 0x0e;
+            romData[0x399f2] = 0x20;
+            romData[0x399f2] = 0x0f;
+            romData[0x399f4] = 0x18;
+            romData[0x399f5] = 0x1e;
+            romData[0x399f6] = 0x1f;
+            romData[0x399f7] = 0x1c;
+            romData[0x399f8] = 0x0f;
+            romData[0x399fb] = 0x19;
+            romData[0x399fc] = 0x11;
+
+            //Adventure Log 1
+            romData[0x39a0c] = 0x0e;
+            romData[0x39a0d] = 0x20;
+            romData[0x39a0e] = 0x0f;
+            romData[0x39a0f] = 0x18;
+            romData[0x39a10] = 0x1e;
+            romData[0x39a11] = 0x1f;
+            romData[0x39a12] = 0x1c;
+            romData[0x39a13] = 0x0f;
+            romData[0x39a16] = 0x19;
+            romData[0x39a17] = 0x11;
+
+            //Adventure Log 2
+            romData[0x39a1c] = 0x0e;
+            romData[0x39a1d] = 0x20;
+            romData[0x39a1e] = 0x0f;
+            romData[0x39a1f] = 0x18;
+            romData[0x39a20] = 0x1e;
+            romData[0x39a21] = 0x1f;
+            romData[0x39a22] = 0x1c;
+            romData[0x39a23] = 0x0f;
+            romData[0x39a26] = 0x19;
+            romData[0x39a27] = 0x11;
+
+            //Adventure Log 3
+            romData[0x39a2c] = 0x0e;
+            romData[0x39a2d] = 0x20;
+            romData[0x39a2e] = 0x0f;
+            romData[0x39a2f] = 0x18;
+            romData[0x39a30] = 0x1e;
+            romData[0x39a31] = 0x1f;
+            romData[0x39a32] = 0x1c;
+            romData[0x39a33] = 0x0f;
+            romData[0x39a36] = 0x19;
+            romData[0x39a37] = 0x11;
+
+            //Input Your Name
+            romData[0x39a9b] = 0x18;
+            romData[0x39a9c] = 0x1a;
+            romData[0x39a9d] = 0x1f;
+            romData[0x39a9e] = 0x1e;
+            romData[0x39aa1] = 0x19;
+            romData[0x39aa2] = 0x1f;
+            romData[0x39aa3] = 0x1c;
+            romData[0x39aa6] = 0x0b;
+            romData[0x39aa7] = 0x17;
+            romData[0x39aa8] = 0x0f;
+
+            //Level
+            romData[0x39abc] = 0x0f;
+            romData[0x39abd] = 0x20;
+            romData[0x39abe] = 0x0f;
+            romData[0x39abf] = 0x16;
+
+            //Adventure Log 1
+            romData[0x39af4] = 0x0e;
+            romData[0x39af5] = 0x20;
+            romData[0x39af6] = 0x0f;
+            romData[0x39af7] = 0x18;
+            romData[0x39af8] = 0x1e;
+            romData[0x39af9] = 0x1f;
+            romData[0x39afa] = 0x1c;
+            romData[0x39afb] = 0x0f;
+            romData[0x39afe] = 0x19;
+            romData[0x39aff] = 0x11;
+
+            //Adventure Log 2
+            romData[0x39b12] = 0x0e;
+            romData[0x39b13] = 0x20;
+            romData[0x39b14] = 0x0f;
+            romData[0x39b15] = 0x18;
+            romData[0x39b16] = 0x1e;
+            romData[0x39b17] = 0x1f;
+            romData[0x39b18] = 0x1c;
+            romData[0x39b19] = 0x0f;
+            romData[0x39b1c] = 0x19;
+            romData[0x39b1d] = 0x11;
+
+            //Adventure Log 1
+            romData[0x39b30] = 0x0e;
+            romData[0x39b31] = 0x20;
+            romData[0x39b32] = 0x0f;
+            romData[0x39b33] = 0x18;
+            romData[0x39b34] = 0x1e;
+            romData[0x39b35] = 0x1f;
+            romData[0x39b36] = 0x1c;
+            romData[0x39b37] = 0x0f;
+            romData[0x39b3a] = 0x19;
+            romData[0x39b3b] = 0x11;
+
+            //Adventure Log 2
+            romData[0x39b43] = 0x0e;
+            romData[0x39b44] = 0x20;
+            romData[0x39b45] = 0x0f;
+            romData[0x39b46] = 0x18;
+            romData[0x39b47] = 0x1e;
+            romData[0x39b48] = 0x1f;
+            romData[0x39b49] = 0x1c;
+            romData[0x39b4a] = 0x0f;
+            romData[0x39b4d] = 0x19;
+            romData[0x39b4e] = 0x11;
+
+            //Adventure Log 3
+            romData[0x39b61] = 0x0e;
+            romData[0x39b62] = 0x20;
+            romData[0x39b63] = 0x0f;
+            romData[0x39b64] = 0x18;
+            romData[0x39b65] = 0x1e;
+            romData[0x39b66] = 0x1f;
+            romData[0x39b67] = 0x1c;
+            romData[0x39b68] = 0x0f;
+            romData[0x39b6b] = 0x19;
+            romData[0x39b6c] = 0x11;
+
+            //Adventure Log 1
+            romData[0x39b7f] = 0x0e;
+            romData[0x39b80] = 0x20;
+            romData[0x39b81] = 0x0f;
+            romData[0x39b82] = 0x18;
+            romData[0x39b83] = 0x1e;
+            romData[0x39b84] = 0x1f;
+            romData[0x39b85] = 0x1c;
+            romData[0x39b86] = 0x0f;
+            romData[0x39b89] = 0x19;
+            romData[0x39b8a] = 0x11;
+
+            //Adventure Log 3
+            romData[0x39b92] = 0x0e;
+            romData[0x39b93] = 0x20;
+            romData[0x39b94] = 0x0f;
+            romData[0x39b95] = 0x18;
+            romData[0x39b96] = 0x1e;
+            romData[0x39b97] = 0x1f;
+            romData[0x39b98] = 0x1c;
+            romData[0x39b99] = 0x0f;
+            romData[0x39b9c] = 0x19;
+            romData[0x39b9d] = 0x11;
+
+            //Adventure Log 2
+            romData[0x39bb0] = 0x0e;
+            romData[0x39bb1] = 0x20;
+            romData[0x39bb2] = 0x0f;
+            romData[0x39bb3] = 0x18;
+            romData[0x39bb4] = 0x1e;
+            romData[0x39bb5] = 0x1f;
+            romData[0x39bb6] = 0x1c;
+            romData[0x39bb7] = 0x0f;
+            romData[0x39bba] = 0x19;
+            romData[0x39bbb] = 0x11;
+
+            //Adventure Log 3
+            romData[0x39bc3] = 0x0e;
+            romData[0x39bc4] = 0x20;
+            romData[0x39bc5] = 0x0f;
+            romData[0x39bc6] = 0x18;
+            romData[0x39bc7] = 0x1e;
+            romData[0x39bc8] = 0x1f;
+            romData[0x39bc9] = 0x1c;
+            romData[0x39bca] = 0x0f;
+            romData[0x39bcd] = 0x19;
+            romData[0x39bce] = 0x11;
+
+            //Adventure Log 1
+            romData[0x39be1] = 0x0e;
+            romData[0x39be2] = 0x20;
+            romData[0x39be3] = 0x0f;
+            romData[0x39be4] = 0x18;
+            romData[0x39be5] = 0x1e;
+            romData[0x39be6] = 0x1f;
+            romData[0x39be7] = 0x1c;
+            romData[0x39be8] = 0x0f;
+            romData[0x39beb] = 0x19;
+            romData[0x39bec] = 0x11;
+
+            //Adventure Log 2
+            romData[0x39bf4] = 0x0e;
+            romData[0x39bf5] = 0x20;
+            romData[0x39bf6] = 0x0f;
+            romData[0x39bf7] = 0x18;
+            romData[0x39bf8] = 0x1e;
+            romData[0x39bf9] = 0x1f;
+            romData[0x39bfa] = 0x1c;
+            romData[0x39bfb] = 0x0f;
+            romData[0x39bfe] = 0x19;
+            romData[0x39bff] = 0x11;
+
+            //Adventure Log 3
+            romData[0x39c07] = 0x0e;
+            romData[0x39c08] = 0x20;
+            romData[0x39c09] = 0x0f;
+            romData[0x39c0a] = 0x18;
+            romData[0x39c0b] = 0x1e;
+            romData[0x39c0c] = 0x1f;
+            romData[0x39c0d] = 0x1c;
+            romData[0x39c0e] = 0x0f;
+            romData[0x39d01] = 0x19;
+            romData[0x39d02] = 0x11;
+
+            //Continue a quest
+            romData[0x39c25] = 0x19;
+            romData[0x39c26] = 0x18;
+            romData[0x39c27] = 0x1e;
+            romData[0x39c28] = 0x13;
+            romData[0x39c29] = 0x18;
+            romData[0x39c2a] = 0x1f;
+            romData[0x39c2b] = 0x0f;
+            romData[0x39c2d] = 0x0b;
+            romData[0x39c30] = 0x1f;
+            romData[0x39c31] = 0x0f;
+            romData[0x39c32] = 0x1d;
+            romData[0x39c33] = 0x1e;
+
+            //Begin a new quest
+            romData[0x39c36] = 0x0f;
+            romData[0x39c37] = 0x11;
+            romData[0x39c38] = 0x13;
+            romData[0x39c39] = 0x18;
+            romData[0x39c3b] = 0x0b;
+            romData[0x39c3e] = 0x0f;
+            romData[0x39c3f] = 0x21;
+            romData[0x39c42] = 0x1f;
+            romData[0x39c43] = 0x0f;
+            romData[0x39c44] = 0x1d;
+            romData[0x39c45] = 0x1e;
+
+            //Copy a quest
+            romData[0x39c48] = 0x19;
+            romData[0x39c49] = 0x1a;
+            romData[0x39c4a] = 0x23;
+            romData[0x39c4c] = 0x0b;
+            romData[0x39c4f] = 0x1f;
+            romData[0x39c50] = 0x0f;
+            romData[0x39c51] = 0x1d;
+            romData[0x39c52] = 0x1e;
+
+            //Erase a quest
+            romData[0x39c55] = 0x1c;
+            romData[0x39c56] = 0x0b;
+            romData[0x39c57] = 0x1d;
+            romData[0x39c58] = 0x0f;
+            romData[0x39c5a] = 0x0b;
+            romData[0x39c5d] = 0x1f;
+            romData[0x39c5e] = 0x0f;
+            romData[0x39c5f] = 0x1d;
+            romData[0x39c60] = 0x1e;
+
+            //Change Message Speed
+            romData[0x39c63] = 0x12;
+            romData[0x39c64] = 0x0b;
+            romData[0x39c65] = 0x18;
+            romData[0x39c66] = 0x11;
+            romData[0x39c67] = 0x0f;
+            romData[0x39c6a] = 0x0f;
+            romData[0x39c6b] = 0x1d;
+            romData[0x39c6c] = 0x1d;
+            romData[0x39c6d] = 0x0b;
+            romData[0x39c6e] = 0x11;
+            romData[0x39c6f] = 0x0f;
+            romData[0x39c72] = 0x1a;
+            romData[0x39c73] = 0x0f;
+            romData[0x39c74] = 0x0f;
+            romData[0x39c75] = 0x0e;
+
+            //Continue a Quest
+            romData[0x39c83] = 0x19;
+            romData[0x39c84] = 0x18;
+            romData[0x39c85] = 0x1e;
+            romData[0x39c86] = 0x13;
+            romData[0x39c87] = 0x18;
+            romData[0x39c88] = 0x1f;
+            romData[0x39c89] = 0x0f;
+            romData[0x39c8b] = 0x0b;
+            romData[0x39c8e] = 0x1f;
+            romData[0x39c8f] = 0x0f;
+            romData[0x39c90] = 0x1d;
+            romData[0x39c91] = 0x1e;
+
+            //Erase a Quest
+            romData[0x39c94] = 0x1c;
+            romData[0x39c95] = 0x0b;
+            romData[0x39c96] = 0x1d;
+            romData[0x39c97] = 0x0f;
+            romData[0x39c99] = 0x0b;
+            romData[0x39c9c] = 0x1f;
+            romData[0x39c9d] = 0x0f;
+            romData[0x39c9e] = 0x1d;
+            romData[0x39c9f] = 0x1e;
+
+            //Change Message Speed
+            romData[0x39ca2] = 0x12;
+            romData[0x39ca3] = 0x0b;
+            romData[0x39ca4] = 0x18;
+            romData[0x39ca5] = 0x11;
+            romData[0x39ca6] = 0x0f;
+            romData[0x39ca9] = 0x0f;
+            romData[0x39caa] = 0x1d;
+            romData[0x39cab] = 0x1d;
+            romData[0x39cac] = 0x0b;
+            romData[0x39cad] = 0x11;
+            romData[0x39cae] = 0x0f;
+            romData[0x39cb1] = 0x1a;
+            romData[0x39cb2] = 0x0f;
+            romData[0x39cb3] = 0x0f;
+            romData[0x39cb4] = 0x0e;
+
+            //Begin a New Quest
+            romData[0x39cc2] = 0x0f;
+            romData[0x39cc3] = 0x11;
+            romData[0x39cc4] = 0x13;
+            romData[0x39cc5] = 0x18;
+            romData[0x39cc7] = 0x0b;
+            romData[0x39cca] = 0x0f;
+            romData[0x39ccb] = 0x21;
+            romData[0x39cce] = 0x1f;
+            romData[0x39ccf] = 0x0f;
+            romData[0x39cd0] = 0x1d;
+            romData[0x39cd1] = 0x1e;
+
+            //Command
+            romData[0x39d3c] = 0x19;
+            romData[0x39d3d] = 0x17;
+            romData[0x39d3e] = 0x17;
+            romData[0x39d3f] = 0x0b;
+            romData[0x39d40] = 0x18;
+            romData[0x39d41] = 0x0e;
+
+            //Status
+            romData[0x39d44] = 0x1e;
+            romData[0x39d45] = 0x0b;
+            romData[0x39d46] = 0x1e;
+            romData[0x39d47] = 0x1f;
+            romData[0x39d48] = 0x1d;
+
+            //Item
+            romData[0x39d4b] = 0x1e;
+            romData[0x39d4c] = 0x0f;
+            romData[0x39d4d] = 0x17;
+
+            //Whom
+            romData[0x39d50] = 0x12;
+            romData[0x39d51] = 0x19;
+            romData[0x39d52] = 0x17;
+
+            //Spell
+            romData[0x39d55] = 0x1a;
+            romData[0x39d56] = 0x0f;
+            romData[0x39d57] = 0x16;
+            romData[0x39d58] = 0x16;
+
+            //Equip
+            romData[0x39d5b] = 0x1b;
+            romData[0x39d5c] = 0x1f;
+            romData[0x39d5d] = 0x13;
+            romData[0x39d5e] = 0x1a;
+
+            //Weapon
+            romData[0x39d61] = 0x0f;
+            romData[0x39d62] = 0x0b;
+            romData[0x39d63] = 0x1a;
+            romData[0x39d64] = 0x19;
+            romData[0x39d65] = 0x18;
+
+            //Armor
+            romData[0x39d68] = 0x1c;
+            romData[0x39d69] = 0x17;
+            romData[0x39d6a] = 0x19;
+            romData[0x39d6b] = 0x1c;
+
+            //Shield
+            romData[0x39d6e] = 0x12;
+            romData[0x39d6f] = 0x13;
+            romData[0x39d70] = 0x0f;
+            romData[0x39d71] = 0x16;
+            romData[0x39d72] = 0x0e;
+
+            //Helmet
+            romData[0x39d75] = 0x0f;
+            romData[0x39d76] = 0x16;
+            romData[0x39d77] = 0x17;
+            romData[0x39d78] = 0x0f;
+            romData[0x39d79] = 0x1e;
+
+            //Class
+            romData[0x39d7c] = 0x16;
+            romData[0x39d7d] = 0x0b;
+            romData[0x39d7e] = 0x1d;
+            romData[0x39d7f] = 0x1d;
+
+            //Sex
+            romData[0x39d82] = 0x0f;
+            romData[0x39d83] = 0x22;
+
+            //Name
+            romData[0x39d86] = 0x0b;
+            romData[0x39d87] = 0x17;
+            romData[0x39d88] = 0x0f;
+
+            //Fight
+            romData[0x39d8e] = 0x13;
+            romData[0x39d8f] = 0x11;
+            romData[0x39d90] = 0x12;
+            romData[0x39d91] = 0x1e;
+
+            //To
+            romData[0x39d94] = 0x19;
+
+
+
+        }
         private void forceItemSell()
         {
             int[] forcedItemSell = { 0x16, 0x1c, 0x28, 0x32, 0x34, 0x36, 0x3b, 0x3f, 0x42, 0x48, 0x4b, 0x4c, 0x50, 0x52, 0x53, 0x55, 0x58, 0x59, 0x69, 0x6f, 0x70, 0x71 };
@@ -3428,7 +4575,11 @@ namespace DW3Randomizer
 
         private void superRandomize()
         {
-            Random r1;
+            Random r1; //Used for Maps
+            Random r2; //Used for Gender
+            Random r3; //Used for Names
+            Random r4; //Used for Class
+            Random r5; //Used for RandEnemyPaterns
 
             try
             {
@@ -3440,6 +4591,10 @@ namespace DW3Randomizer
                 return;
             }
 
+            r2 = new Random(int.Parse(txtSeed.Text));
+            r3 = new Random(int.Parse(txtSeed.Text));
+            r4 = new Random(int.Parse(txtSeed.Text));
+            r5 = new Random(int.Parse(txtSeed.Text));
 
             if (chkRandomizeMap.Checked)
             {
@@ -3448,21 +4603,23 @@ namespace DW3Randomizer
 
             if (chk_RandomGender.Checked)
             {
-                randomizeGender(r1);
+                randomizeGender(r2);
             }
 
             if (chk_RandomName.Checked)
             {
-                randomizeNames(r1);
+                randomizeNames(r3);
             }
 
             if (chk_RandomClass.Checked)
             {
-                randomizeClass(r1);
+                randomizeClass(r4);
             }
 
             if (chkRandEnemyPatterns.Checked)
             {
+                randEnemyPatterns(r5);
+/*
                 byte[] monsterSize = { 8, 4, 4, 4, 4, 4, 7, 4, 4, 8, 4, 4, 4, 2, 4, 4,
                 4, 4, 5, 5, 2, 4, 4, 5, 4, 4, 4, 4, 4, 4, 3, 2,
                 4, 4, 4, 2, 4, 5, 4, 4, 4, 4, 4, 8, 4, 4, 4, 3,
@@ -3714,6 +4871,7 @@ namespace DW3Randomizer
                     for (int lnJ = 0; lnJ < 23; lnJ++)
                         romData[byteValStart + lnJ] = enemyStats[lnJ];
                 }
+*/
             }
 
             if (chkRandMonsterZones.Checked)
@@ -4252,7 +5410,7 @@ namespace DW3Randomizer
                         romData[0xb0e1] = batph; // Hundreds
                         romData[0xb0e2] = batpt; // Tens
                         romData[0xb0e3] = batpo; // Ones
-                        romData[0xb0e4] = 0x00; // Blank
+                        romData[0xb0e4] = 0x61; // Blank
                         romData[0xb0e5] = 0xff; // Break
 
                     }
@@ -4269,7 +5427,7 @@ namespace DW3Randomizer
                         romData[0xb0e7] = batph; // Hundreds
                         romData[0xb0e8] = batpt; // Tens
                         romData[0xb0e9] = batpo; // Ones
-                        romData[0xb0ea] = 0x00; // :
+                        romData[0xb0ea] = 0x61; // :
                         romData[0xb0eb] = 0xff; // Break
 
                     }
@@ -4289,7 +5447,7 @@ namespace DW3Randomizer
                         romData[0xb0ed] = batph; // Hundreds
                         romData[0xb0ee] = batpt; // Tens
                         romData[0xb0ef] = batpo; // Ones
-                        romData[0xb0f0] = 0x00; // Blank
+                        romData[0xb0f0] = 0x61; // Blank
                         romData[0xb0f1] = 0xff; // Break
                     }
                     else if (lnI == 3)
@@ -6026,10 +7184,6 @@ namespace DW3Randomizer
                     {
                         continue; // Does not add Vase of Draught to treasure pool when map is randomized
                     }
-                    if (chk_SwordOfGaia.Checked == false && lnJ == 12)
-                    {
-                        continue; // Does not add Sword of Gaia if not checked
-                    }
                     if (chk_GoldenClaw.Checked == false && lnJ == 22)
                     {
                         continue; // Does not add Golden Claw if not checked
@@ -6869,6 +8023,8 @@ namespace DW3Randomizer
                     writer.WriteLine(cboGender1.SelectedIndex);
                     writer.WriteLine(cboGender2.SelectedIndex);
                     writer.WriteLine(cboGender3.SelectedIndex);
+                    writer.WriteLine(chk_LowerCaseMenus.Checked);
+                    writer.WriteLine(chk_FixSlimeSnail.Checked);
                 }
             }
         }
@@ -6971,6 +8127,7 @@ namespace DW3Randomizer
             number = convertChartoInt(Convert.ToChar(flags.Substring(2, 1)));
             chk_WeapArmPower.Checked = (number % 2 == 1);
             chkNoLamiaOrbs.Checked = (number % 4 >= 2);
+            chk_RmManip.Checked = (number % 8 >= 4);
 
             number = convertChartoInt(Convert.ToChar(flags.Substring(3, 1)));
             optMonsterLight.Checked = (number % 4 == 0);
@@ -6990,15 +8147,14 @@ namespace DW3Randomizer
 
             number = convertChartoInt(Convert.ToChar(flags.Substring(5, 1)));
             chkRandTreasures.Checked = (number % 2 == 1);
-            chk_GoldenClaw.Checked = (number % 4 >= 2);
-            chk_SwordOfGaia.Checked = (number % 8 >= 4);
-            chkRandWhoCanEquip.Checked = (number % 16 >= 8);
-            chkRandEquip.Checked = (number % 32 >= 16);
-            chk_UseVanEquipValues.Checked = (number >= 32);
+            chk_GoldenClaw.Checked = (number % 4 >= 2);;
+            chkRandWhoCanEquip.Checked = (number % 8 >= 4);
+            chkRandEquip.Checked = (number % 16 >= 8);
+            chk_UseVanEquipValues.Checked = (number % 32 >= 16);
+            chk_RemoveStartEqRestrictions.Checked = (number >= 32);
 
             number = convertChartoInt(Convert.ToChar(flags.Substring(6, 1)));
-            chk_RemoveStartEqRestrictions.Checked = (number % 2 == 1);
-            chk_RmFighterPenalty.Checked = (number % 4 >= 2);
+            chk_RmFighterPenalty.Checked = (number % 2 == 1);
 
             number = convertChartoInt(Convert.ToChar(flags.Substring(7, 1)));
             //chkRandItemEffects.Checked = (number % 2 == 1);
@@ -7047,7 +8203,6 @@ namespace DW3Randomizer
 
             number = convertChartoInt(Convert.ToChar(flags.Substring(13, 1)));
             chkRemoveParryFight.Checked = (number % 2 == 1);
-            chk_FixSlimeSnail.Checked = (number % 4 >= 2);
         }
 
         private void determineFlags(object sender, EventArgs e)
@@ -7057,18 +8212,18 @@ namespace DW3Randomizer
             string flags = "";
             flags += convertIntToChar(cboExpGains.SelectedIndex + (8 * cboEncounterRate.SelectedIndex));
             flags += convertIntToChar((cboGoldReq.SelectedIndex) + (chkFasterBattles.Checked ? 4 : 0) + (chkSpeedText.Checked ? 8 : 0) + (chk_SpeedUpMenus.Checked ? 16 : 0) + (chk_Cod.Checked ? 32 : 0));
-            flags += convertIntToChar((chk_WeapArmPower.Checked ? 1 : 0) + (chkNoLamiaOrbs.Checked ? 2 : 0));
+            flags += convertIntToChar((chk_WeapArmPower.Checked ? 1 : 0) + (chkNoLamiaOrbs.Checked ? 2 : 0) + (chk_RmManip.Checked ? 4 : 0));
             flags += convertIntToChar((optMonsterLight.Checked ? 0 : optMonsterSilly.Checked ? 1 : optMonsterMedium.Checked ? 2 : 3) + (chkRandomizeXP.Checked ? 4 : 0) + (chkRandomizeGP.Checked ? 8 : 0) + (chkRandEnemyPatterns.Checked ? 16 : 0) + (chk_RemMetalMonRun.Checked ? 32 : 0));
             flags += convertIntToChar((chkRandomizeMap.Checked ? 1 : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? 2 : 0) : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? (chk_SepBarGaia.Checked ? 4 : 0) : 0) : 0) + (chkRandomizeMap.Checked ? (chkRandMonsterZones.Checked ? 8 : 0) : 0));
-            flags += convertIntToChar((chkRandTreasures.Checked ? 1 : 0) + (chkRandTreasures.Checked ? (chk_GoldenClaw.Checked ? 2 : 0) : 0) + (chkRandTreasures.Checked ? (chk_SwordOfGaia.Checked ? 4 : 0) : 0) + (chkRandWhoCanEquip.Checked ? 8 : 0) + (chkRandEquip.Checked ? 16 : 0) + (chkRandEquip.Checked ? (chk_UseVanEquipValues.Checked ? 32 : 0) : 0));
-            flags += convertIntToChar((chkRandEquip.Checked ? (chk_RemoveStartEqRestrictions.Checked ? 1 : 0) : 0) + (chkRandEquip.Checked ? (chk_RmFighterPenalty.Checked ? 1 : 0) : 0));
+            flags += convertIntToChar((chkRandTreasures.Checked ? 1 : 0) + (chkRandTreasures.Checked ? (chk_GoldenClaw.Checked ? 2 : 0) : 0)  + (chkRandWhoCanEquip.Checked ? 4 : 0) + (chkRandEquip.Checked ? 8 : 0) + (chkRandEquip.Checked ? (chk_UseVanEquipValues.Checked ? 16 : 0) : 0) + (chkRandEquip.Checked ? (chk_RemoveStartEqRestrictions.Checked ?32 : 0) : 0));
+            flags += convertIntToChar((chkRandEquip.Checked ? (chk_RmFighterPenalty.Checked ? 1 : 0) : 0));
             flags += convertIntToChar((chkRandItemEffects.Checked ? 1 : 0) + (chkRandItemStores.Checked ? 2 : 0) + (chk_RandomizeWeaponShops.Checked ? 4 : 0) + (chk_Caturday.Checked ? 8 : 0) + (chk_RandomizeInnPrices.Checked ? 16 : 0));
             flags += convertIntToChar((chkRandItemStores.Checked ? (chk_StoneofLife.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_Seeds.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_BookofSatori.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_RingofLife.Checked ? 8 : 0) : 0) + (chkRandItemStores.Checked ? (chk_EchoingFlute.Checked ? 16 : 0) : 0) + (chkRandItemStores.Checked ? (chk_SilverHarp.Checked ? 32 : 0) : 0));
             flags += convertIntToChar((chkRandItemStores.Checked ? (chk_LeafoftheWorldTree.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_ShoesofHappiness.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_MeteoriteArmband.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_WizardsRing.Checked ? 8 : 0) : 0) + (chkRandItemStores.Checked ? (chk_LampofDarkness.Checked ? 16 : 0) : 0) + (chkRandItemStores.Checked ? (chk_PoisonMothPowder.Checked ? 32 : 0) : 0));
             flags += convertIntToChar((chk_RandomName.Checked ? 1 : 0) + (chk_RandomGender.Checked ? 2 : 0) + (chk_RandomClass.Checked ? 4 : 0) + (chk_RandomClass.Checked ? (chk_RandSoldier.Checked ? 8 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandPilgrim.Checked ? 16 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandWizard.Checked ? 32 : 0) : 0));
             flags += convertIntToChar((chk_RandomClass.Checked ? (chk_RandFighter.Checked ? 1 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandMerchant.Checked ? 2 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandGoofOff.Checked ? 4 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandSage.Checked ? 8 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandHero.Checked ? 16 : 0) : 0) + (chkRandStatGains.Checked ? 32 : 0));
             flags += convertIntToChar((chkRandSpellLearning.Checked ? 1 : 0) + (chkRandSpellStrength.Checked ? 2 : 0) + (chkFourJobFiesta.Checked ? 4 : 0));
-            flags += convertIntToChar((chkRemoveParryFight.Checked ? 1 : 0) + (chk_FixSlimeSnail.Checked ? 2 : 0));
+            flags += convertIntToChar((chkRemoveParryFight.Checked ? 1 : 0));
 
             txtFlags.Text = flags;
             enableDisableFields(null,null);
@@ -7149,7 +8304,6 @@ namespace DW3Randomizer
             this.chk_PoisonMothPowder.Visible = this.chkRandItemStores.Checked;
             this.lbl_TreasurePool.Visible = this.chkRandTreasures.Checked;
             this.chk_GoldenClaw.Visible = this.chkRandTreasures.Checked;
-            this.chk_SwordOfGaia.Visible = this.chkRandTreasures.Checked;
             this.chk_RemoveStartEqRestrictions.Visible = this.chkRandEquip.Checked;
             this.chkSmallMap.Visible = this.chkRandomizeMap.Checked;
             this.chk_SepBarGaia.Visible = this.chkRandomizeMap.Checked;

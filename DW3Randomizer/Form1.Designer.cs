@@ -56,6 +56,7 @@ namespace DW3Randomizer
             this.optMonsterLight = new System.Windows.Forms.RadioButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.chk_RmManip = new System.Windows.Forms.CheckBox();
             this.chk_WeapArmPower = new System.Windows.Forms.CheckBox();
             this.chk_Cod = new System.Windows.Forms.CheckBox();
             this.chk_SpeedUpMenus = new System.Windows.Forms.CheckBox();
@@ -83,7 +84,6 @@ namespace DW3Randomizer
             this.chk_RmFighterPenalty = new System.Windows.Forms.CheckBox();
             this.lbl_TreasurePool = new System.Windows.Forms.Label();
             this.chk_RemoveStartEqRestrictions = new System.Windows.Forms.CheckBox();
-            this.chk_SwordOfGaia = new System.Windows.Forms.CheckBox();
             this.chk_GoldenClaw = new System.Windows.Forms.CheckBox();
             this.chkRandEquip = new System.Windows.Forms.CheckBox();
             this.chkRandWhoCanEquip = new System.Windows.Forms.CheckBox();
@@ -133,8 +133,10 @@ namespace DW3Randomizer
             this.txtCharName3 = new System.Windows.Forms.TextBox();
             this.txtCharName1 = new System.Windows.Forms.TextBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.chk_FixSlimeSnail = new System.Windows.Forms.CheckBox();
             this.chkRemoveParryFight = new System.Windows.Forms.CheckBox();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.chk_LowerCaseMenus = new System.Windows.Forms.CheckBox();
+            this.chk_FixSlimeSnail = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtFlags = new System.Windows.Forms.TextBox();
             this.adjustments = new System.Windows.Forms.ToolTip(this.components);
@@ -149,6 +151,7 @@ namespace DW3Randomizer
             this.tabPage6.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.tabPage7.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtFileName
@@ -370,6 +373,7 @@ namespace DW3Randomizer
             this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage7);
             this.tabControl1.Location = new System.Drawing.Point(12, 190);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
@@ -379,6 +383,7 @@ namespace DW3Randomizer
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.chk_RmManip);
             this.tabPage1.Controls.Add(this.chk_WeapArmPower);
             this.tabPage1.Controls.Add(this.chk_Cod);
             this.tabPage1.Controls.Add(this.chk_SpeedUpMenus);
@@ -399,6 +404,21 @@ namespace DW3Randomizer
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Adjustments";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // chk_RmManip
+            // 
+            this.chk_RmManip.AutoSize = true;
+            this.chk_RmManip.Checked = true;
+            this.chk_RmManip.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_RmManip.Location = new System.Drawing.Point(321, 149);
+            this.chk_RmManip.Name = "chk_RmManip";
+            this.chk_RmManip.Size = new System.Drawing.Size(133, 17);
+            this.chk_RmManip.TabIndex = 29;
+            this.chk_RmManip.Text = "Remove manipulations";
+            this.adjustments.SetToolTip(this.chk_RmManip, "Implement DWIV RNG so any currently known manipulations won\'t work. Default Rando" +
+        "mizer behavior.");
+            this.chk_RmManip.UseVisualStyleBackColor = true;
+            this.chk_RmManip.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // chk_WeapArmPower
             // 
@@ -703,7 +723,6 @@ namespace DW3Randomizer
             this.tabPage4.Controls.Add(this.chk_RmFighterPenalty);
             this.tabPage4.Controls.Add(this.lbl_TreasurePool);
             this.tabPage4.Controls.Add(this.chk_RemoveStartEqRestrictions);
-            this.tabPage4.Controls.Add(this.chk_SwordOfGaia);
             this.tabPage4.Controls.Add(this.chk_GoldenClaw);
             this.tabPage4.Controls.Add(this.chkRandEquip);
             this.tabPage4.Controls.Add(this.chkRandWhoCanEquip);
@@ -763,18 +782,6 @@ namespace DW3Randomizer
             this.chk_RemoveStartEqRestrictions.UseVisualStyleBackColor = true;
             this.chk_RemoveStartEqRestrictions.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
-            // chk_SwordOfGaia
-            // 
-            this.chk_SwordOfGaia.AutoSize = true;
-            this.chk_SwordOfGaia.Location = new System.Drawing.Point(98, 76);
-            this.chk_SwordOfGaia.Name = "chk_SwordOfGaia";
-            this.chk_SwordOfGaia.Size = new System.Drawing.Size(93, 17);
-            this.chk_SwordOfGaia.TabIndex = 63;
-            this.chk_SwordOfGaia.Text = "Sword of Gaia";
-            this.adjustments.SetToolTip(this.chk_SwordOfGaia, "Will add the Sword of Gaia in 1 random treasure chest.");
-            this.chk_SwordOfGaia.UseVisualStyleBackColor = true;
-            this.chk_SwordOfGaia.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
             // chk_GoldenClaw
             // 
             this.chk_GoldenClaw.AutoSize = true;
@@ -803,8 +810,6 @@ namespace DW3Randomizer
             // chkRandWhoCanEquip
             // 
             this.chkRandWhoCanEquip.AutoSize = true;
-            this.chkRandWhoCanEquip.Checked = true;
-            this.chkRandWhoCanEquip.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRandWhoCanEquip.Location = new System.Drawing.Point(245, 7);
             this.chkRandWhoCanEquip.Name = "chkRandWhoCanEquip";
             this.chkRandWhoCanEquip.Size = new System.Drawing.Size(152, 17);
@@ -1418,7 +1423,6 @@ namespace DW3Randomizer
             // 
             // tabPage5
             // 
-            this.tabPage5.Controls.Add(this.chk_FixSlimeSnail);
             this.tabPage5.Controls.Add(this.chkRemoveParryFight);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
@@ -1427,20 +1431,6 @@ namespace DW3Randomizer
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Fixes";
             this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // chk_FixSlimeSnail
-            // 
-            this.chk_FixSlimeSnail.AutoSize = true;
-            this.chk_FixSlimeSnail.Checked = true;
-            this.chk_FixSlimeSnail.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_FixSlimeSnail.Location = new System.Drawing.Point(6, 30);
-            this.chk_FixSlimeSnail.Name = "chk_FixSlimeSnail";
-            this.chk_FixSlimeSnail.Size = new System.Drawing.Size(93, 17);
-            this.chk_FixSlimeSnail.TabIndex = 141;
-            this.chk_FixSlimeSnail.Text = "Fix Slime Snail";
-            this.adjustments.SetToolTip(this.chk_FixSlimeSnail, "Fixes Slime Snaii name to Slime Snail");
-            this.chk_FixSlimeSnail.UseVisualStyleBackColor = true;
-            this.chk_FixSlimeSnail.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // chkRemoveParryFight
             // 
@@ -1455,6 +1445,40 @@ namespace DW3Randomizer
             this.adjustments.SetToolTip(this.chkRemoveParryFight, "Removes Parry/Fight bug found in standard DWIII");
             this.chkRemoveParryFight.UseVisualStyleBackColor = true;
             this.chkRemoveParryFight.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.Controls.Add(this.chk_LowerCaseMenus);
+            this.tabPage7.Controls.Add(this.chk_FixSlimeSnail);
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage7.Size = new System.Drawing.Size(631, 178);
+            this.tabPage7.TabIndex = 6;
+            this.tabPage7.Text = "Cosmetic";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // chk_LowerCaseMenus
+            // 
+            this.chk_LowerCaseMenus.AutoSize = true;
+            this.chk_LowerCaseMenus.Location = new System.Drawing.Point(6, 6);
+            this.chk_LowerCaseMenus.Name = "chk_LowerCaseMenus";
+            this.chk_LowerCaseMenus.Size = new System.Drawing.Size(117, 17);
+            this.chk_LowerCaseMenus.TabIndex = 0;
+            this.chk_LowerCaseMenus.Text = "Lower Case Menus";
+            this.chk_LowerCaseMenus.UseVisualStyleBackColor = true;
+            // 
+            // chk_FixSlimeSnail
+            // 
+            this.chk_FixSlimeSnail.AutoSize = true;
+            this.chk_FixSlimeSnail.Location = new System.Drawing.Point(6, 29);
+            this.chk_FixSlimeSnail.Name = "chk_FixSlimeSnail";
+            this.chk_FixSlimeSnail.Size = new System.Drawing.Size(93, 17);
+            this.chk_FixSlimeSnail.TabIndex = 141;
+            this.chk_FixSlimeSnail.Text = "Fix Slime Snail";
+            this.adjustments.SetToolTip(this.chk_FixSlimeSnail, "Fixes Slime Snaii name to Slime Snail");
+            this.chk_FixSlimeSnail.UseVisualStyleBackColor = true;
+            this.chk_FixSlimeSnail.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // label7
             // 
@@ -1530,7 +1554,7 @@ namespace DW3Randomizer
             this.Controls.Add(this.txtFileName);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Dragon Warrior III Randomizer 2.4.1 ~ 3/8/2023";
+            this.Text = "Dragon Warrior III Randomizer 2.4.2 ~ 3/11/2023";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.grpMonsterStat.ResumeLayout(false);
@@ -1548,6 +1572,8 @@ namespace DW3Randomizer
             this.tabPage3.PerformLayout();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
+            this.tabPage7.ResumeLayout(false);
+            this.tabPage7.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1655,7 +1681,6 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_Cod;
         private System.Windows.Forms.CheckBox chk_SpeedUpMenus;
         private System.Windows.Forms.CheckBox chk_SepBarGaia;
-        private System.Windows.Forms.CheckBox chk_SwordOfGaia;
         private System.Windows.Forms.CheckBox chk_RemoveStartEqRestrictions;
         private System.Windows.Forms.CheckBox chk_RemMetalMonRun;
         private System.Windows.Forms.Label lbl_TreasurePool;
@@ -1664,6 +1689,9 @@ namespace DW3Randomizer
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.CheckBox chk_UseVanEquipValues;
         private System.Windows.Forms.CheckBox chk_WeapArmPower;
+        private System.Windows.Forms.CheckBox chk_RmManip;
+        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.CheckBox chk_LowerCaseMenus;
     }
 }
 
