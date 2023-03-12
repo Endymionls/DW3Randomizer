@@ -3769,8 +3769,8 @@ namespace DW3Randomizer
             romData[0x3944e] = 0x0e;
 
             //Buy
-            romData[0x3945b] = 0x1f;
-            romData[0x3945c] = 0x23;
+            romData[0x3945c] = 0x1f;
+            romData[0x3945d] = 0x23;
 
             //Sell
             romData[0x39460] = 0x0f;
@@ -3778,7 +3778,7 @@ namespace DW3Randomizer
             romData[0x39462] = 0x16;
 
             //Detoxicate
-            romData[0x39470] = 0x0e;
+            romData[0x39470] = 0x0f;
             romData[0x39471] = 0x1e;
             romData[0x39472] = 0x19;
             romData[0x39473] = 0x22;
@@ -4529,6 +4529,47 @@ namespace DW3Randomizer
 
             //To
             romData[0x39d94] = 0x19;
+
+            //and
+            romData[0x3a541] = 0x0b;
+            romData[0x3a542] = 0x18;
+            romData[0x3a543] = 0x0e;
+
+            //Spell
+            romData[0x3a553] = 0x1a;
+            romData[0x3a554] = 0x0f;
+            romData[0x3a555] = 0x16;
+            romData[0x3a556] = 0x16;
+
+            //Item
+            romData[0x3a562] = 0x1e;
+            romData[0x3a563] = 0x0f;
+            romData[0x3a564] = 0x17;
+
+            //Equip
+            romData[0x3a572] = 0x1b;
+            romData[0x3a573] = 0x1f;
+            romData[0x3a574] = 0x13;
+            romData[0x3a575] = 0x1a;
+
+            //NDITION > -MP
+            romData[0x3a5d2] = 0x18;
+            romData[0x3a5d3] = 0x0e;
+            romData[0x3a5d4] = 0x13;
+            romData[0x3a5d5] = 0x1e;
+            romData[0x3a5d6] = 0x13;
+            romData[0x3a5d7] = 0x19;
+            romData[0x3a5d8] = 0x18;
+
+            //rmation
+            romData[0x3a5dd] = 0x1c;
+            romData[0x3a5de] = 0x17;
+            romData[0x3a5df] = 0x0b;
+            romData[0x3a5e0] = 0x1e;
+            romData[0x3a5e1] = 0x13;
+            romData[0x3a5e2] = 0x19;
+            romData[0x3a5e3] = 0x18;
+
 
 
 
@@ -5659,7 +5700,7 @@ namespace DW3Randomizer
                         romData[0xad6b] = 0x18; // n
                         romData[0xad6c] = 0x21; // w
                         romData[0xad6d] = 0x37; // S
-                        romData[0xad6e] = 0x18; // w
+                        romData[0xad6e] = 0x21; // w
                         romData[0xad6f] = 0x0e; // d
                         romData[0xad70] = 0xff; // Break
 
