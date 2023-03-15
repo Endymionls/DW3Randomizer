@@ -29,8 +29,8 @@ namespace DW3Randomizer
         int[,] map = new int[256, 256];
         int[,] map2 = new int[139, 158];
         int[,] island = new int[256, 256];
-		int[,] island2 = new int[139, 158];
-		int[,] zone = new int[16, 16];
+        int[,] island2 = new int[139, 158];
+        int[,] zone = new int[16, 16];
         int[] maxIsland = new int[4];
         List<int> islands = new List<int>();
         int[] heroComSpell, pilgrimComSpell, wizardComSpell, heroComLvl, pilgrimComLvl, wizardComLvl, heroBatSpell, pilgrimBatSpell, wizardBatSpell, heroBatLvl, pilgrimBatLvl, wizardBatLvl;
@@ -45,7 +45,7 @@ namespace DW3Randomizer
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
             openFileDialog1.InitialDirectory = Path.Combine(Application.StartupPath);
-//            openFileDialog1.InitialDirectory = "c:\\";
+            //            openFileDialog1.InitialDirectory = "c:\\";
             openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
             openFileDialog1.FilterIndex = 2;
             openFileDialog1.RestoreDirectory = true;
@@ -65,7 +65,7 @@ namespace DW3Randomizer
                 {
                     using (var stream = File.OpenRead(txtFileName.Text))
                     {
-                        lblSHAChecksum.Text = BitConverter.ToString(md5.ComputeHash(stream)).ToLower().Replace("-", "");}
+                        lblSHAChecksum.Text = BitConverter.ToString(md5.ComputeHash(stream)).ToLower().Replace("-", ""); }
                 }
             } catch
             {
@@ -84,15 +84,31 @@ namespace DW3Randomizer
                     txtFileName.Text = reader.ReadLine();
                     txtFlags.Text = reader.ReadLine();
                     determineChecks(null, null);
+                    if (reader.ReadLine() == "True")
+                    {
+                        chk_ChangeDefaultParty.Checked = true;
+                    }
+                    else
+                    {
+                        chk_ChangeDefaultParty.Checked = false;
+                    }
+                    if (reader.ReadLine() == "True")
+                    {
+                        chk_RandomName.Checked = true;
+                    }
+                    else
+                    {
+                        chk_RandomName.Checked = false;
+                    }
                     txtCharName1.Text = reader.ReadLine();
                     txtCharName2.Text = reader.ReadLine();
                     txtCharName3.Text = reader.ReadLine();
-					cboClass1.SelectedIndex = Convert.ToInt32(reader.ReadLine());
-					cboClass2.SelectedIndex = Convert.ToInt32(reader.ReadLine());
-					cboClass3.SelectedIndex = Convert.ToInt32(reader.ReadLine());
-					cboGender1.SelectedIndex = Convert.ToInt32(reader.ReadLine());
-					cboGender2.SelectedIndex = Convert.ToInt32(reader.ReadLine());
-					cboGender3.SelectedIndex = Convert.ToInt32(reader.ReadLine());
+                    cboClass1.SelectedIndex = Convert.ToInt32(reader.ReadLine());
+                    cboClass2.SelectedIndex = Convert.ToInt32(reader.ReadLine());
+                    cboClass3.SelectedIndex = Convert.ToInt32(reader.ReadLine());
+                    cboGender1.SelectedIndex = Convert.ToInt32(reader.ReadLine());
+                    cboGender2.SelectedIndex = Convert.ToInt32(reader.ReadLine());
+                    cboGender3.SelectedIndex = Convert.ToInt32(reader.ReadLine());
                     if (reader.ReadLine() == "True") // Sets Lower Case Menus
                         chk_LowerCaseMenus.Checked = true;
                     else
@@ -101,7 +117,7 @@ namespace DW3Randomizer
                         chk_FixSlimeSnail.Checked = true;
                     else
                         chk_FixSlimeSnail.Checked = false;
-					runChecksum();
+                    runChecksum();
                 }
             }
             catch
@@ -110,13 +126,13 @@ namespace DW3Randomizer
                 txtCharName1.Text = "Ragnar";
                 txtCharName2.Text = "Cristo";
                 txtCharName3.Text = "Mara";
-				cboClass1.SelectedIndex = 0;
-				cboClass2.SelectedIndex = 1;
-				cboClass3.SelectedIndex = 2;
-				cboGender1.SelectedIndex = 0;
-				cboGender2.SelectedIndex = 0;
-				cboGender3.SelectedIndex = 1;
-				cboEncounterRate.SelectedIndex = 4;
+                cboClass1.SelectedIndex = 0;
+                cboClass2.SelectedIndex = 1;
+                cboClass3.SelectedIndex = 2;
+                cboGender1.SelectedIndex = 0;
+                cboGender2.SelectedIndex = 0;
+                cboGender3.SelectedIndex = 1;
+                cboEncounterRate.SelectedIndex = 4;
                 cboExpGains.SelectedIndex = 5;
                 cboGoldReq.SelectedIndex = 0;
                 chk_LowerCaseMenus.Checked = false;
@@ -134,6 +150,9 @@ namespace DW3Randomizer
 
         private void btnRandomize_Click(object sender, EventArgs e)
         {
+            int rni = 0; //Random Number Increment
+            if (chk_GenCompareFile.Checked) rni++;
+
             if (lblSHAChecksum.Text != lblReqChecksum.Text)
             {
                 if (MessageBox.Show("The checksum of the ROM does not match the required checksum.  Patch anyway?", "Checksum mismatch", MessageBoxButtons.YesNo) == DialogResult.No)
@@ -154,169 +173,96 @@ namespace DW3Randomizer
             }
             else
             {
-                if (chkRandItemStores.Checked) forceItemSell();
-                if (chk_LowerCaseMenus.Checked) lowerCaseMenus();
-                boostGP();
-                superRandomize();
+                try
+                {
+                    Random testSeed = new Random(int.Parse(txtSeed.Text));
+                }
+                catch
+                {
+                    MessageBox.Show("Invalid seed.  It must be a number from 0 to 2147483648.");
+                    return;
+                }
 
+                if (chkRandItemStores.Checked) forceItemSell();
+                if (chk_RmManip.Checked) dw4RNG();
+                //superRandomize();
+                boostGP();
                 boostXP();
                 adjustEncounters();
-
+                if (chk_Cod.Checked) cod();
                 if (chkSpeedText.Checked) speedText();
                 if (chkFasterBattles.Checked) battleSpeed();
                 if (chkFourJobFiesta.Checked) fourJobFiesta();
-
+                if (chkNoLamiaOrbs.Checked) noOrbs();
+                if (chk_SpeedUpMenus.Checked) speedUpMenus();
+                if (chkRemoveParryFight.Checked) removeParryFight();
+                if (chk_LowerCaseMenus.Checked) lowerCaseMenus();
+                if (chk_FixSlimeSnail.Checked) slimeSnail();
+                if (chk_ChangeDefaultParty.Checked)
+                {
+                    if (chk_RandomGender.Checked) randomizeGender();
+                    if (chk_RandomName.Checked) randomizeNames();
+                    if (chk_RandomClass.Checked) randomizeClass();
+                    chngDftParty();
+                }
+                if (chkRandomizeMap.Checked) randomizeMapv5(rni);
+                if (chkRandEnemyPatterns.Checked) randEnemyPatterns(rni);
+                if (chkRandMonsterZones.Checked) randMonsterZones(rni);
+                if (chkRandItemEffects.Checked) randItemEffects(rni);
+                if (chkRandEquip.Checked) randEquip(rni);
+                if (chk_RmFighterPenalty.Checked) removeFightPenalty();
+                if (chk_WeapArmPower.Checked) weapArmPower();
+                if (chkRandSpellLearning.Checked) randSpellLearning(rni);
+                if (chkRandSpellStrength.Checked) randSpellStrength(rni);
+                if (chkRandTreasures.Checked) randTreasures(rni);
+                if (chkRandItemStores.Checked) randStores(rni);
+                if (chk_RandomizeInnPrices.Checked) randomizeInnPrices(rni);
+                if (chkRandStatGains.Checked) randStatGains(rni);
+                saveRom(true);
+                saveRom(false);
+                createGuides();
 
             }
+        }
 
-			if (chkNoLamiaOrbs.Checked)
-			{
-				romData[0x3794b] = 0xea;
-				romData[0x3794c] = 0xea;
-			}
-
+        private void dw4RNG()
+        {
             // Implement DW4 RNG so any currently known manipulations won't work.
-            if (chk_RmManip.Checked == true)
-            {
-                romData[0x3c351] = romData[0x7c351] = 0xAD;
-                romData[0x3c352] = romData[0x7c352] = 0xd2;
-                romData[0x3c353] = romData[0x7c353] = 0x06;
-                romData[0x3c354] = romData[0x7c354] = 0x4c;
-                romData[0x3c355] = romData[0x7c355] = 0x53;
-                romData[0x3c356] = romData[0x7c356] = 0xc3;
-                romData[0x3c357] = romData[0x7c357] = 0xf0;
-                romData[0x3c358] = romData[0x7c358] = 0xfb;
-                romData[0x3c359] = romData[0x7c359] = 0x4c;
-                romData[0x3c35a] = romData[0x7c35a] = 0x0a;
-                romData[0x3c35b] = romData[0x7c35b] = 0xc9;
-                romData[0x3c35c] = romData[0x7c35c] = 0x20;
-                romData[0x3c35d] = romData[0x7c35d] = 0x41;
-                romData[0x3c35e] = romData[0x7c35e] = 0xc3;
-                romData[0x3c35f] = romData[0x7c35f] = 0xca;
-                romData[0x3c360] = romData[0x7c360] = 0xd0;
-                romData[0x3c361] = romData[0x7c361] = 0xfa;
-                romData[0x3c362] = romData[0x7c362] = 0x60;
-                romData[0x3c363] = romData[0x7c363] = 0xe6;
-                romData[0x3c364] = romData[0x7c364] = 0x1c;
-                romData[0x3c365] = romData[0x7c365] = 0xcd;
-                romData[0x3c366] = romData[0x7c366] = 0xd2;
-                romData[0x3c367] = romData[0x7c367] = 0x06;
-                romData[0x3c368] = romData[0x7c368] = 0x4c;
-                romData[0x3c369] = romData[0x7c369] = 0x47;
-                romData[0x3c36a] = romData[0x7c36a] = 0xc3;
-            }
-            // Speed up item menu loading
-            if (chk_SpeedUpMenus.Checked == true)
-            {
-                romData[0x2b0d] = 0x00;
-                romData[0x2b0e] = 0xf0;
-                romData[0x2b0f] = 0x01;
-                romData[0x2b10] = 0x00;
 
-            }
+            romData[0x3c351] = romData[0x7c351] = 0xAD;
+            romData[0x3c352] = romData[0x7c352] = 0xd2;
+            romData[0x3c353] = romData[0x7c353] = 0x06;
+            romData[0x3c354] = romData[0x7c354] = 0x4c;
+            romData[0x3c355] = romData[0x7c355] = 0x53;
+            romData[0x3c356] = romData[0x7c356] = 0xc3;
+            romData[0x3c357] = romData[0x7c357] = 0xf0;
+            romData[0x3c358] = romData[0x7c358] = 0xfb;
+            romData[0x3c359] = romData[0x7c359] = 0x4c;
+            romData[0x3c35a] = romData[0x7c35a] = 0x0a;
+            romData[0x3c35b] = romData[0x7c35b] = 0xc9;
+            romData[0x3c35c] = romData[0x7c35c] = 0x20;
+            romData[0x3c35d] = romData[0x7c35d] = 0x41;
+            romData[0x3c35e] = romData[0x7c35e] = 0xc3;
+            romData[0x3c35f] = romData[0x7c35f] = 0xca;
+            romData[0x3c360] = romData[0x7c360] = 0xd0;
+            romData[0x3c361] = romData[0x7c361] = 0xfa;
+            romData[0x3c362] = romData[0x7c362] = 0x60;
+            romData[0x3c363] = romData[0x7c363] = 0xe6;
+            romData[0x3c364] = romData[0x7c364] = 0x1c;
+            romData[0x3c365] = romData[0x7c365] = 0xcd;
+            romData[0x3c366] = romData[0x7c366] = 0xd2;
+            romData[0x3c367] = romData[0x7c367] = 0x06;
+            romData[0x3c368] = romData[0x7c368] = 0x4c;
+            romData[0x3c369] = romData[0x7c369] = 0x47;
+            romData[0x3c36a] = romData[0x7c36a] = 0xc3;
+        }
 
-            if (chk_FixSlimeSnail.Checked == true)
-            {
-                romData[0xb5f7] = 0x16; // Slime Snaii > Slime Snail
-            }
+        private void noOrbs()
+        {
+            // Allows getting Lamia without orbs
 
-            if (chk_Cod.Checked == true)
-            {
-                // All ROM hacks will revive ALL characters on a ColdAsACod.
-                // There will be a temporary graphical error if you use less than four characters, but I'm going to leave it be.
-                byte[] codData1 = { 0xa0, 0x00, // Make sure Y is 0 first.
-                0xb9, 0x3c, 0x07,
-                0xc9, 0x80,
-                0x90, 0x03, // If less than 0x80, skip.
-                0x20, 0xb2, 0xbf, // JSR to a bunch of unused code, which will have the "revive one character code" that I'm replacing.
-                0xc8, 0xc8, // Increment Y twice (Y is used to revive the characters)
-                0xc0, 0x08, // Compare Y with 08
-                0xd0, 0xf0, // If not equal, go back to the JSR mentioned above
-                0xa0, 0x00, // Set Y back to 0 to make sure the game doesn't think something is up
-                0xea, 0xea, 0xea, 0xea, 0xea,
-                0xea, 0xea, 0xea, 0xea, 0xea,
-                0xea, 0xea }; // 12 NOPs, since I have nothing else to do.
-                byte[] codData2 = { 0xa9, 0x80, // Load 80, the status for alive
-                0x99, 0x3c, 0x07, // store to two status bytes
-                0x99, 0x3d, 0x07,
-                0xb9, 0x24, 0x07, // Load max HP
-                0x99, 0x1c, 0x07, // save max HP
-                0xb9, 0x25, 0x07, // second byte
-                0x99, 0x1d, 0x07,
-                0xb9, 0x34, 0x07, // Load max MP
-                0x99, 0x2c, 0x07, // save max MP
-                0xb9, 0x35, 0x07, // second byte
-                0x99, 0x2d, 0x07,
-                0x60 }; // end JSR
-
-                for (int lnI = 0; lnI < codData1.Length; lnI++)
-                    romData[0x22b3 + lnI] = codData1[lnI];
-                for (int lnI = 0; lnI < codData2.Length; lnI++)
-                    romData[0x3fc2 + lnI] = codData2[lnI];
-
-                romData[0x3cc6a] = 0x4c; // Forces a jump out of the king scolding routine, saving at least 13 seconds / party wipe.  There are graphical errors, but I'll take it!
-            }
-
-            // Fix the "parry/fight" bug(as determined via gamefaqs board), via Zombero's DW3 Hardtype IPS patch.
-            if (chkRemoveParryFight.Checked)
-            {
-                byte[] parryFightFix1 = { 0xbd, 0x9b, 0x6a, 0x29, 0xdf, 0x9d, 0x9b, 0x6a, 0x60 };
-                byte[] parryFightFix2 = { 0x20, 0x70, 0xbb };
-                for (int lnI = 0; lnI < parryFightFix1.Length; lnI++)
-                    romData[0xbb80 + lnI] = parryFightFix1[lnI];
-                for (int lnI = 0; lnI < parryFightFix2.Length; lnI++)
-                    romData[0xa402 + lnI] = parryFightFix2[lnI];
-            }
-
-
-			// Force the same three names to be selected in the opening Lucia's Eatery
-			romData[0x1e9f8] = 0x29;
-			romData[0x1e9f9] = 0x00;
-
-			saveRom(true);
-
-			// Rename the starting characters.
-			for (int lnI = 0; lnI < 3; lnI ++)
-            {
-                byte value;
-                byte gender;
-
-                value = (byte)(lnI == 0 ? cboClass1.SelectedIndex : lnI == 1 ? cboClass2.SelectedIndex : cboClass3.SelectedIndex);
-
-                byte intValue = (byte)(value == 0 ? 4 : value == 1 ? 2 : value == 2 ? 1 : value == 3 ? 6 : value == 4 ? 5 : value == 5 ? 7 : value == 6 ? 3 : 0);
-
-                gender = (byte)(lnI == 0 ? cboGender1.SelectedIndex : lnI == 1 ? cboGender2.SelectedIndex : cboGender3.SelectedIndex);
-
-				romData[0x1ed4f + lnI] = (byte)(intValue + (gender == 0 ? 0 : 8));
-            }
-
-			for (int lnI = 0; lnI < 3; lnI++) {
-                string name = (lnI == 0 ? txtCharName1.Text : lnI == 1 ? txtCharName2.Text : txtCharName3.Text);
-				for (int lnJ = 0; lnJ < 8; lnJ++)
-				{
-					romData[0x1ed52 + (8 * lnI * 4) + lnJ] = romData[0x1ed52 + (8 * lnI * 4) + 8 + lnJ] = romData[0x1ed52 + (8 * lnI * 4) + 16 + lnJ] = romData[0x1ed52 + (8 * lnI * 4) + 24 + lnJ] = 0;
-					try
-					{
-						char character = Convert.ToChar(name.Substring(lnJ, 1));
-						if (character >= 0x30 && character <= 0x39)
-							romData[0x1ed52 + (8 * lnI * 4) + lnJ] = (byte)(character - 47);
-						if (character >= 0x41 && character <= 0x5a)
-							romData[0x1ed52 + (8 * lnI * 4) + lnJ] = (byte)(character - 28);
-						if (character >= 0x61 && character <= 0x7a)
-							romData[0x1ed52 + (8 * lnI * 4) + lnJ] = (byte)(character - 86);
-					}
-					catch
-					{
-						romData[0x1ed52 + (8 * lnI * 4) + lnJ] = 0; // no more characters to process - make the rest of the characters blank
-					}
-				}
-
-            // Remove the golden claw 100/256 encounter rate - Can't because the king won't check if you have the black pepper.
-            //romData[0x185c] = 0x4c;
-            //romData[0x185d] = 0x5b;
-            //romData[0x185e] = 0x98;
-            saveRom(false);
-            }
+            romData[0x3794b] = 0xea;
+            romData[0x3794c] = 0xea;
         }
 
         private void fourJobFiesta()
@@ -336,6 +282,67 @@ namespace DW3Randomizer
             romData[0x36cce] = 0xd8;
             romData[0x36ccf] = 0xac;
 
+        }
+
+        private void speedUpMenus()
+        {
+            // Speed up item menu loading
+            romData[0x2b0d] = 0x00;
+            romData[0x2b0e] = 0xf0;
+            romData[0x2b0f] = 0x01;
+            romData[0x2b10] = 0x00;
+        }
+
+        private void removeParryFight()
+        {
+            byte[] parryFightFix1 = { 0xbd, 0x9b, 0x6a, 0x29, 0xdf, 0x9d, 0x9b, 0x6a, 0x60 };
+            byte[] parryFightFix2 = { 0x20, 0x70, 0xbb };
+            for (int lnI = 0; lnI < parryFightFix1.Length; lnI++)
+                romData[0xbb80 + lnI] = parryFightFix1[lnI];
+            for (int lnI = 0; lnI < parryFightFix2.Length; lnI++)
+                romData[0xa402 + lnI] = parryFightFix2[lnI];
+        }
+
+        private void slimeSnail()
+        {
+            romData[0xb5f7] = 0x16; // Slime Snaii > Slime Snail
+        }
+
+        private void cod()
+        {
+            // All ROM hacks will revive ALL characters on a ColdAsACod.
+            // There will be a temporary graphical error if you use less than four characters, but I'm going to leave it be.
+            byte[] codData1 = { 0xa0, 0x00, // Make sure Y is 0 first.
+                0xb9, 0x3c, 0x07,
+                0xc9, 0x80,
+                0x90, 0x03, // If less than 0x80, skip.
+                0x20, 0xb2, 0xbf, // JSR to a bunch of unused code, which will have the "revive one character code" that I'm replacing.
+                0xc8, 0xc8, // Increment Y twice (Y is used to revive the characters)
+                0xc0, 0x08, // Compare Y with 08
+                0xd0, 0xf0, // If not equal, go back to the JSR mentioned above
+                0xa0, 0x00, // Set Y back to 0 to make sure the game doesn't think something is up
+                0xea, 0xea, 0xea, 0xea, 0xea,
+                0xea, 0xea, 0xea, 0xea, 0xea,
+                0xea, 0xea }; // 12 NOPs, since I have nothing else to do.
+            byte[] codData2 = { 0xa9, 0x80, // Load 80, the status for alive
+                0x99, 0x3c, 0x07, // store to two status bytes
+                0x99, 0x3d, 0x07,
+                0xb9, 0x24, 0x07, // Load max HP
+                0x99, 0x1c, 0x07, // save max HP
+                0xb9, 0x25, 0x07, // second byte
+                0x99, 0x1d, 0x07,
+                0xb9, 0x34, 0x07, // Load max MP
+                0x99, 0x2c, 0x07, // save max MP
+                0xb9, 0x35, 0x07, // second byte
+                0x99, 0x2d, 0x07,
+                0x60 }; // end JSR
+
+            for (int lnI = 0; lnI < codData1.Length; lnI++)
+                romData[0x22b3 + lnI] = codData1[lnI];
+            for (int lnI = 0; lnI < codData2.Length; lnI++)
+                romData[0x3fc2 + lnI] = codData2[lnI];
+
+            romData[0x3cc6a] = 0x4c; // Forces a jump out of the king scolding routine, saving at least 13 seconds / party wipe.  There are graphical errors, but I'll take it!
         }
 
         private void battleSpeed()
@@ -373,6 +380,59 @@ namespace DW3Randomizer
             byte[] speedText = { 0xad, 0xd0, 0x6a, 0xf0, 0x03, 0x00, 0x96, 0x2f, 0x20, 0xba, 0xc2, 0xa9, 0x02, 0x8d, 0xd6, 0x06, 0x20, 0x41, 0xc3, 0xa9, 0x00, 0x8d, 0xd6, 0x06, 0x4c, 0x5f, 0xaa };
             for (int i = 0; i < speedText.Length; i++)
                 romData[0x3bfcd + i] = speedText[i];
+        }
+
+        private void chngDftParty()
+        {
+            // Force the same three names to be selected in the opening Lucia's Eatery
+            romData[0x1e9f8] = 0x29;
+            romData[0x1e9f9] = 0x00;
+
+
+            // Rename the starting characters.
+            for (int lnI = 0; lnI < 3; lnI++)
+            {
+                byte value;
+                byte gender;
+
+                value = (byte)(lnI == 0 ? cboClass1.SelectedIndex : lnI == 1 ? cboClass2.SelectedIndex : cboClass3.SelectedIndex);
+
+                byte intValue = (byte)(value == 0 ? 4 : value == 1 ? 2 : value == 2 ? 1 : value == 3 ? 6 : value == 4 ? 5 : value == 5 ? 7 : value == 6 ? 3 : 0);
+
+                gender = (byte)(lnI == 0 ? cboGender1.SelectedIndex : lnI == 1 ? cboGender2.SelectedIndex : cboGender3.SelectedIndex);
+
+                romData[0x1ed4f + lnI] = (byte)(intValue + (gender == 0 ? 0 : 8));
+            }
+
+            for (int lnI = 0; lnI < 3; lnI++)
+            {
+                string name = (lnI == 0 ? txtCharName1.Text : lnI == 1 ? txtCharName2.Text : txtCharName3.Text);
+                for (int lnJ = 0; lnJ < 8; lnJ++)
+                {
+                    romData[0x1ed52 + (8 * lnI * 4) + lnJ] = romData[0x1ed52 + (8 * lnI * 4) + 8 + lnJ] = romData[0x1ed52 + (8 * lnI * 4) + 16 + lnJ] = romData[0x1ed52 + (8 * lnI * 4) + 24 + lnJ] = 0;
+                    try
+                    {
+                        char character = Convert.ToChar(name.Substring(lnJ, 1));
+                        if (character >= 0x30 && character <= 0x39)
+                            romData[0x1ed52 + (8 * lnI * 4) + lnJ] = (byte)(character - 47);
+                        if (character >= 0x41 && character <= 0x5a)
+                            romData[0x1ed52 + (8 * lnI * 4) + lnJ] = (byte)(character - 28);
+                        if (character >= 0x61 && character <= 0x7a)
+                            romData[0x1ed52 + (8 * lnI * 4) + lnJ] = (byte)(character - 86);
+                    }
+                    catch
+                    {
+                        romData[0x1ed52 + (8 * lnI * 4) + lnJ] = 0; // no more characters to process - make the rest of the characters blank
+                    }
+                }
+
+                // Remove the golden claw 100/256 encounter rate - Can't because the king won't check if you have the black pepper.
+                //romData[0x185c] = 0x4c;
+                //romData[0x185d] = 0x5b;
+                //romData[0x185e] = 0x98;
+                saveRom(false);
+            }
+
         }
 
         private void textGet()
@@ -434,28 +494,35 @@ namespace DW3Randomizer
             lblIntensityDesc.Text = "ROM hacking complete!  (" + finalFile + ")";
             txtCompare.Text = finalFile;
 
-			if (calcChecksum)
-			{
-				try
-				{
-					using (var md5 = SHA1.Create())
-					{
-						using (var stream = File.OpenRead(finalFile))
-						{
-							lblNewChecksum.Text = BitConverter.ToString(md5.ComputeHash(stream)).ToLower().Replace("-", "");
-						}
-					}
-				}
-				catch
-				{
-					lblNewChecksum.Text = "????????????????????????????????????????";
-				}
-			}
+            if (calcChecksum)
+            {
+                try
+                {
+                    using (var md5 = SHA1.Create())
+                    {
+                        using (var stream = File.OpenRead(finalFile))
+                        {
+                            lblNewChecksum.Text = BitConverter.ToString(md5.ComputeHash(stream)).ToLower().Replace("-", "");
+                        }
+                    }
+                }
+                catch
+                {
+                    lblNewChecksum.Text = "????????????????????????????????????????";
+                }
+            }
 
         }
 
-        private bool randomizeMapv5(Random r1)
+        private bool randomizeMapv5(int rni)
         {
+            Random r1 = new Random(int.Parse(txtSeed.Text));
+
+            for (int lnI = 0; lnI < rni; lnI++)
+            {
+                r1.Next();
+            }
+
             for (int lnI = 0; lnI < 256; lnI++)
                 for (int lnJ = 0; lnJ < 256; lnJ++)
                 {
@@ -471,14 +538,14 @@ namespace DW3Randomizer
                     }
                 }
 
-			for (int lnI = 0; lnI < 139; lnI++)
-				for (int lnJ = 0; lnJ < 158; lnJ++)
-				{
-					map2[lnI, lnJ] = 0x00;
-					island2[lnI, lnJ] = -1;
-				}
+            for (int lnI = 0; lnI < 139; lnI++)
+                for (int lnJ = 0; lnJ < 158; lnJ++)
+                {
+                    map2[lnI, lnJ] = 0x00;
+                    island2[lnI, lnJ] = -1;
+                }
 
-			for (int lnI = 0; lnI < 132; lnI++)
+            for (int lnI = 0; lnI < 132; lnI++)
                 for (int lnJ = 0; lnJ < 156; lnJ++)
                     map2[lnI, lnJ] = 0x00;
 
@@ -501,20 +568,20 @@ namespace DW3Randomizer
                 zone = new int[16, 16];
                 if (createZone(1000, 25, false, r1) && createZone(2000, 50, false, r1))
                     zonesCreated = true;
-			}
+            }
 
             markZoneSides();
             generateZoneMap(1000, bigIslandSize * 25 / 256, r1); // Aliahan Castle is here.
             generateZoneMap(2000, bigIslandSize * 50 / 256, r1); // Romaly Castle is here.
-			generateZoneMap(0, smallIslandSize * 180 / 256, r1); // Norud Cave East is here.
+            generateZoneMap(0, smallIslandSize * 180 / 256, r1); // Norud Cave East is here.
             generateZoneMap(-1000, islandSize2, r1); // About 31% of the regular map
 
-			smoothMap();
-			smoothMap2();
+            smoothMap();
+            smoothMap2();
 
-			createBridges(r1);
+            createBridges(r1);
             resetIslands();
-            
+
             // We should mark islands and inaccessible land...
             int lakeNumber = 256;
 
@@ -540,43 +607,43 @@ namespace DW3Randomizer
                     }
                 }
 
-			lakeNumber = 4256;
-			maxPlots = 0;
-			int maxLake2 = 0;
-			lastValidIsland = -1;
+            lakeNumber = 4256;
+            maxPlots = 0;
+            int maxLake2 = 0;
+            lastValidIsland = -1;
 
-			for (int lnI = 0; lnI < 139; lnI++)
-				for (int lnJ = 0; lnJ < 158; lnJ++)
-				{
-					if (island2[lnI, lnJ] == -1)
-					{
-						int plots = lakePlot2(lakeNumber, lnI, lnJ);
-						if (plots > maxPlots)
-						{
-							maxPlots = plots;
-							maxLake2 = lakeNumber;
-						}
-						lakeNumber++;
-					}
-					else
-					{
-						lastValidIsland = island[lnI, lnJ];
-					}
-				}
+            for (int lnI = 0; lnI < 139; lnI++)
+                for (int lnJ = 0; lnJ < 158; lnJ++)
+                {
+                    if (island2[lnI, lnJ] == -1)
+                    {
+                        int plots = lakePlot2(lakeNumber, lnI, lnJ);
+                        if (plots > maxPlots)
+                        {
+                            maxPlots = plots;
+                            maxLake2 = lakeNumber;
+                        }
+                        lakeNumber++;
+                    }
+                    else
+                    {
+                        lastValidIsland = island[lnI, lnJ];
+                    }
+                }
 
-			using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "island.txt")))
-			{
-				for (int lnY = 0; lnY < 139; lnY++)
-				{
-					string output = "";
-					for (int lnX = 0; lnX < 158; lnX++)
-						output += island2[lnY, lnX].ToString().PadLeft(5);
-					writer.WriteLine(output);
-				}
-			}
+            using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "island.txt")))
+            {
+                for (int lnY = 0; lnY < 139; lnY++)
+                {
+                    string output = "";
+                    for (int lnX = 0; lnX < 158; lnX++)
+                        output += island2[lnY, lnX].ToString().PadLeft(5);
+                    writer.WriteLine(output);
+                }
+            }
 
-			// Establish Aliahan location
-			bool midenOK = false;
+            // Establish Aliahan location
+            bool midenOK = false;
             int[] midenX = new int[7];
             int[] midenY = new int[7];
             while (!midenOK)
@@ -587,13 +654,13 @@ namespace DW3Randomizer
                     midenOK = true;
             }
 
-			// Shrine South Of Romaly
-			midenOK = false;
+            // Shrine South Of Romaly
+            midenOK = false;
             while (!midenOK)
             {
                 midenX[2] = 6 + (r1.Next() % (chkSmallMap.Checked ? 116 : 244));
-				midenY[2] = 6 + (r1.Next() % (chkSmallMap.Checked ? 116 : 244));
-				if (validPlot(midenY[2], midenX[2], 1, 1, new int[] { maxIsland[2] }))
+                midenY[2] = 6 + (r1.Next() % (chkSmallMap.Checked ? 116 : 244));
+                if (validPlot(midenY[2], midenX[2], 1, 1, new int[] { maxIsland[2] }))
                     midenOK = true;
             }
 
@@ -602,48 +669,48 @@ namespace DW3Randomizer
             while (!midenOK)
             {
                 midenX[0] = 6 + (r1.Next() % (chkSmallMap.Checked ? 116 : 244));
-				midenY[0] = 6 + (r1.Next() % (chkSmallMap.Checked ? 116 : 244));
-				if (validPlot(midenY[0], midenX[0], 1, 1, new int[] { maxIsland[0] }))
+                midenY[0] = 6 + (r1.Next() % (chkSmallMap.Checked ? 116 : 244));
+                if (validPlot(midenY[0], midenX[0], 1, 1, new int[] { maxIsland[0] }))
                     midenOK = true;
             }
 
-			// Tantegel
-			midenOK = false;
-			while (!midenOK)
-			{
-				midenX[6] = r1.Next() % 132;
-				midenY[6] = r1.Next() % 132;
-				if (validPlot(midenY[6], midenX[6], 2, 4, new int[] { 60000 }))
-					midenOK = true;
-			}
+            // Tantegel
+            midenOK = false;
+            while (!midenOK)
+            {
+                midenX[6] = r1.Next() % 132;
+                midenY[6] = r1.Next() % 132;
+                if (validPlot(midenY[6], midenX[6], 2, 4, new int[] { 60000 }))
+                    midenOK = true;
+            }
 
-			int charlockX = -255;
-			int charlockY = -255;
+            int charlockX = -255;
+            int charlockY = -255;
 
-			// Relocate opening Tantegel scene to 1, 1
-			romData[0x3ceb4] = 0x01;
-			romData[0x3cebf] = 0x01;
-			romData[0x1b3eb] = 0x01;
-			romData[0x1b3ec] = 0x01;
+            // Relocate opening Tantegel scene to 1, 1
+            romData[0x3ceb4] = 0x01;
+            romData[0x3cebf] = 0x01;
+            romData[0x1b3eb] = 0x01;
+            romData[0x1b3ec] = 0x01;
 
-			// Don't include Romaly, Aliahan, or Portuga islands in future location hunting.
-			islands.Remove(maxIsland[1]);
+            // Don't include Romaly, Aliahan, or Portuga islands in future location hunting.
+            islands.Remove(maxIsland[1]);
             islands.Remove(maxIsland[2]);
             islands.Remove(maxIsland[3]);
 
 
-			using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "island.txt")))
-			{
-				for (int lnY = 0; lnY < 256; lnY++)
-				{
-					string output = "";
-					for (int lnX = 0; lnX < 256; lnX++)
-						output += island[lnY, lnX].ToString().PadLeft(5) + " ";
-					writer.WriteLine(output);
-				}
-			}
+            using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "island.txt")))
+            {
+                for (int lnY = 0; lnY < 256; lnY++)
+                {
+                    string output = "";
+                    for (int lnX = 0; lnX < 256; lnX++)
+                        output += island[lnY, lnX].ToString().PadLeft(5) + " ";
+                    writer.WriteLine(output);
+                }
+            }
 
-			string[] locTypes = { "C", "C", "C", "?", "S", "X", "T", "T", "?", "T", "X", "T", "T", "X", "T", "?", // Aliahan, Romaly, Eginbear, Baramos, Drought Shrine, XXXXXX, Samanao Town, Brecconary, Charlock, Reeve, Portuga, Noaniels, Assaram, XXXXXX, Baharata, Lancel
+            string[] locTypes = { "C", "C", "C", "?", "S", "X", "T", "T", "?", "T", "X", "T", "T", "X", "T", "?", // Aliahan, Romaly, Eginbear, Baramos, Drought Shrine, XXXXXX, Samanao Town, Brecconary, Charlock, Reeve, Portuga, Noaniels, Assaram, XXXXXX, Baharata, Lancel
                                   // (16) Cantlin, Rimuldar, Hauksness, Luzami, Kanave, Tedanki, Moor, Jipang, Pirate's Den, Soo, Kol, Shrine before Enticement, Shrine S. of Portuga, Sword Of Gaia Shrine, Desert Shrine, Shrine south of Isis
                                   "T", "T", "T", "V", "V", "V", "V", "V", "V", "V", "V", "S", "S", "?", "S", "S",
                                   // (32) Silver Orb Shrine, Olivia Promenade, Olivia Canal Shrine, Dragon Queen Castle, Jipang Shrine, Liamland, Samanao Shrine, Shrine North of Soo, Garinham, Staff of rain shrine, Rainbow Drop Shrine, Portuga Shrine East, West, Promontory Cave, Ruby Cave, Norud Cave West
@@ -678,8 +745,8 @@ namespace DW3Randomizer
                 if (lnI == 0) { x = midenX[1]; y = midenY[1]; }
                 else if (lnI == 48) { x = midenX[0]; y = midenY[0]; } // Norud Cave East
                 else if (lnI == 77) { x = midenX[2]; y = midenY[2]; } // Shrine South Of Romaly
-				else if (lnI == 7) { x = midenX[6]; y = midenY[6]; } // Brecconary/Tantegel
-				else if (locIslands[lnI] == -1 || locIslands[lnI] == -2)
+                else if (lnI == 7) { x = midenX[6]; y = midenY[6]; } // Brecconary/Tantegel
+                else if (locIslands[lnI] == -1 || locIslands[lnI] == -2)
                 {
                     // Subtract 3 for room
                     x = 4 + r1.Next() % (chkSmallMap.Checked ? 80 - 4 - 4 : 132 - 4 - 4);
@@ -694,39 +761,39 @@ namespace DW3Randomizer
                     y = 6 + r1.Next() % (chkSmallMap.Checked ? 128 - 6 - 6 : 256 - 6 - 6);
                 }
 
-				if (locIslands[lnI] == 6)
-				{
-					if (Math.Abs(y - charlockY) < 5 || Math.Abs(x - charlockX) < 5)
-					{
-						lnI--;
-						continue;
-					}
-				}
+                if (locIslands[lnI] == 6)
+                {
+                    if (Math.Abs(y - charlockY) < 5 || Math.Abs(x - charlockX) < 5)
+                    {
+                        lnI--;
+                        continue;
+                    }
+                }
 
-				// TODO:  Ship return points, human return points, bird return points
-				// If branches on locTypes, possibly a case.
-				switch (locTypes[lnI])
+                // TODO:  Ship return points, human return points, bird return points
+                // If branches on locTypes, possibly a case.
+                switch (locTypes[lnI])
                 {
                     case "C":
                         if (validPlot(y, x, 2, 4, (locIslands[lnI] <= 3 ? new int[] { maxIsland[locIslands[lnI]] } : locIslands[lnI] <= 6 ? new int[] { 60000 } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
                             locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], locIslands[lnI] == 6 ? maxLake2 : maxLake, locIslands[lnI] == 6))
                         {
-							if (locIslands[lnI] == 6)
-							{
-								map2[y + 0, x + 1] = 0xe8;
-								map2[y + 0, x + 2] = 0xe9;
-								map2[y + 1, x + 1] = 0xec;
-								map2[y + 1, x + 2] = 0xed;
-							}
-							else
-							{
-								map[y + 0, x + 1] = 0xe8;
-								map[y + 0, x + 2] = 0xe9;
-								map[y + 1, x + 1] = 0xec;
-								map[y + 1, x + 2] = 0xed;
-							}
+                            if (locIslands[lnI] == 6)
+                            {
+                                map2[y + 0, x + 1] = 0xe8;
+                                map2[y + 0, x + 2] = 0xe9;
+                                map2[y + 1, x + 1] = 0xec;
+                                map2[y + 1, x + 2] = 0xed;
+                            }
+                            else
+                            {
+                                map[y + 0, x + 1] = 0xe8;
+                                map[y + 0, x + 2] = 0xe9;
+                                map[y + 1, x + 1] = 0xec;
+                                map[y + 1, x + 2] = 0xed;
+                            }
 
-							int byteToUse = 0x1b252 + (5 * lnI);
+                            int byteToUse = 0x1b252 + (5 * lnI);
                             romData[byteToUse] = (byte)(x + 1);
                             romData[byteToUse + 1] = (byte)(y + 1);
 
@@ -740,25 +807,25 @@ namespace DW3Randomizer
                             {
                                 int byteToUseReturn = 0x1b61c + (4 * returnPoints[lnI]);
                                 romData[byteToUseReturn] = (byte)(x + 1);
-								if (locIslands[lnI] == 6)
-								{
-									if (map2[y + 2, x] == 0x00 || map2[y + 2, x] == 0x06)
-										romData[byteToUseReturn + 1] = (byte)(y + 2);
-									else
-										romData[byteToUseReturn + 1] = (byte)(y + 1);
-								}
-								else
-								{
-									if (map[y + 2, x] == 0x00 || map[y + 2, x] == 0x06)
-										romData[byteToUseReturn + 1] = (byte)(y + 2);
-									else
-										romData[byteToUseReturn + 1] = (byte)(y + 1);
-								}
-								if (locIslands[lnI] != 6)
-									shipPlacement(byteToUseReturn + 2, y + 1, x + 1, maxLake);
-								else
-									shipPlacement2(byteToUseReturn + 2, y + 1, x + 1, maxLake2);
-							}
+                                if (locIslands[lnI] == 6)
+                                {
+                                    if (map2[y + 2, x] == 0x00 || map2[y + 2, x] == 0x06)
+                                        romData[byteToUseReturn + 1] = (byte)(y + 2);
+                                    else
+                                        romData[byteToUseReturn + 1] = (byte)(y + 1);
+                                }
+                                else
+                                {
+                                    if (map[y + 2, x] == 0x00 || map[y + 2, x] == 0x06)
+                                        romData[byteToUseReturn + 1] = (byte)(y + 2);
+                                    else
+                                        romData[byteToUseReturn + 1] = (byte)(y + 1);
+                                }
+                                if (locIslands[lnI] != 6)
+                                    shipPlacement(byteToUseReturn + 2, y + 1, x + 1, maxLake);
+                                else
+                                    shipPlacement2(byteToUseReturn + 2, y + 1, x + 1, maxLake2);
+                            }
                         }
                         else
                             lnI--;
@@ -768,18 +835,18 @@ namespace DW3Randomizer
                         if (validPlot(y, x, 1, 4, (locIslands[lnI] <= 3 ? new int[] { maxIsland[locIslands[lnI]] } : locIslands[lnI] <= 6 ? new int[] { 60000 } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
                             locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], locIslands[lnI] == 6 ? maxLake2 : maxLake, locIslands[lnI] == 6))
                         {
-							if (locIslands[lnI] == 6)
-							{
-								map2[y + 0, x + 1] = 0xea;
-								map2[y + 0, x + 2] = 0xeb;
-							}
-							else
-							{
-								map[y + 0, x + 1] = 0xea;
-								map[y + 0, x + 2] = 0xeb;
-							}
+                            if (locIslands[lnI] == 6)
+                            {
+                                map2[y + 0, x + 1] = 0xea;
+                                map2[y + 0, x + 2] = 0xeb;
+                            }
+                            else
+                            {
+                                map[y + 0, x + 1] = 0xea;
+                                map[y + 0, x + 2] = 0xeb;
+                            }
 
-							int byteToUse = 0x1b252 + (5 * lnI);
+                            int byteToUse = 0x1b252 + (5 * lnI);
                             romData[byteToUse] = (byte)(x + 1);
                             romData[byteToUse + 1] = (byte)(y);
 
@@ -787,28 +854,28 @@ namespace DW3Randomizer
                             {
                                 int byteToUseReturn = 0x1b61c + (4 * returnPoints[lnI]);
                                 romData[byteToUseReturn] = (byte)(x + 1);
-								if (locIslands[lnI] == 6)
-								{
-									if (map2[y + 2, x] == 0x00 || map2[y + 2, x] == 0x06)
-										romData[byteToUseReturn + 1] = (byte)(y + 1);
-									else
-										romData[byteToUseReturn + 1] = (byte)(y + 0);
-								}
-								else
-								{
+                                if (locIslands[lnI] == 6)
+                                {
+                                    if (map2[y + 2, x] == 0x00 || map2[y + 2, x] == 0x06)
+                                        romData[byteToUseReturn + 1] = (byte)(y + 1);
+                                    else
+                                        romData[byteToUseReturn + 1] = (byte)(y + 0);
+                                }
+                                else
+                                {
                                     if (map[y + 2, x] == 0x00 || map[y + 2, x] == 0x06)
                                         romData[byteToUseReturn + 1] = (byte)(y + 1);
                                     else
                                         romData[byteToUseReturn + 1] = (byte)(y + 0);
-								}
-								if (locIslands[lnI] != 6)
-									shipPlacement(byteToUseReturn + 2, y, x + 1, maxLake);
-								else
-									shipPlacement2(byteToUseReturn + 2, y, x + 1, maxLake2);
+                                }
+                                if (locIslands[lnI] != 6)
+                                    shipPlacement(byteToUseReturn + 2, y, x + 1, maxLake);
+                                else
+                                    shipPlacement2(byteToUseReturn + 2, y, x + 1, maxLake2);
 
-								if (lnI == 10) // Portuga - set originating ship location to the return point & set x coordinate of return point to east side of portuga
+                                if (lnI == 10) // Portuga - set originating ship location to the return point & set x coordinate of return point to east side of portuga
                                 {
-//                                    romData[byteToUseReturn] = (byte)(x - 2);
+                                    //                                    romData[byteToUseReturn] = (byte)(x - 2);
                                     romData[0x3d126] = romData[0x7d126] = romData[byteToUseReturn + 2];
                                     romData[0x3d12a] = romData[0x7d12a] = romData[byteToUseReturn + 3];
                                 }
@@ -823,52 +890,52 @@ namespace DW3Randomizer
                         if (validPlot(y, x, 1, 1, (locIslands[lnI] <= 3 ? new int[] { maxIsland[locIslands[lnI]] } : locIslands[lnI] <= 6 ? new int[] { 60000 } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
                             locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], locIslands[lnI] == 6 ? maxLake2 : maxLake, locIslands[lnI] == 6))
                         {
-							if (locIslands[lnI] == 6)
-								map2[y + 0, x + 0] = 0xf5;
-							else
-								map[y + 0, x + 0] = 0xf5;
+                            if (locIslands[lnI] == 6)
+                                map2[y + 0, x + 0] = 0xf5;
+                            else
+                                map[y + 0, x + 0] = 0xf5;
 
-							int byteToUse = 0x1b252 + (5 * lnI);
+                            int byteToUse = 0x1b252 + (5 * lnI);
                             romData[byteToUse] = (byte)x;
                             romData[byteToUse + 1] = (byte)y;
 
-							if (lnI == 28)
-							{
-								romData[0x1851a] = (byte)x;
-								romData[0x1851b] = (byte)y;
-							}
-							else if (lnI == 31)
-							{
-								romData[0x184ff] = (byte)x;
-								romData[0x18500] = (byte)y;
-							}
-							else if (lnI == 33)
-							{
-								romData[0x18505] = romData[0x18508] = (byte)x;
-								romData[0x18506] = romData[0x18509] = (byte)y;
-							}
-							else if (lnI == 36)
-							{
-								romData[0x184f6] = (byte)x;
-								romData[0x184f7] = (byte)y;
-							}
-							else if (lnI == 37)
-							{
-								romData[0x3255d] = (byte)x;
-								romData[0x32561] = (byte)(y - 1);
-							}
-							else if (lnI == 38)
-							{
-								romData[0x184f9] = romData[0x1850e] = (byte)x;
-								romData[0x184fa] = romData[0x1850f] = (byte)y;
-							}
-							else if (lnI == 39)
-							{
-								romData[0x184fc] = romData[0x18502] = romData[0x18517] = (byte)x;
-								romData[0x184fd] = romData[0x18503] = romData[0x18518] = (byte)y;
-							}
-						}
-						else
+                            if (lnI == 28)
+                            {
+                                romData[0x1851a] = (byte)x;
+                                romData[0x1851b] = (byte)y;
+                            }
+                            else if (lnI == 31)
+                            {
+                                romData[0x184ff] = (byte)x;
+                                romData[0x18500] = (byte)y;
+                            }
+                            else if (lnI == 33)
+                            {
+                                romData[0x18505] = romData[0x18508] = (byte)x;
+                                romData[0x18506] = romData[0x18509] = (byte)y;
+                            }
+                            else if (lnI == 36)
+                            {
+                                romData[0x184f6] = (byte)x;
+                                romData[0x184f7] = (byte)y;
+                            }
+                            else if (lnI == 37)
+                            {
+                                romData[0x3255d] = (byte)x;
+                                romData[0x32561] = (byte)(y - 1);
+                            }
+                            else if (lnI == 38)
+                            {
+                                romData[0x184f9] = romData[0x1850e] = (byte)x;
+                                romData[0x184fa] = romData[0x1850f] = (byte)y;
+                            }
+                            else if (lnI == 39)
+                            {
+                                romData[0x184fc] = romData[0x18502] = romData[0x18517] = (byte)x;
+                                romData[0x184fd] = romData[0x18503] = romData[0x18518] = (byte)y;
+                            }
+                        }
+                        else
                             lnI--;
 
                         break;
@@ -876,10 +943,10 @@ namespace DW3Randomizer
                         if (validPlot(y, x, 1, 3, (locIslands[lnI] <= 3 ? new int[] { maxIsland[locIslands[lnI]] } : locIslands[lnI] <= 6 ? new int[] { 60000 } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
                             locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], locIslands[lnI] == 6 ? maxLake2 : maxLake, locIslands[lnI] == 6))
                         {
-							if (locIslands[lnI] == 6)
-								map2[y + 0, x + 1] = 0xf1;
-							else
-								map[y + 0, x + 1] = 0xf1;
+                            if (locIslands[lnI] == 6)
+                                map2[y + 0, x + 1] = 0xf1;
+                            else
+                                map[y + 0, x + 1] = 0xf1;
 
                             int byteToUse = 0x1b252 + (5 * lnI);
                             romData[byteToUse] = (byte)(x + 1);
@@ -889,31 +956,31 @@ namespace DW3Randomizer
                             {
                                 int byteToUseReturn = 0x1b61c + (4 * returnPoints[lnI]);
                                 romData[byteToUseReturn] = (byte)(x + 1);
-								if (locIslands[lnI] == 6)
-								{
-									if (map2[y + 2, x] == 0x00 || map2[y + 2, x] == 0x06)
-										romData[byteToUseReturn + 1] = (byte)(y + 1);
-									else
-										romData[byteToUseReturn + 1] = (byte)(y + 0);
-								}
-								else
-								{
-									if (map[y + 2, x] == 0x00 || map[y + 2, x] == 0x06)
-										romData[byteToUseReturn + 1] = (byte)(y + 1);
-									else
-										romData[byteToUseReturn + 1] = (byte)(y + 0);
-								}
-								if (locIslands[lnI] != 6)
-									shipPlacement(byteToUseReturn + 2, y, x + 1, maxLake);
-								else
-									shipPlacement2(byteToUseReturn + 2, y, x + 1, maxLake2);
+                                if (locIslands[lnI] == 6)
+                                {
+                                    if (map2[y + 2, x] == 0x00 || map2[y + 2, x] == 0x06)
+                                        romData[byteToUseReturn + 1] = (byte)(y + 1);
+                                    else
+                                        romData[byteToUseReturn + 1] = (byte)(y + 0);
+                                }
+                                else
+                                {
+                                    if (map[y + 2, x] == 0x00 || map[y + 2, x] == 0x06)
+                                        romData[byteToUseReturn + 1] = (byte)(y + 1);
+                                    else
+                                        romData[byteToUseReturn + 1] = (byte)(y + 0);
+                                }
+                                if (locIslands[lnI] != 6)
+                                    shipPlacement(byteToUseReturn + 2, y, x + 1, maxLake);
+                                else
+                                    shipPlacement2(byteToUseReturn + 2, y, x + 1, maxLake2);
                             }
 
-							if (lnI == 23)
-							{
-								romData[0x311c4] = (byte)(x + 1);
-								romData[0x311c8] = (byte)y;
-							}
+                            if (lnI == 23)
+                            {
+                                romData[0x311c4] = (byte)(x + 1);
+                                romData[0x311c8] = (byte)y;
+                            }
                         }
                         else
                             lnI--;
@@ -937,12 +1004,12 @@ namespace DW3Randomizer
                         if (validPlot(y, x, 1, 1, (locIslands[lnI] <= 3 ? new int[] { maxIsland[locIslands[lnI]] } : locIslands[lnI] <= 6 ? new int[] { 60000 } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
                             locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], locIslands[lnI] == 6 ? maxLake2 : maxLake, locIslands[lnI] == 6))
                         {
-							if (locIslands[lnI] == 6)
-								map2[y + 0, x + 0] = 0xef;
-							else
-								map[y + 0, x + 0] = 0xef;
+                            if (locIslands[lnI] == 6)
+                                map2[y + 0, x + 0] = 0xef;
+                            else
+                                map[y + 0, x + 0] = 0xef;
 
-							int byteToUse = 0x1b252 + (5 * lnI);
+                            int byteToUse = 0x1b252 + (5 * lnI);
                             romData[byteToUse] = (byte)(x);
                             romData[byteToUse + 1] = (byte)(y);
 
@@ -956,41 +1023,41 @@ namespace DW3Randomizer
                                 romData[0x1852b] = (byte)(x);
                                 romData[0x1852c] = (byte)(y);
                             }
-							else if (lnI == 48)
-							{
-								romData[0x1852d] = (byte)(x);
-								romData[0x1852e] = (byte)(y);
-							}
-							else if (lnI == 49)
-							{
-								romData[0x1853d] = (byte)(x);
-								romData[0x1853e] = (byte)(y);
-							} else if (lnI == 56)
-							{
-								romData[0x30edb] = (byte)(x);
-								romData[0x30edf] = (byte)(y);
-							}
-						}
-						else
+                            else if (lnI == 48)
+                            {
+                                romData[0x1852d] = (byte)(x);
+                                romData[0x1852e] = (byte)(y);
+                            }
+                            else if (lnI == 49)
+                            {
+                                romData[0x1853d] = (byte)(x);
+                                romData[0x1853e] = (byte)(y);
+                            } else if (lnI == 56)
+                            {
+                                romData[0x30edb] = (byte)(x);
+                                romData[0x30edf] = (byte)(y);
+                            }
+                        }
+                        else
                             lnI--;
 
                         break;
                     case "W": // Tower
-						if (validPlot(y, x, 3, 3, (locIslands[lnI] <= 3 ? new int[] { maxIsland[locIslands[lnI]] } : locIslands[lnI] <= 6 ? new int[] { 60000 } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
-							locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], locIslands[lnI] == 6 ? maxLake2 : maxLake, locIslands[lnI] == 6))
-						{
-							if (locIslands[lnI] == 6)
-							{
-								map2[y + 0, x + 0] = 0xf2;
-								map2[y + 1, x + 0] = 0xee;
-							}
-							else
-							{
-								map[y + 0, x + 0] = 0xf2;
-								map[y + 1, x + 0] = 0xee;
-							}
+                        if (validPlot(y, x, 3, 3, (locIslands[lnI] <= 3 ? new int[] { maxIsland[locIslands[lnI]] } : locIslands[lnI] <= 6 ? new int[] { 60000 } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
+                            locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], locIslands[lnI] == 6 ? maxLake2 : maxLake, locIslands[lnI] == 6))
+                        {
+                            if (locIslands[lnI] == 6)
+                            {
+                                map2[y + 0, x + 0] = 0xf2;
+                                map2[y + 1, x + 0] = 0xee;
+                            }
+                            else
+                            {
+                                map[y + 0, x + 0] = 0xf2;
+                                map[y + 1, x + 0] = 0xee;
+                            }
 
-							int byteToUse = 0x1b252 + (5 * lnI);
+                            int byteToUse = 0x1b252 + (5 * lnI);
                             romData[byteToUse] = (byte)(x);
                             romData[byteToUse + 1] = (byte)(y + 1);
 
@@ -1006,35 +1073,35 @@ namespace DW3Randomizer
                                 romData[0x7d401] = (byte)(x);
                                 romData[0x7d405] = (byte)(y + 1);
                             }
-							else if (lnI == 61) // Garuna Tower
-							{
-								romData[0x1851d] = romData[0x18520] = romData[0x18526] = romData[0x18529] = (byte)x;
-								romData[0x1851e] = romData[0x18521] = romData[0x18527] = romData[0x1852a] = (byte)(y + 1);
-							}
-						}
+                            else if (lnI == 61) // Garuna Tower
+                            {
+                                romData[0x1851d] = romData[0x18520] = romData[0x18526] = romData[0x18529] = (byte)x;
+                                romData[0x1851e] = romData[0x18521] = romData[0x18527] = romData[0x1852a] = (byte)(y + 1);
+                            }
+                        }
                         else
                             lnI--;
 
                         break;
                     case "?":
-						if (lnI == 3) // Baramos Castle
-						{
-							bool baramosLegal = true;
-							for (int lnJ = x - 4; lnJ < x + 4; lnJ++)
-								for (int lnK = y - 4; lnK < y + 4; lnK++)
-								{
-									if (map[lnK, lnJ] > 0x07)
-										baramosLegal = false;
-									if (lnK == midenY[0] && lnJ == midenX[0])
-										baramosLegal = false;
-									if (lnK == midenY[1] && lnJ == midenX[1])
-										baramosLegal = false;
-									if (lnK == midenY[2] && lnJ == midenX[2])
-										baramosLegal = false;
-								}
+                        if (lnI == 3) // Baramos Castle
+                        {
+                            bool baramosLegal = true;
+                            for (int lnJ = x - 4; lnJ < x + 4; lnJ++)
+                                for (int lnK = y - 4; lnK < y + 4; lnK++)
+                                {
+                                    if (map[lnK, lnJ] > 0x07)
+                                        baramosLegal = false;
+                                    if (lnK == midenY[0] && lnJ == midenX[0])
+                                        baramosLegal = false;
+                                    if (lnK == midenY[1] && lnJ == midenX[1])
+                                        baramosLegal = false;
+                                    if (lnK == midenY[2] && lnJ == midenX[2])
+                                        baramosLegal = false;
+                                }
 
-							if (baramosLegal)
-							{
+                            if (baramosLegal)
+                            {
                                 if (chk_SepBarGaia.Checked == true)
                                 {
                                     // draw mountains
@@ -1117,146 +1184,146 @@ namespace DW3Randomizer
                                     romData[byteToUse] = (byte)(x - 1);
                                     romData[byteToUse + 1] = (byte)y;
                                 }
-							}
-							else
-								lnI--;
-						}
-						else if (lnI == 8) // Charlock Castle
-						{
-							bool baramosLegal = true;
-							if (x < 10 || y < 10 || x > 150 || y > 130)
-								baramosLegal = false;
+                            }
+                            else
+                                lnI--;
+                        }
+                        else if (lnI == 8) // Charlock Castle
+                        {
+                            bool baramosLegal = true;
+                            if (x < 10 || y < 10 || x > 150 || y > 130)
+                                baramosLegal = false;
 
-							if (baramosLegal)
-							{
-								for (int lnJ = x - 4; lnJ < x + 4; lnJ++)
-									for (int lnK = y - 4; lnK < y + 4; lnK++)
-									{
-										if (map2[lnK, lnJ] > 0x07)
-											baramosLegal = false;
-									}
-							}
+                            if (baramosLegal)
+                            {
+                                for (int lnJ = x - 4; lnJ < x + 4; lnJ++)
+                                    for (int lnK = y - 4; lnK < y + 4; lnK++)
+                                    {
+                                        if (map2[lnK, lnJ] > 0x07)
+                                            baramosLegal = false;
+                                    }
+                            }
 
-							if (baramosLegal)
-							{
-								charlockX = x;
-								charlockY = y;
+                            if (baramosLegal)
+                            {
+                                charlockX = x;
+                                charlockY = y;
 
-								for (int lnJ = -4; lnJ < 4; lnJ++)
-									for (int lnK = -4; lnK < 4; lnK++)
-										map2[y + lnJ, x + lnK] = 0x06;
+                                for (int lnJ = -4; lnJ < 4; lnJ++)
+                                    for (int lnK = -4; lnK < 4; lnK++)
+                                        map2[y + lnJ, x + lnK] = 0x06;
 
-								for (int lnJ = -3; lnJ < 3; lnJ++)
-									for (int lnK = -3; lnK < 3; lnK++)
-										map2[y + lnJ, x + lnK] = 0x00;
+                                for (int lnJ = -3; lnJ < 3; lnJ++)
+                                    for (int lnK = -3; lnK < 3; lnK++)
+                                        map2[y + lnJ, x + lnK] = 0x00;
 
 
-								for (int lnJ = -2; lnJ < 2; lnJ++)
-									for (int lnK = -2; lnK < 2; lnK++)
-										map2[y + lnJ, x + lnK] = 0x07;
+                                for (int lnJ = -2; lnJ < 2; lnJ++)
+                                    for (int lnK = -2; lnK < 2; lnK++)
+                                        map2[y + lnJ, x + lnK] = 0x07;
 
-								map2[y - 1, x - 1] = 0xe8;
-								map2[y - 1, x] = 0xe9;
-								map2[y, x - 1] = 0xec;
-								map2[y, x] = 0xed;
-								map2[y, x + 3] = 0x01;
-								int lnL = x + 4;
-								while (map2[y, lnL] == 0x00 && lnL < 132)
-								{
-									map2[y, lnL] = 0x01;
-									lnL++;
-								}
+                                map2[y - 1, x - 1] = 0xe8;
+                                map2[y - 1, x] = 0xe9;
+                                map2[y, x - 1] = 0xec;
+                                map2[y, x] = 0xed;
+                                map2[y, x + 3] = 0x01;
+                                int lnL = x + 4;
+                                while (map2[y, lnL] == 0x00 && lnL < 132)
+                                {
+                                    map2[y, lnL] = 0x01;
+                                    lnL++;
+                                }
 
-								// Rainbow Drop
-								romData[0x1bfc6] = (byte)(x + 3);
-								romData[0x1bfcc] = (byte)y;
-								romData[0x3f023] = (byte)(x + 1);
-								romData[0x3f027] = (byte)(x + 4);
-								romData[0x3f019] = (byte)y;
+                                // Rainbow Drop
+                                romData[0x1bfc6] = (byte)(x + 3);
+                                romData[0x1bfcc] = (byte)y;
+                                romData[0x3f023] = (byte)(x + 1);
+                                romData[0x3f027] = (byte)(x + 4);
+                                romData[0x3f019] = (byte)y;
 
-								int byteToUse = 0x1b252 + (5 * 8);
-								romData[byteToUse] = (byte)(x - 1);
-								romData[byteToUse + 1] = (byte)y;
-							}
-							else
-								lnI--;
-						}
-						else if (lnI == 15) // Lancel / Lancel Cave
-						{
-							bool baramosLegal = true;
+                                int byteToUse = 0x1b252 + (5 * 8);
+                                romData[byteToUse] = (byte)(x - 1);
+                                romData[byteToUse + 1] = (byte)y;
+                            }
+                            else
+                                lnI--;
+                        }
+                        else if (lnI == 15) // Lancel / Lancel Cave
+                        {
+                            bool baramosLegal = true;
                             for (int lnJ = x - 2; lnJ <= x + 3; lnJ++)
-//							for (int lnJ = x - 2; lnJ <= x + 2; lnJ++)
+                                //							for (int lnJ = x - 2; lnJ <= x + 2; lnJ++)
                                 for (int lnK = y - 1; lnK <= y + 1; lnK++)
-								{
-									if (map[lnK, lnJ] > 0x07)
-										baramosLegal = false;
-								}
+                                {
+                                    if (map[lnK, lnJ] > 0x07)
+                                        baramosLegal = false;
+                                }
 
-							if (baramosLegal)
-							{
+                            if (baramosLegal)
+                            {
                                 for (int lnJ = -2; lnJ < 3; lnJ++)
-//                                for (int lnJ = -2; lnJ < 2; lnJ++)
+                                //                                for (int lnJ = -2; lnJ < 2; lnJ++)
 
                                 {
                                     map[y - 1, x + lnJ] = 0x06;
-									map[y + 1, x + lnJ] = 0x06;
-									island[y - 1, x + lnJ] = 6000;
-									island[y, x + lnJ] = 6000;
-									island[y + 1, x + lnJ] = 6000;
-								}
+                                    map[y + 1, x + lnJ] = 0x06;
+                                    island[y - 1, x + lnJ] = 6000;
+                                    island[y, x + lnJ] = 6000;
+                                    island[y + 1, x + lnJ] = 6000;
+                                }
 
-								map[y, x - 2] = 0x06;
-								map[y, x - 1] = 0xef;
-								map[y, x] = 0x01;
-								map[y, x + 1] = 0xea;
-								map[y, x + 2] = 0xeb;
-								map[y - 1, x + 1] = 0x01;
-								map[y - 1, x + 2] = 0x01;
-								map[y + 1, x + 1] = 0x01;
-								map[y + 1, x + 2] = 0x01;
+                                map[y, x - 2] = 0x06;
+                                map[y, x - 1] = 0xef;
+                                map[y, x] = 0x01;
+                                map[y, x + 1] = 0xea;
+                                map[y, x + 2] = 0xeb;
+                                map[y - 1, x + 1] = 0x01;
+                                map[y - 1, x + 2] = 0x01;
+                                map[y + 1, x + 1] = 0x01;
+                                map[y + 1, x + 2] = 0x01;
                                 map[y, x + 3] = 0x01;
                                 map[y - 1, x + 3] = 0x01;
                                 map[y + 1, x + 3] = 0x01;
 
-								romData[0x1b360] = (byte)(x - 1);
-								romData[0x1b361] = (byte)y;
+                                romData[0x1b360] = (byte)(x - 1);
+                                romData[0x1b361] = (byte)y;
 
-								romData[0x1b29d] = (byte)(x + 1);
-								romData[0x1b29e] = (byte)y;
+                                romData[0x1b29d] = (byte)(x + 1);
+                                romData[0x1b29e] = (byte)y;
 
-								romData[0x3d16f] = (byte)x;
+                                romData[0x3d16f] = (byte)x;
 
-								romData[0x32736] = (byte)(x + 1);
-								romData[0x3273a] = (byte)y;
+                                romData[0x32736] = (byte)(x + 1);
+                                romData[0x3273a] = (byte)y;
 
-								// Return point
-								int byteToUseReturn = 0x1b61c + (4 * 10);
-								romData[byteToUseReturn] = (byte)(x + 2);
-								romData[byteToUseReturn + 1] = (byte)(y + 1);
-								shipPlacement(byteToUseReturn + 2, y + 1, x + 2, maxLake);
-							}
-							else
-								lnI--;
-						}
-						//else if (lnI == 32) // Silver Orb Shrine; skip, addressing that in Necrogund.
-						else if (lnI == 29) // Olivia Canal Shrine
-						{
-							bool baramosLegal = true;
-							for (int lnJ = x - 4; lnJ < x + 4; lnJ++)
-								for (int lnK = y - 1; lnK < y + 1; lnK++)
-								{
-									if (map[lnK, lnJ] != 0x00 || island[lnK, lnJ] != maxLake)
-										baramosLegal = false;
-								}
+                                // Return point
+                                int byteToUseReturn = 0x1b61c + (4 * 10);
+                                romData[byteToUseReturn] = (byte)(x + 2);
+                                romData[byteToUseReturn + 1] = (byte)(y + 1);
+                                shipPlacement(byteToUseReturn + 2, y + 1, x + 2, maxLake);
+                            }
+                            else
+                                lnI--;
+                        }
+                        //else if (lnI == 32) // Silver Orb Shrine; skip, addressing that in Necrogund.
+                        else if (lnI == 29) // Olivia Canal Shrine
+                        {
+                            bool baramosLegal = true;
+                            for (int lnJ = x - 4; lnJ < x + 4; lnJ++)
+                                for (int lnK = y - 1; lnK < y + 1; lnK++)
+                                {
+                                    if (map[lnK, lnJ] != 0x00 || island[lnK, lnJ] != maxLake)
+                                        baramosLegal = false;
+                                }
 
-							if (baramosLegal)
-							{
+                            if (baramosLegal)
+                            {
                                 // Create line of mountains
-								for (int lnJ = -3; lnJ < 1; lnJ++)
-								{
-									map[y + 1, x + lnJ] = 0x06;
-									map[y - 1, x + lnJ] = 0x06;
-								}
+                                for (int lnJ = -3; lnJ < 1; lnJ++)
+                                {
+                                    map[y + 1, x + lnJ] = 0x06;
+                                    map[y - 1, x + lnJ] = 0x06;
+                                }
                                 // Make the rest water
                                 for (int lnJ = 1; lnJ < 4; lnJ++)
                                 {
@@ -1264,403 +1331,403 @@ namespace DW3Randomizer
                                     map[y - 1, x + lnJ] = 0x00;
                                 }
                                 map[y, x - 4] = 0x06;
-								map[y, x - 3] = 0xf5; // Shrine Placement
-								map[y, x + 3] = 0xf7; // Shoal Placement
+                                map[y, x - 3] = 0xf5; // Shrine Placement
+                                map[y, x + 3] = 0xf7; // Shoal Placement
 
-								romData[0x1b2e3] = (byte)(x - 3);
-								romData[0x1b2e4] = (byte)y;
-								// Olivia bad news spot
-								romData[0x3313e] = (byte)(x - 2);
-								romData[0x33144] = (byte)y;
-							}
-							else
-								lnI--;
-						}
-						else if (lnI == 43)
-						{
-							if (validPlot(y, x, 1, 1, (locIslands[lnI] <= 6 ? new int[] { maxIsland[locIslands[lnI]] } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
-								locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], maxLake, locIslands[lnI] == 6))
-							{
-								bool baramosLegal = true;
-								int x2 = 8 + r1.Next() % (chkSmallMap.Checked ? 128 - 8 - 4 : 256 - 8 - 8);
+                                romData[0x1b2e3] = (byte)(x - 3);
+                                romData[0x1b2e4] = (byte)y;
+                                // Olivia bad news spot
+                                romData[0x3313e] = (byte)(x - 2);
+                                romData[0x33144] = (byte)y;
+                            }
+                            else
+                                lnI--;
+                        }
+                        else if (lnI == 43)
+                        {
+                            if (validPlot(y, x, 1, 1, (locIslands[lnI] <= 6 ? new int[] { maxIsland[locIslands[lnI]] } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
+                                locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], maxLake, locIslands[lnI] == 6))
+                            {
+                                bool baramosLegal = true;
+                                int x2 = 8 + r1.Next() % (chkSmallMap.Checked ? 128 - 8 - 4 : 256 - 8 - 8);
 
-								if (chkSmallMap.Checked)
-								{
-									for (int lnJ = x2 - 3; lnJ < x2 + 2; lnJ++)
-										for (int lnK = y; lnK < y + 2; lnK++)
-										{
-											if (map[lnK, lnJ] != 0x00 || island[lnK, lnJ] != maxLake)
-												baramosLegal = false;
-										}
+                                if (chkSmallMap.Checked)
+                                {
+                                    for (int lnJ = x2 - 3; lnJ < x2 + 2; lnJ++)
+                                        for (int lnK = y; lnK < y + 2; lnK++)
+                                        {
+                                            if (map[lnK, lnJ] != 0x00 || island[lnK, lnJ] != maxLake)
+                                                baramosLegal = false;
+                                        }
 
-									if (baramosLegal)
-									{
-										map[y + 0, x + 0] = 0xf5;
+                                    if (baramosLegal)
+                                    {
+                                        map[y + 0, x + 0] = 0xf5;
 
-										// Map Portuga Shrine East to the ROM
-										int byteToUse = 0x1b252 + (5 * lnI);
-										romData[byteToUse] = (byte)x;
-										romData[byteToUse + 1] = (byte)y;
+                                        // Map Portuga Shrine East to the ROM
+                                        int byteToUse = 0x1b252 + (5 * lnI);
+                                        romData[byteToUse] = (byte)x;
+                                        romData[byteToUse + 1] = (byte)y;
 
-										map[y + 0, x2 - 1] = 0x05;
-										map[y + 0, x2 - 3] = 0xea;
-										map[y + 0, x2 - 2] = 0xeb;
-										map[y + 1, x2 - 1] = 0x05;
-										map[y + 1, x2 - 2] = 0x05;
-										map[y + 1, x2 - 3] = 0x05;
+                                        map[y + 0, x2 - 1] = 0x05;
+                                        map[y + 0, x2 - 3] = 0xea;
+                                        map[y + 0, x2 - 2] = 0xeb;
+                                        map[y + 1, x2 - 1] = 0x05;
+                                        map[y + 1, x2 - 2] = 0x05;
+                                        map[y + 1, x2 - 3] = 0x05;
 
-										// Map Portuga Castle to the ROM
-										byteToUse = 0x1b252 + (5 * 10);
-										romData[byteToUse] = (byte)(x2 - 3);
-										romData[byteToUse + 1] = (byte)y;
+                                        // Map Portuga Castle to the ROM
+                                        byteToUse = 0x1b252 + (5 * 10);
+                                        romData[byteToUse] = (byte)(x2 - 3);
+                                        romData[byteToUse + 1] = (byte)y;
 
-										map[y + 0, x2 + 0] = 0xf5;
-										// Map Portuga Shrine West to the ROM
-										byteToUse = 0x1b252 + (5 * 44);
-										romData[byteToUse] = (byte)x2;
-										romData[byteToUse + 1] = (byte)y;
+                                        map[y + 0, x2 + 0] = 0xf5;
+                                        // Map Portuga Shrine West to the ROM
+                                        byteToUse = 0x1b252 + (5 * 44);
+                                        romData[byteToUse] = (byte)x2;
+                                        romData[byteToUse + 1] = (byte)y;
 
-										int byteToUseReturn = 0x1b61c + (4 * returnPoints[10]);
-										romData[byteToUseReturn] = (byte)(x2 - 4);
-										romData[byteToUseReturn + 1] = (byte)y;
-										shipPlacement(byteToUseReturn + 2, y - 1, x2 - 4, maxLake);
+                                        int byteToUseReturn = 0x1b61c + (4 * returnPoints[10]);
+                                        romData[byteToUseReturn] = (byte)(x2 - 4);
+                                        romData[byteToUseReturn + 1] = (byte)y;
+                                        shipPlacement(byteToUseReturn + 2, y - 1, x2 - 4, maxLake);
 
-										romData[0x3d126] = romData[0x7d126] = romData[byteToUseReturn + 2];
-										romData[0x3d12a] = romData[0x7d12a] = romData[byteToUseReturn + 3];
+                                        romData[0x3d126] = romData[0x7d126] = romData[byteToUseReturn + 2];
+                                        romData[0x3d12a] = romData[0x7d12a] = romData[byteToUseReturn + 3];
 
-										romData[0x1850b] = romData[0x3d18b] = romData[0x7d18b] = (byte)x;
-										romData[0x1850c] = romData[0x3d181] = romData[0x7d181] = (byte)y;
+                                        romData[0x1850b] = romData[0x3d18b] = romData[0x7d18b] = (byte)x;
+                                        romData[0x1850c] = romData[0x3d181] = romData[0x7d181] = (byte)y;
 
-										romData[0x3d192] = romData[0x7d192] = (byte)x2;
-									}
-									else
-										lnI--;
-								}
-								else
-								{
-									for (int lnJ = x2 - 5; lnJ < x2 + 5; lnJ++)
-										for (int lnK = y - 3; lnK < y + 3; lnK++)
-										{
-											if (map[lnK, lnJ] != 0x00 || island[lnK, lnJ] != maxLake)
-												baramosLegal = false;
-										}
+                                        romData[0x3d192] = romData[0x7d192] = (byte)x2;
+                                    }
+                                    else
+                                        lnI--;
+                                }
+                                else
+                                {
+                                    for (int lnJ = x2 - 5; lnJ < x2 + 5; lnJ++)
+                                        for (int lnK = y - 3; lnK < y + 3; lnK++)
+                                        {
+                                            if (map[lnK, lnJ] != 0x00 || island[lnK, lnJ] != maxLake)
+                                                baramosLegal = false;
+                                        }
 
-									if (baramosLegal)
-									{
-										map[y + 0, x + 0] = 0xf5;
+                                    if (baramosLegal)
+                                    {
+                                        map[y + 0, x + 0] = 0xf5;
 
-										// Map Portuga Shrine East to the ROM
-										int byteToUse = 0x1b252 + (5 * lnI);
-										romData[byteToUse] = (byte)x;
-										romData[byteToUse + 1] = (byte)y;
+                                        // Map Portuga Shrine East to the ROM
+                                        int byteToUse = 0x1b252 + (5 * lnI);
+                                        romData[byteToUse] = (byte)x;
+                                        romData[byteToUse + 1] = (byte)y;
 
-										for (int lnJ = -4; lnJ < 4; lnJ++)
-										{
-											if (lnJ == -4 || lnJ == -3 || lnJ == -1 || lnJ == 1 || lnJ == 3)
-											{
-												map[y - 2, x2 + lnJ] = map[y - 1, x2 + lnJ] = map[y, x2 + lnJ] = map[y + 1, x2 + lnJ] = map[y + 2, x2 + lnJ] = 0x05;
-											}
-											else if (lnJ == -2 || lnJ == 2)
-											{
-												map[y - 2, x2 + lnJ] = map[y - 1, x2 + lnJ] = map[y, x2 + lnJ] = map[y + 1, x2 + lnJ] = 0x06;
-												map[y + 2, x2 + lnJ] = 0x05;
-											}
-											else if (lnJ == 0)
-											{
-												map[y - 1, x2 + lnJ] = map[y, x2 + lnJ] = map[y + 1, x2 + lnJ] = map[y + 2, x2 + lnJ] = 0x06;
-												map[y - 2, x2 + lnJ] = 0x05;
-											}
-											island[y - 2, x2 + lnJ] = island[y - 1, x2 + lnJ] = island[y, x2 + lnJ] = island[y + 1, x2 + lnJ] = island[y + 2, x2 + lnJ] = 3000;
-										}
+                                        for (int lnJ = -4; lnJ < 4; lnJ++)
+                                        {
+                                            if (lnJ == -4 || lnJ == -3 || lnJ == -1 || lnJ == 1 || lnJ == 3)
+                                            {
+                                                map[y - 2, x2 + lnJ] = map[y - 1, x2 + lnJ] = map[y, x2 + lnJ] = map[y + 1, x2 + lnJ] = map[y + 2, x2 + lnJ] = 0x05;
+                                            }
+                                            else if (lnJ == -2 || lnJ == 2)
+                                            {
+                                                map[y - 2, x2 + lnJ] = map[y - 1, x2 + lnJ] = map[y, x2 + lnJ] = map[y + 1, x2 + lnJ] = 0x06;
+                                                map[y + 2, x2 + lnJ] = 0x05;
+                                            }
+                                            else if (lnJ == 0)
+                                            {
+                                                map[y - 1, x2 + lnJ] = map[y, x2 + lnJ] = map[y + 1, x2 + lnJ] = map[y + 2, x2 + lnJ] = 0x06;
+                                                map[y - 2, x2 + lnJ] = 0x05;
+                                            }
+                                            island[y - 2, x2 + lnJ] = island[y - 1, x2 + lnJ] = island[y, x2 + lnJ] = island[y + 1, x2 + lnJ] = island[y + 2, x2 + lnJ] = 3000;
+                                        }
 
-										map[y - 2, x2 - 4] = 0xea;
-										map[y - 2, x2 - 3] = 0xeb;
+                                        map[y - 2, x2 - 4] = 0xea;
+                                        map[y - 2, x2 - 3] = 0xeb;
 
-										// Map Portuga Castle to the ROM
-										byteToUse = 0x1b252 + (5 * 10);
-										romData[byteToUse] = (byte)(x2 - 4);
-										romData[byteToUse + 1] = (byte)(y - 2);
+                                        // Map Portuga Castle to the ROM
+                                        byteToUse = 0x1b252 + (5 * 10);
+                                        romData[byteToUse] = (byte)(x2 - 4);
+                                        romData[byteToUse + 1] = (byte)(y - 2);
 
-										map[y + 0, x2 + 3] = 0xf5;
-										// Map Portuga Shrine West to the ROM
-										byteToUse = 0x1b252 + (5 * 44);
-										romData[byteToUse] = (byte)(x2 + 3);
-										romData[byteToUse + 1] = (byte)y;
+                                        map[y + 0, x2 + 3] = 0xf5;
+                                        // Map Portuga Shrine West to the ROM
+                                        byteToUse = 0x1b252 + (5 * 44);
+                                        romData[byteToUse] = (byte)(x2 + 3);
+                                        romData[byteToUse + 1] = (byte)y;
 
-										int byteToUseReturn = 0x1b61c + (4 * returnPoints[10]);
-										romData[byteToUseReturn] = (byte)(x2 - 4);
-										romData[byteToUseReturn + 1] = (byte)(y - 1);
-										shipPlacement(byteToUseReturn + 2, y - 1, x2 - 4, maxLake);
+                                        int byteToUseReturn = 0x1b61c + (4 * returnPoints[10]);
+                                        romData[byteToUseReturn] = (byte)(x2 - 4);
+                                        romData[byteToUseReturn + 1] = (byte)(y - 1);
+                                        shipPlacement(byteToUseReturn + 2, y - 1, x2 - 4, maxLake);
 
-										romData[0x3d126] = romData[0x7d126] = romData[byteToUseReturn + 2];
-										romData[0x3d12a] = romData[0x7d12a] = romData[byteToUseReturn + 3];
+                                        romData[0x3d126] = romData[0x7d126] = romData[byteToUseReturn + 2];
+                                        romData[0x3d12a] = romData[0x7d12a] = romData[byteToUseReturn + 3];
 
-										romData[0x1850b] = romData[0x3d18b] = romData[0x7d18b] = (byte)x;
-										romData[0x1850c] = romData[0x3d181] = romData[0x7d181] = (byte)y;
+                                        romData[0x1850b] = romData[0x3d18b] = romData[0x7d18b] = (byte)x;
+                                        romData[0x1850c] = romData[0x3d181] = romData[0x7d181] = (byte)y;
 
-										romData[0x3d192] = romData[0x7d192] = (byte)(x2 + 3);
-									}
-									else
-										lnI--;
-								}
+                                        romData[0x3d192] = romData[0x7d192] = (byte)(x2 + 3);
+                                    }
+                                    else
+                                        lnI--;
+                                }
 
-							}
-							else
-								lnI--;
-						}
-						else if (lnI == 10 || lnI == 44)
-							continue;
-						else if (lnI == 49) // Necrogund F1
-						{
-							bool baramosLegal = true;
-							for (int lnJ = x - 5; lnJ <= x + 4; lnJ++)
-								for (int lnK = y - 3; lnK <= y + 2; lnK++)
-								{
-									if (map[lnK, lnJ] > 0x07)
-										baramosLegal = false;
-								}
+                            }
+                            else
+                                lnI--;
+                        }
+                        else if (lnI == 10 || lnI == 44)
+                            continue;
+                        else if (lnI == 49) // Necrogund F1
+                        {
+                            bool baramosLegal = true;
+                            for (int lnJ = x - 5; lnJ <= x + 4; lnJ++)
+                                for (int lnK = y - 3; lnK <= y + 2; lnK++)
+                                {
+                                    if (map[lnK, lnJ] > 0x07)
+                                        baramosLegal = false;
+                                }
 
-							if (baramosLegal)
-							{
-								for (int lnJ = x - 5; lnJ <= x + 4; lnJ++)
-									for (int lnK = y - 3; lnK <= y + 2; lnK++)
-									{
-										island[lnK, lnJ] = 5001;
-									}
+                            if (baramosLegal)
+                            {
+                                for (int lnJ = x - 5; lnJ <= x + 4; lnJ++)
+                                    for (int lnK = y - 3; lnK <= y + 2; lnK++)
+                                    {
+                                        island[lnK, lnJ] = 5001;
+                                    }
 
-								for (int lnJ = y - 3; lnJ <= y + 2; lnJ++)
-								{
-									map[lnJ, x - 5] = 0x06;
-									map[lnJ, x + 2] = 0x06;
-									map[lnJ, x + 4] = 0x06;
-								}
-								for (int lnJ = x - 5; lnJ <= x + 4; lnJ++)
-									map[y + 2, lnJ] = 0x06;
-								for (int lnJ = x - 5; lnJ <= x + 4; lnJ++)
-									map[y - 3, lnJ] = 0x05;
+                                for (int lnJ = y - 3; lnJ <= y + 2; lnJ++)
+                                {
+                                    map[lnJ, x - 5] = 0x06;
+                                    map[lnJ, x + 2] = 0x06;
+                                    map[lnJ, x + 4] = 0x06;
+                                }
+                                for (int lnJ = x - 5; lnJ <= x + 4; lnJ++)
+                                    map[y + 2, lnJ] = 0x06;
+                                for (int lnJ = x - 5; lnJ <= x + 4; lnJ++)
+                                    map[y - 3, lnJ] = 0x05;
 
-								// Silver Orb Shrine/Necrogund F5
-								map[y - 2, x + 3] = 0x06;
-								map[y - 1, x + 3] = 0xf5;
-								map[y + 0, x + 3] = 0x05;
-								map[y + 1, x + 3] = 0xef;
+                                // Silver Orb Shrine/Necrogund F5
+                                map[y - 2, x + 3] = 0x06;
+                                map[y - 1, x + 3] = 0xf5;
+                                map[y + 0, x + 3] = 0x05;
+                                map[y + 1, x + 3] = 0xef;
 
-								// The rest
-								map[y - 2, x - 4] = 0x05;
-								map[y - 2, x - 3] = 0x05;
-								map[y - 2, x - 2] = 0x05;
-								map[y - 2, x - 1] = 0x06;
-								map[y - 2, x + 0] = 0x05;
-								map[y - 2, x + 1] = 0x06;
+                                // The rest
+                                map[y - 2, x - 4] = 0x05;
+                                map[y - 2, x - 3] = 0x05;
+                                map[y - 2, x - 2] = 0x05;
+                                map[y - 2, x - 1] = 0x06;
+                                map[y - 2, x + 0] = 0x05;
+                                map[y - 2, x + 1] = 0x06;
 
-								map[y - 1, x - 4] = 0x05;
-								map[y - 1, x - 3] = 0x05;
-								map[y - 1, x - 2] = 0x00;
-								map[y - 1, x - 1] = 0x05;
-								map[y - 1, x + 0] = 0xf0;
-								map[y - 1, x + 1] = 0x05;
+                                map[y - 1, x - 4] = 0x05;
+                                map[y - 1, x - 3] = 0x05;
+                                map[y - 1, x - 2] = 0x00;
+                                map[y - 1, x - 1] = 0x05;
+                                map[y - 1, x + 0] = 0xf0;
+                                map[y - 1, x + 1] = 0x05;
 
-								map[y - 0, x - 4] = 0x05;
-								map[y - 0, x - 3] = 0x00;
-								map[y - 0, x - 2] = 0x00;
-								map[y - 0, x - 1] = 0x05;
-								map[y - 0, x + 0] = 0x05;
-								map[y - 0, x + 1] = 0x05;
+                                map[y - 0, x - 4] = 0x05;
+                                map[y - 0, x - 3] = 0x00;
+                                map[y - 0, x - 2] = 0x00;
+                                map[y - 0, x - 1] = 0x05;
+                                map[y - 0, x + 0] = 0x05;
+                                map[y - 0, x + 1] = 0x05;
 
-								map[y + 1, x - 4] = 0x00;
-								map[y + 1, x - 3] = 0x00;
-								map[y + 1, x - 2] = 0x05;
-								map[y + 1, x - 1] = 0x05;
-								map[y + 1, x + 0] = 0x05;
-								map[y + 1, x + 1] = 0xef;
+                                map[y + 1, x - 4] = 0x00;
+                                map[y + 1, x - 3] = 0x00;
+                                map[y + 1, x - 2] = 0x05;
+                                map[y + 1, x - 1] = 0x05;
+                                map[y + 1, x + 0] = 0x05;
+                                map[y + 1, x + 1] = 0xef;
 
-								// Volcano stuff
-								// First, Sword of Gaia
-								romData[0x2e7f] = romData[0x32a93] = (byte)x;
-								romData[0x2e85] = romData[0x32a99] = (byte)(y - 2);
-								// Second, mapping stuff
-								romData[0x3f09b] = (byte)(x - 4);
-								romData[0x3f09f] = (byte)(x - 1);
-								romData[0x3f0a5] = (byte)(y - 1);
-								romData[0x3f0a9] = (byte)(y + 3);
-								// Map link to cave now though!
-								// Beginning
-								romData[0x18531] = romData[0x1b34c] = (byte)(x + 1);
-								romData[0x18532] = romData[0x1b34d] = (byte)(y + 1);
-								// End
-								romData[0x1852f] = romData[0x1b347] = (byte)(x + 3);
-								romData[0x18530] = romData[0x1b348] = (byte)(y + 1);
-								// Shrine
-								romData[0x1b2f2] = (byte)(x + 3);
-								romData[0x1b2f3] = (byte)(y - 1);
-							}
-							else
-								lnI--;
-						}
-						//else if (lnI == 50) // Necrogrund F5/Silver Orb Shrine - skip, see above
-						else if (lnI == 65) // Grass tile south of Reeve
-						{
-							if (validPlot(y, x, 3, 3, (locIslands[lnI] <= 6 ? new int[] { maxIsland[locIslands[lnI]] } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
-								locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], maxLake, locIslands[lnI] == 6))
-							{
-								map[y + 0, x + 0] = map[y + 0, x + 1] = map[y + 0, x + 2] = map[y + 1, x + 0] = map[y + 1, x + 2] = map[y + 2, x + 0] = map[y + 2, x + 1] = map[y + 2, x + 2] = 0x04;
-								map[y + 1, x + 1] = 0x03;
+                                // Volcano stuff
+                                // First, Sword of Gaia
+                                romData[0x2e7f] = romData[0x32a93] = (byte)x;
+                                romData[0x2e85] = romData[0x32a99] = (byte)(y - 2);
+                                // Second, mapping stuff
+                                romData[0x3f09b] = (byte)(x - 4);
+                                romData[0x3f09f] = (byte)(x - 1);
+                                romData[0x3f0a5] = (byte)(y - 1);
+                                romData[0x3f0a9] = (byte)(y + 3);
+                                // Map link to cave now though!
+                                // Beginning
+                                romData[0x18531] = romData[0x1b34c] = (byte)(x + 1);
+                                romData[0x18532] = romData[0x1b34d] = (byte)(y + 1);
+                                // End
+                                romData[0x1852f] = romData[0x1b347] = (byte)(x + 3);
+                                romData[0x18530] = romData[0x1b348] = (byte)(y + 1);
+                                // Shrine
+                                romData[0x1b2f2] = (byte)(x + 3);
+                                romData[0x1b2f3] = (byte)(y - 1);
+                            }
+                            else
+                                lnI--;
+                        }
+                        //else if (lnI == 50) // Necrogrund F5/Silver Orb Shrine - skip, see above
+                        else if (lnI == 65) // Grass tile south of Reeve
+                        {
+                            if (validPlot(y, x, 3, 3, (locIslands[lnI] <= 6 ? new int[] { maxIsland[locIslands[lnI]] } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
+                                locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], maxLake, locIslands[lnI] == 6))
+                            {
+                                map[y + 0, x + 0] = map[y + 0, x + 1] = map[y + 0, x + 2] = map[y + 1, x + 0] = map[y + 1, x + 2] = map[y + 2, x + 0] = map[y + 2, x + 1] = map[y + 2, x + 2] = 0x04;
+                                map[y + 1, x + 1] = 0x03;
 
-								romData[0x1b3df] = (byte)(x + 1);
-								romData[0x1b3e0] = (byte)(y + 1);
+                                romData[0x1b3df] = (byte)(x + 1);
+                                romData[0x1b3e0] = (byte)(y + 1);
 
-								romData[0x184f3] = romData[0x18539] = (byte)(x + 1);
-								romData[0x184f4] = romData[0x1853a] = (byte)(y + 1);
-							}
-							else
-								lnI--;
-						}
-						else if (lnI == 66) // Isis
-						{
-							if (validPlot(y, x, 3, 3, (locIslands[lnI] <= 6 ? new int[] { maxIsland[locIslands[lnI]] } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
-								locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], maxLake, locIslands[lnI] == 6))
-							{
-								map[y + 0, x + 0] = map[y + 0, x + 1] = map[y + 0, x + 2] = map[y + 1, x + 0] = map[y + 1, x + 2] = map[y + 2, x + 0] = map[y + 2, x + 1] = map[y + 2, x + 2] = 0x01;
-								map[y + 1, x + 1] = 0x00;
+                                romData[0x184f3] = romData[0x18539] = (byte)(x + 1);
+                                romData[0x184f4] = romData[0x1853a] = (byte)(y + 1);
+                            }
+                            else
+                                lnI--;
+                        }
+                        else if (lnI == 66) // Isis
+                        {
+                            if (validPlot(y, x, 3, 3, (locIslands[lnI] <= 6 ? new int[] { maxIsland[locIslands[lnI]] } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
+                                locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], maxLake, locIslands[lnI] == 6))
+                            {
+                                map[y + 0, x + 0] = map[y + 0, x + 1] = map[y + 0, x + 2] = map[y + 1, x + 0] = map[y + 1, x + 2] = map[y + 2, x + 0] = map[y + 2, x + 1] = map[y + 2, x + 2] = 0x01;
+                                map[y + 1, x + 1] = 0x00;
 
-								romData[0x1b39d] = (byte)(x + 1);
-								romData[0x1b39e] = (byte)(y + 2);
+                                romData[0x1b39d] = (byte)(x + 1);
+                                romData[0x1b39e] = (byte)(y + 2);
 
-								romData[0x1b3bb] = (byte)(x + 0);
-								romData[0x1b3bc] = (byte)(y + 2);
+                                romData[0x1b3bb] = (byte)(x + 0);
+                                romData[0x1b3bc] = (byte)(y + 2);
 
-								romData[0x1b3b5] = (byte)(x + 0);
-								romData[0x1b3b6] = (byte)(y + 0);
+                                romData[0x1b3b5] = (byte)(x + 0);
+                                romData[0x1b3b6] = (byte)(y + 0);
 
-								romData[0x1b3af] = (byte)(x + 1);
-								romData[0x1b3b0] = (byte)(y + 0);
+                                romData[0x1b3af] = (byte)(x + 1);
+                                romData[0x1b3b0] = (byte)(y + 0);
 
-								romData[0x1b3a9] = (byte)(x + 2);
-								romData[0x1b3aa] = (byte)(y + 0);
+                                romData[0x1b3a9] = (byte)(x + 2);
+                                romData[0x1b3aa] = (byte)(y + 0);
 
-								romData[0x1b3c1] = (byte)(x + 2);
-								romData[0x1b3c2] = (byte)(y + 1);
+                                romData[0x1b3c1] = (byte)(x + 2);
+                                romData[0x1b3c2] = (byte)(y + 1);
 
-								romData[0x1b3a3] = (byte)(x + 2);
-								romData[0x1b3a4] = (byte)(y + 2);
+                                romData[0x1b3a3] = (byte)(x + 2);
+                                romData[0x1b3a4] = (byte)(y + 2);
 
-								if (returnPoints[lnI] != -1)
-								{
-									int byteToUseReturn = 0x1b61c + (4 * returnPoints[lnI]);
-									romData[byteToUseReturn] = (byte)(x + 0);
-									romData[byteToUseReturn + 1] = (byte)(y + 1);
-									shipPlacement(byteToUseReturn + 2, y + 1, x, maxLake);
+                                if (returnPoints[lnI] != -1)
+                                {
+                                    int byteToUseReturn = 0x1b61c + (4 * returnPoints[lnI]);
+                                    romData[byteToUseReturn] = (byte)(x + 0);
+                                    romData[byteToUseReturn + 1] = (byte)(y + 1);
+                                    shipPlacement(byteToUseReturn + 2, y + 1, x, maxLake);
 
-								}
-							}
-							else
-								lnI--;
-						}
-						else if (lnI == 67) // Enticement Cave
-						{
-							if (chkSmallMap.Checked)
-							{
-								if (validPlot(y - 1, x - 1, 3, 3, (locIslands[lnI] <= 6 ? new int[] { maxIsland[locIslands[lnI]] } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
-									locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], maxLake, locIslands[lnI] == 6))
-								{
-									for (int lnX = -1; lnX < 2; lnX++)
-										for (int lnY = -1; lnY < 2; lnY++)
-											map[y + lnY, x + lnX] = 0x04;
+                                }
+                            }
+                            else
+                                lnI--;
+                        }
+                        else if (lnI == 67) // Enticement Cave
+                        {
+                            if (chkSmallMap.Checked)
+                            {
+                                if (validPlot(y - 1, x - 1, 3, 3, (locIslands[lnI] <= 6 ? new int[] { maxIsland[locIslands[lnI]] } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
+                                    locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], maxLake, locIslands[lnI] == 6))
+                                {
+                                    for (int lnX = -1; lnX < 2; lnX++)
+                                        for (int lnY = -1; lnY < 2; lnY++)
+                                            map[y + lnY, x + lnX] = 0x04;
 
-									map[y, x] = 0x00;
+                                    map[y, x] = 0x00;
 
-									romData[0x1b3e5] = (byte)(x);
-									romData[0x1b3e6] = (byte)(y + 1);
+                                    romData[0x1b3e5] = (byte)(x);
+                                    romData[0x1b3e6] = (byte)(y + 1);
 
-									romData[0x18514] = romData[0x1853b] = (byte)(x);
-									romData[0x18515] = romData[0x1853c] = (byte)(y + 1);
-								}
-								else
-									lnI--;
-							}
-							else
-							{
-//								if (y == 199 && x == 157) y = y; // Why redeclare?
-								if (validPlot(y - 2, x - 2, 5, 5, (locIslands[lnI] <= 6 ? new int[] { maxIsland[locIslands[lnI]] } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
-									locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], maxLake, locIslands[lnI] == 6))
-								{
-									for (int lnX = -2; lnX < 3; lnX++)
-										for (int lnY = -2; lnY < 3; lnY++)
-											map[y + lnY, x + lnX] = 0x05;
+                                    romData[0x18514] = romData[0x1853b] = (byte)(x);
+                                    romData[0x18515] = romData[0x1853c] = (byte)(y + 1);
+                                }
+                                else
+                                    lnI--;
+                            }
+                            else
+                            {
+                                //								if (y == 199 && x == 157) y = y; // Why redeclare?
+                                if (validPlot(y - 2, x - 2, 5, 5, (locIslands[lnI] <= 6 ? new int[] { maxIsland[locIslands[lnI]] } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
+                                    locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], maxLake, locIslands[lnI] == 6))
+                                {
+                                    for (int lnX = -2; lnX < 3; lnX++)
+                                        for (int lnY = -2; lnY < 3; lnY++)
+                                            map[y + lnY, x + lnX] = 0x05;
 
-									for (int lnX = -1; lnX < 2; lnX++)
-										for (int lnY = -1; lnY < 2; lnY++)
-											map[y + lnY, x + lnX] = 0x04;
+                                    for (int lnX = -1; lnX < 2; lnX++)
+                                        for (int lnY = -1; lnY < 2; lnY++)
+                                            map[y + lnY, x + lnX] = 0x04;
 
-									map[y, x] = 0x00;
-									map[y + 2, x] = 0x04;
+                                    map[y, x] = 0x00;
+                                    map[y + 2, x] = 0x04;
 
-									romData[0x1b3e5] = (byte)(x);
-									romData[0x1b3e6] = (byte)(y + 1);
+                                    romData[0x1b3e5] = (byte)(x);
+                                    romData[0x1b3e6] = (byte)(y + 1);
 
-									romData[0x18514] = romData[0x1853b] = (byte)(x);
-									romData[0x18515] = romData[0x1853c] = (byte)(y + 1);
-								}
-								else
-									lnI--;
-							}
-						}
-						else if (lnI == 68) // Shrine South of Romaly
-						{
-							if (validPlot(y, x, 1, 1, (locIslands[lnI] <= 6 ? new int[] { maxIsland[locIslands[lnI]] } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
-								locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], maxLake, locIslands[lnI] == 6))
-							{
-								romData[0x1b3d9] = (byte)(x);
-								romData[0x1b3da] = (byte)(y);
+                                    romData[0x18514] = romData[0x1853b] = (byte)(x);
+                                    romData[0x18515] = romData[0x1853c] = (byte)(y + 1);
+                                }
+                                else
+                                    lnI--;
+                            }
+                        }
+                        else if (lnI == 68) // Shrine South of Romaly
+                        {
+                            if (validPlot(y, x, 1, 1, (locIslands[lnI] <= 6 ? new int[] { maxIsland[locIslands[lnI]] } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
+                                locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], maxLake, locIslands[lnI] == 6))
+                            {
+                                romData[0x1b3d9] = (byte)(x);
+                                romData[0x1b3da] = (byte)(y);
 
-								romData[0x18523] = (byte)(x);
-								romData[0x18524] = (byte)(y);
-							}
-							else
-								lnI--;
-						}
-						else if (lnI == 69) // Pirate Ship
-						{
-							bool baramosLegal = true;
-							if (map[y, x] != 0x00 || island[y, x] != maxLake)
-								baramosLegal = false;
+                                romData[0x18523] = (byte)(x);
+                                romData[0x18524] = (byte)(y);
+                            }
+                            else
+                                lnI--;
+                        }
+                        else if (lnI == 69) // Pirate Ship
+                        {
+                            bool baramosLegal = true;
+                            if (map[y, x] != 0x00 || island[y, x] != maxLake)
+                                baramosLegal = false;
 
-							if (baramosLegal)
-							{
-								romData[0x378ba] = romData[0x3b630] = (byte)x;
-								romData[0x378be] = romData[0x3b634] = (byte)y;
-							}
-							else
-								lnI--;
-						}
-						else if (lnI == 70) // Greenland house
-						{
-							if (validPlot(y, x, 3, 3, (locIslands[lnI] <= 6 ? new int[] { maxIsland[locIslands[lnI]] } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
-								locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], maxLake, locIslands[lnI] == 6))
-							{
-								map[y + 0, x + 0] = map[y + 0, x + 1] = map[y + 0, x + 2] = map[y + 1, x + 0] = map[y + 1, x + 2] = map[y + 2, x + 0] = map[y + 2, x + 1] = map[y + 2, x + 2] = 0x01;
-								map[y + 1, x + 1] = 0x02;
+                            if (baramosLegal)
+                            {
+                                romData[0x378ba] = romData[0x3b630] = (byte)x;
+                                romData[0x378be] = romData[0x3b634] = (byte)y;
+                            }
+                            else
+                                lnI--;
+                        }
+                        else if (lnI == 70) // Greenland house
+                        {
+                            if (validPlot(y, x, 3, 3, (locIslands[lnI] <= 6 ? new int[] { maxIsland[locIslands[lnI]] } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
+                                locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], maxLake, locIslands[lnI] == 6))
+                            {
+                                map[y + 0, x + 0] = map[y + 0, x + 1] = map[y + 0, x + 2] = map[y + 1, x + 0] = map[y + 1, x + 2] = map[y + 2, x + 0] = map[y + 2, x + 1] = map[y + 2, x + 2] = 0x01;
+                                map[y + 1, x + 1] = 0x02;
 
-								romData[0x1b3d3] = (byte)(x + 1);
-								romData[0x1b3d4] = (byte)(y + 1);
-							}
-							else
-								lnI--;
-						}
-						else if (lnI == 71) // New Town
-						{
-							if (validPlot(y, x, 3, 3, (locIslands[lnI] <= 6 ? new int[] { maxIsland[locIslands[lnI]] } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
-								locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], maxLake, locIslands[lnI] == 6))
-							{
-								map[y + 0, x + 0] = map[y + 0, x + 1] = map[y + 0, x + 2] = map[y + 1, x + 0] = map[y + 1, x + 2] = map[y + 2, x + 0] = map[y + 2, x + 1] = map[y + 2, x + 2] = 0x04;
-								map[y + 1, x + 1] = 0x02;
+                                romData[0x1b3d3] = (byte)(x + 1);
+                                romData[0x1b3d4] = (byte)(y + 1);
+                            }
+                            else
+                                lnI--;
+                        }
+                        else if (lnI == 71) // New Town
+                        {
+                            if (validPlot(y, x, 3, 3, (locIslands[lnI] <= 6 ? new int[] { maxIsland[locIslands[lnI]] } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
+                                locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], maxLake, locIslands[lnI] == 6))
+                            {
+                                map[y + 0, x + 0] = map[y + 0, x + 1] = map[y + 0, x + 2] = map[y + 1, x + 0] = map[y + 1, x + 2] = map[y + 2, x + 0] = map[y + 2, x + 1] = map[y + 2, x + 2] = 0x04;
+                                map[y + 1, x + 1] = 0x02;
 
-								romData[0x1b397] = (byte)(x + 1);
-								romData[0x1b398] = (byte)(y + 1);
-							}
-							else
-								lnI--;
-						}
+                                romData[0x1b397] = (byte)(x + 1);
+                                romData[0x1b398] = (byte)(y + 1);
+                            }
+                            else
+                                lnI--;
+                        }
 
                         break;
                     case "X":
@@ -1684,7 +1751,7 @@ namespace DW3Randomizer
             for (int mzX = 0; mzX < 16; mzX++)
                 for (int mzY = 0; mzY < 16; mzY++)
                 {
-//					if (mzX == 10) mzX = mzX; // Why redeclare?
+                    //					if (mzX == 10) mzX = mzX; // Why redeclare?
                     if (zone[mzY, mzX] / 1000 == 1)
                     {
                         if (Math.Abs(midenMZX - mzX) == 0 && Math.Abs(midenMZY - mzY) == 0)
@@ -1749,69 +1816,69 @@ namespace DW3Randomizer
                     badMap = false;
             }
 
-			badMap = true;
-			compressed = false;
-			while (badMap)
-			{
-				// Now let's enter all of this into the ROM... (Alefgard)
-				int lnPointer = 0x9bab;
+            badMap = true;
+            compressed = false;
+            while (badMap)
+            {
+                // Now let's enter all of this into the ROM... (Alefgard)
+                int lnPointer = 0x9bab;
 
-				for (int lnI = 0; lnI <= 139; lnI++) // <---- There is a final pointer for lnI = 256, probably indicating the conclusion of the map.
-				{
-					romData[0x15aa5 + (lnI * 2)] = (byte)(lnPointer % 256);
-					romData[0x15aa6 + (lnI * 2)] = (byte)(lnPointer / 256);
+                for (int lnI = 0; lnI <= 139; lnI++) // <---- There is a final pointer for lnI = 256, probably indicating the conclusion of the map.
+                {
+                    romData[0x15aa5 + (lnI * 2)] = (byte)(lnPointer % 256);
+                    romData[0x15aa6 + (lnI * 2)] = (byte)(lnPointer / 256);
 
-					int lnJ = 0;
-					while (lnI < 139 && lnJ < 158)
-					{
-						if (map2[lnI, lnJ] >= 0 && map2[lnI, lnJ] <= 7)
-						{
-							int tileNumber = 0;
-							int numberToMatch = map2[lnI, lnJ];
-							while (lnJ < 158 && tileNumber < (numberToMatch == 7 ? 8 : 32) && map2[lnI, lnJ] == numberToMatch)
-							{
-								tileNumber++;
-								lnJ++;
-							}
-							romData[lnPointer + 0xc010] = (byte)((0x20 * numberToMatch) + (tileNumber - 1));
-							lnPointer++;
-						}
-						else
-						{
-							romData[lnPointer + 0xc010] = (byte)map2[lnI, lnJ];
-							lnPointer++;
-							lnJ++;
-						}
-					}
-				}
-				if (compressed) badMap = false;
+                    int lnJ = 0;
+                    while (lnI < 139 && lnJ < 158)
+                    {
+                        if (map2[lnI, lnJ] >= 0 && map2[lnI, lnJ] <= 7)
+                        {
+                            int tileNumber = 0;
+                            int numberToMatch = map2[lnI, lnJ];
+                            while (lnJ < 158 && tileNumber < (numberToMatch == 7 ? 8 : 32) && map2[lnI, lnJ] == numberToMatch)
+                            {
+                                tileNumber++;
+                                lnJ++;
+                            }
+                            romData[lnPointer + 0xc010] = (byte)((0x20 * numberToMatch) + (tileNumber - 1));
+                            lnPointer++;
+                        }
+                        else
+                        {
+                            romData[lnPointer + 0xc010] = (byte)map2[lnI, lnJ];
+                            lnPointer++;
+                            lnJ++;
+                        }
+                    }
+                }
+                if (compressed) badMap = false;
 
-				//lnPointer = lnPointer;
-				if (lnPointer > 0xa3ee)
-				{
-					MessageBox.Show("WARNING:  The map might have taken too much ROM space... (" + (lnPointer - 0xa3ee).ToString() + " over)");
-					compressed = true;
-					// Might have to compress further to remove one byte stuff
-					// Must compress the map by getting rid of further 1 byte lakes
-				}
-				else
-					badMap = false;
-			}
+                //lnPointer = lnPointer;
+                if (lnPointer > 0xa3ee)
+                {
+                    MessageBox.Show("WARNING:  The map might have taken too much ROM space... (" + (lnPointer - 0xa3ee).ToString() + " over)");
+                    compressed = true;
+                    // Might have to compress further to remove one byte stuff
+                    // Must compress the map by getting rid of further 1 byte lakes
+                }
+                else
+                    badMap = false;
+            }
 
-			// Ensure monster zones are 8x8
-			if (chkSmallMap.Checked)
-			{
-				romData[0x2d8] = 0x85;
-				romData[0x2d9] = 0x4a;
-				romData[0x2da] = 0xa5;
-				romData[0x2db] = 0x2b;
-				romData[0x2dc] = 0x29;
-				romData[0x2dd] = 0xf0;
-				romData[0x2de] = 0x0a;
-			}
+            // Ensure monster zones are 8x8
+            if (chkSmallMap.Checked)
+            {
+                romData[0x2d8] = 0x85;
+                romData[0x2d9] = 0x4a;
+                romData[0x2da] = 0xa5;
+                romData[0x2db] = 0x2b;
+                romData[0x2dc] = 0x29;
+                romData[0x2dd] = 0xf0;
+                romData[0x2de] = 0x0a;
+            }
 
-			// Enter monster zones
-			for (int lnI = 0; lnI < 16; lnI++)
+            // Enter monster zones
+            for (int lnI = 0; lnI < 16; lnI++)
                 for (int lnJ = 0; lnJ < 16; lnJ++)
                 {
                     if (monsterZones[lnI, lnJ] == 0xff)
@@ -1819,35 +1886,37 @@ namespace DW3Randomizer
                     romData[0x956 + (lnI * 16) + lnJ] = (byte)monsterZones[lnI, lnJ];
                 }
 
-			using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "zones.txt")))
-			{
-				for (int lnY = 0; lnY < 16; lnY++)
-				{
-					string output = "";
-					for (int lnX = 0; lnX < 16; lnX++)
-						output += zone[lnY, lnX].ToString().PadLeft(5) + " ";
-					writer.WriteLine(output);
-				}
-			}
+            using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "zones.txt")))
+            {
+                for (int lnY = 0; lnY < 16; lnY++)
+                {
+                    string output = "";
+                    for (int lnX = 0; lnX < 16; lnX++)
+                        output += zone[lnY, lnX].ToString().PadLeft(5) + " ";
+                    writer.WriteLine(output);
+                }
+            }
 
-			using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "monsters.txt")))
-			{
-				for (int lnY = 0; lnY < 16; lnY++)
-				{
-					string output = "";
-					for (int lnX = 0; lnX < 16; lnX++)
-						output += monsterZones[lnY, lnX].ToString("X2") + " ";
-					writer.WriteLine(output);
-				}
-			}
+            using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "monsters.txt")))
+            {
+                for (int lnY = 0; lnY < 16; lnY++)
+                {
+                    string output = "";
+                    for (int lnX = 0; lnX < 16; lnX++)
+                        output += monsterZones[lnY, lnX].ToString("X2") + " ";
+                    writer.WriteLine(output);
+                }
+            }
 
-			return true;
+            return true;
         }
 
-        private bool randomizeNames(Random r1)
+        private void randomizeNames()
         {
-            string[] maleNames = {"Bran","Glynn","Talint","Numor","Lars","Orfeo","Artho","Esgar","Ragnar","Cristo","Brey","Taloon","Pankraz","Parry","Carver","Nevan","Terry","Amos","Kiefer","Gabo","Melvin","Angelo","Yangus","Erik","Sylvando","Arus","Luceus","Lazarel"};
-            string[] femaleNames = {"Varia","Elani","Ollisa","Roz","Kailin","Peta","Illith","Gwen","Alena","Nara","Mara","Bianca","Debora","Madchen","Nera","Maria","Patty","Milly","Ashlynn","Maribel","Aira","Jessica","Jade","Veronica","Serena","Lunafrea","Aurora","Teresa"};
+            Random r1 = new Random(int.Parse(txtSeed.Text));
+
+            string[] maleNames = { "Bran", "Glynn", "Talint", "Numor", "Lars", "Orfeo", "Artho", "Esgar", "Ragnar", "Cristo", "Brey", "Taloon", "Pankraz", "Parry", "Carver", "Nevan", "Terry", "Amos", "Kiefer", "Gabo", "Melvin", "Angelo", "Yangus", "Erik", "Sylvando", "Arus", "Luceus", "Lazarel" };
+            string[] femaleNames = { "Varia", "Elani", "Ollisa", "Roz", "Kailin", "Peta", "Illith", "Gwen", "Alena", "Nara", "Mara", "Bianca", "Debora", "Madchen", "Nera", "Maria", "Patty", "Milly", "Ashlynn", "Maribel", "Aira", "Jessica", "Jade", "Veronica", "Serena", "Lunafrea", "Aurora", "Teresa" };
 
             int maleNameCount = maleNames.Length;
             int femaleNameCount = femaleNames.Length;
@@ -1887,7 +1956,7 @@ namespace DW3Randomizer
                     index3 -= 1;
                 }
                 else
-                { 
+                {
                     index3 += 1;
                 }
                 if (index1 == index3)
@@ -1922,12 +1991,12 @@ namespace DW3Randomizer
             {
                 txtCharName3.Text = femaleNames[index3];
             }
-            return true;
         }
 
-
-        private bool randomizeGender(Random r1)
+        private void randomizeGender()
         {
+            Random r1 = new Random(int.Parse(txtSeed.Text));
+
             if (r1.Next() % 2 == 0)
             {
                 cboGender1.SelectedIndex = 0;
@@ -1954,11 +2023,12 @@ namespace DW3Randomizer
             {
                 cboGender3.SelectedIndex = 1;
             }
-            return true;
         }
 
-        private bool randomizeClass(Random r1)
+        private bool randomizeClass()
         {
+            Random r1 = new Random(int.Parse(txtSeed.Text));
+
             int[] availableClasses = new int[8];
             int stringIndex = 0;
             int selectIndex = 0;
@@ -2016,18 +2086,25 @@ namespace DW3Randomizer
                 MessageBox.Show("No classes selected. Please select at least 1 class");
                 return false;
             }
-//            stringIndex -= 1;
+            //            stringIndex -= 1;
             selectIndex = r1.Next() % stringIndex;
             cboClass1.SelectedIndex = availableClasses[selectIndex];
             selectIndex = r1.Next() % stringIndex;
             cboClass2.SelectedIndex = availableClasses[selectIndex];
             selectIndex = r1.Next() % stringIndex;
             cboClass3.SelectedIndex = availableClasses[selectIndex];
-
             return true;
         }
-        private void randEnemyPatterns(Random r1)
+
+        private void randEnemyPatterns(int rni)
         {
+            Random r1 = new Random(int.Parse(txtSeed.Text));
+
+            for (int lnI = 0; lnI < rni; lnI++)
+            {
+                r1.Next();
+            }
+
             byte[] monsterSize = { 8, 4, 4, 4, 4, 4, 7, 4, 4, 8, 4, 4, 4, 2, 4, 4,
                 4, 4, 5, 5, 2, 4, 4, 5, 4, 4, 4, 4, 4, 4, 3, 2,
                 4, 4, 4, 2, 4, 5, 4, 4, 4, 4, 4, 8, 4, 4, 4, 3,
@@ -2280,6 +2357,2600 @@ namespace DW3Randomizer
                     romData[byteValStart + lnJ] = enemyStats[lnJ];
             }
         }
+
+        private void randMonsterZones(int rni)
+        {
+            Random r1 = new Random(int.Parse(txtSeed.Text));
+
+            for (int lnI = 0; lnI < rni; lnI++)
+            {
+                r1.Next();
+            }
+            // Aliahan 1, 2, 3, Promontory Cave, Tower of Najimi B, 1, 2, Aliahan 4, Enticement Cave 1, 2, Romaly, Kanave, Champange Tower, Noaniels, Dream Cave, Assaram, Isis 1, 2, Pyramid 1, 2, 3
+            List<int> gentleZones = new List<int>() { 4, 5, 6, 65, 66, 67, 68, 7, 69, 70, 8, 9, 71, 72, 10, 74, 75, 12, 13, 14, 76, 77, 80 };
+            List<int> violentZone1 = new List<int>() { 78, 48, 79, 81 }; // Cave of Necrogund
+            List<int> violentZone2 = new List<int>() { 82, 39, 11 }; // Baramos Castle
+            List<int> violentZone3 = new List<int>() { 64, 50, 51, 52, 54, 55, 57, 58, 60, 61, 63, 59, 62, 40, 53, 56 };  // Tantegel overworld, caves, and towers
+            List<int> violentZone4 = new List<int>() { 25, 34, 38, 63 }; // Zoma's Castle
+                                                                         // Totally randomize monster zones
+            for (int lnI = 0; lnI < 95; lnI++)
+            {
+                int byteToUse = 0xaeb + (lnI * 15);
+                bool nonViolent = false;
+                for (int lnJ = 1; lnJ < 13; lnJ++)
+                {
+                    if (gentleZones.IndexOf(lnI) != -1)
+                        romData[byteToUse + lnJ] = monsterOrder[r1.Next() % ((gentleZones.IndexOf(lnI) * 2) + 8)];
+                    else if (violentZone1.Contains(lnI))
+                        romData[byteToUse + lnJ] = monsterOrder[(r1.Next() % 92) + 40];
+                    else if (violentZone2.Contains(lnI))
+                        romData[byteToUse + lnJ] = monsterOrder[(r1.Next() % 72) + 60];
+                    else if (violentZone3.Contains(lnI))
+                        romData[byteToUse + lnJ] = monsterOrder[(r1.Next() % 56) + 80];
+                    else if (violentZone4.Contains(lnI))
+                        romData[byteToUse + lnJ] = monsterOrder[(r1.Next() % 37) + 99];
+                    else
+                    {
+                        romData[byteToUse + lnJ] = monsterOrder[r1.Next() % 131];
+                        nonViolent = true;
+                    }
+                }
+                if (nonViolent && r1.Next() % 3 == 1)
+                {
+                    romData[byteToUse + 13] = (byte)(r1.Next() % 20);
+                    romData[byteToUse + 14] = (byte)(r1.Next() % 20);
+                }
+            }
+
+            // Randomize the 19 special battles
+            for (int lnI = 0; lnI < 20; lnI++)
+            {
+                int byteToUse = 0x107a + (6 * lnI);
+                for (int lnJ = 0; lnJ < 4; lnJ++)
+                {
+                    if (r1.Next() % 2 == 1 || lnJ == 3)
+                        romData[byteToUse + lnJ] = monsterOrder[r1.Next() % 129];
+                }
+            }
+
+            // Not sure we can really randomize boss fights... (ff separates boss fights - 0x8ee-0x918 AND 0x919-0x944)
+            // But I can change the Mummy Men treasure fights to Shadow fights!
+            romData[0x909] = 0x18; // was 0x20 - Mummy Men
+                                   // We could randomize the Granite Titan and Boss Troll fights too...
+                                   // Maybe remove two of the Kandar Henchmen in the first fight and place two "bonus monsters" in other fights...
+
+        }
+
+        private void randItemEffects(int rni)
+        {
+            Random r1 = new Random(int.Parse(txtSeed.Text));
+
+            for (int lnI = 0; lnI < rni; lnI++)
+            {
+                r1.Next();
+            }
+
+            //Randomize which items equate to which effects
+            //Select 21 items randomly from a set defined as follows:
+            int[] legalEffectItems = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
+                                       0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
+                                       0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
+                                       0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f,
+                                       0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46 };
+
+            List<int> keyEffectItems = new List<int> { 0x10, 0x11 };
+
+            //Wipe out the use byte by totally resetting the price.
+            for (int lnI = 0; lnI < legalEffectItems.Length; lnI++)
+            {
+                int oldVal = romData[0x11be + legalEffectItems[lnI]];
+                romData[0x11be + legalEffectItems[lnI]] = (byte)(oldVal % 32);
+                romData[0x11be + legalEffectItems[lnI]] = (byte)(oldVal % 32 >= 16 ? 0x10 : 0x00);
+                romData[0x11be + legalEffectItems[lnI]] += (byte)(oldVal % 16 >= 8 ? 0x08 : 0x00);
+            }
+            int oldVal1 = romData[0x11be + 0x4a];
+            romData[0x11be + 0x4a] = (byte)(oldVal1 % 32);
+            int oldVal2 = romData[0x11be + 0x5b];
+            romData[0x11be + 0x5b] = (byte)(oldVal2 % 32);
+
+            int[] legalItemSpells = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
+                                      0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
+                                      0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e,
+                                      0x30, 0x31, 0x32, 0x34,
+                                      0x38, 0x39, 0x3a }; // restore MP, everyone sneezes, self numb - 54 spells total
+
+            List<int> enemyGroupSpells = new List<int> { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x09, 0x0a, 0x0b, 0x0d, 0x0e, 0x0f,
+                                                         0x10, 0x12, 0x13, 0x15, 0x16, 0x17, 0x18, 0x22, 0x24, 0x25, 0x27, 0x2b, 0x2c }; // 25
+            List<int> enemyAllSpells = new List<int> { 0x06, 0x07, 0x08, 0x0c, 0x11, 0x14, 0x39 }; // 7
+            List<int> allySelfSpells = new List<int> { 0x1a, 0x1b, 0x1c, 0x23, 0x29, 0x2d, 0x30, 0x32, 0x34, 0x38, 0x3a }; // 11
+            List<int> allySelectSpells = new List<int> { 0x20, 0x21, 0x28 }; // 3
+            List<int> allyAllSpells = new List<int> { 0x19, 0x1d, 0x1e, 0x1f, 0x26, 0x2a, 0x2e, 0x31 }; // 8
+
+            for (int lnI = 0; lnI < 21; lnI++)
+            {
+                int effectItem = legalEffectItems[r1.Next() % legalEffectItems.Length];
+                if (romData[0x11be + effectItem] >= 0x80) // If it's already been selected...
+                {
+                    lnI--;
+                }
+                else
+                {
+                    romData[0x11be + effectItem] += 0x80;
+                }
+            }
+
+            int iSpell = -1;
+            for (int lnI = 0; lnI < legalEffectItems.Length; lnI++)
+            {
+                // Otherwise, randomize the spell it will be using.
+                if (romData[0x11be + legalEffectItems[lnI]] < 0x80)
+                    continue;
+
+                int effectSpell = legalItemSpells[r1.Next() % legalItemSpells.Length];
+                if (effectSpell == 0x38 && keyEffectItems.Contains(effectSpell)) // Can't let a key item potentially crumble!  Redo that randomization.
+                {
+                    lnI--;
+                    continue;
+                }
+
+                iSpell++;
+                // Now determine what spell it is... that will determine whether to "attack" yourself, a group of monsters, a selected ally, or all monsters/allies.
+                if (enemyGroupSpells.Contains(effectSpell))
+                    romData[0x11be + legalEffectItems[lnI]] += 0x60;
+                else if (enemyAllSpells.Contains(effectSpell))
+                    romData[0x11be + legalEffectItems[lnI]] += 0x20;
+                else if (allySelfSpells.Contains(effectSpell)) // 50/50 chance of targetting for self or an ally.
+                    romData[0x11be + legalEffectItems[lnI]] += (byte)(r1.Next() % 2 == 1 ? 0x00 : 0x40);
+                else if (allySelectSpells.Contains(effectSpell))
+                    romData[0x11be + legalEffectItems[lnI]] += 0x40;
+                else if (allyAllSpells.Contains(effectSpell))
+                    romData[0x11be + legalEffectItems[lnI]] += 0x00;
+
+                romData[0x13280 + iSpell] = (byte)effectSpell;
+            }
+
+        }
+
+        private void randEquip(int rni)
+        {
+            Random r1 = new Random(int.Parse(txtSeed.Text));
+
+            for (int lnI = 0; lnI < rni; lnI++)
+            {
+                r1.Next();
+            }
+
+            // Totally randomize weapons, armor, shields, helmets (13efb-13f1d, 1a00e-1a08b for pricing)
+
+            // Used if chk_UseVanEquipValues
+            int[] attackPower = { 2, 7, 12 };
+            int[] attackPower2 = { 14, 28, 40, 34, 15, 10, 30, 18, 48, 24, 100, 80, 90, 16, 48, 33, 110, 100, 55, 50, 65, 5, 55, 85, 30, 120, 63, 77, 35, 55 };
+            int[] armorDefPower = { 4, 8, 12 };
+            int[] armorDefPower2 = { 10, 28, 25, 32, 40, 20, 75, 22, 8, 23, 30, 65, 40, 20, 2, 40, 16, 50, 45, 55, 35 };
+            int[] shieldDefPower = { 4, 12, 40, 50, 35, 7, 30 };
+            int[] helmetDefPower = { 6, 16, 10, 35, 8, 45, 2, 25 };
+
+            List<int> attackPowerList = new List<int>(attackPower);
+            List<int> attackPowerList2 = new List<int>(attackPower2);
+            List<int> armorDefPowerList = new List<int>(armorDefPower);
+            List<int> armorDefPowerList2 = new List<int>(armorDefPower2);
+            List<int> shieldDefPowerList = new List<int>(shieldDefPower);
+            List<int> helmetDefPowerList = new List<int>(helmetDefPower);
+
+            if (chk_RemoveStartEqRestrictions.Checked == true)
+            {
+                for (int lnI = 0; lnI < attackPower2.Length; lnI++)
+                    attackPowerList.Add(attackPower2[lnI]);
+                for (int lnI = 0; lnI < armorDefPower2.Length; lnI++)
+                    armorDefPowerList.Add(armorDefPower2[lnI]);
+            }
+
+
+            for (int lnI = 0; lnI <= 70; lnI++)
+            {
+                byte power = 0;
+
+                if (chk_RemoveStartEqRestrictions.Checked == true)
+                {
+                    if (chk_UseVanEquipValues.Checked == true)
+                    {
+                        int index = 0;
+
+                        if (lnI < 33)
+                        {
+                            index = r1.Next() % attackPowerList.Count;
+                            power = (byte)(attackPowerList[index]);
+                            attackPowerList.RemoveAt(index);
+                        }
+                        else if (lnI < 56)
+                        {
+                            index = r1.Next() % armorDefPowerList.Count;
+                            power = (byte)(armorDefPowerList[index]);
+                            armorDefPowerList.RemoveAt(index);
+                        }
+                        else if (lnI < 63)
+                        {
+                            index = r1.Next() % shieldDefPowerList.Count;
+                            power = (byte)(shieldDefPowerList[index]);
+                            shieldDefPowerList.RemoveAt(index);
+                        }
+                        else if (lnI < 71)
+                        {
+                            index = r1.Next() % helmetDefPowerList.Count;
+                            power = (byte)(helmetDefPowerList[index]);
+                            helmetDefPowerList.RemoveAt(index);
+                        }
+                        else // Golden Claw
+                        {
+                            index = r1.Next() % attackPowerList2.Count;
+                            power = (byte)(attackPowerList2[index]);
+                            attackPowerList2.RemoveAt(index);
+                        }
+                    }
+                    else
+                    {
+                        if (lnI < 33)
+                            power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 243252); // max 130
+                        else if (lnI < 56)
+                            power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 395284); // max 80
+                        else if (lnI < 63)
+                            power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 574959); // max 55
+                        else if (lnI < 71)
+                            power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 903507); // max 35
+                        else
+                            power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 243252); // max 130 - Golden Claw
+
+                    }
+                }
+                else
+                {
+                    if (chk_UseVanEquipValues.Checked == true) // Randomize the values of starting equipment separately from all equipment
+                    {
+                        int index = 0;
+
+                        if (lnI == 0 || lnI == 1 || lnI == 2)
+                        {
+                            index = r1.Next() % attackPowerList.Count;
+                            power = (byte)(attackPowerList[index]);
+                            attackPowerList.RemoveAt(index);
+                        }
+                        else if (lnI == 32 || lnI == 34 || lnI == 48)
+                        {
+                            index = r1.Next() % armorDefPowerList.Count;
+                            power = (byte)(armorDefPowerList[index]);
+                            armorDefPowerList.RemoveAt(index);
+                        }
+                        else if (lnI < 33)
+                        {
+                            index = r1.Next() % attackPowerList2.Count;
+                            power = (byte)(attackPowerList2[index]);
+                            attackPowerList2.RemoveAt(index);
+                        }
+                        else if (lnI < 56)
+                        {
+                            index = r1.Next() % armorDefPowerList2.Count;
+                            power = (byte)(armorDefPowerList2[index]);
+                            armorDefPowerList2.RemoveAt(index);
+                        }
+                        else if (lnI < 63)
+                        {
+                            index = r1.Next() % shieldDefPowerList.Count;
+                            power = (byte)(shieldDefPowerList[index]);
+                            shieldDefPowerList.RemoveAt(index);
+                        }
+                        else if (lnI < 71)
+                        {
+                            index = r1.Next() % helmetDefPowerList.Count;
+                            power = (byte)(helmetDefPowerList[index]);
+                            helmetDefPowerList.RemoveAt(index);
+                        }
+                        else
+                        {
+                            index = r1.Next() % attackPowerList2.Count;
+                            power = (byte)(attackPowerList2[index]);
+                            attackPowerList2.RemoveAt(index);
+                        }
+
+                    }
+                    else
+                    {
+                        if (lnI == 0 || lnI == 1 || lnI == 2 || lnI == 32 || lnI == 34 || lnI == 48)
+                            power = (byte)(r1.Next() % 12);
+                        else if (lnI < 33)
+                            power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 243252); // max 130
+                        else if (lnI < 56)
+                            power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 395284); // max 80
+                        else if (lnI < 64)
+                            power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 574959); // max 55
+                        else if (lnI < 71)
+                            power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 903507); // max 35
+                        else
+                            power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 243252); // max 130
+                    }
+                }
+                if (power <= 1)
+                {
+                    power += 2; //To avoid 0 power
+                }
+
+                if (lnI < 71)
+                    romData[0x279a0 + lnI] = power;
+                else
+                    romData[0x279a0 + 74] = power; // Golden Claw power
+
+                // You want a max price of about 20000, shields 18300, helmets 15000
+                double price = Math.Round((lnI < 31 ? Math.Pow(power, 2.04) : lnI < 55 ? Math.Pow(power, 2.26) : lnI < 62 ? Math.Pow(power, 2.45) : Math.Pow(power, 2.7)), 0);
+                // TO DO:  Round to the nearest 10 (after 100GP), 50(after 1000 GP), or 100 (after 2500 GP)
+                price = (float)Math.Round(price, 0);
+
+                //// Remove any price adjustment first.
+                romData[0x11be + lnI] -= (byte)(romData[0x11be + lnI] % 4);
+                if (price >= 10000)
+                {
+                    romData[0x11be + lnI] += 3; // Now multiply by 1000
+                    price /= 1000;
+                }
+                else if (price >= 1000)
+                {
+                    romData[0x11be + lnI] += 2; // Now multiply by 100
+                    price /= 100;
+                }
+                else if (price >= 100)
+                {
+                    romData[0x11be + lnI] += 1; // Now multiply by 10
+                    price /= 10;
+                }
+                else
+                {
+                    romData[0x11be + lnI] += 0;
+                }
+
+                // Must keep special effects if romData is >= 128
+                if (lnI < 80)
+                {
+                    if (romData[0x123b + lnI] >= 128)
+                        romData[0x123b + lnI] = (byte)(128 + price);
+                    else
+                        romData[0x123b + lnI] = (byte)(price);
+
+                    if (lnI <= 2)
+                    {
+                        if ((romData[0x123b + lnI] % 16) >= 8)
+                            romData[0x123b + lnI] -= (byte)((romData[0x123b + lnI] % 8) + 1);
+                    }
+                }
+            }
+        }
+
+        private void whoCanEquip(int rni)
+        {
+            Random r1 = new Random(int.Parse(txtSeed.Text));
+
+            for (int lnI = 0; lnI < rni; lnI++)
+            {
+                r1.Next();
+            }
+
+            for (int lnI = 0; lnI <= 70; lnI++)
+            {
+                // Maintain equipment requirements for the starting equipment
+                if (!(lnI == 0x00 || lnI == 0x01 || lnI == 0x02 || lnI == 0x20 || lnI == 0x22 || lnI == 0x30))
+                    if (lnI < 71)
+                        romData[0x1147 + lnI] = (byte)(r1.Next() % 255 + 1);
+                    else
+                        romData[0x1147 + lnI + 3] = (byte)(r1.Next() % 255 + 1);
+
+                // EXCEPT those that are "FF", update the "who can use the item" to the people who are allowed to equip the item
+                if (lnI < 71)
+                    if (romData[0x1196 + lnI] != 255 && romData[0x1196 + lnI] != 0 && lnI < 32)
+                        romData[0x1196 + lnI] = romData[0x1147 + lnI];
+                    else
+                     if (romData[0x1196 + lnI + 3] != 255 && romData[0x1196 + lnI + 3] != 0 && lnI < 32)
+                        romData[0x1196 + lnI + 3] = romData[0x1147 + lnI + 3];
+            }
+        }
+
+        private void weapArmPower()
+        {
+            for (int lnI = 0; lnI < 71; lnI++)
+            {
+                int iatp = (int)romData[0x279a0 + lnI];
+                int iatph = iatp / 100;
+                iatp = iatp % 100;
+                int iatpt = iatp / 10;
+                int iatpo = iatp % 10;
+
+                byte batph = 0x01;
+                byte batpt = 0x02;
+                byte batpo = 0x03;
+
+                if (iatph == 0)
+                    batph = 0x3F;
+                else if (iatph == 1)
+                    batph = 0x02;
+                else if (iatph == 2)
+                    batph = 0x03;
+                else if (iatph == 3)
+                    batph = 0x04;
+                else if (iatph == 4)
+                    batph = 0x05;
+                else if (iatph == 5)
+                    batph = 0x06;
+                else if (iatph == 6)
+                    batph = 0x07;
+                else if (iatph == 7)
+                    batph = 0x08;
+                else if (iatph == 8)
+                    batph = 0x09;
+                else if (iatph == 9)
+                    batph = 0x0a;
+
+                if (iatpt == 0)
+                {
+                    if (iatph == 0)
+                        batpt = 0x3f;
+                    else
+                        batpt = 0x01;
+                }
+                else if (iatpt == 1)
+                    batpt = 0x02;
+                else if (iatpt == 2)
+                    batpt = 0x03;
+                else if (iatpt == 3)
+                    batpt = 0x04;
+                else if (iatpt == 4)
+                    batpt = 0x05;
+                else if (iatpt == 5)
+                    batpt = 0x06;
+                else if (iatpt == 6)
+                    batpt = 0x07;
+                else if (iatpt == 7)
+                    batpt = 0x08;
+                else if (iatpt == 8)
+                    batpt = 0x09;
+                else if (iatpt == 9)
+                    batpt = 0x0a;
+
+                if (iatpo == 0)
+                    batpo = 0x01;
+                else if (iatpo == 1)
+                    batpo = 0x02;
+                else if (iatpo == 2)
+                    batpo = 0x03;
+                else if (iatpo == 3)
+                    batpo = 0x04;
+                else if (iatpo == 4)
+                    batpo = 0x05;
+                else if (iatpo == 5)
+                    batpo = 0x06;
+                else if (iatpo == 6)
+                    batpo = 0x07;
+                else if (iatpo == 7)
+                    batpo = 0x08;
+                else if (iatpo == 8)
+                    batpo = 0x09;
+                else if (iatpo == 9)
+                    batpo = 0x0a;
+
+
+                if (lnI == 0)
+                {
+                    // Line 1
+                    romData[0xad11] = 0x27; // C
+                    romData[0xad12] = 0x23; // y
+                    romData[0xad13] = 0x1a; // p
+                    romData[0xad14] = 0x37; // S
+                    romData[0xad15] = 0x1e; // t
+                    romData[0xad16] = 0x15; // k
+                    romData[0xad17] = 0xff; // Break
+                                            // Line 2
+                    romData[0xb0e0] = 0x25; // A
+                    romData[0xb0e1] = batph; // Hundreds
+                    romData[0xb0e2] = batpt; // Tens
+                    romData[0xb0e3] = batpo; // Ones
+                    romData[0xb0e4] = 0x61; // Blank
+                    romData[0xb0e5] = 0xff; // Break
+
+                }
+                else if (lnI == 1)
+                {
+                    // Line 1
+                    romData[0xad18] = 0x27; // C
+                    romData[0xad19] = 0x16; // l
+                    romData[0xad1a] = 0x1f; // u
+                    romData[0xad1b] = 0x0c; // b
+                    romData[0xad1c] = 0xff; // Break
+                                            // Line 2
+                    romData[0xb0e6] = 0x25; // A
+                    romData[0xb0e7] = batph; // Hundreds
+                    romData[0xb0e8] = batpt; // Tens
+                    romData[0xb0e9] = batpo; // Ones
+                    romData[0xb0ea] = 0x61; // :
+                    romData[0xb0eb] = 0xff; // Break
+
+                }
+                else if (lnI == 2)
+                {
+                    // Line 1
+                    romData[0xad1d] = 0x27; // C
+                    romData[0xad1e] = 0x1a; // p
+                    romData[0xad1f] = 0x1c; // r
+                    romData[0xad20] = 0x37; // S
+                    romData[0xad21] = 0x21; // w
+                    romData[0xad22] = 0x0e; // d
+                    romData[0xad23] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb0ec] = 0x25; // A
+                    romData[0xb0ed] = batph; // Hundreds
+                    romData[0xb0ee] = batpt; // Tens
+                    romData[0xb0ef] = batpo; // Ones
+                    romData[0xb0f0] = 0x61; // Blank
+                    romData[0xb0f1] = 0xff; // Break
+                }
+                else if (lnI == 3)
+                {
+                    // Line 1
+                    romData[0xad24] = 0x31; // M
+                    romData[0xad25] = 0x11; // g
+                    romData[0xad26] = 0x0d; // c
+                    romData[0xad27] = 0x2f; // K
+                    romData[0xad28] = 0x18; // n
+                    romData[0xad29] = 0x10; // f
+                    romData[0xad2a] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb0f2] = 0x25; // A
+                    romData[0xb0f3] = batph; // Hundreds
+                    romData[0xb0f4] = batpt; // Tens
+                    romData[0xb0f5] = batpo; // Ones
+                    romData[0xb0f6] = 0x00; // Blank
+                    romData[0xb0f7] = 0xff; // Break
+                }
+                else if (lnI == 4)
+                {
+                    // Line 1
+                    romData[0xad2b] = 0x2d; // I
+                    romData[0xad2c] = 0x1c; // r
+                    romData[0xad2d] = 0x37; // S
+                    romData[0xad2e] = 0x1a; // p
+                    romData[0xad2f] = 0x1c; // r
+                    romData[0xad30] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb0f8] = 0x25; // A
+                    romData[0xb0f9] = batph; // Hundreds
+                    romData[0xb0fa] = batpt; // Tens
+                    romData[0xb0fb] = batpo; // Ones
+                    romData[0xb0fc] = 0x00; // Blank
+                    romData[0xb0fd] = 0xff; // Break
+                }
+                else if (lnI == 5)
+                {
+                    // Line 1
+                    romData[0xad31] = 0x26; // B
+                    romData[0xad32] = 0x1e; // t
+                    romData[0xad33] = 0x16; // l
+                    romData[0xad34] = 0x25; // A
+                    romData[0xad35] = 0x22; // x
+                    romData[0xad36] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb0fe] = 0x25; // A
+                    romData[0xb0ff] = batph; // Hundreds
+                    romData[0xb100] = batpt; // Tens
+                    romData[0xb101] = batpo; // Ones
+                    romData[0xb102] = 0x00; // Blank
+                    romData[0xb103] = 0xff; // Break
+                }
+                else if (lnI == 6)
+                {
+                    // Line 1
+                    romData[0xad37] = 0x26; // B
+                    romData[0xad38] = 0x1c; // r
+                    romData[0xad39] = 0x0e; // d
+                    romData[0xad3a] = 0x37; // S
+                    romData[0xad3b] = 0x21; // w
+                    romData[0xad3c] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb104] = 0x25; // A
+                    romData[0xb105] = batph; // Hundreds
+                    romData[0xb106] = batpt; // Tens
+                    romData[0xb107] = batpo; // Ones
+                    romData[0xb108] = 0x00; // Blank
+                    romData[0xb109] = 0xff; // Break
+                }
+                else if (lnI == 7)
+                {
+                    // Line 1
+                    romData[0xad3d] = 0x3b; // W
+                    romData[0xad3e] = 0x24; // z
+                    romData[0xad3f] = 0x3b; // W
+                    romData[0xad40] = 0x18; // n
+                    romData[0xad41] = 0x0e; // d
+                    romData[0xad42] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb10a] = 0x25; // A
+                    romData[0xb10b] = batph; // Hundreds
+                    romData[0xb10c] = batpt; // Tens
+                    romData[0xb10d] = batpo; // Ones
+                    romData[0xb10e] = 0x00; // Blank
+                    romData[0xb10f] = 0xff; // Break
+                }
+                else if (lnI == 8)
+                {
+                    // Line 1
+                    romData[0xad43] = 0x34; // P
+                    romData[0xad44] = 0x1d; // s
+                    romData[0xad45] = 0x18; // n
+                    romData[0xad46] = 0x32; // N
+                    romData[0xad47] = 0x0e; // d
+                    romData[0xad48] = 0x16; // l
+                    romData[0xad49] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb110] = 0x25; // A
+                    romData[0xb111] = batph; // Hundreds
+                    romData[0xb112] = batpt; // Tens
+                    romData[0xb113] = batpo; // Ones
+                    romData[0xb114] = 0x00; // Blank
+                    romData[0xb115] = 0xff; // Break
+                }
+                else if (lnI == 9)
+                {
+                    // Line 1
+                    romData[0xad4a] = 0x2d; // I
+                    romData[0xad4b] = 0x1c; // r
+                    romData[0xad4c] = 0x18; // n
+                    romData[0xad4d] = 0x27; // C
+                    romData[0xad4e] = 0x16; // l
+                    romData[0xad4f] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb116] = 0x25; // A
+                    romData[0xb117] = batph; // Hundreds
+                    romData[0xb118] = batpt; // Tens
+                    romData[0xb119] = batpo; // Ones
+                    romData[0xb11a] = 0x00; // Blank
+                    romData[0xb11b] = 0xff; // Break
+                }
+                else if (lnI == 10)
+                {
+                    // Line 1
+                    romData[0xad50] = 0x38; // T
+                    romData[0xad51] = 0x12; // h
+                    romData[0xad52] = 0x18; // n
+                    romData[0xad53] = 0x3b; // W
+                    romData[0xad54] = 0x12; // h
+                    romData[0xad55] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb11c] = 0x25; // A
+                    romData[0xb11d] = batph; // Hundreds
+                    romData[0xb11e] = batpt; // Tens
+                    romData[0xb11f] = batpo; // Ones
+                    romData[0xb120] = 0x00; // Blank
+                    romData[0xb121] = 0xff; // Break
+                }
+                else if (lnI == 11)
+                {
+                    // Line 1
+                    romData[0xad56] = 0x2b; // G
+                    romData[0xad57] = 0x18; // n
+                    romData[0xad58] = 0x1e; // t
+                    romData[0xad59] = 0x37; // S
+                    romData[0xad5a] = 0x12; // h
+                    romData[0xad5b] = 0x1c; // r
+                    romData[0xad5c] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb122] = 0x25; // A
+                    romData[0xb123] = batph; // Hundreds
+                    romData[0xb124] = batpt; // Tens
+                    romData[0xb125] = batpo; // Ones
+                    romData[0xb126] = 0x00; // Blank
+                    romData[0xb127] = 0xff; // Break
+                }
+                else if (lnI == 12)
+                {
+                    // Line 1
+                    romData[0xad5d] = 0x27; // C
+                    romData[0xad5e] = 0x12; // h
+                    romData[0xad5f] = 0x37; // S
+                    romData[0xad60] = 0x15; // k
+                    romData[0xad61] = 0x16; // l
+                    romData[0xad62] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb128] = 0x25; // A
+                    romData[0xb129] = batph; // Hundreds
+                    romData[0xb12a] = batpt; // Tens
+                    romData[0xb12b] = batpo; // Ones
+                    romData[0xb12c] = 0x00; // Blank
+                    romData[0xb12d] = 0xff; // Break
+                }
+                else if (lnI == 13)
+                {
+                    // Line 1
+                    romData[0xad63] = 0x38; // T
+                    romData[0xad64] = 0x12; // h
+                    romData[0xad65] = 0x19; // o
+                    romData[0xad66] = 0x1c; // r
+                    romData[0xad67] = 0x37; // S
+                    romData[0xad68] = 0x21; // w
+                    romData[0xad69] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb12e] = 0x25; // A
+                    romData[0xb12f] = batph; // Hundreds
+                    romData[0xb130] = batpt; // Tens
+                    romData[0xb131] = batpo; // Ones
+                    romData[0xb132] = 0x00; // Blank
+                    romData[0xb133] = 0xff; // Break
+                }
+                else if (lnI == 14)
+                {
+                    // Line 1
+                    romData[0xad6a] = 0x37; // S
+                    romData[0xad6b] = 0x18; // n
+                    romData[0xad6c] = 0x21; // w
+                    romData[0xad6d] = 0x37; // S
+                    romData[0xad6e] = 0x21; // w
+                    romData[0xad6f] = 0x0e; // d
+                    romData[0xad70] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb134] = 0x25; // A
+                    romData[0xb135] = batph; // Hundreds
+                    romData[0xb136] = batpt; // Tens
+                    romData[0xb137] = batpo; // Ones
+                    romData[0xb138] = 0x00; // Blank
+                    romData[0xb139] = 0xff; // Break
+                }
+                else if (lnI == 15)
+                {
+                    // Line 1
+                    romData[0xad71] = 0x28; // D
+                    romData[0xad72] = 0x17; // m
+                    romData[0xad73] = 0x18; // n
+                    romData[0xad74] = 0x25; // A
+                    romData[0xad75] = 0x22; // x
+                    romData[0xad76] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb13a] = 0x25; // A
+                    romData[0xb13b] = batph; // Hundreds
+                    romData[0xb13c] = batpt; // Tens
+                    romData[0xb13d] = batpo; // Ones
+                    romData[0xb13e] = 0x00; // Blank
+                    romData[0xb13f] = 0xff; // Break
+                }
+                else if (lnI == 16)
+                {
+                    // Line 1
+                    romData[0xad77] = 0x36; // R
+                    romData[0xad78] = 0x0b; // a
+                    romData[0xad79] = 0x13; // i
+                    romData[0xad7a] = 0x18; // n
+                    romData[0xad7b] = 0x37; // S
+                    romData[0xad7c] = 0x1e; // t
+                    romData[0xad7d] = 0x10; // f
+                    romData[0xad7e] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb140] = 0x25; // A
+                    romData[0xb141] = batph; // Hundreds
+                    romData[0xb142] = batpt; // Tens
+                    romData[0xb143] = batpo; // Ones
+                    romData[0xb144] = 0x00; // Blank
+                    romData[0xb145] = 0xff; // Break
+                }
+                else if (lnI == 17)
+                {
+                    // Line 1
+                    romData[0xad7f] = 0x2b; // G
+                    romData[0xad80] = 0x0b; // a
+                    romData[0xad81] = 0x13; // i
+                    romData[0xad82] = 0x0b; // a
+                    romData[0xad83] = 0x37; // S
+                    romData[0xad84] = 0x21; // w
+                    romData[0xad85] = 0x0e; // d
+                    romData[0xad86] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb146] = 0x25; // A
+                    romData[0xb147] = batph; // Hundreds
+                    romData[0xb148] = batpt; // Tens
+                    romData[0xb149] = batpo; // Ones
+                    romData[0xb14a] = 0x00; // Blank
+                    romData[0xb14b] = 0xff; // Break
+                }
+                else if (lnI == 18)
+                {
+                    // Line 1
+                    romData[0xad87] = 0x36; // R
+                    romData[0xad88] = 0x10; // f
+                    romData[0xad89] = 0x16; // l
+                    romData[0xad8a] = 0x1e; // t
+                    romData[0xad8b] = 0x37; // S
+                    romData[0xad8c] = 0x1e; // t
+                    romData[0xad8d] = 0x10; // f
+                    romData[0xad8e] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb14c] = 0x25; // A
+                    romData[0xb14d] = batph; // Hundreds
+                    romData[0xb14e] = batpt; // Tens
+                    romData[0xb14f] = batpo; // Ones
+                    romData[0xb150] = 0x00; // Blank
+                    romData[0xb151] = 0xff; // Break
+                }
+                else if (lnI == 19)
+                {
+                    // Line 1
+                    romData[0xad8f] = 0x28; // D
+                    romData[0xad90] = 0x1d; // s
+                    romData[0xad91] = 0x1e; // t
+                    romData[0xad92] = 0x18; // n
+                    romData[0xad93] = 0x37; // S
+                    romData[0xad94] = 0x21; // w
+                    romData[0xad95] = 0x0e; // d
+                    romData[0xad96] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb152] = 0x25; // A
+                    romData[0xb153] = batph; // Hundreds
+                    romData[0xb154] = batpt; // Tens
+                    romData[0xb155] = batpo; // Ones
+                    romData[0xb156] = 0x00; // Blank
+                    romData[0xb157] = 0xff; // Break
+                }
+                else if (lnI == 20)
+                {
+                    // Line 1
+                    romData[0xad97] = 0x31; // M
+                    romData[0xad98] = 0x29; // E
+                    romData[0xad99] = 0x0e; // d
+                    romData[0xad9a] = 0x11; // g
+                    romData[0xad9b] = 0x0f; // e
+                    romData[0xad9c] = 0x37; // S
+                    romData[0xad9d] = 0x21; // w
+                    romData[0xad9e] = 0x0e; // d
+                    romData[0xad9f] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb158] = 0x25; // A
+                    romData[0xb159] = batph; // Hundreds
+                    romData[0xb15a] = batpt; // Tens
+                    romData[0xb15b] = batpo; // Ones
+                    romData[0xb15c] = 0x00; // Blank
+                    romData[0xb15d] = 0xff; // Break
+                }
+                else if (lnI == 21)
+                {
+                    // Line 1
+                    romData[0xada0] = 0x2a; // F
+                    romData[0xada1] = 0x1c; // r
+                    romData[0xada2] = 0x0d; // c
+                    romData[0xada3] = 0x37; // S
+                    romData[0xada4] = 0x1e; // t
+                    romData[0xada5] = 0x10; // f
+                    romData[0xada6] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb15e] = 0x25; // A
+                    romData[0xb15f] = batph; // Hundreds
+                    romData[0xb160] = batpt; // Tens
+                    romData[0xb161] = batpo; // Ones
+                    romData[0xb162] = 0x00; // Blank
+                    romData[0xb163] = 0xff; // Break
+                }
+                else if (lnI == 22)
+                {
+                    // Line 1
+                    romData[0xada7] = 0x2d; // I
+                    romData[0xada8] = 0x16; // l
+                    romData[0xada9] = 0x1d; // s
+                    romData[0xadaa] = 0x18; // n
+                    romData[0xadab] = 0x37; // S
+                    romData[0xadac] = 0x21; // w
+                    romData[0xadad] = 0x0e; // d
+                    romData[0xadae] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb164] = 0x25; // A
+                    romData[0xb165] = batph; // Hundreds
+                    romData[0xb166] = batpt; // Tens
+                    romData[0xb167] = batpo; // Ones
+                    romData[0xb168] = 0x00; // Blank
+                    romData[0xb169] = 0xff; // Break
+                }
+                else if (lnI == 23)
+                {
+                    // Line 1
+                    romData[0xadaf] = 0x3e; // Z
+                    romData[0xadb0] = 0x17; // m
+                    romData[0xadb1] = 0x0c; // b
+                    romData[0xadb2] = 0x37; // S
+                    romData[0xadb3] = 0x16; // l
+                    romData[0xadb4] = 0x1d; // s
+                    romData[0xadb5] = 0x12; // h
+                    romData[0xadb6] = 0x1c; // r
+                    romData[0xadb7] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb16a] = 0x25; // A
+                    romData[0xb16b] = batph; // Hundreds
+                    romData[0xb16c] = batpt; // Tens
+                    romData[0xb16d] = batpo; // Ones
+                    romData[0xb16e] = 0x00; // Blank
+                    romData[0xb16f] = 0xff; // Break
+                }
+                else if (lnI == 24)
+                {
+                    // Line 1
+                    romData[0xadb8] = 0x2a; // F
+                    romData[0xadb9] = 0x0d; // c
+                    romData[0xadba] = 0x18; // n
+                    romData[0xadbb] = 0x37; // S
+                    romData[0xadbc] = 0x21; // w
+                    romData[0xadbd] = 0x0e; // d
+                    romData[0xadbe] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb170] = 0x25; // A
+                    romData[0xb171] = batph; // Hundreds
+                    romData[0xb172] = batpt; // Tens
+                    romData[0xb173] = batpo; // Ones
+                    romData[0xb174] = 0x00; // Blank
+                    romData[0xb175] = 0xff; // Break
+                }
+                else if (lnI == 25)
+                {
+                    // Line 1
+                    romData[0xadbf] = 0x37; // S
+                    romData[0xadc0] = 0x16; // l
+                    romData[0xadc1] = 0x0e; // d
+                    romData[0xadc2] = 0x11; // g
+                    romData[0xadc3] = 0x2c; // H
+                    romData[0xadc4] = 0x17; // m
+                    romData[0xadc5] = 0x1c; // r
+                    romData[0xadc6] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb176] = 0x25; // A
+                    romData[0xb177] = batph; // Hundreds
+                    romData[0xb178] = batpt; // Tens
+                    romData[0xb179] = batpo; // Ones
+                    romData[0xb17a] = 0x00; // Blank
+                    romData[0xb17b] = 0xff; // Break
+                }
+                else if (lnI == 26)
+                {
+                    // Line 1
+                    romData[0xadc7] = 0x38; // T
+                    romData[0xadc8] = 0x12; // h
+                    romData[0xadc9] = 0x18; // n
+                    romData[0xadca] = 0x0e; // d
+                    romData[0xadcb] = 0x37; // S
+                    romData[0xadcc] = 0x21; // w
+                    romData[0xadcd] = 0x0e; // d
+                    romData[0xadce] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb17c] = 0x25; // A
+                    romData[0xb17d] = batph; // Hundreds
+                    romData[0xb17e] = batpt; // Tens
+                    romData[0xb17f] = batpo; // Ones
+                    romData[0xb180] = 0x00; // Blank
+                    romData[0xb181] = 0xff; // Break
+                }
+                else if (lnI == 27)
+                {
+                    // Line 1
+                    romData[0xadcf] = 0x38; // T
+                    romData[0xadd0] = 0x12; // h
+                    romData[0xadd1] = 0x18; // n
+                    romData[0xadd2] = 0x0e; // d
+                    romData[0xadd3] = 0x37; // S
+                    romData[0xadd4] = 0x1e; // t
+                    romData[0xadd5] = 0x10; // f
+                    romData[0xadd6] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb182] = 0x25; // A
+                    romData[0xb183] = batph; // Hundreds
+                    romData[0xb184] = batpt; // Tens
+                    romData[0xb185] = batpo; // Ones
+                    romData[0xb186] = 0x00; // Blank
+                    romData[0xb187] = 0xff; // Break
+                }
+                else if (lnI == 28)
+                {
+                    // Line 1
+                    romData[0xadd7] = 0x2f; // K
+                    romData[0xadd8] = 0x13; // i
+                    romData[0xadd9] = 0x18; // n
+                    romData[0xadda] = 0x11; // g
+                    romData[0xaddb] = 0x37; // S
+                    romData[0xaddc] = 0x21; // w
+                    romData[0xaddd] = 0x0e; // d
+                    romData[0xadde] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb188] = 0x25; // A
+                    romData[0xb189] = batph; // Hundreds
+                    romData[0xb18a] = batpt; // Tens
+                    romData[0xb18b] = batpo; // Ones
+                    romData[0xb18c] = 0x00; // Blank
+                    romData[0xb18d] = 0xff; // Break
+                }
+                else if (lnI == 29)
+                {
+                    // Line 1
+                    romData[0xaddf] = 0x33; // O
+                    romData[0xade0] = 0x1c; // r
+                    romData[0xade1] = 0x19; // o
+                    romData[0xade2] = 0x0d; // c
+                    romData[0xade3] = 0x12; // h
+                    romData[0xade4] = 0x13; // i
+                    romData[0xade5] = 0x37; // S
+                    romData[0xade6] = 0x21; // w
+                    romData[0xade7] = 0x0e; // d
+                    romData[0xade8] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb18e] = 0x25; // A
+                    romData[0xb18f] = batph; // Hundreds
+                    romData[0xb190] = batpt; // Tens
+                    romData[0xb191] = batpo; // Ones
+                    romData[0xb192] = 0x00; // Blank
+                    romData[0xb193] = 0xff; // Break
+                }
+                else if (lnI == 30)
+                {
+                    // Line 1
+                    romData[0xade9] = 0x28; // D
+                    romData[0xadea] = 0x1c; // r
+                    romData[0xadeb] = 0x11; // g
+                    romData[0xadec] = 0x18; // n
+                    romData[0xaded] = 0x2f; // K
+                    romData[0xadee] = 0x16; // l
+                    romData[0xadef] = 0x1c; // r
+                    romData[0xadf0] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb194] = 0x25; // A
+                    romData[0xb195] = batph; // Hundreds
+                    romData[0xb196] = batpt; // Tens
+                    romData[0xb197] = batpo; // Ones
+                    romData[0xb198] = 0x00; // Blank
+                    romData[0xb199] = 0xff; // Break
+                }
+                else if (lnI == 31)
+                {
+                    // Line 1
+                    romData[0xadf1] = 0x2e; // J
+                    romData[0xadf2] = 0x0e; // d
+                    romData[0xadf3] = 0x11; // g
+                    romData[0xadf4] = 0x17; // m
+                    romData[0xadf5] = 0x1e; // t
+                    romData[0xadf6] = 0x37; // S
+                    romData[0xadf7] = 0x1e; // t
+                    romData[0xadf8] = 0x10; // f
+                    romData[0xadf9] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb19a] = 0x25; // A
+                    romData[0xb19b] = batph; // Hundreds
+                    romData[0xb19c] = batpt; // Tens
+                    romData[0xb19d] = batpo; // Ones
+                    romData[0xb19e] = 0x00; // Blank
+                    romData[0xb19f] = 0xff; // Break
+                }
+                else if (lnI == 32)
+                {
+                    // Line 1
+                    romData[0xadfa] = 0x27; // C
+                    romData[0xadfb] = 0x16; // l
+                    romData[0xadfc] = 0x19; // o
+                    romData[0xadfd] = 0x1e; // t
+                    romData[0xadfe] = 0x12; // h
+                    romData[0xadff] = 0x0f; // e
+                    romData[0xae00] = 0x1d; // s
+                    romData[0xae01] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb1a0] = 0x28; // D
+                    romData[0xb1a1] = batph; // Hundreds
+                    romData[0xb1a2] = batpt; // Tens
+                    romData[0xb1a3] = batpo; // Ones
+                    romData[0xb1a4] = 0x00; // Blank
+                    romData[0xb1a5] = 0xff; // Break
+                }
+                else if (lnI == 33)
+                {
+                    // Line 1
+                    romData[0xae02] = 0x38; // T
+                    romData[0xae03] = 0x1c; // r
+                    romData[0xae04] = 0x18; // n
+                    romData[0xae05] = 0x11; // g
+                    romData[0xae06] = 0x37; // S
+                    romData[0xae07] = 0x1e; // t
+                    romData[0xae08] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb1a6] = 0x28; // D
+                    romData[0xb1a7] = batph; // Hundreds
+                    romData[0xb1a8] = batpt; // Tens
+                    romData[0xb1a9] = batpo; // Ones
+                    romData[0xb1aa] = 0x00; // Blank
+                    romData[0xb1ab] = 0xff; // Break
+                }
+                else if (lnI == 34)
+                {
+                    // Line 1
+                    romData[0xae09] = 0x30; // L
+                    romData[0xae0a] = 0x1e; // t
+                    romData[0xae0b] = 0x12; // h
+                    romData[0xae0c] = 0x1c; // r
+                    romData[0xae0d] = 0x25; // A
+                    romData[0xae0e] = 0x1c; // r
+                    romData[0xae0f] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb1ac] = 0x28; // D
+                    romData[0xb1ad] = batph; // Hundreds
+                    romData[0xb1ae] = batpt; // Tens
+                    romData[0xb1af] = batpo; // Ones
+                    romData[0xb1b0] = 0x00; // Blank
+                    romData[0xb1b1] = 0xff; // Break
+                }
+                else if (lnI == 35)
+                {
+                    // Line 1
+                    romData[0xae10] = 0x2a; // F
+                    romData[0xae11] = 0x16; // l
+                    romData[0xae12] = 0x1d; // s
+                    romData[0xae13] = 0x12; // h
+                    romData[0xae14] = 0x27; // C
+                    romData[0xae15] = 0x16; // l
+                    romData[0xae16] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb1b2] = 0x28; // D
+                    romData[0xb1b3] = batph; // Hundreds
+                    romData[0xb1b4] = batpt; // Tens
+                    romData[0xb1b5] = batpo; // Ones
+                    romData[0xb1b6] = 0x00; // Blank
+                    romData[0xb1b7] = 0xff; // Break
+                }
+                else if (lnI == 36)
+                {
+                    // Line 1
+                    romData[0xae17] = 0x2c; // H
+                    romData[0xae18] = 0x0b; // a
+                    romData[0xae19] = 0x16; // l
+                    romData[0xae1a] = 0x10; // f
+                    romData[0xae1b] = 0x34; // P
+                    romData[0xae1c] = 0x16; // l
+                    romData[0xae1d] = 0x25; // A
+                    romData[0xae1e] = 0x1c; // r
+                    romData[0xae1f] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb1b8] = 0x28; // D
+                    romData[0xb1b9] = batph; // Hundreds
+                    romData[0xb1ba] = batpt; // Tens
+                    romData[0xb1bb] = batpo; // Ones
+                    romData[0xb1bc] = 0x00; // Blank
+                    romData[0xb1bd] = 0xff; // Break
+                }
+                else if (lnI == 37)
+                {
+                    // Line 1
+                    romData[0xae20] = 0x2a; // F
+                    romData[0xae21] = 0x1f; // u
+                    romData[0xae22] = 0x16; // l
+                    romData[0xae23] = 0x16; // l
+                    romData[0xae24] = 0x34; // P
+                    romData[0xae25] = 0x16; // l
+                    romData[0xae26] = 0x25; // A
+                    romData[0xae27] = 0x1c; // r
+                    romData[0xae28] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb1be] = 0x28; // D
+                    romData[0xb1bf] = batph; // Hundreds
+                    romData[0xb1c0] = batpt; // Tens
+                    romData[0xb1c1] = batpo; // Ones
+                    romData[0xb1c2] = 0x00; // Blank
+                    romData[0xb1c3] = 0xff; // Break
+                }
+                else if (lnI == 38)
+                {
+                    // Line 1
+                    romData[0xae29] = 0x31; // M
+                    romData[0xae2a] = 0x0b; // a
+                    romData[0xae2b] = 0x11; // g
+                    romData[0xae2c] = 0x13; // i
+                    romData[0xae2d] = 0x0d; // c
+                    romData[0xae2e] = 0x25; // A
+                    romData[0xae2f] = 0x1c; // r
+                    romData[0xae30] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb1c4] = 0x28; // D
+                    romData[0xb1c5] = batph; // Hundreds
+                    romData[0xb1c6] = batpt; // Tens
+                    romData[0xb1c7] = batpo; // Ones
+                    romData[0xb1c8] = 0x00; // Blank
+                    romData[0xb1c9] = 0xff; // Break
+                }
+                else if (lnI == 39)
+                {
+                    // Line 1
+                    romData[0xae31] = 0x29; // E
+                    romData[0xae32] = 0x20; // v
+                    romData[0xae33] = 0x27; // C
+                    romData[0xae34] = 0x16; // l
+                    romData[0xae35] = 0x19; // o
+                    romData[0xae36] = 0x0b; // a
+                    romData[0xae37] = 0x15; // k
+                    romData[0xae38] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb1ca] = 0x28; // D
+                    romData[0xb1cb] = batph; // Hundreds
+                    romData[0xb1cc] = batpt; // Tens
+                    romData[0xb1cd] = batpo; // Ones
+                    romData[0xb1ce] = 0x00; // Blank
+                    romData[0xb1cf] = 0xff; // Break
+                }
+                else if (lnI == 40)
+                {
+                    // Line 1
+                    romData[0xae39] = 0x36; // R
+                    romData[0xae3a] = 0x0b; // a
+                    romData[0xae3b] = 0x0e; // d
+                    romData[0xae3c] = 0x13; // i
+                    romData[0xae3d] = 0x0b; // a
+                    romData[0xae3e] = 0x18; // n
+                    romData[0xae3f] = 0x1e; // t
+                    romData[0xae40] = 0x25; // A
+                    romData[0xae41] = 0x1c; // r
+                    romData[0xae42] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb1d0] = 0x28; // D
+                    romData[0xb1d1] = batph; // Hundreds
+                    romData[0xb1d2] = batpt; // Tens
+                    romData[0xb1d3] = batpo; // Ones
+                    romData[0xb1d4] = 0x00; // Blank
+                    romData[0xb1d5] = 0xff; // Break
+                }
+                else if (lnI == 41)
+                {
+                    // Line 1
+                    romData[0xae43] = 0x2d; // I
+                    romData[0xae44] = 0x1c; // r
+                    romData[0xae45] = 0x19; // o
+                    romData[0xae46] = 0x18; // n
+                    romData[0xae47] = 0x25; // A
+                    romData[0xae48] = 0x1a; // p
+                    romData[0xae49] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb1d6] = 0x28; // D
+                    romData[0xb1d7] = batph; // Hundreds
+                    romData[0xb1d8] = batpt; // Tens
+                    romData[0xb1d9] = batpo; // Ones
+                    romData[0xb1da] = 0x00; // Blank
+                    romData[0xb1db] = 0xff; // Break
+                }
+                else if (lnI == 42)
+                {
+                    // Line 1
+                    romData[0xae4a] = 0x25; // A
+                    romData[0xae4b] = 0x18; // n
+                    romData[0xae4c] = 0x13; // i
+                    romData[0xae4d] = 0x17; // m
+                    romData[0xae4e] = 0x0b; // a
+                    romData[0xae4f] = 0x16; // l
+                    romData[0xae50] = 0x37; // S
+                    romData[0xae51] = 0x1f; // u
+                    romData[0xae52] = 0x13; // i
+                    romData[0xae53] = 0x1e; // t
+                    romData[0xae54] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb1dc] = 0x28; // D
+                    romData[0xb1dd] = batph; // Hundreds
+                    romData[0xb1de] = batpt; // Tens
+                    romData[0xb1df] = batpo; // Ones
+                    romData[0xb1e0] = 0x00; // Blank
+                    romData[0xb1e1] = 0xff; // Break
+                }
+                else if (lnI == 43)
+                {
+                    // Line 1
+                    romData[0xae55] = 0x2a; // F
+                    romData[0xae56] = 0x13; // i
+                    romData[0xae57] = 0x11; // g
+                    romData[0xae58] = 0x12; // h
+                    romData[0xae59] = 0x1e; // t
+                    romData[0xae5a] = 0x37; // S
+                    romData[0xae5b] = 0x1f; // u
+                    romData[0xae5c] = 0x13; // i
+                    romData[0xae5d] = 0x1e; // t
+                    romData[0xae5e] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb1e2] = 0x28; // D
+                    romData[0xb1e3] = batph; // Hundreds
+                    romData[0xb1e4] = batpt; // Tens
+                    romData[0xb1e5] = batpo; // Ones
+                    romData[0xb1e6] = 0x00; // Blank
+                    romData[0xb1e7] = 0x00; // Blank
+                    romData[0xb1e8] = 0xff; // Break
+                }
+                else if (lnI == 44)
+                {
+                    // Line 1
+                    romData[0xae5f] = 0x37; // S
+                    romData[0xae60] = 0x0d; // c
+                    romData[0xae61] = 0x1c; // r
+                    romData[0xae62] = 0x0e; // d
+                    romData[0xae63] = 0x36; // R
+                    romData[0xae64] = 0x0c; // b
+                    romData[0xae65] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb1e9] = 0x28; // D
+                    romData[0xb1ea] = batph; // Hundreds
+                    romData[0xb1eb] = batpt; // Tens
+                    romData[0xb1ec] = batpo; // Ones
+                    romData[0xb1ed] = 0x00; // Blank
+                    romData[0xb1ee] = 0x00; // Blank
+                    romData[0xb1ef] = 0xff; // Break
+                }
+                else if (lnI == 45)
+                {
+                    // Line 1
+                    romData[0xae66] = 0x2c; // H
+                    romData[0xae67] = 0x0b; // a
+                    romData[0xae68] = 0x0e; // d
+                    romData[0xae69] = 0x0f; // e
+                    romData[0xae6a] = 0x1d; // s
+                    romData[0xae6b] = 0x25; // A
+                    romData[0xae6c] = 0x1c; // r
+                    romData[0xae6d] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb1f0] = 0x28; // D
+                    romData[0xb1f1] = batph; // Hundreds
+                    romData[0xb1f2] = batpt; // Tens
+                    romData[0xb1f3] = batpo; // Ones
+                    romData[0xb1f4] = 0x00; // Blank
+                    romData[0xb1f5] = 0x00; //Blank
+                    romData[0xb1f6] = 0xff; // Break
+                }
+                else if (lnI == 46)
+                {
+                    // Line 1
+                    romData[0xae6e] = 0x3b; // W
+                    romData[0xae6f] = 0x1e; // t
+                    romData[0xae70] = 0x1c; // r
+                    romData[0xae71] = 0x2a; // F
+                    romData[0xae72] = 0x16; // l
+                    romData[0xae73] = 0x23; // y
+                    romData[0xae74] = 0x27; // C
+                    romData[0xae75] = 0x16; // l
+                    romData[0xae76] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb1f7] = 0x28; // D
+                    romData[0xb1f8] = batph; // Hundreds
+                    romData[0xb1f9] = batpt; // Tens
+                    romData[0xb1fa] = batpo; // Ones
+                    romData[0xb1fb] = 0x00; // Blank
+                    romData[0xb1fc] = 0x00; //Blank
+                    romData[0xb1fd] = 0xff; // Break
+                }
+                else if (lnI == 47)
+                {
+                    // Line 1
+                    romData[0xae77] = 0x27; // C
+                    romData[0xae78] = 0x12; // h
+                    romData[0xae79] = 0x31; // M
+                    romData[0xae7a] = 0x0b; // a
+                    romData[0xae7b] = 0x13; // i
+                    romData[0xae7c] = 0x16; // l
+                    romData[0xae7d] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb1fe] = 0x28; // D
+                    romData[0xb1ff] = batph; // Hundreds
+                    romData[0xb200] = batpt; // Tens
+                    romData[0xb201] = batpo; // Ones
+                    romData[0xb202] = 0x00; // Blank
+                    romData[0xb203] = 0x00; // Blank
+                    romData[0xb204] = 0xff; // Break
+                }
+                else if (lnI == 48)
+                {
+                    // Line 1
+                    romData[0xae7e] = 0x3b; // W
+                    romData[0xae7f] = 0x0b; // a
+                    romData[0xae80] = 0x23; // y
+                    romData[0xae81] = 0x10; // f
+                    romData[0xae82] = 0x1c; // r
+                    romData[0xae83] = 0x27; // C
+                    romData[0xae84] = 0x16; // l
+                    romData[0xae85] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb205] = 0x28; // D
+                    romData[0xb206] = batph; // Hundreds
+                    romData[0xb207] = batpt; // Tens
+                    romData[0xb208] = batpo; // Ones
+                    romData[0xb209] = 0x00; // Blank
+                    romData[0xb20a] = 0x00; // Blank
+                    romData[0xb20b] = 0xff; // Break
+                }
+                else if (lnI == 49)
+                {
+                    // Line 1
+                    romData[0xae86] = 0x36; // R
+                    romData[0xae87] = 0x0f; // e
+                    romData[0xae89] = 0x20; // v
+                    romData[0xae8a] = 0x0f; // e
+                    romData[0xae8b] = 0x0b; // a
+                    romData[0xae8c] = 0x16; // l
+                    romData[0xae8d] = 0x37; // S
+                    romData[0xae8e] = 0x21; // w
+                    romData[0xae8f] = 0x1d; // s
+                    romData[0xae90] = 0x1e; // t
+                    romData[0xae91] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb20c] = 0x28; // D
+                    romData[0xb20d] = batph; // Hundreds
+                    romData[0xb20e] = batpt; // Tens
+                    romData[0xb20f] = batpo; // Ones
+                    romData[0xb210] = 0x00; // Blank
+                    romData[0xb211] = 0x00; // Blank
+                    romData[0xb212] = 0xff; // Break
+                }
+                else if (lnI == 50)
+                {
+                    // Line 1
+                    romData[0xae92] = 0x31; // M
+                    romData[0xae93] = 0x11; // g
+                    romData[0xae94] = 0x26; // B
+                    romData[0xae95] = 0x13; // i
+                    romData[0xae96] = 0x15; // k
+                    romData[0xae97] = 0x13; // i
+                    romData[0xae98] = 0x18; // n
+                    romData[0xae99] = 0x13; // i
+                    romData[0xae9a] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb213] = 0x28; // D
+                    romData[0xb214] = batph; // Hundreds
+                    romData[0xb215] = batpt; // Tens
+                    romData[0xb216] = batpo; // Ones
+                    romData[0xb217] = 0x00; // Blank
+                    romData[0xb218] = 0x00; // Blank
+                    romData[0xb219] = 0xff; // Break
+                }
+                else if (lnI == 51)
+                {
+                    // Line 1
+                    romData[0xae9b] = 0x37; // S
+                    romData[0xae9c] = 0x12; // h
+                    romData[0xae9d] = 0x0f; // e
+                    romData[0xae9e] = 0x16; // l
+                    romData[0xae9f] = 0x16; // l
+                    romData[0xaea0] = 0x25; // A
+                    romData[0xaea1] = 0x1c; // r
+                    romData[0xaea2] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb21a] = 0x28; // D
+                    romData[0xb21b] = batph; // Hundreds
+                    romData[0xb21c] = batpt; // Tens
+                    romData[0xb21d] = batpo; // Ones
+                    romData[0xb21e] = 0x00; // Blank
+                    romData[0xb21f] = 0x00; // Blank
+                    romData[0xb220] = 0xff; // Break
+                }
+                else if (lnI == 52)
+                {
+                    // Line 1
+                    romData[0xaea3] = 0x38; // T
+                    romData[0xaea4] = 0x0f; // e
+                    romData[0xaea5] = 0x1c; // r
+                    romData[0xaea6] = 0x1c; // r
+                    romData[0xaea7] = 0x0b; // a
+                    romData[0xaea8] = 0x10; // f
+                    romData[0xaea9] = 0x17; // m
+                    romData[0xaeaa] = 0x25; // A
+                    romData[0xaeab] = 0x1c; // r
+                    romData[0xaeac] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb221] = 0x28; // D
+                    romData[0xb222] = batph; // Hundreds
+                    romData[0xb223] = batpt; // Tens
+                    romData[0xb224] = batpo; // Ones
+                    romData[0xb225] = 0x00; // Blank
+                    romData[0xb226] = 0x00; // Blank
+                    romData[0xb227] = 0xff; // Break
+                }
+                else if (lnI == 53)
+                {
+                    // Line 1
+                    romData[0xaead] = 0x28; // D
+                    romData[0xaeae] = 0x1c; // r
+                    romData[0xaeaf] = 0x11; // g
+                    romData[0xaeb0] = 0x31; // M
+                    romData[0xaeb1] = 0x0b; // a
+                    romData[0xaeb2] = 0x13; // i
+                    romData[0xaeb3] = 0x16; // l
+                    romData[0xaeb4] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb228] = 0x28; // D
+                    romData[0xb229] = batph; // Hundreds
+                    romData[0xb22a] = batpt; // Tens
+                    romData[0xb22b] = batpo; // Ones
+                    romData[0xb22c] = 0x00; // Blank
+                    romData[0xb22d] = 0x00; // Blank
+                    romData[0xb22e] = 0xff; // Break
+                }
+                else if (lnI == 54)
+                {
+                    // Line 1
+                    romData[0xaeb5] = 0x37; // S
+                    romData[0xaeb6] = 0x21; // w
+                    romData[0xaeb7] = 0x0f; // e
+                    romData[0xaeb8] = 0x0e; // d
+                    romData[0xaeb9] = 0x11; // g
+                    romData[0xaeba] = 0x0f; // e
+                    romData[0xaebb] = 0x25; // A
+                    romData[0xaebc] = 0x1c; // r
+                    romData[0xaebd] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb22f] = 0x28; // D
+                    romData[0xb230] = batph; // Hundreds
+                    romData[0xb231] = batpt; // Tens
+                    romData[0xb232] = batpo; // Ones
+                    romData[0xb233] = 0x00; // Blank
+                    romData[0xb234] = 0x00; // Blank
+                    romData[0xb235] = 0xff; // Break
+                }
+                else if (lnI == 55)
+                {
+                    // Line 1
+                    romData[0xaebe] = 0x25; // A
+                    romData[0xaebf] = 0x18; // n
+                    romData[0xaec0] = 0x11; // g
+                    romData[0xaec1] = 0x0f; // e
+                    romData[0xaec2] = 0x16; // l
+                    romData[0xaec3] = 0x36; // R
+                    romData[0xaec4] = 0x0c; // b
+                    romData[0xaec5] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb236] = 0x28; // D
+                    romData[0xb237] = batph; // Hundreds
+                    romData[0xb238] = batpt; // Tens
+                    romData[0xb239] = batpo; // Ones
+                    romData[0xb23a] = 0x00; // Blank
+                    romData[0xb23b] = 0x00; // Blank
+                    romData[0xb23c] = 0xff; // Break
+                }
+                else if (lnI == 56)
+                {
+                    // Line 1
+                    romData[0xaec6] = 0x30; // L
+                    romData[0xaec7] = 0x1e; // t
+                    romData[0xaec8] = 0x12; // h
+                    romData[0xaec9] = 0x1c; // r
+                    romData[0xaeca] = 0x37; // S
+                    romData[0xaecb] = 0x12; // h
+                    romData[0xaecc] = 0x16; // l
+                    romData[0xaecd] = 0x0e; // d
+                    romData[0xaece] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb23d] = 0x28; // D
+                    romData[0xb23e] = batph; // Hundreds
+                    romData[0xb23f] = batpt; // Tens
+                    romData[0xb240] = batpo; // Ones
+                    romData[0xb241] = 0x00; // Blank
+                    romData[0xb242] = 0x00; // Blank
+                    romData[0xb243] = 0xff; // Break
+                }
+                else if (lnI == 57)
+                {
+                    // Line 1
+                    romData[0xaecf] = 0x2d; // I
+                    romData[0xaed0] = 0x1c; // r
+                    romData[0xaed1] = 0x18; // n
+                    romData[0xaed2] = 0x37; // S
+                    romData[0xaed3] = 0x12; // h
+                    romData[0xaed4] = 0x16; // l
+                    romData[0xaed5] = 0x0e; // d
+                    romData[0xaed6] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb244] = 0x28; // D
+                    romData[0xb245] = batph; // Hundreds
+                    romData[0xb246] = batpt; // Tens
+                    romData[0xb247] = batpo; // Ones
+                    romData[0xb248] = 0x00; // Blank
+                    romData[0xb249] = 0x00; // Blank
+                    romData[0xb24a] = 0xff; // Break
+                }
+                else if (lnI == 58)
+                {
+                    // Line 1
+                    romData[0xaed7] = 0x37; // S
+                    romData[0xaed8] = 0x1e; // t
+                    romData[0xaed9] = 0x1c; // r
+                    romData[0xaeda] = 0x37; // S
+                    romData[0xaedb] = 0x12; // h
+                    romData[0xaedc] = 0x16; // l
+                    romData[0xaedd] = 0x0e; // d
+                    romData[0xaede] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb24b] = 0x28; // D
+                    romData[0xb24c] = batph; // Hundreds
+                    romData[0xb24d] = batpt; // Tens
+                    romData[0xb24e] = batpo; // Ones
+                    romData[0xb24f] = 0x00; // Blank
+                    romData[0xb250] = 0x00; // Blank
+                    romData[0xb251] = 0xff; // Break
+                }
+                else if (lnI == 59)
+                {
+                    // Line 1
+                    romData[0xaedf] = 0x2c; // H
+                    romData[0xaee0] = 0x0f; // e
+                    romData[0xaee1] = 0x1c; // r
+                    romData[0xaee2] = 0x19; // o
+                    romData[0xaee3] = 0x37; // S
+                    romData[0xaee4] = 0x12; // h
+                    romData[0xaee5] = 0x16; // l
+                    romData[0xaee6] = 0x0e; // d
+                    romData[0xaee7] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb252] = 0x28; // D
+                    romData[0xb253] = batph; // Hundreds
+                    romData[0xb254] = batpt; // Tens
+                    romData[0xb255] = batpo; // Ones
+                    romData[0xb256] = 0x00; // Blank
+                    romData[0xb257] = 0x00; // Blank
+                    romData[0xb258] = 0xff; // Break
+                }
+                else if (lnI == 60)
+                {
+                    // Line 1
+                    romData[0xaee8] = 0x37; // S
+                    romData[0xaee9] = 0x1c; // r
+                    romData[0xaeea] = 0x21; // w
+                    romData[0xaeeb] = 0x37; // S
+                    romData[0xaeec] = 0x12; // h
+                    romData[0xaeed] = 0x16; // l
+                    romData[0xaeee] = 0x0e; // d
+                    romData[0xaeef] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb259] = 0x28; // D
+                    romData[0xb25a] = batph; // Hundreds
+                    romData[0xb25b] = batpt; // Tens
+                    romData[0xb25c] = batpo; // Ones
+                    romData[0xb25d] = 0x00; // Blank
+                    romData[0xb25e] = 0x00; // Blank
+                    romData[0xb25f] = 0xff; // Break
+                }
+                else if (lnI == 61)
+                {
+                    // Line 1
+                    romData[0xaef0] = 0x26; // B
+                    romData[0xaef1] = 0x1c; // r
+                    romData[0xaef2] = 0x24; // z
+                    romData[0xaef3] = 0x37; // S
+                    romData[0xaef4] = 0x12; // h
+                    romData[0xaef5] = 0x16; // l
+                    romData[0xaef6] = 0x0e; // d
+                    romData[0xaef7] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb260] = 0x28; // D
+                    romData[0xb261] = batph; // Hundreds
+                    romData[0xb262] = batpt; // Tens
+                    romData[0xb263] = batpo; // Ones
+                    romData[0xb264] = 0x00; // Blank
+                    romData[0xb265] = 0x00; // Blank
+                    romData[0xb266] = 0xff; // Break
+                }
+                else if (lnI == 62)
+                {
+                    // Line 1
+                    romData[0xaef8] = 0x37; // S
+                    romData[0xaef9] = 0x16; // l
+                    romData[0xaefa] = 0x20; // v
+                    romData[0xaefb] = 0x37; // S
+                    romData[0xaefc] = 0x12; // h
+                    romData[0xaefd] = 0x16; // l
+                    romData[0xaefe] = 0x0e; // d
+                    romData[0xaeff] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb267] = 0x28; // D
+                    romData[0xb268] = batph; // Hundreds
+                    romData[0xb269] = batpt; // Tens
+                    romData[0xb26a] = batpo; // Ones
+                    romData[0xb26b] = 0x00; // Blank
+                    romData[0xb26c] = 0x00; // Blank
+                    romData[0xb26d] = 0xff; // Break
+                }
+                else if (lnI == 63)
+                {
+                    // Line 1
+                    romData[0xaf00] = 0x2b; // G
+                    romData[0xaf01] = 0x19; // o
+                    romData[0xaf02] = 0x16; // l
+                    romData[0xaf03] = 0x0e; // d
+                    romData[0xaf04] = 0x3f; // Space
+                    romData[0xaf05] = 0x27; // C
+                    romData[0xaf06] = 0x1c; // r
+                    romData[0xaf07] = 0x19; // o
+                    romData[0xaf08] = 0x21; // w
+                    romData[0xaf09] = 0x18; // n
+                    romData[0xaf0a] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb26e] = 0x28; // D
+                    romData[0xb26f] = batph; // Hundreds
+                    romData[0xb270] = batpt; // Tens
+                    romData[0xb271] = batpo; // Ones
+                    romData[0xb272] = 0x00; // Blank
+                    romData[0xb273] = 0x00; // Blank
+                    romData[0xb274] = 0xff; // Break
+                }
+                else if (lnI == 64)
+                {
+                    // Line 1
+                    romData[0xaf0b] = 0x2d; // I
+                    romData[0xaf0c] = 0x2c; // H
+                    romData[0xaf0d] = 0x17; // m
+                    romData[0xaf0e] = 0x1e; // t
+                    romData[0xaf0f] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb275] = 0x00;
+                    romData[0xb276] = 0x00;
+                    romData[0xb277] = 0x00;
+                    romData[0xb278] = 0x00;
+                    romData[0xb279] = 0x00;
+                    romData[0xb27a] = 0x00;
+
+                    romData[0xb27b] = 0x28; // D
+                    romData[0xb27c] = batph; // Hundreds
+                    romData[0xb27d] = batpt; // Tens
+                    romData[0xb27e] = batpo; // Ones
+                    romData[0xb27f] = 0x00; // Blank
+                    romData[0xb280] = 0xff; // Break
+                }
+                else if (lnI == 65)
+                {
+                    // Line 1
+                    romData[0xaf10] = 0x31; // M
+                    romData[0xaf11] = 0x23; // y
+                    romData[0xaf12] = 0x1d; // s
+                    romData[0xaf13] = 0x23; // y
+                    romData[0xaf14] = 0x2c; // H
+                    romData[0xaf15] = 0x1e; // t
+                    romData[0xaf16] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb281] = 0x28; // D
+                    romData[0xb282] = batph; // Hundreds
+                    romData[0xb283] = batpt; // Tens
+                    romData[0xb284] = batpo; // Ones
+                    romData[0xb285] = 0xff; // Break
+                }
+                else if (lnI == 66)
+                {
+                    // Line 1
+                    romData[0xaf17] = 0x39; // U
+                    romData[0xaf18] = 0x18; // n
+                    romData[0xaf19] = 0x16; // l
+                    romData[0xaf1a] = 0x15; // k
+                    romData[0xaf1b] = 0x2c; // H
+                    romData[0xaf1c] = 0x16; // l
+                    romData[0xaf1d] = 0x17; // m
+                    romData[0xaf1e] = 0x1e; // t
+                    romData[0xaf1f] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb286] = 0x28; // D
+                    romData[0xb287] = batph; // Hundreds
+                    romData[0xb288] = batpt; // Tens
+                    romData[0xb289] = batpo; // Ones
+                    romData[0xb28a] = 0xff; // Break
+                }
+                else if (lnI == 67)
+                {
+                    // Line 1
+                    romData[0xaf20] = 0x38; // T
+                    romData[0xaf21] = 0x1c; // r
+                    romData[0xaf22] = 0x0c; // b
+                    romData[0xaf23] = 0x18; // n
+                    romData[0xaf24] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb28b] = 0x28; // D
+                    romData[0xb28c] = batph; // Hundreds
+                    romData[0xb28d] = batpt; // Tens
+                    romData[0xb28e] = batpo; // Ones
+                    romData[0xb28f] = 0xff; // Break
+                }
+                else if (lnI == 68)
+                {
+                    // Line 1
+                    romData[0xaf25] = 0x32; // N
+                    romData[0xaf26] = 0x19; // o
+                    romData[0xaf27] = 0x12; // h
+                    romData[0xaf28] = 0x31; // M
+                    romData[0xaf29] = 0x1d; // s
+                    romData[0xaf2a] = 0x15; // k
+                    romData[0xaf2b] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb290] = 0x28; // D
+                    romData[0xb291] = batph; // Hundreds
+                    romData[0xb292] = batpt; // Tens
+                    romData[0xb293] = batpo; // Ones
+                    romData[0xb294] = 0xff; // Break
+                }
+                else if (lnI == 69)
+                {
+                    // Line 1
+                    romData[0xaf2c] = 0x30; // L
+                    romData[0xaf2d] = 0x1e; // t
+                    romData[0xaf2e] = 0x12; // h
+                    romData[0xaf2f] = 0x2c; // H
+                    romData[0xaf30] = 0x16; // l
+                    romData[0xaf31] = 0x17; // m
+                    romData[0xaf32] = 0x1e; // t
+                    romData[0xaf33] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb295] = 0x28; // D
+                    romData[0xb296] = batph; // Hundreds
+                    romData[0xb297] = batpt; // Tens
+                    romData[0xb298] = batpo; // Ones
+                    romData[0xb299] = 0xff; // Break
+                }
+                else if (lnI == 70)
+                {
+                    // Line 1
+                    romData[0xaf34] = 0x2d; // I
+                    romData[0xaf35] = 0x1c; // r
+                    romData[0xaf36] = 0x18; // n
+                    romData[0xaf37] = 0x31; // M
+                    romData[0xaf38] = 0x1d; // s
+                    romData[0xaf39] = 0x15; // k
+                    romData[0xaf3a] = 0xff; // Break
+
+                    // Line 2
+                    romData[0xb29a] = 0x28; // D
+                    romData[0xb29b] = batph; // Hundreds
+                    romData[0xb29c] = batpt; // Tens
+                    romData[0xb29d] = batpo; // Ones
+                    romData[0xb29e] = 0xff; // Break
+                }
+            }
+
+        }
+
+        private void removeFightPenalty()
+        {
+            romData[0x1507] = romData[0x1508] = romData[0x1509] = romData[0x150a] = 0xea;
+        }
+
+        private void randSpellLearning(int rni)
+        {
+            Random r1 = new Random(int.Parse(txtSeed.Text));
+
+            for (int lnI = 0; lnI < rni; lnI++)
+            {
+                r1.Next();
+            }
+            
+            // Totally randomize spell learning
+            // First, clear out all of the magic bytes...
+            for (int lnI = 0; lnI < 252; lnI++)
+                romData[0x29d6 + lnI] = 0x3f;
+
+            // There are 64 fight spells overall, and 24 command spells overall.  Make sure that each fight spell is in the final list, then scramble after that.  Make sure there are no more than three copies of a spell, 
+            // make sure there are no duplicates in blocks 0-15, 16-39, and 40-63.  Any command spells that duplicate the fight spells should be placed in their respective blocks.
+            int[] finalFight = new int[64];
+            int[] finalCommand = new int[24];
+            for (int i = 0; i < finalFight.Length; i++) finalFight[i] = -1;
+            for (int i = 0; i < finalCommand.Length; i++) finalCommand[i] = -1;
+
+            int[] fightSpells = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53 }; // 52 (12-20-20)
+            int[] commandSpells = { 26, 27, 28, 30, 31, 32, 33, 38, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61 }; // 18 (6-6-6)
+            for (int lnI = 0; lnI < fightSpells.Length * 20; lnI++)
+                swapArray(fightSpells, (r1.Next() % fightSpells.Length), (r1.Next() % fightSpells.Length));
+            for (int lnI = 0; lnI < commandSpells.Length * 20; lnI++)
+                swapArray(commandSpells, (r1.Next() % commandSpells.Length), (r1.Next() % commandSpells.Length));
+
+            int[] heroFight2 = new int[16];
+            int[] pilgrimFight2 = new int[24];
+            int[] wizardFight2 = new int[24];
+
+            for (int lnI = 0; lnI < 52; lnI++)
+            {
+                if (lnI < 12) heroFight2[lnI] = fightSpells[lnI];
+                else if (lnI < 32) pilgrimFight2[lnI - 12] = fightSpells[lnI];
+                else wizardFight2[lnI - 32] = fightSpells[lnI];
+            }
+
+            for (int lnI = 12; lnI < 16; lnI++)
+            {
+                heroFight2[lnI] = fightSpells[r1.Next() % fightSpells.Length];
+                for (int lnJ = 0; lnJ < lnI; lnJ++)
+                    if (heroFight2[lnJ] == heroFight2[lnI])
+                    {
+                        lnI--;
+                        break;
+                    }
+            }
+            for (int lnI = 20; lnI < 24; lnI++)
+            {
+                pilgrimFight2[lnI] = fightSpells[r1.Next() % fightSpells.Length];
+                for (int lnJ = 0; lnJ < lnI; lnJ++)
+                    if (pilgrimFight2[lnJ] == pilgrimFight2[lnI])
+                    {
+                        lnI--;
+                        break;
+                    }
+            }
+            for (int lnI = 20; lnI < 24; lnI++)
+            {
+                wizardFight2[lnI] = fightSpells[r1.Next() % fightSpells.Length];
+                for (int lnJ = 0; lnJ < lnI; lnJ++)
+                    if (wizardFight2[lnJ] == wizardFight2[lnI])
+                    {
+                        lnI--;
+                        break;
+                    }
+            }
+
+            int[] heroCommand2 = new int[8];
+            int[] pilgrimCommand2 = new int[8];
+            int[] wizardCommand2 = new int[8];
+
+            for (int lnI = 0; lnI < 18; lnI++)
+            {
+                if (lnI < 6) heroCommand2[lnI] = commandSpells[lnI];
+                else if (lnI < 12) pilgrimCommand2[lnI - 6] = commandSpells[lnI];
+                else wizardCommand2[lnI - 12] = commandSpells[lnI];
+            }
+
+            for (int lnI = 6; lnI < 8; lnI++)
+            {
+                heroCommand2[lnI] = commandSpells[r1.Next() % commandSpells.Length];
+                for (int lnJ = 0; lnJ < lnI; lnJ++)
+                    if (heroCommand2[lnJ] == heroCommand2[lnI])
+                    {
+                        lnI--;
+                        break;
+                    }
+            }
+            for (int lnI = 6; lnI < 8; lnI++)
+            {
+                pilgrimCommand2[lnI] = commandSpells[r1.Next() % commandSpells.Length];
+                for (int lnJ = 0; lnJ < lnI; lnJ++)
+                    if (pilgrimCommand2[lnJ] == pilgrimCommand2[lnI])
+                    {
+                        lnI--;
+                        break;
+                    }
+            }
+            for (int lnI = 6; lnI < 8; lnI++)
+            {
+                wizardCommand2[lnI] = commandSpells[r1.Next() % commandSpells.Length];
+                for (int lnJ = 0; lnJ < lnI; lnJ++)
+                    if (wizardCommand2[lnJ] == wizardCommand2[lnI])
+                    {
+                        lnI--;
+                        break;
+                    }
+            }
+
+            int[] heroFightLevels = inverted_power_curve(1, 35, 24, 1, r1);
+            int[] pilgrimFightLevels = inverted_power_curve(1, 35, 24, 1, r1);
+            int[] wizardFightLevels = inverted_power_curve(1, 35, 24, 1, r1);
+            int[] heroCommandLevels = inverted_power_curve(1, 35, 8, 1, r1);
+            int[] pilgrimCommandLevels = inverted_power_curve(1, 35, 8, 1, r1);
+            int[] wizardCommandLevels = inverted_power_curve(1, 35, 8, 1, r1);
+
+            for (int lnI = 0; lnI < 8; lnI++)
+            {
+                romData[0x29d6 + heroCommand2[lnI]] = (byte)heroCommandLevels[lnI]; // (byte)(r1.Next() % 35 + 1);
+                romData[0x2a15 + pilgrimCommand2[lnI]] = (byte)pilgrimCommandLevels[lnI]; // (r1.Next() % 35 + 1);
+                romData[0x2a54 + wizardCommand2[lnI]] = (byte)wizardCommandLevels[lnI]; // (r1.Next() % 35 + 1);
+                romData[0x2a93 + pilgrimCommand2[lnI]] = romData[0x2a15 + pilgrimCommand2[lnI]];
+                romData[0x2a93 + wizardCommand2[lnI]] = romData[0x2a54 + wizardCommand2[lnI]];
+                romData[0x22e7 + 24 + lnI] = (byte)heroCommand2[lnI];
+                romData[0x22e7 + 32 + 24 + lnI] = (byte)pilgrimCommand2[lnI];
+                romData[0x22e7 + 64 + 24 + lnI] = (byte)wizardCommand2[lnI];
+            }
+
+            romData[0x29d6 + 63 + romData[0x22e7 + 32 + 24]] = 1;
+            romData[0x29d6 + 126 + romData[0x22e7 + 64 + 24]] = 1;
+
+            for (int lnI = 0; lnI < 24; lnI++)
+            {
+                if (lnI < 16)
+                    romData[0x29d6 + heroFight2[lnI]] = (byte)heroFightLevels[lnI]; // (byte)(r1.Next() % 35 + 1);
+                romData[0x2a15 + pilgrimFight2[lnI]] = (byte)pilgrimFightLevels[lnI]; // (byte)(r1.Next() % 35 + 1);
+                romData[0x2a54 + wizardFight2[lnI]] = (byte)wizardFightLevels[lnI]; // (byte)(r1.Next() % 35 + 1);
+                romData[0x2a93 + pilgrimFight2[lnI]] = romData[0x2a15 + pilgrimFight2[lnI]];
+                romData[0x2a93 + wizardFight2[lnI]] = romData[0x2a54 + wizardFight2[lnI]];
+                if (lnI < 16)
+                    romData[0x22e7 + lnI] = (byte)heroFight2[lnI];
+                romData[0x22e7 + 32 + lnI] = (byte)pilgrimFight2[lnI];
+                romData[0x22e7 + 64 + lnI] = (byte)wizardFight2[lnI];
+            }
+            romData[0x29d6 + romData[0x22e7]] = 2;
+
+            // Must "complete the sentence" or really bad things happen...
+            romData[0x29d6 + 62] = 0xff;
+            romData[0x29d6 + 125] = 0xff;
+            romData[0x29d6 + 188] = 0xff;
+            romData[0x29d6 + 251] = 0xff;
+
+            // Copy arrays to be written out later
+            heroComSpell = heroCommand2;
+            heroComLvl = heroCommandLevels;
+            heroBatSpell = heroFight2;
+            heroBatLvl = heroFightLevels;
+            pilgrimComSpell = pilgrimCommand2;
+            pilgrimComLvl = pilgrimCommandLevels;
+            pilgrimBatSpell = pilgrimFight2;
+            pilgrimBatLvl = pilgrimFightLevels;
+            wizardComSpell = wizardCommand2;
+            wizardComLvl = wizardCommandLevels;
+            wizardBatSpell = wizardFight2;
+            wizardBatLvl = wizardFightLevels;
+
+        }
+
+        private void randSpellStrength(int rni)
+        {
+            Random r1 = new Random(int.Parse(txtSeed.Text));
+
+            for (int lnI = 0; lnI < rni; lnI++)
+            {
+                r1.Next();
+            }
+            
+            // Totally randomize spell strengths - first, attack spells
+            for (int lnI = 0; lnI < 17; lnI++)
+            {
+                int byteToUse = 0x134b1 + (lnI * 2);
+                romData[byteToUse] = (byte)((r1.Next() % 200) + 2);
+                if (lnI == 0x0d || lnI == 0x0e || lnI == 0x0f)
+                    romData[byteToUse + 1] = (byte)(r1.Next() % romData[byteToUse]);
+                else
+                    romData[byteToUse + 1] = (byte)(r1.Next() % (romData[byteToUse] / 2));
+            }
+
+            // And then healing spells
+            for (int lnI = 0; lnI < 6; lnI++)
+            {
+                if (lnI == 2 || lnI == 5) continue; // Healall/Healusall
+                int byteToUse = 0x134f9 + (lnI * 2);
+                romData[byteToUse] = (byte)((r1.Next() % 200) + 2);
+                romData[byteToUse + 1] = (byte)(r1.Next() % (romData[byteToUse] / 2));
+            }
+
+        }
+
+        private void randTreasures(int rni)
+        {
+            Random r1 = new Random(int.Parse(txtSeed.Text));
+
+            for (int lnI = 0; lnI < rni; lnI++)
+            {
+                r1.Next();
+            }
+
+            // If the yellow orb is at a searchable spot, it won't be found unless you change this byte from 0x79 to 0x80+.  SUPER WEIRD!
+            romData[0x31828] = 0xff;
+
+            bool legal = false;
+
+            // Totally randomize treasures... but make sure key items exist before they are needed!
+            // Keep the Rainbow drop where it is
+            int[] treasureAddrZ0 = { 0x29237, 0x29238, 0x29239, // Promontory Cave
+                0x2927b, 0x292c4, 0x292c5, 0x292c6 }; // Najimi Tower - Thief's Key, Magic Ball - 7
+            int[] treasureAddrZ1 = { 0x2927c, 0x2927d }; // Najimi Tower behind Thief's Key - Magic Ball - 2
+            int[] treasureAddrZ2 = { 0x2927e, 0x2927f, // Enticement cave
+                0x29234, 0x29235, // Kanave
+                0x2923a, 0x2923b, 0x29280, 0x29281, 0x29282, 0x29283, 0x29284, 0x29285, 0x29286, 0x29287, // Dream cave/Wake Up Powder
+                0x29252, 0x292d2, 0x292e6, // champange tower
+                0x2925c, // isis meteorite band
+                0x29249, 0x2924a, 0x2924b, 0x2924c, 0x2924d, 0x2924e, 0x2924f, 0x292b4, 0x292b5, 0x292b6 }; // Pyramid -> Magic key - 28
+            int[] treasureAddrZ3 = { 0x292c3, 0x317f4, // Pyramid continued
+                0x29255, 0x29256, 0x29257, 0x29258, 0x29259, 0x2925a, // Aliahan continued
+                0x31b9c, 0x2925d, 0x2925e, 0x2925f, 0x29260, 0x29261, 0x29262, 0x29263, 0x29264, // Isis continued
+                0x29269, 0x2926a, 0x2926b }; // Portuga -> Royal Scroll - 20
+            int[] treasureAddrZ4 = { 0x2923c, 0x2923d, // Dwarf's Cave
+                0x29251, 0x292c7, 0x292c8, 0x292c9, 0x292ca, // Garuna Tower
+                0x2923e, 0x2923f, 0x29240, 0x29241, 0x29242, 0x29243, 0x2928b, 0x2928c, 0x2928d, 0x2928e}; // Kidnapper's Cave -> Black Pepper - 17
+            int[] treasureAddrZ5 = { 0x31b94, 0x29270, // Tedan (except Green Orb)
+                0x292e4, 0x292e7, // Jipang
+                0x29271, 0x29272, 0x29273, // Pirate Cove
+                0x292cb, 0x292cc, 0x292cd, 0x292ce, 0x292cf, 0x292d0, 0x292d1}; // Arp Tower - Final Key - 14
+            int[] treasureAddrZ6 = { 0x29291, 0x29292, 0x29293, 0x29294, 0x29295, 0x29296, 0x29297, 0x29298, 0x29299, 0x2929a, 0x2929b, // Samanao Cave
+                0x2929c, 0x2929d, 0x2929e, 0x2929f, 0x292a0, 0x292a1, 0x292a2, 0x292a3, 0x292a4, 0x292a5, 0x292a6, 0x292a7, // Samanao Cave
+                0x29244, 0x29245, 0x29246, 0x29247, 0x29248, 0x2928f, 0x29290 }; // Lancel Cave - Mirror Of Ra - 30
+            int[] treasureAddrZ7 = { 0x292e5 }; // Staff Of Change - Samanao Castle - 1
+            int[] treasureAddrZ8 = { 0x29275, 0x29276, 0x29277, 0x29278, 0x29279, 0x2927a }; // Sword Of Gaia - Ghost ship - 6
+            int[] treasureAddrZ9 = { 0x29288, 0x29289, 0x2928a }; // All orbs - Cave Of Necrogund - 3
+            int[] treasureAddrZ10 = { 0x37df1, // Thief Key Old Man
+                0x2925b, // Eginbear
+                0x31b8c, // Soo 
+                0x2922b, // Final Key Shrine
+                0x377d5, // Black Pepper NPC
+                0x377fe  // Water Blaster NPC - Additional Potential Orb Locations - 6
+                };
+            int[] treasureAddrZ11 = { 0x37929 }; // Dragon Queen - Additional Potential Orb Location - 1
+            int[] treasureAddrZ12 = { 0x29265, 0x29266, 0x29267, 0x29268, // Tantegel Castle
+                0x292a8, 0x292a9, 0x292aa, 0x292ab, 0x292ac, // Erdrick's Cave
+                0x29274, // Garin's home
+                0x292df, 0x292e0, 0x292e1, 0x292e2, 0x292e3, // Rocky Mountain Cave
+                0x31b90, // Hauksness
+                0x31b88, // Kol
+                0x29253, 0x29254, 0x292d5, 0x292d6, 0x292d7, 0x292d8, 0x292d9, 0x292da, 0x292db, 0x292dc, 0x292dd, 0x292de, // Kol Tower
+                0x29233,// Rimuldar
+                0x37d9d }; // Staff of Rain NPC - Staff Of Rain, Stones Of Sunlight, Sacred Amulet - 30
+            int[] treasureAddrZ13 = { 0x292ad, 0x292ae, 0x292af, 0x292b0, 0x292b1, 0x292b2, 0x292b3 }; // Zoma's Castle - Sphere of Light - 7
+            int[] treasureAddrZ14 = { 0x29228, 0x29229, 0x2922a, // Baramos's Castle
+                0x292b7, 0x292b8, 0x292b9, 0x292ba, 0x292bb, 0x292bc, 0x292bd, 0x292be, 0x292bf, 0x292c0, 0x292c1, 0x292c2, // Pyramid Mummy Men Chests
+                0x31b9f, // World Tree
+                0x31b97, // Luzami
+                0x2926c, 0x2926d, 0x31b80, // New Town  0x378A9
+                0x375aa, 0x37786, 0x37cb9, 0x37828, 0x37907, 0x37a25}; // NPCs - Dead zone - 32 , 0x37d5a
+
+            // NOTICE:  Using 0x3b785, supposedly the wake-up powder NPC, warps you to weird places after jumping off the rope in the tower of Garuna...
+
+            List<int> allTreasureList = new List<int>();
+
+            allTreasureList = addTreasure(allTreasureList, treasureAddrZ0);
+            allTreasureList = addTreasure(allTreasureList, treasureAddrZ1);
+            allTreasureList = addTreasure(allTreasureList, treasureAddrZ2);
+            allTreasureList = addTreasure(allTreasureList, treasureAddrZ3);
+            allTreasureList = addTreasure(allTreasureList, treasureAddrZ4);
+            allTreasureList = addTreasure(allTreasureList, treasureAddrZ5);
+            allTreasureList = addTreasure(allTreasureList, treasureAddrZ6);
+            allTreasureList = addTreasure(allTreasureList, treasureAddrZ7);
+            allTreasureList = addTreasure(allTreasureList, treasureAddrZ8);
+            allTreasureList = addTreasure(allTreasureList, treasureAddrZ9);
+            allTreasureList = addTreasure(allTreasureList, treasureAddrZ10);
+            allTreasureList = addTreasure(allTreasureList, treasureAddrZ11);
+            allTreasureList = addTreasure(allTreasureList, treasureAddrZ12);
+            allTreasureList = addTreasure(allTreasureList, treasureAddrZ13);
+            allTreasureList = addTreasure(allTreasureList, treasureAddrZ14);
+
+            int[] allTreasure = allTreasureList.ToArray();
+
+            // randomize starting gold
+            romData[0x2914f] = (byte)(r1.Next() % 256);
+
+            List<byte> treasureList = new List<byte>();
+            List<byte> legalTreasuresList = new List<byte>();
+            byte[] legalTreasures = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
+                                          0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
+                                          0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
+                                          0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f,
+                                          0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x48, 0x49, 0x4b, 0x4c, 0x4e,
+                                          0x55, 0x56, 0x5f };
+            byte[] legalTreasures2 = {0x60, 0x62, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6c, 0x6d,
+                                          0x73, 0x74,
+                                          0x88, 0x90, 0x98, 0xa0, 0xa8, 0xb0, 0xb8, 0xc0, 0xc8, 0xd0, 0xd8, 0xe0, 0xe8, 0xf0, 0xf8,
+                                          0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff };
+
+            // Populate legalTreasuresList so we can add additional items if selected (First half)
+            for (int lnI = 0; lnI < legalTreasures.Length; lnI++)
+            {
+                legalTreasuresList.Add(legalTreasures[lnI]);
+            }
+            // Populate legalTreasuresList so we can add additional items if selected (Second half)
+            for (int lnI = 0; lnI < legalTreasures2.Length; lnI++)
+            {
+                legalTreasuresList.Add(legalTreasures2[lnI]);
+            }
+
+            for (int lnI = 0; lnI < allTreasureList.Count; lnI++)
+            {
+                legal = false;
+                while (!legal)
+                {
+                    byte treasure = (byte)(r1.Next() % legalTreasuresList.Count); // the last two items we can't get...
+                    treasure = legalTreasuresList[treasure];
+                    // Disallow earning gold for searchable items... this is because 0x80 = 0x00 in this scenario, so anything over 0x80 is useless.  
+                    // (in fact, 0xfd = 0x7d, the Stick Slime, a null item.)
+                    if (allTreasure[lnI] > 0x29400 && treasure >= 0x80)
+                        continue;
+
+                    //byte[] keyItems = { 0x59, 0x5a, 0x54, 0x11, 0x78, 0x79, 0x7a, 0x7b, 0x10, 0x75 };
+                    //byte[] minKeyTreasure = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 134, 134 };
+                    //byte[] keyTreasure = { 37, 116, 124, 130, 133, 133, 133, 133, 165, 165 };
+
+                    // We need to make sure key items doesn't exceed a certain point in the story.
+
+                    // Verify that only one location exists for key items -- Moved this down to the Key Items
+                    if (!(treasureList.Contains(treasure) && (treasure == 0x53 || treasure == 0x71)))
+                    {
+                        legal = true;
+                        treasureList.Add(treasure);
+                        romData[allTreasure[lnI]] = treasure;
+                    }
+
+                }
+
+            }
+        }
+
+        private void randStores(int rni)
+        {
+            Random r1 = new Random(int.Parse(txtSeed.Text));
+
+            for (int lnI = 0; lnI < rni; lnI++)
+            {
+                r1.Next();
+            }
+
+            // Totally randomize stores (19 weapon stores, 24 item stores, 248 items total)  No store can have more than 12 items.
+            // I would just create random values for 248 items, then determine weapon and item stores out of that!
+            byte[] legalStoreWeapons = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
+                                      0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
+                                      0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
+                                      0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f,
+                                      0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46
+                };
+            byte[] legalStoreItems = { 0x56,
+                                      0x65, 0x66, 0x67, 0x68, 0x6c,
+                                      0x74
+                };
+            // Create legalStoreItemsList to add new items
+            List<byte> legalStoreItemsList = new List<byte>();
+            // Populate legalStoreItemsList base items
+            for (int lnI = 0; lnI < legalStoreItems.Length; lnI++)
+            {
+                legalStoreItemsList.Add(legalStoreItems[lnI]);
+            }
+
+            // Add Stone of Life to Item Shop Items
+            if (chk_StoneofLife.Checked == true && chk_StoneofLife.Enabled == true)
+            {
+                legalStoreItemsList.Add(0x55);
+            }
+            // Add Seeds to Item Shop Items
+            if (chk_Seeds.Checked == true && chk_Seeds.Enabled)
+            {
+                legalStoreItemsList.Add(0x5f);
+                legalStoreItemsList.Add(0x60);
+                legalStoreItemsList.Add(0x61);
+                legalStoreItemsList.Add(0x62);
+                legalStoreItemsList.Add(0x63);
+                legalStoreItemsList.Add(0x64);
+            }
+            // Add Book of Satori to Item Shop Items
+            if (chk_BookofSatori.Checked == true && chk_BookofSatori.Enabled == true)
+            {
+                legalStoreItemsList.Add(0x4c);
+            }
+            // Add Ring of Life to Item Shop Items
+            if (chk_RingofLife.Checked == true && chk_RingofLife.Enabled == true)
+            {
+                legalStoreItemsList.Add(0x48);
+            }
+            // Add Echoing Flute to Item Shop Items
+            if (chk_EchoingFlute.Checked == true && chk_EchoingFlute.Enabled == true)
+            {
+                legalStoreItemsList.Add(0x6f);
+            }
+            // Add Silver Harp to Item Shop Items
+            if (chk_SilverHarp.Checked == true && chk_SilverHarp.Enabled == true)
+            {
+                legalStoreItemsList.Add(0x71);
+            }
+            // Add Shoes of Happiness to Item Shop Items
+            if (chk_ShoesofHappiness.Checked == true && chk_ShoesofHappiness.Enabled == true)
+            {
+                legalStoreItemsList.Add(0x49);
+            }
+            // Add Meterorite Armband to Item Shop Items
+            if (chk_MeteoriteArmband.Checked == true && chk_MeteoriteArmband.Enabled == true)
+            {
+                legalStoreItemsList.Add(0x4b);
+            }
+            if (chk_WizardsRing.Checked == true && chk_WizardsRing.Enabled == true)
+            {
+                legalStoreItemsList.Add(0x4e);
+            }
+            if (chk_LampofDarkness.Checked == true && chk_LampofDarkness.Enabled == true)
+            {
+                legalStoreItemsList.Add(0x53);
+            }
+            if (chk_LeafoftheWorldTree.Checked == true && chk_LeafoftheWorldTree.Enabled == true)
+            {
+                legalStoreItemsList.Add(0x69);
+            }
+            if (chk_PoisonMothPowder.Checked == true && chk_PoisonMothPowder.Enabled == true)
+            {
+                legalStoreItemsList.Add(0x73);
+            }
+
+            int[] weaponStores = { 0x36838, 0x3683f, 0x36846, 0x3684d, 0x36854, 0x3685b, 0x36862, 0x36869, 0x3686e, 0x36874, 0x3687a, 0x36880, 0x36887, 0x3688d, 0x36893, 0x3689a, 0x368a1, 0x368a7, 0x368ae }; // 42
+            int[] itemStores = { 0x368b4, 0x368b7, 0x368be, 0x368c4, 0x368ca, 0x368d0, 0x368d6, 0x368db, 0x368e0, 0x368e2, 0x368e6, 0x368ec, 0x368f2, 0x368f4, 0x368fa, 0x368ff, 0x36905, 0x36908, 0x3690e, 0x36914, 0x3691a, 0x36920, 0x36927, 0x3692b }; // 22
+
+            if (chk_RandomizeWeaponShops.Checked == true)
+            {
+                for (int lnI = 0; lnI < weaponStores.Length; lnI++)
+                {
+                    List<int> store = new List<int> { };
+                    bool lastItem = false;
+                    int byteToUse = weaponStores[lnI];
+                    int lnJ = 0;
+                    do
+                    {
+                        if (romData[byteToUse + lnJ] >= 128)
+                            lastItem = true;
+                        romData[byteToUse + lnJ] = legalStoreWeapons[r1.Next() % legalStoreWeapons.Length];
+                        bool failure = false;
+                        for (int lnK = 0; lnK < lnJ; lnK++)
+                            if (romData[byteToUse + lnJ] == romData[byteToUse + lnK])
+                                failure = true;
+                        if (lastItem)
+                            romData[byteToUse + lnJ] += 128;
+                        if (failure)
+                        {
+                            lastItem = false;
+                            continue;
+                        }
+                        lnJ++;
+                    } while (!lastItem);
+                }
+                if (chk_Caturday.Checked == true)
+                {
+                    Random caturday = new Random(int.Parse(txtSeed.Text));
+
+                    int[] catWeaponStores = { 0x36838, 0x3683f, 0x36846, 0x3684d, 0x36854, 0x3685b, 0x36869, 0x3686e, 0x36874, 0x36880, 0x36887, 0x3688d, 0x36893, 0x3689a, 0x368a1, 0x368a7, 0x368ae };
+                    int selectStore = caturday.Next() % catWeaponStores.Length;
+                    romData[catWeaponStores[selectStore]] = 0x2a;
+                }
+            }
+            if (chkRandItemStores.Checked == true)
+            {
+                for (int lnI = 0; lnI < itemStores.Length; lnI++)
+                {
+                    List<int> store = new List<int> { };
+                    bool lastItem = false;
+                    int byteToUse = itemStores[lnI];
+                    int lnJ = 0;
+                    do
+                    {
+                        if (romData[byteToUse + lnJ] >= 128)
+                            lastItem = true;
+                        romData[byteToUse + lnJ] = legalStoreItemsList[r1.Next() % legalStoreItemsList.Count];
+                        bool failure = false;
+                        for (int lnK = 0; lnK < lnJ; lnK++)
+                            if (romData[byteToUse + lnJ] == romData[byteToUse + lnK])
+                                failure = true;
+                        if (lastItem)
+                            romData[byteToUse + lnJ] += 128;
+                        if (failure)
+                        {
+                            lastItem = false;
+                            continue;
+                        }
+                        lnJ++;
+                    } while (!lastItem);
+                }
+            }
+
+        }
+
+        private void randomizeInnPrices(int rni)
+        {
+            Random r1 = new Random(int.Parse(txtSeed.Text));
+
+            for (int lnI = 0; lnI < rni; lnI++)
+            {
+                r1.Next();
+            }
+
+            for (int lnI = 0; lnI < 26; lnI++)
+            {
+                int innPrice = (r1.Next() % 20) + 1;
+                romData[0x367c1 + lnI] -= (byte)(romData[0x367c1 + lnI] % 32);
+                romData[0x367c1 + lnI] += (byte)innPrice;
+            }
+
+        }
+
+        private void randStatGains(int rni)
+        {
+            Random r1 = new Random(int.Parse(txtSeed.Text));
+
+            for (int lnI = 0; lnI < rni; lnI++)
+            {
+                r1.Next();
+            }
+
+            //// Randomize starting stats.
+            // Give each hero from 22HP (min for Wizard) to about 36 HP.  (Hero)  Just so everybody has a chance!
+            romData[0x1eed7] = (byte)((r1.Next() % 13) + 5 + 9);
+            // Remove the baseline for HP...
+            romData[0x24f4] = 0xea;
+            romData[0x24f5] = 0x4c;
+            romData[0x24f6] = 0xfa;
+            romData[0x24f7] = 0xa4;
+            // ... and MP...
+            romData[0x2555] = 0xea;
+            romData[0x2556] = 0x4c;
+            romData[0x2557] = 0x5b;
+            romData[0x2558] = 0xa5;
+            // ... and the rest!  But we also need to prevent someone gaining 200 points in a stat...
+            romData[0x247c] = 0xa9;
+            romData[0x247d] = 0x00;
+            romData[0x247e] = 0x8d;
+            romData[0x247f] = 0x05;
+            romData[0x2480] = 0x00;
+            romData[0x2481] = 0x4c;
+            romData[0x2482] = 0x7d;
+            romData[0x2483] = 0xa4;
+
+            // TRY TWO
+            // Max array:  [7, 5]
+            // ORDER:  Hero, Wizard, Pilgrim, Sage, Soldier, Merchant, Fighter, Goof-off
+            int[,] heroL41Gains = new int[,] {
+                               { 134, 77, 166, 121, 69 },
+                               { 33, 125, 106, 143, 108 },
+                               { 55, 79, 110, 120, 107 },
+                               { 80, 90, 127, 79, 97 },
+                               { 149, 37, 191, 32, 33 },
+                               { 96, 75, 122, 54, 60 },
+                               { 188, 191, 143, 145, 43 },
+                               { 36, 47, 84, 210, 52 }
+                               };
+
+            //heroL41Gains[8, 0] = 0;
+            // Randomize the four multipliers from 8 to 32.  Each multiplier has six bytes.
+            for (int lnI = 0; lnI < 2; lnI++)
+                for (int lnJ = 0; lnJ < 5; lnJ++)
+                {
+                    int byteToUse2 = 0x281b + (lnI * 5) + lnJ;
+                    romData[byteToUse2] = (byte)(((r1.Next() % 4) + 1) * 8);
+                }
+
+            // Randomize the levels to the next multiplier from 0 to 24.(First 4 bytes)  Always make the 5th byte "99" (63 hex).
+            // Calculate the base gain based on the four multipliers.  Try to get as close to the target gain for each stat as possible.
+            // Char byteToUse - 0x4a15b, 0x4a17f, 0x4a1a3, 0x4a1c7, 0x4a1eb, 0x4a20f, 0x4a22d, 0x4a24b
+            int byteToUse = 0x290e;
+            // 40 bytes for strength, 40 bytes for agility, 40 bytes for vitality, 40 bytes for luck, 40 bytes for intelligence, in that order.  NOT in character order, statistic order!
+            for (int lnJ = 0; lnJ < 5; lnJ++)
+            {
+                for (int lnI = 0; lnI < 8; lnI++)
+                {
+                    if (optMonsterSilly.Checked || optMonsterMedium.Checked)
+                    {
+                        int randomDir = (r1.Next() % 3);
+                        int difference = heroL41Gains[lnI, lnJ] / (optMonsterSilly.Checked ? 4 : 2);
+                        if (randomDir == 0)
+                            heroL41Gains[lnI, lnJ] -= (r1.Next() % difference);
+                        if (randomDir == 1)
+                            heroL41Gains[lnI, lnJ] += (r1.Next() % difference);
+                    }
+                    if (optMonsterHeavy.Checked)
+                    {
+                        if (lnJ == 2)
+                            heroL41Gains[lnI, lnJ] = (r1.Next() % (lnI == 0 || lnI >= 4 ? 140 : 170)) + (lnI == 0 || lnI >= 4 ? 110 : 80);
+                        else if (lnJ == 0)
+                            heroL41Gains[lnI, lnJ] = (r1.Next() % (lnI == 0 || lnI >= 4 ? 180 : 220)) + (lnI == 0 || lnI >= 4 ? 70 : 30);
+                        else
+                            heroL41Gains[lnI, lnJ] = (r1.Next() % (lnJ == 4 && lnI <= 3 ? 180 : 210) + (lnJ == 4 && lnI <= 3 ? 70 : 40));
+                    }
+
+                    int[] levels = { 0, 0, 0, 0, 99 };
+                    for (int lnK = 0; lnK < 4; lnK++)
+                        levels[lnK] = (byte)(r1.Next() % 50);
+                    Array.Sort(levels);
+                    //for (int lnK = 0; lnK < 4; lnK++)
+                    //{
+                    //    if ((lnK == 0 && baseStat % 2 == 1) || (lnK == 1 && baseStat % 4 >= 2) || (lnK == 2 && baseStat % 8 >= 4) || (lnK == 3 && baseStat % 16 >= 8))
+                    //        romData[byteToUse + lnK] = (byte)(128 + levels[lnK]);
+                    //    else
+                    //        romData[byteToUse + lnK] = (byte)(levels[lnK]);
+                    //}
+
+                    //if (baseStat >= 16)
+                    //    romData[byteToUse + 4] = 99 + 128;
+                    //else
+                    //    romData[byteToUse + 4] = 99;
+
+                    // Averages:  8-16 = .6/level, 24-32 = 1.6/level, 40-48 = 2.6/level, 56-64 = 3.6/level, 72-80 = 4.6/level, 88-96 = 5.6/level, 104-112 = 6.6/level
+                    // Maximize base stat at 12 (5.6/level at 8 multiplier)
+                    // Now to figure out the multiplier to use (+ 0) and the base multiplier (+ 5)
+                    double[] diffs = { 0.0, 0.0, 0.0, 0.0 };
+                    int[] baseMult = { 0, 0, 0, 0 };
+                    for (int lnK = 0; lnK < 2; lnK++)
+                    {
+                        for (baseMult[lnK] = 1; baseMult[lnK] <= 12; baseMult[lnK]++)
+                        {
+                            int byteToUse2 = 0x281b + (lnK * 5); // multipliers
+                            double stat = 0.0;
+                            int multLevel = 0;
+
+                            for (int lnL = 2; lnL <= 40; lnL++)
+                            {
+                                int multLevelToUse = (levels[multLevel]);
+                                if (lnL > multLevelToUse)
+                                    multLevel++;
+                                stat += Math.Floor((((double)baseMult[lnK] * romData[byteToUse2 + multLevel]) - 8) / 16) + 0.85;
+                            }
+                            //baseMult[lnK] = (int)Math.Round(heroL41Gains[lnI, lnJ] / stat);
+                            diffs[lnK] = Math.Abs(stat - heroL41Gains[lnI, lnJ]);
+                            if (stat > heroL41Gains[lnI, lnJ]) break;
+                        }
+                    }
+
+                    double lowDiff = 9999;
+                    int lowMult = 0;
+                    int ultiBaseMult = 0;
+                    for (int lnK = 0; lnK < 2; lnK++)
+                    {
+                        if (diffs[lnK] < lowDiff)
+                        {
+                            lowDiff = diffs[lnK];
+                            lowMult = lnK;
+                            ultiBaseMult = baseMult[lnK];
+                        }
+                    }
+
+                    romData[byteToUse] = (byte)((lowMult == 0 ? 0 : 128) + levels[0]);
+                    romData[byteToUse + 1] = (byte)((ultiBaseMult >= 8 ? 128 : 0) + (levels[1] - levels[0]));
+                    romData[byteToUse + 2] = (byte)((ultiBaseMult % 8 >= 4 ? 128 : 0) + (levels[2] - levels[1]));
+                    romData[byteToUse + 3] = (byte)((ultiBaseMult % 4 >= 2 ? 128 : 0) + (levels[3] - levels[2]));
+                    romData[byteToUse + 4] = (byte)((ultiBaseMult % 2 >= 1 ? 128 : 0) + 127);
+
+                    //romData[byteToUse] += (byte)(32 * lowMult);
+                    //romData[byteToUse + 5] = (byte)ultiBaseMult;
+
+                    byteToUse += 5;
+                }
+
+            }
+        }
+        
         private void markZoneSides()
         {
             for (int x = 0; x < 16; x++)
@@ -3548,7 +6219,6 @@ namespace DW3Randomizer
 			}
 		}
 
-
 		private void boostGP()
         {
             // Replace monster data
@@ -4571,6 +7241,207 @@ namespace DW3Randomizer
             romData[0x3a5e3] = 0x18;
 
         }
+
+        private void createGuides()
+        {
+            if (chkRandEquip.Checked || chkRandItemEffects.Checked || chkRandWhoCanEquip.Checked)
+            {
+                string finalFile = Path.Combine(Path.GetDirectoryName(txtFileName.Text), "DW3Random_" + txtSeed.Text + "_" + txtFlags.Text + "_guide.txt");
+
+                // Totally randomize who can equip (1a3ce-1a3f0).  At least one person can equip something...
+                using (StreamWriter writer = File.CreateText(finalFile))
+                {
+                    string[] weaponText = { "Cypress stick", "Club", "Copper sword", "Magic Knife", "Iron Spear", "Battle Axe", "Broad Sword", "Wizard's Wand",
+                        "Poison Needle", "Iron Claw", "Thorn Whip", "Giant Shears", "Chain Sickle", "Thor's Sword", "Snowblast Sword", "Demon Axe",
+                        "Staff of Rain", "Sword of Gaia", "Staff of Reflection", "Sword of Destruction", "Multi - Edge Sword", "Staff of Force", "Sword of Illusion", "Zombie Slasher",
+                        "Falcon Sword", "Sledge Hammer", "Thunder Sword", "Staff of Thunder", "Sword of Kings", "Orochi Sword", "Dragon Killer", "Staff of Judgement",
+                        "Clothes", "Training Suit", "Leather Armor", "Flashy Clothes", "Half Plate Armor", "Full Plate Armor", "Magic Armor", "Cloak of Evasion",
+                        "Armor of Radiance", "Iron Apron", "Animal Suit", "Fighting Suit", "Sacred Robe", "Armor of Hades", "Water Flying Cloth", "Chain Mail",
+                        "Wayfarers Clothes", "Revealing Swimsuit", "Magic Bikini", "Shell Armor", "Armor of Terrafirma", "Dragon Mail", "Swordedge Armor", "Angel's Robe",
+                        "Leather Shield", "Iron Shield", "Shield of Strength", "Shield of Heroes", "Shield of Sorrow", "Bronze Shield", "Silver Shield", "Golden Crown",
+                        "Iron Helmet", "Mysterious Hat", "Unlucky Helmet", "Turban", "Noh Mask", "Leather Helmet", "Iron Mask", "Golden Claw" };
+
+                    for (int lnI = 0; lnI <= 70; lnI++)
+                    {
+                        if (lnI < 71)
+                        {
+                            string equipOut = "";
+                            equipOut += (romData[0x1147 + lnI] % 2 >= 1 ? "Hr  " : "--  ");
+                            equipOut += (romData[0x1147 + lnI] % 32 >= 16 ? "Sr  " : "--  ");
+                            equipOut += (romData[0x1147 + lnI] % 8 >= 4 ? "Pr  " : "--  ");
+                            equipOut += (romData[0x1147 + lnI] % 4 >= 2 ? "Wi  " : "--  ");
+                            equipOut += (romData[0x1147 + lnI] % 16 >= 8 ? "Sg  " : "--  ");
+                            equipOut += (romData[0x1147 + lnI] % 128 >= 64 ? "Fi  " : "--  ");
+                            equipOut += (romData[0x1147 + lnI] % 64 >= 32 ? "Mr  " : "--  ");
+                            equipOut += (romData[0x1147 + lnI] >= 128 ? "Gf  " : "--  ");
+                            equipOut += (romData[0x11be + lnI] >= 128 ? "**  " : "    ");
+                            equipOut += (romData[0x279a0 + lnI]);
+                            writer.WriteLine(weaponText[lnI].PadRight(24) + equipOut);
+                        }
+                        else
+                        {
+                            string equipOut = "";
+                            equipOut += (romData[0x1147 + lnI + 3] % 2 >= 1 ? "Hr  " : "--  ");
+                            equipOut += (romData[0x1147 + lnI + 3] % 32 >= 16 ? "Sr  " : "--  ");
+                            equipOut += (romData[0x1147 + lnI + 3] % 8 >= 4 ? "Pr  " : "--  ");
+                            equipOut += (romData[0x1147 + lnI + 3] % 4 >= 2 ? "Wi  " : "--  ");
+                            equipOut += (romData[0x1147 + lnI + 3] % 16 >= 8 ? "Sg  " : "--  ");
+                            equipOut += (romData[0x1147 + lnI + 3] % 128 >= 64 ? "Fi  " : "--  ");
+                            equipOut += (romData[0x1147 + lnI + 3] % 64 >= 32 ? "Mr  " : "--  ");
+                            equipOut += (romData[0x1147 + lnI + 3] >= 128 ? "Gf  " : "--  ");
+                            equipOut += (romData[0x11be + lnI + 3] >= 128 ? "**  " : "    ");
+                            equipOut += (romData[0x279a0 + lnI + 3]);
+                            writer.WriteLine(weaponText[lnI].PadRight(24) + equipOut);
+
+                        }
+
+                    }
+
+                    /*
+                                        for (int lnI = 0; lnI < 22; lnI++)
+                                        {
+                                            romData[0xb29e + lnI] = romData[0xb29e + lnI + 1];
+                                        }
+                                        // Gold Claw
+                                        romData[0xb2b4] = 0x27;
+                                        romData[0xb2b5] = 0x16;
+                                        romData[0xb2b6] = 0x0b;
+                                        romData[0xb2b7] = 0x22;
+                                        romData[0xb2b8] = 0x00;
+                    */
+                }
+
+                // Change Equipment Names to Attack
+                // Copper Sword ad1e-ad23 / b0b7-b0bb
+                // Breakup ATP
+            }
+            if (chk_GenCompareFile.Checked == true)
+            {
+                if (!loadRom(true)) return;
+                using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "DW3Compare.txt")))
+                {
+                    for (int lnI = 0; lnI < 0x8a; lnI++)
+                        compareComposeString("monsters" + lnI.ToString("X2"), writer, (0x32e3 + (23 * lnI)), 23);
+
+                    compareComposeString("itemPrice1", writer, 0x11be, 128);
+                    compareComposeString("itemPrice2", writer, 0x123b, 128);
+                    compareComposeString("weaponEffects", writer, 0x13280, 40);
+
+                    compareComposeString("treasures-Promontory", writer, 0x29237, 3);
+                    compareComposeString("treasures-NajimiBasement", writer, 0x2927B, 3);
+                    compareComposeString("treasures-Najimi", writer, 0x292C4, 3);
+                    compareComposeString("treasures-Thief'sKey", writer, 0x37DF1, 1);
+                    compareComposeString("treasures-MagicBall", writer, 0x375AA, 1);
+                    compareComposeString("treasures-Invitation", writer, 0x2927E, 2);
+                    compareComposeString("treasures-Kanave", writer, 0x29234, 2);
+                    compareComposeString("treasures-Champange1", writer, 0x29252, 1);
+                    compareComposeString("treasures-Champange2", writer, 0x292D2, 1);
+                    compareComposeString("treasures-Champange3", writer, 0x292E6, 1);
+                    compareComposeString("treasures-Isis", writer, 0x2925C, 9);
+                    compareComposeString("treasures-IsisWizards", writer, 0x31B9C, 1);
+                    compareComposeString("treasures-GoldenClaw", writer, 0x317F4, 1);
+                    compareComposeString("treasures-Pyramid1st", writer, 0x29249, 7);
+                    compareComposeString("treasures-Pyramid3rd4th5th", writer, 0x292B4, 15);
+                    compareComposeString("treasures-DreamCave1", writer, 0x2923A, 2);
+                    compareComposeString("treasures-DreamCave2", writer, 0x29280, 8);
+                    compareComposeString("treasures-WakeUpNPC", writer, 0x37786, 1);
+                    compareComposeString("treasures-Aliahan", writer, 0x29255, 5);
+                    compareComposeString("treasures-Portuga", writer, 0x29269, 3);
+                    compareComposeString("treasures-RoyalScroll", writer, 0x37CB9, 1);
+                    compareComposeString("treasures-Dwarf", writer, 0x2923C, 2);
+                    compareComposeString("treasures-Kidnappers1", writer, 0x2923E, 6);
+                    compareComposeString("treasures-Kidnappers2", writer, 0x2928B, 4);
+                    compareComposeString("treasures-BlackPepperNPC", writer, 0x377D5, 1);
+                    compareComposeString("treasures-Tedan1", writer, 0x31B94, 1);
+                    compareComposeString("treasures-Tedan2", writer, 0x29270, 1);
+                    compareComposeString("treasures-TedanGreenOrb", writer, 0x37828, 1);
+                    compareComposeString("treasures-Garuna1", writer, 0x29251, 1);
+                    compareComposeString("treasures-Garuna2", writer, 0x292C7, 4);
+                    compareComposeString("treasures-NohMask", writer, 0x292E4, 1);
+                    compareComposeString("treasures-PurpleOrb", writer, 0x292E7, 1);
+                    compareComposeString("treasures-WaterBlaster", writer, 0x377FE, 1);
+                    compareComposeString("treasures-PirateCove", writer, 0x29271, 3);
+                    compareComposeString("treasures-Eginbear", writer, 0x2925B, 1);
+                    compareComposeString("treasures-FinalKey", writer, 0x2922B, 1);
+                    compareComposeString("treasures-ArpTower", writer, 0x292CB, 7);
+                    compareComposeString("treasures-Soo", writer, 0x31B8C, 1);
+                    compareComposeString("treasures-SamanaoCave", writer, 0x29291, 23);
+                    compareComposeString("treasures-SamanaoCastle", writer, 0x292E5, 1);
+                    compareComposeString("treasures-LancelCave1", writer, 0x29244, 5);
+                    compareComposeString("treasures-LancelCave2", writer, 0x2928F, 2);
+                    compareComposeString("treasures-Luzami", writer, 0x31B97, 1);
+                    compareComposeString("treasures-NewTown1", writer, 0x2926C, 2);
+                    compareComposeString("treasures-NewTownYellowOrb", writer, 0x31B80, 1);
+                    compareComposeString("treasures-Sailor'sThighNPC", writer, 0x378A9, 1);
+                    compareComposeString("treasures-GhostShip", writer, 0x29275, 6);
+                    compareComposeString("treasures-SwordOfGaia", writer, 0x31B84, 1);
+                    compareComposeString("treasures-Negrogund", writer, 0x29288, 3);
+                    compareComposeString("treasures-SilverOrb", writer, 0x37907, 1);
+                    compareComposeString("treasures-LeafOfWorld", writer, 0x31B9F, 1);
+                    compareComposeString("treasures-SphereOfLight", writer, 0x37929, 1);
+                    compareComposeString("treasures-Baramos", writer, 0x29228, 3);
+                    compareComposeString("treasures-SwordOfIllusion", writer, 0x37a25, 1);
+                    compareComposeString("treasures-Tantegel", writer, 0x29265, 4);
+                    compareComposeString("treasures-Erdrick's", writer, 0x292A8, 5);
+                    compareComposeString("treasures-SilverHarp", writer, 0x29274, 1);
+                    compareComposeString("treasures-MountainCave", writer, 0x292DF, 5);
+                    compareComposeString("treasures-Oricon", writer, 0x31B90, 1);
+                    compareComposeString("treasures-FairyFlute", writer, 0x31B88, 1);
+                    compareComposeString("treasures-KolTower1", writer, 0x29253, 2);
+                    compareComposeString("treasures-KolTower2", writer, 0x292D5, 10);
+                    compareComposeString("treasures-SacredAmulet", writer, 0x37D5A, 1);
+                    compareComposeString("treasures-StaffOfRain", writer, 0x37D9D, 1);
+                    compareComposeString("treasures-RainbowDrop", writer, 0x37D80, 1);
+                    compareComposeString("treasures-Rimuldar", writer, 0x29233, 1);
+                    compareComposeString("treasures-ZomaCastle", writer, 0x292AD, 7);
+
+                    compareComposeString("stores", writer, 0x36838, 248, 1, "g128");
+
+                    for (int lnI = 0; lnI < 95; lnI++)
+                        compareComposeString("monsterZones" + lnI.ToString("X2"), writer, (0xaeb + (15 * lnI)), 15);
+                    for (int lnI = 0; lnI < 20; lnI++)
+                        compareComposeString("monsterSpecial" + lnI.ToString("X2"), writer, (0x107a + (6 * lnI)), 6);
+                    //for (int lnI = 0; lnI < 13; lnI++)
+                    //    compareComposeString("monsterBoss" + lnI.ToString("X2"), writer, (0x10356 + (4 * lnI)), 4);
+                    //compareComposeString("statStart", writer, 0x13dd1, 12);
+                    compareComposeString("statMult", writer, 0x281b, 10);
+                    compareComposeString("statUpsStrength", writer, 0x290e + 0, 40);
+                    compareComposeString("statUpsAgility", writer, 0x290e + 40, 40);
+                    compareComposeString("statUpsVitality", writer, 0x290e + 80, 40);
+                    compareComposeString("statUpsLuck", writer, 0x290e + 120, 40);
+                    compareComposeString("statUpsIntelligence", writer, 0x290e + 160, 40);
+
+                    compareComposeString("spellLearningHero", writer, 0x29d6, 63);
+                    compareComposeString("spellsLearnedHero", writer, 0x22E7, 32);
+                    compareComposeString("spellLearningPilgrim", writer, 0x2A15, 63);
+                    compareComposeString("spellsLearnedPilgrim", writer, 0x2307, 32);
+                    compareComposeString("spellLearningWizard", writer, 0x2A54, 63);
+                    compareComposeString("spellsLearnedWizard", writer, 0x2327, 32);
+                    compareComposeString("spellLearningSage", writer, 0x2A93, 63);
+                    //for (int lnI = 0; lnI < 28; lnI++)
+                    //    compareComposeString("spellStats" + (lnI).ToString(), writer, 0x127d5 + (5 * lnI), 5);
+                    //compareComposeString("spellCmd", writer, 0x13528, 28);
+                    //compareComposeString("spellFieldHeal", writer, 0x18be0, 16, 8);
+                    //compareComposeString("spellFieldMedical", writer, 0x19602, 1);
+
+                    //compareComposeString("start1", writer, 0x3c79f, 8);
+                    //compareComposeString("start2", writer, 0x3c79f + 8, 8);
+                    //compareComposeString("start3", writer, 0x3c79f + 16, 8);
+                    //compareComposeString("weapons", writer, 0x13efb, 16);
+                    //compareComposeString("weaponcost (2.3)", writer, 0x1a00e, 32);
+                    //compareComposeString("armor", writer, 0x13efb + 16, 11);
+                    //compareComposeString("armorcost (2.4)", writer, 0x1a00e + 32, 22);
+                    //compareComposeString("shields", writer, 0x13efb + 27, 5);
+                    //compareComposeString("shieldcost (2.8)", writer, 0x1a00e + 54, 10);
+                    //compareComposeString("helmets", writer, 0x13efb + 32, 3);
+                    //compareComposeString("helmetcost (3.0)", writer, 0x1a00e + 64, 6);
+
+                }
+                lblIntensityDesc.Text = "Comparison complete!  (DW3Compare.txt)";
+            }
+
+        }
+
         private void forceItemSell()
         {
             int[] forcedItemSell = { 0x16, 0x1c, 0x28, 0x32, 0x34, 0x36, 0x3b, 0x3f, 0x42, 0x48, 0x4b, 0x4c, 0x50, 0x52, 0x53, 0x55, 0x58, 0x59, 0x69, 0x6f, 0x70, 0x71 };
@@ -4613,3189 +7484,6 @@ namespace DW3Randomizer
 
         private void superRandomize()
         {
-            Random r1; //Used for Maps
-            Random r2; //Used for Gender
-            Random r3; //Used for Names
-            Random r4; //Used for Class
-            Random r5; //Used for RandEnemyPaterns
-
-            try
-            {
-                r1 = new Random(int.Parse(txtSeed.Text));
-            }
-            catch
-            {
-                MessageBox.Show("Invalid seed.  It must be a number from 0 to 2147483648.");
-                return;
-            }
-
-            r2 = new Random(int.Parse(txtSeed.Text));
-            r3 = new Random(int.Parse(txtSeed.Text));
-            r4 = new Random(int.Parse(txtSeed.Text));
-            r5 = new Random(int.Parse(txtSeed.Text));
-
-            if (chkRandomizeMap.Checked)
-            {
-                randomizeMapv5(r1);
-            }
-
-            if (chk_RandomGender.Checked)
-            {
-                randomizeGender(r2);
-            }
-
-            if (chk_RandomName.Checked)
-            {
-                randomizeNames(r3);
-            }
-
-            if (chk_RandomClass.Checked)
-            {
-                randomizeClass(r4);
-            }
-
-            if (chkRandEnemyPatterns.Checked)
-            {
-                randEnemyPatterns(r5);
-/*
-                byte[] monsterSize = { 8, 4, 4, 4, 4, 4, 7, 4, 4, 8, 4, 4, 4, 2, 4, 4,
-                4, 4, 5, 5, 2, 4, 4, 5, 4, 4, 4, 4, 4, 4, 3, 2,
-                4, 4, 4, 2, 4, 5, 4, 4, 4, 4, 4, 8, 4, 4, 4, 3,
-                2, 8, 4, 3, 4, 4, 2, 3, 4, 7, 3, 4, 2, 4, 4, 7,
-                8, 3, 3, 4, 3, 2, 3, 4, 4, 4, 4, 4, 4, 3, 3, 4,
-                2, 4, 3, 4, 3, 2, 2, 4, 3, 2, 2, 3, 2, 5, 1, 4,
-                3, 3, 2, 3, 4, 1, 3, 3, 8, 7, 4, 2, 7, 4, 3, 2,
-                3, 3, 3, 3, 3, 3, 3, 4, 4, 2, 1, 2, 4, 2, 3, 3,
-                3, 1, 1, 3, 1, 1, 1, 2, 3, 3, 4 };
-
-                // Totally randomize monsters (13805-13cd2)
-                for (int lnI = 0; lnI < 0x8a; lnI++)
-                {
-                    if (lnI == 0x85 || lnI == 0x86)
-                        continue; // Do not adjust either Zoma.
-
-                    //0 - Monster Level (probably used for running away)
-                    //1 - EXP
-                    //2 - EXP * 256
-                    //3 - Agility
-                    //4 - GP
-                    //5 - Attack
-                    //6 - Defense
-                    //7 - HP
-                    //8 - MP
-                    //9 - Item dropped
-                    //10 = Action 1
-                    //11 = Action 2(first half related to "AI-Lv)
-                    //12 = Action 3
-                    //13 = Action 4(first half related to "Pattern")
-                    //14 = Action 5(related to # atks, first bit)
-                    //15 = Action 6(also related to # atks, first bit)
-                    //16 = Action 7[1] = related to regen
-                    //17 = Action 8[1] = also related to regen 
-                    //18 - Bits 0-1 - GPx256, Bits 2-3 - Infernos resist, Bits 4-5 - Ice resist, Bits 6-7 - Fire resist
-                    //19 - Bits 0-1 - Attackx256, 2-3 - Sacrifice resist, 4-5 - Beat resist, 6-7 - Lightning resist
-                    //20 - Bits 0-1 - Defx256, 2-3 - Defense resist, 4-5 - Stopspell resist, 6-7 - Sleep resist
-                    //21 - Bits 0-1 - HPx256, 2-3 - Chaos resist, 4-5 - RobMagic resist, 6-7 - Surround resist
-                    //22 - Bits 0-3 - Drop chance (1/1, 8, 16, 32, 64, 128, 256, and 2048), 4-5 - Expel resist, 6-7 - Limbo/Slow resist
-                    byte[] enemyStats = { romData[0x32e3 + (lnI * 23) + 0], romData[0x32e3 + (lnI * 23) + 1], romData[0x32e3 + (lnI * 23) + 2], romData[0x32e3 + (lnI * 23) + 3], romData[0x32e3 + (lnI * 23) + 4],
-                    romData[0x32e3 + (lnI * 23) + 5], romData[0x32e3 + (lnI * 23) + 6], romData[0x32e3 + (lnI * 23) + 7], romData[0x32e3 + (lnI * 23) + 8], romData[0x32e3 + (lnI * 23) + 9],
-                    romData[0x32e3 + (lnI * 23) + 10], romData[0x32e3 + (lnI * 23) + 11], romData[0x32e3 + (lnI * 23) + 12], romData[0x32e3 + (lnI * 23) + 13], romData[0x32e3 + (lnI * 23) + 14],
-                    romData[0x32e3 + (lnI * 23) + 15], romData[0x32e3 + (lnI * 23) + 16], romData[0x32e3 + (lnI * 23) + 17], romData[0x32e3 + (lnI * 23) + 18], romData[0x32e3 + (lnI * 23) + 19],
-                    romData[0x32e3 + (lnI * 23) + 20], romData[0x32e3 + (lnI * 23) + 21], romData[0x32e3 + (lnI * 23) + 22] };
-
-                    int byteValStart = 0x32e3 + (23 * lnI);
-
-                    for (int lnJ = 3; lnJ <= 7; lnJ++)
-                    {
-                        int totalAtk = enemyStats[lnJ] + ((enemyStats[lnJ + 14] % 4) * 256);
-                        if (lnJ == 3) totalAtk = enemyStats[lnJ];
-                        if (lnJ == 7 && lnI == 0x87) totalAtk = 5; // We want Ortega to die quickly by giving him 5 HP.
-                        if (lnJ == 5 && lnI == 0x87) totalAtk = 2000; // ... or win the battle quickly by giving him hoards of strength!  (he still winds up "dead" I think)
-
-                        // Potentially add quadruple the possible gold for each monster.  Average 2 1/2 times...
-                        if (lnJ == 4 && totalAtk > 0)
-                            totalAtk += (r1.Next() % (totalAtk * 3));
-                        else
-                        {
-                            int atkRandom = (r1.Next() % 3);
-                            int atkDiv2 = (totalAtk / 2) + 1;
-                            if (atkRandom == 1)
-                                totalAtk += (r1.Next() % atkDiv2);
-                            else if (atkRandom == 2)
-                                totalAtk -= (r1.Next() % atkDiv2);
-                        }
-
-                        totalAtk = (totalAtk < 1 ? 1 : totalAtk);
-                        totalAtk = (totalAtk > 1020 ? 1020 : totalAtk);
-                        if (lnJ == 3)
-                            totalAtk = (totalAtk > 255 ? 255 : totalAtk);
-                        enemyStats[lnJ] = (byte)(totalAtk % 256);
-                        if (lnJ > 3)
-                            enemyStats[lnJ + 14] = (byte)(enemyStats[lnJ + 14] - (enemyStats[lnJ + 14] % 4) + (totalAtk / 256));
-                    }
-                    if (enemyStats[8] <= 16 && r1.Next() % 2 == 1) enemyStats[8] = (byte)(r1.Next() % 32);
-                    //enemyStats[8] = 255; // Always make sure the monster has MP
-
-                    // Needs to be a "legal treasure..."
-                    byte[] legalMonsterTreasures = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
-                                    0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
-                                    0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
-                                    0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f,
-                                    0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x48, 0x49, 0x4b, 0x4c, 0x4e,
-                                    0x55, 0x56, 0x5f,
-                                    0x60, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6c, 0x6d,
-                                    0x73, 0x74,
-                                    0x65, 0x66, 0x67, 0x68, 0x6c, 0x73, 0x74, 0x65, 0x66, 0x67, 0x68, 0x6c, 0x73, 0x74,
-                                    0x65, 0x66, 0x67, 0x68, 0x6c, 0x73, 0x74, 0x65, 0x66, 0x67, 0x68, 0x6c, 0x73, 0x74 };
-                    enemyStats[9] = (legalMonsterTreasures[r1.Next() % legalMonsterTreasures.Length]);
-
-                    byte[] res1 = { 0, 0, 0, 0, 0, 1, 2, 3 };
-                    byte[] res2 = { 0, 0, 0, 0, 1, 1, 2, 3 };
-                    byte[] res3 = { 0, 0, 0, 1, 1, 2, 2, 3 };
-                    byte[] res4 = { 0, 0, 1, 1, 2, 2, 3, 3 };
-                    byte[] res5 = { 0, 1, 1, 2, 2, 3, 3, 3 };
-                    byte[] res6 = { 0, 1, 2, 2, 3, 3, 3, 3 };
-                    byte[] res7 = { 0, 1, 2, 3, 3, 3, 3, 3 };
-                    byte[] finalRes = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-                    for (int lnJ = 0; lnJ < finalRes.Length; lnJ++)
-                    {
-                        if (lnI < 25)
-                            finalRes[lnJ] = (res1[r1.Next() % 8]);
-                        else if (lnI < 50)
-                            finalRes[lnJ] = (res2[r1.Next() % 8]);
-                        else if (lnI < 70)
-                            finalRes[lnJ] = (res3[r1.Next() % 8]);
-                        else if (lnI < 90)
-                            finalRes[lnJ] = (res4[r1.Next() % 8]);
-                        else if (lnI < 105)
-                            finalRes[lnJ] = (res5[r1.Next() % 8]);
-                        else if (lnI < 115)
-                            finalRes[lnJ] = (res6[r1.Next() % 8]);
-                        else
-                            finalRes[lnJ] = (res7[r1.Next() % 8]);
-                    }
-
-                    enemyStats[18] = (byte)(enemyStats[18] % 4 + (finalRes[0] * 4) + (finalRes[1] * 16) + (finalRes[2] * 64));
-                    enemyStats[19] = (byte)(enemyStats[19] % 4 + (finalRes[3] * 4) + (finalRes[4] * 16) + (finalRes[5] * 64));
-                    enemyStats[20] = (byte)(enemyStats[20] % 4 + (finalRes[6] * 4) + (finalRes[7] * 16) + (finalRes[8] * 64));
-                    enemyStats[21] = (byte)(enemyStats[21] % 4 + (finalRes[9] * 4) + (finalRes[10] * 16) + (finalRes[11] * 64));
-                    // First part:  item drop chance.  Make sure it's at best 1/8.
-                    if (lnI == 0x36 || lnI == 0x62) // EXCEPT Man-eater Chests and Mimics
-                        enemyStats[22] = (byte)(0 + (finalRes[12] * 16) + (finalRes[13] * 64));
-                    else
-                        enemyStats[22] = (byte)(((r1.Next() % 7) + 1) + (finalRes[12] * 16) + (finalRes[13] * 64));
-
-                    byte[] enemyPatterns = { 2, 2, 2, 2, 2, 2, 2, 2 };
-
-                    // Types of patterns... 0:  Attack only, 1:  "Goofy attack", 2:  Totally random, 3:  Annoying, 4:  Quite annyoing, 5:  Hell monster
-                    byte[] pattern1 = { 45, 65, 100, 100, 100 };
-                    byte[] pattern2 = { 35, 60, 90, 100, 100 };
-                    byte[] pattern3 = { 25, 50, 80, 90, 100 };
-                    byte[] pattern4 = { 15, 45, 75, 85, 100 };
-                    byte[] pattern5 = { 10, 40, 70, 85, 100 };
-                    byte[] pattern6 = { 5, 30, 70, 80, 100 };
-                    byte[] pattern7 = { 0, 20, 60, 80, 100 };
-                    byte[] pattern8 = { 0, 10, 50, 60, 100 };
-                    byte[] pattern9 = { 0, 0, 15, 30, 100 };
-
-                    int enemyPattern = r1.Next() % 100;
-
-                    if (lnI < 15 || lnI == 0x87 || lnI == 0x68) // Ortega, so he dies quickly, and red slime, because that monster is WAY out of order
-                        enemyPattern = (enemyPattern < pattern1[0] ? 0 : enemyPattern < pattern1[1] ? 1 : enemyPattern < pattern1[2] ? 2 : enemyPattern < pattern1[3] ? 3 : 4);
-                    else if (lnI < 30)
-                        enemyPattern = (enemyPattern < pattern2[0] ? 0 : enemyPattern < pattern2[1] ? 1 : enemyPattern < pattern2[2] ? 2 : enemyPattern < pattern2[3] ? 3 : 4);
-                    else if (lnI < 45 || lnI == 0x88 || lnI == 0x8a) // Kandar 1 and Kandar Henchman
-                        enemyPattern = (enemyPattern < pattern3[0] ? 0 : enemyPattern < pattern3[1] ? 1 : enemyPattern < pattern3[2] ? 2 : enemyPattern < pattern3[3] ? 3 : 4);
-                    else if (lnI < 60)
-                        enemyPattern = (enemyPattern < pattern4[0] ? 0 : enemyPattern < pattern4[1] ? 1 : enemyPattern < pattern4[2] ? 2 : enemyPattern < pattern4[3] ? 3 : 4);
-                    else if (lnI < 75 || lnI == 0x89) // Kandar 2
-                        enemyPattern = (enemyPattern < pattern5[0] ? 0 : enemyPattern < pattern5[1] ? 1 : enemyPattern < pattern5[2] ? 2 : enemyPattern < pattern5[3] ? 3 : 4);
-                    else if (lnI < 90)
-                        enemyPattern = (enemyPattern < pattern6[0] ? 0 : enemyPattern < pattern6[1] ? 1 : enemyPattern < pattern6[2] ? 2 : enemyPattern < pattern6[3] ? 3 : 4);
-                    else if (lnI < 105)
-                        enemyPattern = (enemyPattern < pattern7[0] ? 0 : enemyPattern < pattern7[1] ? 1 : enemyPattern < pattern7[2] ? 2 : enemyPattern < pattern7[3] ? 3 : 4);
-                    else if (lnI < 120)
-                        enemyPattern = (enemyPattern < pattern8[0] ? 0 : enemyPattern < pattern8[1] ? 1 : enemyPattern < pattern8[2] ? 2 : enemyPattern < pattern8[3] ? 3 : 4);
-                    else
-                        enemyPattern = (enemyPattern < pattern9[0] ? 0 : enemyPattern < pattern9[1] ? 1 : enemyPattern < pattern9[2] ? 2 : enemyPattern < pattern9[3] ? 3 : 4);
-
-                    switch (enemyPattern)
-                    {
-                        case 0: // leave everything alone; it's a basic attack monster.
-                            break;
-                        case 1: // Give the monster a little goofyness to their attack...
-                            for (int lnJ = 0; lnJ < 8; lnJ++)
-                            {
-                                // 50% chance of setting a different attack.
-                                byte[] attackPattern = { 2, 2, 2, 2, 2, 0, 1, 3, 4, 5, 6, 8 };
-                                byte random = (attackPattern[r1.Next() % attackPattern.Length]);
-                                if (random != 2)
-                                    enemyPatterns[lnJ] = random;
-                            }
-                            break;
-                        case 2:
-                            for (int lnJ = 0; lnJ < 8; lnJ++)
-                            {
-                                // 75% chance of setting a different attack.
-                                byte random = (byte)(r1.Next() % 80);
-                                if (random != 2 && random < 64 && random != 0x2b)
-                                    enemyPatterns[lnJ] = random;
-                            }
-                            break;
-                        case 3:
-                            for (int lnJ = 0; lnJ < 8; lnJ++)
-                            {
-                                // Normal, heroic, poison, faint, heal, healmore (both self and others), sleep, stopspell, weak flames, 
-                                // poison and sweet breaths, call for help, double attacks, and strange jigs.
-                                byte[] attackPattern = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 3, 4, 5, 6, 8, 9, 10, 13, 16, 17, 19, 22, 23, 28, 34, 35, 36, 38, 39, 41, 45, 49, 54, 59 };
-                                byte random = (attackPattern[r1.Next() % attackPattern.Length]);
-                                if (random != 2 && random < 64)
-                                    enemyPatterns[lnJ] = random;
-                            }
-                            break;
-                        case 4:
-                            for (int lnJ = 0; lnJ < 8; lnJ++)
-                            {
-                                byte[] attackPattern = { 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 6, 6, 8, 11, 12, 14, 15, 18, 20, 21, 24, 25, 26, 27, 29, 30, 31, 32, 33, 34, 40, 40, 42, 44, 47, 48, 51, 53, 56, 58, 60 };
-                                byte random = (attackPattern[r1.Next() % attackPattern.Length]);
-                                if (random != 2 && random < 64)
-                                    enemyPatterns[lnJ] = random;
-                            }
-                            break;
-                    }
-
-                    if (lnI == 0x31 || lnI == 0x6c) // Metal slime, Metal Babble
-                    {
-                        if (chk_RemMetalMonRun.Checked == false)
-                        {
-                            enemyPatterns[0] = 7; // run away
-                            enemyPatterns[1] = 7; // run away
-                            enemyPatterns[2] = 7; // run away
-                            enemyPatterns[3] = 7; // run away
-                            if (lnI == 0x41)
-                            {
-                                enemyPatterns[4] = 7; // run away
-                                enemyPatterns[5] = 7; // run away
-                            }
-                        }
-                    }
-
-                    // Both bits set = 2 attacks guaranteed.  2nd bit set = up to 3 attacks.  1st bit set = up to 2 attacks.
-                    int badChance = (3 * lnI > 300 ? 300 : 3 * lnI);
-                    if (r1.Next() % 1000 < badChance / 4)
-                        enemyPatterns[5] += 128;
-                    else if (r1.Next() % 1000 < badChance / 3)
-                    {
-                        enemyPatterns[4] += 128;
-                        enemyPatterns[5] += 128;
-                    }
-                    else if (r1.Next() % 1000 < badChance)
-                        enemyPatterns[4] += 128;
-
-                    // Repeat for regeneration.  Both bits = 100 HP / round, 2nd bit = 50 HP / round, 3rd bit = 25 HP / round
-                    if (r1.Next() % 1000 < badChance / 3)
-                    {
-                        enemyPatterns[6] += 128;
-                        enemyPatterns[7] += 128;
-                    }
-                    else if (r1.Next() % 1000 < badChance / 2)
-                        enemyPatterns[7] += 128;
-                    else if (r1.Next() % 1000 < badChance)
-                        enemyPatterns[6] += 128;
-
-                    for (int lnJ = 0; lnJ < 8; lnJ++)
-                        enemyStats[10 + lnJ] = (enemyPatterns[lnJ]);
-
-                    for (int lnJ = 0; lnJ < 23; lnJ++)
-                        romData[byteValStart + lnJ] = enemyStats[lnJ];
-                }
-*/
-            }
-
-            if (chkRandMonsterZones.Checked)
-            {
-                // Aliahan 1, 2, 3, Promontory Cave, Tower of Najimi B, 1, 2, Aliahan 4, Enticement Cave 1, 2, Romaly, Kanave, Champange Tower, Noaniels, Dream Cave, Assaram, Isis 1, 2, Pyramid 1, 2, 3
-                List<int> gentleZones = new List<int>() { 4, 5, 6, 65, 66, 67, 68, 7, 69, 70, 8, 9, 71, 72, 10, 74, 75, 12, 13, 14, 76, 77, 80 };
-                List<int> violentZone1 = new List<int>() { 78, 48, 79, 81 }; // Cave of Necrogund
-                List<int> violentZone2 = new List<int>() { 82, 39, 11 }; // Baramos Castle
-                List<int> violentZone3 = new List<int>() { 64, 50, 51, 52, 54, 55, 57, 58, 60, 61, 63, 59, 62, 40, 53, 56 };  // Tantegel overworld, caves, and towers
-                List<int> violentZone4 = new List<int>() { 25, 34, 38, 63 }; // Zoma's Castle
-                                                                             // Totally randomize monster zones
-                for (int lnI = 0; lnI < 95; lnI++)
-                {
-                    int byteToUse = 0xaeb + (lnI * 15);
-                    bool nonViolent = false;
-                    for (int lnJ = 1; lnJ < 13; lnJ++)
-                    {
-                        if (gentleZones.IndexOf(lnI) != -1)
-                            romData[byteToUse + lnJ] = monsterOrder[r1.Next() % ((gentleZones.IndexOf(lnI) * 2) + 8)];
-                        else if (violentZone1.Contains(lnI))
-                            romData[byteToUse + lnJ] = monsterOrder[(r1.Next() % 92) + 40];
-                        else if (violentZone2.Contains(lnI))
-                            romData[byteToUse + lnJ] = monsterOrder[(r1.Next() % 72) + 60];
-                        else if (violentZone3.Contains(lnI))
-                            romData[byteToUse + lnJ] = monsterOrder[(r1.Next() % 56) + 80];
-                        else if (violentZone4.Contains(lnI))
-                            romData[byteToUse + lnJ] = monsterOrder[(r1.Next() % 37) + 99];
-                        else
-                        {
-                            romData[byteToUse + lnJ] = monsterOrder[r1.Next() % 131];
-                            nonViolent = true;
-                        }
-                    }
-                    if (nonViolent && r1.Next() % 3 == 1)
-                    {
-                        romData[byteToUse + 13] = (byte)(r1.Next() % 20);
-                        romData[byteToUse + 14] = (byte)(r1.Next() % 20);
-                    }
-                }
-
-                // Randomize the 19 special battles
-                for (int lnI = 0; lnI < 20; lnI++)
-                {
-                    int byteToUse = 0x107a + (6 * lnI);
-                    for (int lnJ = 0; lnJ < 4; lnJ++)
-                    {
-                        if (r1.Next() % 2 == 1 || lnJ == 3)
-                            romData[byteToUse + lnJ] = monsterOrder[r1.Next() % 129];
-                    }
-                }
-
-                // Not sure we can really randomize boss fights... (ff separates boss fights - 0x8ee-0x918 AND 0x919-0x944)
-                // But I can change the Mummy Men treasure fights to Shadow fights!
-                romData[0x909] = 0x18; // was 0x20 - Mummy Men
-                                       // We could randomize the Granite Titan and Boss Troll fights too...
-                                       // Maybe remove two of the Kandar Henchmen in the first fight and place two "bonus monsters" in other fights...
-            }
-
-            //if (chkRandItemEffects.Checked)
-            //{
-            //    // Randomize which items equate to which effects
-            //    // Select 21 items randomly from a set defined as follows:
-            //    int[] legalEffectItems = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
-            //                          0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
-            //                          0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
-            //                          0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f,
-            //                          0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46 };
-
-            //    List<int> keyEffectItems = new List<int> { 0x10, 0x11 };
-
-            //    // Wipe out the use byte by totally resetting the price.
-            //    for (int lnI = 0; lnI < legalEffectItems.Length; lnI++)
-            //    {
-            //        int oldVal = romData[0x11be + legalEffectItems[lnI]];
-            //        romData[0x11be + legalEffectItems[lnI]] = (byte)(oldVal % 32);
-            //        //romData[0x11be + legalEffectItems[lnI]] = (byte)(oldVal % 32 >= 16 ? 0x10 : 0x00);
-            //        //romData[0x11be + legalEffectItems[lnI]] += (byte)(oldVal % 16 >= 8 ? 0x08 : 0x00);
-            //    }
-            //    int oldVal1 = romData[0x11be + 0x4a];
-            //    romData[0x11be + 0x4a] = (byte)(oldVal1 % 32);
-            //    int oldVal2 = romData[0x11be + 0x5b];
-            //    romData[0x11be + 0x5b] = (byte)(oldVal2 % 32);
-
-            //    int[] legalItemSpells = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
-            //                          0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
-            //                          0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e,
-            //                          0x30, 0x31, 0x32, 0x34,
-            //                          0x38, 0x39, 0x3a }; // restore MP, everyone sneezes, self numb - 54 spells total
-
-            //    List<int> enemyGroupSpells = new List<int> { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x09, 0x0a, 0x0b, 0x0d, 0x0e, 0x0f,
-            //                           0x10, 0x12, 0x13, 0x15, 0x16, 0x17, 0x18, 0x22, 0x24, 0x25, 0x27, 0x2b, 0x2c }; // 25
-            //    List<int> enemyAllSpells = new List<int> { 0x06, 0x07, 0x08, 0x0c, 0x11, 0x14, 0x39 }; // 7
-            //    List<int> allySelfSpells = new List<int> { 0x1a, 0x1b, 0x1c, 0x23, 0x29, 0x2d, 0x30, 0x32, 0x34, 0x38, 0x3a }; // 11
-            //    List<int> allySelectSpells = new List<int> { 0x20, 0x21, 0x28 }; // 3
-            //    List<int> allyAllSpells = new List<int> { 0x19, 0x1d, 0x1e, 0x1f, 0x26, 0x2a, 0x2e, 0x31 }; // 8
-
-            //    for (int lnI = 0; lnI < 21; lnI++)
-            //    {
-            //        int effectItem = legalEffectItems[r1.Next() % legalEffectItems.Length];
-            //        if (romData[0x11be + effectItem] >= 0x80) // If it's already been selected...
-            //        {
-            //            lnI--;
-            //        }
-            //        else
-            //        {
-            //            romData[0x11be + effectItem] += 0x80;
-            //        }
-            //    }
-
-            //    int iSpell = -1;
-            //    for (int lnI = 0; lnI < legalEffectItems.Length; lnI++)
-            //    {
-            //        // Otherwise, randomize the spell it will be using.
-            //        if (romData[0x11be + legalEffectItems[lnI]] < 0x80)
-            //            continue;
-
-            //        int effectSpell = legalItemSpells[r1.Next() % legalItemSpells.Length];
-            //        if (effectSpell == 0x38 && keyEffectItems.Contains(effectSpell)) // Can't let a key item potentially crumble!  Redo that randomization.
-            //        {
-            //            lnI--;
-            //            continue;
-            //        }
-
-            //        iSpell++;
-            //        // Now determine what spell it is... that will determine whether to "attack" yourself, a group of monsters, a selected ally, or all monsters/allies.
-            //        if (enemyGroupSpells.Contains(effectSpell))
-            //            romData[0x11be + legalEffectItems[lnI]] += 0x60;
-            //        else if (enemyAllSpells.Contains(effectSpell))
-            //            romData[0x11be + legalEffectItems[lnI]] += 0x20;
-            //        else if (allySelfSpells.Contains(effectSpell)) // 50/50 chance of targetting for self or an ally.
-            //            romData[0x11be + legalEffectItems[lnI]] += (byte)(r1.Next() % 2 == 1 ? 0x00 : 0x40);
-            //        else if (allySelectSpells.Contains(effectSpell))
-            //            romData[0x11be + legalEffectItems[lnI]] += 0x40;
-            //        else if (allyAllSpells.Contains(effectSpell))
-            //            romData[0x11be + legalEffectItems[lnI]] += 0x00;
-
-            //        romData[0x13280 + iSpell] = (byte)effectSpell;
-            //    }
-            //}
-
-            if (chkRandEquip.Checked) {
-                // Totally randomize weapons, armor, shields, helmets (13efb-13f1d, 1a00e-1a08b for pricing)
-
-                // Used if chk_UseVanEquipValues
-                int[] attackPower = { 2, 7, 12 };
-                int[] attackPower2 = { 14, 28, 40, 34, 15, 10, 30, 18, 48, 24, 100, 80, 90, 16, 48, 33, 110, 100, 55, 50, 65, 5, 55, 85, 30, 120, 63, 77, 35, 55 };
-                int[] armorDefPower = { 4, 8, 12 };
-                int[] armorDefPower2 = { 10, 28, 25, 32, 40, 20, 75, 22, 8, 23, 30, 65, 40, 20, 2, 40, 16, 50, 45, 55, 35 };
-                int[] shieldDefPower = { 4, 12, 40, 50, 35, 7, 30 };
-                int[] helmetDefPower = { 6, 16, 10, 35, 8, 45, 2, 25};
-
-                List<int> attackPowerList = new List<int>(attackPower);
-                List<int> attackPowerList2 = new List<int>(attackPower2);
-                List<int> armorDefPowerList = new List<int>(armorDefPower);
-                List<int> armorDefPowerList2 = new List<int>(armorDefPower2);
-                List<int> shieldDefPowerList = new List<int>(shieldDefPower);
-                List<int> helmetDefPowerList = new List<int>(helmetDefPower);
-
-                if (chk_RemoveStartEqRestrictions.Checked == true)
-                {
-                    for (int lnI = 0; lnI < attackPower2.Length; lnI++)
-                        attackPowerList.Add(attackPower2[lnI]);
-                    for (int lnI = 0; lnI < armorDefPower2.Length; lnI++)
-                        armorDefPowerList.Add(armorDefPower2[lnI]);
-                }
-
-
-                for (int lnI = 0; lnI <= 70; lnI++)
-                {
-                    byte power = 0;
-
-                    if (chk_RemoveStartEqRestrictions.Checked == true)
-                    {
-                        if (chk_UseVanEquipValues.Checked == true)
-                        {
-                            int index = 0;
-
-                            if (lnI < 33)
-                            {
-                                index = r1.Next() % attackPowerList.Count;
-                                power = (byte)(attackPowerList[index]);
-                                attackPowerList.RemoveAt(index);
-                            }
-                            else if (lnI < 56)
-                            {
-                                index = r1.Next() % armorDefPowerList.Count;
-                                power = (byte)(armorDefPowerList[index]);
-                                armorDefPowerList.RemoveAt(index);
-                            }
-                            else if (lnI < 63)
-                            {
-                                index = r1.Next() % shieldDefPowerList.Count;
-                                power = (byte)(shieldDefPowerList[index]);
-                                shieldDefPowerList.RemoveAt(index);
-                            }
-                            else if (lnI < 71)
-                            {
-                                index = r1.Next() % helmetDefPowerList.Count;
-                                power = (byte)(helmetDefPowerList[index]);
-                                helmetDefPowerList.RemoveAt(index);
-                            }
-                            else // Golden Claw
-                            {
-                                index = r1.Next() % attackPowerList2.Count;
-                                power = (byte)(attackPowerList2[index]);
-                                attackPowerList2.RemoveAt(index);
-                            }
-                        }
-                        else
-                        {
-                            if (lnI < 33)
-                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 243252); // max 130
-                            else if (lnI < 56)
-                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 395284); // max 80
-                            else if (lnI < 63)
-                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 574959); // max 55
-                            else if (lnI < 71)
-                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 903507); // max 35
-                            else
-                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 243252); // max 130 - Golden Claw
-
-                        }
-                    }
-                    else
-                    {
-                        if (chk_UseVanEquipValues.Checked == true) // Randomize the values of starting equipment separately from all equipment
-                        {
-                            int index = 0;
-
-                            if (lnI == 0 || lnI == 1 || lnI == 2)
-                            {
-                                index = r1.Next() % attackPowerList.Count;
-                                power = (byte)(attackPowerList[index]);
-                                attackPowerList.RemoveAt(index);
-                            }
-                            else if (lnI == 32 || lnI == 34 || lnI == 48)
-                            {
-                                index = r1.Next() % armorDefPowerList.Count;
-                                power = (byte)(armorDefPowerList[index]);
-                                armorDefPowerList.RemoveAt(index);
-                            }
-                            else if (lnI < 33)
-                            {
-                                index = r1.Next() % attackPowerList2.Count;
-                                power = (byte)(attackPowerList2[index]);
-                                attackPowerList2.RemoveAt(index);
-                            }
-                            else if (lnI < 56)
-                            {
-                                index = r1.Next() % armorDefPowerList2.Count;
-                                power = (byte)(armorDefPowerList2[index]);
-                                armorDefPowerList2.RemoveAt(index);
-                            }
-                            else if (lnI < 63)
-                            {
-                                index = r1.Next() % shieldDefPowerList.Count;
-                                power = (byte)(shieldDefPowerList[index]);
-                                shieldDefPowerList.RemoveAt(index);
-                            }
-                            else if (lnI < 71)
-                            {
-                                index = r1.Next() % helmetDefPowerList.Count;
-                                power = (byte)(helmetDefPowerList[index]);
-                                helmetDefPowerList.RemoveAt(index);
-                            }
-                            else
-                            {
-                                index = r1.Next() % attackPowerList2.Count;
-                                power = (byte)(attackPowerList2[index]);
-                                attackPowerList2.RemoveAt(index);
-                            }
-
-                        }
-                        else
-                        {
-                            if (lnI == 0 || lnI == 1 || lnI == 2 || lnI == 32 || lnI == 34 || lnI == 48)
-                                power = (byte)(r1.Next() % 12);
-                            else if (lnI < 33)
-                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 243252); // max 130
-                            else if (lnI < 56)
-                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 395284); // max 80
-                            else if (lnI < 64)
-                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 574959); // max 55
-                            else if (lnI < 71)
-                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 903507); // max 35
-                            else
-                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 243252); // max 130
-                        }
-                    }
-                    if (power <= 1)
-                    {
-                        power += 2; //To avoid 0 power
-                    }
-
-                    if (lnI < 71)
-                        romData[0x279a0 + lnI] = power;
-                    else
-                        romData[0x279a0 + 74] = power; // Golden Claw power
-
-                    // You want a max price of about 20000, shields 18300, helmets 15000
-                    double price = Math.Round((lnI < 31 ? Math.Pow(power, 2.04) : lnI < 55 ? Math.Pow(power, 2.26) : lnI < 62 ? Math.Pow(power, 2.45) : Math.Pow(power, 2.7)), 0);
-                    // TO DO:  Round to the nearest 10 (after 100GP), 50(after 1000 GP), or 100 (after 2500 GP)
-                    price = (float)Math.Round(price, 0);
-
-                    //// Remove any price adjustment first.
-                    romData[0x11be + lnI] -= (byte)(romData[0x11be + lnI] % 4);
-                    if (price >= 10000)
-                    {
-                        romData[0x11be + lnI] += 3; // Now multiply by 1000
-                        price /= 1000;
-                    }
-                    else if (price >= 1000)
-                    {
-                        romData[0x11be + lnI] += 2; // Now multiply by 100
-                        price /= 100;
-                    }
-                    else if (price >= 100)
-                    {
-                        romData[0x11be + lnI] += 1; // Now multiply by 10
-                        price /= 10;
-                    }
-                    else
-                    {
-                        romData[0x11be + lnI] += 0;
-                    }
-
-                    // Must keep special effects if romData is >= 128
-                    if (lnI < 80)
-                    {
-                        if (romData[0x123b + lnI] >= 128)
-                            romData[0x123b + lnI] = (byte)(128 + price);
-                        else
-                            romData[0x123b + lnI] = (byte)(price);
-
-                        if (lnI <= 2)
-                        {
-                            if ((romData[0x123b + lnI] % 16) >= 8)
-                                romData[0x123b + lnI] -= (byte)((romData[0x123b + lnI] % 8) + 1);
-                        }
-                    }
-                }
-            }
-
-            if (chkRandEquip.Checked || chkRandItemEffects.Checked || chkRandWhoCanEquip.Checked) {
-                string finalFile = Path.Combine(Path.GetDirectoryName(txtFileName.Text), "DW3Random_" + txtSeed.Text + "_" + txtFlags.Text + "_guide.txt");
-
-                // Totally randomize who can equip (1a3ce-1a3f0).  At least one person can equip something...
-                using (StreamWriter writer = File.CreateText(finalFile))
-                {
-                    string[] weaponText = { "Cypress stick", "Club", "Copper sword", "Magic Knife", "Iron Spear", "Battle Axe", "Broad Sword", "Wizard's Wand",
-                        "Poison Needle", "Iron Claw", "Thorn Whip", "Giant Shears", "Chain Sickle", "Thor's Sword", "Snowblast Sword", "Demon Axe",
-                        "Staff of Rain", "Sword of Gaia", "Staff of Reflection", "Sword of Destruction", "Multi - Edge Sword", "Staff of Force", "Sword of Illusion", "Zombie Slasher",
-                        "Falcon Sword", "Sledge Hammer", "Thunder Sword", "Staff of Thunder", "Sword of Kings", "Orochi Sword", "Dragon Killer", "Staff of Judgement",
-                        "Clothes", "Training Suit", "Leather Armor", "Flashy Clothes", "Half Plate Armor", "Full Plate Armor", "Magic Armor", "Cloak of Evasion",
-                        "Armor of Radiance", "Iron Apron", "Animal Suit", "Fighting Suit", "Sacred Robe", "Armor of Hades", "Water Flying Cloth", "Chain Mail",
-                        "Wayfarers Clothes", "Revealing Swimsuit", "Magic Bikini", "Shell Armor", "Armor of Terrafirma", "Dragon Mail", "Swordedge Armor", "Angel's Robe",
-                        "Leather Shield", "Iron Shield", "Shield of Strength", "Shield of Heroes", "Shield of Sorrow", "Bronze Shield", "Silver Shield", "Golden Crown",
-                        "Iron Helmet", "Mysterious Hat", "Unlucky Helmet", "Turban", "Noh Mask", "Leather Helmet", "Iron Mask", "Golden Claw" };
-
-                    for (int lnI = 0; lnI <= 70; lnI++)
-                    {
-                        if (chkRandWhoCanEquip.Checked)
-                        {
-                            // Maintain equipment requirements for the starting equipment
-                            if (!(lnI == 0x00 || lnI == 0x01 || lnI == 0x02 || lnI == 0x20 || lnI == 0x22 || lnI == 0x30))
-                                if (lnI < 71)
-                                    romData[0x1147 + lnI] = (byte)(r1.Next() % 255 + 1);
-                                else
-                                    romData[0x1147 + lnI + 3] = (byte)(r1.Next() % 255 + 1);
-
-                            // EXCEPT those that are "FF", update the "who can use the item" to the people who are allowed to equip the item
-                            if (lnI < 71)
-                               if (romData[0x1196 + lnI] != 255 && romData[0x1196 + lnI] != 0 && lnI < 32)
-                                    romData[0x1196 + lnI] = romData[0x1147 + lnI];
-                            else
-                                if (romData[0x1196 + lnI + 3] != 255 && romData[0x1196 + lnI + 3] != 0 && lnI < 32)
-                                    romData[0x1196 + lnI + 3] = romData[0x1147 + lnI + 3];
-
-                        }
-
-                        if (lnI < 71)
-                        {
-                            string equipOut = "";
-                            equipOut += (romData[0x1147 + lnI] % 2 >= 1 ? "Hr  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI] % 32 >= 16 ? "Sr  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI] % 8 >= 4 ? "Pr  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI] % 4 >= 2 ? "Wi  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI] % 16 >= 8 ? "Sg  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI] % 128 >= 64 ? "Fi  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI] % 64 >= 32 ? "Mr  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI] >= 128 ? "Gf  " : "--  ");
-                            equipOut += (romData[0x11be + lnI] >= 128 ? "**  " : "    ");
-                            equipOut += (romData[0x279a0 + lnI]);
-                            writer.WriteLine(weaponText[lnI].PadRight(24) + equipOut);
-                        }
- 
-                        else
-                        {
-                            string equipOut = "";
-                            equipOut += (romData[0x1147 + lnI + 3] % 2 >= 1 ? "Hr  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI + 3] % 32 >= 16 ? "Sr  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI + 3] % 8 >= 4 ? "Pr  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI + 3] % 4 >= 2 ? "Wi  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI + 3] % 16 >= 8 ? "Sg  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI + 3] % 128 >= 64 ? "Fi  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI + 3] % 64 >= 32 ? "Mr  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI + 3] >= 128 ? "Gf  " : "--  ");
-                            equipOut += (romData[0x11be + lnI + 3] >= 128 ? "**  " : "    ");
-                            equipOut += (romData[0x279a0 + lnI + 3]);
-                            writer.WriteLine(weaponText[lnI].PadRight(24) + equipOut);
-
-                        }
-
-                    }
-                    
-/*
-                    for (int lnI = 0; lnI < 22; lnI++)
-                    {
-                        romData[0xb29e + lnI] = romData[0xb29e + lnI + 1];
-                    }
-                    // Gold Claw
-                    romData[0xb2b4] = 0x27;
-                    romData[0xb2b5] = 0x16;
-                    romData[0xb2b6] = 0x0b;
-                    romData[0xb2b7] = 0x22;
-                    romData[0xb2b8] = 0x00;
-*/
-                }
-
-                // Change Equipment Names to Attack
-                // Copper Sword ad1e-ad23 / b0b7-b0bb
-                // Breakup ATP
-            }
-
-
-
-            // Remove the lines that penalize a fighter for not equipping claws.
-            if (chk_RmFighterPenalty.Checked == true)
-                    romData[0x1507] = romData[0x1508] = romData[0x1509] = romData[0x150a] = 0xea;
-            
-            if (chk_WeapArmPower.Checked == true)
-            {
-                for (int lnI = 0; lnI < 71; lnI++)
-                {
-                    int iatp = (int)romData[0x279a0 + lnI];
-                    int iatph = iatp / 100;
-                    iatp = iatp % 100;
-                    int iatpt = iatp / 10;
-                    int iatpo = iatp % 10;
-
-                    byte batph = 0x01;
-                    byte batpt = 0x02;
-                    byte batpo = 0x03;
-
-                    if (iatph == 0)
-                        batph = 0x3F;
-                    else if (iatph == 1)
-                        batph = 0x02;
-                    else if (iatph == 2)
-                        batph = 0x03;
-                    else if (iatph == 3)
-                        batph = 0x04;
-                    else if (iatph == 4)
-                        batph = 0x05;
-                    else if (iatph == 5)
-                        batph = 0x06;
-                    else if (iatph == 6)
-                        batph = 0x07;
-                    else if (iatph == 7)
-                        batph = 0x08;
-                    else if (iatph == 8)
-                        batph = 0x09;
-                    else if (iatph == 9)
-                        batph = 0x0a;
-
-                    if (iatpt == 0)
-                    {
-                        if (iatph == 0)
-                            batpt = 0x3f;
-                        else
-                            batpt = 0x01;
-                    }
-                    else if (iatpt == 1)
-                        batpt = 0x02;
-                    else if (iatpt == 2)
-                        batpt = 0x03;
-                    else if (iatpt == 3)
-                        batpt = 0x04;
-                    else if (iatpt == 4)
-                        batpt = 0x05;
-                    else if (iatpt == 5)
-                        batpt = 0x06;
-                    else if (iatpt == 6)
-                        batpt = 0x07;
-                    else if (iatpt == 7)
-                        batpt = 0x08;
-                    else if (iatpt == 8)
-                        batpt = 0x09;
-                    else if (iatpt == 9)
-                        batpt = 0x0a;
-
-                    if (iatpo == 0)
-                        batpo = 0x01;
-                    else if (iatpo == 1)
-                        batpo = 0x02;
-                    else if (iatpo == 2)
-                        batpo = 0x03;
-                    else if (iatpo == 3)
-                        batpo = 0x04;
-                    else if (iatpo == 4)
-                        batpo = 0x05;
-                    else if (iatpo == 5)
-                        batpo = 0x06;
-                    else if (iatpo == 6)
-                        batpo = 0x07;
-                    else if (iatpo == 7)
-                        batpo = 0x08;
-                    else if (iatpo == 8)
-                        batpo = 0x09;
-                    else if (iatpo == 9)
-                        batpo = 0x0a;
-
-
-                    if (lnI == 0)
-                    {
-                        // Line 1
-                        romData[0xad11] = 0x27; // C
-                        romData[0xad12] = 0x23; // y
-                        romData[0xad13] = 0x1a; // p
-                        romData[0xad14] = 0x37; // S
-                        romData[0xad15] = 0x1e; // t
-                        romData[0xad16] = 0x15; // k
-                        romData[0xad17] = 0xff; // Break
-                                                // Line 2
-                        romData[0xb0e0] = 0x25; // A
-                        romData[0xb0e1] = batph; // Hundreds
-                        romData[0xb0e2] = batpt; // Tens
-                        romData[0xb0e3] = batpo; // Ones
-                        romData[0xb0e4] = 0x61; // Blank
-                        romData[0xb0e5] = 0xff; // Break
-
-                    }
-                    else if (lnI == 1)
-                    {
-                        // Line 1
-                        romData[0xad18] = 0x27; // C
-                        romData[0xad19] = 0x16; // l
-                        romData[0xad1a] = 0x1f; // u
-                        romData[0xad1b] = 0x0c; // b
-                        romData[0xad1c] = 0xff; // Break
-                                                // Line 2
-                        romData[0xb0e6] = 0x25; // A
-                        romData[0xb0e7] = batph; // Hundreds
-                        romData[0xb0e8] = batpt; // Tens
-                        romData[0xb0e9] = batpo; // Ones
-                        romData[0xb0ea] = 0x61; // :
-                        romData[0xb0eb] = 0xff; // Break
-
-                    }
-                    else if (lnI == 2)
-                    {
-                        // Line 1
-                        romData[0xad1d] = 0x27; // C
-                        romData[0xad1e] = 0x1a; // p
-                        romData[0xad1f] = 0x1c; // r
-                        romData[0xad20] = 0x37; // S
-                        romData[0xad21] = 0x21; // w
-                        romData[0xad22] = 0x0e; // d
-                        romData[0xad23] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb0ec] = 0x25; // A
-                        romData[0xb0ed] = batph; // Hundreds
-                        romData[0xb0ee] = batpt; // Tens
-                        romData[0xb0ef] = batpo; // Ones
-                        romData[0xb0f0] = 0x61; // Blank
-                        romData[0xb0f1] = 0xff; // Break
-                    }
-                    else if (lnI == 3)
-                    {
-                        // Line 1
-                        romData[0xad24] = 0x31; // M
-                        romData[0xad25] = 0x11; // g
-                        romData[0xad26] = 0x0d; // c
-                        romData[0xad27] = 0x2f; // K
-                        romData[0xad28] = 0x18; // n
-                        romData[0xad29] = 0x10; // f
-                        romData[0xad2a] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb0f2] = 0x25; // A
-                        romData[0xb0f3] = batph; // Hundreds
-                        romData[0xb0f4] = batpt; // Tens
-                        romData[0xb0f5] = batpo; // Ones
-                        romData[0xb0f6] = 0x00; // Blank
-                        romData[0xb0f7] = 0xff; // Break
-                    }
-                    else if (lnI == 4)
-                    {
-                        // Line 1
-                        romData[0xad2b] = 0x2d; // I
-                        romData[0xad2c] = 0x1c; // r
-                        romData[0xad2d] = 0x37; // S
-                        romData[0xad2e] = 0x1a; // p
-                        romData[0xad2f] = 0x1c; // r
-                        romData[0xad30] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb0f8] = 0x25; // A
-                        romData[0xb0f9] = batph; // Hundreds
-                        romData[0xb0fa] = batpt; // Tens
-                        romData[0xb0fb] = batpo; // Ones
-                        romData[0xb0fc] = 0x00; // Blank
-                        romData[0xb0fd] = 0xff; // Break
-                    }
-                    else if (lnI == 5)
-                    {
-                        // Line 1
-                        romData[0xad31] = 0x26; // B
-                        romData[0xad32] = 0x1e; // t
-                        romData[0xad33] = 0x16; // l
-                        romData[0xad34] = 0x25; // A
-                        romData[0xad35] = 0x22; // x
-                        romData[0xad36] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb0fe] = 0x25; // A
-                        romData[0xb0ff] = batph; // Hundreds
-                        romData[0xb100] = batpt; // Tens
-                        romData[0xb101] = batpo; // Ones
-                        romData[0xb102] = 0x00; // Blank
-                        romData[0xb103] = 0xff; // Break
-                    }
-                    else if (lnI == 6)
-                    {
-                        // Line 1
-                        romData[0xad37] = 0x26; // B
-                        romData[0xad38] = 0x1c; // r
-                        romData[0xad39] = 0x0e; // d
-                        romData[0xad3a] = 0x37; // S
-                        romData[0xad3b] = 0x21; // w
-                        romData[0xad3c] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb104] = 0x25; // A
-                        romData[0xb105] = batph; // Hundreds
-                        romData[0xb106] = batpt; // Tens
-                        romData[0xb107] = batpo; // Ones
-                        romData[0xb108] = 0x00; // Blank
-                        romData[0xb109] = 0xff; // Break
-                    }
-                    else if (lnI == 7)
-                    {
-                        // Line 1
-                        romData[0xad3d] = 0x3b; // W
-                        romData[0xad3e] = 0x24; // z
-                        romData[0xad3f] = 0x3b; // W
-                        romData[0xad40] = 0x18; // n
-                        romData[0xad41] = 0x0e; // d
-                        romData[0xad42] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb10a] = 0x25; // A
-                        romData[0xb10b] = batph; // Hundreds
-                        romData[0xb10c] = batpt; // Tens
-                        romData[0xb10d] = batpo; // Ones
-                        romData[0xb10e] = 0x00; // Blank
-                        romData[0xb10f] = 0xff; // Break
-                    }
-                    else if (lnI == 8)
-                    {
-                        // Line 1
-                        romData[0xad43] = 0x34; // P
-                        romData[0xad44] = 0x1d; // s
-                        romData[0xad45] = 0x18; // n
-                        romData[0xad46] = 0x32; // N
-                        romData[0xad47] = 0x0e; // d
-                        romData[0xad48] = 0x16; // l
-                        romData[0xad49] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb110] = 0x25; // A
-                        romData[0xb111] = batph; // Hundreds
-                        romData[0xb112] = batpt; // Tens
-                        romData[0xb113] = batpo; // Ones
-                        romData[0xb114] = 0x00; // Blank
-                        romData[0xb115] = 0xff; // Break
-                    }
-                    else if (lnI == 9)
-                    {
-                        // Line 1
-                        romData[0xad4a] = 0x2d; // I
-                        romData[0xad4b] = 0x1c; // r
-                        romData[0xad4c] = 0x18; // n
-                        romData[0xad4d] = 0x27; // C
-                        romData[0xad4e] = 0x16; // l
-                        romData[0xad4f] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb116] = 0x25; // A
-                        romData[0xb117] = batph; // Hundreds
-                        romData[0xb118] = batpt; // Tens
-                        romData[0xb119] = batpo; // Ones
-                        romData[0xb11a] = 0x00; // Blank
-                        romData[0xb11b] = 0xff; // Break
-                    }
-                    else if (lnI == 10)
-                    {
-                        // Line 1
-                        romData[0xad50] = 0x38; // T
-                        romData[0xad51] = 0x12; // h
-                        romData[0xad52] = 0x18; // n
-                        romData[0xad53] = 0x3b; // W
-                        romData[0xad54] = 0x12; // h
-                        romData[0xad55] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb11c] = 0x25; // A
-                        romData[0xb11d] = batph; // Hundreds
-                        romData[0xb11e] = batpt; // Tens
-                        romData[0xb11f] = batpo; // Ones
-                        romData[0xb120] = 0x00; // Blank
-                        romData[0xb121] = 0xff; // Break
-                    }
-                    else if (lnI == 11)
-                    {
-                        // Line 1
-                        romData[0xad56] = 0x2b; // G
-                        romData[0xad57] = 0x18; // n
-                        romData[0xad58] = 0x1e; // t
-                        romData[0xad59] = 0x37; // S
-                        romData[0xad5a] = 0x12; // h
-                        romData[0xad5b] = 0x1c; // r
-                        romData[0xad5c] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb122] = 0x25; // A
-                        romData[0xb123] = batph; // Hundreds
-                        romData[0xb124] = batpt; // Tens
-                        romData[0xb125] = batpo; // Ones
-                        romData[0xb126] = 0x00; // Blank
-                        romData[0xb127] = 0xff; // Break
-                    }
-                    else if (lnI == 12)
-                    {
-                        // Line 1
-                        romData[0xad5d] = 0x27; // C
-                        romData[0xad5e] = 0x12; // h
-                        romData[0xad5f] = 0x37; // S
-                        romData[0xad60] = 0x15; // k
-                        romData[0xad61] = 0x16; // l
-                        romData[0xad62] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb128] = 0x25; // A
-                        romData[0xb129] = batph; // Hundreds
-                        romData[0xb12a] = batpt; // Tens
-                        romData[0xb12b] = batpo; // Ones
-                        romData[0xb12c] = 0x00; // Blank
-                        romData[0xb12d] = 0xff; // Break
-                    }
-                    else if (lnI == 13)
-                    {
-                        // Line 1
-                        romData[0xad63] = 0x38; // T
-                        romData[0xad64] = 0x12; // h
-                        romData[0xad65] = 0x19; // o
-                        romData[0xad66] = 0x1c; // r
-                        romData[0xad67] = 0x37; // S
-                        romData[0xad68] = 0x21; // w
-                        romData[0xad69] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb12e] = 0x25; // A
-                        romData[0xb12f] = batph; // Hundreds
-                        romData[0xb130] = batpt; // Tens
-                        romData[0xb131] = batpo; // Ones
-                        romData[0xb132] = 0x00; // Blank
-                        romData[0xb133] = 0xff; // Break
-                    }
-                    else if (lnI == 14)
-                    {
-                        // Line 1
-                        romData[0xad6a] = 0x37; // S
-                        romData[0xad6b] = 0x18; // n
-                        romData[0xad6c] = 0x21; // w
-                        romData[0xad6d] = 0x37; // S
-                        romData[0xad6e] = 0x21; // w
-                        romData[0xad6f] = 0x0e; // d
-                        romData[0xad70] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb134] = 0x25; // A
-                        romData[0xb135] = batph; // Hundreds
-                        romData[0xb136] = batpt; // Tens
-                        romData[0xb137] = batpo; // Ones
-                        romData[0xb138] = 0x00; // Blank
-                        romData[0xb139] = 0xff; // Break
-                    }
-                    else if (lnI == 15)
-                    {
-                        // Line 1
-                        romData[0xad71] = 0x28; // D
-                        romData[0xad72] = 0x17; // m
-                        romData[0xad73] = 0x18; // n
-                        romData[0xad74] = 0x25; // A
-                        romData[0xad75] = 0x22; // x
-                        romData[0xad76] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb13a] = 0x25; // A
-                        romData[0xb13b] = batph; // Hundreds
-                        romData[0xb13c] = batpt; // Tens
-                        romData[0xb13d] = batpo; // Ones
-                        romData[0xb13e] = 0x00; // Blank
-                        romData[0xb13f] = 0xff; // Break
-                    }
-                    else if (lnI == 16)
-                    {
-                        // Line 1
-                        romData[0xad77] = 0x36; // R
-                        romData[0xad78] = 0x0b; // a
-                        romData[0xad79] = 0x13; // i
-                        romData[0xad7a] = 0x18; // n
-                        romData[0xad7b] = 0x37; // S
-                        romData[0xad7c] = 0x1e; // t
-                        romData[0xad7d] = 0x10; // f
-                        romData[0xad7e] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb140] = 0x25; // A
-                        romData[0xb141] = batph; // Hundreds
-                        romData[0xb142] = batpt; // Tens
-                        romData[0xb143] = batpo; // Ones
-                        romData[0xb144] = 0x00; // Blank
-                        romData[0xb145] = 0xff; // Break
-                    }
-                    else if (lnI == 17)
-                    {
-                        // Line 1
-                        romData[0xad7f] = 0x2b; // G
-                        romData[0xad80] = 0x0b; // a
-                        romData[0xad81] = 0x13; // i
-                        romData[0xad82] = 0x0b; // a
-                        romData[0xad83] = 0x37; // S
-                        romData[0xad84] = 0x21; // w
-                        romData[0xad85] = 0x0e; // d
-                        romData[0xad86] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb146] = 0x25; // A
-                        romData[0xb147] = batph; // Hundreds
-                        romData[0xb148] = batpt; // Tens
-                        romData[0xb149] = batpo; // Ones
-                        romData[0xb14a] = 0x00; // Blank
-                        romData[0xb14b] = 0xff; // Break
-                    }
-                    else if (lnI == 18)
-                    {
-                        // Line 1
-                        romData[0xad87] = 0x36; // R
-                        romData[0xad88] = 0x10; // f
-                        romData[0xad89] = 0x16; // l
-                        romData[0xad8a] = 0x1e; // t
-                        romData[0xad8b] = 0x37; // S
-                        romData[0xad8c] = 0x1e; // t
-                        romData[0xad8d] = 0x10; // f
-                        romData[0xad8e] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb14c] = 0x25; // A
-                        romData[0xb14d] = batph; // Hundreds
-                        romData[0xb14e] = batpt; // Tens
-                        romData[0xb14f] = batpo; // Ones
-                        romData[0xb150] = 0x00; // Blank
-                        romData[0xb151] = 0xff; // Break
-                    }
-                    else if (lnI == 19)
-                    {
-                        // Line 1
-                        romData[0xad8f] = 0x28; // D
-                        romData[0xad90] = 0x1d; // s
-                        romData[0xad91] = 0x1e; // t
-                        romData[0xad92] = 0x18; // n
-                        romData[0xad93] = 0x37; // S
-                        romData[0xad94] = 0x21; // w
-                        romData[0xad95] = 0x0e; // d
-                        romData[0xad96] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb152] = 0x25; // A
-                        romData[0xb153] = batph; // Hundreds
-                        romData[0xb154] = batpt; // Tens
-                        romData[0xb155] = batpo; // Ones
-                        romData[0xb156] = 0x00; // Blank
-                        romData[0xb157] = 0xff; // Break
-                    }
-                    else if (lnI == 20)
-                    {
-                        // Line 1
-                        romData[0xad97] = 0x31; // M
-                        romData[0xad98] = 0x29; // E
-                        romData[0xad99] = 0x0e; // d
-                        romData[0xad9a] = 0x11; // g
-                        romData[0xad9b] = 0x0f; // e
-                        romData[0xad9c] = 0x37; // S
-                        romData[0xad9d] = 0x21; // w
-                        romData[0xad9e] = 0x0e; // d
-                        romData[0xad9f] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb158] = 0x25; // A
-                        romData[0xb159] = batph; // Hundreds
-                        romData[0xb15a] = batpt; // Tens
-                        romData[0xb15b] = batpo; // Ones
-                        romData[0xb15c] = 0x00; // Blank
-                        romData[0xb15d] = 0xff; // Break
-                    }
-                    else if (lnI == 21)
-                    {
-                        // Line 1
-                        romData[0xada0] = 0x2a; // F
-                        romData[0xada1] = 0x1c; // r
-                        romData[0xada2] = 0x0d; // c
-                        romData[0xada3] = 0x37; // S
-                        romData[0xada4] = 0x1e; // t
-                        romData[0xada5] = 0x10; // f
-                        romData[0xada6] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb15e] = 0x25; // A
-                        romData[0xb15f] = batph; // Hundreds
-                        romData[0xb160] = batpt; // Tens
-                        romData[0xb161] = batpo; // Ones
-                        romData[0xb162] = 0x00; // Blank
-                        romData[0xb163] = 0xff; // Break
-                    }
-                    else if (lnI == 22)
-                    {
-                        // Line 1
-                        romData[0xada7] = 0x2d; // I
-                        romData[0xada8] = 0x16; // l
-                        romData[0xada9] = 0x1d; // s
-                        romData[0xadaa] = 0x18; // n
-                        romData[0xadab] = 0x37; // S
-                        romData[0xadac] = 0x21; // w
-                        romData[0xadad] = 0x0e; // d
-                        romData[0xadae] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb164] = 0x25; // A
-                        romData[0xb165] = batph; // Hundreds
-                        romData[0xb166] = batpt; // Tens
-                        romData[0xb167] = batpo; // Ones
-                        romData[0xb168] = 0x00; // Blank
-                        romData[0xb169] = 0xff; // Break
-                    }
-                    else if (lnI == 23)
-                    {
-                        // Line 1
-                        romData[0xadaf] = 0x3e; // Z
-                        romData[0xadb0] = 0x17; // m
-                        romData[0xadb1] = 0x0c; // b
-                        romData[0xadb2] = 0x37; // S
-                        romData[0xadb3] = 0x16; // l
-                        romData[0xadb4] = 0x1d; // s
-                        romData[0xadb5] = 0x12; // h
-                        romData[0xadb6] = 0x1c; // r
-                        romData[0xadb7] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb16a] = 0x25; // A
-                        romData[0xb16b] = batph; // Hundreds
-                        romData[0xb16c] = batpt; // Tens
-                        romData[0xb16d] = batpo; // Ones
-                        romData[0xb16e] = 0x00; // Blank
-                        romData[0xb16f] = 0xff; // Break
-                    }
-                    else if (lnI == 24)
-                    {
-                        // Line 1
-                        romData[0xadb8] = 0x2a; // F
-                        romData[0xadb9] = 0x0d; // c
-                        romData[0xadba] = 0x18; // n
-                        romData[0xadbb] = 0x37; // S
-                        romData[0xadbc] = 0x21; // w
-                        romData[0xadbd] = 0x0e; // d
-                        romData[0xadbe] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb170] = 0x25; // A
-                        romData[0xb171] = batph; // Hundreds
-                        romData[0xb172] = batpt; // Tens
-                        romData[0xb173] = batpo; // Ones
-                        romData[0xb174] = 0x00; // Blank
-                        romData[0xb175] = 0xff; // Break
-                    }
-                    else if (lnI == 25)
-                    {
-                        // Line 1
-                        romData[0xadbf] = 0x37; // S
-                        romData[0xadc0] = 0x16; // l
-                        romData[0xadc1] = 0x0e; // d
-                        romData[0xadc2] = 0x11; // g
-                        romData[0xadc3] = 0x2c; // H
-                        romData[0xadc4] = 0x17; // m
-                        romData[0xadc5] = 0x1c; // r
-                        romData[0xadc6] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb176] = 0x25; // A
-                        romData[0xb177] = batph; // Hundreds
-                        romData[0xb178] = batpt; // Tens
-                        romData[0xb179] = batpo; // Ones
-                        romData[0xb17a] = 0x00; // Blank
-                        romData[0xb17b] = 0xff; // Break
-                    }
-                    else if (lnI == 26)
-                    {
-                        // Line 1
-                        romData[0xadc7] = 0x38; // T
-                        romData[0xadc8] = 0x12; // h
-                        romData[0xadc9] = 0x18; // n
-                        romData[0xadca] = 0x0e; // d
-                        romData[0xadcb] = 0x37; // S
-                        romData[0xadcc] = 0x21; // w
-                        romData[0xadcd] = 0x0e; // d
-                        romData[0xadce] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb17c] = 0x25; // A
-                        romData[0xb17d] = batph; // Hundreds
-                        romData[0xb17e] = batpt; // Tens
-                        romData[0xb17f] = batpo; // Ones
-                        romData[0xb180] = 0x00; // Blank
-                        romData[0xb181] = 0xff; // Break
-                    }
-                    else if (lnI == 27)
-                    {
-                        // Line 1
-                        romData[0xadcf] = 0x38; // T
-                        romData[0xadd0] = 0x12; // h
-                        romData[0xadd1] = 0x18; // n
-                        romData[0xadd2] = 0x0e; // d
-                        romData[0xadd3] = 0x37; // S
-                        romData[0xadd4] = 0x1e; // t
-                        romData[0xadd5] = 0x10; // f
-                        romData[0xadd6] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb182] = 0x25; // A
-                        romData[0xb183] = batph; // Hundreds
-                        romData[0xb184] = batpt; // Tens
-                        romData[0xb185] = batpo; // Ones
-                        romData[0xb186] = 0x00; // Blank
-                        romData[0xb187] = 0xff; // Break
-                    }
-                    else if (lnI == 28)
-                    {
-                        // Line 1
-                        romData[0xadd7] = 0x2f; // K
-                        romData[0xadd8] = 0x13; // i
-                        romData[0xadd9] = 0x18; // n
-                        romData[0xadda] = 0x11; // g
-                        romData[0xaddb] = 0x37; // S
-                        romData[0xaddc] = 0x21; // w
-                        romData[0xaddd] = 0x0e; // d
-                        romData[0xadde] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb188] = 0x25; // A
-                        romData[0xb189] = batph; // Hundreds
-                        romData[0xb18a] = batpt; // Tens
-                        romData[0xb18b] = batpo; // Ones
-                        romData[0xb18c] = 0x00; // Blank
-                        romData[0xb18d] = 0xff; // Break
-                    }
-                    else if (lnI == 29)
-                    {
-                        // Line 1
-                        romData[0xaddf] = 0x33; // O
-                        romData[0xade0] = 0x1c; // r
-                        romData[0xade1] = 0x19; // o
-                        romData[0xade2] = 0x0d; // c
-                        romData[0xade3] = 0x12; // h
-                        romData[0xade4] = 0x13; // i
-                        romData[0xade5] = 0x37; // S
-                        romData[0xade6] = 0x21; // w
-                        romData[0xade7] = 0x0e; // d
-                        romData[0xade8] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb18e] = 0x25; // A
-                        romData[0xb18f] = batph; // Hundreds
-                        romData[0xb190] = batpt; // Tens
-                        romData[0xb191] = batpo; // Ones
-                        romData[0xb192] = 0x00; // Blank
-                        romData[0xb193] = 0xff; // Break
-                    }
-                    else if (lnI == 30)
-                    {
-                        // Line 1
-                        romData[0xade9] = 0x28; // D
-                        romData[0xadea] = 0x1c; // r
-                        romData[0xadeb] = 0x11; // g
-                        romData[0xadec] = 0x18; // n
-                        romData[0xaded] = 0x2f; // K
-                        romData[0xadee] = 0x16; // l
-                        romData[0xadef] = 0x1c; // r
-                        romData[0xadf0] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb194] = 0x25; // A
-                        romData[0xb195] = batph; // Hundreds
-                        romData[0xb196] = batpt; // Tens
-                        romData[0xb197] = batpo; // Ones
-                        romData[0xb198] = 0x00; // Blank
-                        romData[0xb199] = 0xff; // Break
-                    }
-                    else if (lnI == 31)
-                    {
-                        // Line 1
-                        romData[0xadf1] = 0x2e; // J
-                        romData[0xadf2] = 0x0e; // d
-                        romData[0xadf3] = 0x11; // g
-                        romData[0xadf4] = 0x17; // m
-                        romData[0xadf5] = 0x1e; // t
-                        romData[0xadf6] = 0x37; // S
-                        romData[0xadf7] = 0x1e; // t
-                        romData[0xadf8] = 0x10; // f
-                        romData[0xadf9] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb19a] = 0x25; // A
-                        romData[0xb19b] = batph; // Hundreds
-                        romData[0xb19c] = batpt; // Tens
-                        romData[0xb19d] = batpo; // Ones
-                        romData[0xb19e] = 0x00; // Blank
-                        romData[0xb19f] = 0xff; // Break
-                    }
-                    else if (lnI == 32)
-                    {
-                        // Line 1
-                        romData[0xadfa] = 0x27; // C
-                        romData[0xadfb] = 0x16; // l
-                        romData[0xadfc] = 0x19; // o
-                        romData[0xadfd] = 0x1e; // t
-                        romData[0xadfe] = 0x12; // h
-                        romData[0xadff] = 0x0f; // e
-                        romData[0xae00] = 0x1d; // s
-                        romData[0xae01] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb1a0] = 0x28; // D
-                        romData[0xb1a1] = batph; // Hundreds
-                        romData[0xb1a2] = batpt; // Tens
-                        romData[0xb1a3] = batpo; // Ones
-                        romData[0xb1a4] = 0x00; // Blank
-                        romData[0xb1a5] = 0xff; // Break
-                    }
-                    else if (lnI == 33)
-                    {
-                        // Line 1
-                        romData[0xae02] = 0x38; // T
-                        romData[0xae03] = 0x1c; // r
-                        romData[0xae04] = 0x18; // n
-                        romData[0xae05] = 0x11; // g
-                        romData[0xae06] = 0x37; // S
-                        romData[0xae07] = 0x1e; // t
-                        romData[0xae08] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb1a6] = 0x28; // D
-                        romData[0xb1a7] = batph; // Hundreds
-                        romData[0xb1a8] = batpt; // Tens
-                        romData[0xb1a9] = batpo; // Ones
-                        romData[0xb1aa] = 0x00; // Blank
-                        romData[0xb1ab] = 0xff; // Break
-                    }
-                    else if (lnI == 34)
-                    {
-                        // Line 1
-                        romData[0xae09] = 0x30; // L
-                        romData[0xae0a] = 0x1e; // t
-                        romData[0xae0b] = 0x12; // h
-                        romData[0xae0c] = 0x1c; // r
-                        romData[0xae0d] = 0x25; // A
-                        romData[0xae0e] = 0x1c; // r
-                        romData[0xae0f] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb1ac] = 0x28; // D
-                        romData[0xb1ad] = batph; // Hundreds
-                        romData[0xb1ae] = batpt; // Tens
-                        romData[0xb1af] = batpo; // Ones
-                        romData[0xb1b0] = 0x00; // Blank
-                        romData[0xb1b1] = 0xff; // Break
-                    }
-                    else if (lnI == 35)
-                    {
-                        // Line 1
-                        romData[0xae10] = 0x2a; // F
-                        romData[0xae11] = 0x16; // l
-                        romData[0xae12] = 0x1d; // s
-                        romData[0xae13] = 0x12; // h
-                        romData[0xae14] = 0x27; // C
-                        romData[0xae15] = 0x16; // l
-                        romData[0xae16] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb1b2] = 0x28; // D
-                        romData[0xb1b3] = batph; // Hundreds
-                        romData[0xb1b4] = batpt; // Tens
-                        romData[0xb1b5] = batpo; // Ones
-                        romData[0xb1b6] = 0x00; // Blank
-                        romData[0xb1b7] = 0xff; // Break
-                    }
-                    else if (lnI == 36)
-                    {
-                        // Line 1
-                        romData[0xae17] = 0x2c; // H
-                        romData[0xae18] = 0x0b; // a
-                        romData[0xae19] = 0x16; // l
-                        romData[0xae1a] = 0x10; // f
-                        romData[0xae1b] = 0x34; // P
-                        romData[0xae1c] = 0x16; // l
-                        romData[0xae1d] = 0x25; // A
-                        romData[0xae1e] = 0x1c; // r
-                        romData[0xae1f] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb1b8] = 0x28; // D
-                        romData[0xb1b9] = batph; // Hundreds
-                        romData[0xb1ba] = batpt; // Tens
-                        romData[0xb1bb] = batpo; // Ones
-                        romData[0xb1bc] = 0x00; // Blank
-                        romData[0xb1bd] = 0xff; // Break
-                    }
-                    else if (lnI == 37)
-                    {
-                        // Line 1
-                        romData[0xae20] = 0x2a; // F
-                        romData[0xae21] = 0x1f; // u
-                        romData[0xae22] = 0x16; // l
-                        romData[0xae23] = 0x16; // l
-                        romData[0xae24] = 0x34; // P
-                        romData[0xae25] = 0x16; // l
-                        romData[0xae26] = 0x25; // A
-                        romData[0xae27] = 0x1c; // r
-                        romData[0xae28] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb1be] = 0x28; // D
-                        romData[0xb1bf] = batph; // Hundreds
-                        romData[0xb1c0] = batpt; // Tens
-                        romData[0xb1c1] = batpo; // Ones
-                        romData[0xb1c2] = 0x00; // Blank
-                        romData[0xb1c3] = 0xff; // Break
-                    }
-                    else if (lnI == 38)
-                    {
-                        // Line 1
-                        romData[0xae29] = 0x31; // M
-                        romData[0xae2a] = 0x0b; // a
-                        romData[0xae2b] = 0x11; // g
-                        romData[0xae2c] = 0x13; // i
-                        romData[0xae2d] = 0x0d; // c
-                        romData[0xae2e] = 0x25; // A
-                        romData[0xae2f] = 0x1c; // r
-                        romData[0xae30] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb1c4] = 0x28; // D
-                        romData[0xb1c5] = batph; // Hundreds
-                        romData[0xb1c6] = batpt; // Tens
-                        romData[0xb1c7] = batpo; // Ones
-                        romData[0xb1c8] = 0x00; // Blank
-                        romData[0xb1c9] = 0xff; // Break
-                    }
-                    else if (lnI == 39)
-                    {
-                        // Line 1
-                        romData[0xae31] = 0x29; // E
-                        romData[0xae32] = 0x20; // v
-                        romData[0xae33] = 0x27; // C
-                        romData[0xae34] = 0x16; // l
-                        romData[0xae35] = 0x19; // o
-                        romData[0xae36] = 0x0b; // a
-                        romData[0xae37] = 0x15; // k
-                        romData[0xae38] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb1ca] = 0x28; // D
-                        romData[0xb1cb] = batph; // Hundreds
-                        romData[0xb1cc] = batpt; // Tens
-                        romData[0xb1cd] = batpo; // Ones
-                        romData[0xb1ce] = 0x00; // Blank
-                        romData[0xb1cf] = 0xff; // Break
-                    }
-                    else if (lnI == 40)
-                    {
-                        // Line 1
-                        romData[0xae39] = 0x36; // R
-                        romData[0xae3a] = 0x0b; // a
-                        romData[0xae3b] = 0x0e; // d
-                        romData[0xae3c] = 0x13; // i
-                        romData[0xae3d] = 0x0b; // a
-                        romData[0xae3e] = 0x18; // n
-                        romData[0xae3f] = 0x1e; // t
-                        romData[0xae40] = 0x25; // A
-                        romData[0xae41] = 0x1c; // r
-                        romData[0xae42] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb1d0] = 0x28; // D
-                        romData[0xb1d1] = batph; // Hundreds
-                        romData[0xb1d2] = batpt; // Tens
-                        romData[0xb1d3] = batpo; // Ones
-                        romData[0xb1d4] = 0x00; // Blank
-                        romData[0xb1d5] = 0xff; // Break
-                    }
-                    else if (lnI == 41)
-                    {
-                        // Line 1
-                        romData[0xae43] = 0x2d; // I
-                        romData[0xae44] = 0x1c; // r
-                        romData[0xae45] = 0x19; // o
-                        romData[0xae46] = 0x18; // n
-                        romData[0xae47] = 0x25; // A
-                        romData[0xae48] = 0x1a; // p
-                        romData[0xae49] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb1d6] = 0x28; // D
-                        romData[0xb1d7] = batph; // Hundreds
-                        romData[0xb1d8] = batpt; // Tens
-                        romData[0xb1d9] = batpo; // Ones
-                        romData[0xb1da] = 0x00; // Blank
-                        romData[0xb1db] = 0xff; // Break
-                    }
-                    else if (lnI == 42)
-                    {
-                        // Line 1
-                        romData[0xae4a] = 0x25; // A
-                        romData[0xae4b] = 0x18; // n
-                        romData[0xae4c] = 0x13; // i
-                        romData[0xae4d] = 0x17; // m
-                        romData[0xae4e] = 0x0b; // a
-                        romData[0xae4f] = 0x16; // l
-                        romData[0xae50] = 0x37; // S
-                        romData[0xae51] = 0x1f; // u
-                        romData[0xae52] = 0x13; // i
-                        romData[0xae53] = 0x1e; // t
-                        romData[0xae54] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb1dc] = 0x28; // D
-                        romData[0xb1dd] = batph; // Hundreds
-                        romData[0xb1de] = batpt; // Tens
-                        romData[0xb1df] = batpo; // Ones
-                        romData[0xb1e0] = 0x00; // Blank
-                        romData[0xb1e1] = 0xff; // Break
-                    }
-                    else if (lnI == 43)
-                    {
-                        // Line 1
-                        romData[0xae55] = 0x2a; // F
-                        romData[0xae56] = 0x13; // i
-                        romData[0xae57] = 0x11; // g
-                        romData[0xae58] = 0x12; // h
-                        romData[0xae59] = 0x1e; // t
-                        romData[0xae5a] = 0x37; // S
-                        romData[0xae5b] = 0x1f; // u
-                        romData[0xae5c] = 0x13; // i
-                        romData[0xae5d] = 0x1e; // t
-                        romData[0xae5e] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb1e2] = 0x28; // D
-                        romData[0xb1e3] = batph; // Hundreds
-                        romData[0xb1e4] = batpt; // Tens
-                        romData[0xb1e5] = batpo; // Ones
-                        romData[0xb1e6] = 0x00; // Blank
-                        romData[0xb1e7] = 0x00; // Blank
-                        romData[0xb1e8] = 0xff; // Break
-                    }
-                    else if (lnI == 44)
-                    {
-                        // Line 1
-                        romData[0xae5f] = 0x37; // S
-                        romData[0xae60] = 0x0d; // c
-                        romData[0xae61] = 0x1c; // r
-                        romData[0xae62] = 0x0e; // d
-                        romData[0xae63] = 0x36; // R
-                        romData[0xae64] = 0x0c; // b
-                        romData[0xae65] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb1e9] = 0x28; // D
-                        romData[0xb1ea] = batph; // Hundreds
-                        romData[0xb1eb] = batpt; // Tens
-                        romData[0xb1ec] = batpo; // Ones
-                        romData[0xb1ed] = 0x00; // Blank
-                        romData[0xb1ee] = 0x00; // Blank
-                        romData[0xb1ef] = 0xff; // Break
-                    }
-                    else if (lnI == 45)
-                    {
-                        // Line 1
-                        romData[0xae66] = 0x2c; // H
-                        romData[0xae67] = 0x0b; // a
-                        romData[0xae68] = 0x0e; // d
-                        romData[0xae69] = 0x0f; // e
-                        romData[0xae6a] = 0x1d; // s
-                        romData[0xae6b] = 0x25; // A
-                        romData[0xae6c] = 0x1c; // r
-                        romData[0xae6d] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb1f0] = 0x28; // D
-                        romData[0xb1f1] = batph; // Hundreds
-                        romData[0xb1f2] = batpt; // Tens
-                        romData[0xb1f3] = batpo; // Ones
-                        romData[0xb1f4] = 0x00; // Blank
-                        romData[0xb1f5] = 0x00; //Blank
-                        romData[0xb1f6] = 0xff; // Break
-                    }
-                    else if (lnI == 46)
-                    {
-                        // Line 1
-                        romData[0xae6e] = 0x3b; // W
-                        romData[0xae6f] = 0x1e; // t
-                        romData[0xae70] = 0x1c; // r
-                        romData[0xae71] = 0x2a; // F
-                        romData[0xae72] = 0x16; // l
-                        romData[0xae73] = 0x23; // y
-                        romData[0xae74] = 0x27; // C
-                        romData[0xae75] = 0x16; // l
-                        romData[0xae76] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb1f7] = 0x28; // D
-                        romData[0xb1f8] = batph; // Hundreds
-                        romData[0xb1f9] = batpt; // Tens
-                        romData[0xb1fa] = batpo; // Ones
-                        romData[0xb1fb] = 0x00; // Blank
-                        romData[0xb1fc] = 0x00; //Blank
-                        romData[0xb1fd] = 0xff; // Break
-                    }
-                    else if (lnI == 47)
-                    {
-                        // Line 1
-                        romData[0xae77] = 0x27; // C
-                        romData[0xae78] = 0x12; // h
-                        romData[0xae79] = 0x31; // M
-                        romData[0xae7a] = 0x0b; // a
-                        romData[0xae7b] = 0x13; // i
-                        romData[0xae7c] = 0x16; // l
-                        romData[0xae7d] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb1fe] = 0x28; // D
-                        romData[0xb1ff] = batph; // Hundreds
-                        romData[0xb200] = batpt; // Tens
-                        romData[0xb201] = batpo; // Ones
-                        romData[0xb202] = 0x00; // Blank
-                        romData[0xb203] = 0x00; // Blank
-                        romData[0xb204] = 0xff; // Break
-                    }
-                    else if (lnI == 48)
-                    {
-                        // Line 1
-                        romData[0xae7e] = 0x3b; // W
-                        romData[0xae7f] = 0x0b; // a
-                        romData[0xae80] = 0x23; // y
-                        romData[0xae81] = 0x10; // f
-                        romData[0xae82] = 0x1c; // r
-                        romData[0xae83] = 0x27; // C
-                        romData[0xae84] = 0x16; // l
-                        romData[0xae85] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb205] = 0x28; // D
-                        romData[0xb206] = batph; // Hundreds
-                        romData[0xb207] = batpt; // Tens
-                        romData[0xb208] = batpo; // Ones
-                        romData[0xb209] = 0x00; // Blank
-                        romData[0xb20a] = 0x00; // Blank
-                        romData[0xb20b] = 0xff; // Break
-                    }
-                    else if (lnI == 49)
-                    {
-                        // Line 1
-                        romData[0xae86] = 0x36; // R
-                        romData[0xae87] = 0x0f; // e
-                        romData[0xae89] = 0x20; // v
-                        romData[0xae8a] = 0x0f; // e
-                        romData[0xae8b] = 0x0b; // a
-                        romData[0xae8c] = 0x16; // l
-                        romData[0xae8d] = 0x37; // S
-                        romData[0xae8e] = 0x21; // w
-                        romData[0xae8f] = 0x1d; // s
-                        romData[0xae90] = 0x1e; // t
-                        romData[0xae91] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb20c] = 0x28; // D
-                        romData[0xb20d] = batph; // Hundreds
-                        romData[0xb20e] = batpt; // Tens
-                        romData[0xb20f] = batpo; // Ones
-                        romData[0xb210] = 0x00; // Blank
-                        romData[0xb211] = 0x00; // Blank
-                        romData[0xb212] = 0xff; // Break
-                    }
-                    else if (lnI == 50)
-                    {
-                        // Line 1
-                        romData[0xae92] = 0x31; // M
-                        romData[0xae93] = 0x11; // g
-                        romData[0xae94] = 0x26; // B
-                        romData[0xae95] = 0x13; // i
-                        romData[0xae96] = 0x15; // k
-                        romData[0xae97] = 0x13; // i
-                        romData[0xae98] = 0x18; // n
-                        romData[0xae99] = 0x13; // i
-                        romData[0xae9a] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb213] = 0x28; // D
-                        romData[0xb214] = batph; // Hundreds
-                        romData[0xb215] = batpt; // Tens
-                        romData[0xb216] = batpo; // Ones
-                        romData[0xb217] = 0x00; // Blank
-                        romData[0xb218] = 0x00; // Blank
-                        romData[0xb219] = 0xff; // Break
-                    }
-                    else if (lnI == 51)
-                    {
-                        // Line 1
-                        romData[0xae9b] = 0x37; // S
-                        romData[0xae9c] = 0x12; // h
-                        romData[0xae9d] = 0x0f; // e
-                        romData[0xae9e] = 0x16; // l
-                        romData[0xae9f] = 0x16; // l
-                        romData[0xaea0] = 0x25; // A
-                        romData[0xaea1] = 0x1c; // r
-                        romData[0xaea2] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb21a] = 0x28; // D
-                        romData[0xb21b] = batph; // Hundreds
-                        romData[0xb21c] = batpt; // Tens
-                        romData[0xb21d] = batpo; // Ones
-                        romData[0xb21e] = 0x00; // Blank
-                        romData[0xb21f] = 0x00; // Blank
-                        romData[0xb220] = 0xff; // Break
-                    }
-                    else if (lnI == 52)
-                    {
-                        // Line 1
-                        romData[0xaea3] = 0x38; // T
-                        romData[0xaea4] = 0x0f; // e
-                        romData[0xaea5] = 0x1c; // r
-                        romData[0xaea6] = 0x1c; // r
-                        romData[0xaea7] = 0x0b; // a
-                        romData[0xaea8] = 0x10; // f
-                        romData[0xaea9] = 0x17; // m
-                        romData[0xaeaa] = 0x25; // A
-                        romData[0xaeab] = 0x1c; // r
-                        romData[0xaeac] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb221] = 0x28; // D
-                        romData[0xb222] = batph; // Hundreds
-                        romData[0xb223] = batpt; // Tens
-                        romData[0xb224] = batpo; // Ones
-                        romData[0xb225] = 0x00; // Blank
-                        romData[0xb226] = 0x00; // Blank
-                        romData[0xb227] = 0xff; // Break
-                    }
-                    else if (lnI == 53)
-                    {
-                        // Line 1
-                        romData[0xaead] = 0x28; // D
-                        romData[0xaeae] = 0x1c; // r
-                        romData[0xaeaf] = 0x11; // g
-                        romData[0xaeb0] = 0x31; // M
-                        romData[0xaeb1] = 0x0b; // a
-                        romData[0xaeb2] = 0x13; // i
-                        romData[0xaeb3] = 0x16; // l
-                        romData[0xaeb4] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb228] = 0x28; // D
-                        romData[0xb229] = batph; // Hundreds
-                        romData[0xb22a] = batpt; // Tens
-                        romData[0xb22b] = batpo; // Ones
-                        romData[0xb22c] = 0x00; // Blank
-                        romData[0xb22d] = 0x00; // Blank
-                        romData[0xb22e] = 0xff; // Break
-                    }
-                    else if (lnI == 54)
-                    {
-                        // Line 1
-                        romData[0xaeb5] = 0x37; // S
-                        romData[0xaeb6] = 0x21; // w
-                        romData[0xaeb7] = 0x0f; // e
-                        romData[0xaeb8] = 0x0e; // d
-                        romData[0xaeb9] = 0x11; // g
-                        romData[0xaeba] = 0x0f; // e
-                        romData[0xaebb] = 0x25; // A
-                        romData[0xaebc] = 0x1c; // r
-                        romData[0xaebd] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb22f] = 0x28; // D
-                        romData[0xb230] = batph; // Hundreds
-                        romData[0xb231] = batpt; // Tens
-                        romData[0xb232] = batpo; // Ones
-                        romData[0xb233] = 0x00; // Blank
-                        romData[0xb234] = 0x00; // Blank
-                        romData[0xb235] = 0xff; // Break
-                    }
-                    else if (lnI == 55)
-                    {
-                        // Line 1
-                        romData[0xaebe] = 0x25; // A
-                        romData[0xaebf] = 0x18; // n
-                        romData[0xaec0] = 0x11; // g
-                        romData[0xaec1] = 0x0f; // e
-                        romData[0xaec2] = 0x16; // l
-                        romData[0xaec3] = 0x36; // R
-                        romData[0xaec4] = 0x0c; // b
-                        romData[0xaec5] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb236] = 0x28; // D
-                        romData[0xb237] = batph; // Hundreds
-                        romData[0xb238] = batpt; // Tens
-                        romData[0xb239] = batpo; // Ones
-                        romData[0xb23a] = 0x00; // Blank
-                        romData[0xb23b] = 0x00; // Blank
-                        romData[0xb23c] = 0xff; // Break
-                    }
-                    else if (lnI == 56)
-                    {
-                        // Line 1
-                        romData[0xaec6] = 0x30; // L
-                        romData[0xaec7] = 0x1e; // t
-                        romData[0xaec8] = 0x12; // h
-                        romData[0xaec9] = 0x1c; // r
-                        romData[0xaeca] = 0x37; // S
-                        romData[0xaecb] = 0x12; // h
-                        romData[0xaecc] = 0x16; // l
-                        romData[0xaecd] = 0x0e; // d
-                        romData[0xaece] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb23d] = 0x28; // D
-                        romData[0xb23e] = batph; // Hundreds
-                        romData[0xb23f] = batpt; // Tens
-                        romData[0xb240] = batpo; // Ones
-                        romData[0xb241] = 0x00; // Blank
-                        romData[0xb242] = 0x00; // Blank
-                        romData[0xb243] = 0xff; // Break
-                    }
-                    else if (lnI == 57)
-                    {
-                        // Line 1
-                        romData[0xaecf] = 0x2d; // I
-                        romData[0xaed0] = 0x1c; // r
-                        romData[0xaed1] = 0x18; // n
-                        romData[0xaed2] = 0x37; // S
-                        romData[0xaed3] = 0x12; // h
-                        romData[0xaed4] = 0x16; // l
-                        romData[0xaed5] = 0x0e; // d
-                        romData[0xaed6] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb244] = 0x28; // D
-                        romData[0xb245] = batph; // Hundreds
-                        romData[0xb246] = batpt; // Tens
-                        romData[0xb247] = batpo; // Ones
-                        romData[0xb248] = 0x00; // Blank
-                        romData[0xb249] = 0x00; // Blank
-                        romData[0xb24a] = 0xff; // Break
-                    }
-                    else if (lnI == 58)
-                    {
-                        // Line 1
-                        romData[0xaed7] = 0x37; // S
-                        romData[0xaed8] = 0x1e; // t
-                        romData[0xaed9] = 0x1c; // r
-                        romData[0xaeda] = 0x37; // S
-                        romData[0xaedb] = 0x12; // h
-                        romData[0xaedc] = 0x16; // l
-                        romData[0xaedd] = 0x0e; // d
-                        romData[0xaede] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb24b] = 0x28; // D
-                        romData[0xb24c] = batph; // Hundreds
-                        romData[0xb24d] = batpt; // Tens
-                        romData[0xb24e] = batpo; // Ones
-                        romData[0xb24f] = 0x00; // Blank
-                        romData[0xb250] = 0x00; // Blank
-                        romData[0xb251] = 0xff; // Break
-                    }
-                    else if (lnI == 59)
-                    {
-                        // Line 1
-                        romData[0xaedf] = 0x2c; // H
-                        romData[0xaee0] = 0x0f; // e
-                        romData[0xaee1] = 0x1c; // r
-                        romData[0xaee2] = 0x19; // o
-                        romData[0xaee3] = 0x37; // S
-                        romData[0xaee4] = 0x12; // h
-                        romData[0xaee5] = 0x16; // l
-                        romData[0xaee6] = 0x0e; // d
-                        romData[0xaee7] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb252] = 0x28; // D
-                        romData[0xb253] = batph; // Hundreds
-                        romData[0xb254] = batpt; // Tens
-                        romData[0xb255] = batpo; // Ones
-                        romData[0xb256] = 0x00; // Blank
-                        romData[0xb257] = 0x00; // Blank
-                        romData[0xb258] = 0xff; // Break
-                    }
-                    else if (lnI == 60)
-                    {
-                        // Line 1
-                        romData[0xaee8] = 0x37; // S
-                        romData[0xaee9] = 0x1c; // r
-                        romData[0xaeea] = 0x21; // w
-                        romData[0xaeeb] = 0x37; // S
-                        romData[0xaeec] = 0x12; // h
-                        romData[0xaeed] = 0x16; // l
-                        romData[0xaeee] = 0x0e; // d
-                        romData[0xaeef] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb259] = 0x28; // D
-                        romData[0xb25a] = batph; // Hundreds
-                        romData[0xb25b] = batpt; // Tens
-                        romData[0xb25c] = batpo; // Ones
-                        romData[0xb25d] = 0x00; // Blank
-                        romData[0xb25e] = 0x00; // Blank
-                        romData[0xb25f] = 0xff; // Break
-                    }
-                    else if (lnI == 61)
-                    {
-                        // Line 1
-                        romData[0xaef0] = 0x26; // B
-                        romData[0xaef1] = 0x1c; // r
-                        romData[0xaef2] = 0x24; // z
-                        romData[0xaef3] = 0x37; // S
-                        romData[0xaef4] = 0x12; // h
-                        romData[0xaef5] = 0x16; // l
-                        romData[0xaef6] = 0x0e; // d
-                        romData[0xaef7] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb260] = 0x28; // D
-                        romData[0xb261] = batph; // Hundreds
-                        romData[0xb262] = batpt; // Tens
-                        romData[0xb263] = batpo; // Ones
-                        romData[0xb264] = 0x00; // Blank
-                        romData[0xb265] = 0x00; // Blank
-                        romData[0xb266] = 0xff; // Break
-                    }
-                    else if (lnI == 62)
-                    {
-                        // Line 1
-                        romData[0xaef8] = 0x37; // S
-                        romData[0xaef9] = 0x16; // l
-                        romData[0xaefa] = 0x20; // v
-                        romData[0xaefb] = 0x37; // S
-                        romData[0xaefc] = 0x12; // h
-                        romData[0xaefd] = 0x16; // l
-                        romData[0xaefe] = 0x0e; // d
-                        romData[0xaeff] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb267] = 0x28; // D
-                        romData[0xb268] = batph; // Hundreds
-                        romData[0xb269] = batpt; // Tens
-                        romData[0xb26a] = batpo; // Ones
-                        romData[0xb26b] = 0x00; // Blank
-                        romData[0xb26c] = 0x00; // Blank
-                        romData[0xb26d] = 0xff; // Break
-                    }
-                    else if (lnI == 63)
-                    {
-                        // Line 1
-                        romData[0xaf00] = 0x2b; // G
-                        romData[0xaf01] = 0x19; // o
-                        romData[0xaf02] = 0x16; // l
-                        romData[0xaf03] = 0x0e; // d
-                        romData[0xaf04] = 0x3f; // Space
-                        romData[0xaf05] = 0x27; // C
-                        romData[0xaf06] = 0x1c; // r
-                        romData[0xaf07] = 0x19; // o
-                        romData[0xaf08] = 0x21; // w
-                        romData[0xaf09] = 0x18; // n
-                        romData[0xaf0a] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb26e] = 0x28; // D
-                        romData[0xb26f] = batph; // Hundreds
-                        romData[0xb270] = batpt; // Tens
-                        romData[0xb271] = batpo; // Ones
-                        romData[0xb272] = 0x00; // Blank
-                        romData[0xb273] = 0x00; // Blank
-                        romData[0xb274] = 0xff; // Break
-                    }
-                    else if (lnI == 64)
-                    {
-                        // Line 1
-                        romData[0xaf0b] = 0x2d; // I
-                        romData[0xaf0c] = 0x2c; // H
-                        romData[0xaf0d] = 0x17; // m
-                        romData[0xaf0e] = 0x1e; // t
-                        romData[0xaf0f] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb275] = 0x00;
-                        romData[0xb276] = 0x00;
-                        romData[0xb277] = 0x00;
-                        romData[0xb278] = 0x00;
-                        romData[0xb279] = 0x00;
-                        romData[0xb27a] = 0x00;
-
-                        romData[0xb27b] = 0x28; // D
-                        romData[0xb27c] = batph; // Hundreds
-                        romData[0xb27d] = batpt; // Tens
-                        romData[0xb27e] = batpo; // Ones
-                        romData[0xb27f] = 0x00; // Blank
-                        romData[0xb280] = 0xff; // Break
-                    }
-                    else if (lnI == 65)
-                    {
-                        // Line 1
-                        romData[0xaf10] = 0x31; // M
-                        romData[0xaf11] = 0x23; // y
-                        romData[0xaf12] = 0x1d; // s
-                        romData[0xaf13] = 0x23; // y
-                        romData[0xaf14] = 0x2c; // H
-                        romData[0xaf15] = 0x1e; // t
-                        romData[0xaf16] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb281] = 0x28; // D
-                        romData[0xb282] = batph; // Hundreds
-                        romData[0xb283] = batpt; // Tens
-                        romData[0xb284] = batpo; // Ones
-                        romData[0xb285] = 0xff; // Break
-                    }
-                    else if (lnI == 66)
-                    {
-                        // Line 1
-                        romData[0xaf17] = 0x39; // U
-                        romData[0xaf18] = 0x18; // n
-                        romData[0xaf19] = 0x16; // l
-                        romData[0xaf1a] = 0x15; // k
-                        romData[0xaf1b] = 0x2c; // H
-                        romData[0xaf1c] = 0x16; // l
-                        romData[0xaf1d] = 0x17; // m
-                        romData[0xaf1e] = 0x1e; // t
-                        romData[0xaf1f] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb286] = 0x28; // D
-                        romData[0xb287] = batph; // Hundreds
-                        romData[0xb288] = batpt; // Tens
-                        romData[0xb289] = batpo; // Ones
-                        romData[0xb28a] = 0xff; // Break
-                    }
-                    else if (lnI == 67)
-                    {
-                        // Line 1
-                        romData[0xaf20] = 0x38; // T
-                        romData[0xaf21] = 0x1c; // r
-                        romData[0xaf22] = 0x0c; // b
-                        romData[0xaf23] = 0x18; // n
-                        romData[0xaf24] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb28b] = 0x28; // D
-                        romData[0xb28c] = batph; // Hundreds
-                        romData[0xb28d] = batpt; // Tens
-                        romData[0xb28e] = batpo; // Ones
-                        romData[0xb28f] = 0xff; // Break
-                    }
-                    else if (lnI == 68)
-                    {
-                        // Line 1
-                        romData[0xaf25] = 0x32; // N
-                        romData[0xaf26] = 0x19; // o
-                        romData[0xaf27] = 0x12; // h
-                        romData[0xaf28] = 0x31; // M
-                        romData[0xaf29] = 0x1d; // s
-                        romData[0xaf2a] = 0x15; // k
-                        romData[0xaf2b] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb290] = 0x28; // D
-                        romData[0xb291] = batph; // Hundreds
-                        romData[0xb292] = batpt; // Tens
-                        romData[0xb293] = batpo; // Ones
-                        romData[0xb294] = 0xff; // Break
-                    }
-                    else if (lnI == 69)
-                    {
-                        // Line 1
-                        romData[0xaf2c] = 0x30; // L
-                        romData[0xaf2d] = 0x1e; // t
-                        romData[0xaf2e] = 0x12; // h
-                        romData[0xaf2f] = 0x2c; // H
-                        romData[0xaf30] = 0x16; // l
-                        romData[0xaf31] = 0x17; // m
-                        romData[0xaf32] = 0x1e; // t
-                        romData[0xaf33] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb295] = 0x28; // D
-                        romData[0xb296] = batph; // Hundreds
-                        romData[0xb297] = batpt; // Tens
-                        romData[0xb298] = batpo; // Ones
-                        romData[0xb299] = 0xff; // Break
-                    }
-                    else if (lnI == 70)
-                    {
-                        // Line 1
-                        romData[0xaf34] = 0x2d; // I
-                        romData[0xaf35] = 0x1c; // r
-                        romData[0xaf36] = 0x18; // n
-                        romData[0xaf37] = 0x31; // M
-                        romData[0xaf38] = 0x1d; // s
-                        romData[0xaf39] = 0x15; // k
-                        romData[0xaf3a] = 0xff; // Break
-
-                        // Line 2
-                        romData[0xb29a] = 0x28; // D
-                        romData[0xb29b] = batph; // Hundreds
-                        romData[0xb29c] = batpt; // Tens
-                        romData[0xb29d] = batpo; // Ones
-                        romData[0xb29e] = 0xff; // Break
-                    }
-                }
-            }
-
-            if (chkRandSpellLearning.Checked)
-            {
-                // Totally randomize spell learning
-                // First, clear out all of the magic bytes...
-                for (int lnI = 0; lnI < 252; lnI++)
-                    romData[0x29d6 + lnI] = 0x3f;
-
-                // There are 64 fight spells overall, and 24 command spells overall.  Make sure that each fight spell is in the final list, then scramble after that.  Make sure there are no more than three copies of a spell, 
-                // make sure there are no duplicates in blocks 0-15, 16-39, and 40-63.  Any command spells that duplicate the fight spells should be placed in their respective blocks.
-                int[] finalFight = new int[64];
-                int[] finalCommand = new int[24];
-                for (int i = 0; i < finalFight.Length; i++) finalFight[i] = -1;
-                for (int i = 0; i < finalCommand.Length; i++) finalCommand[i] = -1;
-
-                int[] fightSpells = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53 }; // 52 (12-20-20)
-                int[] commandSpells = { 26, 27, 28, 30, 31, 32, 33, 38, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61 }; // 18 (6-6-6)
-                for (int lnI = 0; lnI < fightSpells.Length * 20; lnI++)
-                    swapArray(fightSpells, (r1.Next() % fightSpells.Length), (r1.Next() % fightSpells.Length));
-                for (int lnI = 0; lnI < commandSpells.Length * 20; lnI++)
-                    swapArray(commandSpells, (r1.Next() % commandSpells.Length), (r1.Next() % commandSpells.Length));
-
-                int[] heroFight2 = new int[16];
-                int[] pilgrimFight2 = new int[24];
-                int[] wizardFight2 = new int[24];
-
-                for (int lnI = 0; lnI < 52; lnI++)
-                {
-                    if (lnI < 12) heroFight2[lnI] = fightSpells[lnI];
-                    else if (lnI < 32) pilgrimFight2[lnI - 12] = fightSpells[lnI];
-                    else wizardFight2[lnI - 32] = fightSpells[lnI];
-                }
-
-                for (int lnI = 12; lnI < 16; lnI++)
-                {
-                    heroFight2[lnI] = fightSpells[r1.Next() % fightSpells.Length];
-                    for (int lnJ = 0; lnJ < lnI; lnJ++)
-                        if (heroFight2[lnJ] == heroFight2[lnI])
-                        {
-                            lnI--;
-                            break;
-                        }
-                }
-                for (int lnI = 20; lnI < 24; lnI++)
-                {
-                    pilgrimFight2[lnI] = fightSpells[r1.Next() % fightSpells.Length];
-                    for (int lnJ = 0; lnJ < lnI; lnJ++)
-                        if (pilgrimFight2[lnJ] == pilgrimFight2[lnI])
-                        {
-                            lnI--;
-                            break;
-                        }
-                }
-                for (int lnI = 20; lnI < 24; lnI++)
-                {
-                    wizardFight2[lnI] = fightSpells[r1.Next() % fightSpells.Length];
-                    for (int lnJ = 0; lnJ < lnI; lnJ++)
-                        if (wizardFight2[lnJ] == wizardFight2[lnI])
-                        {
-                            lnI--;
-                            break;
-                        }
-                }
-
-                int[] heroCommand2 = new int[8];
-                int[] pilgrimCommand2 = new int[8];
-                int[] wizardCommand2 = new int[8];
-
-                for (int lnI = 0; lnI < 18; lnI++)
-                {
-                    if (lnI < 6) heroCommand2[lnI] = commandSpells[lnI];
-                    else if (lnI < 12) pilgrimCommand2[lnI - 6] = commandSpells[lnI];
-                    else wizardCommand2[lnI - 12] = commandSpells[lnI];
-                }
-
-                for (int lnI = 6; lnI < 8; lnI++)
-                {
-                    heroCommand2[lnI] = commandSpells[r1.Next() % commandSpells.Length];
-                    for (int lnJ = 0; lnJ < lnI; lnJ++)
-                        if (heroCommand2[lnJ] == heroCommand2[lnI])
-                        {
-                            lnI--;
-                            break;
-                        }
-                }
-                for (int lnI = 6; lnI < 8; lnI++)
-                {
-                    pilgrimCommand2[lnI] = commandSpells[r1.Next() % commandSpells.Length];
-                    for (int lnJ = 0; lnJ < lnI; lnJ++)
-                        if (pilgrimCommand2[lnJ] == pilgrimCommand2[lnI])
-                        {
-                            lnI--;
-                            break;
-                        }
-                }
-                for (int lnI = 6; lnI < 8; lnI++)
-                {
-                    wizardCommand2[lnI] = commandSpells[r1.Next() % commandSpells.Length];
-                    for (int lnJ = 0; lnJ < lnI; lnJ++)
-                        if (wizardCommand2[lnJ] == wizardCommand2[lnI])
-                        {
-                            lnI--;
-                            break;
-                        }
-                }
-
-                int[] heroFightLevels = inverted_power_curve(1, 35, 24, 1, r1);
-                int[] pilgrimFightLevels = inverted_power_curve(1, 35, 24, 1, r1);
-                int[] wizardFightLevels = inverted_power_curve(1, 35, 24, 1, r1);
-                int[] heroCommandLevels = inverted_power_curve(1, 35, 8, 1, r1);
-                int[] pilgrimCommandLevels = inverted_power_curve(1, 35, 8, 1, r1);
-                int[] wizardCommandLevels = inverted_power_curve(1, 35, 8, 1, r1);
-
-                for (int lnI = 0; lnI < 8; lnI++)
-                {
-                    romData[0x29d6 + heroCommand2[lnI]] = (byte)heroCommandLevels[lnI]; // (byte)(r1.Next() % 35 + 1);
-                    romData[0x2a15 + pilgrimCommand2[lnI]] = (byte)pilgrimCommandLevels[lnI]; // (r1.Next() % 35 + 1);
-                    romData[0x2a54 + wizardCommand2[lnI]] = (byte)wizardCommandLevels[lnI]; // (r1.Next() % 35 + 1);
-                    romData[0x2a93 + pilgrimCommand2[lnI]] = romData[0x2a15 + pilgrimCommand2[lnI]];
-                    romData[0x2a93 + wizardCommand2[lnI]] = romData[0x2a54 + wizardCommand2[lnI]];
-                    romData[0x22e7 + 24 + lnI] = (byte)heroCommand2[lnI];
-                    romData[0x22e7 + 32 + 24 + lnI] = (byte)pilgrimCommand2[lnI];
-                    romData[0x22e7 + 64 + 24 + lnI] = (byte)wizardCommand2[lnI];
-                }
-
-                romData[0x29d6 + 63 + romData[0x22e7 + 32 + 24]] = 1;
-                romData[0x29d6 + 126 + romData[0x22e7 + 64 + 24]] = 1;
-
-                for (int lnI = 0; lnI < 24; lnI++)
-                {
-                    if (lnI < 16)
-                        romData[0x29d6 + heroFight2[lnI]] = (byte)heroFightLevels[lnI]; // (byte)(r1.Next() % 35 + 1);
-                    romData[0x2a15 + pilgrimFight2[lnI]] = (byte)pilgrimFightLevels[lnI]; // (byte)(r1.Next() % 35 + 1);
-                    romData[0x2a54 + wizardFight2[lnI]] = (byte)wizardFightLevels[lnI]; // (byte)(r1.Next() % 35 + 1);
-                    romData[0x2a93 + pilgrimFight2[lnI]] = romData[0x2a15 + pilgrimFight2[lnI]];
-                    romData[0x2a93 + wizardFight2[lnI]] = romData[0x2a54 + wizardFight2[lnI]];
-                    if (lnI < 16)
-                        romData[0x22e7 + lnI] = (byte)heroFight2[lnI];
-                    romData[0x22e7 + 32 + lnI] = (byte)pilgrimFight2[lnI];
-                    romData[0x22e7 + 64 + lnI] = (byte)wizardFight2[lnI];
-                }
-                romData[0x29d6 + romData[0x22e7]] = 2;
-
-                // Must "complete the sentence" or really bad things happen...
-                romData[0x29d6 + 62] = 0xff;
-                romData[0x29d6 + 125] = 0xff;
-                romData[0x29d6 + 188] = 0xff;
-                romData[0x29d6 + 251] = 0xff;
-
-                // Copy arrays to be written out later
-                heroComSpell = heroCommand2;
-                heroComLvl = heroCommandLevels;
-                heroBatSpell = heroFight2;
-                heroBatLvl = heroFightLevels;
-                pilgrimComSpell = pilgrimCommand2;
-                pilgrimComLvl = pilgrimCommandLevels;
-                pilgrimBatSpell = pilgrimFight2;
-                pilgrimBatLvl= pilgrimFightLevels;
-                wizardComSpell = wizardCommand2;
-                wizardComLvl = wizardCommandLevels;
-                wizardBatSpell= wizardFight2;
-                wizardBatLvl= wizardFightLevels;
-
-            }
-
-            if (chkRandSpellStrength.Checked)
-            {
-                // Totally randomize spell strengths - first, attack spells
-                for (int lnI = 0; lnI < 17; lnI++)
-                {
-                    int byteToUse = 0x134b1 + (lnI * 2);
-                    romData[byteToUse] = (byte)((r1.Next() % 200) + 2);
-                    if (lnI == 0x0d || lnI == 0x0e || lnI == 0x0f)
-                        romData[byteToUse + 1] = (byte)(r1.Next() % romData[byteToUse]);
-                    else
-                        romData[byteToUse + 1] = (byte)(r1.Next() % (romData[byteToUse] / 2));
-                }
-
-                // And then healing spells
-                for (int lnI = 0; lnI < 6; lnI++)
-                {
-                    if (lnI == 2 || lnI == 5) continue; // Healall/Healusall
-                    int byteToUse = 0x134f9 + (lnI * 2);
-                    romData[byteToUse] = (byte)((r1.Next() % 200) + 2);
-                    romData[byteToUse + 1] = (byte)(r1.Next() % (romData[byteToUse] / 2));
-                }
-            }
-
-            if (chkRandTreasures.Checked)
-            {
-                // If the yellow orb is at a searchable spot, it won't be found unless you change this byte from 0x79 to 0x80+.  SUPER WEIRD!
-                romData[0x31828] = 0xff;
-
-                bool legal = false;
-
-                // Totally randomize treasures... but make sure key items exist before they are needed!
-                // Keep the Rainbow drop where it is
-                int[] treasureAddrZ0 = { 0x29237, 0x29238, 0x29239, // Promontory Cave
-                0x2927b, 0x292c4, 0x292c5, 0x292c6 }; // Najimi Tower - Thief's Key, Magic Ball - 7
-                int[] treasureAddrZ1 = { 0x2927c, 0x2927d }; // Najimi Tower behind Thief's Key - Magic Ball - 2
-                int[] treasureAddrZ2 = { 0x2927e, 0x2927f, // Enticement cave
-                0x29234, 0x29235, // Kanave
-                0x2923a, 0x2923b, 0x29280, 0x29281, 0x29282, 0x29283, 0x29284, 0x29285, 0x29286, 0x29287, // Dream cave/Wake Up Powder
-                0x29252, 0x292d2, 0x292e6, // champange tower
-                0x2925c, // isis meteorite band
-                0x29249, 0x2924a, 0x2924b, 0x2924c, 0x2924d, 0x2924e, 0x2924f, 0x292b4, 0x292b5, 0x292b6 }; // Pyramid -> Magic key - 28
-                int[] treasureAddrZ3 = { 0x292c3, 0x317f4, // Pyramid continued
-                0x29255, 0x29256, 0x29257, 0x29258, 0x29259, 0x2925a, // Aliahan continued
-                0x31b9c, 0x2925d, 0x2925e, 0x2925f, 0x29260, 0x29261, 0x29262, 0x29263, 0x29264, // Isis continued
-                0x29269, 0x2926a, 0x2926b }; // Portuga -> Royal Scroll - 20
-                int[] treasureAddrZ4 = { 0x2923c, 0x2923d, // Dwarf's Cave
-                0x29251, 0x292c7, 0x292c8, 0x292c9, 0x292ca, // Garuna Tower
-                0x2923e, 0x2923f, 0x29240, 0x29241, 0x29242, 0x29243, 0x2928b, 0x2928c, 0x2928d, 0x2928e}; // Kidnapper's Cave -> Black Pepper - 17
-                int[] treasureAddrZ5 = { 0x31b94, 0x29270, // Tedan (except Green Orb)
-                0x292e4, 0x292e7, // Jipang
-                0x29271, 0x29272, 0x29273, // Pirate Cove
-                0x292cb, 0x292cc, 0x292cd, 0x292ce, 0x292cf, 0x292d0, 0x292d1}; // Arp Tower - Final Key - 14
-                int[] treasureAddrZ6 = { 0x29291, 0x29292, 0x29293, 0x29294, 0x29295, 0x29296, 0x29297, 0x29298, 0x29299, 0x2929a, 0x2929b, // Samanao Cave
-                0x2929c, 0x2929d, 0x2929e, 0x2929f, 0x292a0, 0x292a1, 0x292a2, 0x292a3, 0x292a4, 0x292a5, 0x292a6, 0x292a7, // Samanao Cave
-                0x29244, 0x29245, 0x29246, 0x29247, 0x29248, 0x2928f, 0x29290 }; // Lancel Cave - Mirror Of Ra - 30
-                int[] treasureAddrZ7 = { 0x292e5 }; // Staff Of Change - Samanao Castle - 1
-                int[] treasureAddrZ8 = { 0x29275, 0x29276, 0x29277, 0x29278, 0x29279, 0x2927a }; // Sword Of Gaia - Ghost ship - 6
-                int[] treasureAddrZ9 = { 0x29288, 0x29289, 0x2928a }; // All orbs - Cave Of Necrogund - 3
-                int[] treasureAddrZ10 = { 0x37df1, // Thief Key Old Man
-                0x2925b, // Eginbear
-                0x31b8c, // Soo 
-                0x2922b, // Final Key Shrine
-                0x377d5, // Black Pepper NPC
-                0x377fe  // Water Blaster NPC - Additional Potential Orb Locations - 6
-                };
-                int[] treasureAddrZ11 = { 0x37929 }; // Dragon Queen - Additional Potential Orb Location - 1
-                int[] treasureAddrZ12 = { 0x29265, 0x29266, 0x29267, 0x29268, // Tantegel Castle
-                0x292a8, 0x292a9, 0x292aa, 0x292ab, 0x292ac, // Erdrick's Cave
-                0x29274, // Garin's home
-                0x292df, 0x292e0, 0x292e1, 0x292e2, 0x292e3, // Rocky Mountain Cave
-                0x31b90, // Hauksness
-                0x31b88, // Kol
-                0x29253, 0x29254, 0x292d5, 0x292d6, 0x292d7, 0x292d8, 0x292d9, 0x292da, 0x292db, 0x292dc, 0x292dd, 0x292de, // Kol Tower
-                0x29233,// Rimuldar
-                0x37d9d }; // Staff of Rain NPC - Staff Of Rain, Stones Of Sunlight, Sacred Amulet - 30
-                int[] treasureAddrZ13 = { 0x292ad, 0x292ae, 0x292af, 0x292b0, 0x292b1, 0x292b2, 0x292b3 }; // Zoma's Castle - Sphere of Light - 7
-                int[] treasureAddrZ14 = { 0x29228, 0x29229, 0x2922a, // Baramos's Castle
-                0x292b7, 0x292b8, 0x292b9, 0x292ba, 0x292bb, 0x292bc, 0x292bd, 0x292be, 0x292bf, 0x292c0, 0x292c1, 0x292c2, // Pyramid Mummy Men Chests
-                0x31b9f, // World Tree
-                0x31b97, // Luzami
-                0x2926c, 0x2926d, 0x31b80, // New Town  0x378A9
-                0x375aa, 0x37786, 0x37cb9, 0x37828, 0x37907, 0x37a25}; // NPCs - Dead zone - 32 , 0x37d5a
-
-                // NOTICE:  Using 0x3b785, supposedly the wake-up powder NPC, warps you to weird places after jumping off the rope in the tower of Garuna...
-
-                List<int> allTreasureList = new List<int>();
-
-                allTreasureList = addTreasure(allTreasureList, treasureAddrZ0);
-                allTreasureList = addTreasure(allTreasureList, treasureAddrZ1);
-                allTreasureList = addTreasure(allTreasureList, treasureAddrZ2);
-                allTreasureList = addTreasure(allTreasureList, treasureAddrZ3);
-                allTreasureList = addTreasure(allTreasureList, treasureAddrZ4);
-                allTreasureList = addTreasure(allTreasureList, treasureAddrZ5);
-                allTreasureList = addTreasure(allTreasureList, treasureAddrZ6);
-                allTreasureList = addTreasure(allTreasureList, treasureAddrZ7);
-                allTreasureList = addTreasure(allTreasureList, treasureAddrZ8);
-                allTreasureList = addTreasure(allTreasureList, treasureAddrZ9);
-                allTreasureList = addTreasure(allTreasureList, treasureAddrZ10);
-                allTreasureList = addTreasure(allTreasureList, treasureAddrZ11);
-                allTreasureList = addTreasure(allTreasureList, treasureAddrZ12);
-                allTreasureList = addTreasure(allTreasureList, treasureAddrZ13);
-                allTreasureList = addTreasure(allTreasureList, treasureAddrZ14);
-
-                int[] allTreasure = allTreasureList.ToArray();
-
-                // randomize starting gold
-                romData[0x2914f] = (byte)(r1.Next() % 256);
-
-                List<byte> treasureList = new List<byte>();
-                List<byte> legalTreasuresList = new List<byte>();
-                byte[] legalTreasures = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
-                                          0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
-                                          0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
-                                          0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f,
-                                          0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x48, 0x49, 0x4b, 0x4c, 0x4e,
-                                          0x55, 0x56, 0x5f };
-                byte[] legalTreasures2 = {0x60, 0x62, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6c, 0x6d,
-                                          0x73, 0x74,
-                                          0x88, 0x90, 0x98, 0xa0, 0xa8, 0xb0, 0xb8, 0xc0, 0xc8, 0xd0, 0xd8, 0xe0, 0xe8, 0xf0, 0xf8,
-                                          0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff };
-
-                // Populate legalTreasuresList so we can add additional items if selected (First half)
-                for (int lnI=0; lnI < legalTreasures.Length; lnI++)
-                {
-                    legalTreasuresList.Add(legalTreasures[lnI]);
-                }
-                // Populate legalTreasuresList so we can add additional items if selected (Second half)
-                for (int lnI=0; lnI < legalTreasures2.Length; lnI++) 
-                {
-                    legalTreasuresList.Add(legalTreasures2[lnI]);
-                }
-
-                for (int lnI = 0; lnI < allTreasureList.Count; lnI++)
-                {
-                    legal = false;
-                    while (!legal)
-                    {
-                        byte treasure = (byte)(r1.Next() % legalTreasuresList.Count); // the last two items we can't get...
-                        treasure = legalTreasuresList[treasure];
-                        // Disallow earning gold for searchable items... this is because 0x80 = 0x00 in this scenario, so anything over 0x80 is useless.  
-                        // (in fact, 0xfd = 0x7d, the Stick Slime, a null item.)
-                        if (allTreasure[lnI] > 0x29400 && treasure >= 0x80)
-                            continue;
-
-                        //byte[] keyItems = { 0x59, 0x5a, 0x54, 0x11, 0x78, 0x79, 0x7a, 0x7b, 0x10, 0x75 };
-                        //byte[] minKeyTreasure = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 134, 134 };
-                        //byte[] keyTreasure = { 37, 116, 124, 130, 133, 133, 133, 133, 165, 165 };
-
-                        // We need to make sure key items doesn't exceed a certain point in the story.
-
-                        // Verify that only one location exists for key items -- Moved this down to the Key Items
-                        if (!(treasureList.Contains(treasure) && (treasure == 0x53 || treasure == 0x71)))
-                        {
-                            legal = true;
-                            treasureList.Add(treasure);
-                            romData[allTreasure[lnI]] = treasure;
-                        }
-
-                    }
-                }
-
-                if (chk_SepBarGaia.Checked == true) // Put Wing Of Wyvern in 3 chests in Baramos' Castle
-                {
-                    romData[0x2922a] = 0x68;
-                    romData[0x29229] = 0x68;
-                    romData[0x29228] = 0x68;
-                }
-
-                // Verify that key items are available in either a store or a treasure chest in the right zone.
-                byte[] keyItems = { 0x58, 0x57, 0x59, 0x52, 0x5d, 0x4f, 0x5a, 0x51, 0x54,
-									0x6b, 0x6f, 0x5c, 0x11, 0x77, 0x78, 0x79, 0x7a, 0x7b,
-									0x7c, 0x10, 0x75, 0x72, 0x4a, 0x50, 0x70, 0x53, 0x71 };
-                byte[] minKeyTreasure = { 0, 0, 0, 0, 0, 0, 0, 0, 0,
-										  0, 0, 0, 0, 0, 0, 0, 0, 0,
-										  0, 135, 135, 135, 0, 0, 135, 0, 0 };
-                byte[] maxKeyTreasure = { 6, 8, 36, 36, 56, 73, 87, 117, 118,
-									   118, 134, 131, 124, 134, 134, 134, 134, 134,
-									   134, 165, 165, 172, 172, 172, 165, 172, 172 }; // used if chkRandomizeMaps is true
-                byte[] maxKeyTreasure2 = { 6, 8, 36, 36, 56, 73, 87, 117, 118,
-                                       118, 133, 131, 124, 133, 133, 133, 133, 133,
-                                       133, 165, 165, 172, 172, 172, 165, 172, 172 };
-
-
-                int echoingFluteMarker = 0;
-                for (int lnJ = 0; lnJ < keyItems.Length; lnJ++)
-                {
-                    int treasureLocation = 0;
-                    if (chkRandomizeMap.Checked == true)
-                        treasureLocation = allTreasure[minKeyTreasure[lnJ] + (r1.Next() % (maxKeyTreasure[lnJ] - minKeyTreasure[lnJ]))];
-                    else
-                        treasureLocation = allTreasure[minKeyTreasure[lnJ] + (r1.Next() % (maxKeyTreasure2[lnJ] - minKeyTreasure[lnJ]))];
-                    if (chkRandomizeMap.Checked == true && lnJ == 3)
-                    {
-                        continue; // Does not add Vase of Draught to treasure pool when map is randomized
-                    }
-                    if (chk_GoldenClaw.Checked == false && lnJ == 22)
-                    {
-                        continue; // Does not add Golden Claw if not checked
-                    }
-                    if (keyItems.Contains(romData[treasureLocation]))
-                    {
-                        lnJ--;
-                        continue;
-                    }
-                    romData[treasureLocation] = keyItems[lnJ];
-
-                    // Echoing Flute business.  01 = Silver, 02 = Red, 04 = Yellow, 08 = Purple, 10 = Blue, 20 = Green
-                    if (keyItems[lnJ] >= 0x77 && keyItems[lnJ] <= 0x7c)
-                    {
-                        byte[] echoLocations;
-                        byte orbNumber = (byte)(Math.Pow(2, Math.Abs(0x77 - keyItems[lnJ])));
-
-                        if (new int[] { 0x29237, 0x29238, 0x29239 }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x2d }; // Promontory Cave
-                        else if (new int[] { 0x2927b, 0x292c4, 0x292c5, 0x292c6, 0x2927c, 0x2927d, 0x37df1 }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x9f, 0x3c, 0xed, 0xd6, 0xd7, 0xd8 }; // Najimi Tower
-                        else if (new int[] { 0x2927e, 0x2927f }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x98, 0xa0, 0xa1, 0xa2 }; // Enticement cave
-                        else if (new int[] { 0x29234, 0x29235 }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x14 }; // Kanave
-                        else if (new int[] { 0x2923a, 0x2923b, 0x29280, 0x29281, 0x29282, 0x29283, 0x29284, 0x29285, 0x29286, 0x29287 }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x2e, 0xa3, 0xa4, 0xa5 }; // Dream cave
-                        else if (new int[] { 0x29252, 0x292d2, 0x292e6 }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x3f, 0xe8, 0xe9, 0xea }; // Tower of Champagne
-                        else if (new int[] { 0x2925c, 0x31b9c, 0x2925d, 0x2925e, 0x2925f, 0x29260, 0x29261, 0x29262, 0x29263, 0x29264 }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x96, 0x50, 0x51, 0x52, 0x87, 0x55, 0x54, 0x53, 0x56, 0x57 }; // Isis
-                        else if (new int[] { 0x29269, 0x2926a, 0x2926b }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x0a, 0x70, 0x71 }; // Portoga
-                        else if (new int[] { 0x29255, 0x29256, 0x29257, 0x29258, 0x29259, 0x2925a }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x00, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47 }; // Aliahan
-                        else if (new int[] { 0x29249, 0x2924a, 0x2924b, 0x2924c, 0x2924d, 0x2924e, 0x2924f, 0x292b4, 0x292b5, 0x292b6, 0x292c3, 0x317f4 }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x3b, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4, 0xd5 }; // Pyramid
-                        else if (new int[] { 0x2923c, 0x2923d }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x2f }; // Dwarf's Cave
-                        else if (new int[] { 0x29251, 0x292c7, 0x292c8, 0x292c9, 0x292ca }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x3d, 0xdb, 0xdc, 0xdd, 0xde }; // Garuna Tower
-                        else if (new int[] { 0x29242, 0x29240, 0x2923f, 0x2923e, 0x29241, 0x29243, 0x2928b, 0x2928c, 0x2928e, 0x2928d }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x34, 0xb2 }; // Kidnapper's Cave
-                        else if (new int[] { 0x377d5 }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x0e }; // Black Pepper
-                        else if (new int[] { 0x31b8c }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x19 }; // Soo
-                        else if (new int[] { 0x2925b }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x02 }; // Eginbear
-                        else if (new int[] { 0x2922b }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x04 }; // Final Key Shrine
-                        else if (new int[] { 0x31b94, 0x29270 }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x15, 0x85, 0x86 }; // Tedanki
-                        else if (new int[] { 0x377fe }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x16 }; // Water Blaster NPC
-                        else if (new int[] { 0x292e4, 0x292e7 }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x24, 0x8a }; // Cave of Jipang/Jipang
-                        else if (new int[] { 0x29272, 0x29271, 0x29273 }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x18, 0x8b, 0x8c }; // Pirates Cove
-                        else if (new int[] { 0x292d1, 0x292d0, 0x292cf, 0x292cd, 0x292ce, 0x292cc, 0x292cb }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x3e, 0xe4, 0xe5, 0xe6, 0xe7 }; // Arp Tower
-                        else if (new int[] { 0x29299, 0x2929c, 0x2929b, 0x2929d, 0x2929a, 0x29298, 0x29293, 0x29294, 0x29295, 0x29291, 0x29292, 0x29296, 0x29297, 0x292a3, 0x292a4, 0x292a2, 0x2929f, 0x2929e, 0x292a0, 0x292a5, 0x292a6, 0x292a1, 0x292a7, 0x29296 }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x37, 0xbe, 0xbf }; // Samano Cave
-                        else if (new int[] { 0x29246, 0x29248, 0x29247, 0x29245, 0x29244, 0x29290, 0x2928f }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x36, 0xbc, 0xbd }; // Lancel Cave
-                        else if (new int[] { 0x292e5 }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x06, 0x5d, 0x5e, 0x5f, 0x60, 0x61, 0x62, 0x63, 0x64, 0x99 }; // Samano Castle
-                        else if (new int[] { 0x29277, 0x29276, 0x29275, 0x29278, 0x29279, 0x2927a }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x9c, 0x9d }; // Ghost Ship
-                        else if (new int[] { 0x29288, 0x29289, 0x2928a }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x32, 0xa8, 0xa9, 0xaa, 0x31 }; // Cave Of Necrogund
-                        else if (new int[] { 0x37929 }.Contains(treasureLocation))
-                            echoLocations = new byte[] { 0x23 }; // Dragon Queen
-                        else
-                            echoLocations = new byte[] { };
-
-                        for (int i = 0; i < echoLocations.Length; i++)
-                        {
-                            romData[0x33c51 + echoingFluteMarker] = orbNumber;
-                            echoingFluteMarker++;
-
-                            romData[0x33c51 + echoingFluteMarker] = echoLocations[i];
-                            echoingFluteMarker++;
-                        }
-                        romData[0x33c51 + echoingFluteMarker] = 0x00;
-                    }
-                }
-
-                // Echoing Flute business...
-                byte[] echoingFlute = { 0xA5, 0x2F, 0xD0, 0x0E, 0x00, 0x1E, 0x2F, 0x00, 0x44, 0x17, 0x00, 0x0D, 0x77, 0x20, 0x33, 0xCB,
-                    0x38, 0x60, 0xA2, 0x00, 0xBD, 0x41, 0xBC, 0xF0, 0xEB, 0xE8, 0xBC, 0x41, 0xBC, 0xE8, 0x2D, 0xCE,
-                    0x60, 0xD0, 0xF1, 0xC4, 0x8B, 0xD0, 0xED, 0xEA, 0xEA, 0xEA, 0xEA, 0xEA, 0xEA, 0xEA, 0xEA, 0xEA,
-                    0xEA, 0xEA, 0xEA, 0xEA, 0xEA, 0xEA, 0xEA, 0xEA, 0xEA, 0x4C, 0x59, 0xA2 }; // 0xC9, 0x04, 0xD0, 0x0B, 0xAD, 0xCD, 0x60, 0xC8, 0xD0, 0xE0, 
-
-                for (int i = 0; i < echoingFlute.Length; i++)
-                {
-                    romData[0x32228 + i] = echoingFlute[i];
-                }
-
-                // The Golden Claw location has a tr
-                //
-                // igger that needs to be set so it can only be retrieved once instead of an infinite amount of times.
-                 romData[0x319a0] = romData[0x317f4];
-            }
-
-            if (chkRandItemStores.Checked)
-            {
-                // Totally randomize stores (19 weapon stores, 24 item stores, 248 items total)  No store can have more than 12 items.
-                // I would just create random values for 248 items, then determine weapon and item stores out of that!
-                byte[] legalStoreWeapons = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
-                                      0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
-                                      0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
-                                      0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f,
-                                      0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46
-                };
-                byte[] legalStoreItems = { 0x56,
-                                      0x65, 0x66, 0x67, 0x68, 0x6c,
-                                      0x74
-                };
-                // Create legalStoreItemsList to add new items
-                List<byte> legalStoreItemsList = new List<byte>();
-                // Populate legalStoreItemsList base items
-                for (int lnI = 0; lnI < legalStoreItems.Length; lnI++)
-                {
-                    legalStoreItemsList.Add(legalStoreItems[lnI]);
-                }
-
-                // Add Stone of Life to Item Shop Items
-                if(chk_StoneofLife.Checked == true && chk_StoneofLife.Enabled == true)
-                {
-                    legalStoreItemsList.Add(0x55);
-                }
-                // Add Seeds to Item Shop Items
-                if(chk_Seeds.Checked == true && chk_Seeds.Enabled)
-                {
-                    legalStoreItemsList.Add(0x5f);
-                    legalStoreItemsList.Add(0x60);
-                    legalStoreItemsList.Add(0x61);
-                    legalStoreItemsList.Add(0x62);
-                    legalStoreItemsList.Add(0x63);
-                    legalStoreItemsList.Add(0x64);
-                }
-                // Add Book of Satori to Item Shop Items
-                if(chk_BookofSatori.Checked == true && chk_BookofSatori.Enabled == true)
-                {
-                    legalStoreItemsList.Add(0x4c);
-                }
-                // Add Ring of Life to Item Shop Items
-                if(chk_RingofLife.Checked == true && chk_RingofLife.Enabled == true)
-                {
-                    legalStoreItemsList.Add(0x48);
-                }
-                // Add Echoing Flute to Item Shop Items
-                if(chk_EchoingFlute.Checked == true && chk_EchoingFlute.Enabled == true)
-                {
-                    legalStoreItemsList.Add(0x6f);
-                }
-                // Add Silver Harp to Item Shop Items
-                if(chk_SilverHarp.Checked == true && chk_SilverHarp.Enabled == true)
-                {
-                    legalStoreItemsList.Add(0x71);
-                }
-                // Add Shoes of Happiness to Item Shop Items
-                if(chk_ShoesofHappiness.Checked == true && chk_ShoesofHappiness.Enabled == true)
-                {
-                    legalStoreItemsList.Add(0x49);
-                }
-                // Add Meterorite Armband to Item Shop Items
-                if(chk_MeteoriteArmband.Checked == true && chk_MeteoriteArmband.Enabled == true)
-                {
-                    legalStoreItemsList.Add(0x4b);
-                }
-                if(chk_WizardsRing.Checked == true && chk_WizardsRing.Enabled == true)
-                {
-                    legalStoreItemsList.Add(0x4e);
-                }
-                if (chk_LampofDarkness.Checked == true && chk_LampofDarkness.Enabled == true)
-                {
-                    legalStoreItemsList.Add(0x53);
-                }
-                if (chk_LeafoftheWorldTree.Checked == true && chk_LeafoftheWorldTree.Enabled == true)
-                {
-                    legalStoreItemsList.Add(0x69);
-                }
-                if (chk_PoisonMothPowder.Checked == true && chk_PoisonMothPowder.Enabled == true)
-                {
-                    legalStoreItemsList.Add(0x73);
-                }
-
-                int[] weaponStores = { 0x36838, 0x3683f, 0x36846, 0x3684d, 0x36854, 0x3685b, 0x36862, 0x36869, 0x3686e, 0x36874, 0x3687a, 0x36880, 0x36887, 0x3688d, 0x36893, 0x3689a, 0x368a1, 0x368a7, 0x368ae }; // 42
-                int[] itemStores = { 0x368b4, 0x368b7, 0x368be, 0x368c4, 0x368ca, 0x368d0, 0x368d6, 0x368db, 0x368e0, 0x368e2, 0x368e6, 0x368ec, 0x368f2, 0x368f4, 0x368fa, 0x368ff, 0x36905, 0x36908, 0x3690e, 0x36914, 0x3691a, 0x36920, 0x36927, 0x3692b }; // 22
-
-                if (chk_RandomizeWeaponShops.Checked == true)
-                {
-                    for (int lnI = 0; lnI < weaponStores.Length; lnI++)
-                    {
-                        List<int> store = new List<int> { };
-                        bool lastItem = false;
-                        int byteToUse = weaponStores[lnI];
-                        int lnJ = 0;
-                        do
-                        {
-                            if (romData[byteToUse + lnJ] >= 128)
-                                lastItem = true;
-                            romData[byteToUse + lnJ] = legalStoreWeapons[r1.Next() % legalStoreWeapons.Length];
-                            bool failure = false;
-                            for (int lnK = 0; lnK < lnJ; lnK++)
-                                if (romData[byteToUse + lnJ] == romData[byteToUse + lnK])
-                                    failure = true;
-                            if (lastItem)
-                                romData[byteToUse + lnJ] += 128;
-                            if (failure)
-                            {
-                                lastItem = false;
-                                continue;
-                            }
-                            lnJ++;
-                        } while (!lastItem);
-                    }
-                    if (chk_Caturday.Checked == true)
-                    {
-                        Random caturday = new Random(int.Parse(txtSeed.Text));
-
-                        int[] catWeaponStores = { 0x36838, 0x3683f, 0x36846, 0x3684d, 0x36854, 0x3685b, 0x36869, 0x3686e, 0x36874, 0x36880, 0x36887, 0x3688d, 0x36893, 0x3689a, 0x368a1, 0x368a7, 0x368ae };
-                        int selectStore = caturday.Next() % catWeaponStores.Length;
-                        romData[catWeaponStores[selectStore]] = 0x2a;
-                    }
-                }
-                if (chkRandItemStores.Checked == true)
-                {
-                    for (int lnI = 0; lnI < itemStores.Length; lnI++)
-                    {
-                        List<int> store = new List<int> { };
-                        bool lastItem = false;
-                        int byteToUse = itemStores[lnI];
-                        int lnJ = 0;
-                        do
-                        {
-                            if (romData[byteToUse + lnJ] >= 128)
-                                lastItem = true;
-                            romData[byteToUse + lnJ] = legalStoreItemsList[r1.Next() % legalStoreItemsList.Count];
-                            bool failure = false;
-                            for (int lnK = 0; lnK < lnJ; lnK++)
-                                if (romData[byteToUse + lnJ] == romData[byteToUse + lnK])
-                                    failure = true;
-                            if (lastItem)
-                                romData[byteToUse + lnJ] += 128;
-                            if (failure)
-                            {
-                                lastItem = false;
-                                continue;
-                            }
-                            lnJ++;
-                        } while (!lastItem);
-                    }
-                }
-                //int[] storeItems = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                //                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                //                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                //                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                //                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                //                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                //                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                //                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                //                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                //                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                //                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                //                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                //                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                //                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                //                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                //                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-                //List<int> itemStore = new List<int>();
-                //List<int> weaponStore = new List<int>();
-                //for (int lnI = 0; lnI < 248; lnI++)
-                //    romData[0x36838 + lnI] = (byte)(legalStoreItems[(r1.Next() % legalStoreItems.Length)]);
-
-                //int[] weaponStoreLocations = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 247 };
-
-                //int lnMarker = -1;
-                //// Need to make sure this doesn't exceed 11
-                //int average = 248 / weaponStoreLocations.Length;
-                //for (int lnI = 0; lnI < weaponStoreLocations.Length - 1; lnI++)
-                //{
-                //    int storeSize = average;
-                //    storeSize += (-3 + (r1.Next() % 7));
-                //    if (storeSize > 12 || average >= 10)
-                //        storeSize = 12;
-                //    lnMarker += storeSize;
-                //    weaponStoreLocations[lnI] = lnMarker;
-                //    int avgPart1 = 248 - lnMarker + 1;
-                //    int avgPart2 = weaponStoreLocations.Length - lnI - 1;
-                //    average = ((248 - lnMarker + 1) / (weaponStoreLocations.Length - lnI - 1));
-                //}
-
-                //// Now we can plug in the numbers...
-                //for (int lnI = 0; lnI < weaponStoreLocations.Length; lnI++)
-                //    romData[0x36838 + weaponStoreLocations[lnI]] += 128;
-
-                //// Go through each of the stores and check for duplicates.
-                //int startStore = 0;
-                //List<int> storeContents = new List<int> { };
-                //for (int lnI = 0; lnI < 248; lnI++)
-                //{
-                //    bool lastItem = (romData[0x36838 + lnI] >= 128);
-                //    int itemToCompare = (romData[0x36838 + lnI] >= 128 ? romData[0x36838 + lnI] - 128 : romData[0x36838 + lnI]);
-                //    if (storeContents.Contains(itemToCompare))
-                //    {
-                //        romData[0x36838 + lnI] = (byte)((lastItem ? 128 : 0) + legalStoreItems[r1.Next() % legalStoreItems.Length]);
-                //        lnI = startStore - 1;
-                //        storeContents.Clear();
-                //        continue;
-                //    }
-                //    storeContents.Add(itemToCompare);
-                //    if (lastItem)
-                //    {
-                //        storeContents.Clear();
-                //        startStore = lnI + 1;
-                //    }
-                //}
-
-                // Inn prices randomized
-                if (chk_RandomizeInnPrices.Checked == true)
-                {
-                    for (int lnI = 0; lnI < 26; lnI++)
-                    {
-                        int innPrice = (r1.Next() % 20) + 1;
-                        romData[0x367c1 + lnI] -= (byte)(romData[0x367c1 + lnI] % 32);
-                        romData[0x367c1 + lnI] += (byte)innPrice;
-                    }
-                }
-            }
-
-            if (chkRandStatGains.Checked)
-            {
-                //// Randomize starting stats.
-                // Give each hero from 22HP (min for Wizard) to about 36 HP.  (Hero)  Just so everybody has a chance!
-                romData[0x1eed7] = (byte)((r1.Next() % 13) + 5 + 9);
-                // Remove the baseline for HP...
-                romData[0x24f4] = 0xea;
-                romData[0x24f5] = 0x4c;
-                romData[0x24f6] = 0xfa;
-                romData[0x24f7] = 0xa4;
-                // ... and MP...
-                romData[0x2555] = 0xea;
-                romData[0x2556] = 0x4c;
-                romData[0x2557] = 0x5b;
-                romData[0x2558] = 0xa5;
-                // ... and the rest!  But we also need to prevent someone gaining 200 points in a stat...
-                romData[0x247c] = 0xa9;
-                romData[0x247d] = 0x00;
-                romData[0x247e] = 0x8d;
-                romData[0x247f] = 0x05;
-                romData[0x2480] = 0x00;
-                romData[0x2481] = 0x4c;
-                romData[0x2482] = 0x7d;
-                romData[0x2483] = 0xa4;
-
-                // TRY TWO
-                // Max array:  [7, 5]
-                // ORDER:  Hero, Wizard, Pilgrim, Sage, Soldier, Merchant, Fighter, Goof-off
-                int[,] heroL41Gains = new int[,] {
-                               { 134, 77, 166, 121, 69 },
-                               { 33, 125, 106, 143, 108 },
-                               { 55, 79, 110, 120, 107 },
-                               { 80, 90, 127, 79, 97 },
-                               { 149, 37, 191, 32, 33 },
-                               { 96, 75, 122, 54, 60 },
-                               { 188, 191, 143, 145, 43 },
-                               { 36, 47, 84, 210, 52 }
-                               }; 
-
-                //heroL41Gains[8, 0] = 0;
-                // Randomize the four multipliers from 8 to 32.  Each multiplier has six bytes.
-                for (int lnI = 0; lnI < 2; lnI++)
-                    for (int lnJ = 0; lnJ < 5; lnJ++)
-                    {
-                        int byteToUse2 = 0x281b + (lnI * 5) + lnJ;
-                        romData[byteToUse2] = (byte)(((r1.Next() % 4) + 1) * 8);
-                    }
-
-                // Randomize the levels to the next multiplier from 0 to 24.(First 4 bytes)  Always make the 5th byte "99" (63 hex).
-                // Calculate the base gain based on the four multipliers.  Try to get as close to the target gain for each stat as possible.
-                // Char byteToUse - 0x4a15b, 0x4a17f, 0x4a1a3, 0x4a1c7, 0x4a1eb, 0x4a20f, 0x4a22d, 0x4a24b
-                int byteToUse = 0x290e;
-                // 40 bytes for strength, 40 bytes for agility, 40 bytes for vitality, 40 bytes for luck, 40 bytes for intelligence, in that order.  NOT in character order, statistic order!
-                for (int lnJ = 0; lnJ < 5; lnJ++)
-                {
-                    for (int lnI = 0; lnI < 8; lnI++)
-                    {
-                        if (optMonsterSilly.Checked || optMonsterMedium.Checked)
-                        {
-                            int randomDir = (r1.Next() % 3);
-                            int difference = heroL41Gains[lnI, lnJ] / (optMonsterSilly.Checked ? 4 : 2);
-                            if (randomDir == 0)
-                                heroL41Gains[lnI, lnJ] -= (r1.Next() % difference);
-                            if (randomDir == 1)
-                                heroL41Gains[lnI, lnJ] += (r1.Next() % difference);
-                        }
-                        if (optMonsterHeavy.Checked)
-                        {
-                            if (lnJ == 2)
-                                heroL41Gains[lnI, lnJ] = (r1.Next() % (lnI == 0 || lnI >= 4 ? 140 : 170)) + (lnI == 0 || lnI >= 4 ? 110 : 80);
-                            else if (lnJ == 0)
-                                heroL41Gains[lnI, lnJ] = (r1.Next() % (lnI == 0 || lnI >= 4 ? 180 : 220)) + (lnI == 0 || lnI >= 4 ? 70 : 30);
-                            else
-                                heroL41Gains[lnI, lnJ] = (r1.Next() % (lnJ == 4 && lnI <= 3 ? 180 : 210) + (lnJ == 4 && lnI <= 3 ? 70 : 40));
-                        }
-
-                        int[] levels = { 0, 0, 0, 0, 99 };
-                        for (int lnK = 0; lnK < 4; lnK++)
-                            levels[lnK] = (byte)(r1.Next() % 50);
-                        Array.Sort(levels);
-                        //for (int lnK = 0; lnK < 4; lnK++)
-                        //{
-                        //    if ((lnK == 0 && baseStat % 2 == 1) || (lnK == 1 && baseStat % 4 >= 2) || (lnK == 2 && baseStat % 8 >= 4) || (lnK == 3 && baseStat % 16 >= 8))
-                        //        romData[byteToUse + lnK] = (byte)(128 + levels[lnK]);
-                        //    else
-                        //        romData[byteToUse + lnK] = (byte)(levels[lnK]);
-                        //}
-
-                        //if (baseStat >= 16)
-                        //    romData[byteToUse + 4] = 99 + 128;
-                        //else
-                        //    romData[byteToUse + 4] = 99;
-
-                        // Averages:  8-16 = .6/level, 24-32 = 1.6/level, 40-48 = 2.6/level, 56-64 = 3.6/level, 72-80 = 4.6/level, 88-96 = 5.6/level, 104-112 = 6.6/level
-                        // Maximize base stat at 12 (5.6/level at 8 multiplier)
-                        // Now to figure out the multiplier to use (+ 0) and the base multiplier (+ 5)
-                        double[] diffs = { 0.0, 0.0, 0.0, 0.0 };
-                        int[] baseMult = { 0, 0, 0, 0 };
-                        for (int lnK = 0; lnK < 2; lnK++)
-                        {
-                            for (baseMult[lnK] = 1; baseMult[lnK] <= 12; baseMult[lnK]++)
-                            {
-                                int byteToUse2 = 0x281b + (lnK * 5); // multipliers
-                                double stat = 0.0;
-                                int multLevel = 0;
-
-                                for (int lnL = 2; lnL <= 40; lnL++)
-                                {
-                                    int multLevelToUse = (levels[multLevel]);
-                                    if (lnL > multLevelToUse)
-                                        multLevel++;
-                                    stat += Math.Floor((((double)baseMult[lnK] * romData[byteToUse2 + multLevel]) - 8) / 16) + 0.85;
-                                }
-                                //baseMult[lnK] = (int)Math.Round(heroL41Gains[lnI, lnJ] / stat);
-                                diffs[lnK] = Math.Abs(stat - heroL41Gains[lnI, lnJ]);
-                                if (stat > heroL41Gains[lnI, lnJ]) break;
-                            }
-                        }
-
-                        double lowDiff = 9999;
-                        int lowMult = 0;
-                        int ultiBaseMult = 0;
-                        for (int lnK = 0; lnK < 2; lnK++)
-                        {
-                            if (diffs[lnK] < lowDiff)
-                            {
-                                lowDiff = diffs[lnK];
-                                lowMult = lnK;
-                                ultiBaseMult = baseMult[lnK];
-                            }
-                        }
-
-                        romData[byteToUse] = (byte)((lowMult == 0 ? 0 : 128) + levels[0]);
-                        romData[byteToUse + 1] = (byte)((ultiBaseMult >= 8 ? 128 : 0) + (levels[1] - levels[0]));
-                        romData[byteToUse + 2] = (byte)((ultiBaseMult % 8 >= 4 ? 128 : 0) + (levels[2] - levels[1]));
-                        romData[byteToUse + 3] = (byte)((ultiBaseMult % 4 >= 2 ? 128 : 0) + (levels[3] - levels[2]));
-                        romData[byteToUse + 4] = (byte)((ultiBaseMult % 2 >= 1 ? 128 : 0) + 127);
-
-                        //romData[byteToUse] += (byte)(32 * lowMult);
-                        //romData[byteToUse + 5] = (byte)ultiBaseMult;
-
-                        byteToUse += 5;
-                    }
-                }
-                //int asdf = 1234;
-                //overrideStats();
-
-
-                //romData[0x2480] = 0xea;
-
-                // TRY ONE
-
-                //// Randomize stat gains.
-                //// First, we'll randomize the multipliers.  They will range from 4 to 20, in multiples of 4.
-
-                //for (int lnI = 0; lnI < 10; lnI++)
-                //    romData[0x281b + lnI] = (byte)(((r1.Next() % 5) + 1) * 4);
-
-                //// ORDER:  Strength, agility, vitality, luck, intelligence - set max for each class.  Strength, agility, vitality, luck, intelligence
-                //int[] statAdjust = { 160, 120, 215, 155, 115, // Hero
-                //               60, 185, 135, 180, 135, // Wizard
-                //               95, 110, 130, 165, 135, // Pilgrim
-                //               125, 130, 120, 125, 130, // Sage
-                //               175, 70, 220, 45, 50, // Soldier
-                //               125, 115, 145, 105, 85, // Merchant
-                //               235, 220, 183, 185, 52, // Fighter
-                //               70, 85, 110, 255, 90}; // Goof-off
-
-                //for (int lnI = 0; lnI < 40; lnI++)
-                //{
-                //    int[] levels = { (r1.Next() % 50), (r1.Next() % 50), (r1.Next() % 50), (r1.Next() % 50) };
-                //    for (int lnJ = 0; lnJ < 3; lnJ++)
-                //        for (int lnK = lnJ; lnK < 4; lnK++)
-                //            if (levels[lnJ] > levels[lnK])
-                //            {
-                //                int temp = levels[lnJ];
-                //                levels[lnJ] = levels[lnK];
-                //                levels[lnK] = temp;
-                //            }
-
-                //    bool multA = (r1.Next() % 2 == 1);
-                //    // Determine maximum base stat for the stats in mind.  Remember... average gain = base * mult / 13.75
-                //    double attribute = 0;
-
-                //    for (int lnJ = 0; lnJ < 50; lnJ++)
-                //    {
-                //        int levelToUse = (multA ? 0 : 5) + (lnJ < levels[0] ? 0 : lnJ < levels[1] ? 1 : lnJ < levels[2] ? 2 : lnJ < levels[3] ? 3 : 4);
-                //        attribute += (romData[0x281b + levelToUse] / 13.75);
-                //    }
-                //    // This final attribute is if base = 1.  Calculate the base on the stats above.  Adjust -50% to +100%
-                //    int maxStat = statAdjust[lnI];
-                //    int statRandom = (r1.Next() % 3);
-                //    if (statRandom == 0)
-                //    {
-                //        maxStat -= (r1.Next() % (maxStat / 2));
-                //    } else if (statRandom == 2)
-                //    {
-                //        maxStat += (r1.Next() % (maxStat * 2));
-                //    }
-
-                //    int newBase = (int)Math.Round(maxStat / attribute);
-
-                //    if (newBase < 1)
-                //        newBase = 1;
-                //    if (newBase > 15)
-                //        newBase = 15;
-
-                //    //if (lnI >= 16 && lnI < 24 && newBase < (int)Math.Ceiling((double)maxBase / 3))
-                //    //    newBase = (int)Math.Ceiling((double)maxBase / 3); // Vitality base REALLY needs to be 1/3 max or greater or you'll never survive.
-                //    //if (lnI >= 32 && lnI < 36 && newBase < (int)Math.Ceiling((double)maxBase / 3))
-                //    //    newBase = (int)Math.Ceiling((double)maxBase / 3); // Intelligence base REALLY needs to be 1/3 max or greater or you'll never get MP.
-                //    if (lnI >= 36 && lnI < 40)
-                //        newBase = 0; // Give out no intelligence to non-MP users.
-                //                     //int charLevel = 0;
-                //    for (int lnJ = 0; lnJ < 5; lnJ++)
-                //    {
-                //        if (lnJ == 0) // Determine Multiplier path A or B with byte 0.
-                //            romData[0x290e + (lnI * 5) + lnJ] = (byte)(!multA ? 128 : 0); // (byte)(lnI >= 16 && lnI < 24 ? 128 : 0);
-                //        if (lnJ == 1)
-                //            romData[0x290e + (lnI * 5) + lnJ] = (byte)(newBase >= 8 ? 128 : 0);
-                //        if (lnJ == 2)
-                //            romData[0x290e + (lnI * 5) + lnJ] = (byte)(newBase % 8 >= 4 ? 128 : 0);
-                //        if (lnJ == 3)
-                //            romData[0x290e + (lnI * 5) + lnJ] = (byte)(newBase % 4 >= 2 ? 128 : 0);
-                //        if (lnJ == 4)
-                //            romData[0x290e + (lnI * 5) + lnJ] = (byte)(newBase % 2 == 1 ? 255 : 127);
-
-                //        if (lnJ <= 3)
-                //        {
-                //            int prevLevel = (lnJ == 0 ? 0 : levels[lnJ - 1]);
-                //            int lvlsToNext = 0;
-                //            if (lnJ == 0)
-                //                lvlsToNext = levels[lnJ];
-                //            else
-                //                lvlsToNext = levels[lnJ] - levels[lnJ - 1];
-
-                //            romData[0x290e + (lnI * 5) + lnJ] += (byte)(lvlsToNext);
-                //        }
-                //    }
-                //}
-            }
         }
 
         private int[] inverted_power_curve(int min, int max, int arraySize, double powToUse, Random r1)
@@ -8046,6 +7734,7 @@ namespace DW3Randomizer
             }
             return writer;
         }
+
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (txtFileName.Text != "")
@@ -8054,6 +7743,8 @@ namespace DW3Randomizer
                 {
                     writer.WriteLine(txtFileName.Text);
                     writer.WriteLine(txtFlags.Text);
+                    writer.WriteLine(chk_ChangeDefaultParty.Checked);
+                    writer.WriteLine(chk_RandomName.Checked);
                     writer.WriteLine(txtCharName1.Text);
                     writer.WriteLine(txtCharName2.Text);
                     writer.WriteLine(txtCharName3.Text);
@@ -8154,22 +7845,25 @@ namespace DW3Randomizer
         {
             string flags = txtFlags.Text;
             int number = convertChartoInt(Convert.ToChar(flags.Substring(0, 1)));
+            chk_GenCompareFile.Checked = (number % 2 == 1);
+
+            number = convertChartoInt(Convert.ToChar(flags.Substring(1, 1)));
             cboExpGains.SelectedIndex = (number % 8);
             cboEncounterRate.SelectedIndex = (number / 8);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(1, 1)));
+            number = convertChartoInt(Convert.ToChar(flags.Substring(2, 1)));
             cboGoldReq.SelectedIndex = (number % 4);
             chkFasterBattles.Checked = (number % 8 >= 4);
             chkSpeedText.Checked = (number % 16 >= 8);
             chk_SpeedUpMenus.Checked = (number % 32 >= 16);
             chk_Cod.Checked = (number >= 32);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(2, 1)));
+            number = convertChartoInt(Convert.ToChar(flags.Substring(3, 1)));
             chk_WeapArmPower.Checked = (number % 2 == 1);
             chkNoLamiaOrbs.Checked = (number % 4 >= 2);
             chk_RmManip.Checked = (number % 8 >= 4);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(3, 1)));
+            number = convertChartoInt(Convert.ToChar(flags.Substring(4, 1)));
             optMonsterLight.Checked = (number % 4 == 0);
             optMonsterSilly.Checked = (number % 4 == 1);
             optMonsterMedium.Checked = (number % 4 == 2);
@@ -8179,13 +7873,13 @@ namespace DW3Randomizer
             chkRandEnemyPatterns.Checked = (number % 32 >= 16);
             chk_RemMetalMonRun.Checked = (number >= 32);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(4, 1)));
+            number = convertChartoInt(Convert.ToChar(flags.Substring(5, 1)));
             chkRandomizeMap.Checked = (number % 2 == 1);
             chkSmallMap.Checked = (number % 4 >= 2);
             chk_SepBarGaia.Checked = (number % 8 >= 4);
             chkRandMonsterZones.Checked = (number % 16 >= 8);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(5, 1)));
+            number = convertChartoInt(Convert.ToChar(flags.Substring(6, 1)));
             chkRandTreasures.Checked = (number % 2 == 1);
             chk_GoldenClaw.Checked = (number % 4 >= 2);;
             chkRandWhoCanEquip.Checked = (number % 8 >= 4);
@@ -8193,10 +7887,10 @@ namespace DW3Randomizer
             chk_UseVanEquipValues.Checked = (number % 32 >= 16);
             chk_RemoveStartEqRestrictions.Checked = (number >= 32);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(6, 1)));
+            number = convertChartoInt(Convert.ToChar(flags.Substring(7, 1)));
             chk_RmFighterPenalty.Checked = (number % 2 == 1);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(7, 1)));
+            number = convertChartoInt(Convert.ToChar(flags.Substring(8, 1)));
             //chkRandItemEffects.Checked = (number % 2 == 1);
             chkRandItemEffects.Checked = false;
             chkRandItemStores.Checked = (number % 4 >= 2);
@@ -8204,7 +7898,7 @@ namespace DW3Randomizer
             chk_Caturday.Checked = (number % 16 >= 8);
             chk_RandomizeInnPrices.Checked = (number % 32 >= 16);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(8, 1)));
+            number = convertChartoInt(Convert.ToChar(flags.Substring(9, 1)));
             chk_StoneofLife.Checked = (number % 2 == 1);
             chk_Seeds.Checked = (number % 4 >= 2);
             chk_BookofSatori.Checked = (number % 8 >= 4);
@@ -8212,7 +7906,7 @@ namespace DW3Randomizer
             chk_EchoingFlute.Checked = (number % 32 >= 16);
             chk_SilverHarp.Checked = (number >= 32);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(9, 1)));
+            number = convertChartoInt(Convert.ToChar(flags.Substring(10, 1)));
             chk_LeafoftheWorldTree.Checked = (number % 2 == 1);
             chk_ShoesofHappiness.Checked = (number % 4 >= 2);
             chk_MeteoriteArmband.Checked = (number % 8 >= 4);
@@ -8220,15 +7914,15 @@ namespace DW3Randomizer
             chk_LampofDarkness.Checked = (number % 32 >= 16);
             chk_PoisonMothPowder.Checked = (number >= 32);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(10, 1)));
-            chk_RandomName.Checked = (number % 2 == 1);
+            number = convertChartoInt(Convert.ToChar(flags.Substring(11, 1)));
+            //chk_RandomName.Checked = (number % 2 == 1);
             chk_RandomGender.Checked = (number % 4 >= 2);
             chk_RandomClass.Checked = (number % 8 >= 4);
             chk_RandSoldier.Checked = (number % 16 >= 8);
             chk_RandPilgrim.Checked = (number % 32 >= 16);
             chk_RandWizard.Checked = (number >= 32);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(11, 1)));
+            number = convertChartoInt(Convert.ToChar(flags.Substring(12, 1)));
             chk_RandFighter.Checked = (number % 2 == 1);
             chk_RandMerchant.Checked = (number % 4 >= 2);
             chk_RandGoofOff.Checked = (number % 8 >= 4);
@@ -8236,12 +7930,12 @@ namespace DW3Randomizer
             chk_RandHero.Checked = (number % 32 >= 16);
             chkRandStatGains.Checked = (number >= 32);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(12, 1)));
+            number = convertChartoInt(Convert.ToChar(flags.Substring(13, 1)));
             chkRandSpellLearning.Checked = (number % 2 == 1);
             chkRandSpellStrength.Checked = (number % 4 >= 2);
             chkFourJobFiesta.Checked = (number % 8 >= 4);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(13, 1)));
+            number = convertChartoInt(Convert.ToChar(flags.Substring(14, 1)));
             chkRemoveParryFight.Checked = (number % 2 == 1);
         }
 
@@ -8250,6 +7944,7 @@ namespace DW3Randomizer
             if (loading) return;
 
             string flags = "";
+            flags += convertIntToChar((chk_GenCompareFile.Checked ? 1 : 0));
             flags += convertIntToChar(cboExpGains.SelectedIndex + (8 * cboEncounterRate.SelectedIndex));
             flags += convertIntToChar((cboGoldReq.SelectedIndex) + (chkFasterBattles.Checked ? 4 : 0) + (chkSpeedText.Checked ? 8 : 0) + (chk_SpeedUpMenus.Checked ? 16 : 0) + (chk_Cod.Checked ? 32 : 0));
             flags += convertIntToChar((chk_WeapArmPower.Checked ? 1 : 0) + (chkNoLamiaOrbs.Checked ? 2 : 0) + (chk_RmManip.Checked ? 4 : 0));
@@ -8260,8 +7955,8 @@ namespace DW3Randomizer
             flags += convertIntToChar((chkRandItemEffects.Checked ? 1 : 0) + (chkRandItemStores.Checked ? 2 : 0) + (chk_RandomizeWeaponShops.Checked ? 4 : 0) + (chk_Caturday.Checked ? 8 : 0) + (chk_RandomizeInnPrices.Checked ? 16 : 0));
             flags += convertIntToChar((chkRandItemStores.Checked ? (chk_StoneofLife.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_Seeds.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_BookofSatori.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_RingofLife.Checked ? 8 : 0) : 0) + (chkRandItemStores.Checked ? (chk_EchoingFlute.Checked ? 16 : 0) : 0) + (chkRandItemStores.Checked ? (chk_SilverHarp.Checked ? 32 : 0) : 0));
             flags += convertIntToChar((chkRandItemStores.Checked ? (chk_LeafoftheWorldTree.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_ShoesofHappiness.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_MeteoriteArmband.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_WizardsRing.Checked ? 8 : 0) : 0) + (chkRandItemStores.Checked ? (chk_LampofDarkness.Checked ? 16 : 0) : 0) + (chkRandItemStores.Checked ? (chk_PoisonMothPowder.Checked ? 32 : 0) : 0));
-            flags += convertIntToChar((chk_RandomName.Checked ? 1 : 0) + (chk_RandomGender.Checked ? 2 : 0) + (chk_RandomClass.Checked ? 4 : 0) + (chk_RandomClass.Checked ? (chk_RandSoldier.Checked ? 8 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandPilgrim.Checked ? 16 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandWizard.Checked ? 32 : 0) : 0));
-            flags += convertIntToChar((chk_RandomClass.Checked ? (chk_RandFighter.Checked ? 1 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandMerchant.Checked ? 2 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandGoofOff.Checked ? 4 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandSage.Checked ? 8 : 0) : 0) + (chk_RandomClass.Checked ? (chk_RandHero.Checked ? 16 : 0) : 0) + (chkRandStatGains.Checked ? 32 : 0));
+            flags += convertIntToChar(/*(chk_ChangeDefaultParty.Checked ? (chk_RandomName.Checked ? 1 : 0) :0) + */(chk_ChangeDefaultParty.Checked ? (chk_RandomGender.Checked ? 2 : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? 4 : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandSoldier.Checked ? 8 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandPilgrim.Checked ? 16 : 0) : 0) :0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandWizard.Checked ? 32 : 0) : 0) : 0));
+            flags += convertIntToChar((chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandFighter.Checked ? 1 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandMerchant.Checked ? 2 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandGoofOff.Checked ? 4 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandSage.Checked ? 8 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandHero.Checked ? 16 : 0) : 0) : 0) + (chkRandStatGains.Checked ? 32 : 0));
             flags += convertIntToChar((chkRandSpellLearning.Checked ? 1 : 0) + (chkRandSpellStrength.Checked ? 2 : 0) + (chkFourJobFiesta.Checked ? 4 : 0));
             flags += convertIntToChar((chkRemoveParryFight.Checked ? 1 : 0));
 
@@ -8310,25 +8005,55 @@ namespace DW3Randomizer
             var filePaths = (string[])e.Data.GetData(DataFormats.FileDrop);
             txtFileName.Text = filePaths[0];
         }
+
         private void enableDisableFields(object sender, DragEventArgs e)
         {
-            this.txtCharName1.Visible = !this.chk_RandomName.Checked;
-            this.txtCharName2.Visible = !this.chk_RandomName.Checked;
-            this.txtCharName3.Visible = !this.chk_RandomName.Checked;
-            this.cboClass1.Visible = !this.chk_RandomClass.Checked;
-            this.cboClass2.Visible = !this.chk_RandomClass.Checked;
-            this.cboClass3.Visible = !this.chk_RandomClass.Checked;
-            this.cboGender1.Visible = !this.chk_RandomGender.Checked;
-            this.cboGender2.Visible = !this.chk_RandomGender.Checked;
-            this.cboGender3.Visible = !this.chk_RandomGender.Checked;
-            this.chk_RandSoldier.Visible = this.chk_RandomClass.Checked;
-            this.chk_RandPilgrim.Visible = this.chk_RandomClass.Checked;
-            this.chk_RandWizard.Visible = this.chk_RandomClass.Checked;
-            this.chk_RandFighter.Visible = this.chk_RandomClass.Checked;
-            this.chk_RandMerchant.Visible = this.chk_RandomClass.Checked;
-            this.chk_RandGoofOff.Visible = this.chk_RandomClass.Checked;
-            this.chk_RandSage.Visible = this.chk_RandomClass.Checked;
-            this.chk_RandHero.Visible = this.chk_RandomClass.Checked;
+            if (chk_ChangeDefaultParty.Checked == false)
+            {
+                this.txtCharName1.Visible = false;
+                this.txtCharName2.Visible = false;
+                this.txtCharName3.Visible = false;
+                this.cboClass1.Visible = false;
+                this.cboClass2.Visible = false;
+                this.cboClass3.Visible = false;
+                this.cboGender1.Visible = false;
+                this.cboGender2.Visible = false;
+                this.cboGender3.Visible = false;
+                this.chk_RandSoldier.Visible = false;
+                this.chk_RandPilgrim.Visible = false;
+                this.chk_RandWizard.Visible = false;
+                this.chk_RandFighter.Visible = false;
+                this.chk_RandMerchant.Visible = false;
+                this.chk_RandGoofOff.Visible = false;
+                this.chk_RandSage.Visible = false;
+                this.chk_RandHero.Visible = false;
+                this.chk_RandomName.Visible = false;
+                this.chk_RandomClass.Visible = false;
+                this.chk_RandomGender.Visible = false;
+            }
+            else
+            {
+                this.txtCharName1.Visible = !this.chk_RandomName.Checked;
+                this.txtCharName2.Visible = !this.chk_RandomName.Checked;
+                this.txtCharName3.Visible = !this.chk_RandomName.Checked;
+                this.cboClass1.Visible = !this.chk_RandomClass.Checked;
+                this.cboClass2.Visible = !this.chk_RandomClass.Checked;
+                this.cboClass3.Visible = !this.chk_RandomClass.Checked;
+                this.cboGender1.Visible = !this.chk_RandomGender.Checked;
+                this.cboGender2.Visible = !this.chk_RandomGender.Checked;
+                this.cboGender3.Visible = !this.chk_RandomGender.Checked;
+                this.chk_RandSoldier.Visible = this.chk_RandomClass.Checked;
+                this.chk_RandPilgrim.Visible = this.chk_RandomClass.Checked;
+                this.chk_RandWizard.Visible = this.chk_RandomClass.Checked;
+                this.chk_RandFighter.Visible = this.chk_RandomClass.Checked;
+                this.chk_RandMerchant.Visible = this.chk_RandomClass.Checked;
+                this.chk_RandGoofOff.Visible = this.chk_RandomClass.Checked;
+                this.chk_RandSage.Visible = this.chk_RandomClass.Checked;
+                this.chk_RandHero.Visible = this.chk_RandomClass.Checked;
+                this.chk_RandomGender.Visible = true;
+                this.chk_RandomClass.Visible = true;
+                this.chk_RandomName.Visible = true;
+            }
             this.lbl_ItemShops.Visible = this.chkRandItemStores.Checked;
             this.chk_BookofSatori.Visible = this.chkRandItemStores.Checked;
             this.chk_StoneofLife.Visible = this.chkRandItemStores.Checked;
