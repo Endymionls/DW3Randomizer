@@ -141,10 +141,10 @@ namespace DW3Randomizer
             this.label7 = new System.Windows.Forms.Label();
             this.txtFlags = new System.Windows.Forms.TextBox();
             this.adjustments = new System.Windows.Forms.ToolTip(this.components);
+            this.chk_GenCompareFile = new System.Windows.Forms.CheckBox();
             this.btnCopyChecksum = new System.Windows.Forms.Button();
             this.lblNewChecksum = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.chk_GenCompareFile = new System.Windows.Forms.CheckBox();
             this.grpMonsterStat.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -413,7 +413,7 @@ namespace DW3Randomizer
             this.chk_RmManip.AutoSize = true;
             this.chk_RmManip.Checked = true;
             this.chk_RmManip.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_RmManip.Location = new System.Drawing.Point(321, 149);
+            this.chk_RmManip.Location = new System.Drawing.Point(261, 102);
             this.chk_RmManip.Name = "chk_RmManip";
             this.chk_RmManip.Size = new System.Drawing.Size(133, 17);
             this.chk_RmManip.TabIndex = 29;
@@ -426,7 +426,7 @@ namespace DW3Randomizer
             // chk_WeapArmPower
             // 
             this.chk_WeapArmPower.AutoSize = true;
-            this.chk_WeapArmPower.Location = new System.Drawing.Point(321, 102);
+            this.chk_WeapArmPower.Location = new System.Drawing.Point(408, 9);
             this.chk_WeapArmPower.Name = "chk_WeapArmPower";
             this.chk_WeapArmPower.Size = new System.Drawing.Size(146, 17);
             this.chk_WeapArmPower.TabIndex = 27;
@@ -441,7 +441,7 @@ namespace DW3Randomizer
             this.chk_Cod.AutoSize = true;
             this.chk_Cod.Checked = true;
             this.chk_Cod.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_Cod.Location = new System.Drawing.Point(321, 78);
+            this.chk_Cod.Location = new System.Drawing.Point(261, 79);
             this.chk_Cod.Name = "chk_Cod";
             this.chk_Cod.Size = new System.Drawing.Size(147, 17);
             this.chk_Cod.TabIndex = 26;
@@ -454,7 +454,7 @@ namespace DW3Randomizer
             this.chk_SpeedUpMenus.AutoSize = true;
             this.chk_SpeedUpMenus.Checked = true;
             this.chk_SpeedUpMenus.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_SpeedUpMenus.Location = new System.Drawing.Point(321, 55);
+            this.chk_SpeedUpMenus.Location = new System.Drawing.Point(261, 56);
             this.chk_SpeedUpMenus.Name = "chk_SpeedUpMenus";
             this.chk_SpeedUpMenus.Size = new System.Drawing.Size(107, 17);
             this.chk_SpeedUpMenus.TabIndex = 25;
@@ -465,7 +465,7 @@ namespace DW3Randomizer
             // chkNoLamiaOrbs
             // 
             this.chkNoLamiaOrbs.AutoSize = true;
-            this.chkNoLamiaOrbs.Location = new System.Drawing.Point(321, 125);
+            this.chkNoLamiaOrbs.Location = new System.Drawing.Point(408, 32);
             this.chkNoLamiaOrbs.Name = "chkNoLamiaOrbs";
             this.chkNoLamiaOrbs.Size = new System.Drawing.Size(151, 17);
             this.chkNoLamiaOrbs.TabIndex = 28;
@@ -565,7 +565,7 @@ namespace DW3Randomizer
             this.chkSpeedText.AutoSize = true;
             this.chkSpeedText.Checked = true;
             this.chkSpeedText.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSpeedText.Location = new System.Drawing.Point(321, 32);
+            this.chkSpeedText.Location = new System.Drawing.Point(261, 33);
             this.chkSpeedText.Name = "chkSpeedText";
             this.chkSpeedText.Size = new System.Drawing.Size(115, 17);
             this.chkSpeedText.TabIndex = 24;
@@ -578,7 +578,7 @@ namespace DW3Randomizer
             this.chkFasterBattles.AutoSize = true;
             this.chkFasterBattles.Checked = true;
             this.chkFasterBattles.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkFasterBattles.Location = new System.Drawing.Point(321, 9);
+            this.chkFasterBattles.Location = new System.Drawing.Point(261, 10);
             this.chkFasterBattles.Name = "chkFasterBattles";
             this.chkFasterBattles.Size = new System.Drawing.Size(137, 17);
             this.chkFasterBattles.TabIndex = 23;
@@ -1482,6 +1482,7 @@ namespace DW3Randomizer
             this.chk_LowerCaseMenus.TabIndex = 0;
             this.chk_LowerCaseMenus.Text = "Lower Case Menus";
             this.chk_LowerCaseMenus.UseVisualStyleBackColor = true;
+            this.chk_LowerCaseMenus.Visible = false;
             // 
             // chk_FixSlimeSnail
             // 
@@ -1512,6 +1513,19 @@ namespace DW3Randomizer
             this.txtFlags.TabIndex = 6;
             this.txtFlags.Leave += new System.EventHandler(this.determineChecks);
             // 
+            // chk_GenCompareFile
+            // 
+            this.chk_GenCompareFile.AutoSize = true;
+            this.chk_GenCompareFile.Location = new System.Drawing.Point(16, 184);
+            this.chk_GenCompareFile.Name = "chk_GenCompareFile";
+            this.chk_GenCompareFile.Size = new System.Drawing.Size(134, 17);
+            this.chk_GenCompareFile.TabIndex = 201;
+            this.chk_GenCompareFile.Text = "Generate Compare File";
+            this.adjustments.SetToolTip(this.chk_GenCompareFile, "Generates compare file on build. This will adjust randomization to avoid spoilers" +
+        " (item locations, monster stats/spells.");
+            this.chk_GenCompareFile.UseVisualStyleBackColor = true;
+            this.chk_GenCompareFile.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
             // btnCopyChecksum
             // 
             this.btnCopyChecksum.Location = new System.Drawing.Point(530, 122);
@@ -1539,19 +1553,6 @@ namespace DW3Randomizer
             this.label14.Size = new System.Drawing.Size(82, 13);
             this.label14.TabIndex = 44;
             this.label14.Text = "New Checksum";
-            // 
-            // chk_GenCompareFile
-            // 
-            this.chk_GenCompareFile.AutoSize = true;
-            this.chk_GenCompareFile.Location = new System.Drawing.Point(16, 184);
-            this.chk_GenCompareFile.Name = "chk_GenCompareFile";
-            this.chk_GenCompareFile.Size = new System.Drawing.Size(134, 17);
-            this.chk_GenCompareFile.TabIndex = 201;
-            this.chk_GenCompareFile.Text = "Generate Compare File";
-            this.chk_GenCompareFile.UseVisualStyleBackColor = true;
-            this.adjustments.SetToolTip(this.chk_GenCompareFile, "Generates compare file on build. This will adjust randomization to avoid spoilers (item locations, monster stats/spells.");
-            this.chk_GenCompareFile.CheckedChanged += new System.EventHandler(this.determineFlags);
-
             // 
             // Form1
             // 
@@ -1583,7 +1584,7 @@ namespace DW3Randomizer
             this.Controls.Add(this.txtFileName);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Dragon Warrior III Randomizer 2.4.3 ~ 3/13/2023";
+            this.Text = "Dragon Warrior III Randomizer 2.4.3 ~ 3/16/2023";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.grpMonsterStat.ResumeLayout(false);
