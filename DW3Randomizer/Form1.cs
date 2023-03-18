@@ -3777,12 +3777,13 @@ namespace DW3Randomizer
                     // Line 1
                     romData[0xae86] = 0x36; // R
                     romData[0xae87] = 0x0f; // e
-                    romData[0xae89] = 0x20; // v
-                    romData[0xae8a] = 0x0f; // e
-                    romData[0xae8b] = 0x0b; // a
-                    romData[0xae8c] = 0x16; // l
-                    romData[0xae8d] = 0x37; // S
-                    romData[0xae8e] = 0x21; // w
+                    romData[0xae88] = 0x20; // v
+                    romData[0xae89] = 0x0f; // e
+                    romData[0xae8a] = 0x0b; // a
+                    romData[0xae8b] = 0x16; // l
+                    romData[0xae8c] = 0x37; // S
+                    romData[0xae8d] = 0x21; // w
+                    romData[0xae8e] = 0x17; // m
                     romData[0xae8f] = 0x1d; // s
                     romData[0xae90] = 0x1e; // t
                     romData[0xae91] = 0xff; // Break
