@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Deployment.Internal;
 using System.Text.RegularExpressions;
+using System.Diagnostics.Eventing.Reader;
 
 namespace DW3Randomizer
 {
@@ -117,6 +118,10 @@ namespace DW3Randomizer
                         chk_FixSlimeSnail.Checked = true;
                     else
                         chk_FixSlimeSnail.Checked = false;
+                    if (reader.ReadLine() == "True")
+                        chk_ChangeHeroAge.Checked = true;
+                    else
+                        chk_ChangeHeroAge.Checked = false;
                     runChecksum();
                 }
             }
@@ -218,6 +223,7 @@ namespace DW3Randomizer
                 if (chkRandItemStores.Checked) randStores(rni);
                 if (chk_RandomizeInnPrices.Checked) randomizeInnPrices(rni);
                 if (chkRandStatGains.Checked) randStatGains(rni);
+                if (chk_ChangeHeroAge.Checked) changeHeroAge(rni);
                 saveRom(true);
                 saveRom(false);
                 createGuides();
@@ -7093,8 +7099,8 @@ namespace DW3Randomizer
             romData[0x39c0c] = 0x1f;
             romData[0x39c0d] = 0x1c;
             romData[0x39c0e] = 0x0f;
-            romData[0x39d01] = 0x19;
-            romData[0x39d02] = 0x11;
+            romData[0x39c0f] = 0x19;
+            romData[0x39c10] = 0x11;
 
             //Continue a quest
             romData[0x39c25] = 0x19;
@@ -7586,6 +7592,151 @@ namespace DW3Randomizer
             }
         }
 
+        private void changeHeroAge(int rni)
+        {
+            Random r1 = new Random(int.Parse(txtSeed.Text));
+
+            for (int lnI = 0; lnI < rni; lnI++)
+            {
+                r1.Next();
+            }
+
+            int age = (r1.Next() % 99) + 1;
+            int tens = age / 10;
+            int ones = age % 10;
+            int offset = 0;
+
+            byte tensHex = 0x00;
+            byte onesHex = 0x00;
+
+            for (int lnI = 0; lnI < 10; lnI++)
+            {
+                if (tens == lnI)
+                {
+                    switch (tens)
+                    {
+                        case 0:
+                            tensHex = 0x01;
+                            break;
+                        case 1:
+                            tensHex = 0x02;
+                            break;
+                        case 2:
+                            tensHex = 0x03;
+                            break;
+                        case 3:
+                            tensHex = 0x04;
+                            break;
+                        case 4:
+                            tensHex = 0x05;
+                            break;
+                        case 5:
+                            tensHex = 0x06;
+                            break;
+                        case 6:
+                            tensHex = 0x07;
+                            break;
+                        case 7:
+                            tensHex = 0x08;
+                            break;
+                        case 8:
+                            tensHex = 0x09;
+                            break;
+                        case 9:
+                            tensHex = 0x0a;
+                            break;
+                    }
+                }
+                if (ones == lnI)
+                {
+                    switch (ones)
+                    {
+                        case 0:
+                            onesHex = 0x01;
+                            break;
+                        case 1:
+                            onesHex = 0x02;
+                            break;
+                        case 2:
+                            onesHex = 0x03;
+                            break;
+                        case 3:
+                            onesHex = 0x04;
+                            break;
+                        case 4:
+                            onesHex = 0x05;
+                            break;
+                        case 5:
+                            onesHex = 0x06;
+                            break;
+                        case 6:
+                            onesHex = 0x07;
+                            break;
+                        case 7:
+                            onesHex = 0x08;
+                            break;
+                        case 8:
+                            onesHex = 0x09;
+                            break;
+                        case 9:
+                            onesHex = 0x0a;
+                            break;
+                    }
+
+                }
+            }
+            if (tens == 0) offset = 1;
+            romData[0x43876] = tensHex;
+            romData[0x43877-offset] = onesHex;
+            if (tens == 1)
+            {
+                romData[0x43878 - offset] = 0x1e;
+                romData[0x43879 - offset] = 0x12;
+            }
+            else
+            {
+                if (ones == 0 || ones > 3)
+                {
+                    romData[0x43878 - offset] = 0x1e;
+                    romData[0x43879 - offset] = 0x12;
+                }
+                else if (ones == 1)
+                {
+                    romData[0x43878 - offset] = 0x1d;
+                    romData[0x43879 - offset] = 0x1e;
+                }
+                else if (ones == 2)
+                {
+                    romData[0x43878 - offset] = 0x18;
+                    romData[0x43879 - offset] = 0x0e;
+                }
+                else // ones == 3
+                {
+                    romData[0x43878 - offset] = 0x1c;
+                    romData[0x43879 - offset] = 0x0e;
+                }
+            }
+            romData[0x4387a - offset] = romData[0x4387f];
+            romData[0x4387b - offset] = romData[0x43880];
+            romData[0x4387c - offset] = romData[0x43881];
+            romData[0x4387d - offset] = romData[0x43882];
+            romData[0x4387e - offset] = romData[0x43883];
+            romData[0x4387f - offset] = romData[0x43884];
+            romData[0x43880 - offset] = romData[0x43885];
+            romData[0x43881 - offset] = romData[0x43886];
+            romData[0x43882 - offset] = romData[0x43887];
+            romData[0x43883 - offset] = romData[0x43888];
+            romData[0x43884 - offset] = 0x00;
+            romData[0x43885 - offset] = 0x00;
+            romData[0x43886 - offset] = 0x00;
+            romData[0x43887 - offset] = 0x00;
+            romData[0x43888 - offset] = 0x00;
+            if (offset == 1)
+            {
+                romData[0x43888] = 0x00;
+            }
+        }
+
         private void superRandomize()
         {
         }
@@ -7860,6 +8011,7 @@ namespace DW3Randomizer
                     writer.WriteLine(cboGender3.SelectedIndex);
                     writer.WriteLine(chk_LowerCaseMenus.Checked);
                     writer.WriteLine(chk_FixSlimeSnail.Checked);
+                    writer.WriteLine(chk_ChangeHeroAge.Checked);
                 }
             }
         }

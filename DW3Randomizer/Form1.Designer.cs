@@ -136,6 +136,7 @@ namespace DW3Randomizer
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.chkRemoveParryFight = new System.Windows.Forms.CheckBox();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.chk_ChangeHeroAge = new System.Windows.Forms.CheckBox();
             this.chk_LowerCaseMenus = new System.Windows.Forms.CheckBox();
             this.chk_FixSlimeSnail = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -1463,6 +1464,7 @@ namespace DW3Randomizer
             // 
             // tabPage7
             // 
+            this.tabPage7.Controls.Add(this.chk_ChangeHeroAge);
             this.tabPage7.Controls.Add(this.chk_LowerCaseMenus);
             this.tabPage7.Controls.Add(this.chk_FixSlimeSnail);
             this.tabPage7.Location = new System.Drawing.Point(4, 22);
@@ -1473,6 +1475,16 @@ namespace DW3Randomizer
             this.tabPage7.Text = "Cosmetic";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
+            // chk_ChangeHeroAge
+            // 
+            this.chk_ChangeHeroAge.AutoSize = true;
+            this.chk_ChangeHeroAge.Location = new System.Drawing.Point(6, 53);
+            this.chk_ChangeHeroAge.Name = "chk_ChangeHeroAge";
+            this.chk_ChangeHeroAge.Size = new System.Drawing.Size(118, 17);
+            this.chk_ChangeHeroAge.TabIndex = 142;
+            this.chk_ChangeHeroAge.Text = "Change Hero\'s Age";
+            this.chk_ChangeHeroAge.UseVisualStyleBackColor = true;
+            // 
             // chk_LowerCaseMenus
             // 
             this.chk_LowerCaseMenus.AutoSize = true;
@@ -1482,7 +1494,6 @@ namespace DW3Randomizer
             this.chk_LowerCaseMenus.TabIndex = 0;
             this.chk_LowerCaseMenus.Text = "Lower Case Menus";
             this.chk_LowerCaseMenus.UseVisualStyleBackColor = true;
-            this.chk_LowerCaseMenus.Visible = false;
             // 
             // chk_FixSlimeSnail
             // 
@@ -1584,7 +1595,7 @@ namespace DW3Randomizer
             this.Controls.Add(this.txtFileName);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Dragon Warrior III Randomizer 2.4.3 ~ 3/16/2023";
+            this.Text = "Dragon Warrior III Randomizer 2.4.4 ~ 3/18/2023";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.grpMonsterStat.ResumeLayout(false);
@@ -1724,6 +1735,7 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_LowerCaseMenus;
         private System.Windows.Forms.CheckBox chk_ChangeDefaultParty;
         private System.Windows.Forms.CheckBox chk_GenCompareFile;
+        private System.Windows.Forms.CheckBox chk_ChangeHeroAge;
     }
 }
 
