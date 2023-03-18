@@ -1921,8 +1921,8 @@ namespace DW3Randomizer
         {
             Random r1 = new Random(int.Parse(txtSeed.Text));
 
-            string[] maleNames = { "Bran", "Glynn", "Talint", "Numor", "Lars", "Orfeo", "Artho", "Esgar", "Ragnar", "Cristo", "Brey", "Taloon", "Pankraz", "Parry", "Carver", "Nevan", "Terry", "Amos", "Kiefer", "Gabo", "Melvin", "Angelo", "Yangus", "Erik", "Sylvando", "Arus", "Luceus", "Lazarel" };
-            string[] femaleNames = { "Varia", "Elani", "Ollisa", "Roz", "Kailin", "Peta", "Illith", "Gwen", "Alena", "Nara", "Mara", "Bianca", "Debora", "Madchen", "Nera", "Maria", "Patty", "Milly", "Ashlynn", "Maribel", "Aira", "Jessica", "Jade", "Veronica", "Serena", "Lunafrea", "Aurora", "Teresa" };
+            string[] maleNames = { "Bran", "Glynn", "Talint", "Numor", "Lars", "Orfeo", "Artho", "Esgar", "Ragnar", "Cristo", "Brey", "Taloon", "Pankraz", "Parry", "Carver", "Nevan", "Terry", "Amos", "Kiefer", "Gabo", "Melvin", "Angelo", "Yangus", "Erik", "Sylvando", "Arus", "Luceus", "Lazarel", "Dai" };
+            string[] femaleNames = { "Gwaelin", "Varia", "Elani", "Ollisa", "Roz", "Kailin", "Peta", "Illith", "Gwen", "Alena", "Nara", "Mara", "Bianca", "Debora", "Madchen", "Nera", "Maria", "Patty", "Milly", "Ashlynn", "Maribel", "Aira", "Jessica", "Jade", "Veronica", "Serena", "Lunafrea", "Aurora", "Teresa" };
 
             int maleNameCount = maleNames.Length;
             int femaleNameCount = femaleNames.Length;
