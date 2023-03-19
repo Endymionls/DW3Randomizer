@@ -146,6 +146,7 @@ namespace DW3Randomizer
             this.btnCopyChecksum = new System.Windows.Forms.Button();
             this.lblNewChecksum = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
+            this.chk_RemoveBirdRequirement = new System.Windows.Forms.CheckBox();
             this.grpMonsterStat.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -589,6 +590,7 @@ namespace DW3Randomizer
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.chk_RemoveBirdRequirement);
             this.tabPage2.Controls.Add(this.label11);
             this.tabPage2.Controls.Add(this.chkRandomizeGP);
             this.tabPage2.Controls.Add(this.chkRandomizeXP);
@@ -687,7 +689,7 @@ namespace DW3Randomizer
             this.chkSmallMap.AutoSize = true;
             this.chkSmallMap.Checked = true;
             this.chkSmallMap.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSmallMap.Location = new System.Drawing.Point(375, 52);
+            this.chkSmallMap.Location = new System.Drawing.Point(375, 122);
             this.chkSmallMap.Name = "chkSmallMap";
             this.chkSmallMap.Size = new System.Drawing.Size(125, 17);
             this.chkSmallMap.TabIndex = 50;
@@ -700,7 +702,7 @@ namespace DW3Randomizer
             this.chkRandMonsterZones.AutoSize = true;
             this.chkRandMonsterZones.Checked = true;
             this.chkRandMonsterZones.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandMonsterZones.Location = new System.Drawing.Point(375, 98);
+            this.chkRandMonsterZones.Location = new System.Drawing.Point(375, 52);
             this.chkRandMonsterZones.Name = "chkRandMonsterZones";
             this.chkRandMonsterZones.Size = new System.Drawing.Size(150, 17);
             this.chkRandMonsterZones.TabIndex = 45;
@@ -1565,6 +1567,20 @@ namespace DW3Randomizer
             this.label14.TabIndex = 44;
             this.label14.Text = "New Checksum";
             // 
+            // chk_RemoveBirdRequirement
+            // 
+            this.chk_RemoveBirdRequirement.AutoSize = true;
+            this.chk_RemoveBirdRequirement.Location = new System.Drawing.Point(375, 99);
+            this.chk_RemoveBirdRequirement.Name = "chk_RemoveBirdRequirement";
+            this.chk_RemoveBirdRequirement.Size = new System.Drawing.Size(235, 17);
+            this.chk_RemoveBirdRequirement.TabIndex = 52;
+            this.chk_RemoveBirdRequirement.Text = "Remove bird requirement for Baramos Castle";
+            this.chk_RemoveBirdRequirement.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.adjustments.SetToolTip(this.chk_RemoveBirdRequirement, "Removes mountains around Baramos Castle");
+            this.chk_RemoveBirdRequirement.UseVisualStyleBackColor = true;
+            this.chk_RemoveBirdRequirement.CheckedChanged += new System.EventHandler(this.determineFlags);
+
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1595,7 +1611,7 @@ namespace DW3Randomizer
             this.Controls.Add(this.txtFileName);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Dragon Warrior III Randomizer 2.4.4 ~ 3/18/2023";
+            this.Text = "Dragon Warrior III Randomizer 2.4.4 Pre-release ~ 3/18/2023";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.grpMonsterStat.ResumeLayout(false);
@@ -1736,6 +1752,7 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_ChangeDefaultParty;
         private System.Windows.Forms.CheckBox chk_GenCompareFile;
         private System.Windows.Forms.CheckBox chk_ChangeHeroAge;
+        private System.Windows.Forms.CheckBox chk_RemoveBirdRequirement;
     }
 }
 

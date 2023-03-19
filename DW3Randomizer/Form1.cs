@@ -704,7 +704,7 @@ namespace DW3Randomizer
             islands.Remove(maxIsland[2]);
             islands.Remove(maxIsland[3]);
 
-
+/*
             using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "island.txt")))
             {
                 for (int lnY = 0; lnY < 256; lnY++)
@@ -715,7 +715,7 @@ namespace DW3Randomizer
                     writer.WriteLine(output);
                 }
             }
-
+*/
             string[] locTypes = { "C", "C", "C", "?", "S", "X", "T", "T", "?", "T", "X", "T", "T", "X", "T", "?", // Aliahan, Romaly, Eginbear, Baramos, Drought Shrine, XXXXXX, Samanao Town, Brecconary, Charlock, Reeve, Portuga, Noaniels, Assaram, XXXXXX, Baharata, Lancel
                                   // (16) Cantlin, Rimuldar, Hauksness, Luzami, Kanave, Tedanki, Moor, Jipang, Pirate's Den, Soo, Kol, Shrine before Enticement, Shrine S. of Portuga, Sword Of Gaia Shrine, Desert Shrine, Shrine south of Isis
                                   "T", "T", "T", "V", "V", "V", "V", "V", "V", "V", "V", "S", "S", "?", "S", "S",
@@ -1114,21 +1114,42 @@ namespace DW3Randomizer
                                     for (int lnJ = -3; lnJ < 3; lnJ++)
                                         for (int lnK = -3; lnK < 3; lnK++)
                                             island[y + lnJ, x + lnK] = 4001;
-                                    for (int lnJ = -3; lnJ < 1; lnJ++)
+                                    if (chk_RemoveBirdRequirement.Checked == true)
                                     {
-                                        map[y - 3, x + lnJ] = 0x06;
-                                        map[y + 2, x + lnJ] = 0x06;
+                                        for (int lnJ = -3; lnJ < 1; lnJ++)
+                                        {
+                                            map[y - 3, x + lnJ] = 0x02;
+                                            map[y + 2, x + lnJ] = 0x02;
+                                        }
+                                        map[y - 2, x - 3] = 0x02;
+                                        map[y - 1, x - 3] = 0x02;
+                                        map[y, x - 3] = 0x02;
+                                        map[y + 1, x - 3] = 0x02;
+                                        map[y - 3, x + 1] = 0x02;
+                                        map[y - 3, x + 2] = 0x02;
+                                        map[y + 1, x + 1] = 0x02;
+                                        map[y - 2, x + 2] = 0x02;
+                                        map[y - 1, x + 2] = 0x02;
+                                        map[y, x + 2] = 0x02;
                                     }
-                                    map[y - 2, x - 3] = 0x06;
-                                    map[y - 1, x - 3] = 0x06;
-                                    map[y, x - 3] = 0x06;
-                                    map[y + 1, x - 3] = 0x06;
-                                    map[y - 3, x + 1] = 0x06;
-                                    map[y - 3, x + 2] = 0x06;
-                                    map[y + 1, x + 1] = 0x06;
-                                    map[y - 2, x + 2] = 0x06;
-                                    map[y - 1, x + 2] = 0x06;
-                                    map[y, x + 2] = 0x06;
+                                    else
+                                    {
+                                        for (int lnJ = -3; lnJ < 1; lnJ++)
+                                        {
+                                            map[y - 3, x + lnJ] = 0x06;
+                                            map[y + 2, x + lnJ] = 0x06;
+                                        }
+                                        map[y - 2, x - 3] = 0x06;
+                                        map[y - 1, x - 3] = 0x06;
+                                        map[y, x - 3] = 0x06;
+                                        map[y + 1, x - 3] = 0x06;
+                                        map[y - 3, x + 1] = 0x06;
+                                        map[y - 3, x + 2] = 0x06;
+                                        map[y + 1, x + 1] = 0x06;
+                                        map[y - 2, x + 2] = 0x06;
+                                        map[y - 1, x + 2] = 0x06;
+                                        map[y, x + 2] = 0x06;
+                                    }
                                     // draw swamp
                                     for (int lnj = -2; lnj < 1; lnj++)
                                     {
@@ -1161,12 +1182,25 @@ namespace DW3Randomizer
                                         for (int lnK = -3; lnK < 3; lnK++)
                                             island[y + lnJ, x + lnK] = 4001;
 
-                                    for (int lnJ = -3; lnJ < 3; lnJ++)
+                                    if (chk_RemoveBirdRequirement.Checked == true)
                                     {
-                                        map[y + lnJ, x - 3] = 0x06;
-                                        map[y + lnJ, x + 2] = 0x06;
-                                        map[y - 3, x + lnJ] = 0x06;
-                                        map[y + 2, x + lnJ] = 0x06;
+                                        for (int lnJ = -3; lnJ < 3; lnJ++)
+                                        {
+                                            map[y + lnJ, x - 3] = 0x02;
+                                            map[y + lnJ, x + 2] = 0x02;
+                                            map[y - 3, x + lnJ] = 0x02;
+                                            map[y + 2, x + lnJ] = 0x02;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int lnJ = -3; lnJ < 3; lnJ++)
+                                        {
+                                            map[y + lnJ, x - 3] = 0x06;
+                                            map[y + lnJ, x + 2] = 0x06;
+                                            map[y - 3, x + lnJ] = 0x06;
+                                            map[y + 2, x + lnJ] = 0x06;
+                                        }
                                     }
                                     for (int lnJ = -2; lnJ < 2; lnJ++)
                                     {
@@ -4619,6 +4653,13 @@ namespace DW3Randomizer
             for (int lnJ = 0; lnJ < keyItems.Length; lnJ++)
             {
                 int treasureLocation = 0;
+                if (chkNoLamiaOrbs.Checked)
+                {
+                    if (keyItems[lnJ] >= 0x77 && keyItems[lnJ] <= 0x7c)
+                    {
+                        continue;
+                    }
+                }
                 if (chkRandomizeMap.Checked == true)
                     treasureLocation = allTreasure[minKeyTreasure[lnJ] + (r1.Next() % (maxKeyTreasure[lnJ] - minKeyTreasure[lnJ]))];
                 else
@@ -8134,6 +8175,7 @@ namespace DW3Randomizer
             chkSmallMap.Checked = (number % 4 >= 2);
             chk_SepBarGaia.Checked = (number % 8 >= 4);
             chkRandMonsterZones.Checked = (number % 16 >= 8);
+            chk_RemoveBirdRequirement.Checked = (number % 32 >= 16);
 
             number = convertChartoInt(Convert.ToChar(flags.Substring(6, 1)));
             chkRandTreasures.Checked = (number % 2 == 1);
@@ -8205,7 +8247,7 @@ namespace DW3Randomizer
             flags += convertIntToChar((cboGoldReq.SelectedIndex) + (chkFasterBattles.Checked ? 4 : 0) + (chkSpeedText.Checked ? 8 : 0) + (chk_SpeedUpMenus.Checked ? 16 : 0) + (chk_Cod.Checked ? 32 : 0));
             flags += convertIntToChar((chk_WeapArmPower.Checked ? 1 : 0) + (chkNoLamiaOrbs.Checked ? 2 : 0) + (chk_RmManip.Checked ? 4 : 0));
             flags += convertIntToChar((optMonsterLight.Checked ? 0 : optMonsterSilly.Checked ? 1 : optMonsterMedium.Checked ? 2 : 3) + (chkRandomizeXP.Checked ? 4 : 0) + (chkRandomizeGP.Checked ? 8 : 0) + (chkRandEnemyPatterns.Checked ? 16 : 0) + (chk_RemMetalMonRun.Checked ? 32 : 0));
-            flags += convertIntToChar((chkRandomizeMap.Checked ? 1 : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? 2 : 0) : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? (chk_SepBarGaia.Checked ? 4 : 0) : 0) : 0) + (chkRandomizeMap.Checked ? (chkRandMonsterZones.Checked ? 8 : 0) : 0));
+            flags += convertIntToChar((chkRandomizeMap.Checked ? 1 : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? 2 : 0) : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? (chk_SepBarGaia.Checked ? 4 : 0) : 0) : 0) + (chkRandomizeMap.Checked ? (chkRandMonsterZones.Checked ? 8 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RemoveBirdRequirement.Checked ? 16 : 0) : 0));
             flags += convertIntToChar((chkRandTreasures.Checked ? 1 : 0) + (chkRandTreasures.Checked ? (chk_GoldenClaw.Checked ? 2 : 0) : 0)  + (chkRandWhoCanEquip.Checked ? 4 : 0) + (chkRandEquip.Checked ? 8 : 0) + (chkRandEquip.Checked ? (chk_UseVanEquipValues.Checked ? 16 : 0) : 0) + (chkRandEquip.Checked ? (chk_RemoveStartEqRestrictions.Checked ?32 : 0) : 0));
             flags += convertIntToChar((chkRandEquip.Checked ? (chk_RmFighterPenalty.Checked ? 1 : 0) : 0));
             flags += convertIntToChar((chkRandItemEffects.Checked ? 1 : 0) + (chkRandItemStores.Checked ? 2 : 0) + (chk_RandomizeWeaponShops.Checked ? 4 : 0) + (chk_Caturday.Checked ? 8 : 0) + (chk_RandomizeInnPrices.Checked ? 16 : 0));
@@ -8329,6 +8371,7 @@ namespace DW3Randomizer
             this.chkSmallMap.Visible = this.chkRandomizeMap.Checked;
             this.chk_SepBarGaia.Visible = this.chkRandomizeMap.Checked;
             this.chkRandMonsterZones.Visible = this.chkRandomizeMap.Checked;
+            this.chk_RemoveBirdRequirement.Visible = this.chkRandomizeMap.Checked;
             this.chk_RmFighterPenalty.Visible = this.chkRandEquip.Checked;
             this.chk_UseVanEquipValues.Visible = this.chkRandEquip.Checked;
         }
