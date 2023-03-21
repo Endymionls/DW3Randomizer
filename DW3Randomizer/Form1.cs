@@ -122,6 +122,10 @@ namespace DW3Randomizer
                         chk_ChangeHeroAge.Checked = true;
                     else
                         chk_ChangeHeroAge.Checked = false;
+                    if (reader.ReadLine() == "True")
+                        chk_RandSpriteColor.Checked = true;
+                    else
+                        chk_RandSpriteColor.Checked = false;
                     runChecksum();
                 }
             }
@@ -224,6 +228,7 @@ namespace DW3Randomizer
                 if (chk_RandomizeInnPrices.Checked) randomizeInnPrices(rni);
                 if (chkRandStatGains.Checked) randStatGains(rni);
                 if (chk_ChangeHeroAge.Checked) changeHeroAge(rni);
+                if (chk_RandSpriteColor.Checked) randSpriteColors(rni);
                 saveRom(true);
                 saveRom(false);
                 createGuides();
@@ -637,14 +642,17 @@ namespace DW3Randomizer
                     }
                 }
 
-            using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "island" + txtSeed.Text + "_" + txtFlags.Text + ".txt")))
+            if (chk_GenIslandsMonstersZones.Checked == true)
             {
-                for (int lnY = 0; lnY < 139; lnY++)
+                using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "island" + txtSeed.Text + "_" + txtFlags.Text + ".txt")))
                 {
-                    string output = "";
-                    for (int lnX = 0; lnX < 158; lnX++)
-                        output += island2[lnY, lnX].ToString().PadLeft(5);
-                    writer.WriteLine(output);
+                    for (int lnY = 0; lnY < 139; lnY++)
+                    {
+                        string output = "";
+                        for (int lnX = 0; lnX < 158; lnX++)
+                            output += island2[lnY, lnX].ToString().PadLeft(5);
+                        writer.WriteLine(output);
+                    }
                 }
             }
 
@@ -1118,19 +1126,19 @@ namespace DW3Randomizer
                                     {
                                         for (int lnJ = -3; lnJ < 1; lnJ++)
                                         {
-                                            map[y - 3, x + lnJ] = 0x02;
-                                            map[y + 2, x + lnJ] = 0x02;
+                                            map[y - 3, x + lnJ] = 0x05;
+                                            map[y + 2, x + lnJ] = 0x05;
                                         }
-                                        map[y - 2, x - 3] = 0x02;
-                                        map[y - 1, x - 3] = 0x02;
-                                        map[y, x - 3] = 0x02;
-                                        map[y + 1, x - 3] = 0x02;
-                                        map[y - 3, x + 1] = 0x02;
-                                        map[y - 3, x + 2] = 0x02;
-                                        map[y + 1, x + 1] = 0x02;
-                                        map[y - 2, x + 2] = 0x02;
-                                        map[y - 1, x + 2] = 0x02;
-                                        map[y, x + 2] = 0x02;
+                                        map[y - 2, x - 3] = 0x05;
+                                        map[y - 1, x - 3] = 0x05;
+                                        map[y, x - 3] = 0x05;
+                                        map[y + 1, x - 3] = 0x05;
+                                        map[y - 3, x + 1] = 0x05;
+                                        map[y - 3, x + 2] = 0x05;
+                                        map[y + 1, x + 1] = 0x05;
+                                        map[y - 2, x + 2] = 0x05;
+                                        map[y - 1, x + 2] = 0x05;
+                                        map[y, x + 2] = 0x05;
                                     }
                                     else
                                     {
@@ -1186,10 +1194,10 @@ namespace DW3Randomizer
                                     {
                                         for (int lnJ = -3; lnJ < 3; lnJ++)
                                         {
-                                            map[y + lnJ, x - 3] = 0x02;
-                                            map[y + lnJ, x + 2] = 0x02;
-                                            map[y - 3, x + lnJ] = 0x02;
-                                            map[y + 2, x + lnJ] = 0x02;
+                                            map[y + lnJ, x - 3] = 0x05;
+                                            map[y + lnJ, x + 2] = 0x05;
+                                            map[y - 3, x + lnJ] = 0x05;
+                                            map[y + 2, x + lnJ] = 0x05;
                                         }
                                     }
                                     else
@@ -1251,11 +1259,25 @@ namespace DW3Randomizer
 
                                 for (int lnJ = -4; lnJ < 4; lnJ++)
                                     for (int lnK = -4; lnK < 4; lnK++)
-                                        map2[y + lnJ, x + lnK] = 0x06;
+                                        if (chk_lbtoCharlock.Checked == true)
+                                        {
+                                            map2[y + lnJ, x + lnK] = 0x05;
+                                        }
+                                        else
+                                        {
+                                            map2[y + lnJ, x + lnK] = 0x06;
+                                        }
 
                                 for (int lnJ = -3; lnJ < 3; lnJ++)
                                     for (int lnK = -3; lnK < 3; lnK++)
-                                        map2[y + lnJ, x + lnK] = 0x00;
+                                        if (chk_lbtoCharlock.Checked == true)
+                                        {
+                                            map2[y + lnJ, x + lnK] = 0x02;
+                                        }
+                                        else
+                                        {
+                                            map2[y + lnJ, x + lnK] = 0x00;
+                                        }
 
 
                                 for (int lnJ = -2; lnJ < 2; lnJ++)
@@ -1305,14 +1327,25 @@ namespace DW3Randomizer
                                 //                                for (int lnJ = -2; lnJ < 2; lnJ++)
 
                                 {
-                                    map[y - 1, x + lnJ] = 0x06;
-                                    map[y + 1, x + lnJ] = 0x06;
+                                    if (chk_RemLancelMountains.Checked == true)
+                                    {
+                                        map[y - 1, x + lnJ] = 0x02;
+                                        map[y + 1, x + lnJ] = 0x02;
+                                    }
+                                    else
+                                    {
+                                        map[y - 1, x + lnJ] = 0x06;
+                                        map[y + 1, x + lnJ] = 0x06;
+                                    }
                                     island[y - 1, x + lnJ] = 6000;
                                     island[y, x + lnJ] = 6000;
                                     island[y + 1, x + lnJ] = 6000;
                                 }
 
-                                map[y, x - 2] = 0x06;
+                                if (chk_RemLancelMountains.Checked == true)
+                                    map[y, x - 2] = 0x01;
+                                else
+                                    map[y, x - 2] = 0x06;
                                 map[y, x - 1] = 0xef;
                                 map[y, x] = 0x02;
                                 map[y, x + 1] = 0xea;
@@ -1926,25 +1959,31 @@ namespace DW3Randomizer
                     romData[0x956 + (lnI * 16) + lnJ] = (byte)monsterZones[lnI, lnJ];
                 }
 
-            using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "zones" + txtSeed.Text + "_" + txtFlags.Text + ".txt")))
+            if (chk_GenIslandsMonstersZones.Checked == true)
             {
-                for (int lnY = 0; lnY < 16; lnY++)
+                using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "zones" + txtSeed.Text + "_" + txtFlags.Text + ".txt")))
                 {
-                    string output = "";
-                    for (int lnX = 0; lnX < 16; lnX++)
-                        output += zone[lnY, lnX].ToString().PadLeft(5) + " ";
-                    writer.WriteLine(output);
+                    for (int lnY = 0; lnY < 16; lnY++)
+                    {
+                        string output = "";
+                        for (int lnX = 0; lnX < 16; lnX++)
+                            output += zone[lnY, lnX].ToString().PadLeft(5) + " ";
+                        writer.WriteLine(output);
+                    }
                 }
             }
 
-            using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "monsters" + txtSeed.Text + "_" + txtFlags.Text + ".txt")))
+            if (chk_GenIslandsMonstersZones.Checked == true)
             {
-                for (int lnY = 0; lnY < 16; lnY++)
+                using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "monsters" + txtSeed.Text + "_" + txtFlags.Text + ".txt")))
                 {
-                    string output = "";
-                    for (int lnX = 0; lnX < 16; lnX++)
-                        output += monsterZones[lnY, lnX].ToString("X2") + " ";
-                    writer.WriteLine(output);
+                    for (int lnY = 0; lnY < 16; lnY++)
+                    {
+                        string output = "";
+                        for (int lnX = 0; lnX < 16; lnX++)
+                            output += monsterZones[lnY, lnX].ToString("X2") + " ";
+                        writer.WriteLine(output);
+                    }
                 }
             }
 
@@ -7393,6 +7432,219 @@ namespace DW3Randomizer
 
         }
 
+        private void randSpriteColors(int rni)
+        {
+            Random r1 = new Random(int.Parse(txtSeed.Text));
+
+            for (int lnI = 0; lnI < rni; lnI++)
+            {
+                r1.Next();
+            }
+
+            int selection = 0;
+            byte heroWhite = 0x30;
+            byte heroBlue = 0x11;
+            byte soldierRed = 0x15;
+            byte soldierPurple = 0x03;
+            byte wizardWhite = 0x30;
+            byte wizardGreen = 0x1b;
+            byte fighterGreen = 0x1a;
+            byte fighterBrown = 0x06;
+
+            selection = r1.Next() % 4;
+            switch(selection)
+            {
+                case 0:
+                    heroWhite = 0x30;
+                    break;
+                case 1:
+                    heroWhite = 0x31;
+                    break;
+                case 2:
+                    heroWhite = 0x3a;
+                    break;
+                case 3:
+                    heroWhite = 0x3b;
+                    break;
+            }
+
+            selection = r1.Next() % 7;
+            switch(selection)
+            {
+                case 0:
+                    heroBlue = 0x11;
+                    break;
+                case 1:
+                    heroBlue = 0x02;
+                    break;
+                case 2:
+                    heroBlue = 0x04;
+                    break;
+                case 3:
+                    heroBlue = 0x07;
+                    break;
+                case 4:
+                    heroBlue = 0x09;
+                    break;
+                case 5:
+                    heroBlue = 0x0b;
+                    break;
+                case 6:
+                    heroBlue = 0x0c;
+                    break;
+            }
+
+            selection = r1.Next() % 6;
+            switch(selection)
+            {
+                case 0:
+                    soldierRed = 0x15;
+                    break;
+                case 1:
+                    soldierRed = 0x07;
+                    break;
+                case 2:
+                    soldierRed = 0x02;
+                    break;
+                case 3:
+                    soldierRed = 0x09;
+                    break;
+                case 4:
+                    soldierRed = 0x04;
+                    break;
+                case 5:
+                    soldierRed = 0x0c;
+                    break;
+            }
+
+            selection = r1.Next() % 7;
+            switch(selection)
+            {
+                case 0:
+                    soldierPurple = 0x03;
+                    break;
+                case 1:
+                    soldierPurple = 0x08;
+                    break;
+                case 2:
+                    soldierPurple = 0x11;
+                    break;
+                case 3:
+                    soldierPurple = 0x1c;
+                    break;
+                case 4:
+                    soldierPurple = 0x24;
+                    break;
+                case 5:
+                    soldierPurple = 0x10;
+                    break;
+                case 6:
+                    soldierPurple = 0x39;
+                    break;
+            }
+
+            selection = r1.Next() % 4;
+            switch(selection)
+            {
+                case 0:
+                    wizardWhite = 0x30;
+                    break;
+                case 1:
+                    wizardWhite = 0x08;
+                    break;
+                case 2:
+                    wizardWhite = 0x10;
+                    break;
+                case 3:
+                    wizardWhite = 0x18;
+                    break;
+            }
+
+            selection = r1.Next() % 7;
+            switch(selection)
+            {
+                case 0:
+                    wizardGreen = 0x1b;
+                    break;
+                case 1:
+                    wizardGreen = 0x11;
+                    break;
+                case 2:
+                    wizardGreen = 0x15;
+                    break;
+                case 3:
+                    wizardGreen = 0x06;
+                    break;
+                case 4:
+                    wizardGreen = 0x0c;
+                    break;
+                case 5:
+                    wizardGreen = 0x04;
+                    break;
+                case 6:
+                    wizardGreen = 0x2d;
+                    break;
+            }
+
+            selection = r1.Next() % 7;
+            switch(selection)
+            {
+                case 0:
+                    fighterGreen = 0x1a;
+                    break;
+                case 1:
+                    fighterGreen = 0x0c;
+                    break;
+                case 2:
+                    fighterGreen = 0x11;
+                    break;
+                case 3:
+                    fighterGreen = 0x0c;
+                    break;
+                case 4:
+                    fighterGreen = 0x06;
+                    break;
+                case 5:
+                    fighterGreen = 0x0b;
+                    break;
+                case 6:
+                    fighterGreen = 0x03;
+                    break;
+            }
+
+            selection = r1.Next() % 6;
+            switch(selection)
+            {
+                case 0:
+                    fighterBrown = 0x06;
+                    break;
+                case 1:
+                    fighterBrown = 0x00;
+                    break;
+                case 2:
+                    fighterBrown = 0x1c;
+                    break;
+                case 3:
+                    fighterBrown = 0x39;
+                    break;
+                case 4:
+                    fighterBrown = 0x21;
+                    break;
+                case 5:
+                    fighterBrown = 0x26;
+                    break;
+            }
+
+            romData[0x3ba45] = heroWhite;
+            romData[0x3ba46] = heroBlue;
+            romData[0x3ba48] = soldierRed;
+            romData[0x3ba49] = soldierPurple;
+            romData[0x3ba4b] = wizardWhite;
+            romData[0x3ba4c] = wizardGreen;
+            romData[0x3ba4e] = fighterGreen;
+            romData[0x3ba4f] = fighterBrown;
+        }
+
         private void createGuides()
         {
 //            if (chkRandEquip.Checked || chkRandItemEffects.Checked || chkRandWhoCanEquip.Checked)
@@ -8053,6 +8305,7 @@ namespace DW3Randomizer
                     writer.WriteLine(chk_LowerCaseMenus.Checked);
                     writer.WriteLine(chk_FixSlimeSnail.Checked);
                     writer.WriteLine(chk_ChangeHeroAge.Checked);
+                    writer.WriteLine(chk_RandSpriteColor.Checked);
                 }
             }
         }
@@ -8176,8 +8429,12 @@ namespace DW3Randomizer
             chk_SepBarGaia.Checked = (number % 8 >= 4);
             chkRandMonsterZones.Checked = (number % 16 >= 8);
             chk_RemoveBirdRequirement.Checked = (number % 32 >= 16);
+            chk_RemLancelMountains.Checked = (number >= 32);
 
             number = convertChartoInt(Convert.ToChar(flags.Substring(6, 1)));
+            chk_lbtoCharlock.Checked = (number % 2 == 1);
+
+            number = convertChartoInt(Convert.ToChar(flags.Substring(7, 1)));
             chkRandTreasures.Checked = (number % 2 == 1);
             chk_GoldenClaw.Checked = (number % 4 >= 2);;
             chkRandWhoCanEquip.Checked = (number % 8 >= 4);
@@ -8185,10 +8442,10 @@ namespace DW3Randomizer
             chk_UseVanEquipValues.Checked = (number % 32 >= 16);
             chk_RemoveStartEqRestrictions.Checked = (number >= 32);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(7, 1)));
+            number = convertChartoInt(Convert.ToChar(flags.Substring(8, 1)));
             chk_RmFighterPenalty.Checked = (number % 2 == 1);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(8, 1)));
+            number = convertChartoInt(Convert.ToChar(flags.Substring(9, 1)));
             //chkRandItemEffects.Checked = (number % 2 == 1);
             chkRandItemEffects.Checked = false;
             chkRandItemStores.Checked = (number % 4 >= 2);
@@ -8196,7 +8453,7 @@ namespace DW3Randomizer
             chk_Caturday.Checked = (number % 16 >= 8);
             chk_RandomizeInnPrices.Checked = (number % 32 >= 16);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(9, 1)));
+            number = convertChartoInt(Convert.ToChar(flags.Substring(10, 1)));
             chk_StoneofLife.Checked = (number % 2 == 1);
             chk_Seeds.Checked = (number % 4 >= 2);
             chk_BookofSatori.Checked = (number % 8 >= 4);
@@ -8204,7 +8461,7 @@ namespace DW3Randomizer
             chk_EchoingFlute.Checked = (number % 32 >= 16);
             chk_SilverHarp.Checked = (number >= 32);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(10, 1)));
+            number = convertChartoInt(Convert.ToChar(flags.Substring(11, 1)));
             chk_LeafoftheWorldTree.Checked = (number % 2 == 1);
             chk_ShoesofHappiness.Checked = (number % 4 >= 2);
             chk_MeteoriteArmband.Checked = (number % 8 >= 4);
@@ -8212,7 +8469,7 @@ namespace DW3Randomizer
             chk_LampofDarkness.Checked = (number % 32 >= 16);
             chk_PoisonMothPowder.Checked = (number >= 32);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(11, 1)));
+            number = convertChartoInt(Convert.ToChar(flags.Substring(12, 1)));
             //chk_RandomName.Checked = (number % 2 == 1);
             chk_RandomGender.Checked = (number % 4 >= 2);
             chk_RandomClass.Checked = (number % 8 >= 4);
@@ -8220,7 +8477,7 @@ namespace DW3Randomizer
             chk_RandPilgrim.Checked = (number % 32 >= 16);
             chk_RandWizard.Checked = (number >= 32);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(12, 1)));
+            number = convertChartoInt(Convert.ToChar(flags.Substring(13, 1)));
             chk_RandFighter.Checked = (number % 2 == 1);
             chk_RandMerchant.Checked = (number % 4 >= 2);
             chk_RandGoofOff.Checked = (number % 8 >= 4);
@@ -8228,12 +8485,12 @@ namespace DW3Randomizer
             chk_RandHero.Checked = (number % 32 >= 16);
             chkRandStatGains.Checked = (number >= 32);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(13, 1)));
+            number = convertChartoInt(Convert.ToChar(flags.Substring(14, 1)));
             chkRandSpellLearning.Checked = (number % 2 == 1);
             chkRandSpellStrength.Checked = (number % 4 >= 2);
             chkFourJobFiesta.Checked = (number % 8 >= 4);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(14, 1)));
+            number = convertChartoInt(Convert.ToChar(flags.Substring(15, 1)));
             chkRemoveParryFight.Checked = (number % 2 == 1);
         }
 
@@ -8247,7 +8504,8 @@ namespace DW3Randomizer
             flags += convertIntToChar((cboGoldReq.SelectedIndex) + (chkFasterBattles.Checked ? 4 : 0) + (chkSpeedText.Checked ? 8 : 0) + (chk_SpeedUpMenus.Checked ? 16 : 0) + (chk_Cod.Checked ? 32 : 0));
             flags += convertIntToChar((chk_WeapArmPower.Checked ? 1 : 0) + (chkNoLamiaOrbs.Checked ? 2 : 0) + (chk_RmManip.Checked ? 4 : 0));
             flags += convertIntToChar((optMonsterLight.Checked ? 0 : optMonsterSilly.Checked ? 1 : optMonsterMedium.Checked ? 2 : 3) + (chkRandomizeXP.Checked ? 4 : 0) + (chkRandomizeGP.Checked ? 8 : 0) + (chkRandEnemyPatterns.Checked ? 16 : 0) + (chk_RemMetalMonRun.Checked ? 32 : 0));
-            flags += convertIntToChar((chkRandomizeMap.Checked ? 1 : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? 2 : 0) : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? (chk_SepBarGaia.Checked ? 4 : 0) : 0) : 0) + (chkRandomizeMap.Checked ? (chkRandMonsterZones.Checked ? 8 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RemoveBirdRequirement.Checked ? 16 : 0) : 0));
+            flags += convertIntToChar((chkRandomizeMap.Checked ? 1 : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? 2 : 0) : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? (chk_SepBarGaia.Checked ? 4 : 0) : 0) : 0) + (chkRandomizeMap.Checked ? (chkRandMonsterZones.Checked ? 8 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RemoveBirdRequirement.Checked ? 16 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RemLancelMountains.Checked ? 32 : 0) : 0));
+            flags += convertIntToChar((chkRandomizeMap.Checked ? (chk_lbtoCharlock.Checked ? 1 : 0) : 0));
             flags += convertIntToChar((chkRandTreasures.Checked ? 1 : 0) + (chkRandTreasures.Checked ? (chk_GoldenClaw.Checked ? 2 : 0) : 0)  + (chkRandWhoCanEquip.Checked ? 4 : 0) + (chkRandEquip.Checked ? 8 : 0) + (chkRandEquip.Checked ? (chk_UseVanEquipValues.Checked ? 16 : 0) : 0) + (chkRandEquip.Checked ? (chk_RemoveStartEqRestrictions.Checked ?32 : 0) : 0));
             flags += convertIntToChar((chkRandEquip.Checked ? (chk_RmFighterPenalty.Checked ? 1 : 0) : 0));
             flags += convertIntToChar((chkRandItemEffects.Checked ? 1 : 0) + (chkRandItemStores.Checked ? 2 : 0) + (chk_RandomizeWeaponShops.Checked ? 4 : 0) + (chk_Caturday.Checked ? 8 : 0) + (chk_RandomizeInnPrices.Checked ? 16 : 0));

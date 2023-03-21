@@ -70,6 +70,9 @@ namespace DW3Randomizer
             this.chkSpeedText = new System.Windows.Forms.CheckBox();
             this.chkFasterBattles = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.chk_lbtoCharlock = new System.Windows.Forms.CheckBox();
+            this.chk_RemLancelMountains = new System.Windows.Forms.CheckBox();
+            this.chk_RemoveBirdRequirement = new System.Windows.Forms.CheckBox();
             this.label11 = new System.Windows.Forms.Label();
             this.chkRandomizeGP = new System.Windows.Forms.CheckBox();
             this.chkRandomizeXP = new System.Windows.Forms.CheckBox();
@@ -146,7 +149,8 @@ namespace DW3Randomizer
             this.btnCopyChecksum = new System.Windows.Forms.Button();
             this.lblNewChecksum = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.chk_RemoveBirdRequirement = new System.Windows.Forms.CheckBox();
+            this.chk_GenIslandsMonstersZones = new System.Windows.Forms.CheckBox();
+            this.chk_RandSpriteColor = new System.Windows.Forms.CheckBox();
             this.grpMonsterStat.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -223,7 +227,7 @@ namespace DW3Randomizer
             // 
             // btnRandomize
             // 
-            this.btnRandomize.Location = new System.Drawing.Point(572, 427);
+            this.btnRandomize.Location = new System.Drawing.Point(572, 474);
             this.btnRandomize.Name = "btnRandomize";
             this.btnRandomize.Size = new System.Drawing.Size(75, 23);
             this.btnRandomize.TabIndex = 200;
@@ -383,7 +387,7 @@ namespace DW3Randomizer
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(639, 204);
+            this.tabControl1.Size = new System.Drawing.Size(639, 242);
             this.tabControl1.TabIndex = 14;
             // 
             // tabPage1
@@ -405,7 +409,7 @@ namespace DW3Randomizer
             this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage1.Size = new System.Drawing.Size(631, 178);
+            this.tabPage1.Size = new System.Drawing.Size(631, 216);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Adjustments";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -590,6 +594,8 @@ namespace DW3Randomizer
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.chk_lbtoCharlock);
+            this.tabPage2.Controls.Add(this.chk_RemLancelMountains);
             this.tabPage2.Controls.Add(this.chk_RemoveBirdRequirement);
             this.tabPage2.Controls.Add(this.label11);
             this.tabPage2.Controls.Add(this.chkRandomizeGP);
@@ -606,10 +612,47 @@ namespace DW3Randomizer
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(631, 178);
+            this.tabPage2.Size = new System.Drawing.Size(631, 216);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Monsters & Map";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // chk_lbtoCharlock
+            // 
+            this.chk_lbtoCharlock.AutoSize = true;
+            this.chk_lbtoCharlock.Location = new System.Drawing.Point(375, 169);
+            this.chk_lbtoCharlock.Name = "chk_lbtoCharlock";
+            this.chk_lbtoCharlock.Size = new System.Drawing.Size(171, 17);
+            this.chk_lbtoCharlock.TabIndex = 54;
+            this.chk_lbtoCharlock.Text = "Land bridge to Charlock Castle";
+            this.adjustments.SetToolTip(this.chk_lbtoCharlock, "Removes water and mountains around Charlock Castle");
+            this.chk_lbtoCharlock.UseVisualStyleBackColor = true;
+            this.chk_lbtoCharlock.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // chk_RemLancelMountains
+            // 
+            this.chk_RemLancelMountains.AutoSize = true;
+            this.chk_RemLancelMountains.Location = new System.Drawing.Point(375, 145);
+            this.chk_RemLancelMountains.Name = "chk_RemLancelMountains";
+            this.chk_RemLancelMountains.Size = new System.Drawing.Size(216, 17);
+            this.chk_RemLancelMountains.TabIndex = 53;
+            this.chk_RemLancelMountains.Text = "Remove mountains around Lancel Cave";
+            this.adjustments.SetToolTip(this.chk_RemLancelMountains, "Removes mountains around Lancel Cave to allow party in and not require Final Key");
+            this.chk_RemLancelMountains.UseVisualStyleBackColor = true;
+            this.chk_RemLancelMountains.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // chk_RemoveBirdRequirement
+            // 
+            this.chk_RemoveBirdRequirement.AutoSize = true;
+            this.chk_RemoveBirdRequirement.Location = new System.Drawing.Point(375, 121);
+            this.chk_RemoveBirdRequirement.Name = "chk_RemoveBirdRequirement";
+            this.chk_RemoveBirdRequirement.Size = new System.Drawing.Size(235, 17);
+            this.chk_RemoveBirdRequirement.TabIndex = 52;
+            this.chk_RemoveBirdRequirement.Text = "Remove bird requirement for Baramos Castle";
+            this.chk_RemoveBirdRequirement.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.adjustments.SetToolTip(this.chk_RemoveBirdRequirement, "Removes mountains around Baramos Castle");
+            this.chk_RemoveBirdRequirement.UseVisualStyleBackColor = true;
+            this.chk_RemoveBirdRequirement.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // label11
             // 
@@ -661,7 +704,7 @@ namespace DW3Randomizer
             // chk_SepBarGaia
             // 
             this.chk_SepBarGaia.AutoSize = true;
-            this.chk_SepBarGaia.Location = new System.Drawing.Point(375, 75);
+            this.chk_SepBarGaia.Location = new System.Drawing.Point(375, 98);
             this.chk_SepBarGaia.Name = "chk_SepBarGaia";
             this.chk_SepBarGaia.Size = new System.Drawing.Size(213, 17);
             this.chk_SepBarGaia.TabIndex = 51;
@@ -689,7 +732,7 @@ namespace DW3Randomizer
             this.chkSmallMap.AutoSize = true;
             this.chkSmallMap.Checked = true;
             this.chkSmallMap.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSmallMap.Location = new System.Drawing.Point(375, 122);
+            this.chkSmallMap.Location = new System.Drawing.Point(375, 75);
             this.chkSmallMap.Name = "chkSmallMap";
             this.chkSmallMap.Size = new System.Drawing.Size(125, 17);
             this.chkSmallMap.TabIndex = 50;
@@ -737,7 +780,7 @@ namespace DW3Randomizer
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(631, 178);
+            this.tabPage4.Size = new System.Drawing.Size(631, 216);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Weapons & Treasures";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -870,7 +913,7 @@ namespace DW3Randomizer
             this.tabPage6.Controls.Add(this.chk_RandomizeInnPrices);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(631, 178);
+            this.tabPage6.Size = new System.Drawing.Size(631, 216);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "Item & Weapon Shops & Inns";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -1122,7 +1165,7 @@ namespace DW3Randomizer
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(631, 178);
+            this.tabPage3.Size = new System.Drawing.Size(631, 216);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Characters";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1445,7 +1488,7 @@ namespace DW3Randomizer
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(631, 178);
+            this.tabPage5.Size = new System.Drawing.Size(631, 216);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Fixes";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -1466,13 +1509,14 @@ namespace DW3Randomizer
             // 
             // tabPage7
             // 
+            this.tabPage7.Controls.Add(this.chk_RandSpriteColor);
             this.tabPage7.Controls.Add(this.chk_ChangeHeroAge);
             this.tabPage7.Controls.Add(this.chk_LowerCaseMenus);
             this.tabPage7.Controls.Add(this.chk_FixSlimeSnail);
             this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(631, 178);
+            this.tabPage7.Size = new System.Drawing.Size(631, 216);
             this.tabPage7.TabIndex = 6;
             this.tabPage7.Text = "Cosmetic";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -1535,7 +1579,7 @@ namespace DW3Randomizer
             this.chk_GenCompareFile.TabIndex = 201;
             this.chk_GenCompareFile.Text = "Generate Compare File";
             this.adjustments.SetToolTip(this.chk_GenCompareFile, "Generates compare file on build. This will adjust randomization to avoid spoilers" +
-        " (item locations, monster stats/spells.");
+        " (item locations, monster stats/spells.)");
             this.chk_GenCompareFile.UseVisualStyleBackColor = true;
             this.chk_GenCompareFile.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -1567,25 +1611,33 @@ namespace DW3Randomizer
             this.label14.TabIndex = 44;
             this.label14.Text = "New Checksum";
             // 
-            // chk_RemoveBirdRequirement
+            // chk_GenIslandsMonstersZones
             // 
-            this.chk_RemoveBirdRequirement.AutoSize = true;
-            this.chk_RemoveBirdRequirement.Location = new System.Drawing.Point(375, 99);
-            this.chk_RemoveBirdRequirement.Name = "chk_RemoveBirdRequirement";
-            this.chk_RemoveBirdRequirement.Size = new System.Drawing.Size(235, 17);
-            this.chk_RemoveBirdRequirement.TabIndex = 52;
-            this.chk_RemoveBirdRequirement.Text = "Remove bird requirement for Baramos Castle";
-            this.chk_RemoveBirdRequirement.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
-            this.adjustments.SetToolTip(this.chk_RemoveBirdRequirement, "Removes mountains around Baramos Castle");
-            this.chk_RemoveBirdRequirement.UseVisualStyleBackColor = true;
-            this.chk_RemoveBirdRequirement.CheckedChanged += new System.EventHandler(this.determineFlags);
-
+            this.chk_GenIslandsMonstersZones.AutoSize = true;
+            this.chk_GenIslandsMonstersZones.Location = new System.Drawing.Point(185, 184);
+            this.chk_GenIslandsMonstersZones.Name = "chk_GenIslandsMonstersZones";
+            this.chk_GenIslandsMonstersZones.Size = new System.Drawing.Size(229, 17);
+            this.chk_GenIslandsMonstersZones.TabIndex = 202;
+            this.chk_GenIslandsMonstersZones.Text = "Generate islands, monsters, and zones files";
+            this.chk_GenIslandsMonstersZones.UseVisualStyleBackColor = true;
+            // 
+            // chk_RandSpriteColor
+            // 
+            this.chk_RandSpriteColor.AutoSize = true;
+            this.chk_RandSpriteColor.Location = new System.Drawing.Point(6, 76);
+            this.chk_RandSpriteColor.Name = "chk_RandSpriteColor";
+            this.chk_RandSpriteColor.Size = new System.Drawing.Size(141, 17);
+            this.chk_RandSpriteColor.TabIndex = 143;
+            this.chk_RandSpriteColor.Text = "Randomize Sprite Colors";
+            this.chk_RandSpriteColor.UseVisualStyleBackColor = true;
+            this.adjustments.SetToolTip(this.chk_RandSpriteColor, "Randomizes the colors of overworld sprites. There may be some interesting combinations.");
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(674, 462);
+            this.ClientSize = new System.Drawing.Size(674, 509);
+            this.Controls.Add(this.chk_GenIslandsMonstersZones);
             this.Controls.Add(this.chk_GenCompareFile);
             this.Controls.Add(this.btnCopyChecksum);
             this.Controls.Add(this.lblNewChecksum);
@@ -1611,7 +1663,7 @@ namespace DW3Randomizer
             this.Controls.Add(this.txtFileName);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Dragon Warrior III Randomizer 2.4.4 Pre-release ~ 3/18/2023";
+            this.Text = "Dragon Warrior III Randomizer 2.4.4 Pre-release ~ 3/20/2023";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.grpMonsterStat.ResumeLayout(false);
@@ -1753,6 +1805,10 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_GenCompareFile;
         private System.Windows.Forms.CheckBox chk_ChangeHeroAge;
         private System.Windows.Forms.CheckBox chk_RemoveBirdRequirement;
+        private System.Windows.Forms.CheckBox chk_lbtoCharlock;
+        private System.Windows.Forms.CheckBox chk_RemLancelMountains;
+        private System.Windows.Forms.CheckBox chk_GenIslandsMonstersZones;
+        private System.Windows.Forms.CheckBox chk_RandSpriteColor;
     }
 }
 
