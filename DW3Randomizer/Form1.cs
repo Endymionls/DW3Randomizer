@@ -1257,6 +1257,9 @@ namespace DW3Randomizer
                                 charlockX = x;
                                 charlockY = y;
 
+                                for (int lnJ = -5; lnJ < 5; lnJ++)
+                                    for (int lnK = -5; lnK < 5; lnK++)
+                                        map2[y + lnJ, x + lnK] = 0x02;
                                 for (int lnJ = -4; lnJ < 4; lnJ++)
                                     for (int lnK = -4; lnK < 4; lnK++)
                                         if (chk_lbtoCharlock.Checked == true)
