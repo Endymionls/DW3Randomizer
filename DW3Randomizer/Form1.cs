@@ -584,7 +584,7 @@ namespace DW3Randomizer
             markZoneSides();
             generateZoneMap(1000, bigIslandSize * 25 / 256, r1); // Aliahan Castle is here.
             generateZoneMap(2000, bigIslandSize * 50 / 256, r1); // Romaly Castle is here.
-            generateZoneMap(0, smallIslandSize * 180 / 256, r1); // Norud Cave East is here.
+            generateZoneMap(0, smallIslandSize * 170 / 256, r1); // Norud Cave East is here.
             generateZoneMap(-1000, islandSize2, r1); // About 31% of the regular map
 
             smoothMap();
@@ -1445,12 +1445,33 @@ namespace DW3Randomizer
                                         romData[byteToUse] = (byte)x;
                                         romData[byteToUse + 1] = (byte)y;
 
-                                        map[y + 0, x2 - 1] = 0x05;
-                                        map[y + 0, x2 - 3] = 0xea;
-                                        map[y + 0, x2 - 2] = 0xeb;
+                                        for (lnI = -6; lnI < 2; lnI++) // Top and bottom around Portoga
+                                        {
+                                            map[y - 2, x2 + lnI] = 0x00;
+                                            map[y + 2, x2 + lnI] = 0x00;
+                                        }
+                                        map[y - 1, x2 + 1] = 0x00;
+                                        for (lnI =  -6; lnI < 0; lnI++)
+                                        {
+                                            map[y - 1, x2 + lnI] = 0x05;
+                                            map[y + 1, x2 + lnI] = 0x05;
+                                        }
+                                        map[y, x2 + 1] = 0x00;
+                                        map[y, x2 - 1] = 0x05;
+                                        map[y, x2 - 2] = 0xeb;
+                                        map[y, x2 - 3] = 0xea;
+                                        map[y, x2 - 4] = 0x00;
+                                        map[y, x2 - 5] = 0x05;
+                                        map[y, x2 - 6] = 0x00;
+                                        map[y + 1, x2 + 1] = 0x00;
+                                        map[y + 1, x2] = 0x05;
                                         map[y + 1, x2 - 1] = 0x05;
                                         map[y + 1, x2 - 2] = 0x05;
                                         map[y + 1, x2 - 3] = 0x05;
+                                        map[y + 1, x2 - 4] = 0x00;
+                                        map[y + 1, x2 - 5] = 0x05;
+                                        map[y + 2, x2 - 6] = 0x00;
+
 
                                         // Map Portuga Castle to the ROM
                                         byteToUse = 0x1b252 + (5 * 10);
@@ -1464,7 +1485,7 @@ namespace DW3Randomizer
                                         romData[byteToUse + 1] = (byte)y;
 
                                         int byteToUseReturn = 0x1b61c + (4 * returnPoints[10]);
-                                        romData[byteToUseReturn] = (byte)(x2 - 4);
+                                        romData[byteToUseReturn] = (byte)(x2 - 1);
                                         romData[byteToUseReturn + 1] = (byte)y;
                                         shipPlacement(byteToUseReturn + 2, y - 1, x2 - 4, maxLake);
 
