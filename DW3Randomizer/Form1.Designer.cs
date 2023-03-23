@@ -139,6 +139,7 @@ namespace DW3Randomizer
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.chkRemoveParryFight = new System.Windows.Forms.CheckBox();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.chk_RandSpriteColor = new System.Windows.Forms.CheckBox();
             this.chk_ChangeHeroAge = new System.Windows.Forms.CheckBox();
             this.chk_LowerCaseMenus = new System.Windows.Forms.CheckBox();
             this.chk_FixSlimeSnail = new System.Windows.Forms.CheckBox();
@@ -150,7 +151,7 @@ namespace DW3Randomizer
             this.lblNewChecksum = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.chk_GenIslandsMonstersZones = new System.Windows.Forms.CheckBox();
-            this.chk_RandSpriteColor = new System.Windows.Forms.CheckBox();
+            this.chk_RmMtnNecrogond = new System.Windows.Forms.CheckBox();
             this.grpMonsterStat.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -594,6 +595,7 @@ namespace DW3Randomizer
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.chk_RmMtnNecrogond);
             this.tabPage2.Controls.Add(this.chk_lbtoCharlock);
             this.tabPage2.Controls.Add(this.chk_RemLancelMountains);
             this.tabPage2.Controls.Add(this.chk_RemoveBirdRequirement);
@@ -620,7 +622,7 @@ namespace DW3Randomizer
             // chk_lbtoCharlock
             // 
             this.chk_lbtoCharlock.AutoSize = true;
-            this.chk_lbtoCharlock.Location = new System.Drawing.Point(375, 169);
+            this.chk_lbtoCharlock.Location = new System.Drawing.Point(375, 190);
             this.chk_lbtoCharlock.Name = "chk_lbtoCharlock";
             this.chk_lbtoCharlock.Size = new System.Drawing.Size(171, 17);
             this.chk_lbtoCharlock.TabIndex = 54;
@@ -632,7 +634,7 @@ namespace DW3Randomizer
             // chk_RemLancelMountains
             // 
             this.chk_RemLancelMountains.AutoSize = true;
-            this.chk_RemLancelMountains.Location = new System.Drawing.Point(375, 145);
+            this.chk_RemLancelMountains.Location = new System.Drawing.Point(375, 121);
             this.chk_RemLancelMountains.Name = "chk_RemLancelMountains";
             this.chk_RemLancelMountains.Size = new System.Drawing.Size(216, 17);
             this.chk_RemLancelMountains.TabIndex = 53;
@@ -644,7 +646,7 @@ namespace DW3Randomizer
             // chk_RemoveBirdRequirement
             // 
             this.chk_RemoveBirdRequirement.AutoSize = true;
-            this.chk_RemoveBirdRequirement.Location = new System.Drawing.Point(375, 121);
+            this.chk_RemoveBirdRequirement.Location = new System.Drawing.Point(375, 167);
             this.chk_RemoveBirdRequirement.Name = "chk_RemoveBirdRequirement";
             this.chk_RemoveBirdRequirement.Size = new System.Drawing.Size(235, 17);
             this.chk_RemoveBirdRequirement.TabIndex = 52;
@@ -1521,6 +1523,18 @@ namespace DW3Randomizer
             this.tabPage7.Text = "Cosmetic";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
+            // chk_RandSpriteColor
+            // 
+            this.chk_RandSpriteColor.AutoSize = true;
+            this.chk_RandSpriteColor.Location = new System.Drawing.Point(6, 76);
+            this.chk_RandSpriteColor.Name = "chk_RandSpriteColor";
+            this.chk_RandSpriteColor.Size = new System.Drawing.Size(141, 17);
+            this.chk_RandSpriteColor.TabIndex = 143;
+            this.chk_RandSpriteColor.Text = "Randomize Sprite Colors";
+            this.adjustments.SetToolTip(this.chk_RandSpriteColor, "Randomizes the colors of overworld sprites. There may be some interesting combina" +
+        "tions.");
+            this.chk_RandSpriteColor.UseVisualStyleBackColor = true;
+            // 
             // chk_ChangeHeroAge
             // 
             this.chk_ChangeHeroAge.AutoSize = true;
@@ -1621,16 +1635,17 @@ namespace DW3Randomizer
             this.chk_GenIslandsMonstersZones.Text = "Generate islands, monsters, and zones files";
             this.chk_GenIslandsMonstersZones.UseVisualStyleBackColor = true;
             // 
-            // chk_RandSpriteColor
+            // chk_RmMtnNecrogond
             // 
-            this.chk_RandSpriteColor.AutoSize = true;
-            this.chk_RandSpriteColor.Location = new System.Drawing.Point(6, 76);
-            this.chk_RandSpriteColor.Name = "chk_RandSpriteColor";
-            this.chk_RandSpriteColor.Size = new System.Drawing.Size(141, 17);
-            this.chk_RandSpriteColor.TabIndex = 143;
-            this.chk_RandSpriteColor.Text = "Randomize Sprite Colors";
-            this.chk_RandSpriteColor.UseVisualStyleBackColor = true;
-            this.adjustments.SetToolTip(this.chk_RandSpriteColor, "Randomizes the colors of overworld sprites. There may be some interesting combinations.");
+            this.chk_RmMtnNecrogond.AutoSize = true;
+            this.chk_RmMtnNecrogond.Location = new System.Drawing.Point(375, 144);
+            this.chk_RmMtnNecrogond.Name = "chk_RmMtnNecrogond";
+            this.chk_RmMtnNecrogond.Size = new System.Drawing.Size(249, 17);
+            this.chk_RmMtnNecrogond.TabIndex = 55;
+            this.chk_RmMtnNecrogond.Text = "Remove mountains around Cave of Necrogond";
+            this.chk_RmMtnNecrogond.UseVisualStyleBackColor = true;
+            this.chk_RmMtnNecrogond.CheckedChanged += new System.EventHandler(this.determineFlags);
+
             // 
             // Form1
             // 
@@ -1809,6 +1824,7 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_RemLancelMountains;
         private System.Windows.Forms.CheckBox chk_GenIslandsMonstersZones;
         private System.Windows.Forms.CheckBox chk_RandSpriteColor;
+        private System.Windows.Forms.CheckBox chk_RmMtnNecrogond;
     }
 }
 

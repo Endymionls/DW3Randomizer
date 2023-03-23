@@ -1617,6 +1617,14 @@ namespace DW3Randomizer
                                 map[y + 1, x + 0] = 0x05;
                                 map[y + 1, x + 1] = 0xef;
 
+                                if (chk_RmMtnNecrogond.Checked == true) // Change Mountains to hills
+                                {
+                                    for (int lnJ = x - 5; lnJ <= x + 4; lnJ++)
+                                        for (int lnK = y - 3; lnK <= y + 2; lnK++)
+                                            if (map[y, x] == 0x06)
+                                                map[y, x] = 0x05;
+                                }
+
                                 // Volcano stuff
                                 // First, Sword of Gaia
                                 romData[0x2e7f] = romData[0x32a93] = (byte)x;
@@ -8438,6 +8446,7 @@ namespace DW3Randomizer
 
             number = convertChartoInt(Convert.ToChar(flags.Substring(6, 1)));
             chk_lbtoCharlock.Checked = (number % 2 == 1);
+            chk_RmMtnNecrogond.Checked = (number % 4 >= 2);
 
             number = convertChartoInt(Convert.ToChar(flags.Substring(7, 1)));
             chkRandTreasures.Checked = (number % 2 == 1);
@@ -8510,7 +8519,7 @@ namespace DW3Randomizer
             flags += convertIntToChar((chk_WeapArmPower.Checked ? 1 : 0) + (chkNoLamiaOrbs.Checked ? 2 : 0) + (chk_RmManip.Checked ? 4 : 0));
             flags += convertIntToChar((optMonsterLight.Checked ? 0 : optMonsterSilly.Checked ? 1 : optMonsterMedium.Checked ? 2 : 3) + (chkRandomizeXP.Checked ? 4 : 0) + (chkRandomizeGP.Checked ? 8 : 0) + (chkRandEnemyPatterns.Checked ? 16 : 0) + (chk_RemMetalMonRun.Checked ? 32 : 0));
             flags += convertIntToChar((chkRandomizeMap.Checked ? 1 : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? 2 : 0) : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? (chk_SepBarGaia.Checked ? 4 : 0) : 0) : 0) + (chkRandomizeMap.Checked ? (chkRandMonsterZones.Checked ? 8 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RemoveBirdRequirement.Checked ? 16 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RemLancelMountains.Checked ? 32 : 0) : 0));
-            flags += convertIntToChar((chkRandomizeMap.Checked ? (chk_lbtoCharlock.Checked ? 1 : 0) : 0));
+            flags += convertIntToChar((chkRandomizeMap.Checked ? (chk_lbtoCharlock.Checked ? 1 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RmMtnNecrogond.Checked ? 2 : 0) : 0));
             flags += convertIntToChar((chkRandTreasures.Checked ? 1 : 0) + (chkRandTreasures.Checked ? (chk_GoldenClaw.Checked ? 2 : 0) : 0)  + (chkRandWhoCanEquip.Checked ? 4 : 0) + (chkRandEquip.Checked ? 8 : 0) + (chkRandEquip.Checked ? (chk_UseVanEquipValues.Checked ? 16 : 0) : 0) + (chkRandEquip.Checked ? (chk_RemoveStartEqRestrictions.Checked ?32 : 0) : 0));
             flags += convertIntToChar((chkRandEquip.Checked ? (chk_RmFighterPenalty.Checked ? 1 : 0) : 0));
             flags += convertIntToChar((chkRandItemEffects.Checked ? 1 : 0) + (chkRandItemStores.Checked ? 2 : 0) + (chk_RandomizeWeaponShops.Checked ? 4 : 0) + (chk_Caturday.Checked ? 8 : 0) + (chk_RandomizeInnPrices.Checked ? 16 : 0));
@@ -8635,6 +8644,7 @@ namespace DW3Randomizer
             this.chk_SepBarGaia.Visible = this.chkRandomizeMap.Checked;
             this.chkRandMonsterZones.Visible = this.chkRandomizeMap.Checked;
             this.chk_RemoveBirdRequirement.Visible = this.chkRandomizeMap.Checked;
+            this.chk_RmMtnNecrogond.Visible = this.chkRandomizeMap.Checked;
             this.chk_RmFighterPenalty.Visible = this.chkRandEquip.Checked;
             this.chk_UseVanEquipValues.Visible = this.chkRandEquip.Checked;
         }
