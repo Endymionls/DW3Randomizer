@@ -4606,25 +4606,26 @@ namespace DW3Randomizer
                 0x29269, 0x2926a, 0x2926b }; // Portuga -> Royal Scroll - 20 - 57
             int[] treasureAddrZ5 = { 0x2923c, 0x2923d, // Dwarf's Cave
                 0x29251, 0x292c7, 0x292c8, 0x292c9, 0x292ca, // Garuna Tower
-                0x2923e, 0x2923f, 0x29240, 0x29241, 0x29242, 0x29243, 0x2928b, 0x2928c, 0x2928d, 0x2928e}; // Kidnapper's Cave -> Black Pepper - 17 - 74
+                0x2923e, 0x2923f, 0x29240, 0x29241, 0x29242, 0x29243, 0x2928b, 0x2928c, 0x2928d, 0x2928e}; // Kidnapper's Cave -> Black Pepper - 17 - 75
             int[] treasureAddrZ6 = { 0x31b94, 0x29270, // Tedan (except Green Orb)
                 0x292e4, 0x292e7, // Jipang
                 0x29271, 0x29272, 0x29273, // Pirate Cove
-                0x292cb, 0x292cc, 0x292cd, 0x292ce, 0x292cf, 0x292d0, 0x292d1}; // Arp Tower - Final Key - 14 - 88
+                0x292cb, 0x292cc, 0x292cd, 0x292ce, 0x292cf, 0x292d0, 0x292d1}; // Arp Tower - Final Key - 14 - 89
             int[] treasureAddrZ7 = { 0x29291, 0x29292, 0x29293, 0x29294, 0x29295, 0x29296, 0x29297, 0x29298, 0x29299, 0x2929a, 0x2929b, // Samanao Cave
                 0x2929c, 0x2929d, 0x2929e, 0x2929f, 0x292a0, 0x292a1, 0x292a2, 0x292a3, 0x292a4, 0x292a5, 0x292a6, 0x292a7, // Samanao Cave
-                0x29244, 0x29245, 0x29246, 0x29247, 0x29248, 0x2928f, 0x29290 }; // Lancel Cave - Mirror Of Ra - 30 - 118
-            int[] treasureAddrZ8 = { 0x292e5 }; // Staff Of Change - Samanao Castle - 1 - 119
-            int[] treasureAddrZ9 = { 0x29275, 0x29276, 0x29277, 0x29278, 0x29279, 0x2927a }; // Sword Of Gaia - Ghost ship - 6 - 125
-            int[] treasureAddrZ10 = { 0x29288, 0x29289, 0x2928a }; // All orbs - Cave Of Necrogund - 3 - 128
+                0x29244, 0x29245, 0x29246, 0x29247, 0x29248, 0x2928f, 0x29290 }; // Lancel Cave - Mirror Of Ra - 30 - 119
+            int[] treasureAddrZ8 = { 0x292e5 }; // Staff Of Change - Samanao Castle - 1 - 120
+            int[] treasureAddrZ9 = { 0x29275, 0x29276, 0x29277, 0x29278, 0x29279, 0x2927a }; // Sword Of Gaia - Ghost ship - 6 - 126
+            int[] treasureAddrZ10 = { 0x29288, 0x29289, 0x2928a }; // All orbs - Cave Of Necrogund - 3 - 129
             int[] treasureAddrZ11 = { 0x37df1, // Thief Key Old Man
                 0x2925b, // Eginbear
                 0x31b8c, // Soo 
-                0x2922b, // Final Key Shrine - Additional Potential Orb Locations - 4 - 132
+                0x2922b, // Final Key Shrine - Additional Potential Orb Locations - 4 - 133
                 };
-            int[] treasureAddrZ12 = { 0x37929 }; // Dragon Queen - Additional Potential Orb Location - 1 - 133
-            int[] treasureAddrZ13 = { 0x377fe, 0x377d5 }; // Black Pepper NPC, Water Blaster NPC  - 2 Not orb due to duplication - 135
-            int[] treasureAddrZ14 = { 0x29265, 0x29266, 0x29267, 0x29268, // Tantegel Castle
+            int[] treasureAddrZ12 = { 0x37929 }; // Dragon Queen - Additional Potential Orb Location - Not random map 1 - 135 / random map 1 - 134
+            int[] treasureAddrZ13 = { }; // Green orb location in Tedanki (Only should have Green Orb or other non-key item treasure) - Not Random map 1 - 134 / random map 1 - 135
+            int[] treasureAddrZ14 = { 0x377fe, 0x377d5 }; // Black Pepper NPC, Water Blaster NPC  - 2 Not orb due to duplication - 137
+            int[] treasureAddrZ15 = { 0x29265, 0x29266, 0x29267, 0x29268, // Tantegel Castle
                 0x292a8, 0x292a9, 0x292aa, 0x292ab, 0x292ac, // Erdrick's Cave
                 0x29274, // Garin's home
                 0x292df, 0x292e0, 0x292e1, 0x292e2, 0x292e3, // Rocky Mountain Cave
@@ -4632,9 +4633,9 @@ namespace DW3Randomizer
                 0x31b88, // Kol
                 0x29253, 0x29254, 0x292d5, 0x292d6, 0x292d7, 0x292d8, 0x292d9, 0x292da, 0x292db, 0x292dc, 0x292dd, 0x292de, // Kol Tower
                 0x29233,// Rimuldar
-                0x37d9d }; // Staff of Rain NPC - Staff Of Rain, Stones Of Sunlight, Sacred Amulet - 30 - 165
-            int[] treasureAddrZ15 = { 0x292ad, 0x292ae, 0x292af, 0x292b0, 0x292b1, 0x292b2, 0x292b3 }; // Zoma's Castle - Sphere of Light - 7 - 172
-            int[] treasureAddrZ16 = { 0x29228, 0x29229, 0x2922a, // Baramos's Castle
+                0x37d9d }; // Staff of Rain NPC - Staff Of Rain, Stones Of Sunlight, Sacred Amulet - 30 - 167
+            int[] treasureAddrZ16 = { 0x292ad, 0x292ae, 0x292af, 0x292b0, 0x292b1, 0x292b2, 0x292b3 }; // Zoma's Castle - Sphere of Light - 7 - 174
+            int[] treasureAddrZ17 = { 0x29228, 0x29229, 0x2922a, // Baramos's Castle
                 0x292b7, 0x292b8, 0x292b9, 0x292ba, 0x292bb, 0x292bc, 0x292bd, 0x292be, 0x292bf, 0x292c0, 0x292c1, 0x292c2, // Pyramid Mummy Men Chests
                 0x31b9f, // World Tree
                 0x31b97, // Luzami
@@ -4657,11 +4658,20 @@ namespace DW3Randomizer
             allTreasureList = addTreasure(allTreasureList, treasureAddrZ9);
             allTreasureList = addTreasure(allTreasureList, treasureAddrZ10);
             allTreasureList = addTreasure(allTreasureList, treasureAddrZ11);
-            allTreasureList = addTreasure(allTreasureList, treasureAddrZ12);
-            allTreasureList = addTreasure(allTreasureList, treasureAddrZ13);
+            if (chkRandomizeMap.Checked == true)
+            {
+                allTreasureList = addTreasure(allTreasureList, treasureAddrZ12);
+                allTreasureList = addTreasure(allTreasureList, treasureAddrZ13);
+            }
+            else
+            {
+                allTreasureList = addTreasure(allTreasureList, treasureAddrZ13);
+                allTreasureList = addTreasure(allTreasureList, treasureAddrZ12);
+            }
             allTreasureList = addTreasure(allTreasureList, treasureAddrZ14);
             allTreasureList = addTreasure(allTreasureList, treasureAddrZ15);
             allTreasureList = addTreasure(allTreasureList, treasureAddrZ16);
+            allTreasureList = addTreasure(allTreasureList, treasureAddrZ17);
 
             int[] allTreasure = allTreasureList.ToArray();
 
@@ -4732,13 +4742,13 @@ namespace DW3Randomizer
                                     0x7c, 0x10, 0x75, 0x72, 0x4a, 0x50, 0x70, 0x53, 0x71 };
             byte[] minKeyTreasure = { 1, 0, 1, 1, 1, 1, 1, 1, 1,
                                           1, 1, 1, 1, 1, 1, 1, 1, 1,
-                                          1, 136, 136, 136, 1, 1, 136, 1, 1 };
-            byte[] maxKeyTreasure = { 7, 9, 37, 37, 57, 74, 88, 118, 119,
-                                       119, 133, 132, 125, 133, 133, 133, 133, 133,
-                                       133, 165, 165, 172, 172, 172, 165, 172, 172 }; // used if chkRandomizeMaps is true
-            byte[] maxKeyTreasure2 = { 7, 9, 37, 37, 57, 74, 88, 118, 119,
-                                       119, 132, 131, 125, 132, 132, 132, 132, 132,
-                                       132, 165, 165, 172, 172, 172, 165, 172, 172 };
+                                          1, 138, 138, 138, 1, 1, 138, 1, 1 };
+            byte[] maxKeyTreasure = { 7, 9, 37, 37, 57, 75, 89, 119, 120,
+                                       120, 134, 133, 126, 134, 134, 134, 134, 134,
+                                       135, 167, 167, 174, 174, 174, 167, 174, 174 }; // used if chkRandomizeMaps is true
+            byte[] maxKeyTreasure2 = { 7, 9, 37, 37, 57, 75, 89, 119, 120,
+                                       120, 133, 132, 126, 133, 133, 133, 133, 133,
+                                       134, 167, 167, 174, 174, 174, 167, 174, 174 };
 
 
             int echoingFluteMarker = 0;
