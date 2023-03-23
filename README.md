@@ -1,44 +1,68 @@
 # Dragon Warrior 3 Randomizer
+## Background
+- This is a fork from gameboyf9's Dragon Warrior 3 Randomizer. I have enjoyed Dragon Warrior III since I was a kid, and have enjoyed playing through seeds of the randomizer. While playing and watching other streamers play through seeds, I noticed little bugs here or there, so I figured that I'd take a stab at tackling the issues. It has since grown into splitting out flags, adding features, and looking at other enhancements to the randomizer. This is a project that I initially worked on for myself and chose to share with the community.
+- Since the question has been asked to others, this isn't a stab at the product that gameboyf9 put out there. This is just growing the project and honoring the work that he had put forth on the randomizer.
+
 ## Features
-- An opportunity to half the gold requirements, as well as increase XP gained by 133% to reduce grinding.
-- An opportunity to increase XP by an additional 100% for all monsters EXCEPT metal slimes and metal babbles. (for a total of nearly 5x the normal XP value)
-- And opportunity to randomize stores, monster patterns, monster zones, spell learning, spell strengths, stat gains, treasures (including what NPCs give you), and equipment (the strength of said equipment, as well as what equipment can be used in battle).
-- An opportunity to adjust the seed from 1 to 2^32 (2 billion plus) for racing possibilities.
-- Super speedy battles!
-- Parry/Fight technique removed (I personally don't think it should have been there in the first place...)
-- An opportunity to rename the starting characters from the get go!
-- All party members are revived with full HP and MP on a party wipe, regardless of save location.
-- No more lectures after a party wipe, saving 13 seconds minimum for each instance.  (this causes temporary graphical errors, but it does not affect the game overall)
+- Adjust earned experience, gold and encounter rates.
+- Randomize main and Alefgard maps, and option to reduce the overall size of the main map.
+- Randomize weapon and item shops, monster patterns, monster zones, spell learning, spell strengths, stat gains, treasures, and equipment.
+- Adjust the seed from 1 to 2^32 (2 billion plus) for racing possibilities.
+- Speed up menus and battle speed
+- Option to fix Parry/Fight bug
+- Option rename the starting characters, from the start, along with randomizing names (from previous Dragon Quest/Dragon Warrior games), genders, and classes from the start.
+- No more lectures after a party wipe (saves 13 seconds minimum for each instance but causes temporary graphical errors).
+- Various cosmetic options available to change how the game looks.
 
-### More specific
-- All monsters, except Zoma, can be completely randomized, except for their HP, Defense, Attack Power, XP. (in first three cases, it is an equal chances of 0%, -50%(minimum), or +50%(maximum) of their original power)
-- Gold may be increased up to quadruple their normal value.
-- Monsters resistances are randomized as well, but higher level monsters have a higher chance of higher resistances.
-- Monster zones are completely random, but they will be easier until after the Pyramid, and will get progressively harder starting at the approach to the Necrogund Cave.
-- Boss fights are NOT randomized.  (yet)
-- The higher level monster, the higher chances of it doing really nasty stuff (explodet, defeat, etc.)
-- Some monsters have chances of doing what you would think it would do.  (e.g. Magicians, etc. casting a spell, Green Dragons and Lava Bashers breathing flames, healers healing, Bomb Crags casting Sacrifice, etc.)
-- Weapon and item stores are completely randomized.  You theoretically could buy items such as Water Flying Clothes, Thunder Swords, Leaves of The World Tree, Final Keys, and so forth.  Orbs and Rainbow Drops, as examples, still have to be found.
-- Weapon and armor power are completely randomized from 1 to 130 for weapons, 80 for armor, 55 for shields, and 35 for helmets.
-- Weapon and armor prices are adjusted according to the power randomized.  (power ^ 2.04, 2.26, 2.45, 2.7 for weapons, armor, shields, and helmets respectively, for a maximum price of about 20,000 GP)
-- Who equips each weapon, armor, shield, and helmet is also randomized. (an equipment guide is written so you don't spend a long period of time trying to figure out who can equip what, how powerful it is, and what weapons can be used as an item)
-- The only exceptions are the starting equipment (maximum power 12 for each), which is not changed for any party member.
-- Spells are learned randomly, but return and outside is learned for the hero, antidote is learned for the pilgrim, and heal is learned for the wizard, all between levels 2-4.
-- Treasures are completely randomized, but you will find all key items before they are required either in the treasures to be found, NPCs you run into, or possibly weapon and item stores.
-- Starting gold is randomized from 0-255.
-- The inns are randomized as well from 1-20GP/person.
-- HP starts between 9 and 23 points higher than usual.
-- The "baseline" for all stats are removed.  This makes it a GREAT idea to change classes!
-- Fighters are no longer penalized for equipping non-claw items.
-- Statistical gains are randomized, up to -50% to +100% of their normal gains.
-- Spell strengths are randomized
-- Equipments used as an item are randomized, as well as the "spells" they cast!
+### Adjustments
+- Experience and gold gains can be adjusted.
+- Encounter rate can be increased or reduced.
+- Speed up options including battle speed, text, and menus.
+- Option to have all party members revived with full HP and MP on a party wipe, regardless of save location.
+- Option to remove known manipulations from the game.
+- Option to display weapon and armor power as part of the name.
+- Option to not require orbs for Lamia (orbs will not be found in the game.
 
+### Monsters & Map
+- 4 levels of monster randomness.
+- Experience and gold earned from monsters can be randomized.
+- Monster patterns can be randomized.
+- Option to remove the increased run rate of Metal Slimes and Metal Babbles.
+- Map can be randomized, including monster zones and map size.
+- Option to separate Gaia's Pit and Baramos Castle to eliminate option of no battles in Alefgard.
+- Options to remove mountains around Lancel, Cave of Necrogond, and Baramos Castle, and create land bridge to Charlock Castle (in small map)
+
+### Equipment & Treasures
+- Option to randomize treasures.
+- Who can equip equipment can be randomized.
+- Equipment power can be randomized. This will adjust the cost of equipment.
+
+### Item & Weapon Shops & Inns
+- Item and weapon shops can be randomized.
+- Rare items can be toggled to be found in item shops.
+- Caturday flag (Animal Suit will be found in at least 1 weapon shop).
+- Inn prices can be randomized.
+
+### Characters
+- Names, genders, and classes can be set or randomized.
+- Stat gains, spell learning, and spell strengths can be randomized. Will cause higher starting HP.
+- Four Job Fiesta adjustments.
+
+### Fixes
+- Option to remove Fight/Parry bug.
+
+### Cosmetic
+- Lower case menus (removes all caps menus).
+- Fix Slime Snail name.
+- Change Hero's age.
+- Randomize sprite colors.
 
 ## To Do/Wishlist
-- Randomize boss fights (much easier said than done I'm afraid)
+- Take a look at the issues in Github. That is where I'm maintaining the todos.
+- If you find a bug or issue, please submit an issue here or post it in the #dw3r channel of the Dragon Warrior Randomizer Discord.
 
 ## Special Thanks
+- gameboyf9, for his work on the randomizer through version 2.3.3. Without him, this randomizer wouldn't be here.
 - Mcgrew, for his Dragon Warrior 1 Randomizer(https://github.com/mcgrew/dwrandomizer), giving me the inspiration to create this randomizer.  Twitch:  http://www.twitch.tv/mcgrew
 - Vaxherd for his Echoing Flute and Speed Text hacks and fixes.
 - Foggrey (Twitch:  http://www.twitch.tv/foggrey), PJPlusTwo (Twitch:  http://www.twitch.tv/pjplustwo), Shoobinator (Twitch:  http://www.twitch.tv/shoobinator), HighSpirits (Twitch:  http://www.twitch.tv/highspirits), DrBlackBarn (Twitch:  http://www.twitch.tv/drblackbarn), Reiska (Twitch:  http://www.twitch.tv/reiska), AllenSeitz, and Deranged Squirrel Fighter (Twitch: https://www.twitch.tv/deranged_squirrel_fighter) for testing.
