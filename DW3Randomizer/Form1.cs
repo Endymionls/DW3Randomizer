@@ -1429,8 +1429,8 @@ namespace DW3Randomizer
 
                                 if (chkSmallMap.Checked)
                                 {
-                                    for (int lnJ = x2 - 3; lnJ < x2 + 2; lnJ++)
-                                        for (int lnK = y; lnK < y + 2; lnK++)
+                                    for (int lnJ = x2 - 6; lnJ < x2 + 2; lnJ++)
+                                        for (int lnK = y - 2; lnK < y + 3; lnK++)
                                         {
                                             if (map[lnK, lnJ] != 0x00 || island[lnK, lnJ] != maxLake)
                                                 baramosLegal = false;
@@ -1444,18 +1444,22 @@ namespace DW3Randomizer
                                         int byteToUse = 0x1b252 + (5 * lnI);
                                         romData[byteToUse] = (byte)x;
                                         romData[byteToUse + 1] = (byte)y;
-
-                                        for (lnI = -6; lnI < 2; lnI++) // Top and bottom around Portoga
-                                        {
-                                            map[y - 2, x2 + lnI] = 0x00;
-                                            map[y + 2, x2 + lnI] = 0x00;
-                                        }
-                                        map[y - 1, x2 + 1] = 0x00;
-                                        for (lnI =  -6; lnI < 0; lnI++)
-                                        {
-                                            map[y - 1, x2 + lnI] = 0x05;
-                                            map[y + 1, x2 + lnI] = 0x05;
-                                        }
+                                        map[y - 2, x2 + 1] = 0x00;
+                                        map[y - 2, x2] = 0x00;
+                                        map[y - 2, x2 - 1] = 0x00;
+                                        map[y - 2, x2 - 2] = 0x00;
+                                        map[y - 2, x2 - 3] = 0x00;
+                                        map[y - 2, x2 - 4] = 0x00;
+                                        map[y - 2, x2 - 5] = 0x00;
+                                        map[y - 2, x2 - 6] = 0x00;
+                                        map[y - 2, x2 + 1] = 0x00;
+                                        map[y - 1, x2] = 0x00;
+                                        map[y - 1, x2 - 1] = 0x05;
+                                        map[y - 1, x2 - 2] = 0x05;
+                                        map[y - 1, x2 - 3] = 0x05;
+                                        map[y - 1, x2 - 4] = 0x05;
+                                        map[y - 1, x2 - 5] = 0x05;
+                                        map[y - 1, x2 - 6] = 0x00;
                                         map[y, x2 + 1] = 0x00;
                                         map[y, x2 - 1] = 0x05;
                                         map[y, x2 - 2] = 0xeb;
@@ -1464,13 +1468,22 @@ namespace DW3Randomizer
                                         map[y, x2 - 5] = 0x05;
                                         map[y, x2 - 6] = 0x00;
                                         map[y + 1, x2 + 1] = 0x00;
-                                        map[y + 1, x2] = 0x05;
+                                        map[y + 1, x2] = 0x00;
                                         map[y + 1, x2 - 1] = 0x05;
                                         map[y + 1, x2 - 2] = 0x05;
                                         map[y + 1, x2 - 3] = 0x05;
                                         map[y + 1, x2 - 4] = 0x00;
                                         map[y + 1, x2 - 5] = 0x05;
+                                        map[y + 1, x2 - 6] = 0x00;
+                                        map[y + 2, x2 + 1] = 0x00;
+                                        map[y + 2, x2] = 0x00;
+                                        map[y + 2, x2 - 1] = 0x00;
+                                        map[y + 2, x2 - 2] = 0x00;
+                                        map[y + 2, x2 - 3] = 0x00;
+                                        map[y + 2, x2 - 4] = 0x00;
+                                        map[y + 2, x2 - 5] = 0x00;
                                         map[y + 2, x2 - 6] = 0x00;
+
 
 
                                         // Map Portuga Castle to the ROM
@@ -1487,7 +1500,7 @@ namespace DW3Randomizer
                                         int byteToUseReturn = 0x1b61c + (4 * returnPoints[10]);
                                         romData[byteToUseReturn] = (byte)(x2 - 1);
                                         romData[byteToUseReturn + 1] = (byte)y;
-                                        shipPlacement(byteToUseReturn + 2, y - 1, x2 - 4, maxLake);
+                                        shipPlacement(byteToUseReturn + 2, y, x2 - 4, maxLake);
 
                                         romData[0x3d126] = romData[0x7d126] = romData[byteToUseReturn + 2];
                                         romData[0x3d12a] = romData[0x7d12a] = romData[byteToUseReturn + 3];
@@ -1594,12 +1607,26 @@ namespace DW3Randomizer
 
                                 for (int lnJ = y - 3; lnJ <= y + 2; lnJ++)
                                 {
-                                    map[lnJ, x - 5] = 0x06;
-                                    map[lnJ, x + 2] = 0x06;
-                                    map[lnJ, x + 4] = 0x06;
+                                    if (chk_RmMtnNecrogond.Checked == true)
+                                    {
+                                        map[lnJ, x - 5] = 0x05;
+                                        map[lnJ, x + 2] = 0x05;
+                                        map[lnJ, x + 4] = 0x05;
+                                    }
+                                    else
+                                    {
+                                        map[lnJ, x - 5] = 0x06;
+                                        map[lnJ, x + 2] = 0x06;
+                                        map[lnJ, x + 4] = 0x06;
+                                    }
                                 }
                                 for (int lnJ = x - 5; lnJ <= x + 4; lnJ++)
-                                    map[y + 2, lnJ] = 0x06;
+                                {
+                                    if (chk_RmMtnNecrogond.Checked == true)
+                                        map[y + 2, lnJ] = 0x06;
+                                    else
+                                        map[y + 2, lnJ] = 0x05;
+                                }
                                 for (int lnJ = x - 5; lnJ <= x + 4; lnJ++)
                                     map[y - 3, lnJ] = 0x05;
 
@@ -1637,14 +1664,6 @@ namespace DW3Randomizer
                                 map[y + 1, x - 1] = 0x05;
                                 map[y + 1, x + 0] = 0x05;
                                 map[y + 1, x + 1] = 0xef;
-
-                                if (chk_RmMtnNecrogond.Checked == true) // Change Mountains to hills
-                                {
-                                    for (int lnJ = x - 5; lnJ <= x + 4; lnJ++)
-                                        for (int lnK = y - 3; lnK <= y + 2; lnK++)
-                                            if (map[y, x] == 0x06)
-                                                map[y, x] = 0x05;
-                                }
 
                                 // Volcano stuff
                                 // First, Sword of Gaia
