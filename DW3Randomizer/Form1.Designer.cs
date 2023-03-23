@@ -70,6 +70,7 @@ namespace DW3Randomizer
             this.chkSpeedText = new System.Windows.Forms.CheckBox();
             this.chkFasterBattles = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.chk_RmMtnNecrogond = new System.Windows.Forms.CheckBox();
             this.chk_lbtoCharlock = new System.Windows.Forms.CheckBox();
             this.chk_RemLancelMountains = new System.Windows.Forms.CheckBox();
             this.chk_RemoveBirdRequirement = new System.Windows.Forms.CheckBox();
@@ -151,7 +152,6 @@ namespace DW3Randomizer
             this.lblNewChecksum = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.chk_GenIslandsMonstersZones = new System.Windows.Forms.CheckBox();
-            this.chk_RmMtnNecrogond = new System.Windows.Forms.CheckBox();
             this.grpMonsterStat.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -619,6 +619,17 @@ namespace DW3Randomizer
             this.tabPage2.Text = "Monsters & Map";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // chk_RmMtnNecrogond
+            // 
+            this.chk_RmMtnNecrogond.AutoSize = true;
+            this.chk_RmMtnNecrogond.Location = new System.Drawing.Point(375, 144);
+            this.chk_RmMtnNecrogond.Name = "chk_RmMtnNecrogond";
+            this.chk_RmMtnNecrogond.Size = new System.Drawing.Size(249, 17);
+            this.chk_RmMtnNecrogond.TabIndex = 55;
+            this.chk_RmMtnNecrogond.Text = "Remove mountains around Cave of Necrogond";
+            this.chk_RmMtnNecrogond.UseVisualStyleBackColor = true;
+            this.chk_RmMtnNecrogond.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
             // chk_lbtoCharlock
             // 
             this.chk_lbtoCharlock.AutoSize = true;
@@ -784,7 +795,7 @@ namespace DW3Randomizer
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage4.Size = new System.Drawing.Size(631, 216);
             this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Weapons & Treasures";
+            this.tabPage4.Text = "Treasures & Equipment";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // chk_UseVanEquipValues
@@ -1634,18 +1645,6 @@ namespace DW3Randomizer
             this.chk_GenIslandsMonstersZones.TabIndex = 202;
             this.chk_GenIslandsMonstersZones.Text = "Generate islands, monsters, and zones files";
             this.chk_GenIslandsMonstersZones.UseVisualStyleBackColor = true;
-            // 
-            // chk_RmMtnNecrogond
-            // 
-            this.chk_RmMtnNecrogond.AutoSize = true;
-            this.chk_RmMtnNecrogond.Location = new System.Drawing.Point(375, 144);
-            this.chk_RmMtnNecrogond.Name = "chk_RmMtnNecrogond";
-            this.chk_RmMtnNecrogond.Size = new System.Drawing.Size(249, 17);
-            this.chk_RmMtnNecrogond.TabIndex = 55;
-            this.chk_RmMtnNecrogond.Text = "Remove mountains around Cave of Necrogond";
-            this.chk_RmMtnNecrogond.UseVisualStyleBackColor = true;
-            this.chk_RmMtnNecrogond.CheckedChanged += new System.EventHandler(this.determineFlags);
-
             // 
             // Form1
             // 
