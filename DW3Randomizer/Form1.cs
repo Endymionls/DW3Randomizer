@@ -7476,13 +7476,13 @@ namespace DW3Randomizer
             romData[0x3a575] = 0x1a;
 
             //NDITION > -MP
-            romData[0x3a5d2] = 0x18;
-            romData[0x3a5d3] = 0x0e;
-            romData[0x3a5d4] = 0x13;
-            romData[0x3a5d5] = 0x1e;
-            romData[0x3a5d6] = 0x13;
-            romData[0x3a5d7] = 0x19;
-            romData[0x3a5d8] = 0x18;
+            romData[0x3a5d2] = 0x6b;
+            romData[0x3a5d3] = 0x31;
+            romData[0x3a5d4] = 0x34;
+            romData[0x3a5d5] = 0x00;
+            romData[0x3a5d6] = 0x00;
+            romData[0x3a5d7] = 0x00;
+            romData[0x3a5d8] = 0x00;
 
             //rmation
             romData[0x3a5dd] = 0x1c;
