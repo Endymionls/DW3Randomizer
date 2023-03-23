@@ -4623,7 +4623,7 @@ namespace DW3Randomizer
                 0x2922b, // Final Key Shrine - Additional Potential Orb Locations - 4 - 133
                 };
             int[] treasureAddrZ12 = { 0x37929 }; // Dragon Queen - Additional Potential Orb Location - Not random map 1 - 135 / random map 1 - 134
-            int[] treasureAddrZ13 = { }; // Green orb location in Tedanki (Only should have Green Orb or other non-key item treasure) - Not Random map 1 - 134 / random map 1 - 135
+            int[] treasureAddrZ13 = { 0x37828 }; // Green orb location in Tedanki (Only should have Green Orb or other non-key item treasure) - Not Random map 1 - 134 / random map 1 - 135
             int[] treasureAddrZ14 = { 0x377fe, 0x377d5 }; // Black Pepper NPC, Water Blaster NPC  - 2 Not orb due to duplication - 137
             int[] treasureAddrZ15 = { 0x29265, 0x29266, 0x29267, 0x29268, // Tantegel Castle
                 0x292a8, 0x292a9, 0x292aa, 0x292ab, 0x292ac, // Erdrick's Cave
