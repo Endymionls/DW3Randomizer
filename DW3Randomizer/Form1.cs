@@ -1623,9 +1623,9 @@ namespace DW3Randomizer
                                 for (int lnJ = x - 5; lnJ <= x + 4; lnJ++)
                                 {
                                     if (chk_RmMtnNecrogond.Checked == true)
-                                        map[y + 2, lnJ] = 0x06;
-                                    else
                                         map[y + 2, lnJ] = 0x05;
+                                    else
+                                        map[y + 2, lnJ] = 0x06;
                                 }
                                 for (int lnJ = x - 5; lnJ <= x + 4; lnJ++)
                                     map[y - 3, lnJ] = 0x05;
@@ -2051,75 +2051,55 @@ namespace DW3Randomizer
             int maleNameCount = maleNames.Length;
             int femaleNameCount = femaleNames.Length;
 
-            int index1 = r1.Next() % maleNameCount;
-            int index2 = r1.Next() % maleNameCount;
-            int index3 = r1.Next() % maleNameCount;
+            int mindex1 = r1.Next() % maleNameCount;
+            int mindex2 = r1.Next() % maleNameCount;
+            int mindex3 = r1.Next() % maleNameCount;
 
-            if (index1 == index2)
+            int findex1 = r1.Next() % femaleNameCount;
+            int findex2 = r1.Next() % femaleNameCount;
+            int findex3 = r1.Next() % femaleNameCount;
+
+            // Reroll male index if any of the values are the same (don't want characters with the same name)
+            while(mindex1 == mindex2 || mindex1 == mindex3 || mindex2 == mindex3)
             {
-                if (index2 == maleNameCount)
-                {
-                    index2 -= 1;
-                }
-                else
-                {
-                    index2 += 1;
-                }
+                mindex1 = r1.Next() % maleNameCount;
+                mindex2 = r1.Next() % maleNameCount;
+                mindex3 = r1.Next() % maleNameCount;
             }
 
-            if (index1 == index3)
+            // Reroll female index if any of the values are the same (don't want characters with the same name)
+            while (findex1 == findex2 || findex1 == findex3 || findex2 == findex3)
             {
-                if (index3 == maleNameCount)
-                {
-                    index3 -= 1;
-                }
-                else
-                {
-                    index3 += 1;
-                }
-            }
-
-            if (index2 == index3)
-            {
-                if (index3 == maleNameCount)
-                {
-                    index3 -= 1;
-                }
-                else
-                {
-                    index3 += 1;
-                }
-                if (index1 == index3)
-                {
-                    index3 -= 2;
-                }
+                findex1 = r1.Next() % femaleNameCount;
+                findex2 = r1.Next() % femaleNameCount;
+                findex3 = r1.Next() % femaleNameCount;
             }
 
             if (cboGender1.SelectedIndex == 0)
             {
-                txtCharName1.Text = maleNames[index1];
+                txtCharName1.Text = maleNames[mindex1];
             }
             else
             {
-                txtCharName1.Text = femaleNames[index1];
+                txtCharName1.Text = femaleNames[findex1];
             }
 
             if (cboGender2.SelectedIndex == 0)
             {
-                txtCharName2.Text = maleNames[index2];
+                txtCharName2.Text = maleNames[mindex2];
             }
             else
             {
-                txtCharName2.Text = femaleNames[index2];
+                txtCharName2.Text = femaleNames[findex2];
             }
 
             if (cboGender3.SelectedIndex == 0)
             {
-                txtCharName3.Text = maleNames[index3];
+                txtCharName3.Text = maleNames[mindex3];
             }
             else
             {
-                txtCharName3.Text = femaleNames[index3];
+                txtCharName3.Text = femaleNames[findex3];
             }
         }
 
@@ -7479,10 +7459,10 @@ namespace DW3Randomizer
             romData[0x3a5d2] = 0x6b;
             romData[0x3a5d3] = 0x31;
             romData[0x3a5d4] = 0x34;
-            romData[0x3a5d5] = 0x00;
-            romData[0x3a5d6] = 0x00;
-            romData[0x3a5d7] = 0x00;
-            romData[0x3a5d8] = 0x00;
+            romData[0x3a5d5] = 0x3f;
+            romData[0x3a5d6] = 0x3f;
+            romData[0x3a5d7] = 0x3f;
+            romData[0x3a5d8] = 0x3f;
 
             //rmation
             romData[0x3a5dd] = 0x1c;
