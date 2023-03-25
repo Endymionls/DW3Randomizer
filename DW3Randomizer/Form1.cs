@@ -8437,104 +8437,116 @@ namespace DW3Randomizer
         private void determineChecks(object sender, EventArgs e)
         {
             string flags = txtFlags.Text;
-            int number = convertChartoInt(Convert.ToChar(flags.Substring(0, 1)));
+            int number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(0, 1)));
             chk_GenCompareFile.Checked = (number % 2 == 1);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(1, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(1, 1)));
             cboExpGains.SelectedIndex = (number % 8);
-            cboEncounterRate.SelectedIndex = (number / 8);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(2, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(2, 1)));
+            cboEncounterRate.SelectedIndex = (number % 8);
+
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(3, 1)));
             cboGoldReq.SelectedIndex = (number % 4);
             chkFasterBattles.Checked = (number % 8 >= 4);
             chkSpeedText.Checked = (number % 16 >= 8);
-            chk_SpeedUpMenus.Checked = (number % 32 >= 16);
-            chk_Cod.Checked = (number >= 32);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(3, 1)));
-            chk_WeapArmPower.Checked = (number % 2 == 1);
-            chkNoLamiaOrbs.Checked = (number % 4 >= 2);
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(4,1)));    
+            chk_SpeedUpMenus.Checked = (number % 2 == 1);
+            chk_Cod.Checked = (number % 4 >= 2);
+            chk_WeapArmPower.Checked = (number % 8 == 4);
+            chkNoLamiaOrbs.Checked = (number % 16 >= 8);
+
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(5, 1)));
             chk_RmManip.Checked = (number % 8 >= 4);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(4, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(6, 1)));
             optMonsterLight.Checked = (number % 4 == 0);
             optMonsterSilly.Checked = (number % 4 == 1);
             optMonsterMedium.Checked = (number % 4 == 2);
             optMonsterHeavy.Checked = (number % 4 == 3);
             chkRandomizeXP.Checked = (number % 8 >= 4);
             chkRandomizeGP.Checked = (number % 16 >= 8);
-            chkRandEnemyPatterns.Checked = (number % 32 >= 16);
-            chk_RemMetalMonRun.Checked = (number >= 32);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(5, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(7,1)));
+            chkRandEnemyPatterns.Checked = (number % 2 == 1);
+            chk_RemMetalMonRun.Checked = (number % 4 >= 2);
+
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(8, 1)));
             chkRandomizeMap.Checked = (number % 2 == 1);
             chkSmallMap.Checked = (number % 4 >= 2);
             chk_SepBarGaia.Checked = (number % 8 >= 4);
             chkRandMonsterZones.Checked = (number % 16 >= 8);
-            chk_RemoveBirdRequirement.Checked = (number % 32 >= 16);
-            chk_RemLancelMountains.Checked = (number >= 32);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(6, 1)));
-            chk_lbtoCharlock.Checked = (number % 2 == 1);
-            chk_RmMtnNecrogond.Checked = (number % 4 >= 2);
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(9, 1)));
+            chk_RemoveBirdRequirement.Checked = (number % 2 == 1);
+            chk_RemLancelMountains.Checked = (number % 4 >= 2);
+            chk_lbtoCharlock.Checked = (number % 8 >= 4);
+            chk_RmMtnNecrogond.Checked = (number % 16 >= 8);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(7, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(10, 1)));
             chkRandTreasures.Checked = (number % 2 == 1);
             chk_GoldenClaw.Checked = (number % 4 >= 2);;
             chkRandWhoCanEquip.Checked = (number % 8 >= 4);
             chkRandEquip.Checked = (number % 16 >= 8);
-            chk_UseVanEquipValues.Checked = (number % 32 >= 16);
-            chk_RemoveStartEqRestrictions.Checked = (number >= 32);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(8, 1)));
-            chk_RmFighterPenalty.Checked = (number % 2 == 1);
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(11, 1)));
+            chk_UseVanEquipValues.Checked = (number % 2 == 1);
+            chk_RemoveStartEqRestrictions.Checked = (number % 4 >= 2);
+            chk_RmFighterPenalty.Checked = (number % 8 >= 4);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(9, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(12, 1)));
             //chkRandItemEffects.Checked = (number % 2 == 1);
             chkRandItemEffects.Checked = false;
             chkRandItemStores.Checked = (number % 4 >= 2);
             chk_RandomizeWeaponShops.Checked = (number % 8 >= 4);
             chk_Caturday.Checked = (number % 16 >= 8);
+
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(13, 1)));
             chk_RandomizeInnPrices.Checked = (number % 32 >= 16);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(10, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(14, 1)));
             chk_StoneofLife.Checked = (number % 2 == 1);
             chk_Seeds.Checked = (number % 4 >= 2);
             chk_BookofSatori.Checked = (number % 8 >= 4);
             chk_RingofLife.Checked = (number % 16 >= 8);
-            chk_EchoingFlute.Checked = (number % 32 >= 16);
-            chk_SilverHarp.Checked = (number >= 32);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(11, 1)));
-            chk_LeafoftheWorldTree.Checked = (number % 2 == 1);
-            chk_ShoesofHappiness.Checked = (number % 4 >= 2);
-            chk_MeteoriteArmband.Checked = (number % 8 >= 4);
-            chk_WizardsRing.Checked = (number % 16 >= 8);
-            chk_LampofDarkness.Checked = (number % 32 >= 16);
-            chk_PoisonMothPowder.Checked = (number >= 32);
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(15, 1)));
+            chk_EchoingFlute.Checked = (number % 2 == 1);
+            chk_SilverHarp.Checked = (number % 4 >= 2);
+            chk_LeafoftheWorldTree.Checked = (number % 8 >= 4);
+            chk_ShoesofHappiness.Checked = (number % 16 >= 8);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(12, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(16, 1)));
+            chk_MeteoriteArmband.Checked = (number % 2 == 1);
+            chk_WizardsRing.Checked = (number % 4 >= 2);
+            chk_LampofDarkness.Checked = (number % 8 >= 4);
+            chk_PoisonMothPowder.Checked = (number % 16 >= 8);
+
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(17, 1)));
             //chk_RandomName.Checked = (number % 2 == 1);
-            chk_RandomGender.Checked = (number % 4 >= 2);
-            chk_RandomClass.Checked = (number % 8 >= 4);
-            chk_RandSoldier.Checked = (number % 16 >= 8);
-            chk_RandPilgrim.Checked = (number % 32 >= 16);
-            chk_RandWizard.Checked = (number >= 32);
+            chk_RandomGender.Checked = (number % 2 == 1);
+            chk_RandomClass.Checked = (number % 4 >= 2);
+            chkRandStatGains.Checked = (number % 8 >= 4);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(13, 1)));
-            chk_RandFighter.Checked = (number % 2 == 1);
-            chk_RandMerchant.Checked = (number % 4 >= 2);
-            chk_RandGoofOff.Checked = (number % 8 >= 4);
-            chk_RandSage.Checked = (number % 16 >= 8);
-            chk_RandHero.Checked = (number % 32 >= 16);
-            chkRandStatGains.Checked = (number >= 32);
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(18, 1)));
+            chk_RandSoldier.Checked = (number % 2 == 1);
+            chk_RandPilgrim.Checked = (number % 4 >= 2);
+            chk_RandWizard.Checked = (number % 8 >= 4);
+            chk_RandFighter.Checked = (number % 16 >= 8);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(14, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(19, 1)));
+            chk_RandMerchant.Checked = (number % 2 == 1);
+            chk_RandGoofOff.Checked = (number % 4 >= 2);
+            chk_RandSage.Checked = (number % 8 >= 4);
+            chk_RandHero.Checked = (number % 16 >= 8);
+
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(20, 1)));
             chkRandSpellLearning.Checked = (number % 2 == 1);
             chkRandSpellStrength.Checked = (number % 4 >= 2);
             chkFourJobFiesta.Checked = (number % 8 >= 4);
 
-            number = convertChartoInt(Convert.ToChar(flags.Substring(15, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(21, 1)));
             chkRemoveParryFight.Checked = (number % 2 == 1);
         }
 
@@ -8543,27 +8555,37 @@ namespace DW3Randomizer
             if (loading) return;
 
             string flags = "";
-            flags += convertIntToChar((chk_GenCompareFile.Checked ? 1 : 0));
-            flags += convertIntToChar(cboExpGains.SelectedIndex + (8 * cboEncounterRate.SelectedIndex));
-            flags += convertIntToChar((cboGoldReq.SelectedIndex) + (chkFasterBattles.Checked ? 4 : 0) + (chkSpeedText.Checked ? 8 : 0) + (chk_SpeedUpMenus.Checked ? 16 : 0) + (chk_Cod.Checked ? 32 : 0));
-            flags += convertIntToChar((chk_WeapArmPower.Checked ? 1 : 0) + (chkNoLamiaOrbs.Checked ? 2 : 0) + (chk_RmManip.Checked ? 4 : 0));
-            flags += convertIntToChar((optMonsterLight.Checked ? 0 : optMonsterSilly.Checked ? 1 : optMonsterMedium.Checked ? 2 : 3) + (chkRandomizeXP.Checked ? 4 : 0) + (chkRandomizeGP.Checked ? 8 : 0) + (chkRandEnemyPatterns.Checked ? 16 : 0) + (chk_RemMetalMonRun.Checked ? 32 : 0));
-            flags += convertIntToChar((chkRandomizeMap.Checked ? 1 : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? 2 : 0) : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? (chk_SepBarGaia.Checked ? 4 : 0) : 0) : 0) + (chkRandomizeMap.Checked ? (chkRandMonsterZones.Checked ? 8 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RemoveBirdRequirement.Checked ? 16 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RemLancelMountains.Checked ? 32 : 0) : 0));
-            flags += convertIntToChar((chkRandomizeMap.Checked ? (chk_lbtoCharlock.Checked ? 1 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RmMtnNecrogond.Checked ? 2 : 0) : 0));
-            flags += convertIntToChar((chkRandTreasures.Checked ? 1 : 0) + (chkRandTreasures.Checked ? (chk_GoldenClaw.Checked ? 2 : 0) : 0)  + (chkRandWhoCanEquip.Checked ? 4 : 0) + (chkRandEquip.Checked ? 8 : 0) + (chkRandEquip.Checked ? (chk_UseVanEquipValues.Checked ? 16 : 0) : 0) + (chkRandEquip.Checked ? (chk_RemoveStartEqRestrictions.Checked ?32 : 0) : 0));
-            flags += convertIntToChar((chkRandEquip.Checked ? (chk_RmFighterPenalty.Checked ? 1 : 0) : 0));
-            flags += convertIntToChar((chkRandItemEffects.Checked ? 1 : 0) + (chkRandItemStores.Checked ? 2 : 0) + (chk_RandomizeWeaponShops.Checked ? 4 : 0) + (chk_Caturday.Checked ? 8 : 0) + (chk_RandomizeInnPrices.Checked ? 16 : 0));
-            flags += convertIntToChar((chkRandItemStores.Checked ? (chk_StoneofLife.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_Seeds.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_BookofSatori.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_RingofLife.Checked ? 8 : 0) : 0) + (chkRandItemStores.Checked ? (chk_EchoingFlute.Checked ? 16 : 0) : 0) + (chkRandItemStores.Checked ? (chk_SilverHarp.Checked ? 32 : 0) : 0));
-            flags += convertIntToChar((chkRandItemStores.Checked ? (chk_LeafoftheWorldTree.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_ShoesofHappiness.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_MeteoriteArmband.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_WizardsRing.Checked ? 8 : 0) : 0) + (chkRandItemStores.Checked ? (chk_LampofDarkness.Checked ? 16 : 0) : 0) + (chkRandItemStores.Checked ? (chk_PoisonMothPowder.Checked ? 32 : 0) : 0));
-            flags += convertIntToChar(/*(chk_ChangeDefaultParty.Checked ? (chk_RandomName.Checked ? 1 : 0) :0) + */(chk_ChangeDefaultParty.Checked ? (chk_RandomGender.Checked ? 2 : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? 4 : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandSoldier.Checked ? 8 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandPilgrim.Checked ? 16 : 0) : 0) :0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandWizard.Checked ? 32 : 0) : 0) : 0));
-            flags += convertIntToChar((chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandFighter.Checked ? 1 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandMerchant.Checked ? 2 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandGoofOff.Checked ? 4 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandSage.Checked ? 8 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandHero.Checked ? 16 : 0) : 0) : 0) + (chkRandStatGains.Checked ? 32 : 0));
-            flags += convertIntToChar((chkRandSpellLearning.Checked ? 1 : 0) + (chkRandSpellStrength.Checked ? 2 : 0) + (chkFourJobFiesta.Checked ? 4 : 0));
-            flags += convertIntToChar((chkRemoveParryFight.Checked ? 1 : 0));
+            flags += convertIntToCharCapsOnly((chk_GenCompareFile.Checked ? 1 : 0)); // 0
+            flags += convertIntToCharCapsOnly(cboExpGains.SelectedIndex); // 1
+            flags += convertIntToCharCapsOnly(cboEncounterRate.SelectedIndex); // 2
+            flags += convertIntToCharCapsOnly((cboGoldReq.SelectedIndex) + (chkFasterBattles.Checked ? 4 : 0) + (chkSpeedText.Checked ? 8 : 0)); // 3
+            flags += convertIntToCharCapsOnly((chk_SpeedUpMenus.Checked ? 1 : 0) + (chk_Cod.Checked ? 2 : 0) + (chk_WeapArmPower.Checked ? 4 : 0) + (chkNoLamiaOrbs.Checked ? 8 : 0)); // 4
+            flags += convertIntToCharCapsOnly((chk_RmManip.Checked ? 1 : 0)); // 5
+            flags += convertIntToCharCapsOnly((optMonsterLight.Checked ? 0 : optMonsterSilly.Checked ? 1 : optMonsterMedium.Checked ? 2 : 3) + (chkRandomizeXP.Checked ? 4 : 0) + (chkRandomizeGP.Checked ? 8 : 0)); // 6
+            flags += convertIntToCharCapsOnly((chkRandEnemyPatterns.Checked ? 1 : 0) + (chk_RemMetalMonRun.Checked ? 2 : 0)); // 7
+            flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? 1 : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? 2 : 0) : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? (chk_SepBarGaia.Checked ? 4 : 0) : 0) : 0) + (chkRandomizeMap.Checked ? (chkRandMonsterZones.Checked ? 8 : 0) : 0)); // 8
+            flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? (chk_RemoveBirdRequirement.Checked ? 1 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RemLancelMountains.Checked ? 2 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_lbtoCharlock.Checked ? 4 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RmMtnNecrogond.Checked ? 8 : 0) : 0)); // 9
+            flags += convertIntToCharCapsOnly((chkRandTreasures.Checked ? 1 : 0) + (chkRandTreasures.Checked ? (chk_GoldenClaw.Checked ? 2 : 0) : 0)  + (chkRandWhoCanEquip.Checked ? 4 : 0) + (chkRandEquip.Checked ? 8 : 0)); // 10
+            flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_UseVanEquipValues.Checked ? 1 : 0) : 0) + (chkRandEquip.Checked ? (chk_RemoveStartEqRestrictions.Checked ? 2 : 0) : 0) + (chkRandEquip.Checked ? (chk_RmFighterPenalty.Checked ? 1 : 0) : 0)); // 11
+            flags += convertIntToCharCapsOnly((chkRandItemEffects.Checked ? 1 : 0) + (chkRandItemStores.Checked ? 2 : 0) + (chk_RandomizeWeaponShops.Checked ? 4 : 0) + (chk_Caturday.Checked ? 8 : 0)); // 12
+            flags += convertIntToCharCapsOnly((chk_RandomizeInnPrices.Checked ? 1 : 0)); //13
+            flags += convertIntToCharCapsOnly((chkRandItemStores.Checked ? (chk_StoneofLife.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_Seeds.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_BookofSatori.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_RingofLife.Checked ? 8 : 0) : 0)); // 14
+            flags += convertIntToCharCapsOnly((chkRandItemStores.Checked ? (chk_EchoingFlute.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_SilverHarp.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_LeafoftheWorldTree.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_ShoesofHappiness.Checked ? 8 : 0) : 0)); // 15
+            flags += convertIntToCharCapsOnly((chkRandItemStores.Checked ? (chk_MeteoriteArmband.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_WizardsRing.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_LampofDarkness.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_PoisonMothPowder.Checked ? 8 : 0) : 0)); // 16
+            flags += convertIntToCharCapsOnly(/*(chk_ChangeDefaultParty.Checked ? (chk_RandomName.Checked ? 1 : 0) :0) + */(chk_ChangeDefaultParty.Checked ? (chk_RandomGender.Checked ? 1 : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? 2 : 0) : 0) + (chkRandStatGains.Checked ? 4 : 0)); // 17
+            flags += convertIntToCharCapsOnly((chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandSoldier.Checked ? 1 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandPilgrim.Checked ? 2 : 0) : 0) :0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandWizard.Checked ? 4 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandFighter.Checked ? 8 : 0) : 0) : 0)); // 18
+            flags += convertIntToCharCapsOnly((chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandMerchant.Checked ? 1 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandGoofOff.Checked ? 2 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandSage.Checked ? 4 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandHero.Checked ? 8 : 0) : 0) : 0)); // 19
+            flags += convertIntToCharCapsOnly((chkRandSpellLearning.Checked ? 1 : 0) + (chkRandSpellStrength.Checked ? 2 : 0) + (chkFourJobFiesta.Checked ? 4 : 0)); // 20
+            flags += convertIntToCharCapsOnly((chkRemoveParryFight.Checked ? 1 : 0)); // 21
 
             txtFlags.Text = flags;
             enableDisableFields(null,null);
         }
 
+        private string convertIntToCharCapsOnly(int number)
+        {
+            return Convert.ToChar(65 + number).ToString();
+        }
         private string convertIntToChar(int number)
         {
             if (number >= 0 && number <= 9)
@@ -8575,6 +8597,11 @@ namespace DW3Randomizer
             if (number == 62) return "!";
             if (number == 63) return "@";
             return "";
+        }
+
+        private int convertChartoIntCapsOnly(char character)
+        {
+            return character - 65;
         }
 
         private int convertChartoInt(char character)
