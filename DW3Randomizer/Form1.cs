@@ -160,7 +160,7 @@ namespace DW3Randomizer
         private void btnRandomize_Click(object sender, EventArgs e)
         {
             int rni = 0; //Random Number Increment
-            if (chk_GenCompareFile.Checked) rni++;
+            //if (chk_GenCompareFile.Checked) rni++;
 
             if (lblSHAChecksum.Text != lblReqChecksum.Text)
             {

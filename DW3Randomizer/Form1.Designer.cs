@@ -453,6 +453,7 @@ namespace DW3Randomizer
             this.chk_Cod.Size = new System.Drawing.Size(147, 17);
             this.chk_Cod.TabIndex = 26;
             this.chk_Cod.Text = "Cold as a Cod Adjustment";
+            this.adjustments.SetToolTip(this.chk_Cod, "Entire party is revived when wiped. Causes temporary graphical errors.");
             this.chk_Cod.UseVisualStyleBackColor = true;
             this.chk_Cod.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -466,6 +467,7 @@ namespace DW3Randomizer
             this.chk_SpeedUpMenus.Size = new System.Drawing.Size(107, 17);
             this.chk_SpeedUpMenus.TabIndex = 25;
             this.chk_SpeedUpMenus.Text = "Speed up Menus";
+            this.adjustments.SetToolTip(this.chk_SpeedUpMenus, "Speeds up menus.");
             this.chk_SpeedUpMenus.UseVisualStyleBackColor = true;
             this.chk_SpeedUpMenus.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -577,6 +579,7 @@ namespace DW3Randomizer
             this.chkSpeedText.Size = new System.Drawing.Size(115, 17);
             this.chkSpeedText.TabIndex = 24;
             this.chkSpeedText.Text = "Speedy Text Hack";
+            this.adjustments.SetToolTip(this.chkSpeedText, "Speeds up text.");
             this.chkSpeedText.UseVisualStyleBackColor = true;
             this.chkSpeedText.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -590,6 +593,7 @@ namespace DW3Randomizer
             this.chkFasterBattles.Size = new System.Drawing.Size(137, 17);
             this.chkFasterBattles.TabIndex = 23;
             this.chkFasterBattles.Text = "Increased Battle Speed";
+            this.adjustments.SetToolTip(this.chkFasterBattles, "Speeds up menus and text in battle.");
             this.chkFasterBattles.UseVisualStyleBackColor = true;
             this.chkFasterBattles.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -627,6 +631,7 @@ namespace DW3Randomizer
             this.chk_RmMtnNecrogond.Size = new System.Drawing.Size(249, 17);
             this.chk_RmMtnNecrogond.TabIndex = 55;
             this.chk_RmMtnNecrogond.Text = "Remove mountains around Cave of Necrogond";
+            this.adjustments.SetToolTip(this.chk_RmMtnNecrogond, "Remove mountains around Cave of Necrogond and shrine.");
             this.chk_RmMtnNecrogond.UseVisualStyleBackColor = true;
             this.chk_RmMtnNecrogond.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -686,6 +691,7 @@ namespace DW3Randomizer
             this.chkRandomizeGP.Size = new System.Drawing.Size(102, 17);
             this.chkRandomizeGP.TabIndex = 48;
             this.chkRandomizeGP.Text = "Randomize gold";
+            this.adjustments.SetToolTip(this.chkRandomizeGP, "Randomizes gold dropped by monsters.");
             this.chkRandomizeGP.UseVisualStyleBackColor = true;
             this.chkRandomizeGP.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -699,6 +705,7 @@ namespace DW3Randomizer
             this.chkRandomizeXP.Size = new System.Drawing.Size(134, 17);
             this.chkRandomizeXP.TabIndex = 47;
             this.chkRandomizeXP.Text = "Randomize experience";
+            this.adjustments.SetToolTip(this.chkRandomizeXP, "Randomizes experience given my monsters.");
             this.chkRandomizeXP.UseVisualStyleBackColor = true;
             this.chkRandomizeXP.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -737,6 +744,7 @@ namespace DW3Randomizer
             this.chkRandomizeMap.Size = new System.Drawing.Size(102, 17);
             this.chkRandomizeMap.TabIndex = 49;
             this.chkRandomizeMap.Text = "Randomize map";
+            this.adjustments.SetToolTip(this.chkRandomizeMap, "Randomizes overworld and Alefgard maps.");
             this.chkRandomizeMap.UseVisualStyleBackColor = true;
             this.chkRandomizeMap.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -749,7 +757,8 @@ namespace DW3Randomizer
             this.chkSmallMap.Name = "chkSmallMap";
             this.chkSmallMap.Size = new System.Drawing.Size(125, 17);
             this.chkSmallMap.TabIndex = 50;
-            this.chkSmallMap.Text = "Small Map (128x128)";
+            this.chkSmallMap.Text = "Small Map";
+            this.adjustments.SetToolTip(this.chkSmallMap, "Generates a map that is 128x128 (standard is 256x256)");
             this.chkSmallMap.UseVisualStyleBackColor = true;
             this.chkSmallMap.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -763,6 +772,7 @@ namespace DW3Randomizer
             this.chkRandMonsterZones.Size = new System.Drawing.Size(150, 17);
             this.chkRandMonsterZones.TabIndex = 45;
             this.chkRandMonsterZones.Text = "Randomize monster zones";
+            this.adjustments.SetToolTip(this.chkRandMonsterZones, "Randomizes where monster zones are located on the map.");
             this.chkRandMonsterZones.UseVisualStyleBackColor = true;
             this.chkRandMonsterZones.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -776,6 +786,7 @@ namespace DW3Randomizer
             this.chkRandEnemyPatterns.Size = new System.Drawing.Size(154, 17);
             this.chkRandEnemyPatterns.TabIndex = 44;
             this.chkRandEnemyPatterns.Text = "Randomize enemy patterns";
+            this.adjustments.SetToolTip(this.chkRandEnemyPatterns, "Randomizes enemy attack patterns.");
             this.chkRandEnemyPatterns.UseVisualStyleBackColor = true;
             this.chkRandEnemyPatterns.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -866,6 +877,7 @@ namespace DW3Randomizer
             this.chkRandEquip.Size = new System.Drawing.Size(163, 17);
             this.chkRandEquip.TabIndex = 65;
             this.chkRandEquip.Text = "Randomize equipment power";
+            this.adjustments.SetToolTip(this.chkRandEquip, "Randomizes weapon and armor power.");
             this.chkRandEquip.UseVisualStyleBackColor = true;
             this.chkRandEquip.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -877,6 +889,7 @@ namespace DW3Randomizer
             this.chkRandWhoCanEquip.Size = new System.Drawing.Size(152, 17);
             this.chkRandWhoCanEquip.TabIndex = 64;
             this.chkRandWhoCanEquip.Text = "Randomize who can equip";
+            this.adjustments.SetToolTip(this.chkRandWhoCanEquip, "Randomizes which classes can equip equipment.");
             this.chkRandWhoCanEquip.UseVisualStyleBackColor = true;
             this.chkRandWhoCanEquip.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -888,6 +901,7 @@ namespace DW3Randomizer
             this.chkRandItemEffects.Size = new System.Drawing.Size(136, 17);
             this.chkRandItemEffects.TabIndex = 60;
             this.chkRandItemEffects.Text = "Randomize item effects";
+            this.adjustments.SetToolTip(this.chkRandItemEffects, "Randomizes effects of items.");
             this.chkRandItemEffects.UseVisualStyleBackColor = true;
             this.chkRandItemEffects.Visible = false;
             this.chkRandItemEffects.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -902,6 +916,7 @@ namespace DW3Randomizer
             this.chkRandTreasures.Size = new System.Drawing.Size(125, 17);
             this.chkRandTreasures.TabIndex = 61;
             this.chkRandTreasures.Text = "Randomize treasures";
+            this.adjustments.SetToolTip(this.chkRandTreasures, "Randomizes treasures found in chests and given by NPCs.");
             this.chkRandTreasures.UseVisualStyleBackColor = true;
             this.chkRandTreasures.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -1145,6 +1160,7 @@ namespace DW3Randomizer
             this.chk_RandomizeInnPrices.Size = new System.Drawing.Size(129, 17);
             this.chk_RandomizeInnPrices.TabIndex = 83;
             this.chk_RandomizeInnPrices.Text = "Randomize Inn Prices";
+            this.adjustments.SetToolTip(this.chk_RandomizeInnPrices, "Randomizes the inn price from 1-100 GP per party member. Each inn is a different value.");
             this.chk_RandomizeInnPrices.UseVisualStyleBackColor = true;
             this.chk_RandomizeInnPrices.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -1191,6 +1207,7 @@ namespace DW3Randomizer
             this.chk_ChangeDefaultParty.Size = new System.Drawing.Size(173, 17);
             this.chk_ChangeDefaultParty.TabIndex = 134;
             this.chk_ChangeDefaultParty.Text = "Change Default Party Members";
+            this.adjustments.SetToolTip(this.chk_ChangeDefaultParty, "When unchecked, standard party members in Luisa's Place are unchanged. When checked, shows options for changing party members.");
             this.chk_ChangeDefaultParty.UseVisualStyleBackColor = true;
             this.chk_ChangeDefaultParty.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -1217,6 +1234,7 @@ namespace DW3Randomizer
             this.chkRandStatGains.Size = new System.Drawing.Size(127, 17);
             this.chkRandStatGains.TabIndex = 130;
             this.chkRandStatGains.Text = "Randomize stat gains";
+            this.adjustments.SetToolTip(this.chkRandStatGains, "Randomizes stats gained by classes at level up.");
             this.chkRandStatGains.UseVisualStyleBackColor = true;
             this.chkRandStatGains.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -1230,6 +1248,7 @@ namespace DW3Randomizer
             this.chkRandSpellStrength.Size = new System.Drawing.Size(149, 17);
             this.chkRandSpellStrength.TabIndex = 132;
             this.chkRandSpellStrength.Text = "Randomize spell strengths";
+            this.adjustments.SetToolTip(this.chkRandSpellStrength, "Randomizes the strength of spells.");
             this.chkRandSpellStrength.UseVisualStyleBackColor = true;
             this.chkRandSpellStrength.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -1243,6 +1262,7 @@ namespace DW3Randomizer
             this.chkRandSpellLearning.Size = new System.Drawing.Size(143, 17);
             this.chkRandSpellLearning.TabIndex = 131;
             this.chkRandSpellLearning.Text = "Randomize spell learning";
+            this.adjustments.SetToolTip(this.chkRandSpellLearning, "Randomizes the class and level spells are learned. Field and battle spells are learned separately.");
             this.chkRandSpellLearning.UseVisualStyleBackColor = true;
             this.chkRandSpellLearning.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -1353,6 +1373,7 @@ namespace DW3Randomizer
             this.chk_RandomGender.Size = new System.Drawing.Size(117, 17);
             this.chk_RandomGender.TabIndex = 111;
             this.chk_RandomGender.Text = "Randomize Gender";
+            this.adjustments.SetToolTip(this.chk_RandomGender, "Randomizes gender of party members.");
             this.chk_RandomGender.UseVisualStyleBackColor = true;
             this.chk_RandomGender.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -1364,6 +1385,7 @@ namespace DW3Randomizer
             this.chk_RandomClass.Size = new System.Drawing.Size(107, 17);
             this.chk_RandomClass.TabIndex = 112;
             this.chk_RandomClass.Text = "Randomize Class";
+            this.adjustments.SetToolTip(this.chk_RandomClass, "Randomizes the class of party members.");
             this.chk_RandomClass.UseVisualStyleBackColor = true;
             this.chk_RandomClass.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -1375,6 +1397,7 @@ namespace DW3Randomizer
             this.chk_RandomName.Size = new System.Drawing.Size(115, 17);
             this.chk_RandomName.TabIndex = 110;
             this.chk_RandomName.Text = "Randomize Names";
+            this.adjustments.SetToolTip(this.chk_RandomName, "Randomizes the name of party members. Names are from other DW/DQ games.");
             this.chk_RandomName.UseVisualStyleBackColor = true;
             this.chk_RandomName.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -1516,7 +1539,7 @@ namespace DW3Randomizer
             this.chkRemoveParryFight.Size = new System.Drawing.Size(143, 17);
             this.chkRemoveParryFight.TabIndex = 140;
             this.chkRemoveParryFight.Text = "Remove Parry/Fight Bug";
-            this.adjustments.SetToolTip(this.chkRemoveParryFight, "Removes Parry/Fight bug found in standard DWIII");
+            this.adjustments.SetToolTip(this.chkRemoveParryFight, "Removes Parry/Fight bug found in original DWIII");
             this.chkRemoveParryFight.UseVisualStyleBackColor = true;
             this.chkRemoveParryFight.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -1554,6 +1577,7 @@ namespace DW3Randomizer
             this.chk_ChangeHeroAge.Size = new System.Drawing.Size(118, 17);
             this.chk_ChangeHeroAge.TabIndex = 142;
             this.chk_ChangeHeroAge.Text = "Change Hero\'s Age";
+            this.adjustments.SetToolTip(this.chk_ChangeHeroAge, "Changes the hero\'s age in opening to a random number.");
             this.chk_ChangeHeroAge.UseVisualStyleBackColor = true;
             // 
             // chk_LowerCaseMenus
@@ -1563,7 +1587,8 @@ namespace DW3Randomizer
             this.chk_LowerCaseMenus.Name = "chk_LowerCaseMenus";
             this.chk_LowerCaseMenus.Size = new System.Drawing.Size(117, 17);
             this.chk_LowerCaseMenus.TabIndex = 0;
-            this.chk_LowerCaseMenus.Text = "Lower Case Menus";
+            this.chk_LowerCaseMenus.Text = "Standard Case Menus";
+            this.adjustments.SetToolTip(this.chk_LowerCaseMenus, "Changes casing of all caps menu items to standard caps and lower case.");
             this.chk_LowerCaseMenus.UseVisualStyleBackColor = true;
             // 
             // chk_FixSlimeSnail
@@ -1644,6 +1669,7 @@ namespace DW3Randomizer
             this.chk_GenIslandsMonstersZones.Size = new System.Drawing.Size(229, 17);
             this.chk_GenIslandsMonstersZones.TabIndex = 202;
             this.chk_GenIslandsMonstersZones.Text = "Generate islands, monsters, and zones files";
+            this.adjustments.SetToolTip(this.chk_GenIslandsMonstersZones, "Generates debug files for islands, monsters, and zones.");
             this.chk_GenIslandsMonstersZones.UseVisualStyleBackColor = true;
             // 
             // Form1
