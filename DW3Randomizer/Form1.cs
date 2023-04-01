@@ -35,6 +35,8 @@ namespace DW3Randomizer
         int[] maxIsland = new int[4];
         List<int> islands = new List<int>();
         int[] heroComSpell, pilgrimComSpell, wizardComSpell, heroComLvl, pilgrimComLvl, wizardComLvl, heroBatSpell, pilgrimBatSpell, wizardBatSpell, heroBatLvl, pilgrimBatLvl, wizardBatLvl;
+        string versionNumber = "2.4.4";
+        string revisionDate = "4/1/2023";
 
         public Form1()
         {
@@ -501,7 +503,8 @@ namespace DW3Randomizer
 
         private void saveRom(bool calcChecksum)
         {
-            string finalFile = Path.Combine(Path.GetDirectoryName(txtFileName.Text), "DW3Random_" + txtSeed.Text + "_" + txtFlags.Text + ".nes");
+            string shortVersion = versionNumber.Replace(".", "");
+            string finalFile = Path.Combine(Path.GetDirectoryName(txtFileName.Text), "DW3Random_" + txtSeed.Text + "_" + txtFlags.Text + "_" + shortVersion + ".nes");
             File.WriteAllBytes(finalFile, romData);
             lblIntensityDesc.Text = "ROM hacking complete!  (" + finalFile + ")";
             txtCompare.Text = finalFile;
@@ -645,7 +648,8 @@ namespace DW3Randomizer
 
             if (chk_GenIslandsMonstersZones.Checked == true)
             {
-                using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "island" + txtSeed.Text + "_" + txtFlags.Text + ".txt")))
+                string shortVersion = versionNumber.Replace(".", "");
+                using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "island_" + txtSeed.Text + "_" + txtFlags.Text + "_" + shortVersion + ".txt")))
                 {
                     for (int lnY = 0; lnY < 139; lnY++)
                     {
@@ -2013,7 +2017,8 @@ namespace DW3Randomizer
 
             if (chk_GenIslandsMonstersZones.Checked == true)
             {
-                using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "zones" + txtSeed.Text + "_" + txtFlags.Text + ".txt")))
+                string shortVersion = versionNumber.Replace(".", "");
+                using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "zones_" + txtSeed.Text + "_" + txtFlags.Text + "_" + shortVersion + ".txt")))
                 {
                     for (int lnY = 0; lnY < 16; lnY++)
                     {
@@ -2027,7 +2032,8 @@ namespace DW3Randomizer
 
             if (chk_GenIslandsMonstersZones.Checked == true)
             {
-                using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "monsters" + txtSeed.Text + "_" + txtFlags.Text + ".txt")))
+                string shortVersion = versionNumber.Replace(".", "");
+                using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "monsters_" + txtSeed.Text + "_" + txtFlags.Text + "_" + shortVersion + ".txt")))
                 {
                     for (int lnY = 0; lnY < 16; lnY++)
                     {
@@ -7691,9 +7697,10 @@ namespace DW3Randomizer
 
         private void createGuides()
         {
-//            if (chkRandEquip.Checked || chkRandItemEffects.Checked || chkRandWhoCanEquip.Checked)
-//            {
-                string finalFile = Path.Combine(Path.GetDirectoryName(txtFileName.Text), "DW3Random_" + txtSeed.Text + "_" + txtFlags.Text + "_guide.txt");
+            //            if (chkRandEquip.Checked || chkRandItemEffects.Checked || chkRandWhoCanEquip.Checked)
+            //            {
+                string shortVersion2 = versionNumber.Replace(".", "");
+                string finalFile = Path.Combine(Path.GetDirectoryName(txtFileName.Text), "DW3Random_" + txtSeed.Text + "_" + txtFlags.Text + "_" + shortVersion2 + "_guide.txt");
 
                 // Totally randomize who can equip (1a3ce-1a3f0).  At least one person can equip something...
                 using (StreamWriter writer = File.CreateText(finalFile))
@@ -7764,8 +7771,9 @@ namespace DW3Randomizer
             }
             if (chk_GenCompareFile.Checked == true)
             {
+                string shortVersion = versionNumber.Replace(".", "");
                 if (!loadRom(true)) return;
-                using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "DW3Compare_" + txtSeed.Text + "_" + txtFlags.Text + ".txt")))
+                using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "DW3Compare_" + txtSeed.Text + "_" + txtFlags.Text + "_" + shortVersion + ".txt")))
                 {
                     for (int lnI = 0; lnI < 0x8a; lnI++)
                         compareComposeString("monsters" + lnI.ToString("X2"), writer, (0x32e3 + (23 * lnI)), 23);
