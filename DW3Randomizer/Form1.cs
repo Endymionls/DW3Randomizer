@@ -17,7 +17,7 @@ namespace DW3Randomizer
     public partial class Form1 : Form
     {
         string versionNumber = "2.4.5";
-        string revisionDate = "4/10/2023";
+        string revisionDate = "4/11/2023";
 
         bool loading = true;
         byte[] romData;
@@ -42,9 +42,8 @@ namespace DW3Randomizer
 
         public Form1()
         {
-            string verNum = versionNumber;
-            string revDate = revisionDate;
             InitializeComponent();
+            this.Text = "Dragon Warrior III Randomizer ~ " + versionNumber + " ~ " + revisionDate;
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
