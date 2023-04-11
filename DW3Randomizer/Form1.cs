@@ -10,11 +10,15 @@ using System.Reflection;
 using System.Deployment.Internal;
 using System.Text.RegularExpressions;
 using System.Diagnostics.Eventing.Reader;
+using static System.Windows.Forms.LinkLabel;
 
 namespace DW3Randomizer
 {
     public partial class Form1 : Form
     {
+        string versionNumber = "2.4.5";
+        string revisionDate = "4/10/2023";
+
         bool loading = true;
         byte[] romData;
         byte[] romData2;
@@ -35,11 +39,11 @@ namespace DW3Randomizer
         int[] maxIsland = new int[4];
         List<int> islands = new List<int>();
         int[] heroComSpell, pilgrimComSpell, wizardComSpell, heroComLvl, pilgrimComLvl, wizardComLvl, heroBatSpell, pilgrimBatSpell, wizardBatSpell, heroBatLvl, pilgrimBatLvl, wizardBatLvl;
-        string versionNumber = "2.4.4";
-        string revisionDate = "4/1/2023";
 
         public Form1()
         {
+            string verNum = versionNumber;
+            string revDate = revisionDate;
             InitializeComponent();
         }
 
@@ -231,6 +235,7 @@ namespace DW3Randomizer
                 if (chkRandStatGains.Checked) randStatGains(rni);
                 if (chk_ChangeHeroAge.Checked) changeHeroAge(rni);
                 if (chk_RandSpriteColor.Checked) randSpriteColors(rni);
+                if (chk_RandomStartGold.Checked) randStartGold();
                 changeEnd();
                 saveRom(true);
                 saveRom(false);
@@ -733,7 +738,7 @@ namespace DW3Randomizer
                                   // (16) Cantlin, Rimuldar, Hauksness, Luzami, Kanave, Tedanki, Moor, Jipang, Pirate's Den, Soo, Kol, Shrine before Enticement, Shrine S. of Portuga, Sword Of Gaia Shrine, Desert Shrine, Shrine south of Isis
                                   "T", "T", "T", "V", "V", "V", "V", "V", "V", "V", "V", "S", "S", "?", "S", "S",
                                   // (32) Silver Orb Shrine, Olivia Promenade, Olivia Canal Shrine, Dragon Queen Castle, Jipang Shrine, Liamland, Samanao Shrine, Shrine North of Soo, Garinham, Staff of rain shrine, Rainbow Drop Shrine, Portuga Shrine East, West, Promontory Cave, Ruby Cave, Norud Cave West
-                                  "?", "S", "S", "C", "S", "S", "S", "S", "S", "S", "S", "?", "?", "E", "E", "E",
+                                  "?", "S", "S", "?", "S", "S", "S", "S", "S", "S", "S", "?", "?", "E", "E", "E",
                                   // (48) Norud Cave East, Necrogund F5, Necrogund F1, Dhama, Kidnapper's Cave, Jipang Cave, Lancel Cave, Samanao Cave, Erdrick's Cave, Mountain Cave B1, Swamp Cave, Pyramid, Najimi Tower, Garuna Tower, Tower Of Arp, Champange Tower, Tower of Kol
                                   "E", "?", "?", "C", "E", "E", "?", "E", "E", "E", "E", "P", "W", "W", "W", "W", "W",
                                   // (65) Grass tile S of Reeve, Isis, Enticement Cave entrance, Shrine south of Romaly, Pirate Ship, Greenland house, New Town
@@ -761,6 +766,9 @@ namespace DW3Randomizer
                 //if (locIslands[lnI] < 0) continue;
                 int x = 300;
                 int y = 300;
+//                int drgqnx = 0;
+//                int drgqny = 0;
+
                 if (lnI == 0) { x = midenX[1]; y = midenY[1]; }
                 else if (lnI == 48) { x = midenX[0]; y = midenY[0]; } // Norud Cave East
                 else if (lnI == 77) { x = midenX[2]; y = midenY[2]; } // Shrine South Of Romaly
@@ -797,54 +805,55 @@ namespace DW3Randomizer
                         if (validPlot(y, x, 2, 4, (locIslands[lnI] <= 3 ? new int[] { maxIsland[locIslands[lnI]] } : locIslands[lnI] <= 6 ? new int[] { 60000 } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
                             locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], locIslands[lnI] == 6 ? maxLake2 : maxLake, locIslands[lnI] == 6))
                         {
-                            if (locIslands[lnI] == 6)
-                            {
-                                map2[y + 0, x + 1] = 0xe8;
-                                map2[y + 0, x + 2] = 0xe9;
-                                map2[y + 1, x + 1] = 0xec;
-                                map2[y + 1, x + 2] = 0xed;
-                            }
-                            else
-                            {
-                                map[y + 0, x + 1] = 0xe8;
-                                map[y + 0, x + 2] = 0xe9;
-                                map[y + 1, x + 1] = 0xec;
-                                map[y + 1, x + 2] = 0xed;
-                            }
-
-                            int byteToUse = 0x1b252 + (5 * lnI);
-                            romData[byteToUse] = (byte)(x + 1);
-                            romData[byteToUse + 1] = (byte)(y + 1);
-
-                            if (lnI == 0) // Aliahan Castle
-                            {
-                                romData[0x18535] = (byte)(x + 1);
-                                romData[0x18536] = (byte)(y + 1);
-                            }
-
-                            if (returnPoints[lnI] != -1)
-                            {
-                                int byteToUseReturn = 0x1b61c + (4 * returnPoints[lnI]);
-                                romData[byteToUseReturn] = (byte)(x + 1);
                                 if (locIslands[lnI] == 6)
                                 {
-                                    if (map2[y + 2, x] == 0x00 || map2[y + 2, x] == 0x06)
-                                        romData[byteToUseReturn + 1] = (byte)(y + 2);
-                                    else
-                                        romData[byteToUseReturn + 1] = (byte)(y + 1);
+                                    map2[y + 0, x + 1] = 0xe8;
+                                    map2[y + 0, x + 2] = 0xe9;
+                                    map2[y + 1, x + 1] = 0xec;
+                                    map2[y + 1, x + 2] = 0xed;
                                 }
                                 else
                                 {
-                                    if (map[y + 2, x] == 0x00 || map[y + 2, x] == 0x06)
-                                        romData[byteToUseReturn + 1] = (byte)(y + 2);
-                                    else
-                                        romData[byteToUseReturn + 1] = (byte)(y + 1);
+                                    map[y + 0, x + 1] = 0xe8;
+                                    map[y + 0, x + 2] = 0xe9;
+                                    map[y + 1, x + 1] = 0xec;
+                                    map[y + 1, x + 2] = 0xed;
                                 }
-                                if (locIslands[lnI] != 6)
-                                    shipPlacement(byteToUseReturn + 2, y + 1, x + 1, maxLake);
-                                else
-                                    shipPlacement2(byteToUseReturn + 2, y + 1, x + 1, maxLake2);
-                            }
+
+                                int byteToUse = 0x1b252 + (5 * lnI);
+                                romData[byteToUse] = (byte)(x + 1);
+                                romData[byteToUse + 1] = (byte)(y + 1);
+
+                                if (lnI == 0) // Aliahan Castle
+                                {
+                                    romData[0x18535] = (byte)(x + 1);
+                                    romData[0x18536] = (byte)(y + 1);
+                                }
+
+                                if (returnPoints[lnI] != -1)
+                                {
+                                    int byteToUseReturn = 0x1b61c + (4 * returnPoints[lnI]);
+                                    romData[byteToUseReturn] = (byte)(x + 1);
+                                    if (locIslands[lnI] == 6)
+                                    {
+                                        if (map2[y + 2, x] == 0x00 || map2[y + 2, x] == 0x06)
+                                            romData[byteToUseReturn + 1] = (byte)(y + 2);
+                                        else
+                                            romData[byteToUseReturn + 1] = (byte)(y + 1);
+                                    }
+                                    else
+                                    {
+                                        if (map[y + 2, x] == 0x00 || map[y + 2, x] == 0x06)
+                                            romData[byteToUseReturn + 1] = (byte)(y + 2);
+                                        else
+                                            romData[byteToUseReturn + 1] = (byte)(y + 1);
+                                    }
+                                    if (locIslands[lnI] != 6)
+                                        shipPlacement(byteToUseReturn + 2, y + 1, x + 1, maxLake);
+                                    else
+                                        shipPlacement2(byteToUseReturn + 2, y + 1, x + 1, maxLake2);
+                                }
+                            
                         }
                         else
                             lnI--;
@@ -1249,8 +1258,8 @@ namespace DW3Randomizer
 
                             if (baramosLegal)
                             {
-                                for (int lnJ = x - 4; lnJ < x + 4; lnJ++)
-                                    for (int lnK = y - 4; lnK < y + 4; lnK++)
+                                for (int lnJ = x - 5; lnJ < x + 5; lnJ++)
+                                    for (int lnK = y - 5; lnK < y + 5; lnK++)
                                     {
                                         if (map2[lnK, lnJ] > 0x07)
                                             baramosLegal = false;
@@ -1423,6 +1432,83 @@ namespace DW3Randomizer
                             }
                             else
                                 lnI--;
+                        }
+                        /*                        else if (lnI == 35)
+                                                {
+                                                    if (validPlot(y, x, 2, 4, (locIslands[lnI] <= 3 ? new int[] { maxIsland[locIslands[lnI]] } : locIslands[lnI] <= 6 ? new int[] { 60000 } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
+                            locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], locIslands[lnI] == 6 ? maxLake2 : maxLake, locIslands[lnI] == 6))
+                                                    {
+                                                        bool baramosLegal = true;
+                                                        for (int lnJ = x - 4; lnJ < x + 4; lnJ++)
+                                                            for (int lnK = x - 4; lnK < x + 4; lnK++)
+                                                            {
+                                                                if (map[lnK, lnJ] > 0x07)
+                                                                    baramosLegal = false;
+                                                                if (lnK == midenY[0] && lnJ == midenX[0])
+                                                                    baramosLegal = false;
+                                                                if (lnK == midenY[1] && lnJ == midenX[1])
+                                                                    baramosLegal = false;
+                                                                if (lnK == midenY[2] && lnJ == midenX[2])
+                                                                    baramosLegal = false;
+                                                            }
+                                                        if (baramosLegal)
+                                                        {
+                                                            int byteToUse = 0x1b252 + (5 * lnI);
+                                                            romData[byteToUse] = (byte)(x);
+                                                            romData[byteToUse + 1] = (byte)(y);
+
+                                                            // Draw Mountains
+                                                            map[y - 3, x - 1] = 0x06;
+                                                            map[y - 3, x] = 0x06;
+                                                            map[y - 2, x - 2] = 0x06;
+                                                            map[y - 2, x + 1] = 0x06;
+                                                            map[y - 1, x - 3] = 0x06;
+                                                            map[y - 1, x + 2] = 0x06;
+                                                            map[y, x - 3] = 0x06;
+                                                            map[y, x + 2] = 0x06;
+                                                            map[y + 1, x - 2] = 0x06;
+                                                            map[y + 1, x + 1] = 0x06;
+                                                            map[y + 2, x - 1] = 0x06;
+                                                            map[y + 2, x] = 0x06;
+                                                            // Draw Grass
+                                                            map[y - 2, x - 1] = 0x02;
+                                                            map[y - 2, x] = 0x02;
+                                                            map[y - 1, x - 2] = 0x02;
+                                                            map[y - 1, x + 1] = 0x02;
+                                                            map[y, x - 2] = 0x02;
+                                                            map[y, x + 1] = 0x02;
+                                                            map[y + 1, x - 1] = 0x02;
+                                                            map[y + 1, x] = 0x02;
+                                                            // Draw Castle
+                                                            map[y - 1, x - 1] = 0xe8;
+                                                            map[y - 1, x] = 0xe9;
+                                                            map[y, x - 1] = 0xec;
+                                                            map[y, x] = 0xed;
+                                                        }
+                                                        else
+                                                            lnI--;
+                                                    }
+                                                }
+                        */
+                        else if (lnI == 35) // Dragon Queen Castle
+                        {
+                            if (validPlot(y, x, 6, 6, (locIslands[lnI] <= 6 ? new int[] { maxIsland[locIslands[lnI]] } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
+                            locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], maxLake, locIslands[lnI] == 6))
+                            {
+                                map[y, x + 2] = map[y, x + 3] = map[y + 1, x + 1] = map[y + 1, x + 4] = map[y + 2, x] = map[y + 2, x + 5] = map[y + 3, x] = map[y + 3, x + 5] = map[y + 4, x + 1] = map[y + 4, x + 4] = map[y + 5, x + 2] = map[y + 5, x + 3] = 0x06;
+                                map[y + 1, x + 2] = map[y + 1, x + 3] = map[y + 2, x + 1] = map[y + 2, x + 4] = map[y + 3, x + 1] = map[y + 3, x + 4] = map[y + 4, x + 2] = map[y + 4, x + 3] = 0x02;
+                                map[y + 2, x + 2] = 0xe8;
+                                map[y + 2, x + 3] = 0xe9;
+                                map[y + 3, x + 2] = 0xec;
+                                map[y + 3, x + 3] = 0xed;
+
+                                int byteToUse = 0x1b252 + (5 * lnI);
+                                romData[byteToUse] = (byte)(x + 2);
+                                romData[byteToUse + 1] = (byte)(y + 3);
+                            }
+                            else
+                                lnI--;
+
                         }
                         else if (lnI == 43)
                         {
@@ -1857,11 +1943,34 @@ namespace DW3Randomizer
                             else
                                 lnI--;
                         }
-
                         break;
                     case "X":
                         continue;
                 }
+/*                int drgqnx3 = drgqnx + 3;
+                int drgqny5 = drgqny + 5;
+                // Draw landscape around Dragon Queen Castle
+                // Draw Mountains
+                map[drgqny, drgqnx + 2] = 0x06;
+                map[drgqny, drgqnx + 3] = 0x06;
+                map[drgqny + 1, drgqnx] = 0x06;
+                map[drgqny + 1, drgqnx + 4] = 0x06;
+                map[drgqny + 2, drgqnx] = 0x06;
+                map[drgqny + 2, drgqnx + 5] = 0x06;
+                map[drgqny + 3, drgqnx] = 0x06;
+                map[drgqny + 3, drgqnx + 5] = 0x06;
+               // Draw Grass
+                map[drgqny + 1, drgqnx + 2] = 0x02;
+                map[drgqny + 1, drgqnx + 3] = 0x02;
+                map[drgqny + 2, drgqnx + 1] = 0x02;
+                map[drgqny + 2, drgqnx + 4] = 0x02;
+                map[drgqny + 3, drgqnx + 1] = 0x02;
+                map[drgqny + 3, drgqnx + 4] = 0x02;
+                // Draw More Mountains
+                for (int lnM = 1; lnM <= 4; lnM++)
+                   map[drgqny + 4, drgqnx + lnM] = 0x01;
+*/
+
             }
 
             List<int> part1 = new List<int>() { 4, 5, 6, 7 };
@@ -4579,18 +4688,18 @@ namespace DW3Randomizer
             // Keep the Rainbow drop where it is
             int[] treasureAddrZ0 = { 0x375AA }; // Reeve 0ld Man - Magic Ball - 1 - 0
             int[] treasureAddrZ1 = { 0x29237, 0x29238, 0x29239, // Promontory Cave
-                0x2927b, 0x292c4, 0x292c5, 0x292c6 }; // Najimi Tower - Thief's Key, Magic Ball - 7 - 7
-            int[] treasureAddrZ2 = { 0x2927c, 0x2927d }; // Najimi Tower behind Thief's Key - Magic Ball - 2 - 9
+                0x2927b, 0x292c4, 0x292c5, 0x292c6, 0x37df1 }; // Najimi Tower - Thief's Key, Magic Ball - 8 - 8
+            int[] treasureAddrZ2 = { 0x2927c, 0x2927d }; // Najimi Tower behind Thief's Key - Magic Ball - 2 - 10
             int[] treasureAddrZ3 = { 0x2927e, 0x2927f, // Enticement cave
                 0x29234, 0x29235, // Kanave
                 0x2923a, 0x2923b, 0x29280, 0x29281, 0x29282, 0x29283, 0x29284, 0x29285, 0x29286, 0x29287, // Dream cave/Wake Up Powder
                 0x29252, 0x292d2, 0x292e6, // champange tower
                 0x2925c, // isis meteorite band
-                0x29249, 0x2924a, 0x2924b, 0x2924c, 0x2924d, 0x2924e, 0x2924f, 0x292b4, 0x292b5, 0x292b6 }; // Pyramid -> Magic key - 28 - 37
+                0x29249, 0x2924a, 0x2924b, 0x2924c, 0x2924d, 0x2924e, 0x2924f, 0x292b4, 0x292b5, 0x292b6 }; // Pyramid -> Magic key - 28 - 38
             int[] treasureAddrZ4 = { 0x292c3, 0x317f4, // Pyramid continued
                 0x29255, 0x29256, 0x29257, 0x29258, 0x29259, 0x2925a, // Aliahan continued
                 0x31b9c, 0x2925d, 0x2925e, 0x2925f, 0x29260, 0x29261, 0x29262, 0x29263, 0x29264, // Isis continued
-                0x29269, 0x2926a, 0x2926b }; // Portuga -> Royal Scroll - 20 - 57
+                0x29269, 0x2926a, 0x2926b }; // Portuga -> Royal Scroll - 20 - 58
             int[] treasureAddrZ5 = { 0x2923c, 0x2923d, // Dwarf's Cave
                 0x29251, 0x292c7, 0x292c8, 0x292c9, 0x292ca, // Garuna Tower
                 0x2923e, 0x2923f, 0x29240, 0x29241, 0x29242, 0x29243, 0x2928b, 0x2928c, 0x2928d, 0x2928e}; // Kidnapper's Cave -> Black Pepper - 17 - 75
@@ -4604,14 +4713,14 @@ namespace DW3Randomizer
             int[] treasureAddrZ8 = { 0x292e5 }; // Staff Of Change - Samanao Castle - 1 - 120
             int[] treasureAddrZ9 = { 0x29275, 0x29276, 0x29277, 0x29278, 0x29279, 0x2927a }; // Sword Of Gaia - Ghost ship - 6 - 126
             int[] treasureAddrZ10 = { 0x29288, 0x29289, 0x2928a }; // All orbs - Cave Of Necrogund - 3 - 129
-            int[] treasureAddrZ11 = { 0x37df1, // Thief Key Old Man
-                0x2925b, // Eginbear
+            int[] treasureAddrZ11 = { 0x2925b, // Eginbear
                 0x31b8c, // Soo 
-                0x2922b, // Final Key Shrine - Additional Potential Orb Locations - 4 - 133
+                0x2922b, // Final Key Shrine - Additional Potential Orb Locations 
+                0x377fe  // Baharata Black Pepper - 4 - 133
                 };
-            int[] treasureAddrZ12 = { 0x37929 }; // Dragon Queen - Additional Potential Orb Location - Not random map 1 - 135 / random map 1 - 134
-            int[] treasureAddrZ13 = { 0x37828 }; // Green orb location in Tedanki (Only should have Green Orb or other non-key item treasure) - Not Random map 1 - 134 / random map 1 - 135
-            int[] treasureAddrZ14 = { 0x377fe, 0x377d5 }; // Black Pepper NPC, Water Blaster NPC  - 2 Not orb due to duplication - 137
+            int[] treasureAddrZ12 = { 0x37828 }; // Green orb location in Tedanki (Only should have Green Orb or other non-key item treasure) - 1 - 134
+            int[] treasureAddrZ13 = { 0x377d5 }; // Water Blaster NPC  - 2 Not orb due to duplication - 1 - 135
+            int[] treasureAddrZ14 = { 0x37929 }; // Dragon Queen - Add to Sphere of Light Locations - 1 - 136 
             int[] treasureAddrZ15 = { 0x29265, 0x29266, 0x29267, 0x29268, // Tantegel Castle
                 0x292a8, 0x292a9, 0x292aa, 0x292ab, 0x292ac, // Erdrick's Cave
                 0x29274, // Garin's home
@@ -4620,8 +4729,8 @@ namespace DW3Randomizer
                 0x31b88, // Kol
                 0x29253, 0x29254, 0x292d5, 0x292d6, 0x292d7, 0x292d8, 0x292d9, 0x292da, 0x292db, 0x292dc, 0x292dd, 0x292de, // Kol Tower
                 0x29233,// Rimuldar
-                0x37d9d }; // Staff of Rain NPC - Staff Of Rain, Stones Of Sunlight, Sacred Amulet - 30 - 167
-            int[] treasureAddrZ16 = { 0x292ad, 0x292ae, 0x292af, 0x292b0, 0x292b1, 0x292b2, 0x292b3 }; // Zoma's Castle - Sphere of Light - 7 - 174
+                0x37d9d }; // Staff of Rain NPC - Staff Of Rain, Stones Of Sunlight, Sacred Amulet - 30 - 166
+            int[] treasureAddrZ16 = { 0x292ad, 0x292ae, 0x292af, 0x292b0, 0x292b1, 0x292b2, 0x292b3 }; // Zoma's Castle - Sphere of Light - 7 - 173
             int[] treasureAddrZ17 = { 0x29228, 0x29229, 0x2922a, // Baramos's Castle
                 0x292b7, 0x292b8, 0x292b9, 0x292ba, 0x292bb, 0x292bc, 0x292bd, 0x292be, 0x292bf, 0x292c0, 0x292c1, 0x292c2, // Pyramid Mummy Men Chests
                 0x31b9f, // World Tree
@@ -4632,7 +4741,7 @@ namespace DW3Randomizer
             // NOTICE:  Using 0x3b785, supposedly the wake-up powder NPC, warps you to weird places after jumping off the rope in the tower of Garuna...
 
             List<int> allTreasureList = new List<int>();
-
+            
             allTreasureList = addTreasure(allTreasureList, treasureAddrZ0);
             allTreasureList = addTreasure(allTreasureList, treasureAddrZ1);
             allTreasureList = addTreasure(allTreasureList, treasureAddrZ2);
@@ -4645,25 +4754,14 @@ namespace DW3Randomizer
             allTreasureList = addTreasure(allTreasureList, treasureAddrZ9);
             allTreasureList = addTreasure(allTreasureList, treasureAddrZ10);
             allTreasureList = addTreasure(allTreasureList, treasureAddrZ11);
-            if (chkRandomizeMap.Checked == true)
-            {
-                allTreasureList = addTreasure(allTreasureList, treasureAddrZ12);
-                allTreasureList = addTreasure(allTreasureList, treasureAddrZ13);
-            }
-            else
-            {
-                allTreasureList = addTreasure(allTreasureList, treasureAddrZ13);
-                allTreasureList = addTreasure(allTreasureList, treasureAddrZ12);
-            }
+            allTreasureList = addTreasure(allTreasureList, treasureAddrZ12);
+            allTreasureList = addTreasure(allTreasureList, treasureAddrZ13);
             allTreasureList = addTreasure(allTreasureList, treasureAddrZ14);
             allTreasureList = addTreasure(allTreasureList, treasureAddrZ15);
             allTreasureList = addTreasure(allTreasureList, treasureAddrZ16);
             allTreasureList = addTreasure(allTreasureList, treasureAddrZ17);
 
             int[] allTreasure = allTreasureList.ToArray();
-
-            // randomize starting gold
-            romData[0x2914f] = (byte)(r1.Next() % 256);
 
             List<byte> treasureList = new List<byte>();
             List<byte> legalTreasuresList = new List<byte>();
@@ -4726,16 +4824,16 @@ namespace DW3Randomizer
             // Verify that key items are available in either a store or a treasure chest in the right zone.
             byte[] keyItems = { 0x58, 0x57, 0x59, 0x52, 0x5d, 0x4f, 0x5a, 0x51, 0x54,
                                     0x6b, 0x6f, 0x5c, 0x11, 0x77, 0x78, 0x79, 0x7a, 0x7b,
-                                    0x7c, 0x10, 0x75, 0x72, 0x4a, 0x50, 0x70, 0x53, 0x71 };
+                                    0x7c, 0x10, 0x75, 0x72, 0x4a, 0x50, 0x70, 0x53, 0x71, 0x5b };
             byte[] minKeyTreasure = { 1, 0, 1, 1, 1, 1, 1, 1, 1,
                                           1, 1, 1, 1, 1, 1, 1, 1, 1,
-                                          1, 138, 138, 138, 1, 1, 138, 1, 1 };
-            byte[] maxKeyTreasure = { 7, 9, 37, 37, 57, 75, 89, 119, 120,
-                                       120, 134, 133, 126, 134, 134, 134, 134, 134,
-                                       135, 167, 167, 174, 174, 174, 167, 174, 174 }; // used if chkRandomizeMaps is true
-            byte[] maxKeyTreasure2 = { 7, 9, 37, 37, 57, 75, 89, 119, 120,
-                                       120, 133, 132, 126, 133, 133, 133, 133, 133,
-                                       134, 167, 167, 174, 174, 174, 167, 174, 174 };
+                                          1, 137, 137, 136, 1, 1, 137, 1, 1, 1 };
+            byte[] maxKeyTreasure = { 8, 10, 38, 38, 58, 75, 89, 119, 120,
+                                       120, 133, 133, 126, 133, 133, 133, 133, 133,
+                                       134, 166, 166, 173, 173, 173, 166, 173, 173, 133 }; // used if chkRandomizeMaps is true
+            byte[] maxKeyTreasure2 = { 8, 10, 38, 38, 58, 75, 89, 119, 120,
+                                       120, 134, 133, 126, 133, 133, 133, 133, 133,
+                                       134, 166, 166, 173, 173, 173, 166, 173, 173, 134 }; // used if chkRandomizeMaps is false
 
 
             int echoingFluteMarker = 0;
@@ -8082,6 +8180,15 @@ namespace DW3Randomizer
             }
         }
 
+        private void randStartGold()
+        {
+            Random r1 = new Random(int.Parse(txtSeed.Text));
+
+            // randomize starting gold
+            romData[0x2914f] = (byte)(r1.Next() % 256);
+
+        }
+
         private void superRandomize()
         {
         }
@@ -8988,6 +9095,7 @@ namespace DW3Randomizer
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(5, 1)));
             chk_RmManip.Checked = (number % 2 == 1);
+            chk_RandomStartGold.Checked = (number % 4 >= 2);
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(6, 1)));
             optMonsterLight.Checked = (number % 4 == 0);
@@ -9032,7 +9140,7 @@ namespace DW3Randomizer
             chk_Caturday.Checked = (number % 16 >= 8);
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(13, 1)));
-            chk_RandomizeInnPrices.Checked = (number % 32 >= 16);
+            chk_RandomizeInnPrices.Checked = (number % 2 == 1);
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(14, 1)));
             chk_StoneofLife.Checked = (number % 2 == 1);
@@ -9089,7 +9197,7 @@ namespace DW3Randomizer
             flags += convertIntToCharCapsOnly(cboEncounterRate.SelectedIndex); // 2
             flags += convertIntToCharCapsOnly((cboGoldReq.SelectedIndex) + (chkFasterBattles.Checked ? 4 : 0) + (chkSpeedText.Checked ? 8 : 0)); // 3
             flags += convertIntToCharCapsOnly((chk_SpeedUpMenus.Checked ? 1 : 0) + (chk_Cod.Checked ? 2 : 0) + (chk_WeapArmPower.Checked ? 4 : 0) + (chkNoLamiaOrbs.Checked ? 8 : 0)); // 4
-            flags += convertIntToCharCapsOnly((chk_RmManip.Checked ? 1 : 0)); // 5
+            flags += convertIntToCharCapsOnly((chk_RmManip.Checked ? 1 : 0) + (chk_RandomStartGold.Checked ? 2 : 0)); // 5
             flags += convertIntToCharCapsOnly((optMonsterLight.Checked ? 0 : optMonsterSilly.Checked ? 1 : optMonsterMedium.Checked ? 2 : 3) + (chkRandomizeXP.Checked ? 4 : 0) + (chkRandomizeGP.Checked ? 8 : 0)); // 6
             flags += convertIntToCharCapsOnly((chkRandEnemyPatterns.Checked ? 1 : 0) + (chk_RemMetalMonRun.Checked ? 2 : 0)); // 7
             flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? 1 : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? 2 : 0) : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? (chk_SepBarGaia.Checked ? 4 : 0) : 0) : 0) + (chkRandomizeMap.Checked ? (chkRandMonsterZones.Checked ? 8 : 0) : 0)); // 8

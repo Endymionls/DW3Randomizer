@@ -1,9 +1,11 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace DW3Randomizer
 {
     partial class Form1
     {
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -56,6 +58,7 @@ namespace DW3Randomizer
             this.optMonsterLight = new System.Windows.Forms.RadioButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.chk_RandomStartGold = new System.Windows.Forms.CheckBox();
             this.chk_RmManip = new System.Windows.Forms.CheckBox();
             this.chk_WeapArmPower = new System.Windows.Forms.CheckBox();
             this.chk_Cod = new System.Windows.Forms.CheckBox();
@@ -148,10 +151,10 @@ namespace DW3Randomizer
             this.txtFlags = new System.Windows.Forms.TextBox();
             this.adjustments = new System.Windows.Forms.ToolTip(this.components);
             this.chk_GenCompareFile = new System.Windows.Forms.CheckBox();
+            this.chk_GenIslandsMonstersZones = new System.Windows.Forms.CheckBox();
             this.btnCopyChecksum = new System.Windows.Forms.Button();
             this.lblNewChecksum = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.chk_GenIslandsMonstersZones = new System.Windows.Forms.CheckBox();
             this.grpMonsterStat.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -393,6 +396,7 @@ namespace DW3Randomizer
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.chk_RandomStartGold);
             this.tabPage1.Controls.Add(this.chk_RmManip);
             this.tabPage1.Controls.Add(this.chk_WeapArmPower);
             this.tabPage1.Controls.Add(this.chk_Cod);
@@ -414,6 +418,18 @@ namespace DW3Randomizer
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Adjustments";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // chk_RandomStartGold
+            // 
+            this.chk_RandomStartGold.AutoSize = true;
+            this.chk_RandomStartGold.Location = new System.Drawing.Point(408, 55);
+            this.chk_RandomStartGold.Name = "chk_RandomStartGold";
+            this.chk_RandomStartGold.Size = new System.Drawing.Size(143, 17);
+            this.chk_RandomStartGold.TabIndex = 30;
+            this.chk_RandomStartGold.Text = "Randomize Starting Gold";
+            this.chk_RandomStartGold.UseVisualStyleBackColor = true;
+            this.adjustments.SetToolTip(this.chk_RandomStartGold, "Removes Parry/Fight bug found in original DWIII");
+            this.chk_RandomStartGold.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // chk_RmManip
             // 
@@ -755,7 +771,7 @@ namespace DW3Randomizer
             this.chkSmallMap.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSmallMap.Location = new System.Drawing.Point(375, 75);
             this.chkSmallMap.Name = "chkSmallMap";
-            this.chkSmallMap.Size = new System.Drawing.Size(125, 17);
+            this.chkSmallMap.Size = new System.Drawing.Size(75, 17);
             this.chkSmallMap.TabIndex = 50;
             this.chkSmallMap.Text = "Small Map";
             this.adjustments.SetToolTip(this.chkSmallMap, "Generates a map that is 128x128 (standard is 256x256)");
@@ -1160,7 +1176,8 @@ namespace DW3Randomizer
             this.chk_RandomizeInnPrices.Size = new System.Drawing.Size(129, 17);
             this.chk_RandomizeInnPrices.TabIndex = 83;
             this.chk_RandomizeInnPrices.Text = "Randomize Inn Prices";
-            this.adjustments.SetToolTip(this.chk_RandomizeInnPrices, "Randomizes the inn price from 1-100 GP per party member. Each inn is a different value.");
+            this.adjustments.SetToolTip(this.chk_RandomizeInnPrices, "Randomizes the inn price from 1-100 GP per party member. Each inn is a different " +
+        "value.");
             this.chk_RandomizeInnPrices.UseVisualStyleBackColor = true;
             this.chk_RandomizeInnPrices.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -1207,7 +1224,8 @@ namespace DW3Randomizer
             this.chk_ChangeDefaultParty.Size = new System.Drawing.Size(173, 17);
             this.chk_ChangeDefaultParty.TabIndex = 134;
             this.chk_ChangeDefaultParty.Text = "Change Default Party Members";
-            this.adjustments.SetToolTip(this.chk_ChangeDefaultParty, "When unchecked, standard party members in Luisa's Place are unchanged. When checked, shows options for changing party members.");
+            this.adjustments.SetToolTip(this.chk_ChangeDefaultParty, "When unchecked, standard party members in Luisa\'s Place are unchanged. When check" +
+        "ed, shows options for changing party members.");
             this.chk_ChangeDefaultParty.UseVisualStyleBackColor = true;
             this.chk_ChangeDefaultParty.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -1262,7 +1280,8 @@ namespace DW3Randomizer
             this.chkRandSpellLearning.Size = new System.Drawing.Size(143, 17);
             this.chkRandSpellLearning.TabIndex = 131;
             this.chkRandSpellLearning.Text = "Randomize spell learning";
-            this.adjustments.SetToolTip(this.chkRandSpellLearning, "Randomizes the class and level spells are learned. Field and battle spells are learned separately.");
+            this.adjustments.SetToolTip(this.chkRandSpellLearning, "Randomizes the class and level spells are learned. Field and battle spells are le" +
+        "arned separately.");
             this.chkRandSpellLearning.UseVisualStyleBackColor = true;
             this.chkRandSpellLearning.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -1585,7 +1604,7 @@ namespace DW3Randomizer
             this.chk_LowerCaseMenus.AutoSize = true;
             this.chk_LowerCaseMenus.Location = new System.Drawing.Point(6, 6);
             this.chk_LowerCaseMenus.Name = "chk_LowerCaseMenus";
-            this.chk_LowerCaseMenus.Size = new System.Drawing.Size(117, 17);
+            this.chk_LowerCaseMenus.Size = new System.Drawing.Size(131, 17);
             this.chk_LowerCaseMenus.TabIndex = 0;
             this.chk_LowerCaseMenus.Text = "Standard Case Menus";
             this.adjustments.SetToolTip(this.chk_LowerCaseMenus, "Changes casing of all caps menu items to standard caps and lower case.");
@@ -1633,6 +1652,17 @@ namespace DW3Randomizer
             this.chk_GenCompareFile.UseVisualStyleBackColor = true;
             this.chk_GenCompareFile.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
+            // chk_GenIslandsMonstersZones
+            // 
+            this.chk_GenIslandsMonstersZones.AutoSize = true;
+            this.chk_GenIslandsMonstersZones.Location = new System.Drawing.Point(185, 184);
+            this.chk_GenIslandsMonstersZones.Name = "chk_GenIslandsMonstersZones";
+            this.chk_GenIslandsMonstersZones.Size = new System.Drawing.Size(229, 17);
+            this.chk_GenIslandsMonstersZones.TabIndex = 202;
+            this.chk_GenIslandsMonstersZones.Text = "Generate islands, monsters, and zones files";
+            this.adjustments.SetToolTip(this.chk_GenIslandsMonstersZones, "Generates debug files for islands, monsters, and zones.");
+            this.chk_GenIslandsMonstersZones.UseVisualStyleBackColor = true;
+            // 
             // btnCopyChecksum
             // 
             this.btnCopyChecksum.Location = new System.Drawing.Point(530, 122);
@@ -1660,17 +1690,6 @@ namespace DW3Randomizer
             this.label14.Size = new System.Drawing.Size(82, 13);
             this.label14.TabIndex = 44;
             this.label14.Text = "New Checksum";
-            // 
-            // chk_GenIslandsMonstersZones
-            // 
-            this.chk_GenIslandsMonstersZones.AutoSize = true;
-            this.chk_GenIslandsMonstersZones.Location = new System.Drawing.Point(185, 184);
-            this.chk_GenIslandsMonstersZones.Name = "chk_GenIslandsMonstersZones";
-            this.chk_GenIslandsMonstersZones.Size = new System.Drawing.Size(229, 17);
-            this.chk_GenIslandsMonstersZones.TabIndex = 202;
-            this.chk_GenIslandsMonstersZones.Text = "Generate islands, monsters, and zones files";
-            this.adjustments.SetToolTip(this.chk_GenIslandsMonstersZones, "Generates debug files for islands, monsters, and zones.");
-            this.chk_GenIslandsMonstersZones.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -1850,6 +1869,7 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_GenIslandsMonstersZones;
         private System.Windows.Forms.CheckBox chk_RandSpriteColor;
         private System.Windows.Forms.CheckBox chk_RmMtnNecrogond;
+        private System.Windows.Forms.CheckBox chk_RandomStartGold;
     }
 }
 
