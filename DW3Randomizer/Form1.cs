@@ -17,7 +17,7 @@ namespace DW3Randomizer
     public partial class Form1 : Form
     {
         string versionNumber = "2.4.5";
-        string revisionDate = "4/11/2023";
+        string revisionDate = "4/14/2023";
 
         bool loading = true;
         byte[] romData;
@@ -131,6 +131,10 @@ namespace DW3Randomizer
                         chk_RandSpriteColor.Checked = true;
                     else
                         chk_RandSpriteColor.Checked = false;
+                    if (reader.ReadLine() == "True")
+                        chk_GhostToCasket.Checked = true;
+                    else
+                        chk_GhostToCasket.Checked = false;
                     runChecksum();
                 }
             }
@@ -235,6 +239,7 @@ namespace DW3Randomizer
                 if (chk_ChangeHeroAge.Checked) changeHeroAge(rni);
                 if (chk_RandSpriteColor.Checked) randSpriteColors(rni);
                 if (chk_RandomStartGold.Checked) randStartGold();
+                if (chk_GhostToCasket.Checked) changeGhostToCasket();
                 changeEnd();
                 saveRom(true);
                 saveRom(false);
@@ -299,7 +304,6 @@ namespace DW3Randomizer
             romData[0x36ccd] = 0x4c;
             romData[0x36cce] = 0xd8;
             romData[0x36ccf] = 0xac;
-
         }
 
         private void speedUpMenus()
@@ -5116,6 +5120,116 @@ namespace DW3Randomizer
 
         }
 
+        private void changeGhostToCasket()
+        {
+            // Changes ghost sprite to casket
+            for(int lni = 0; lni < 16; lni++)
+            {
+                romData[0x21d80 + lni] = romData[0x23b90 + lni];
+                romData[0x21d90 + lni] = romData[0x23ba0 + lni];
+                romData[0x21da0 + lni] = romData[0x23bb0 + lni];
+                romData[0x21db0 + lni] = romData[0x23bc0 + lni];
+                romData[0x21dc0 + lni] = romData[0x23bb0 + lni];
+                romData[0x21dd0 + lni] = romData[0x23bc0 + lni];
+                romData[0x22c20 + lni] = romData[0x23b50 + lni];
+                romData[0x22c30 + lni] = romData[0x23b60 + lni];
+                romData[0x22c40 + lni] = romData[0x23b70 + lni];
+                romData[0x22c50 + lni] = romData[0x23b80 + lni];
+            }
+            romData[0x22ba0] = romData[0x22be0] = 0x00;
+            romData[0x22ba1] = romData[0x22be1] = 0x07;
+            romData[0x22ba2] = romData[0x22be2] = 0x10;
+            romData[0x22ba3] = romData[0x22be3] = 0x17;
+            romData[0x22ba4] = romData[0x22be4] = 0x17;
+            romData[0x22ba5] = romData[0x22be5] = 0x0f;
+            romData[0x22ba6] = romData[0x22be6] = 0x2f;
+            romData[0x22ba7] = romData[0x22be7] = 0x2f;
+            romData[0x22ba8] = romData[0x22be8] = 0x07;
+            romData[0x22ba9] = romData[0x22be9] = 0x0f;
+            romData[0x22baa] = romData[0x22bea] = 0x1f;
+            romData[0x22bab] = romData[0x22beb] = 0x1f;
+            romData[0x22bac] = romData[0x22bec] = 0x1c;
+            romData[0x22bad] = romData[0x22bed] = 0x18;
+            romData[0x22bae] = romData[0x22bee] = 0x38;
+            romData[0x22baf] = romData[0x22bef] = 0x38;
+            romData[0x22bb0] = romData[0x22bf0] = 0x00;
+            romData[0x22bb1] = romData[0x22bf1] = 0xe0;
+            romData[0x22bb2] = romData[0x22bf2] = 0x08;
+            romData[0x22bb3] = romData[0x22bf3] = 0xe8;
+            romData[0x22bb4] = romData[0x22bf4] = 0xe8;
+            romData[0x22bb5] = romData[0x22bf5] = 0xf0;
+            romData[0x22bb6] = romData[0x22bf6] = 0xf4;
+            romData[0x22bb7] = romData[0x22bf7] = 0xf4;
+            romData[0x22bb8] = romData[0x22bf8] = 0xe0;
+            romData[0x22bb9] = romData[0x22bf9] = 0xf0;
+            romData[0x22bba] = romData[0x22bfa] = 0xf8;
+            romData[0x22bbb] = romData[0x22bfb] = 0xf8;
+            romData[0x22bbc] = romData[0x22bfc] = 0x38;
+            romData[0x22bbd] = romData[0x22bfd] = 0x18;
+            romData[0x22bbe] = romData[0x22bfe] = 0x1c;
+            romData[0x22bbf] = romData[0x22bff] = 0x1c;
+            romData[0x22bc0] = romData[0x22c00] = 0x1f;
+            romData[0x22bc1] = romData[0x22c01] = 0x1f;
+            romData[0x22bc2] = romData[0x22c02] = 0x1f;
+            romData[0x22bc3] = romData[0x22c03] = 0x0f;
+            romData[0x22bc4] = romData[0x22c04] = 0x07;
+            romData[0x22bc5] = romData[0x22c05] = 0x03;
+            romData[0x22bc6] = romData[0x22c06] = 0x01;
+            romData[0x22bc7] = romData[0x22c07] = 0x00;
+            romData[0x22bc8] = romData[0x22c08] = 0x30;
+            romData[0x22bc9] = romData[0x22c09] = 0x31;
+            romData[0x22bca] = romData[0x22c0a] = 0x31;
+            romData[0x22bcb] = romData[0x22c0b] = 0x18;
+            romData[0x22bcc] = romData[0x22c0c] = 0x0c;
+            romData[0x22bcd] = romData[0x22c0d] = 0x06;
+            romData[0x22bce] = romData[0x22c0e] = 0x03;
+            romData[0x22bcf] = romData[0x22c0f] = 0x01;
+            romData[0x22bd0] = romData[0x22c10] = 0xf8;
+            romData[0x22bd1] = romData[0x22c11] = 0xf8;
+            romData[0x22bd2] = romData[0x22c12] = 0xf8;
+            romData[0x22bd3] = romData[0x22c13] = 0xf0;
+            romData[0x22bd4] = romData[0x22c14] = 0xe0;
+            romData[0x22bd5] = romData[0x22c15] = 0xc0;
+            romData[0x22bd6] = romData[0x22c16] = 0x80;
+            romData[0x22bd7] = romData[0x22c17] = 0x00;
+            romData[0x22bd8] = romData[0x22c18] = 0x0c;
+            romData[0x22bd9] = romData[0x22c19] = 0x8c;
+            romData[0x22bda] = romData[0x22c1a] = 0x8c;
+            romData[0x22bdb] = romData[0x22c1b] = 0x18;
+            romData[0x22bdc] = romData[0x22c1c] = 0x30;
+            romData[0x22bdd] = romData[0x22c1d] = 0x60;
+            romData[0x22bde] = romData[0x22c1e] = 0xc0;
+            romData[0x22bdf] = romData[0x22c1f] = 0x80;
+
+            // changes references from ghost to pall (synonym for casket).
+            romData[0x424f1] = romData[0x42573] = romData[0x425fb] = romData[0x4260c] = romData[0x42629] = romData[0x42647] = romData[0x42650] = romData[0x42681] = romData[0x4268a] = romData[0x4269b] = romData[0x4272b] = romData[0x42746] = romData[0x42901] = romData[0x4290a] = romData[0x450b6] = romData[0x450c6] = romData[0x452c9] = romData[0x452da] = 0x1a; // p
+            romData[0x424f2] = romData[0x424f6] = romData[0x42504] = romData[0x42506] = romData[0x42574] = romData[0x4260d] = romData[0x4262a] = romData[0x42648] = romData[0x4264c] = romData[0x42665] = romData[0x42682] = romData[0x42686] = romData[0x4269c] = romData[0x4272c] = romData[0x42730] = romData[0x42747] = romData[0x42902] = romData[0x42906] = romData[0x4290c] = romData[0x450c7] = romData[0x452db] = 0x0b; // a
+            romData[0x424f3] = romData[0x424f4] = romData[0x42575] = romData[0x42576] = romData[0x4260e] = romData[0x4260f] = romData[0x4262b] = romData[0x4262c] = romData[0x42649] = romData[0x4264a] = romData[0x42662] = romData[0x42683] = romData[0x42684] = romData[0x4269d] = romData[0x4269e] = romData[0x4272d] = romData[0x4272e] = romData[0x42748] = romData[0x42749] = romData[0x42903] = romData[0x42904] = romData[0x4290b] = romData[0x450c8] = romData[0x450c9] = romData[0x452dc] = romData[0x452dd] = 0x16; // l
+            romData[0x424f5] = romData[0x424f9] = romData[0x42500] = romData[0x42503] = romData[0x42509] = romData[0x42563] = romData[0x42567] = romData[0x42569] = romData[0x4256e] = romData[0x42572] = romData[0x425ff] = romData[0x42602] = romData[0x42607] = romData[0x4260b] = romData[0x4262e] = romData[0x4264b] = romData[0x4264f] = romData[0x42654] = romData[0x42657] = romData[0x4265a] = romData[0x4265e] = romData[0x42663] = romData[0x42668] = romData[0x42685] = romData[0x42689] = romData[0x4268e] = romData[0x42691] = romData[0x42696] = romData[0x4269a] = romData[0x426a0] = romData[0x4272f] = romData[0x42733] = romData[0x4273b] = romData[0x4273e] = romData[0x42741] = romData[0x42745] = romData[0x4274b] = romData[0x4274c] = romData[0x42905] = romData[0x42909] = romData[0x42910] = romData[0x42914] = romData[0x42916] = romData[0x42919] = romData[0x4291d] = romData[0x450b9] = romData[0x450bc] = romData[0x450c1] = romData[0x450c5] = romData[0x450cb] = romData[0x452cc] = romData[0x452cf] = romData[0x452d4] = romData[0x452d9] = 0x60; // space
+            romData[0x424f7] = romData[0x4256b] = romData[0x42604] = romData[0x4264d] = romData[0x42659] = romData[0x42687] = romData[0x42693] = romData[0x42731] = romData[0x42739] = romData[0x42907] = romData[0x42918] = romData[0x450be] = romData[0x452d1] = 0x18; // n
+            romData[0x424f8] = romData[0x4264e] = romData[0x42688] = romData[0x42732] = romData[0x42908] = 0x0e; // d
+            romData[0x424fa] = romData[0x42502] = romData[0x42561] = romData[0x42564] = romData[0x4256c] = romData[0x425fd] = romData[0x42601] = romData[0x42605] = romData[0x42652] = romData[0x42656] = romData[0x4268c] = romData[0x42690] = romData[0x42694] = romData[0x42736] = romData[0x4273d] = romData[0x4273f] = romData[0x42911] = romData[0x4291b] = romData[0x450b8] = romData[0x450bb] = romData[0x450bf] = romData[0x452cb] = romData[0x452ce] = romData[0x452d2] = romData[0x452d5] = 0x1e; // t
+            romData[0x424fb] = romData[0x42565] = romData[0x42912] = romData[0x452d6] = 0x12; // h
+            romData[0x424fc] = romData[0x42734] = romData[0x42738] = 0x1c; // r
+            romData[0x424fd] = romData[0x4256d] = romData[0x42606] = romData[0x42660] = romData[0x42661] = romData[0x42695] = romData[0x42740] = romData[0x450c0] = romData[0x452d3] = 0x19; // o
+            romData[0x424fe] = romData[0x42505] = 0x21; // w
+            romData[0x424ff] = romData[0x42562] = romData[0x42571] = romData[0x425fe] = romData[0x4260a] = romData[0x42653] = romData[0x4265d] = romData[0x4268d] = romData[0x42699] = romData[0x4273a] = romData[0x42744] = romData[0x4290f] = romData[0x450c4] = romData[0x452d8] = 0x1d; // s
+            romData[0x42501] = romData[0x4256a] = romData[0x42600] = romData[0x42603] = romData[0x42655] = romData[0x42658] = romData[0x4268f] = romData[0x42692] = romData[0x4273c] = romData[0x42917] = romData[0x4291a] = romData[0x450ba] = romData[0x450bd] = romData[0x452cd] = romData[0x452d0] = romData[0x452d7] = 0x13; // i
+            romData[0x42507] = 0x23; // y
+            romData[0x42508] = romData[0x42576] = romData[0x42610] = romData[0x4262d] = romData[0x42667] = romData[0x4269f] = romData[0x4274a] = romData[0x4291c] = romData[0x450ca] = 0x6c; // .
+            romData[0x42560] = romData[0x425fc] = romData[0x42651] = romData[0x4268b] = romData[0x42737] = romData[0x450b7] = romData[0x452ca] = 0x1f; // u
+            romData[0x4256f] = romData[0x42608] = romData[0x4265b] = romData[0x42697] = romData[0x42742] = romData[0x450c2] = 0xf5; // character name
+            romData[0x42570] = romData[0x42609] = romData[0x4265c] = romData[0x42698] = romData[0x42743] = romData[0x450c3] = 0x68; // '
+            romData[0x4265f] = 0x38; // T
+            romData[0x42664] = 0x26; // B
+            romData[0x42666] = 0x11; // g
+            romData[0x42566]= romData[0x42735] = romData[0x4290e] = romData[0x42913] = 0x0f; // e
+            romData[0x4290d] = 0x0d; // c
+            romData[0x42915] = 0xf4; // item name
+
+               
+        }
+
         private void randomizeInnPrices(int rni)
         {
             Random r1 = new Random(int.Parse(txtSeed.Text));
@@ -8984,6 +9098,7 @@ namespace DW3Randomizer
                     writer.WriteLine(chk_FixSlimeSnail.Checked);
                     writer.WriteLine(chk_ChangeHeroAge.Checked);
                     writer.WriteLine(chk_RandSpriteColor.Checked);
+                    writer.WriteLine(chk_GhostToCasket.Checked);
                 }
             }
         }

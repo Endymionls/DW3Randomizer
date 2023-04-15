@@ -155,6 +155,7 @@ namespace DW3Randomizer
             this.btnCopyChecksum = new System.Windows.Forms.Button();
             this.lblNewChecksum = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
+            this.chk_GhostToCasket = new System.Windows.Forms.CheckBox();
             this.grpMonsterStat.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -427,8 +428,8 @@ namespace DW3Randomizer
             this.chk_RandomStartGold.Size = new System.Drawing.Size(143, 17);
             this.chk_RandomStartGold.TabIndex = 30;
             this.chk_RandomStartGold.Text = "Randomize Starting Gold";
-            this.chk_RandomStartGold.UseVisualStyleBackColor = true;
             this.adjustments.SetToolTip(this.chk_RandomStartGold, "Removes Parry/Fight bug found in original DWIII");
+            this.chk_RandomStartGold.UseVisualStyleBackColor = true;
             this.chk_RandomStartGold.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // chk_RmManip
@@ -1564,6 +1565,7 @@ namespace DW3Randomizer
             // 
             // tabPage7
             // 
+            this.tabPage7.Controls.Add(this.chk_GhostToCasket);
             this.tabPage7.Controls.Add(this.chk_RandSpriteColor);
             this.tabPage7.Controls.Add(this.chk_ChangeHeroAge);
             this.tabPage7.Controls.Add(this.chk_LowerCaseMenus);
@@ -1691,6 +1693,17 @@ namespace DW3Randomizer
             this.label14.TabIndex = 44;
             this.label14.Text = "New Checksum";
             // 
+            // chk_GhostToCasket
+            // 
+            this.chk_GhostToCasket.AutoSize = true;
+            this.chk_GhostToCasket.Location = new System.Drawing.Point(7, 100);
+            this.chk_GhostToCasket.Name = "chk_GhostToCasket";
+            this.chk_GhostToCasket.Size = new System.Drawing.Size(152, 17);
+            this.chk_GhostToCasket.TabIndex = 144;
+            this.chk_GhostToCasket.Text = "Change Ghosts to Caskets";
+            this.adjustments.SetToolTip(this.chk_GhostToCasket, "This will change dead party members from ghosts into caskets (palls) and adjusts relevant text.");
+            this.chk_GhostToCasket.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1722,7 +1735,6 @@ namespace DW3Randomizer
             this.Controls.Add(this.txtFileName);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.grpMonsterStat.ResumeLayout(false);
@@ -1870,6 +1882,7 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_RandSpriteColor;
         private System.Windows.Forms.CheckBox chk_RmMtnNecrogond;
         private System.Windows.Forms.CheckBox chk_RandomStartGold;
+        private System.Windows.Forms.CheckBox chk_GhostToCasket;
     }
 }
 
