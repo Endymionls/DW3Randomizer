@@ -1498,7 +1498,10 @@ namespace DW3Randomizer
                             if (validPlot(y, x, 6, 6, (locIslands[lnI] <= 6 ? new int[] { maxIsland[locIslands[lnI]] } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
                             locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], maxLake, locIslands[lnI] == 6))
                             {
-                                map[y, x + 2] = map[y, x + 3] = map[y + 1, x + 1] = map[y + 1, x + 4] = map[y + 2, x] = map[y + 2, x + 5] = map[y + 3, x] = map[y + 3, x + 5] = map[y + 4, x + 1] = map[y + 4, x + 4] = map[y + 5, x + 2] = map[y + 5, x + 3] = 0x06;
+                                if(chk_RemoveMtnDrgQueen.Checked)
+                                    map[y, x + 2] = map[y, x + 3] = map[y + 1, x + 1] = map[y + 1, x + 4] = map[y + 2, x] = map[y + 2, x + 5] = map[y + 3, x] = map[y + 3, x + 5] = map[y + 4, x + 1] = map[y + 4, x + 4] = map[y + 5, x + 2] = map[y + 5, x + 3] = 0x01;
+                                else
+                                    map[y, x + 2] = map[y, x + 3] = map[y + 1, x + 1] = map[y + 1, x + 4] = map[y + 2, x] = map[y + 2, x + 5] = map[y + 3, x] = map[y + 3, x + 5] = map[y + 4, x + 1] = map[y + 4, x + 4] = map[y + 5, x + 2] = map[y + 5, x + 3] = 0x06;
                                 map[y + 1, x + 2] = map[y + 1, x + 3] = map[y + 2, x + 1] = map[y + 2, x + 4] = map[y + 3, x + 1] = map[y + 3, x + 4] = map[y + 4, x + 2] = map[y + 4, x + 3] = 0x02;
                                 map[y + 2, x + 2] = 0xe8;
                                 map[y + 2, x + 3] = 0xe9;
@@ -9236,68 +9239,71 @@ namespace DW3Randomizer
             chk_RmMtnNecrogond.Checked = (number % 16 >= 8);
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(10, 1)));
+            chk_RemoveMtnDrgQueen.Checked = (number % 2 == 1);
+
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(11, 1)));
             chkRandTreasures.Checked = (number % 2 == 1);
             chk_GoldenClaw.Checked = (number % 4 >= 2);;
             chkRandWhoCanEquip.Checked = (number % 8 >= 4);
             chkRandEquip.Checked = (number % 16 >= 8);
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(11, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(12, 1)));
             chk_UseVanEquipValues.Checked = (number % 2 == 1);
             chk_RemoveStartEqRestrictions.Checked = (number % 4 >= 2);
             chk_RmFighterPenalty.Checked = (number % 8 >= 4);
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(12, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(13, 1)));
             //chkRandItemEffects.Checked = (number % 2 == 1);
             chkRandItemEffects.Checked = false;
             chkRandItemStores.Checked = (number % 4 >= 2);
             chk_RandomizeWeaponShops.Checked = (number % 8 >= 4);
             chk_Caturday.Checked = (number % 16 >= 8);
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(13, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(14, 1)));
             chk_RandomizeInnPrices.Checked = (number % 2 == 1);
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(14, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(15, 1)));
             chk_StoneofLife.Checked = (number % 2 == 1);
             chk_Seeds.Checked = (number % 4 >= 2);
             chk_BookofSatori.Checked = (number % 8 >= 4);
             chk_RingofLife.Checked = (number % 16 >= 8);
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(15, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(16, 1)));
             chk_EchoingFlute.Checked = (number % 2 == 1);
             chk_SilverHarp.Checked = (number % 4 >= 2);
             chk_LeafoftheWorldTree.Checked = (number % 8 >= 4);
             chk_ShoesofHappiness.Checked = (number % 16 >= 8);
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(16, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(17, 1)));
             chk_MeteoriteArmband.Checked = (number % 2 == 1);
             chk_WizardsRing.Checked = (number % 4 >= 2);
             chk_LampofDarkness.Checked = (number % 8 >= 4);
             chk_PoisonMothPowder.Checked = (number % 16 >= 8);
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(17, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(18, 1)));
             //chk_RandomName.Checked = (number % 2 == 1);
             chk_RandomGender.Checked = (number % 2 == 1);
             chk_RandomClass.Checked = (number % 4 >= 2);
             chkRandStatGains.Checked = (number % 8 >= 4);
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(18, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(19, 1)));
             chk_RandSoldier.Checked = (number % 2 == 1);
             chk_RandPilgrim.Checked = (number % 4 >= 2);
             chk_RandWizard.Checked = (number % 8 >= 4);
             chk_RandFighter.Checked = (number % 16 >= 8);
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(19, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(20, 1)));
             chk_RandMerchant.Checked = (number % 2 == 1);
             chk_RandGoofOff.Checked = (number % 4 >= 2);
             chk_RandSage.Checked = (number % 8 >= 4);
             chk_RandHero.Checked = (number % 16 >= 8);
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(20, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(21, 1)));
             chkRandSpellLearning.Checked = (number % 2 == 1);
             chkRandSpellStrength.Checked = (number % 4 >= 2);
             chkFourJobFiesta.Checked = (number % 8 >= 4);
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(21, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(22, 1)));
             chkRemoveParryFight.Checked = (number % 2 == 1);
         }
 
@@ -9316,6 +9322,7 @@ namespace DW3Randomizer
             flags += convertIntToCharCapsOnly((chkRandEnemyPatterns.Checked ? 1 : 0) + (chk_RemMetalMonRun.Checked ? 2 : 0)); // 7
             flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? 1 : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? 2 : 0) : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? (chk_SepBarGaia.Checked ? 4 : 0) : 0) : 0) + (chkRandomizeMap.Checked ? (chkRandMonsterZones.Checked ? 8 : 0) : 0)); // 8
             flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? (chk_RemoveBirdRequirement.Checked ? 1 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RemLancelMountains.Checked ? 2 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_lbtoCharlock.Checked ? 4 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RmMtnNecrogond.Checked ? 8 : 0) : 0)); // 9
+            flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? (chk_RemoveMtnDrgQueen.Checked ? 1 : 0) : 0));
             flags += convertIntToCharCapsOnly((chkRandTreasures.Checked ? 1 : 0) + (chkRandTreasures.Checked ? (chk_GoldenClaw.Checked ? 2 : 0) : 0)  + (chkRandWhoCanEquip.Checked ? 4 : 0) + (chkRandEquip.Checked ? 8 : 0)); // 10
             flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_UseVanEquipValues.Checked ? 1 : 0) : 0) + (chkRandEquip.Checked ? (chk_RemoveStartEqRestrictions.Checked ? 2 : 0) : 0) + (chkRandEquip.Checked ? (chk_RmFighterPenalty.Checked ? 1 : 0) : 0)); // 11
             flags += convertIntToCharCapsOnly((chkRandItemEffects.Checked ? 1 : 0) + (chkRandItemStores.Checked ? 2 : 0) + (chk_RandomizeWeaponShops.Checked ? 4 : 0) + (chk_Caturday.Checked ? 8 : 0)); // 12

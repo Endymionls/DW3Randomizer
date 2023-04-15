@@ -143,6 +143,7 @@ namespace DW3Randomizer
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.chkRemoveParryFight = new System.Windows.Forms.CheckBox();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.chk_GhostToCasket = new System.Windows.Forms.CheckBox();
             this.chk_RandSpriteColor = new System.Windows.Forms.CheckBox();
             this.chk_ChangeHeroAge = new System.Windows.Forms.CheckBox();
             this.chk_LowerCaseMenus = new System.Windows.Forms.CheckBox();
@@ -155,7 +156,7 @@ namespace DW3Randomizer
             this.btnCopyChecksum = new System.Windows.Forms.Button();
             this.lblNewChecksum = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.chk_GhostToCasket = new System.Windows.Forms.CheckBox();
+            this.chk_RemoveMtnDrgQueen = new System.Windows.Forms.CheckBox();
             this.grpMonsterStat.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -232,7 +233,7 @@ namespace DW3Randomizer
             // 
             // btnRandomize
             // 
-            this.btnRandomize.Location = new System.Drawing.Point(572, 474);
+            this.btnRandomize.Location = new System.Drawing.Point(572, 509);
             this.btnRandomize.Name = "btnRandomize";
             this.btnRandomize.Size = new System.Drawing.Size(75, 23);
             this.btnRandomize.TabIndex = 200;
@@ -392,7 +393,7 @@ namespace DW3Randomizer
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(639, 242);
+            this.tabControl1.Size = new System.Drawing.Size(639, 286);
             this.tabControl1.TabIndex = 14;
             // 
             // tabPage1
@@ -616,6 +617,7 @@ namespace DW3Randomizer
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.chk_RemoveMtnDrgQueen);
             this.tabPage2.Controls.Add(this.chk_RmMtnNecrogond);
             this.tabPage2.Controls.Add(this.chk_lbtoCharlock);
             this.tabPage2.Controls.Add(this.chk_RemLancelMountains);
@@ -635,7 +637,7 @@ namespace DW3Randomizer
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(631, 216);
+            this.tabPage2.Size = new System.Drawing.Size(631, 260);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Monsters & Map";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1578,6 +1580,18 @@ namespace DW3Randomizer
             this.tabPage7.Text = "Cosmetic";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
+            // chk_GhostToCasket
+            // 
+            this.chk_GhostToCasket.AutoSize = true;
+            this.chk_GhostToCasket.Location = new System.Drawing.Point(7, 100);
+            this.chk_GhostToCasket.Name = "chk_GhostToCasket";
+            this.chk_GhostToCasket.Size = new System.Drawing.Size(152, 17);
+            this.chk_GhostToCasket.TabIndex = 144;
+            this.chk_GhostToCasket.Text = "Change Ghosts to Caskets";
+            this.adjustments.SetToolTip(this.chk_GhostToCasket, "This will change dead party members from ghosts into caskets (palls) and adjusts " +
+        "relevant text.");
+            this.chk_GhostToCasket.UseVisualStyleBackColor = true;
+            // 
             // chk_RandSpriteColor
             // 
             this.chk_RandSpriteColor.AutoSize = true;
@@ -1693,22 +1707,21 @@ namespace DW3Randomizer
             this.label14.TabIndex = 44;
             this.label14.Text = "New Checksum";
             // 
-            // chk_GhostToCasket
+            // chk_RemoveMtnDrgQueen
             // 
-            this.chk_GhostToCasket.AutoSize = true;
-            this.chk_GhostToCasket.Location = new System.Drawing.Point(7, 100);
-            this.chk_GhostToCasket.Name = "chk_GhostToCasket";
-            this.chk_GhostToCasket.Size = new System.Drawing.Size(152, 17);
-            this.chk_GhostToCasket.TabIndex = 144;
-            this.chk_GhostToCasket.Text = "Change Ghosts to Caskets";
-            this.adjustments.SetToolTip(this.chk_GhostToCasket, "This will change dead party members from ghosts into caskets (palls) and adjusts relevant text.");
-            this.chk_GhostToCasket.UseVisualStyleBackColor = true;
+            this.chk_RemoveMtnDrgQueen.AutoSize = true;
+            this.chk_RemoveMtnDrgQueen.Location = new System.Drawing.Point(375, 214);
+            this.chk_RemoveMtnDrgQueen.Name = "chk_RemoveMtnDrgQueen";
+            this.chk_RemoveMtnDrgQueen.Size = new System.Drawing.Size(259, 17);
+            this.chk_RemoveMtnDrgQueen.TabIndex = 56;
+            this.chk_RemoveMtnDrgQueen.Text = "Remove Mountains around Dragon Queen Castle";
+            this.chk_RemoveMtnDrgQueen.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(674, 509);
+            this.ClientSize = new System.Drawing.Size(674, 553);
             this.Controls.Add(this.chk_GenIslandsMonstersZones);
             this.Controls.Add(this.chk_GenCompareFile);
             this.Controls.Add(this.btnCopyChecksum);
@@ -1883,6 +1896,7 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_RmMtnNecrogond;
         private System.Windows.Forms.CheckBox chk_RandomStartGold;
         private System.Windows.Forms.CheckBox chk_GhostToCasket;
+        private System.Windows.Forms.CheckBox chk_RemoveMtnDrgQueen;
     }
 }
 
