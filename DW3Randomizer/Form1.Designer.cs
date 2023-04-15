@@ -157,6 +157,7 @@ namespace DW3Randomizer
             this.lblNewChecksum = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.chk_RemoveMtnDrgQueen = new System.Windows.Forms.CheckBox();
+            this.chk_RmNewTown = new System.Windows.Forms.CheckBox();
             this.grpMonsterStat.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -617,6 +618,7 @@ namespace DW3Randomizer
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.chk_RmNewTown);
             this.tabPage2.Controls.Add(this.chk_RemoveMtnDrgQueen);
             this.tabPage2.Controls.Add(this.chk_RmMtnNecrogond);
             this.tabPage2.Controls.Add(this.chk_lbtoCharlock);
@@ -1715,7 +1717,21 @@ namespace DW3Randomizer
             this.chk_RemoveMtnDrgQueen.Size = new System.Drawing.Size(259, 17);
             this.chk_RemoveMtnDrgQueen.TabIndex = 56;
             this.chk_RemoveMtnDrgQueen.Text = "Remove Mountains around Dragon Queen Castle";
+            this.chk_RemoveMtnDrgQueen.CheckedChanged += new System.EventHandler(this.determineFlags);
             this.chk_RemoveMtnDrgQueen.UseVisualStyleBackColor = true;
+
+            // 
+            // chk_RmNewTown
+            // 
+            this.chk_RmNewTown.AutoSize = true;
+            this.chk_RmNewTown.Location = new System.Drawing.Point(375, 238);
+            this.chk_RmNewTown.Name = "chk_RmNewTown";
+            this.chk_RmNewTown.Size = new System.Drawing.Size(121, 17);
+            this.chk_RmNewTown.TabIndex = 57;
+            this.chk_RmNewTown.Text = "Remove New Town";
+            this.chk_RmNewTown.Text = "Do not generate New Town.";
+            this.chk_RmNewTown.CheckedChanged += new System.EventHandler(this.determineFlags);
+            this.chk_RmNewTown.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -1897,6 +1913,7 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_RandomStartGold;
         private System.Windows.Forms.CheckBox chk_GhostToCasket;
         private System.Windows.Forms.CheckBox chk_RemoveMtnDrgQueen;
+        private System.Windows.Forms.CheckBox chk_RmNewTown;
     }
 }
 

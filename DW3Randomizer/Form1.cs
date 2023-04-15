@@ -1937,17 +1937,20 @@ namespace DW3Randomizer
                         }
                         else if (lnI == 71) // New Town
                         {
-                            if (validPlot(y, x, 3, 3, (locIslands[lnI] <= 6 ? new int[] { maxIsland[locIslands[lnI]] } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
-                                locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], maxLake, locIslands[lnI] == 6))
+                            if (chk_RmNewTown.Checked == false)
                             {
-                                map[y + 0, x + 0] = map[y + 0, x + 1] = map[y + 0, x + 2] = map[y + 1, x + 0] = map[y + 1, x + 2] = map[y + 2, x + 0] = map[y + 2, x + 1] = map[y + 2, x + 2] = 0x04;
-                                map[y + 1, x + 1] = 0x02;
+                                if (validPlot(y, x, 3, 3, (locIslands[lnI] <= 6 ? new int[] { maxIsland[locIslands[lnI]] } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
+                                    locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], maxLake, locIslands[lnI] == 6))
+                                {
+                                    map[y + 0, x + 0] = map[y + 0, x + 1] = map[y + 0, x + 2] = map[y + 1, x + 0] = map[y + 1, x + 2] = map[y + 2, x + 0] = map[y + 2, x + 1] = map[y + 2, x + 2] = 0x04;
+                                    map[y + 1, x + 1] = 0x02;
 
-                                romData[0x1b397] = (byte)(x + 1);
-                                romData[0x1b398] = (byte)(y + 1);
+                                    romData[0x1b397] = (byte)(x + 1);
+                                    romData[0x1b398] = (byte)(y + 1);
+                                }
+                                else
+                                    lnI--;
                             }
-                            else
-                                lnI--;
                         }
                         break;
                     case "X":
@@ -9261,6 +9264,7 @@ namespace DW3Randomizer
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(14, 1)));
             chk_RandomizeInnPrices.Checked = (number % 2 == 1);
+            chk_RmNewTown.Checked = (number % 4 >= 2);
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(15, 1)));
             chk_StoneofLife.Checked = (number % 2 == 1);
@@ -9322,7 +9326,7 @@ namespace DW3Randomizer
             flags += convertIntToCharCapsOnly((chkRandEnemyPatterns.Checked ? 1 : 0) + (chk_RemMetalMonRun.Checked ? 2 : 0)); // 7
             flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? 1 : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? 2 : 0) : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? (chk_SepBarGaia.Checked ? 4 : 0) : 0) : 0) + (chkRandomizeMap.Checked ? (chkRandMonsterZones.Checked ? 8 : 0) : 0)); // 8
             flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? (chk_RemoveBirdRequirement.Checked ? 1 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RemLancelMountains.Checked ? 2 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_lbtoCharlock.Checked ? 4 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RmMtnNecrogond.Checked ? 8 : 0) : 0)); // 9
-            flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? (chk_RemoveMtnDrgQueen.Checked ? 1 : 0) : 0));
+            flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? (chk_RemoveMtnDrgQueen.Checked ? 1 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RmNewTown.Checked ? 2 : 0) : 0));
             flags += convertIntToCharCapsOnly((chkRandTreasures.Checked ? 1 : 0) + (chkRandTreasures.Checked ? (chk_GoldenClaw.Checked ? 2 : 0) : 0)  + (chkRandWhoCanEquip.Checked ? 4 : 0) + (chkRandEquip.Checked ? 8 : 0)); // 10
             flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_UseVanEquipValues.Checked ? 1 : 0) : 0) + (chkRandEquip.Checked ? (chk_RemoveStartEqRestrictions.Checked ? 2 : 0) : 0) + (chkRandEquip.Checked ? (chk_RmFighterPenalty.Checked ? 1 : 0) : 0)); // 11
             flags += convertIntToCharCapsOnly((chkRandItemEffects.Checked ? 1 : 0) + (chkRandItemStores.Checked ? 2 : 0) + (chk_RandomizeWeaponShops.Checked ? 4 : 0) + (chk_Caturday.Checked ? 8 : 0)); // 12
@@ -9460,6 +9464,8 @@ namespace DW3Randomizer
             this.chk_SepBarGaia.Visible = this.chkRandomizeMap.Checked;
             this.chkRandMonsterZones.Visible = this.chkRandomizeMap.Checked;
             this.chk_RemoveBirdRequirement.Visible = this.chkRandomizeMap.Checked;
+            this.chk_RemoveMtnDrgQueen.Visible = this.chkRandomizeMap.Checked;
+            this.chk_RmNewTown.Visible = this.chkRandomizeMap.Checked;
             this.chk_RmMtnNecrogond.Visible = this.chkRandomizeMap.Checked;
             this.chk_RmFighterPenalty.Visible = this.chkRandEquip.Checked;
             this.chk_UseVanEquipValues.Visible = this.chkRandEquip.Checked;
