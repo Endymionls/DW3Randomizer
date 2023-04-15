@@ -17,7 +17,9 @@ namespace DW3Randomizer
     public partial class Form1 : Form
     {
         string versionNumber = "2.4.5";
-        string revisionDate = "4/14/2023";
+        string revisionDate = "4/15/2023";
+        string SotWFlags = "ACHMHDMBLABJEOBPPPEAADB";
+        string endyFlags = "ACGMHDPBLACLBOBPPPEAADB";
 
         bool loading = true;
         byte[] romData;
@@ -9243,6 +9245,7 @@ namespace DW3Randomizer
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(10, 1)));
             chk_RemoveMtnDrgQueen.Checked = (number % 2 == 1);
+            chk_RmNewTown.Checked = (number % 4 >= 2);
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(11, 1)));
             chkRandTreasures.Checked = (number % 2 == 1);
@@ -9264,7 +9267,6 @@ namespace DW3Randomizer
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(14, 1)));
             chk_RandomizeInnPrices.Checked = (number % 2 == 1);
-            chk_RmNewTown.Checked = (number % 4 >= 2);
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(15, 1)));
             chk_StoneofLife.Checked = (number % 2 == 1);
@@ -9328,7 +9330,7 @@ namespace DW3Randomizer
             flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? (chk_RemoveBirdRequirement.Checked ? 1 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RemLancelMountains.Checked ? 2 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_lbtoCharlock.Checked ? 4 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RmMtnNecrogond.Checked ? 8 : 0) : 0)); // 9
             flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? (chk_RemoveMtnDrgQueen.Checked ? 1 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RmNewTown.Checked ? 2 : 0) : 0));
             flags += convertIntToCharCapsOnly((chkRandTreasures.Checked ? 1 : 0) + (chkRandTreasures.Checked ? (chk_GoldenClaw.Checked ? 2 : 0) : 0)  + (chkRandWhoCanEquip.Checked ? 4 : 0) + (chkRandEquip.Checked ? 8 : 0)); // 10
-            flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_UseVanEquipValues.Checked ? 1 : 0) : 0) + (chkRandEquip.Checked ? (chk_RemoveStartEqRestrictions.Checked ? 2 : 0) : 0) + (chkRandEquip.Checked ? (chk_RmFighterPenalty.Checked ? 1 : 0) : 0)); // 11
+            flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_UseVanEquipValues.Checked ? 1 : 0) : 0) + (chkRandEquip.Checked ? (chk_RemoveStartEqRestrictions.Checked ? 2 : 0) : 0) + (chkRandEquip.Checked ? (chk_RmFighterPenalty.Checked ? 4 : 0) : 0)); // 11
             flags += convertIntToCharCapsOnly((chkRandItemEffects.Checked ? 1 : 0) + (chkRandItemStores.Checked ? 2 : 0) + (chk_RandomizeWeaponShops.Checked ? 4 : 0) + (chk_Caturday.Checked ? 8 : 0)); // 12
             flags += convertIntToCharCapsOnly((chk_RandomizeInnPrices.Checked ? 1 : 0)); //13
             flags += convertIntToCharCapsOnly((chkRandItemStores.Checked ? (chk_StoneofLife.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_Seeds.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_BookofSatori.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_RingofLife.Checked ? 8 : 0) : 0)); // 14
@@ -9398,6 +9400,23 @@ namespace DW3Randomizer
 
         private void enableDisableFields(object sender, DragEventArgs e)
         {
+            if (optSotWFlags.Checked == true)
+            {
+                this.txtFlags.Text = SotWFlags;
+                this.txtFlags.Enabled = false;
+                determineChecks(null, null);
+            }
+            if (optEndysFlags.Checked == true)
+            {
+                this.txtFlags.Text = endyFlags;
+                this.txtFlags.Enabled = false;
+                determineChecks(null, null);
+            }
+            if (optManualFlags.Checked == true)
+            {
+                this.txtFlags.Enabled = true;
+                determineChecks(null, null);
+            }
             if (chk_ChangeDefaultParty.Checked == false)
             {
                 this.txtCharName1.Visible = false;
@@ -9469,6 +9488,8 @@ namespace DW3Randomizer
             this.chk_RmMtnNecrogond.Visible = this.chkRandomizeMap.Checked;
             this.chk_RmFighterPenalty.Visible = this.chkRandEquip.Checked;
             this.chk_UseVanEquipValues.Visible = this.chkRandEquip.Checked;
+            this.chk_RemLancelMountains.Visible = this.chkRandomizeMap.Checked;
+            this.chk_lbtoCharlock.Visible = this.chkRandomizeMap.Checked;
         }
     }
 }
