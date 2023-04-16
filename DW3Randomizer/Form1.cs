@@ -81,6 +81,51 @@ namespace DW3Randomizer
             }
         }
 
+        private void runHash()
+        {
+            int adjustmentTab = cboExpGains.SelectedIndex +  (2 * cboGoldReq.SelectedIndex) + (4 * cboEncounterRate.SelectedIndex) +
+                (8 * (chkFasterBattles.Checked ? 1 : 0)) + (16 * (chkSpeedText.Checked ? 1 : 0)) + (32 * (chk_SpeedUpMenus.Checked ? 1 : 0)) +
+                (64 * (chk_Cod.Checked ? 1 : 0)) + (128 * (chk_RmManip.Checked ? 1 : 0)) + (256 * (chk_WeapArmPower.Checked ? 1 : 0)) +
+                (512 * (chkNoLamiaOrbs.Checked ? 1 : 0)) + (1024 * (chk_RandomStartGold.Checked ? 1 : 0));
+
+            int mapTab = (chkRandomizeMap.Checked ? 1 : 0) + (2 * (chkRandMonsterZones.Checked ? 1 : 0)) + (4 * (chkSmallMap.Checked ? 1 : 0)) +
+                (8 * (chk_RemoveMtnDrgQueen.Checked ? 1 : 0)) + (16 * (chk_SepBarGaia.Checked ? 1 : 0)) + (32 * (chk_RemLancelMountains.Checked ? 1 : 0)) +
+                (64 * (chk_RmMtnNecrogond.Checked ? 1 : 0)) + (128 * (chk_RemoveBirdRequirement.Checked ? 1 : 0)) +
+                (256 * (chk_lbtoCharlock.Checked ? 1 : 0)) + (512 * (chk_RmNewTown.Checked ? 1 : 0));
+
+            int monstersTab = (optMonsterHeavy.Checked ? 1 : optMonsterLight.Checked ? 2 : optMonsterMedium.Checked ? 4 : optMonsterSilly.Checked ? 8 : 0) +
+                (16 * (chkRandomizeXP.Checked ? 1 : 0)) + (32 * (chkRandomizeGP.Checked ? 1 : 0)) + (64 * (chkRandEnemyPatterns.Checked ? 1 : 0)) +
+                (128 * (chk_RemMetalMonRun.Checked ? 1 : 0));
+
+            int treasureEquipmentTab = (chkRandTreasures.Checked ? 1 : 0) + (2 * (chk_GoldenClaw.Checked ? 1 : 0)) + (4 * (chkRandWhoCanEquip.Checked ? 1 : 0)) +
+                (8 * (chkRandEquip.Checked ? 1 : 0)) + (16 * (chk_UseVanEquipValues.Checked ? 1 : 0)) + (32 * (chk_RemoveStartEqRestrictions.Checked ? 1 : 0)) +
+                (64 * (chk_RmFighterPenalty.Checked ? 1 : 0));
+
+            int itemWeaponShopsInsTab = (chkRandItemStores.Checked ? 1 : 0) + (2 * (chk_RandomizeWeaponShops.Checked ? 1 : 0)) + (4 * (chk_Caturday.Checked ? 1 : 0)) +
+                (8 * (chk_RandomizeInnPrices.Checked ? 1 : 0)) + (16 * (chk_StoneofLife.Checked ? 1 : 0)) + (32 * (chk_Seeds.Checked ? 1 : 0)) +
+                (64 * (chk_BookofSatori.Checked ? 1 : 0)) + (128 * (chk_RingofLife.Checked ? 1 : 0)) + (256 * (chk_EchoingFlute.Checked ? 1 : 0)) +
+                (512 * (chk_SilverHarp.Checked ? 1 : 0)) + (1024 * (chk_LeafoftheWorldTree.Checked ? 1 : 0)) + (2048 * (chk_ShoesofHappiness.Checked ? 1 : 0)) +
+                (4096 * (chk_MeteoriteArmband.Checked ? 1 : 0)) + (8192 * (chk_WizardsRing.Checked ? 1 : 0)) + (16384 * (chk_LampofDarkness.Checked ? 1 : 0)) +
+                (32768 * (chk_PoisonMothPowder.Checked ? 1 : 0));
+
+            int charactersTab = (chkRandStatGains.Checked ? 1 : 0) + (2 * (chkRandSpellLearning.Checked ? 1 : 0)) + (4 * (chkRandSpellStrength.Checked ? 1 : 0)) +
+                (8 * (chkFourJobFiesta.Checked ? 1 : 0));
+
+            int fixesTab = (chkRemoveParryFight.Checked ? 1 : 0);
+
+            int values = (int)romData[0x3d126] + (10 * (int)romData[0x123b1 + 10]) + (100 * (int)romData[0x134f9]) + (1000 * (int)romData[0x2a15]) +
+                (int)romData[0x2a54] + (10 * (int)romData[0x281b + 10]) + (100 * (int)romData[0x281b + 11]) + (1000 * (int)romData[0x367c1 + 10]) +
+                (int)romData[0x36862] + (10 * (int)romData[0x368e2]) + (100 * (int)romData[0x1147 + 10]) + (1000 * (int)romData[0x279a0]) +
+                (int)romData[0x11be + 10] + (10 * (int)romData[0x2925a]) + (100 * (int)romData[0x2922b]) + (1000 * (int)romData[0x292c2]) +
+                (int)romData[0x2914f] + (10 * (int)romData[0x32e3 + (230)]) + (100 * (int)romData[0x32e3 + 480]) + (1000 * (int)romData[0x32e3 + 10]);
+            
+            int hashNumber = adjustmentTab + (2 * mapTab) + (3 * monstersTab) + (4 * treasureEquipmentTab) + (5 * itemWeaponShopsInsTab) + 
+                (6 * charactersTab) + (7 * fixesTab) + values;
+
+            string hashString = hashNumber.ToString();
+            lblHash.Text = hashString;
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             txtSeed.Text = (DateTime.Now.Ticks % 2147483647).ToString();
@@ -246,6 +291,7 @@ namespace DW3Randomizer
                 saveRom(true);
                 saveRom(false);
                 createGuides();
+                runHash();
 
             }
         }

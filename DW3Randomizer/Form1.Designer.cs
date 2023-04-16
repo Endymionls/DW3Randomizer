@@ -163,6 +163,8 @@ namespace DW3Randomizer
             this.optEndysFlags = new System.Windows.Forms.RadioButton();
             this.optSotWFlags = new System.Windows.Forms.RadioButton();
             this.optManualFlags = new System.Windows.Forms.RadioButton();
+            this.label12 = new System.Windows.Forms.Label();
+            this.lblHash = new System.Windows.Forms.Label();
             this.grpMonsterStat.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -241,7 +243,7 @@ namespace DW3Randomizer
             // 
             // btnRandomize
             // 
-            this.btnRandomize.Location = new System.Drawing.Point(572, 476);
+            this.btnRandomize.Location = new System.Drawing.Point(572, 512);
             this.btnRandomize.Name = "btnRandomize";
             this.btnRandomize.Size = new System.Drawing.Size(75, 23);
             this.btnRandomize.TabIndex = 200;
@@ -262,7 +264,7 @@ namespace DW3Randomizer
             // 
             // txtSeed
             // 
-            this.txtSeed.Location = new System.Drawing.Point(55, 229);
+            this.txtSeed.Location = new System.Drawing.Point(55, 265);
             this.txtSeed.Name = "txtSeed";
             this.txtSeed.Size = new System.Drawing.Size(512, 20);
             this.txtSeed.TabIndex = 7;
@@ -270,7 +272,7 @@ namespace DW3Randomizer
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(17, 232);
+            this.label3.Location = new System.Drawing.Point(17, 268);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(32, 13);
             this.label3.TabIndex = 20;
@@ -305,7 +307,7 @@ namespace DW3Randomizer
             // 
             // btnNewSeed
             // 
-            this.btnNewSeed.Location = new System.Drawing.Point(576, 227);
+            this.btnNewSeed.Location = new System.Drawing.Point(576, 263);
             this.btnNewSeed.Name = "btnNewSeed";
             this.btnNewSeed.Size = new System.Drawing.Size(75, 23);
             this.btnNewSeed.TabIndex = 8;
@@ -398,7 +400,7 @@ namespace DW3Randomizer
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage7);
-            this.tabControl1.Location = new System.Drawing.Point(12, 255);
+            this.tabControl1.Location = new System.Drawing.Point(12, 291);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -1683,7 +1685,7 @@ namespace DW3Randomizer
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(17, 201);
+            this.label7.Location = new System.Drawing.Point(17, 237);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(32, 13);
             this.label7.TabIndex = 43;
@@ -1691,7 +1693,7 @@ namespace DW3Randomizer
             // 
             // txtFlags
             // 
-            this.txtFlags.Location = new System.Drawing.Point(55, 198);
+            this.txtFlags.Location = new System.Drawing.Point(55, 234);
             this.txtFlags.Name = "txtFlags";
             this.txtFlags.Size = new System.Drawing.Size(511, 20);
             this.txtFlags.TabIndex = 6;
@@ -1700,7 +1702,7 @@ namespace DW3Randomizer
             // chk_GenCompareFile
             // 
             this.chk_GenCompareFile.AutoSize = true;
-            this.chk_GenCompareFile.Location = new System.Drawing.Point(185, 480);
+            this.chk_GenCompareFile.Location = new System.Drawing.Point(185, 516);
             this.chk_GenCompareFile.Name = "chk_GenCompareFile";
             this.chk_GenCompareFile.Size = new System.Drawing.Size(134, 17);
             this.chk_GenCompareFile.TabIndex = 201;
@@ -1713,7 +1715,7 @@ namespace DW3Randomizer
             // chk_GenIslandsMonstersZones
             // 
             this.chk_GenIslandsMonstersZones.AutoSize = true;
-            this.chk_GenIslandsMonstersZones.Location = new System.Drawing.Point(337, 480);
+            this.chk_GenIslandsMonstersZones.Location = new System.Drawing.Point(337, 516);
             this.chk_GenIslandsMonstersZones.Name = "chk_GenIslandsMonstersZones";
             this.chk_GenIslandsMonstersZones.Size = new System.Drawing.Size(229, 17);
             this.chk_GenIslandsMonstersZones.TabIndex = 202;
@@ -1754,7 +1756,7 @@ namespace DW3Randomizer
             this.grpFlags.Controls.Add(this.optEndysFlags);
             this.grpFlags.Controls.Add(this.optSotWFlags);
             this.grpFlags.Controls.Add(this.optManualFlags);
-            this.grpFlags.Location = new System.Drawing.Point(20, 158);
+            this.grpFlags.Location = new System.Drawing.Point(20, 194);
             this.grpFlags.Name = "grpFlags";
             this.grpFlags.Size = new System.Drawing.Size(338, 34);
             this.grpFlags.TabIndex = 203;
@@ -1795,11 +1797,31 @@ namespace DW3Randomizer
             this.optManualFlags.UseVisualStyleBackColor = true;
             this.optManualFlags.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(17, 151);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(32, 13);
+            this.label12.TabIndex = 204;
+            this.label12.Text = "Hash";
+            // 
+            // lblHash
+            // 
+            this.lblHash.AutoSize = true;
+            this.lblHash.Location = new System.Drawing.Point(119, 151);
+            this.lblHash.Name = "lblHash";
+            this.lblHash.Size = new System.Drawing.Size(247, 13);
+            this.lblHash.TabIndex = 205;
+            this.lblHash.Text = "????????????????????????????????????????";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(674, 511);
+            this.ClientSize = new System.Drawing.Size(674, 547);
+            this.Controls.Add(this.lblHash);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.grpFlags);
             this.Controls.Add(this.chk_GenIslandsMonstersZones);
             this.Controls.Add(this.chk_GenCompareFile);
@@ -1986,6 +2008,8 @@ namespace DW3Randomizer
         private System.Windows.Forms.RadioButton optEndysFlags;
         private System.Windows.Forms.RadioButton optSotWFlags;
         private System.Windows.Forms.RadioButton optManualFlags;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lblHash;
     }
 }
 
