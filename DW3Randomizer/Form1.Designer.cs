@@ -43,7 +43,6 @@ namespace DW3Randomizer
             this.lblReqChecksum = new System.Windows.Forms.Label();
             this.btnRandomize = new System.Windows.Forms.Button();
             this.btnCompare = new System.Windows.Forms.Button();
-            this.txtSeed = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnCompareBrowse = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -58,6 +57,8 @@ namespace DW3Randomizer
             this.optMonsterLight = new System.Windows.Forms.RadioButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.chk_InvisibleShips = new System.Windows.Forms.CheckBox();
+            this.chk_InvisibleNPCs = new System.Windows.Forms.CheckBox();
             this.chk_RandomStartGold = new System.Windows.Forms.CheckBox();
             this.chk_RmManip = new System.Windows.Forms.CheckBox();
             this.chk_WeapArmPower = new System.Windows.Forms.CheckBox();
@@ -90,6 +91,8 @@ namespace DW3Randomizer
             this.chk_RemMetalMonRun = new System.Windows.Forms.CheckBox();
             this.chkRandEnemyPatterns = new System.Windows.Forms.CheckBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.chk_AdjustEqpPrices = new System.Windows.Forms.CheckBox();
+            this.chk_GreenSilverOrb = new System.Windows.Forms.CheckBox();
             this.chk_UseVanEquipValues = new System.Windows.Forms.CheckBox();
             this.chk_RmFighterPenalty = new System.Windows.Forms.CheckBox();
             this.lbl_TreasurePool = new System.Windows.Forms.Label();
@@ -165,6 +168,7 @@ namespace DW3Randomizer
             this.optManualFlags = new System.Windows.Forms.RadioButton();
             this.label12 = new System.Windows.Forms.Label();
             this.lblHash = new System.Windows.Forms.Label();
+            this.txtSeed = new System.Windows.Forms.TextBox();
             this.grpMonsterStat.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -246,7 +250,7 @@ namespace DW3Randomizer
             this.btnRandomize.Location = new System.Drawing.Point(572, 512);
             this.btnRandomize.Name = "btnRandomize";
             this.btnRandomize.Size = new System.Drawing.Size(75, 23);
-            this.btnRandomize.TabIndex = 200;
+            this.btnRandomize.TabIndex = 50;
             this.btnRandomize.Text = "Randomize!";
             this.btnRandomize.UseVisualStyleBackColor = true;
             this.btnRandomize.Click += new System.EventHandler(this.btnRandomize_Click);
@@ -261,13 +265,6 @@ namespace DW3Randomizer
             this.btnCompare.UseVisualStyleBackColor = true;
             this.btnCompare.Visible = false;
             this.btnCompare.Click += new System.EventHandler(this.btnCompare_Click);
-            // 
-            // txtSeed
-            // 
-            this.txtSeed.Location = new System.Drawing.Point(55, 265);
-            this.txtSeed.Name = "txtSeed";
-            this.txtSeed.Size = new System.Drawing.Size(512, 20);
-            this.txtSeed.TabIndex = 7;
             // 
             // label3
             // 
@@ -310,7 +307,7 @@ namespace DW3Randomizer
             this.btnNewSeed.Location = new System.Drawing.Point(576, 263);
             this.btnNewSeed.Name = "btnNewSeed";
             this.btnNewSeed.Size = new System.Drawing.Size(75, 23);
-            this.btnNewSeed.TabIndex = 8;
+            this.btnNewSeed.TabIndex = 9;
             this.btnNewSeed.Text = "New Seed";
             this.btnNewSeed.UseVisualStyleBackColor = true;
             this.btnNewSeed.Click += new System.EventHandler(this.btnNewSeed_Click);
@@ -340,7 +337,7 @@ namespace DW3Randomizer
             this.grpMonsterStat.Location = new System.Drawing.Point(28, 29);
             this.grpMonsterStat.Name = "grpMonsterStat";
             this.grpMonsterStat.Size = new System.Drawing.Size(271, 30);
-            this.grpMonsterStat.TabIndex = 6;
+            this.grpMonsterStat.TabIndex = 1;
             this.grpMonsterStat.TabStop = false;
             this.grpMonsterStat.Enter += new System.EventHandler(this.grpMonsterStat_Enter);
             // 
@@ -350,7 +347,7 @@ namespace DW3Randomizer
             this.optMonsterSilly.Location = new System.Drawing.Point(63, 8);
             this.optMonsterSilly.Name = "optMonsterSilly";
             this.optMonsterSilly.Size = new System.Drawing.Size(43, 17);
-            this.optMonsterSilly.TabIndex = 41;
+            this.optMonsterSilly.TabIndex = 2;
             this.optMonsterSilly.Text = "Silly";
             this.optMonsterSilly.UseVisualStyleBackColor = true;
             this.optMonsterSilly.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -361,7 +358,7 @@ namespace DW3Randomizer
             this.optMonsterHeavy.Location = new System.Drawing.Point(192, 8);
             this.optMonsterHeavy.Name = "optMonsterHeavy";
             this.optMonsterHeavy.Size = new System.Drawing.Size(71, 17);
-            this.optMonsterHeavy.TabIndex = 43;
+            this.optMonsterHeavy.TabIndex = 4;
             this.optMonsterHeavy.Text = "Ludicrous";
             this.optMonsterHeavy.UseVisualStyleBackColor = true;
             this.optMonsterHeavy.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -372,7 +369,7 @@ namespace DW3Randomizer
             this.optMonsterMedium.Location = new System.Drawing.Point(112, 8);
             this.optMonsterMedium.Name = "optMonsterMedium";
             this.optMonsterMedium.Size = new System.Drawing.Size(74, 17);
-            this.optMonsterMedium.TabIndex = 42;
+            this.optMonsterMedium.TabIndex = 3;
             this.optMonsterMedium.Text = "Ridiculous";
             this.optMonsterMedium.UseVisualStyleBackColor = true;
             this.optMonsterMedium.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -384,7 +381,7 @@ namespace DW3Randomizer
             this.optMonsterLight.Location = new System.Drawing.Point(6, 8);
             this.optMonsterLight.Name = "optMonsterLight";
             this.optMonsterLight.Size = new System.Drawing.Size(48, 17);
-            this.optMonsterLight.TabIndex = 40;
+            this.optMonsterLight.TabIndex = 1;
             this.optMonsterLight.TabStop = true;
             this.optMonsterLight.Text = "Light";
             this.optMonsterLight.UseVisualStyleBackColor = true;
@@ -405,10 +402,12 @@ namespace DW3Randomizer
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(639, 216);
-            this.tabControl1.TabIndex = 14;
+            this.tabControl1.TabIndex = 10;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.chk_InvisibleShips);
+            this.tabPage1.Controls.Add(this.chk_InvisibleNPCs);
             this.tabPage1.Controls.Add(this.chk_RandomStartGold);
             this.tabPage1.Controls.Add(this.chk_RmManip);
             this.tabPage1.Controls.Add(this.chk_WeapArmPower);
@@ -432,13 +431,39 @@ namespace DW3Randomizer
             this.tabPage1.Text = "Adjustments";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // chk_InvisibleShips
+            // 
+            this.chk_InvisibleShips.AutoSize = true;
+            this.chk_InvisibleShips.Location = new System.Drawing.Point(408, 102);
+            this.chk_InvisibleShips.Name = "chk_InvisibleShips";
+            this.chk_InvisibleShips.Size = new System.Drawing.Size(135, 17);
+            this.chk_InvisibleShips.TabIndex = 13;
+            this.chk_InvisibleShips.Text = "Invisible Ships and Bird";
+            this.adjustments.SetToolTip(this.chk_InvisibleShips, "Ships and bird will be invisible on the world map.");
+            this.chk_InvisibleShips.UseVisualStyleBackColor = true;
+            this.chk_InvisibleShips.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // chk_InvisibleNPCs
+            // 
+            this.chk_InvisibleNPCs.AutoSize = true;
+            this.chk_InvisibleNPCs.Location = new System.Drawing.Point(408, 78);
+            this.chk_InvisibleNPCs.Name = "chk_InvisibleNPCs";
+            this.chk_InvisibleNPCs.Size = new System.Drawing.Size(94, 17);
+            this.chk_InvisibleNPCs.TabIndex = 12;
+            this.chk_InvisibleNPCs.Text = "Invisible NPCs";
+            this.adjustments.SetToolTip(this.chk_InvisibleNPCs, "Makes NPCs invisible. Will also cause party to be invisible with Animal Suits.");
+            this.chk_InvisibleNPCs.UseVisualStyleBackColor = true;
+            this.chk_InvisibleNPCs.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
             // chk_RandomStartGold
             // 
             this.chk_RandomStartGold.AutoSize = true;
+            this.chk_RandomStartGold.Checked = true;
+            this.chk_RandomStartGold.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_RandomStartGold.Location = new System.Drawing.Point(408, 55);
             this.chk_RandomStartGold.Name = "chk_RandomStartGold";
             this.chk_RandomStartGold.Size = new System.Drawing.Size(143, 17);
-            this.chk_RandomStartGold.TabIndex = 30;
+            this.chk_RandomStartGold.TabIndex = 11;
             this.chk_RandomStartGold.Text = "Randomize Starting Gold";
             this.adjustments.SetToolTip(this.chk_RandomStartGold, "Removes Parry/Fight bug found in original DWIII");
             this.chk_RandomStartGold.UseVisualStyleBackColor = true;
@@ -452,7 +477,7 @@ namespace DW3Randomizer
             this.chk_RmManip.Location = new System.Drawing.Point(261, 102);
             this.chk_RmManip.Name = "chk_RmManip";
             this.chk_RmManip.Size = new System.Drawing.Size(133, 17);
-            this.chk_RmManip.TabIndex = 29;
+            this.chk_RmManip.TabIndex = 8;
             this.chk_RmManip.Text = "Remove manipulations";
             this.adjustments.SetToolTip(this.chk_RmManip, "Implement DWIV RNG so any currently known manipulations won\'t work. Default Rando" +
         "mizer behavior.");
@@ -465,7 +490,7 @@ namespace DW3Randomizer
             this.chk_WeapArmPower.Location = new System.Drawing.Point(408, 9);
             this.chk_WeapArmPower.Name = "chk_WeapArmPower";
             this.chk_WeapArmPower.Size = new System.Drawing.Size(146, 17);
-            this.chk_WeapArmPower.TabIndex = 27;
+            this.chk_WeapArmPower.TabIndex = 9;
             this.chk_WeapArmPower.Text = "Display Equipment Power";
             this.adjustments.SetToolTip(this.chk_WeapArmPower, "Displays attack and defense power of equipment in Item menu. Item names are trunc" +
         "ated to allow this.");
@@ -480,7 +505,7 @@ namespace DW3Randomizer
             this.chk_Cod.Location = new System.Drawing.Point(261, 79);
             this.chk_Cod.Name = "chk_Cod";
             this.chk_Cod.Size = new System.Drawing.Size(147, 17);
-            this.chk_Cod.TabIndex = 26;
+            this.chk_Cod.TabIndex = 7;
             this.chk_Cod.Text = "Cold as a Cod Adjustment";
             this.adjustments.SetToolTip(this.chk_Cod, "Entire party is revived when wiped. Causes temporary graphical errors.");
             this.chk_Cod.UseVisualStyleBackColor = true;
@@ -494,7 +519,7 @@ namespace DW3Randomizer
             this.chk_SpeedUpMenus.Location = new System.Drawing.Point(261, 56);
             this.chk_SpeedUpMenus.Name = "chk_SpeedUpMenus";
             this.chk_SpeedUpMenus.Size = new System.Drawing.Size(107, 17);
-            this.chk_SpeedUpMenus.TabIndex = 25;
+            this.chk_SpeedUpMenus.TabIndex = 6;
             this.chk_SpeedUpMenus.Text = "Speed up Menus";
             this.adjustments.SetToolTip(this.chk_SpeedUpMenus, "Speeds up menus.");
             this.chk_SpeedUpMenus.UseVisualStyleBackColor = true;
@@ -506,7 +531,7 @@ namespace DW3Randomizer
             this.chkNoLamiaOrbs.Location = new System.Drawing.Point(408, 32);
             this.chkNoLamiaOrbs.Name = "chkNoLamiaOrbs";
             this.chkNoLamiaOrbs.Size = new System.Drawing.Size(151, 17);
-            this.chkNoLamiaOrbs.TabIndex = 28;
+            this.chkNoLamiaOrbs.TabIndex = 10;
             this.chkNoLamiaOrbs.Text = "Require No Orbs for Lamia";
             this.adjustments.SetToolTip(this.chkNoLamiaOrbs, "Able to hatch Lamia without any orbs.");
             this.chkNoLamiaOrbs.UseVisualStyleBackColor = true;
@@ -559,7 +584,7 @@ namespace DW3Randomizer
             this.cboEncounterRate.Margin = new System.Windows.Forms.Padding(2);
             this.cboEncounterRate.Name = "cboEncounterRate";
             this.cboEncounterRate.Size = new System.Drawing.Size(101, 21);
-            this.cboEncounterRate.TabIndex = 22;
+            this.cboEncounterRate.TabIndex = 3;
             this.cboEncounterRate.SelectedIndexChanged += new System.EventHandler(this.determineFlags);
             // 
             // cboGoldReq
@@ -575,7 +600,7 @@ namespace DW3Randomizer
             this.cboGoldReq.Margin = new System.Windows.Forms.Padding(2);
             this.cboGoldReq.Name = "cboGoldReq";
             this.cboGoldReq.Size = new System.Drawing.Size(101, 21);
-            this.cboGoldReq.TabIndex = 21;
+            this.cboGoldReq.TabIndex = 2;
             this.cboGoldReq.SelectedIndexChanged += new System.EventHandler(this.determineFlags);
             // 
             // cboExpGains
@@ -595,7 +620,7 @@ namespace DW3Randomizer
             this.cboExpGains.Margin = new System.Windows.Forms.Padding(2);
             this.cboExpGains.Name = "cboExpGains";
             this.cboExpGains.Size = new System.Drawing.Size(101, 21);
-            this.cboExpGains.TabIndex = 20;
+            this.cboExpGains.TabIndex = 1;
             this.cboExpGains.SelectedIndexChanged += new System.EventHandler(this.determineFlags);
             // 
             // chkSpeedText
@@ -606,7 +631,7 @@ namespace DW3Randomizer
             this.chkSpeedText.Location = new System.Drawing.Point(261, 33);
             this.chkSpeedText.Name = "chkSpeedText";
             this.chkSpeedText.Size = new System.Drawing.Size(115, 17);
-            this.chkSpeedText.TabIndex = 24;
+            this.chkSpeedText.TabIndex = 5;
             this.chkSpeedText.Text = "Speedy Text Hack";
             this.adjustments.SetToolTip(this.chkSpeedText, "Speeds up text.");
             this.chkSpeedText.UseVisualStyleBackColor = true;
@@ -620,7 +645,7 @@ namespace DW3Randomizer
             this.chkFasterBattles.Location = new System.Drawing.Point(261, 10);
             this.chkFasterBattles.Name = "chkFasterBattles";
             this.chkFasterBattles.Size = new System.Drawing.Size(137, 17);
-            this.chkFasterBattles.TabIndex = 23;
+            this.chkFasterBattles.TabIndex = 4;
             this.chkFasterBattles.Text = "Increased Battle Speed";
             this.adjustments.SetToolTip(this.chkFasterBattles, "Speeds up menus and text in battle.");
             this.chkFasterBattles.UseVisualStyleBackColor = true;
@@ -653,7 +678,7 @@ namespace DW3Randomizer
             this.chk_RmNewTown.Location = new System.Drawing.Point(179, 157);
             this.chk_RmNewTown.Name = "chk_RmNewTown";
             this.chk_RmNewTown.Size = new System.Drawing.Size(161, 17);
-            this.chk_RmNewTown.TabIndex = 68;
+            this.chk_RmNewTown.TabIndex = 10;
             this.chk_RmNewTown.Text = "Do not generate New Town.";
             this.chk_RmNewTown.UseVisualStyleBackColor = true;
             this.chk_RmNewTown.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -664,7 +689,7 @@ namespace DW3Randomizer
             this.chk_RemoveMtnDrgQueen.Location = new System.Drawing.Point(179, 19);
             this.chk_RemoveMtnDrgQueen.Name = "chk_RemoveMtnDrgQueen";
             this.chk_RemoveMtnDrgQueen.Size = new System.Drawing.Size(259, 17);
-            this.chk_RemoveMtnDrgQueen.TabIndex = 67;
+            this.chk_RemoveMtnDrgQueen.TabIndex = 4;
             this.chk_RemoveMtnDrgQueen.Text = "Remove Mountains around Dragon Queen Castle";
             this.chk_RemoveMtnDrgQueen.UseVisualStyleBackColor = true;
             this.chk_RemoveMtnDrgQueen.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -675,7 +700,7 @@ namespace DW3Randomizer
             this.chk_RmMtnNecrogond.Location = new System.Drawing.Point(179, 88);
             this.chk_RmMtnNecrogond.Name = "chk_RmMtnNecrogond";
             this.chk_RmMtnNecrogond.Size = new System.Drawing.Size(249, 17);
-            this.chk_RmMtnNecrogond.TabIndex = 66;
+            this.chk_RmMtnNecrogond.TabIndex = 7;
             this.chk_RmMtnNecrogond.Text = "Remove mountains around Cave of Necrogond";
             this.adjustments.SetToolTip(this.chk_RmMtnNecrogond, "Remove mountains around Cave of Necrogond and shrine.");
             this.chk_RmMtnNecrogond.UseVisualStyleBackColor = true;
@@ -687,7 +712,7 @@ namespace DW3Randomizer
             this.chk_lbtoCharlock.Location = new System.Drawing.Point(179, 134);
             this.chk_lbtoCharlock.Name = "chk_lbtoCharlock";
             this.chk_lbtoCharlock.Size = new System.Drawing.Size(171, 17);
-            this.chk_lbtoCharlock.TabIndex = 65;
+            this.chk_lbtoCharlock.TabIndex = 9;
             this.chk_lbtoCharlock.Text = "Land bridge to Charlock Castle";
             this.adjustments.SetToolTip(this.chk_lbtoCharlock, "Removes water and mountains around Charlock Castle");
             this.chk_lbtoCharlock.UseVisualStyleBackColor = true;
@@ -699,7 +724,7 @@ namespace DW3Randomizer
             this.chk_RemLancelMountains.Location = new System.Drawing.Point(179, 65);
             this.chk_RemLancelMountains.Name = "chk_RemLancelMountains";
             this.chk_RemLancelMountains.Size = new System.Drawing.Size(216, 17);
-            this.chk_RemLancelMountains.TabIndex = 64;
+            this.chk_RemLancelMountains.TabIndex = 6;
             this.chk_RemLancelMountains.Text = "Remove mountains around Lancel Cave";
             this.adjustments.SetToolTip(this.chk_RemLancelMountains, "Removes mountains around Lancel Cave to allow party in and not require Final Key");
             this.chk_RemLancelMountains.UseVisualStyleBackColor = true;
@@ -711,7 +736,7 @@ namespace DW3Randomizer
             this.chk_RemoveBirdRequirement.Location = new System.Drawing.Point(179, 111);
             this.chk_RemoveBirdRequirement.Name = "chk_RemoveBirdRequirement";
             this.chk_RemoveBirdRequirement.Size = new System.Drawing.Size(235, 17);
-            this.chk_RemoveBirdRequirement.TabIndex = 63;
+            this.chk_RemoveBirdRequirement.TabIndex = 8;
             this.chk_RemoveBirdRequirement.Text = "Remove bird requirement for Baramos Castle";
             this.chk_RemoveBirdRequirement.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.adjustments.SetToolTip(this.chk_RemoveBirdRequirement, "Removes mountains around Baramos Castle");
@@ -733,7 +758,7 @@ namespace DW3Randomizer
             this.chk_SepBarGaia.Location = new System.Drawing.Point(179, 42);
             this.chk_SepBarGaia.Name = "chk_SepBarGaia";
             this.chk_SepBarGaia.Size = new System.Drawing.Size(213, 17);
-            this.chk_SepBarGaia.TabIndex = 62;
+            this.chk_SepBarGaia.TabIndex = 5;
             this.chk_SepBarGaia.Text = "Separate Baramos Castle and Gaia\'s Pit";
             this.adjustments.SetToolTip(this.chk_SepBarGaia, "Separates Baramos Castle and Gaia\'s Pit. 3 Wing of Wyverns will be in Baramos Cas" +
         "tle. Prepare yourself so you don\'t softlock.");
@@ -748,7 +773,7 @@ namespace DW3Randomizer
             this.chkRandomizeMap.Location = new System.Drawing.Point(6, 19);
             this.chkRandomizeMap.Name = "chkRandomizeMap";
             this.chkRandomizeMap.Size = new System.Drawing.Size(102, 17);
-            this.chkRandomizeMap.TabIndex = 59;
+            this.chkRandomizeMap.TabIndex = 1;
             this.chkRandomizeMap.Text = "Randomize map";
             this.adjustments.SetToolTip(this.chkRandomizeMap, "Randomizes overworld and Alefgard maps.");
             this.chkRandomizeMap.UseVisualStyleBackColor = true;
@@ -762,7 +787,7 @@ namespace DW3Randomizer
             this.chkSmallMap.Location = new System.Drawing.Point(6, 65);
             this.chkSmallMap.Name = "chkSmallMap";
             this.chkSmallMap.Size = new System.Drawing.Size(75, 17);
-            this.chkSmallMap.TabIndex = 61;
+            this.chkSmallMap.TabIndex = 3;
             this.chkSmallMap.Text = "Small Map";
             this.adjustments.SetToolTip(this.chkSmallMap, "Generates a map that is 128x128 (standard is 256x256)");
             this.chkSmallMap.UseVisualStyleBackColor = true;
@@ -776,7 +801,7 @@ namespace DW3Randomizer
             this.chkRandMonsterZones.Location = new System.Drawing.Point(6, 42);
             this.chkRandMonsterZones.Name = "chkRandMonsterZones";
             this.chkRandMonsterZones.Size = new System.Drawing.Size(150, 17);
-            this.chkRandMonsterZones.TabIndex = 58;
+            this.chkRandMonsterZones.TabIndex = 2;
             this.chkRandMonsterZones.Text = "Randomize monster zones";
             this.adjustments.SetToolTip(this.chkRandMonsterZones, "Randomizes where monster zones are located on the map.");
             this.chkRandMonsterZones.UseVisualStyleBackColor = true;
@@ -807,7 +832,7 @@ namespace DW3Randomizer
             this.chkRandomizeGP.Location = new System.Drawing.Point(8, 98);
             this.chkRandomizeGP.Name = "chkRandomizeGP";
             this.chkRandomizeGP.Size = new System.Drawing.Size(102, 17);
-            this.chkRandomizeGP.TabIndex = 48;
+            this.chkRandomizeGP.TabIndex = 3;
             this.chkRandomizeGP.Text = "Randomize gold";
             this.adjustments.SetToolTip(this.chkRandomizeGP, "Randomizes gold dropped by monsters.");
             this.chkRandomizeGP.UseVisualStyleBackColor = true;
@@ -821,7 +846,7 @@ namespace DW3Randomizer
             this.chkRandomizeXP.Location = new System.Drawing.Point(8, 75);
             this.chkRandomizeXP.Name = "chkRandomizeXP";
             this.chkRandomizeXP.Size = new System.Drawing.Size(134, 17);
-            this.chkRandomizeXP.TabIndex = 47;
+            this.chkRandomizeXP.TabIndex = 2;
             this.chkRandomizeXP.Text = "Randomize experience";
             this.adjustments.SetToolTip(this.chkRandomizeXP, "Randomizes experience given my monsters.");
             this.chkRandomizeXP.UseVisualStyleBackColor = true;
@@ -833,7 +858,7 @@ namespace DW3Randomizer
             this.chk_RemMetalMonRun.Location = new System.Drawing.Point(169, 98);
             this.chk_RemMetalMonRun.Name = "chk_RemMetalMonRun";
             this.chk_RemMetalMonRun.Size = new System.Drawing.Size(145, 17);
-            this.chk_RemMetalMonRun.TabIndex = 46;
+            this.chk_RemMetalMonRun.TabIndex = 5;
             this.chk_RemMetalMonRun.Text = "Remove Metal Mon. Run";
             this.adjustments.SetToolTip(this.chk_RemMetalMonRun, "Metal Slimes and Metal Babble are less likely to have running in their logic");
             this.chk_RemMetalMonRun.UseVisualStyleBackColor = true;
@@ -847,7 +872,7 @@ namespace DW3Randomizer
             this.chkRandEnemyPatterns.Location = new System.Drawing.Point(169, 75);
             this.chkRandEnemyPatterns.Name = "chkRandEnemyPatterns";
             this.chkRandEnemyPatterns.Size = new System.Drawing.Size(154, 17);
-            this.chkRandEnemyPatterns.TabIndex = 44;
+            this.chkRandEnemyPatterns.TabIndex = 4;
             this.chkRandEnemyPatterns.Text = "Randomize enemy patterns";
             this.adjustments.SetToolTip(this.chkRandEnemyPatterns, "Randomizes enemy attack patterns.");
             this.chkRandEnemyPatterns.UseVisualStyleBackColor = true;
@@ -855,6 +880,8 @@ namespace DW3Randomizer
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.chk_AdjustEqpPrices);
+            this.tabPage4.Controls.Add(this.chk_GreenSilverOrb);
             this.tabPage4.Controls.Add(this.chk_UseVanEquipValues);
             this.tabPage4.Controls.Add(this.chk_RmFighterPenalty);
             this.tabPage4.Controls.Add(this.lbl_TreasurePool);
@@ -872,13 +899,38 @@ namespace DW3Randomizer
             this.tabPage4.Text = "Treasures & Equipment";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // chk_AdjustEqpPrices
+            // 
+            this.chk_AdjustEqpPrices.AutoSize = true;
+            this.chk_AdjustEqpPrices.Location = new System.Drawing.Point(244, 53);
+            this.chk_AdjustEqpPrices.Name = "chk_AdjustEqpPrices";
+            this.chk_AdjustEqpPrices.Size = new System.Drawing.Size(217, 17);
+            this.chk_AdjustEqpPrices.TabIndex = 7;
+            this.chk_AdjustEqpPrices.Text = "Adjust equipment prices based on power";
+            this.adjustments.SetToolTip(this.chk_AdjustEqpPrices, "Adjusts equipment prices based on power of equipment.");
+            this.chk_AdjustEqpPrices.UseVisualStyleBackColor = true;
+            this.chk_AdjustEqpPrices.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // chk_GreenSilverOrb
+            // 
+            this.chk_GreenSilverOrb.AutoSize = true;
+            this.chk_GreenSilverOrb.Location = new System.Drawing.Point(6, 99);
+            this.chk_GreenSilverOrb.Name = "chk_GreenSilverOrb";
+            this.chk_GreenSilverOrb.Size = new System.Drawing.Size(173, 30);
+            this.chk_GreenSilverOrb.TabIndex = 4;
+            this.chk_GreenSilverOrb.Text = "Allow Green and Silver Orbs to \nbe found in default locations";
+            this.adjustments.SetToolTip(this.chk_GreenSilverOrb, "Green and Silver Orbs have a chance of being randomized to their default location" +
+        "s.");
+            this.chk_GreenSilverOrb.UseVisualStyleBackColor = true;
+            this.chk_GreenSilverOrb.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
             // chk_UseVanEquipValues
             // 
             this.chk_UseVanEquipValues.AutoSize = true;
-            this.chk_UseVanEquipValues.Location = new System.Drawing.Point(245, 53);
+            this.chk_UseVanEquipValues.Location = new System.Drawing.Point(244, 76);
             this.chk_UseVanEquipValues.Name = "chk_UseVanEquipValues";
             this.chk_UseVanEquipValues.Size = new System.Drawing.Size(204, 17);
-            this.chk_UseVanEquipValues.TabIndex = 66;
+            this.chk_UseVanEquipValues.TabIndex = 8;
             this.chk_UseVanEquipValues.Text = "Use vanilla values for equipment stats";
             this.adjustments.SetToolTip(this.chk_UseVanEquipValues, "Randomizes equipment stats based on Vanilla game values");
             this.chk_UseVanEquipValues.UseVisualStyleBackColor = true;
@@ -887,10 +939,10 @@ namespace DW3Randomizer
             // chk_RmFighterPenalty
             // 
             this.chk_RmFighterPenalty.AutoSize = true;
-            this.chk_RmFighterPenalty.Location = new System.Drawing.Point(245, 99);
+            this.chk_RmFighterPenalty.Location = new System.Drawing.Point(244, 122);
             this.chk_RmFighterPenalty.Name = "chk_RmFighterPenalty";
             this.chk_RmFighterPenalty.Size = new System.Drawing.Size(183, 17);
-            this.chk_RmFighterPenalty.TabIndex = 68;
+            this.chk_RmFighterPenalty.TabIndex = 10;
             this.chk_RmFighterPenalty.Text = "Remove Fighter Weapon Penalty";
             this.adjustments.SetToolTip(this.chk_RmFighterPenalty, "Removes attack power penalty from some equipment the Fighter can equip.");
             this.chk_RmFighterPenalty.UseVisualStyleBackColor = true;
@@ -908,10 +960,10 @@ namespace DW3Randomizer
             // chk_RemoveStartEqRestrictions
             // 
             this.chk_RemoveStartEqRestrictions.AutoSize = true;
-            this.chk_RemoveStartEqRestrictions.Location = new System.Drawing.Point(245, 76);
+            this.chk_RemoveStartEqRestrictions.Location = new System.Drawing.Point(244, 99);
             this.chk_RemoveStartEqRestrictions.Name = "chk_RemoveStartEqRestrictions";
             this.chk_RemoveStartEqRestrictions.Size = new System.Drawing.Size(216, 17);
-            this.chk_RemoveStartEqRestrictions.TabIndex = 67;
+            this.chk_RemoveStartEqRestrictions.TabIndex = 9;
             this.chk_RemoveStartEqRestrictions.Text = "Remove Starting Equipment Restrictions";
             this.adjustments.SetToolTip(this.chk_RemoveStartEqRestrictions, "Removes low equipment stats for starting equipment (randomizer default is to keep" +
         " these low).");
@@ -924,7 +976,7 @@ namespace DW3Randomizer
             this.chk_GoldenClaw.Location = new System.Drawing.Point(6, 76);
             this.chk_GoldenClaw.Name = "chk_GoldenClaw";
             this.chk_GoldenClaw.Size = new System.Drawing.Size(86, 17);
-            this.chk_GoldenClaw.TabIndex = 62;
+            this.chk_GoldenClaw.TabIndex = 3;
             this.chk_GoldenClaw.Text = "Golden Claw";
             this.adjustments.SetToolTip(this.chk_GoldenClaw, "Adds the Golden Claw to 1 random treasure chest");
             this.chk_GoldenClaw.UseVisualStyleBackColor = true;
@@ -938,7 +990,7 @@ namespace DW3Randomizer
             this.chkRandEquip.Location = new System.Drawing.Point(245, 30);
             this.chkRandEquip.Name = "chkRandEquip";
             this.chkRandEquip.Size = new System.Drawing.Size(163, 17);
-            this.chkRandEquip.TabIndex = 65;
+            this.chkRandEquip.TabIndex = 6;
             this.chkRandEquip.Text = "Randomize equipment power";
             this.adjustments.SetToolTip(this.chkRandEquip, "Randomizes weapon and armor power.");
             this.chkRandEquip.UseVisualStyleBackColor = true;
@@ -950,7 +1002,7 @@ namespace DW3Randomizer
             this.chkRandWhoCanEquip.Location = new System.Drawing.Point(245, 7);
             this.chkRandWhoCanEquip.Name = "chkRandWhoCanEquip";
             this.chkRandWhoCanEquip.Size = new System.Drawing.Size(152, 17);
-            this.chkRandWhoCanEquip.TabIndex = 64;
+            this.chkRandWhoCanEquip.TabIndex = 5;
             this.chkRandWhoCanEquip.Text = "Randomize who can equip";
             this.adjustments.SetToolTip(this.chkRandWhoCanEquip, "Randomizes which classes can equip equipment.");
             this.chkRandWhoCanEquip.UseVisualStyleBackColor = true;
@@ -962,7 +1014,7 @@ namespace DW3Randomizer
             this.chkRandItemEffects.Location = new System.Drawing.Point(6, 7);
             this.chkRandItemEffects.Name = "chkRandItemEffects";
             this.chkRandItemEffects.Size = new System.Drawing.Size(136, 17);
-            this.chkRandItemEffects.TabIndex = 60;
+            this.chkRandItemEffects.TabIndex = 1;
             this.chkRandItemEffects.Text = "Randomize item effects";
             this.adjustments.SetToolTip(this.chkRandItemEffects, "Randomizes effects of items.");
             this.chkRandItemEffects.UseVisualStyleBackColor = true;
@@ -977,7 +1029,7 @@ namespace DW3Randomizer
             this.chkRandTreasures.Location = new System.Drawing.Point(6, 30);
             this.chkRandTreasures.Name = "chkRandTreasures";
             this.chkRandTreasures.Size = new System.Drawing.Size(125, 17);
-            this.chkRandTreasures.TabIndex = 61;
+            this.chkRandTreasures.TabIndex = 2;
             this.chkRandTreasures.Text = "Randomize treasures";
             this.adjustments.SetToolTip(this.chkRandTreasures, "Randomizes treasures found in chests and given by NPCs.");
             this.chkRandTreasures.UseVisualStyleBackColor = true;
@@ -1017,7 +1069,7 @@ namespace DW3Randomizer
             this.chk_LeafoftheWorldTree.Location = new System.Drawing.Point(315, 29);
             this.chk_LeafoftheWorldTree.Name = "chk_LeafoftheWorldTree";
             this.chk_LeafoftheWorldTree.Size = new System.Drawing.Size(133, 17);
-            this.chk_LeafoftheWorldTree.TabIndex = 90;
+            this.chk_LeafoftheWorldTree.TabIndex = 11;
             this.chk_LeafoftheWorldTree.Text = "Leaf of the World Tree";
             this.chk_LeafoftheWorldTree.UseVisualStyleBackColor = true;
             this.chk_LeafoftheWorldTree.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -1030,7 +1082,7 @@ namespace DW3Randomizer
             this.chk_RandomizeWeaponShops.Location = new System.Drawing.Point(6, 52);
             this.chk_RandomizeWeaponShops.Name = "chk_RandomizeWeaponShops";
             this.chk_RandomizeWeaponShops.Size = new System.Drawing.Size(156, 17);
-            this.chk_RandomizeWeaponShops.TabIndex = 81;
+            this.chk_RandomizeWeaponShops.TabIndex = 2;
             this.chk_RandomizeWeaponShops.Text = "Randomize Weapon Shops";
             this.chk_RandomizeWeaponShops.UseVisualStyleBackColor = true;
             this.chk_RandomizeWeaponShops.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -1043,7 +1095,7 @@ namespace DW3Randomizer
             this.chk_LampofDarkness.Location = new System.Drawing.Point(315, 121);
             this.chk_LampofDarkness.Name = "chk_LampofDarkness";
             this.chk_LampofDarkness.Size = new System.Drawing.Size(112, 17);
-            this.chk_LampofDarkness.TabIndex = 94;
+            this.chk_LampofDarkness.TabIndex = 15;
             this.chk_LampofDarkness.Text = "Lamp of Darkness";
             this.chk_LampofDarkness.UseVisualStyleBackColor = true;
             this.chk_LampofDarkness.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -1056,7 +1108,7 @@ namespace DW3Randomizer
             this.chk_WizardsRing.Location = new System.Drawing.Point(315, 98);
             this.chk_WizardsRing.Name = "chk_WizardsRing";
             this.chk_WizardsRing.Size = new System.Drawing.Size(91, 17);
-            this.chk_WizardsRing.TabIndex = 93;
+            this.chk_WizardsRing.TabIndex = 14;
             this.chk_WizardsRing.Text = "Wizard\'s Ring";
             this.chk_WizardsRing.UseVisualStyleBackColor = true;
             this.chk_WizardsRing.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -1069,7 +1121,7 @@ namespace DW3Randomizer
             this.chk_MeteoriteArmband.Location = new System.Drawing.Point(315, 75);
             this.chk_MeteoriteArmband.Name = "chk_MeteoriteArmband";
             this.chk_MeteoriteArmband.Size = new System.Drawing.Size(115, 17);
-            this.chk_MeteoriteArmband.TabIndex = 92;
+            this.chk_MeteoriteArmband.TabIndex = 13;
             this.chk_MeteoriteArmband.Text = "Meteorite Armband";
             this.chk_MeteoriteArmband.UseVisualStyleBackColor = true;
             this.chk_MeteoriteArmband.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -1082,7 +1134,7 @@ namespace DW3Randomizer
             this.chk_ShoesofHappiness.Location = new System.Drawing.Point(315, 52);
             this.chk_ShoesofHappiness.Name = "chk_ShoesofHappiness";
             this.chk_ShoesofHappiness.Size = new System.Drawing.Size(121, 17);
-            this.chk_ShoesofHappiness.TabIndex = 91;
+            this.chk_ShoesofHappiness.TabIndex = 12;
             this.chk_ShoesofHappiness.Text = "Shoes of Happiness";
             this.chk_ShoesofHappiness.UseVisualStyleBackColor = true;
             this.chk_ShoesofHappiness.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -1104,7 +1156,7 @@ namespace DW3Randomizer
             this.chk_SilverHarp.Location = new System.Drawing.Point(205, 145);
             this.chk_SilverHarp.Name = "chk_SilverHarp";
             this.chk_SilverHarp.Size = new System.Drawing.Size(78, 17);
-            this.chk_SilverHarp.TabIndex = 89;
+            this.chk_SilverHarp.TabIndex = 10;
             this.chk_SilverHarp.Text = "Silver Harp";
             this.chk_SilverHarp.UseVisualStyleBackColor = true;
             this.chk_SilverHarp.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -1117,7 +1169,7 @@ namespace DW3Randomizer
             this.chk_EchoingFlute.Location = new System.Drawing.Point(205, 121);
             this.chk_EchoingFlute.Name = "chk_EchoingFlute";
             this.chk_EchoingFlute.Size = new System.Drawing.Size(91, 17);
-            this.chk_EchoingFlute.TabIndex = 88;
+            this.chk_EchoingFlute.TabIndex = 9;
             this.chk_EchoingFlute.Text = "Echoing Flute";
             this.chk_EchoingFlute.UseVisualStyleBackColor = true;
             this.chk_EchoingFlute.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -1130,7 +1182,7 @@ namespace DW3Randomizer
             this.chk_RingofLife.Location = new System.Drawing.Point(205, 98);
             this.chk_RingofLife.Name = "chk_RingofLife";
             this.chk_RingofLife.Size = new System.Drawing.Size(80, 17);
-            this.chk_RingofLife.TabIndex = 87;
+            this.chk_RingofLife.TabIndex = 8;
             this.chk_RingofLife.Text = "Ring of Life";
             this.chk_RingofLife.UseVisualStyleBackColor = true;
             this.chk_RingofLife.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -1143,7 +1195,7 @@ namespace DW3Randomizer
             this.chk_BookofSatori.Location = new System.Drawing.Point(205, 75);
             this.chk_BookofSatori.Name = "chk_BookofSatori";
             this.chk_BookofSatori.Size = new System.Drawing.Size(93, 17);
-            this.chk_BookofSatori.TabIndex = 86;
+            this.chk_BookofSatori.TabIndex = 7;
             this.chk_BookofSatori.Text = "Book of Satori";
             this.chk_BookofSatori.UseVisualStyleBackColor = true;
             this.chk_BookofSatori.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -1156,7 +1208,7 @@ namespace DW3Randomizer
             this.chk_Seeds.Location = new System.Drawing.Point(205, 52);
             this.chk_Seeds.Name = "chk_Seeds";
             this.chk_Seeds.Size = new System.Drawing.Size(56, 17);
-            this.chk_Seeds.TabIndex = 85;
+            this.chk_Seeds.TabIndex = 6;
             this.chk_Seeds.Text = "Seeds";
             this.chk_Seeds.UseVisualStyleBackColor = true;
             this.chk_Seeds.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -1169,7 +1221,7 @@ namespace DW3Randomizer
             this.chk_StoneofLife.Location = new System.Drawing.Point(205, 29);
             this.chk_StoneofLife.Name = "chk_StoneofLife";
             this.chk_StoneofLife.Size = new System.Drawing.Size(86, 17);
-            this.chk_StoneofLife.TabIndex = 84;
+            this.chk_StoneofLife.TabIndex = 5;
             this.chk_StoneofLife.Text = "Stone of Life";
             this.chk_StoneofLife.UseVisualStyleBackColor = true;
             this.chk_StoneofLife.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -1182,7 +1234,7 @@ namespace DW3Randomizer
             this.chkRandItemStores.Location = new System.Drawing.Point(6, 29);
             this.chkRandItemStores.Name = "chkRandItemStores";
             this.chkRandItemStores.Size = new System.Drawing.Size(135, 17);
-            this.chkRandItemStores.TabIndex = 80;
+            this.chkRandItemStores.TabIndex = 1;
             this.chkRandItemStores.Text = "Randomize Item Shops";
             this.chkRandItemStores.UseVisualStyleBackColor = true;
             this.chkRandItemStores.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -1193,7 +1245,7 @@ namespace DW3Randomizer
             this.chk_Caturday.Location = new System.Drawing.Point(6, 75);
             this.chk_Caturday.Name = "chk_Caturday";
             this.chk_Caturday.Size = new System.Drawing.Size(68, 17);
-            this.chk_Caturday.TabIndex = 82;
+            this.chk_Caturday.TabIndex = 3;
             this.chk_Caturday.Text = "Caturday";
             this.adjustments.SetToolTip(this.chk_Caturday, "Ensures that Animal Suits will be found in at least 1 weapon shop. Will replace t" +
         "he first Item in the shop list");
@@ -1208,7 +1260,7 @@ namespace DW3Randomizer
             this.chk_PoisonMothPowder.Location = new System.Drawing.Point(315, 145);
             this.chk_PoisonMothPowder.Name = "chk_PoisonMothPowder";
             this.chk_PoisonMothPowder.Size = new System.Drawing.Size(124, 17);
-            this.chk_PoisonMothPowder.TabIndex = 95;
+            this.chk_PoisonMothPowder.TabIndex = 16;
             this.chk_PoisonMothPowder.Text = "Poison Moth Powder";
             this.chk_PoisonMothPowder.UseVisualStyleBackColor = true;
             this.chk_PoisonMothPowder.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -1221,7 +1273,7 @@ namespace DW3Randomizer
             this.chk_RandomizeInnPrices.Location = new System.Drawing.Point(6, 145);
             this.chk_RandomizeInnPrices.Name = "chk_RandomizeInnPrices";
             this.chk_RandomizeInnPrices.Size = new System.Drawing.Size(129, 17);
-            this.chk_RandomizeInnPrices.TabIndex = 83;
+            this.chk_RandomizeInnPrices.TabIndex = 4;
             this.chk_RandomizeInnPrices.Text = "Randomize Inn Prices";
             this.adjustments.SetToolTip(this.chk_RandomizeInnPrices, "Randomizes the inn price from 1-100 GP per party member. Each inn is a different " +
         "value.");
@@ -1269,7 +1321,7 @@ namespace DW3Randomizer
             this.chk_ChangeDefaultParty.Location = new System.Drawing.Point(7, 8);
             this.chk_ChangeDefaultParty.Name = "chk_ChangeDefaultParty";
             this.chk_ChangeDefaultParty.Size = new System.Drawing.Size(173, 17);
-            this.chk_ChangeDefaultParty.TabIndex = 134;
+            this.chk_ChangeDefaultParty.TabIndex = 1;
             this.chk_ChangeDefaultParty.Text = "Change Default Party Members";
             this.adjustments.SetToolTip(this.chk_ChangeDefaultParty, "When unchecked, standard party members in Luisa\'s Place are unchanged. When check" +
         "ed, shows options for changing party members.");
@@ -1282,7 +1334,7 @@ namespace DW3Randomizer
             this.chkFourJobFiesta.Location = new System.Drawing.Point(465, 142);
             this.chkFourJobFiesta.Name = "chkFourJobFiesta";
             this.chkFourJobFiesta.Size = new System.Drawing.Size(157, 17);
-            this.chkFourJobFiesta.TabIndex = 133;
+            this.chkFourJobFiesta.TabIndex = 26;
             this.chkFourJobFiesta.Text = "Four Job Fiesta adjustments";
             this.adjustments.SetToolTip(this.chkFourJobFiesta, "Allows the hero to be removed from the party, the hero to change classes, and any" +
         " hero to become a sage.");
@@ -1297,7 +1349,7 @@ namespace DW3Randomizer
             this.chkRandStatGains.Location = new System.Drawing.Point(7, 141);
             this.chkRandStatGains.Name = "chkRandStatGains";
             this.chkRandStatGains.Size = new System.Drawing.Size(127, 17);
-            this.chkRandStatGains.TabIndex = 130;
+            this.chkRandStatGains.TabIndex = 23;
             this.chkRandStatGains.Text = "Randomize stat gains";
             this.adjustments.SetToolTip(this.chkRandStatGains, "Randomizes stats gained by classes at level up.");
             this.chkRandStatGains.UseVisualStyleBackColor = true;
@@ -1311,7 +1363,7 @@ namespace DW3Randomizer
             this.chkRandSpellStrength.Location = new System.Drawing.Point(312, 142);
             this.chkRandSpellStrength.Name = "chkRandSpellStrength";
             this.chkRandSpellStrength.Size = new System.Drawing.Size(149, 17);
-            this.chkRandSpellStrength.TabIndex = 132;
+            this.chkRandSpellStrength.TabIndex = 25;
             this.chkRandSpellStrength.Text = "Randomize spell strengths";
             this.adjustments.SetToolTip(this.chkRandSpellStrength, "Randomizes the strength of spells.");
             this.chkRandSpellStrength.UseVisualStyleBackColor = true;
@@ -1325,7 +1377,7 @@ namespace DW3Randomizer
             this.chkRandSpellLearning.Location = new System.Drawing.Point(156, 142);
             this.chkRandSpellLearning.Name = "chkRandSpellLearning";
             this.chkRandSpellLearning.Size = new System.Drawing.Size(143, 17);
-            this.chkRandSpellLearning.TabIndex = 131;
+            this.chkRandSpellLearning.TabIndex = 24;
             this.chkRandSpellLearning.Text = "Randomize spell learning";
             this.adjustments.SetToolTip(this.chkRandSpellLearning, "Randomizes the class and level spells are learned. Field and battle spells are le" +
         "arned separately.");
@@ -1338,7 +1390,7 @@ namespace DW3Randomizer
             this.chk_RandHero.Location = new System.Drawing.Point(539, 112);
             this.chk_RandHero.Name = "chk_RandHero";
             this.chk_RandHero.Size = new System.Drawing.Size(49, 17);
-            this.chk_RandHero.TabIndex = 129;
+            this.chk_RandHero.TabIndex = 22;
             this.chk_RandHero.Text = "Hero";
             this.chk_RandHero.UseVisualStyleBackColor = true;
             this.chk_RandHero.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -1349,7 +1401,7 @@ namespace DW3Randomizer
             this.chk_RandSage.Location = new System.Drawing.Point(539, 89);
             this.chk_RandSage.Name = "chk_RandSage";
             this.chk_RandSage.Size = new System.Drawing.Size(51, 17);
-            this.chk_RandSage.TabIndex = 128;
+            this.chk_RandSage.TabIndex = 21;
             this.chk_RandSage.Text = "Sage";
             this.chk_RandSage.UseVisualStyleBackColor = true;
             this.chk_RandSage.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -1362,7 +1414,7 @@ namespace DW3Randomizer
             this.chk_RandGoofOff.Location = new System.Drawing.Point(539, 66);
             this.chk_RandGoofOff.Name = "chk_RandGoofOff";
             this.chk_RandGoofOff.Size = new System.Drawing.Size(66, 17);
-            this.chk_RandGoofOff.TabIndex = 127;
+            this.chk_RandGoofOff.TabIndex = 20;
             this.chk_RandGoofOff.Text = "Goof-Off";
             this.chk_RandGoofOff.UseVisualStyleBackColor = true;
             this.chk_RandGoofOff.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -1375,7 +1427,7 @@ namespace DW3Randomizer
             this.chk_RandMerchant.Location = new System.Drawing.Point(539, 43);
             this.chk_RandMerchant.Name = "chk_RandMerchant";
             this.chk_RandMerchant.Size = new System.Drawing.Size(71, 17);
-            this.chk_RandMerchant.TabIndex = 126;
+            this.chk_RandMerchant.TabIndex = 19;
             this.chk_RandMerchant.Text = "Merchant";
             this.chk_RandMerchant.UseVisualStyleBackColor = true;
             this.chk_RandMerchant.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -1388,7 +1440,7 @@ namespace DW3Randomizer
             this.chk_RandFighter.Location = new System.Drawing.Point(465, 112);
             this.chk_RandFighter.Name = "chk_RandFighter";
             this.chk_RandFighter.Size = new System.Drawing.Size(58, 17);
-            this.chk_RandFighter.TabIndex = 125;
+            this.chk_RandFighter.TabIndex = 18;
             this.chk_RandFighter.Text = "Fighter";
             this.chk_RandFighter.UseVisualStyleBackColor = true;
             this.chk_RandFighter.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -1400,7 +1452,7 @@ namespace DW3Randomizer
             this.chk_RandWizard.Location = new System.Drawing.Point(465, 89);
             this.chk_RandWizard.Name = "chk_RandWizard";
             this.chk_RandWizard.Size = new System.Drawing.Size(68, 17);
-            this.chk_RandWizard.TabIndex = 124;
+            this.chk_RandWizard.TabIndex = 17;
             this.chk_RandWizard.Text = "Wizard";
             this.chk_RandWizard.UseVisualStyleBackColor = true;
             this.chk_RandWizard.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -1413,7 +1465,7 @@ namespace DW3Randomizer
             this.chk_RandPilgrim.Location = new System.Drawing.Point(465, 66);
             this.chk_RandPilgrim.Name = "chk_RandPilgrim";
             this.chk_RandPilgrim.Size = new System.Drawing.Size(56, 17);
-            this.chk_RandPilgrim.TabIndex = 123;
+            this.chk_RandPilgrim.TabIndex = 16;
             this.chk_RandPilgrim.Text = "Pilgrim";
             this.chk_RandPilgrim.UseVisualStyleBackColor = true;
             this.chk_RandPilgrim.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -1426,7 +1478,7 @@ namespace DW3Randomizer
             this.chk_RandSoldier.Location = new System.Drawing.Point(465, 43);
             this.chk_RandSoldier.Name = "chk_RandSoldier";
             this.chk_RandSoldier.Size = new System.Drawing.Size(58, 17);
-            this.chk_RandSoldier.TabIndex = 122;
+            this.chk_RandSoldier.TabIndex = 15;
             this.chk_RandSoldier.Text = "Soldier";
             this.chk_RandSoldier.UseVisualStyleBackColor = true;
             this.chk_RandSoldier.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -1437,7 +1489,7 @@ namespace DW3Randomizer
             this.chk_RandomGender.Location = new System.Drawing.Point(156, 31);
             this.chk_RandomGender.Name = "chk_RandomGender";
             this.chk_RandomGender.Size = new System.Drawing.Size(117, 17);
-            this.chk_RandomGender.TabIndex = 111;
+            this.chk_RandomGender.TabIndex = 3;
             this.chk_RandomGender.Text = "Randomize Gender";
             this.adjustments.SetToolTip(this.chk_RandomGender, "Randomizes gender of party members.");
             this.chk_RandomGender.UseVisualStyleBackColor = true;
@@ -1449,7 +1501,7 @@ namespace DW3Randomizer
             this.chk_RandomClass.Location = new System.Drawing.Point(312, 31);
             this.chk_RandomClass.Name = "chk_RandomClass";
             this.chk_RandomClass.Size = new System.Drawing.Size(107, 17);
-            this.chk_RandomClass.TabIndex = 112;
+            this.chk_RandomClass.TabIndex = 4;
             this.chk_RandomClass.Text = "Randomize Class";
             this.adjustments.SetToolTip(this.chk_RandomClass, "Randomizes the class of party members.");
             this.chk_RandomClass.UseVisualStyleBackColor = true;
@@ -1461,7 +1513,7 @@ namespace DW3Randomizer
             this.chk_RandomName.Location = new System.Drawing.Point(7, 31);
             this.chk_RandomName.Name = "chk_RandomName";
             this.chk_RandomName.Size = new System.Drawing.Size(115, 17);
-            this.chk_RandomName.TabIndex = 110;
+            this.chk_RandomName.TabIndex = 2;
             this.chk_RandomName.Text = "Randomize Names";
             this.adjustments.SetToolTip(this.chk_RandomName, "Randomizes the name of party members. Names are from other DW/DQ games.");
             this.chk_RandomName.UseVisualStyleBackColor = true;
@@ -1477,7 +1529,7 @@ namespace DW3Randomizer
             this.cboGender3.Location = new System.Drawing.Point(156, 108);
             this.cboGender3.Name = "cboGender3";
             this.cboGender3.Size = new System.Drawing.Size(150, 21);
-            this.cboGender3.TabIndex = 118;
+            this.cboGender3.TabIndex = 10;
             // 
             // cboGender2
             // 
@@ -1489,7 +1541,7 @@ namespace DW3Randomizer
             this.cboGender2.Location = new System.Drawing.Point(156, 81);
             this.cboGender2.Name = "cboGender2";
             this.cboGender2.Size = new System.Drawing.Size(150, 21);
-            this.cboGender2.TabIndex = 117;
+            this.cboGender2.TabIndex = 9;
             // 
             // cboGender1
             // 
@@ -1501,7 +1553,7 @@ namespace DW3Randomizer
             this.cboGender1.Location = new System.Drawing.Point(156, 54);
             this.cboGender1.Name = "cboGender1";
             this.cboGender1.Size = new System.Drawing.Size(150, 21);
-            this.cboGender1.TabIndex = 116;
+            this.cboGender1.TabIndex = 8;
             // 
             // cboClass3
             // 
@@ -1519,7 +1571,7 @@ namespace DW3Randomizer
             this.cboClass3.Location = new System.Drawing.Point(312, 108);
             this.cboClass3.Name = "cboClass3";
             this.cboClass3.Size = new System.Drawing.Size(138, 21);
-            this.cboClass3.TabIndex = 121;
+            this.cboClass3.TabIndex = 14;
             this.cboClass3.SelectedIndexChanged += new System.EventHandler(this.cboClass3_SelectedIndexChanged);
             // 
             // cboClass2
@@ -1538,7 +1590,7 @@ namespace DW3Randomizer
             this.cboClass2.Location = new System.Drawing.Point(312, 81);
             this.cboClass2.Name = "cboClass2";
             this.cboClass2.Size = new System.Drawing.Size(138, 21);
-            this.cboClass2.TabIndex = 120;
+            this.cboClass2.TabIndex = 13;
             this.cboClass2.SelectedIndexChanged += new System.EventHandler(this.cboClass2_SelectedIndexChanged);
             // 
             // cboClass1
@@ -1557,7 +1609,7 @@ namespace DW3Randomizer
             this.cboClass1.Location = new System.Drawing.Point(312, 54);
             this.cboClass1.Name = "cboClass1";
             this.cboClass1.Size = new System.Drawing.Size(138, 21);
-            this.cboClass1.TabIndex = 119;
+            this.cboClass1.TabIndex = 11;
             this.cboClass1.SelectedIndexChanged += new System.EventHandler(this.cboClass1_SelectedIndexChanged);
             // 
             // txtCharName2
@@ -1566,7 +1618,7 @@ namespace DW3Randomizer
             this.txtCharName2.MaxLength = 8;
             this.txtCharName2.Name = "txtCharName2";
             this.txtCharName2.Size = new System.Drawing.Size(143, 20);
-            this.txtCharName2.TabIndex = 114;
+            this.txtCharName2.TabIndex = 6;
             // 
             // txtCharName3
             // 
@@ -1574,7 +1626,7 @@ namespace DW3Randomizer
             this.txtCharName3.MaxLength = 8;
             this.txtCharName3.Name = "txtCharName3";
             this.txtCharName3.Size = new System.Drawing.Size(143, 20);
-            this.txtCharName3.TabIndex = 115;
+            this.txtCharName3.TabIndex = 7;
             // 
             // txtCharName1
             // 
@@ -1582,7 +1634,7 @@ namespace DW3Randomizer
             this.txtCharName1.MaxLength = 8;
             this.txtCharName1.Name = "txtCharName1";
             this.txtCharName1.Size = new System.Drawing.Size(143, 20);
-            this.txtCharName1.TabIndex = 113;
+            this.txtCharName1.TabIndex = 5;
             // 
             // tabPage5
             // 
@@ -1603,7 +1655,7 @@ namespace DW3Randomizer
             this.chkRemoveParryFight.Location = new System.Drawing.Point(6, 6);
             this.chkRemoveParryFight.Name = "chkRemoveParryFight";
             this.chkRemoveParryFight.Size = new System.Drawing.Size(143, 17);
-            this.chkRemoveParryFight.TabIndex = 140;
+            this.chkRemoveParryFight.TabIndex = 1;
             this.chkRemoveParryFight.Text = "Remove Parry/Fight Bug";
             this.adjustments.SetToolTip(this.chkRemoveParryFight, "Removes Parry/Fight bug found in original DWIII");
             this.chkRemoveParryFight.UseVisualStyleBackColor = true;
@@ -1630,7 +1682,7 @@ namespace DW3Randomizer
             this.chk_GhostToCasket.Location = new System.Drawing.Point(7, 100);
             this.chk_GhostToCasket.Name = "chk_GhostToCasket";
             this.chk_GhostToCasket.Size = new System.Drawing.Size(152, 17);
-            this.chk_GhostToCasket.TabIndex = 144;
+            this.chk_GhostToCasket.TabIndex = 5;
             this.chk_GhostToCasket.Text = "Change Ghosts to Caskets";
             this.adjustments.SetToolTip(this.chk_GhostToCasket, "This will change dead party members from ghosts into caskets (palls) and adjusts " +
         "relevant text.");
@@ -1642,7 +1694,7 @@ namespace DW3Randomizer
             this.chk_RandSpriteColor.Location = new System.Drawing.Point(6, 76);
             this.chk_RandSpriteColor.Name = "chk_RandSpriteColor";
             this.chk_RandSpriteColor.Size = new System.Drawing.Size(141, 17);
-            this.chk_RandSpriteColor.TabIndex = 143;
+            this.chk_RandSpriteColor.TabIndex = 4;
             this.chk_RandSpriteColor.Text = "Randomize Sprite Colors";
             this.adjustments.SetToolTip(this.chk_RandSpriteColor, "Randomizes the colors of overworld sprites. There may be some interesting combina" +
         "tions.");
@@ -1654,9 +1706,9 @@ namespace DW3Randomizer
             this.chk_ChangeHeroAge.Location = new System.Drawing.Point(6, 53);
             this.chk_ChangeHeroAge.Name = "chk_ChangeHeroAge";
             this.chk_ChangeHeroAge.Size = new System.Drawing.Size(118, 17);
-            this.chk_ChangeHeroAge.TabIndex = 142;
+            this.chk_ChangeHeroAge.TabIndex = 3;
             this.chk_ChangeHeroAge.Text = "Change Hero\'s Age";
-            this.adjustments.SetToolTip(this.chk_ChangeHeroAge, "Changes the hero\'s age in opening to a random number.");
+            this.adjustments.SetToolTip(this.chk_ChangeHeroAge, "Changes the hero\'s age in opening to a random number and potentially the sprite based on age.");
             this.chk_ChangeHeroAge.UseVisualStyleBackColor = true;
             // 
             // chk_LowerCaseMenus
@@ -1665,7 +1717,7 @@ namespace DW3Randomizer
             this.chk_LowerCaseMenus.Location = new System.Drawing.Point(6, 6);
             this.chk_LowerCaseMenus.Name = "chk_LowerCaseMenus";
             this.chk_LowerCaseMenus.Size = new System.Drawing.Size(131, 17);
-            this.chk_LowerCaseMenus.TabIndex = 0;
+            this.chk_LowerCaseMenus.TabIndex = 1;
             this.chk_LowerCaseMenus.Text = "Standard Case Menus";
             this.adjustments.SetToolTip(this.chk_LowerCaseMenus, "Changes casing of all caps menu items to standard caps and lower case.");
             this.chk_LowerCaseMenus.UseVisualStyleBackColor = true;
@@ -1676,7 +1728,7 @@ namespace DW3Randomizer
             this.chk_FixSlimeSnail.Location = new System.Drawing.Point(6, 29);
             this.chk_FixSlimeSnail.Name = "chk_FixSlimeSnail";
             this.chk_FixSlimeSnail.Size = new System.Drawing.Size(93, 17);
-            this.chk_FixSlimeSnail.TabIndex = 141;
+            this.chk_FixSlimeSnail.TabIndex = 2;
             this.chk_FixSlimeSnail.Text = "Fix Slime Snail";
             this.adjustments.SetToolTip(this.chk_FixSlimeSnail, "Fixes Slime Snaii name to Slime Snail");
             this.chk_FixSlimeSnail.UseVisualStyleBackColor = true;
@@ -1696,7 +1748,7 @@ namespace DW3Randomizer
             this.txtFlags.Location = new System.Drawing.Point(55, 234);
             this.txtFlags.Name = "txtFlags";
             this.txtFlags.Size = new System.Drawing.Size(511, 20);
-            this.txtFlags.TabIndex = 6;
+            this.txtFlags.TabIndex = 7;
             this.txtFlags.Leave += new System.EventHandler(this.determineChecks);
             // 
             // chk_GenCompareFile
@@ -1705,7 +1757,7 @@ namespace DW3Randomizer
             this.chk_GenCompareFile.Location = new System.Drawing.Point(185, 516);
             this.chk_GenCompareFile.Name = "chk_GenCompareFile";
             this.chk_GenCompareFile.Size = new System.Drawing.Size(134, 17);
-            this.chk_GenCompareFile.TabIndex = 201;
+            this.chk_GenCompareFile.TabIndex = 51;
             this.chk_GenCompareFile.Text = "Generate Compare File";
             this.adjustments.SetToolTip(this.chk_GenCompareFile, "Generates compare file on build. This will adjust randomization to avoid spoilers" +
         " (item locations, monster stats/spells.)");
@@ -1718,7 +1770,7 @@ namespace DW3Randomizer
             this.chk_GenIslandsMonstersZones.Location = new System.Drawing.Point(337, 516);
             this.chk_GenIslandsMonstersZones.Name = "chk_GenIslandsMonstersZones";
             this.chk_GenIslandsMonstersZones.Size = new System.Drawing.Size(229, 17);
-            this.chk_GenIslandsMonstersZones.TabIndex = 202;
+            this.chk_GenIslandsMonstersZones.TabIndex = 52;
             this.chk_GenIslandsMonstersZones.Text = "Generate islands, monsters, and zones files";
             this.adjustments.SetToolTip(this.chk_GenIslandsMonstersZones, "Generates debug files for islands, monsters, and zones.");
             this.chk_GenIslandsMonstersZones.UseVisualStyleBackColor = true;
@@ -1759,7 +1811,7 @@ namespace DW3Randomizer
             this.grpFlags.Location = new System.Drawing.Point(20, 194);
             this.grpFlags.Name = "grpFlags";
             this.grpFlags.Size = new System.Drawing.Size(338, 34);
-            this.grpFlags.TabIndex = 203;
+            this.grpFlags.TabIndex = 6;
             this.grpFlags.TabStop = false;
             // 
             // optEndysFlags
@@ -1814,6 +1866,13 @@ namespace DW3Randomizer
             this.lblHash.Size = new System.Drawing.Size(247, 13);
             this.lblHash.TabIndex = 205;
             this.lblHash.Text = "????????????????????????????????????????";
+            // 
+            // txtSeed
+            // 
+            this.txtSeed.Location = new System.Drawing.Point(55, 265);
+            this.txtSeed.Name = "txtSeed";
+            this.txtSeed.Size = new System.Drawing.Size(512, 20);
+            this.txtSeed.TabIndex = 8;
             // 
             // Form1
             // 
@@ -1888,7 +1947,6 @@ namespace DW3Randomizer
         private System.Windows.Forms.Label lblReqChecksum;
         private System.Windows.Forms.Button btnRandomize;
         private System.Windows.Forms.Button btnCompare;
-        private System.Windows.Forms.TextBox txtSeed;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnNewSeed;
         private System.Windows.Forms.TextBox txtCompare;
@@ -2010,6 +2068,11 @@ namespace DW3Randomizer
         private System.Windows.Forms.RadioButton optManualFlags;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label lblHash;
+        private System.Windows.Forms.CheckBox chk_GreenSilverOrb;
+        private System.Windows.Forms.TextBox txtSeed;
+        private System.Windows.Forms.CheckBox chk_AdjustEqpPrices;
+        private System.Windows.Forms.CheckBox chk_InvisibleNPCs;
+        private System.Windows.Forms.CheckBox chk_InvisibleShips;
     }
 }
 
