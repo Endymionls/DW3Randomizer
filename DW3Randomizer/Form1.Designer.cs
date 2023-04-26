@@ -169,6 +169,7 @@ namespace DW3Randomizer
             this.label12 = new System.Windows.Forms.Label();
             this.lblHash = new System.Windows.Forms.Label();
             this.txtSeed = new System.Windows.Forms.TextBox();
+            this.chk_changeCats = new System.Windows.Forms.CheckBox();
             this.grpMonsterStat.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -1663,6 +1664,7 @@ namespace DW3Randomizer
             // 
             // tabPage7
             // 
+            this.tabPage7.Controls.Add(this.chk_changeCats);
             this.tabPage7.Controls.Add(this.chk_GhostToCasket);
             this.tabPage7.Controls.Add(this.chk_RandSpriteColor);
             this.tabPage7.Controls.Add(this.chk_ChangeHeroAge);
@@ -1708,7 +1710,8 @@ namespace DW3Randomizer
             this.chk_ChangeHeroAge.Size = new System.Drawing.Size(118, 17);
             this.chk_ChangeHeroAge.TabIndex = 3;
             this.chk_ChangeHeroAge.Text = "Change Hero\'s Age";
-            this.adjustments.SetToolTip(this.chk_ChangeHeroAge, "Changes the hero\'s age in opening to a random number and potentially the sprite based on age.");
+            this.adjustments.SetToolTip(this.chk_ChangeHeroAge, "Changes the hero\'s age in opening to a random number and potentially the sprite b" +
+        "ased on age.");
             this.chk_ChangeHeroAge.UseVisualStyleBackColor = true;
             // 
             // chk_LowerCaseMenus
@@ -1873,6 +1876,18 @@ namespace DW3Randomizer
             this.txtSeed.Name = "txtSeed";
             this.txtSeed.Size = new System.Drawing.Size(512, 20);
             this.txtSeed.TabIndex = 8;
+            // 
+            // chk_changeCats
+            // 
+            this.chk_changeCats.AutoSize = true;
+            this.chk_changeCats.Location = new System.Drawing.Point(6, 124);
+            this.chk_changeCats.Name = "chk_changeCats";
+            this.chk_changeCats.Size = new System.Drawing.Size(163, 17);
+            this.chk_changeCats.TabIndex = 6;
+            this.chk_changeCats.Text = "Change cats to other animals";
+            this.chk_changeCats.UseVisualStyleBackColor = true;
+            this.adjustments.SetToolTip(this.chk_changeCats, "Changes cat sprites to other animals from other Dragon Warrior games.");
+
             // 
             // Form1
             // 
@@ -2073,6 +2088,7 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_AdjustEqpPrices;
         private System.Windows.Forms.CheckBox chk_InvisibleNPCs;
         private System.Windows.Forms.CheckBox chk_InvisibleShips;
+        private System.Windows.Forms.CheckBox chk_changeCats;
     }
 }
 
