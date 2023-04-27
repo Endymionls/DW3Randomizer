@@ -5147,7 +5147,7 @@ namespace DW3Randomizer
                     treasureLocation = allTreasure[index];
                 }
 
-                if (chkRandomizeMap.Checked == true && lnJ == 3)
+                if (chkRandomizeMap.Checked == true && lnJ == 4)
                 {
                     continue; // Does not add Vase of Draught to treasure pool when map is randomized
                 }
@@ -8668,14 +8668,14 @@ namespace DW3Randomizer
                 for (int lni = 0; lni < warriorHeroSprite.Length; lni++)
                     romData[0x20010 + lni] = warriorHeroSprite[lni];
             }
-            else if (age > 45)
+            else if (age > 45 && age < 66)
             {
                 for (int lni = 0; lni < bardHeroSprite.Length; lni++)
                     romData[0x20010 + lni] = bardHeroSprite[lni];
             }
             else if (age > 65)
             {
-                for (int lni = 0; lni < boyHeroSprite.Length; lni++)
+                for (int lni = 0; lni < oldHeroSprite.Length; lni++)
                     romData[0x20010 + lni] = oldHeroSprite[lni];
             }
 

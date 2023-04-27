@@ -931,7 +931,7 @@ namespace DW3Randomizer
             // chk_GreenSilverOrb
             // 
             this.chk_GreenSilverOrb.AutoSize = true;
-            this.chk_GreenSilverOrb.Location = new System.Drawing.Point(6, 122);
+            this.chk_GreenSilverOrb.Location = new System.Drawing.Point(6, 143);
             this.chk_GreenSilverOrb.Name = "chk_GreenSilverOrb";
             this.chk_GreenSilverOrb.Size = new System.Drawing.Size(173, 30);
             this.chk_GreenSilverOrb.TabIndex = 4;
@@ -968,7 +968,7 @@ namespace DW3Randomizer
             // lbl_TreasurePool
             // 
             this.lbl_TreasurePool.AutoSize = true;
-            this.lbl_TreasurePool.Location = new System.Drawing.Point(45, 76);
+            this.lbl_TreasurePool.Location = new System.Drawing.Point(35, 93);
             this.lbl_TreasurePool.Name = "lbl_TreasurePool";
             this.lbl_TreasurePool.Size = new System.Drawing.Size(107, 13);
             this.lbl_TreasurePool.TabIndex = 75;
@@ -990,7 +990,7 @@ namespace DW3Randomizer
             // chk_GoldenClaw
             // 
             this.chk_GoldenClaw.AutoSize = true;
-            this.chk_GoldenClaw.Location = new System.Drawing.Point(3, 99);
+            this.chk_GoldenClaw.Location = new System.Drawing.Point(6, 120);
             this.chk_GoldenClaw.Name = "chk_GoldenClaw";
             this.chk_GoldenClaw.Size = new System.Drawing.Size(86, 17);
             this.chk_GoldenClaw.TabIndex = 3;
