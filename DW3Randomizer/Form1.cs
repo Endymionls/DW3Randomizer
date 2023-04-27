@@ -11,6 +11,7 @@ using System.Deployment.Internal;
 using System.Text.RegularExpressions;
 using System.Diagnostics.Eventing.Reader;
 using static System.Windows.Forms.LinkLabel;
+using System.Drawing.Printing;
 
 namespace DW3Randomizer
 {
@@ -18,8 +19,8 @@ namespace DW3Randomizer
     {
         string versionNumber = "2.4.5";
         string revisionDate = "4/25/2023";
-        string SotWFlags = "ACHMHDMBLABJEBOBPPPBADB";
-        string endyFlags = "ACGMHDPBLACLJBOBPPPBADB";
+        string SotWFlags = "ACHMHDMBLABJEBODPPPBADB";
+        string endyFlags = "ACGMHDPBLACLJDODPPPBADB";
 
         bool loading = true;
         byte[] romData;
@@ -229,8 +230,16 @@ namespace DW3Randomizer
         private void btnRandomize_Click(object sender, EventArgs e)
         {
             int rni = 0; //Random Number Increment
-            //if (chk_GenCompareFile.Checked) rni++;
-
+            Random r1 = new Random(int.Parse(txtSeed.Text));
+ 
+            // Randomize how many steps up rni is increased if GenCompareFile is checked
+            if (chk_GenCompareFile.Checked)
+            {
+                for (int lnI = 0; lnI < (r1.Next() % 20) + 1; lnI++)
+                {
+                    rni++;
+                }
+            }
             if (lblSHAChecksum.Text != lblReqChecksum.Text)
             {
                 if (MessageBox.Show("The checksum of the ROM does not match the required checksum.  Patch anyway?", "Checksum mismatch", MessageBoxButtons.YesNo) == DialogResult.No)
@@ -261,7 +270,6 @@ namespace DW3Randomizer
                     return;
                 }
 
-                if (chkRandItemStores.Checked) forceItemSell();
                 if (chk_RmManip.Checked) dw4RNG();
                 //superRandomize();
                 boostGP();
@@ -294,6 +302,7 @@ namespace DW3Randomizer
                 if (chkRandSpellStrength.Checked) randSpellStrength(rni);
                 if (chkRandTreasures.Checked) randTreasures(rni);
                 if (chkRandItemStores.Checked) randStores(rni);
+                if (chk_sellUnsellItems.Checked) forceItemSell(rni);
                 if (chk_RandomizeInnPrices.Checked) randomizeInnPrices(rni);
                 if (chkRandStatGains.Checked) randStatGains(rni);
                 if (chk_ChangeHeroAge.Checked) changeHeroAge(rni);
@@ -5032,24 +5041,28 @@ namespace DW3Randomizer
             }
 
             // Verify that key items are available in either a store or a treasure chest in the right zone.
-            byte[] keyItems = { 0x58, 0x57, 0x59, 0x52, 0x5d, 0x4f, 0x5a, 0x51, 0x54,
+            byte[] keyItems = { 0x5a, 0x59, 0x58, 0x57, 0x52, 0x5d, 0x4f, 0x51, 0x54,
                                     0x6b, 0x6f, 0x5c, 0x11, 0x77, 0x78, 0x79, 0x7a, 0x7b,
                                     0x7c, 0x10, 0x75, 0x72, 0x4a, 0x50, 0x70, 0x53, 0x71, 0x5b };
-            byte[] minKeyTreasure = { 1, 0, 1, 1, 1, 1, 1, 1, 1,
+            byte[] minKeyTreasure = { 1, 1, 1, 0, 1, 1, 1, 1, 1,
                                           1, 1, 1, 1, 1, 1, 1, 1, 1,
                                           1, 138, 138, 137, 1, 1, 138, 1, 1, 1 };
-            byte[] maxKeyTreasure = { 8, 10, 38, 38, 58, 75, 89, 119, 120,
+            byte[] maxKeyTreasure = { 89, 38, 8, 10, 38, 58, 75, 119, 120,
                                        120, 133, 133, 126, 133, 133, 133, 133, 133,
                                        133, 167, 167, 177, 174, 174, 167, 174, 174, 133 }; // used if chkRandomizeMaps is true
-            byte[] maxKeyTreasure2 = { 8, 10, 38, 38, 58, 75, 89, 119, 120,
+            byte[] maxKeyTreasure2 = { 89, 38, 8, 10, 38, 58, 75, 119, 120,
                                        120, 134, 133, 126, 133, 133, 133, 133, 133,
                                        134, 166, 166, 173, 173, 173, 166, 173, 173, 134 }; // used if chkRandomizeMaps is false
 
 
             int echoingFluteMarker = 0;
+            int magicKeyMarker = 50;
+            int finalKeyMarker = 50;
+
             for (int lnJ = 0; lnJ < keyItems.Length; lnJ++)
             {
                 int treasureLocation = 0;
+                int index = 0;
                 if (chkNoLamiaOrbs.Checked)
                 {
                     if (keyItems[lnJ] >= 0x77 && keyItems[lnJ] <= 0x7c)
@@ -5078,11 +5091,62 @@ namespace DW3Randomizer
                     }
                     else
                     {
-                        treasureLocation = allTreasure[minKeyTreasure[lnJ] + (r1.Next() % (maxKeyTreasure[lnJ] - minKeyTreasure[lnJ]))];
-
+                        if (chk_RmRedundKey.Checked == true)
+                        {
+                            if (lnJ == 1 && finalKeyMarker <= 38)
+                                continue;
+                            else if (lnJ == 2 && finalKeyMarker <= 8)
+                                continue;
+                            else if (lnJ == 2 && magicKeyMarker <= 8)
+                                continue;
+                            else
+                            {
+                                index = minKeyTreasure[lnJ] + (r1.Next() % (maxKeyTreasure[lnJ] - minKeyTreasure[lnJ]));
+                                treasureLocation = allTreasure[index];
+                                if (lnJ == 0)
+                                    finalKeyMarker = index;
+                                else if (lnJ == 1)
+                                    magicKeyMarker = index;
+                            }
+                        }
+                        else
+                        {
+                            index = minKeyTreasure[lnJ] + (r1.Next() % (maxKeyTreasure[lnJ] - minKeyTreasure[lnJ]));
+                            treasureLocation = allTreasure[index];
+                        }
                     }
                 else
-                    treasureLocation = allTreasure[minKeyTreasure[lnJ] + (r1.Next() % (maxKeyTreasure2[lnJ] - minKeyTreasure[lnJ]))];
+                {
+                    if (chk_RmRedundKey.Checked == true)
+                    {
+                        if (lnJ == 1 && finalKeyMarker <= 38)
+                            continue;
+                        else if (lnJ == 2)
+                        {
+                            if (finalKeyMarker <= 8)
+                                continue;
+                            else if (magicKeyMarker <= 8)
+                                continue;
+                        }
+                        else
+                        {
+                            index = minKeyTreasure[lnJ] + (r1.Next() % (maxKeyTreasure2[lnJ] - minKeyTreasure[lnJ]));
+                            treasureLocation = allTreasure[index];
+                            if (lnJ == 0)
+                                finalKeyMarker = index;
+                            else if (lnJ == 1)
+                                magicKeyMarker = index;
+                        }
+                    }
+                    else
+                    {
+                        index = minKeyTreasure[lnJ] + (r1.Next() % (maxKeyTreasure2[lnJ] - minKeyTreasure[lnJ]));
+                        treasureLocation = allTreasure[index];
+                    }
+                    index = minKeyTreasure[lnJ] + (r1.Next() % (maxKeyTreasure2[lnJ] - minKeyTreasure[lnJ]));
+                    treasureLocation = allTreasure[index];
+                }
+
                 if (chkRandomizeMap.Checked == true && lnJ == 3)
                 {
                     continue; // Does not add Vase of Draught to treasure pool when map is randomized
@@ -5094,6 +5158,10 @@ namespace DW3Randomizer
                 if (keyItems.Contains(romData[treasureLocation]))
                 {
                     lnJ--;
+                    if (lnJ == 0)
+                        finalKeyMarker = 50;
+                    else if (lnJ == 1)
+                        magicKeyMarker = 50;
                     continue;
                 }
                 romData[treasureLocation] = keyItems[lnJ];
@@ -8258,7 +8326,7 @@ namespace DW3Randomizer
                     compareComposeString("treasures-DreamCave1", writer, 0x2923A, 2);
                     compareComposeString("treasures-DreamCave2", writer, 0x29280, 8);
                     compareComposeString("treasures-WakeUpNPC", writer, 0x37786, 1);
-                    compareComposeString("treasures-Aliahan", writer, 0x29255, 5);
+                    compareComposeString("treasures-Aliahan", writer, 0x29255, 6);
                     compareComposeString("treasures-Portuga", writer, 0x29269, 3);
                     compareComposeString("treasures-RoyalScroll", writer, 0x37CB9, 1);
                     compareComposeString("treasures-Dwarf", writer, 0x2923C, 2);
@@ -8355,42 +8423,59 @@ namespace DW3Randomizer
 
         }
 
-        private void forceItemSell()
+        private void forceItemSell(int rni)
         {
-            int[] forcedItemSell = { 0x16, 0x1c, 0x28, 0x32, 0x34, 0x36, 0x3b, 0x3f, 0x42, 0x48, 0x4b, 0x4c, 0x50, 0x52, 0x53, 0x55, 0x58, 0x59, 0x69, 0x6f, 0x70, 0x71 };
+            Random r1 = new Random(int.Parse(txtSeed.Text));
+
+            for (int lnI = 0; lnI < rni; lnI++)
+            {
+                r1.Next();
+            }
+
+            int[] forcedItemSell = { 0x16, 0x1c, 0x28, 0x32, 0x34, 0x36, 0x3b, 0x3f, 0x42, 0x48, 0x4b, 0x4c, 0x50, 0x52, 0x53, 0x55, 0x58, 0x59, 0x5b, 0x69, 0x6f, 0x70, 0x71 };
             for (int lnI = 0; lnI < forcedItemSell.Length; lnI++)
                 if (romData[0x11be + forcedItemSell[lnI]] % 32 >= 16) // Not allowed to be sold
                     romData[0x11be + forcedItemSell[lnI]] -= 16; // Now allowed to be sold!
 
             int[] itemstoAdjust = { 0x16, 0x1c, 0x28, 0x32, 0x34, 0x36, 0x3b, 0x3f, 0x42, 0x48, 0x4b, 0x4c, 0x50, 0x52, 0x53, 0x58, 0x59, 0x5a, 0x69, 0x6f, 0x70, 0x71, // forced items to sell AND...
-               0x5f, 0x60, 0x61, 0x62, 0x63, 0x64, 0x57, 0x75, 0x55, 0x4e, 0x4f, 0x49 }; // Some other items I want sold (see above)
+               0x5f, 0x60, 0x61, 0x62, 0x63, 0x64, 0x57, 0x75, 0x55, 0x4e, 0x4f, 0x49, 0x5b }; // Some other items I want sold (see above)
 
             int[] itemPriceAdjust = { 5000, 35000, 15000, 10000, 8000, 12000, 10000, 800, 10, 5000, 5000, 8000, 20000, 1000, 1000, 500, 2000, 5000, 5000, 500, 2000, 500,
-                5000, 3000, 2000, 2500, 2500, 5000, 800, 10000, 3000, 2000, 10000, 5000, 1000 };
+                5000, 3000, 2000, 2500, 2500, 5000, 800, 10000, 3000, 2000, 10000, 5000, 1000, 1 };
+
+            int price = 0;
 
             for (int lnI = 0; lnI < itemstoAdjust.Length; lnI++)
             {
                 // Remove any price adjustment first.
                 romData[0x11be + itemstoAdjust[lnI]] -= (byte)(romData[0x11be + itemstoAdjust[lnI]] % 4);
-                int priceToUse = (romData[0x123b + itemstoAdjust[lnI]] >= 128 ? romData[0x123b + itemstoAdjust[lnI]] - 128 : romData[0x123b + itemstoAdjust[lnI]]);
-                if (itemPriceAdjust[lnI] >= 10000)
+                if (itemstoAdjust[lnI] == 0x5b)
                 {
-                    romData[0x11be + itemstoAdjust[lnI]] += 3; // Now multiply by 1000
-                    romData[0x123b + itemstoAdjust[lnI]] = (byte)(romData[0x123b + itemstoAdjust[lnI]] >= 128 ? (itemPriceAdjust[lnI] / 1000) + 128 : itemPriceAdjust[lnI] / 1000);
-                }
-                else if (itemPriceAdjust[lnI] >= 1000)
-                {
-                    romData[0x11be + itemstoAdjust[lnI]] += 2; // Now multiply by 100
-                    romData[0x123b + itemstoAdjust[lnI]] = (byte)(romData[0x123b + itemstoAdjust[lnI]] >= 128 ? (itemPriceAdjust[lnI] / 100) + 128 : itemPriceAdjust[lnI] / 100);
-                }
-                else if (itemPriceAdjust[lnI] >= 100)
-                {
-                    romData[0x11be + itemstoAdjust[lnI]] += 1; // Now multiply by 10
-                    romData[0x123b + itemstoAdjust[lnI]] = (byte)(romData[0x123b + itemstoAdjust[lnI]] >= 128 ? (itemPriceAdjust[lnI] / 10) + 128 : itemPriceAdjust[lnI] / 10);
+                    price = 1000 * ((r1.Next() % 10) + 1);
                 }
                 else
                 {
-                    romData[0x123b + itemstoAdjust[lnI]] = (byte)(romData[0x123b + itemstoAdjust[lnI]] >= 128 ? itemPriceAdjust[lnI] + 128 : itemPriceAdjust[lnI]);
+                    price = itemPriceAdjust[lnI];
+                }
+//                int priceToUse = (romData[0x123b + itemstoAdjust[lnI]] >= 128 ? romData[0x123b + itemstoAdjust[lnI]] - 128 : romData[0x123b + itemstoAdjust[lnI]]);
+                if (price >= 10000)
+                {
+                    romData[0x11be + itemstoAdjust[lnI]] += 3; // Now multiply by 1000
+                    romData[0x123b + itemstoAdjust[lnI]] = (byte)(romData[0x123b + itemstoAdjust[lnI]] >= 128 ? (price / 1000) + 128 : price / 1000);
+                }
+                else if (price >= 1000)
+                {
+                    romData[0x11be + itemstoAdjust[lnI]] += 2; // Now multiply by 100
+                    romData[0x123b + itemstoAdjust[lnI]] = (byte)(romData[0x123b + itemstoAdjust[lnI]] >= 128 ? (price / 100) + 128 : price / 100);
+                }
+                else if (price >= 100)
+                {
+                    romData[0x11be + itemstoAdjust[lnI]] += 1; // Now multiply by 10
+                    romData[0x123b + itemstoAdjust[lnI]] = (byte)(romData[0x123b + itemstoAdjust[lnI]] >= 128 ? (price / 10) + 128 : price / 10);
+                }
+                else
+                {
+                    romData[0x123b + itemstoAdjust[lnI]] = (byte)(romData[0x123b + itemstoAdjust[lnI]] >= 128 ? price + 128 : price);
                 }
             }
         }
@@ -9689,6 +9774,7 @@ namespace DW3Randomizer
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(13, 1)));
             chk_AdjustEqpPrices.Checked = (number % 2 == 1);
+            chk_RmRedundKey.Checked = (number % 4 >= 2);
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(14, 1)));
             //chkRandItemEffects.Checked = (number % 2 == 1);
@@ -9699,6 +9785,7 @@ namespace DW3Randomizer
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(15, 1)));
             chk_RandomizeInnPrices.Checked = (number % 2 == 1);
+            chk_sellUnsellItems.Checked = (number % 4 >= 2);
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(16, 1)));
             chk_StoneofLife.Checked = (number % 2 == 1);
@@ -9763,9 +9850,9 @@ namespace DW3Randomizer
             flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? (chk_RemoveMtnDrgQueen.Checked ? 1 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RmNewTown.Checked ? 2 : 0) : 0));
             flags += convertIntToCharCapsOnly((chkRandTreasures.Checked ? 1 : 0) + (chkRandTreasures.Checked ? (chk_GoldenClaw.Checked ? 2 : 0) : 0)  + (chkRandWhoCanEquip.Checked ? 4 : 0) + (chkRandEquip.Checked ? 8 : 0)); // 10
             flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_UseVanEquipValues.Checked ? 1 : 0) : 0) + (chkRandEquip.Checked ? (chk_RemoveStartEqRestrictions.Checked ? 2 : 0) : 0) + (chkRandEquip.Checked ? (chk_RmFighterPenalty.Checked ? 4 : 0) : 0) + (chkRandTreasures.Checked ? (chk_GreenSilverOrb.Checked ? 8 : 0) : 0)); // 11
-            flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_AdjustEqpPrices.Checked ? 1 : 0) : 0));
+            flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_AdjustEqpPrices.Checked ? 1 : 0) : 0) + (chkRandTreasures.Checked ? (chk_RmRedundKey.Checked ? 2 : 0) : 0));
             flags += convertIntToCharCapsOnly((chkRandItemEffects.Checked ? 1 : 0) + (chkRandItemStores.Checked ? 2 : 0) + (chk_RandomizeWeaponShops.Checked ? 4 : 0) + (chk_Caturday.Checked ? 8 : 0)); // 12
-            flags += convertIntToCharCapsOnly((chk_RandomizeInnPrices.Checked ? 1 : 0)); //13
+            flags += convertIntToCharCapsOnly((chk_RandomizeInnPrices.Checked ? 1 : 0) + (chk_sellUnsellItems.Checked ? 2 : 0)); //13
             flags += convertIntToCharCapsOnly((chkRandItemStores.Checked ? (chk_StoneofLife.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_Seeds.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_BookofSatori.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_RingofLife.Checked ? 8 : 0) : 0)); // 14
             flags += convertIntToCharCapsOnly((chkRandItemStores.Checked ? (chk_EchoingFlute.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_SilverHarp.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_LeafoftheWorldTree.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_ShoesofHappiness.Checked ? 8 : 0) : 0)); // 15
             flags += convertIntToCharCapsOnly((chkRandItemStores.Checked ? (chk_MeteoriteArmband.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_WizardsRing.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_LampofDarkness.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_PoisonMothPowder.Checked ? 8 : 0) : 0)); // 16
@@ -9925,6 +10012,7 @@ namespace DW3Randomizer
             this.chk_UseVanEquipValues.Visible = this.chkRandEquip.Checked;
             this.chk_RemLancelMountains.Visible = this.chkRandomizeMap.Checked;
             this.chk_lbtoCharlock.Visible = this.chkRandomizeMap.Checked;
+            this.chk_RmRedundKey.Visible = this.chkRandTreasures.Checked;
         }
     }
 }
