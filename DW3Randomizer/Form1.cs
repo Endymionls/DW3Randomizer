@@ -18,7 +18,7 @@ namespace DW3Randomizer
     public partial class Form1 : Form
     {
         string versionNumber = "2.4.5";
-        string revisionDate = "4/25/2023";
+        string revisionDate = "4/26/2023";
         string SotWFlags = "ACHMHDMBLABJEBODPPPBADB";
         string endyFlags = "ACGMHDPBLACLJDODPPPBADB";
 
@@ -9683,6 +9683,11 @@ namespace DW3Randomizer
             lblIntensityDesc.Text = "Text output complete!  (DW3TextOutput.txt)";
         }
 
+        private void btn_CopyHash_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(lblHash.Text);
+        }
+
         private StreamWriter outputComposeString(string intro, StreamWriter writer, int startAddress, int length, int skip = 1, int duplicate = 0)
         {
             string final = "";
@@ -9906,6 +9911,7 @@ namespace DW3Randomizer
 		{
 			Clipboard.SetText(lblNewChecksum.Text);
 		}
+
 
         private void txtFileName_DragEnter(object sender, DragEventArgs e)
         {

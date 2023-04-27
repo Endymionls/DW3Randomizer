@@ -172,6 +172,7 @@ namespace DW3Randomizer
             this.label12 = new System.Windows.Forms.Label();
             this.lblHash = new System.Windows.Forms.Label();
             this.txtSeed = new System.Windows.Forms.TextBox();
+            this.btn_CopyHash = new System.Windows.Forms.Button();
             this.grpMonsterStat.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -310,7 +311,7 @@ namespace DW3Randomizer
             this.btnNewSeed.Location = new System.Drawing.Point(576, 263);
             this.btnNewSeed.Name = "btnNewSeed";
             this.btnNewSeed.Size = new System.Drawing.Size(75, 23);
-            this.btnNewSeed.TabIndex = 9;
+            this.btnNewSeed.TabIndex = 10;
             this.btnNewSeed.Text = "New Seed";
             this.btnNewSeed.UseVisualStyleBackColor = true;
             this.btnNewSeed.Click += new System.EventHandler(this.btnNewSeed_Click);
@@ -405,7 +406,7 @@ namespace DW3Randomizer
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(639, 216);
-            this.tabControl1.TabIndex = 10;
+            this.tabControl1.TabIndex = 11;
             // 
             // tabPage1
             // 
@@ -1791,7 +1792,7 @@ namespace DW3Randomizer
             this.txtFlags.Location = new System.Drawing.Point(55, 234);
             this.txtFlags.Name = "txtFlags";
             this.txtFlags.Size = new System.Drawing.Size(511, 20);
-            this.txtFlags.TabIndex = 7;
+            this.txtFlags.TabIndex = 8;
             this.txtFlags.Leave += new System.EventHandler(this.determineChecks);
             // 
             // chk_GenCompareFile
@@ -1854,7 +1855,7 @@ namespace DW3Randomizer
             this.grpFlags.Location = new System.Drawing.Point(20, 194);
             this.grpFlags.Name = "grpFlags";
             this.grpFlags.Size = new System.Drawing.Size(338, 34);
-            this.grpFlags.TabIndex = 6;
+            this.grpFlags.TabIndex = 7;
             this.grpFlags.TabStop = false;
             // 
             // optEndysFlags
@@ -1915,13 +1916,24 @@ namespace DW3Randomizer
             this.txtSeed.Location = new System.Drawing.Point(55, 265);
             this.txtSeed.Name = "txtSeed";
             this.txtSeed.Size = new System.Drawing.Size(512, 20);
-            this.txtSeed.TabIndex = 8;
+            this.txtSeed.TabIndex = 9;
+            // 
+            // btn_CopyHash
+            // 
+            this.btn_CopyHash.Location = new System.Drawing.Point(530, 147);
+            this.btn_CopyHash.Name = "btn_CopyHash";
+            this.btn_CopyHash.Size = new System.Drawing.Size(121, 23);
+            this.btn_CopyHash.TabIndex = 6;
+            this.btn_CopyHash.Text = "Copy Hash";
+            this.btn_CopyHash.UseVisualStyleBackColor = true;
+            this.btn_CopyHash.Click += new System.EventHandler(this.btn_CopyHash_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(674, 547);
+            this.Controls.Add(this.btn_CopyHash);
             this.Controls.Add(this.lblHash);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.grpFlags);
@@ -2119,6 +2131,7 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_changeCats;
         private System.Windows.Forms.CheckBox chk_sellUnsellItems;
         private System.Windows.Forms.CheckBox chk_RmRedundKey;
+        private System.Windows.Forms.Button btn_CopyHash;
     }
 }
 
