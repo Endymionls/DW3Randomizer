@@ -18,7 +18,7 @@ namespace DW3Randomizer
     public partial class Form1 : Form
     {
         string versionNumber = "2.4.5";
-        string revisionDate = "4/26/2023";
+        string revisionDate = "4/27/2023";
         string SotWFlags = "ACHMHDMBLABJEBODPPPBADB";
         string endyFlags = "ACGMHDPBLACLJDODPPPBADB";
 
@@ -309,9 +309,9 @@ namespace DW3Randomizer
                 if (chk_RandSpriteColor.Checked) randSpriteColors(rni);
                 if (chk_RandomStartGold.Checked) randStartGold();
                 if (chk_GhostToCasket.Checked) changeGhostToCasket(rni);
+                if (chk_changeCats.Checked) changeCats(rni);
                 if (chk_InvisibleNPCs.Checked) invisibleNPCs();
                 if (chk_InvisibleShips.Checked) invisbleShips();
-                if (chk_changeCats.Checked) changeCats(rni);
                 changeEnd();
                 saveRom(true);
                 saveRom(false);
@@ -2365,6 +2365,7 @@ namespace DW3Randomizer
             Random r1 = new Random(int.Parse(txtSeed.Text));
 
             string[] maleNames = { "Bran", "Glynn", "Talint", "Numor", "Lars", "Orfeo", "Artho", "Esgar", "Ragnar", "Cristo", "Brey", 
+                "Brindar", "Adan", "Glennard", "Theron", "Elucidus", "Harley", "Mathias", "Sartris", "Petrus", "Hiram", "Viron",
                 "Taloon", "Pankraz", "Parry", "Carver", "Nevan", "Terry", "Amos", "Kiefer", "Gabo", "Melvin", "Angelo", "Yangus", "Erik", 
                 "Sylvando", "Arus", "Luceus", "Lazarel", "Dai", "Alvin", "Ashlay", "Dougie", "Erdwin", "Cobi", "Kendrick", "Hans", "Kiryl",
                 "Hendrik", "Laurel", "Hybris", "Jasper", "Joker", "Nalasia", "Charmles", "Kameha", "Laguas", "Odisu", "Psaro", "Trode",
@@ -8457,7 +8458,7 @@ namespace DW3Randomizer
                 {
                     price = itemPriceAdjust[lnI];
                 }
-//                int priceToUse = (romData[0x123b + itemstoAdjust[lnI]] >= 128 ? romData[0x123b + itemstoAdjust[lnI]] - 128 : romData[0x123b + itemstoAdjust[lnI]]);
+                //                int priceToUse = (romData[0x123b + itemstoAdjust[lnI]] >= 128 ? romData[0x123b + itemstoAdjust[lnI]] - 128 : romData[0x123b + itemstoAdjust[lnI]]);
                 if (price >= 10000)
                 {
                     romData[0x11be + itemstoAdjust[lnI]] += 3; // Now multiply by 1000
@@ -8478,8 +8479,15 @@ namespace DW3Randomizer
                     romData[0x123b + itemstoAdjust[lnI]] = (byte)(romData[0x123b + itemstoAdjust[lnI]] >= 128 ? price + 128 : price);
                 }
             }
-        }
+            // Change Dream Ruby Text to give hint to sell
+            byte[] dreamRubyText = { 0x37, 0x0F, 0x16, 0x16, 0x13, 0x18, 0x11, 0x60, 0x1E, 0x12, 0x13, 0x1D, 0x60, 0x1C, 0x1F, 0x0C, 0x23,
+                                     0x60, 0x21, 0x13, 0x16, 0x16, 0x60, 0x0C, 0x1C, 0x13, 0x18, 0x11, 0x60, 0x1D, 0x19, 0x17, 0x0F, 0x19,
+                                     0x18, 0x0F, 0x60, 0x10, 0x19, 0x1C, 0x1E, 0x1F, 0x18, 0x0F };
 
+            for (int lni = 0; lni < dreamRubyText.Length; lni++)
+                romData[0x42bc7 + lni] = dreamRubyText[lni];
+        }
+         
         private void changeHeroAge(int rni)
         {
             Random r1 = new Random(int.Parse(txtSeed.Text));
