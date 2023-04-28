@@ -294,6 +294,7 @@ namespace DW3Randomizer
                 if (chkRandomizeMap.Checked) randomizeMapv5(rni);
                 if (chkRandEnemyPatterns.Checked) randEnemyPatterns(rni);
                 if (chkRandMonsterZones.Checked) randMonsterZones(rni);
+                if (chk_sellUnsellItems.Checked) forceItemSell(rni);
                 if (chkRandItemEffects.Checked) randItemEffects(rni);
                 if (chkRandEquip.Checked) randEquip(rni);
                 if (chk_RmFighterPenalty.Checked) removeFightPenalty();
@@ -302,7 +303,6 @@ namespace DW3Randomizer
                 if (chkRandSpellStrength.Checked) randSpellStrength(rni);
                 if (chkRandTreasures.Checked) randTreasures(rni);
                 if (chkRandItemStores.Checked) randStores(rni);
-                if (chk_sellUnsellItems.Checked) forceItemSell(rni);
                 if (chk_RandomizeInnPrices.Checked) randomizeInnPrices(rni);
                 if (chkRandStatGains.Checked) randStatGains(rni);
                 if (chk_ChangeHeroAge.Checked) changeHeroAge(rni);
