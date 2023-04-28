@@ -17,8 +17,8 @@ namespace DW3Randomizer
 {
     public partial class Form1 : Form
     {
-        string versionNumber = "2.4.5";
-        string revisionDate = "4/27/2023";
+        string versionNumber = "2.4.5a";
+        string revisionDate = "4/28/2023";
         string SotWFlags = "ACHMHDMBLABJEBODPPPBADB";
         string endyFlags = "ACGMHDPBLACLJDODPPPBADB";
 
