@@ -17,8 +17,8 @@ namespace DW3Randomizer
 {
     public partial class Form1 : Form
     {
-        string versionNumber = "2.4.5a";
-        string revisionDate = "4/28/2023";
+        string versionNumber = "2.4.5b";
+        string revisionDate = "5/16/2023";
         string SotWFlags = "ACHMHDMBLABJEBODPPPBADB";
         string endyFlags = "ACGMHDPBLACLJDODPPPBADB";
 
@@ -233,6 +233,7 @@ namespace DW3Randomizer
             Random r1 = new Random(int.Parse(txtSeed.Text));
  
             // Randomize how many steps up rni is increased if GenCompareFile is checked
+            /*
             if (chk_GenCompareFile.Checked)
             {
                 for (int lnI = 0; lnI < (r1.Next() % 20) + 1; lnI++)
@@ -240,6 +241,7 @@ namespace DW3Randomizer
                     rni++;
                 }
             }
+            */
             if (lblSHAChecksum.Text != lblReqChecksum.Text)
             {
                 if (MessageBox.Show("The checksum of the ROM does not match the required checksum.  Patch anyway?", "Checksum mismatch", MessageBoxButtons.YesNo) == DialogResult.No)
@@ -5212,7 +5214,7 @@ namespace DW3Randomizer
                     else if (new int[] { 0x377fe }.Contains(treasureLocation))
                         echoLocations = new byte[] { 0x16 }; // Water Blaster NPC
                     else if (new int[] { 0x292e4, 0x292e7 }.Contains(treasureLocation))
-                        echoLocations = new byte[] { 0x24, 0x8a }; // Cave of Jipang/Jipang
+                        echoLocations = new byte[] { 0x17, 0x8a, 0x35, 0xbb }; // Cave of Jipang/Jipang
                     else if (new int[] { 0x29272, 0x29271, 0x29273 }.Contains(treasureLocation))
                         echoLocations = new byte[] { 0x18, 0x8b, 0x8c }; // Pirates Cove
                     else if (new int[] { 0x292d1, 0x292d0, 0x292cf, 0x292cd, 0x292ce, 0x292cc, 0x292cb }.Contains(treasureLocation))
