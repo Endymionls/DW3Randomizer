@@ -17,8 +17,8 @@ namespace DW3Randomizer
 {
     public partial class Form1 : Form
     {
-        string versionNumber = "2.4.5b";
-        string revisionDate = "5/16/2023";
+        string versionNumber = "2.4.5c";
+        string revisionDate = "6/10/2023";
         string SotWFlags = "ACHMHDMBLABJEBODPPPBADB";
         string endyFlags = "ACGMHDPBLACLJDODPPPBADB";
 
@@ -5225,7 +5225,7 @@ namespace DW3Randomizer
                         echoLocations = new byte[] { 0x36, 0xbc, 0xbd }; // Lancel Cave
                     else if (new int[] { 0x292e5 }.Contains(treasureLocation))
                         echoLocations = new byte[] { 0x06, 0x5d, 0x5e, 0x5f, 0x60, 0x61, 0x62, 0x63, 0x64, 0x99 }; // Samano Castle
-                    else if (new int[] { 0x29277, 0x29276, 0x29275, 0x29278, 0x29279, 0x2927a }.Contains(treasureLocation))
+                    else if (new int[] { 0x29275, 0x29276, 0x29277, 0x29278, 0x29279, 0x2927a }.Contains(treasureLocation))
                         echoLocations = new byte[] { 0x9c, 0x9d }; // Ghost Ship
                     else if (new int[] { 0x29288, 0x29289, 0x2928a }.Contains(treasureLocation))
                         echoLocations = new byte[] { 0x32, 0xa8, 0xa9, 0xaa, 0x31 }; // Cave Of Necrogund
@@ -8435,16 +8435,16 @@ namespace DW3Randomizer
                 r1.Next();
             }
 
-            int[] forcedItemSell = { 0x16, 0x1c, 0x28, 0x32, 0x34, 0x36, 0x3b, 0x3f, 0x42, 0x48, 0x4b, 0x4c, 0x50, 0x52, 0x53, 0x55, 0x58, 0x59, 0x5b, 0x69, 0x6f, 0x70, 0x71 };
+            int[] forcedItemSell = { 0x16, 0x1c, 0x28, 0x32, 0x34, 0x36, 0x3b, 0x3f, 0x42, 0x48, 0x4b, 0x4c, 0x50, 0x51, 0x52, 0x53, 0x55, 0x58, 0x59, 0x5b, 0x5c, 0x5d, 0x5e, 0x69, 0x6b, 0x6e, 0x6f, 0x70, 0x71 };
             for (int lnI = 0; lnI < forcedItemSell.Length; lnI++)
                 if (romData[0x11be + forcedItemSell[lnI]] % 32 >= 16) // Not allowed to be sold
                     romData[0x11be + forcedItemSell[lnI]] -= 16; // Now allowed to be sold!
 
             int[] itemstoAdjust = { 0x16, 0x1c, 0x28, 0x32, 0x34, 0x36, 0x3b, 0x3f, 0x42, 0x48, 0x4b, 0x4c, 0x50, 0x52, 0x53, 0x58, 0x59, 0x5a, 0x69, 0x6f, 0x70, 0x71, // forced items to sell AND...
-               0x5f, 0x60, 0x61, 0x62, 0x63, 0x64, 0x57, 0x75, 0x55, 0x4e, 0x4f, 0x49, 0x5b }; // Some other items I want sold (see above)
+               0x5f, 0x60, 0x61, 0x62, 0x63, 0x64, 0x57, 0x75, 0x55, 0x4e, 0x4f, 0x49, 0x5b, 0x5c, 0x5d, 0x5e, 0x6b, 0x6e, 0x51 }; // Some other items I want sold (see above)
 
             int[] itemPriceAdjust = { 5000, 35000, 15000, 10000, 8000, 12000, 10000, 800, 10, 5000, 5000, 8000, 20000, 1000, 1000, 500, 2000, 5000, 5000, 500, 2000, 500,
-                5000, 3000, 2000, 2500, 2500, 5000, 800, 10000, 3000, 2000, 10000, 5000, 1000, 1 };
+                5000, 3000, 2000, 2500, 2500, 5000, 800, 10000, 3000, 2000, 10000, 5000, 1000, 1, 500, 500, 15000, 500, 500, 500 };
 
             int price = 0;
 
