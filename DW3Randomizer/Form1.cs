@@ -18,7 +18,7 @@ namespace DW3Randomizer
     public partial class Form1 : Form
     {
         string versionNumber = "2.4.5d";
-        string revisionDate = "6/11/2023";
+        string revisionDate = "7/9/2023";
         string SotWFlags = "ACHMHDMBLABJEBODPPPBADB";
         string endyFlags = "ACGMHDPBLACLJDODPPPBADB";
 
@@ -857,7 +857,7 @@ namespace DW3Randomizer
         private void saveRom(bool calcChecksum)
         {
             string shortVersion = versionNumber.Replace(".", "");
-            string finalFile = Path.Combine(Path.GetDirectoryName(txtFileName.Text), "DW3Random_" + txtSeed.Text + "_" + txtFlags.Text + "_" + shortVersion + ".nes");
+            string finalFile = Path.Combine(Path.GetDirectoryName(txtFileName.Text), "DW3R_" + txtSeed.Text + "_" + txtFlags.Text + "_" + shortVersion + ".nes");
             File.WriteAllBytes(finalFile, romData);
             lblIntensityDesc.Text = "ROM hacking complete!  (" + finalFile + ")";
             txtCompare.Text = finalFile;
@@ -3321,8 +3321,14 @@ namespace DW3Randomizer
 
         private void weapArmPower()
         {
+            int curseOffset1 = 0;
+            int curseOffset2 = 0;
+
             for (int lnI = 0; lnI < 71; lnI++)
             {
+                byte value = romData[0x11be + lnI];
+                bool checkCurse = (value & 0x08) == 0x08;
+
                 int iatp = (int)romData[0x279a0 + lnI];
                 int iatph = iatp / 100;
                 iatp = iatp % 100;
@@ -3335,7 +3341,7 @@ namespace DW3Randomizer
 
                 if (iatph == 0)
                     batph = 0x3F;
-                else if (iatph == 1)
+                else if (iatph > 0)
                     batph = 0x02;
                 else if (iatph == 2)
                     batph = 0x03;
@@ -3412,14 +3418,6 @@ namespace DW3Randomizer
                     romData[0xad15] = 0x1e; // t
                     romData[0xad16] = 0x15; // k
                     romData[0xad17] = 0xff; // Break
-                                            // Line 2
-                    romData[0xb0e0] = 0x25; // A
-                    romData[0xb0e1] = batph; // Hundreds
-                    romData[0xb0e2] = batpt; // Tens
-                    romData[0xb0e3] = batpo; // Ones
-                    romData[0xb0e4] = 0x61; // Blank
-                    romData[0xb0e5] = 0xff; // Break
-
                 }
                 else if (lnI == 1)
                 {
@@ -3429,14 +3427,6 @@ namespace DW3Randomizer
                     romData[0xad1a] = 0x1f; // u
                     romData[0xad1b] = 0x0c; // b
                     romData[0xad1c] = 0xff; // Break
-                                            // Line 2
-                    romData[0xb0e6] = 0x25; // A
-                    romData[0xb0e7] = batph; // Hundreds
-                    romData[0xb0e8] = batpt; // Tens
-                    romData[0xb0e9] = batpo; // Ones
-                    romData[0xb0ea] = 0x61; // :
-                    romData[0xb0eb] = 0xff; // Break
-
                 }
                 else if (lnI == 2)
                 {
@@ -3448,14 +3438,6 @@ namespace DW3Randomizer
                     romData[0xad21] = 0x21; // w
                     romData[0xad22] = 0x0e; // d
                     romData[0xad23] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb0ec] = 0x25; // A
-                    romData[0xb0ed] = batph; // Hundreds
-                    romData[0xb0ee] = batpt; // Tens
-                    romData[0xb0ef] = batpo; // Ones
-                    romData[0xb0f0] = 0x61; // Blank
-                    romData[0xb0f1] = 0xff; // Break
                 }
                 else if (lnI == 3)
                 {
@@ -3467,14 +3449,6 @@ namespace DW3Randomizer
                     romData[0xad28] = 0x18; // n
                     romData[0xad29] = 0x10; // f
                     romData[0xad2a] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb0f2] = 0x25; // A
-                    romData[0xb0f3] = batph; // Hundreds
-                    romData[0xb0f4] = batpt; // Tens
-                    romData[0xb0f5] = batpo; // Ones
-                    romData[0xb0f6] = 0x00; // Blank
-                    romData[0xb0f7] = 0xff; // Break
                 }
                 else if (lnI == 4)
                 {
@@ -3485,14 +3459,6 @@ namespace DW3Randomizer
                     romData[0xad2e] = 0x1a; // p
                     romData[0xad2f] = 0x1c; // r
                     romData[0xad30] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb0f8] = 0x25; // A
-                    romData[0xb0f9] = batph; // Hundreds
-                    romData[0xb0fa] = batpt; // Tens
-                    romData[0xb0fb] = batpo; // Ones
-                    romData[0xb0fc] = 0x00; // Blank
-                    romData[0xb0fd] = 0xff; // Break
                 }
                 else if (lnI == 5)
                 {
@@ -3503,14 +3469,6 @@ namespace DW3Randomizer
                     romData[0xad34] = 0x25; // A
                     romData[0xad35] = 0x22; // x
                     romData[0xad36] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb0fe] = 0x25; // A
-                    romData[0xb0ff] = batph; // Hundreds
-                    romData[0xb100] = batpt; // Tens
-                    romData[0xb101] = batpo; // Ones
-                    romData[0xb102] = 0x00; // Blank
-                    romData[0xb103] = 0xff; // Break
                 }
                 else if (lnI == 6)
                 {
@@ -3521,14 +3479,6 @@ namespace DW3Randomizer
                     romData[0xad3a] = 0x37; // S
                     romData[0xad3b] = 0x21; // w
                     romData[0xad3c] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb104] = 0x25; // A
-                    romData[0xb105] = batph; // Hundreds
-                    romData[0xb106] = batpt; // Tens
-                    romData[0xb107] = batpo; // Ones
-                    romData[0xb108] = 0x00; // Blank
-                    romData[0xb109] = 0xff; // Break
                 }
                 else if (lnI == 7)
                 {
@@ -3539,14 +3489,6 @@ namespace DW3Randomizer
                     romData[0xad40] = 0x18; // n
                     romData[0xad41] = 0x0e; // d
                     romData[0xad42] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb10a] = 0x25; // A
-                    romData[0xb10b] = batph; // Hundreds
-                    romData[0xb10c] = batpt; // Tens
-                    romData[0xb10d] = batpo; // Ones
-                    romData[0xb10e] = 0x00; // Blank
-                    romData[0xb10f] = 0xff; // Break
                 }
                 else if (lnI == 8)
                 {
@@ -3558,14 +3500,6 @@ namespace DW3Randomizer
                     romData[0xad47] = 0x0e; // d
                     romData[0xad48] = 0x16; // l
                     romData[0xad49] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb110] = 0x25; // A
-                    romData[0xb111] = batph; // Hundreds
-                    romData[0xb112] = batpt; // Tens
-                    romData[0xb113] = batpo; // Ones
-                    romData[0xb114] = 0x00; // Blank
-                    romData[0xb115] = 0xff; // Break
                 }
                 else if (lnI == 9)
                 {
@@ -3576,14 +3510,6 @@ namespace DW3Randomizer
                     romData[0xad4d] = 0x27; // C
                     romData[0xad4e] = 0x16; // l
                     romData[0xad4f] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb116] = 0x25; // A
-                    romData[0xb117] = batph; // Hundreds
-                    romData[0xb118] = batpt; // Tens
-                    romData[0xb119] = batpo; // Ones
-                    romData[0xb11a] = 0x00; // Blank
-                    romData[0xb11b] = 0xff; // Break
                 }
                 else if (lnI == 10)
                 {
@@ -3594,14 +3520,6 @@ namespace DW3Randomizer
                     romData[0xad53] = 0x3b; // W
                     romData[0xad54] = 0x12; // h
                     romData[0xad55] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb11c] = 0x25; // A
-                    romData[0xb11d] = batph; // Hundreds
-                    romData[0xb11e] = batpt; // Tens
-                    romData[0xb11f] = batpo; // Ones
-                    romData[0xb120] = 0x00; // Blank
-                    romData[0xb121] = 0xff; // Break
                 }
                 else if (lnI == 11)
                 {
@@ -3613,14 +3531,6 @@ namespace DW3Randomizer
                     romData[0xad5a] = 0x12; // h
                     romData[0xad5b] = 0x1c; // r
                     romData[0xad5c] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb122] = 0x25; // A
-                    romData[0xb123] = batph; // Hundreds
-                    romData[0xb124] = batpt; // Tens
-                    romData[0xb125] = batpo; // Ones
-                    romData[0xb126] = 0x00; // Blank
-                    romData[0xb127] = 0xff; // Break
                 }
                 else if (lnI == 12)
                 {
@@ -3631,14 +3541,6 @@ namespace DW3Randomizer
                     romData[0xad60] = 0x15; // k
                     romData[0xad61] = 0x16; // l
                     romData[0xad62] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb128] = 0x25; // A
-                    romData[0xb129] = batph; // Hundreds
-                    romData[0xb12a] = batpt; // Tens
-                    romData[0xb12b] = batpo; // Ones
-                    romData[0xb12c] = 0x00; // Blank
-                    romData[0xb12d] = 0xff; // Break
                 }
                 else if (lnI == 13)
                 {
@@ -3650,14 +3552,6 @@ namespace DW3Randomizer
                     romData[0xad67] = 0x37; // S
                     romData[0xad68] = 0x21; // w
                     romData[0xad69] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb12e] = 0x25; // A
-                    romData[0xb12f] = batph; // Hundreds
-                    romData[0xb130] = batpt; // Tens
-                    romData[0xb131] = batpo; // Ones
-                    romData[0xb132] = 0x00; // Blank
-                    romData[0xb133] = 0xff; // Break
                 }
                 else if (lnI == 14)
                 {
@@ -3669,14 +3563,6 @@ namespace DW3Randomizer
                     romData[0xad6e] = 0x21; // w
                     romData[0xad6f] = 0x0e; // d
                     romData[0xad70] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb134] = 0x25; // A
-                    romData[0xb135] = batph; // Hundreds
-                    romData[0xb136] = batpt; // Tens
-                    romData[0xb137] = batpo; // Ones
-                    romData[0xb138] = 0x00; // Blank
-                    romData[0xb139] = 0xff; // Break
                 }
                 else if (lnI == 15)
                 {
@@ -3687,14 +3573,6 @@ namespace DW3Randomizer
                     romData[0xad74] = 0x25; // A
                     romData[0xad75] = 0x22; // x
                     romData[0xad76] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb13a] = 0x25; // A
-                    romData[0xb13b] = batph; // Hundreds
-                    romData[0xb13c] = batpt; // Tens
-                    romData[0xb13d] = batpo; // Ones
-                    romData[0xb13e] = 0x00; // Blank
-                    romData[0xb13f] = 0xff; // Break
                 }
                 else if (lnI == 16)
                 {
@@ -3707,14 +3585,6 @@ namespace DW3Randomizer
                     romData[0xad7c] = 0x1e; // t
                     romData[0xad7d] = 0x10; // f
                     romData[0xad7e] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb140] = 0x25; // A
-                    romData[0xb141] = batph; // Hundreds
-                    romData[0xb142] = batpt; // Tens
-                    romData[0xb143] = batpo; // Ones
-                    romData[0xb144] = 0x00; // Blank
-                    romData[0xb145] = 0xff; // Break
                 }
                 else if (lnI == 17)
                 {
@@ -3727,14 +3597,6 @@ namespace DW3Randomizer
                     romData[0xad84] = 0x21; // w
                     romData[0xad85] = 0x0e; // d
                     romData[0xad86] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb146] = 0x25; // A
-                    romData[0xb147] = batph; // Hundreds
-                    romData[0xb148] = batpt; // Tens
-                    romData[0xb149] = batpo; // Ones
-                    romData[0xb14a] = 0x00; // Blank
-                    romData[0xb14b] = 0xff; // Break
                 }
                 else if (lnI == 18)
                 {
@@ -3747,14 +3609,6 @@ namespace DW3Randomizer
                     romData[0xad8c] = 0x1e; // t
                     romData[0xad8d] = 0x10; // f
                     romData[0xad8e] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb14c] = 0x25; // A
-                    romData[0xb14d] = batph; // Hundreds
-                    romData[0xb14e] = batpt; // Tens
-                    romData[0xb14f] = batpo; // Ones
-                    romData[0xb150] = 0x00; // Blank
-                    romData[0xb151] = 0xff; // Break
                 }
                 else if (lnI == 19)
                 {
@@ -3767,14 +3621,6 @@ namespace DW3Randomizer
                     romData[0xad94] = 0x21; // w
                     romData[0xad95] = 0x0e; // d
                     romData[0xad96] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb152] = 0x25; // A
-                    romData[0xb153] = batph; // Hundreds
-                    romData[0xb154] = batpt; // Tens
-                    romData[0xb155] = batpo; // Ones
-                    romData[0xb156] = 0x00; // Blank
-                    romData[0xb157] = 0xff; // Break
                 }
                 else if (lnI == 20)
                 {
@@ -3788,14 +3634,6 @@ namespace DW3Randomizer
                     romData[0xad9d] = 0x21; // w
                     romData[0xad9e] = 0x0e; // d
                     romData[0xad9f] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb158] = 0x25; // A
-                    romData[0xb159] = batph; // Hundreds
-                    romData[0xb15a] = batpt; // Tens
-                    romData[0xb15b] = batpo; // Ones
-                    romData[0xb15c] = 0x00; // Blank
-                    romData[0xb15d] = 0xff; // Break
                 }
                 else if (lnI == 21)
                 {
@@ -3807,14 +3645,6 @@ namespace DW3Randomizer
                     romData[0xada4] = 0x1e; // t
                     romData[0xada5] = 0x10; // f
                     romData[0xada6] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb15e] = 0x25; // A
-                    romData[0xb15f] = batph; // Hundreds
-                    romData[0xb160] = batpt; // Tens
-                    romData[0xb161] = batpo; // Ones
-                    romData[0xb162] = 0x00; // Blank
-                    romData[0xb163] = 0xff; // Break
                 }
                 else if (lnI == 22)
                 {
@@ -3827,14 +3657,6 @@ namespace DW3Randomizer
                     romData[0xadac] = 0x21; // w
                     romData[0xadad] = 0x0e; // d
                     romData[0xadae] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb164] = 0x25; // A
-                    romData[0xb165] = batph; // Hundreds
-                    romData[0xb166] = batpt; // Tens
-                    romData[0xb167] = batpo; // Ones
-                    romData[0xb168] = 0x00; // Blank
-                    romData[0xb169] = 0xff; // Break
                 }
                 else if (lnI == 23)
                 {
@@ -3848,14 +3670,6 @@ namespace DW3Randomizer
                     romData[0xadb5] = 0x12; // h
                     romData[0xadb6] = 0x1c; // r
                     romData[0xadb7] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb16a] = 0x25; // A
-                    romData[0xb16b] = batph; // Hundreds
-                    romData[0xb16c] = batpt; // Tens
-                    romData[0xb16d] = batpo; // Ones
-                    romData[0xb16e] = 0x00; // Blank
-                    romData[0xb16f] = 0xff; // Break
                 }
                 else if (lnI == 24)
                 {
@@ -3867,14 +3681,6 @@ namespace DW3Randomizer
                     romData[0xadbc] = 0x21; // w
                     romData[0xadbd] = 0x0e; // d
                     romData[0xadbe] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb170] = 0x25; // A
-                    romData[0xb171] = batph; // Hundreds
-                    romData[0xb172] = batpt; // Tens
-                    romData[0xb173] = batpo; // Ones
-                    romData[0xb174] = 0x00; // Blank
-                    romData[0xb175] = 0xff; // Break
                 }
                 else if (lnI == 25)
                 {
@@ -3887,14 +3693,6 @@ namespace DW3Randomizer
                     romData[0xadc4] = 0x17; // m
                     romData[0xadc5] = 0x1c; // r
                     romData[0xadc6] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb176] = 0x25; // A
-                    romData[0xb177] = batph; // Hundreds
-                    romData[0xb178] = batpt; // Tens
-                    romData[0xb179] = batpo; // Ones
-                    romData[0xb17a] = 0x00; // Blank
-                    romData[0xb17b] = 0xff; // Break
                 }
                 else if (lnI == 26)
                 {
@@ -3907,14 +3705,6 @@ namespace DW3Randomizer
                     romData[0xadcc] = 0x21; // w
                     romData[0xadcd] = 0x0e; // d
                     romData[0xadce] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb17c] = 0x25; // A
-                    romData[0xb17d] = batph; // Hundreds
-                    romData[0xb17e] = batpt; // Tens
-                    romData[0xb17f] = batpo; // Ones
-                    romData[0xb180] = 0x00; // Blank
-                    romData[0xb181] = 0xff; // Break
                 }
                 else if (lnI == 27)
                 {
@@ -3927,14 +3717,6 @@ namespace DW3Randomizer
                     romData[0xadd4] = 0x1e; // t
                     romData[0xadd5] = 0x10; // f
                     romData[0xadd6] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb182] = 0x25; // A
-                    romData[0xb183] = batph; // Hundreds
-                    romData[0xb184] = batpt; // Tens
-                    romData[0xb185] = batpo; // Ones
-                    romData[0xb186] = 0x00; // Blank
-                    romData[0xb187] = 0xff; // Break
                 }
                 else if (lnI == 28)
                 {
@@ -3947,14 +3729,6 @@ namespace DW3Randomizer
                     romData[0xaddc] = 0x21; // w
                     romData[0xaddd] = 0x0e; // d
                     romData[0xadde] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb188] = 0x25; // A
-                    romData[0xb189] = batph; // Hundreds
-                    romData[0xb18a] = batpt; // Tens
-                    romData[0xb18b] = batpo; // Ones
-                    romData[0xb18c] = 0x00; // Blank
-                    romData[0xb18d] = 0xff; // Break
                 }
                 else if (lnI == 29)
                 {
@@ -3969,14 +3743,6 @@ namespace DW3Randomizer
                     romData[0xade6] = 0x21; // w
                     romData[0xade7] = 0x0e; // d
                     romData[0xade8] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb18e] = 0x25; // A
-                    romData[0xb18f] = batph; // Hundreds
-                    romData[0xb190] = batpt; // Tens
-                    romData[0xb191] = batpo; // Ones
-                    romData[0xb192] = 0x00; // Blank
-                    romData[0xb193] = 0xff; // Break
                 }
                 else if (lnI == 30)
                 {
@@ -3989,14 +3755,6 @@ namespace DW3Randomizer
                     romData[0xadee] = 0x16; // l
                     romData[0xadef] = 0x1c; // r
                     romData[0xadf0] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb194] = 0x25; // A
-                    romData[0xb195] = batph; // Hundreds
-                    romData[0xb196] = batpt; // Tens
-                    romData[0xb197] = batpo; // Ones
-                    romData[0xb198] = 0x00; // Blank
-                    romData[0xb199] = 0xff; // Break
                 }
                 else if (lnI == 31)
                 {
@@ -4010,14 +3768,6 @@ namespace DW3Randomizer
                     romData[0xadf7] = 0x1e; // t
                     romData[0xadf8] = 0x10; // f
                     romData[0xadf9] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb19a] = 0x25; // A
-                    romData[0xb19b] = batph; // Hundreds
-                    romData[0xb19c] = batpt; // Tens
-                    romData[0xb19d] = batpo; // Ones
-                    romData[0xb19e] = 0x00; // Blank
-                    romData[0xb19f] = 0xff; // Break
                 }
                 else if (lnI == 32)
                 {
@@ -4030,14 +3780,6 @@ namespace DW3Randomizer
                     romData[0xadff] = 0x0f; // e
                     romData[0xae00] = 0x1d; // s
                     romData[0xae01] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb1a0] = 0x28; // D
-                    romData[0xb1a1] = batph; // Hundreds
-                    romData[0xb1a2] = batpt; // Tens
-                    romData[0xb1a3] = batpo; // Ones
-                    romData[0xb1a4] = 0x00; // Blank
-                    romData[0xb1a5] = 0xff; // Break
                 }
                 else if (lnI == 33)
                 {
@@ -4049,14 +3791,6 @@ namespace DW3Randomizer
                     romData[0xae06] = 0x37; // S
                     romData[0xae07] = 0x1e; // t
                     romData[0xae08] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb1a6] = 0x28; // D
-                    romData[0xb1a7] = batph; // Hundreds
-                    romData[0xb1a8] = batpt; // Tens
-                    romData[0xb1a9] = batpo; // Ones
-                    romData[0xb1aa] = 0x00; // Blank
-                    romData[0xb1ab] = 0xff; // Break
                 }
                 else if (lnI == 34)
                 {
@@ -4068,14 +3802,6 @@ namespace DW3Randomizer
                     romData[0xae0d] = 0x25; // A
                     romData[0xae0e] = 0x1c; // r
                     romData[0xae0f] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb1ac] = 0x28; // D
-                    romData[0xb1ad] = batph; // Hundreds
-                    romData[0xb1ae] = batpt; // Tens
-                    romData[0xb1af] = batpo; // Ones
-                    romData[0xb1b0] = 0x00; // Blank
-                    romData[0xb1b1] = 0xff; // Break
                 }
                 else if (lnI == 35)
                 {
@@ -4087,14 +3813,6 @@ namespace DW3Randomizer
                     romData[0xae14] = 0x27; // C
                     romData[0xae15] = 0x16; // l
                     romData[0xae16] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb1b2] = 0x28; // D
-                    romData[0xb1b3] = batph; // Hundreds
-                    romData[0xb1b4] = batpt; // Tens
-                    romData[0xb1b5] = batpo; // Ones
-                    romData[0xb1b6] = 0x00; // Blank
-                    romData[0xb1b7] = 0xff; // Break
                 }
                 else if (lnI == 36)
                 {
@@ -4108,14 +3826,6 @@ namespace DW3Randomizer
                     romData[0xae1d] = 0x25; // A
                     romData[0xae1e] = 0x1c; // r
                     romData[0xae1f] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb1b8] = 0x28; // D
-                    romData[0xb1b9] = batph; // Hundreds
-                    romData[0xb1ba] = batpt; // Tens
-                    romData[0xb1bb] = batpo; // Ones
-                    romData[0xb1bc] = 0x00; // Blank
-                    romData[0xb1bd] = 0xff; // Break
                 }
                 else if (lnI == 37)
                 {
@@ -4129,14 +3839,6 @@ namespace DW3Randomizer
                     romData[0xae26] = 0x25; // A
                     romData[0xae27] = 0x1c; // r
                     romData[0xae28] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb1be] = 0x28; // D
-                    romData[0xb1bf] = batph; // Hundreds
-                    romData[0xb1c0] = batpt; // Tens
-                    romData[0xb1c1] = batpo; // Ones
-                    romData[0xb1c2] = 0x00; // Blank
-                    romData[0xb1c3] = 0xff; // Break
                 }
                 else if (lnI == 38)
                 {
@@ -4149,14 +3851,6 @@ namespace DW3Randomizer
                     romData[0xae2e] = 0x25; // A
                     romData[0xae2f] = 0x1c; // r
                     romData[0xae30] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb1c4] = 0x28; // D
-                    romData[0xb1c5] = batph; // Hundreds
-                    romData[0xb1c6] = batpt; // Tens
-                    romData[0xb1c7] = batpo; // Ones
-                    romData[0xb1c8] = 0x00; // Blank
-                    romData[0xb1c9] = 0xff; // Break
                 }
                 else if (lnI == 39)
                 {
@@ -4169,14 +3863,6 @@ namespace DW3Randomizer
                     romData[0xae36] = 0x0b; // a
                     romData[0xae37] = 0x15; // k
                     romData[0xae38] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb1ca] = 0x28; // D
-                    romData[0xb1cb] = batph; // Hundreds
-                    romData[0xb1cc] = batpt; // Tens
-                    romData[0xb1cd] = batpo; // Ones
-                    romData[0xb1ce] = 0x00; // Blank
-                    romData[0xb1cf] = 0xff; // Break
                 }
                 else if (lnI == 40)
                 {
@@ -4191,14 +3877,6 @@ namespace DW3Randomizer
                     romData[0xae40] = 0x25; // A
                     romData[0xae41] = 0x1c; // r
                     romData[0xae42] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb1d0] = 0x28; // D
-                    romData[0xb1d1] = batph; // Hundreds
-                    romData[0xb1d2] = batpt; // Tens
-                    romData[0xb1d3] = batpo; // Ones
-                    romData[0xb1d4] = 0x00; // Blank
-                    romData[0xb1d5] = 0xff; // Break
                 }
                 else if (lnI == 41)
                 {
@@ -4210,14 +3888,6 @@ namespace DW3Randomizer
                     romData[0xae47] = 0x25; // A
                     romData[0xae48] = 0x1a; // p
                     romData[0xae49] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb1d6] = 0x28; // D
-                    romData[0xb1d7] = batph; // Hundreds
-                    romData[0xb1d8] = batpt; // Tens
-                    romData[0xb1d9] = batpo; // Ones
-                    romData[0xb1da] = 0x00; // Blank
-                    romData[0xb1db] = 0xff; // Break
                 }
                 else if (lnI == 42)
                 {
@@ -4233,14 +3903,6 @@ namespace DW3Randomizer
                     romData[0xae52] = 0x13; // i
                     romData[0xae53] = 0x1e; // t
                     romData[0xae54] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb1dc] = 0x28; // D
-                    romData[0xb1dd] = batph; // Hundreds
-                    romData[0xb1de] = batpt; // Tens
-                    romData[0xb1df] = batpo; // Ones
-                    romData[0xb1e0] = 0x00; // Blank
-                    romData[0xb1e1] = 0xff; // Break
                 }
                 else if (lnI == 43)
                 {
@@ -4255,15 +3917,6 @@ namespace DW3Randomizer
                     romData[0xae5c] = 0x13; // i
                     romData[0xae5d] = 0x1e; // t
                     romData[0xae5e] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb1e2] = 0x28; // D
-                    romData[0xb1e3] = batph; // Hundreds
-                    romData[0xb1e4] = batpt; // Tens
-                    romData[0xb1e5] = batpo; // Ones
-                    romData[0xb1e6] = 0x00; // Blank
-                    romData[0xb1e7] = 0x00; // Blank
-                    romData[0xb1e8] = 0xff; // Break
                 }
                 else if (lnI == 44)
                 {
@@ -4275,15 +3928,6 @@ namespace DW3Randomizer
                     romData[0xae63] = 0x36; // R
                     romData[0xae64] = 0x0c; // b
                     romData[0xae65] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb1e9] = 0x28; // D
-                    romData[0xb1ea] = batph; // Hundreds
-                    romData[0xb1eb] = batpt; // Tens
-                    romData[0xb1ec] = batpo; // Ones
-                    romData[0xb1ed] = 0x00; // Blank
-                    romData[0xb1ee] = 0x00; // Blank
-                    romData[0xb1ef] = 0xff; // Break
                 }
                 else if (lnI == 45)
                 {
@@ -4296,15 +3940,6 @@ namespace DW3Randomizer
                     romData[0xae6b] = 0x25; // A
                     romData[0xae6c] = 0x1c; // r
                     romData[0xae6d] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb1f0] = 0x28; // D
-                    romData[0xb1f1] = batph; // Hundreds
-                    romData[0xb1f2] = batpt; // Tens
-                    romData[0xb1f3] = batpo; // Ones
-                    romData[0xb1f4] = 0x00; // Blank
-                    romData[0xb1f5] = 0x00; //Blank
-                    romData[0xb1f6] = 0xff; // Break
                 }
                 else if (lnI == 46)
                 {
@@ -4318,15 +3953,6 @@ namespace DW3Randomizer
                     romData[0xae74] = 0x27; // C
                     romData[0xae75] = 0x16; // l
                     romData[0xae76] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb1f7] = 0x28; // D
-                    romData[0xb1f8] = batph; // Hundreds
-                    romData[0xb1f9] = batpt; // Tens
-                    romData[0xb1fa] = batpo; // Ones
-                    romData[0xb1fb] = 0x00; // Blank
-                    romData[0xb1fc] = 0x00; //Blank
-                    romData[0xb1fd] = 0xff; // Break
                 }
                 else if (lnI == 47)
                 {
@@ -4338,15 +3964,6 @@ namespace DW3Randomizer
                     romData[0xae7b] = 0x13; // i
                     romData[0xae7c] = 0x16; // l
                     romData[0xae7d] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb1fe] = 0x28; // D
-                    romData[0xb1ff] = batph; // Hundreds
-                    romData[0xb200] = batpt; // Tens
-                    romData[0xb201] = batpo; // Ones
-                    romData[0xb202] = 0x00; // Blank
-                    romData[0xb203] = 0x00; // Blank
-                    romData[0xb204] = 0xff; // Break
                 }
                 else if (lnI == 48)
                 {
@@ -4359,15 +3976,6 @@ namespace DW3Randomizer
                     romData[0xae83] = 0x27; // C
                     romData[0xae84] = 0x16; // l
                     romData[0xae85] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb205] = 0x28; // D
-                    romData[0xb206] = batph; // Hundreds
-                    romData[0xb207] = batpt; // Tens
-                    romData[0xb208] = batpo; // Ones
-                    romData[0xb209] = 0x00; // Blank
-                    romData[0xb20a] = 0x00; // Blank
-                    romData[0xb20b] = 0xff; // Break
                 }
                 else if (lnI == 49)
                 {
@@ -4384,15 +3992,6 @@ namespace DW3Randomizer
                     romData[0xae8f] = 0x1d; // s
                     romData[0xae90] = 0x1e; // t
                     romData[0xae91] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb20c] = 0x28; // D
-                    romData[0xb20d] = batph; // Hundreds
-                    romData[0xb20e] = batpt; // Tens
-                    romData[0xb20f] = batpo; // Ones
-                    romData[0xb210] = 0x00; // Blank
-                    romData[0xb211] = 0x00; // Blank
-                    romData[0xb212] = 0xff; // Break
                 }
                 else if (lnI == 50)
                 {
@@ -4406,15 +4005,6 @@ namespace DW3Randomizer
                     romData[0xae98] = 0x18; // n
                     romData[0xae99] = 0x13; // i
                     romData[0xae9a] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb213] = 0x28; // D
-                    romData[0xb214] = batph; // Hundreds
-                    romData[0xb215] = batpt; // Tens
-                    romData[0xb216] = batpo; // Ones
-                    romData[0xb217] = 0x00; // Blank
-                    romData[0xb218] = 0x00; // Blank
-                    romData[0xb219] = 0xff; // Break
                 }
                 else if (lnI == 51)
                 {
@@ -4427,15 +4017,6 @@ namespace DW3Randomizer
                     romData[0xaea0] = 0x25; // A
                     romData[0xaea1] = 0x1c; // r
                     romData[0xaea2] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb21a] = 0x28; // D
-                    romData[0xb21b] = batph; // Hundreds
-                    romData[0xb21c] = batpt; // Tens
-                    romData[0xb21d] = batpo; // Ones
-                    romData[0xb21e] = 0x00; // Blank
-                    romData[0xb21f] = 0x00; // Blank
-                    romData[0xb220] = 0xff; // Break
                 }
                 else if (lnI == 52)
                 {
@@ -4450,15 +4031,6 @@ namespace DW3Randomizer
                     romData[0xaeaa] = 0x25; // A
                     romData[0xaeab] = 0x1c; // r
                     romData[0xaeac] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb221] = 0x28; // D
-                    romData[0xb222] = batph; // Hundreds
-                    romData[0xb223] = batpt; // Tens
-                    romData[0xb224] = batpo; // Ones
-                    romData[0xb225] = 0x00; // Blank
-                    romData[0xb226] = 0x00; // Blank
-                    romData[0xb227] = 0xff; // Break
                 }
                 else if (lnI == 53)
                 {
@@ -4471,15 +4043,6 @@ namespace DW3Randomizer
                     romData[0xaeb2] = 0x13; // i
                     romData[0xaeb3] = 0x16; // l
                     romData[0xaeb4] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb228] = 0x28; // D
-                    romData[0xb229] = batph; // Hundreds
-                    romData[0xb22a] = batpt; // Tens
-                    romData[0xb22b] = batpo; // Ones
-                    romData[0xb22c] = 0x00; // Blank
-                    romData[0xb22d] = 0x00; // Blank
-                    romData[0xb22e] = 0xff; // Break
                 }
                 else if (lnI == 54)
                 {
@@ -4493,15 +4056,6 @@ namespace DW3Randomizer
                     romData[0xaebb] = 0x25; // A
                     romData[0xaebc] = 0x1c; // r
                     romData[0xaebd] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb22f] = 0x28; // D
-                    romData[0xb230] = batph; // Hundreds
-                    romData[0xb231] = batpt; // Tens
-                    romData[0xb232] = batpo; // Ones
-                    romData[0xb233] = 0x00; // Blank
-                    romData[0xb234] = 0x00; // Blank
-                    romData[0xb235] = 0xff; // Break
                 }
                 else if (lnI == 55)
                 {
@@ -4514,15 +4068,6 @@ namespace DW3Randomizer
                     romData[0xaec3] = 0x36; // R
                     romData[0xaec4] = 0x0c; // b
                     romData[0xaec5] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb236] = 0x28; // D
-                    romData[0xb237] = batph; // Hundreds
-                    romData[0xb238] = batpt; // Tens
-                    romData[0xb239] = batpo; // Ones
-                    romData[0xb23a] = 0x00; // Blank
-                    romData[0xb23b] = 0x00; // Blank
-                    romData[0xb23c] = 0xff; // Break
                 }
                 else if (lnI == 56)
                 {
@@ -4536,15 +4081,6 @@ namespace DW3Randomizer
                     romData[0xaecc] = 0x16; // l
                     romData[0xaecd] = 0x0e; // d
                     romData[0xaece] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb23d] = 0x28; // D
-                    romData[0xb23e] = batph; // Hundreds
-                    romData[0xb23f] = batpt; // Tens
-                    romData[0xb240] = batpo; // Ones
-                    romData[0xb241] = 0x00; // Blank
-                    romData[0xb242] = 0x00; // Blank
-                    romData[0xb243] = 0xff; // Break
                 }
                 else if (lnI == 57)
                 {
@@ -4557,15 +4093,6 @@ namespace DW3Randomizer
                     romData[0xaed4] = 0x16; // l
                     romData[0xaed5] = 0x0e; // d
                     romData[0xaed6] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb244] = 0x28; // D
-                    romData[0xb245] = batph; // Hundreds
-                    romData[0xb246] = batpt; // Tens
-                    romData[0xb247] = batpo; // Ones
-                    romData[0xb248] = 0x00; // Blank
-                    romData[0xb249] = 0x00; // Blank
-                    romData[0xb24a] = 0xff; // Break
                 }
                 else if (lnI == 58)
                 {
@@ -4578,15 +4105,6 @@ namespace DW3Randomizer
                     romData[0xaedc] = 0x16; // l
                     romData[0xaedd] = 0x0e; // d
                     romData[0xaede] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb24b] = 0x28; // D
-                    romData[0xb24c] = batph; // Hundreds
-                    romData[0xb24d] = batpt; // Tens
-                    romData[0xb24e] = batpo; // Ones
-                    romData[0xb24f] = 0x00; // Blank
-                    romData[0xb250] = 0x00; // Blank
-                    romData[0xb251] = 0xff; // Break
                 }
                 else if (lnI == 59)
                 {
@@ -4600,15 +4118,6 @@ namespace DW3Randomizer
                     romData[0xaee5] = 0x16; // l
                     romData[0xaee6] = 0x0e; // d
                     romData[0xaee7] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb252] = 0x28; // D
-                    romData[0xb253] = batph; // Hundreds
-                    romData[0xb254] = batpt; // Tens
-                    romData[0xb255] = batpo; // Ones
-                    romData[0xb256] = 0x00; // Blank
-                    romData[0xb257] = 0x00; // Blank
-                    romData[0xb258] = 0xff; // Break
                 }
                 else if (lnI == 60)
                 {
@@ -4621,15 +4130,6 @@ namespace DW3Randomizer
                     romData[0xaeed] = 0x16; // l
                     romData[0xaeee] = 0x0e; // d
                     romData[0xaeef] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb259] = 0x28; // D
-                    romData[0xb25a] = batph; // Hundreds
-                    romData[0xb25b] = batpt; // Tens
-                    romData[0xb25c] = batpo; // Ones
-                    romData[0xb25d] = 0x00; // Blank
-                    romData[0xb25e] = 0x00; // Blank
-                    romData[0xb25f] = 0xff; // Break
                 }
                 else if (lnI == 61)
                 {
@@ -4642,15 +4142,6 @@ namespace DW3Randomizer
                     romData[0xaef5] = 0x16; // l
                     romData[0xaef6] = 0x0e; // d
                     romData[0xaef7] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb260] = 0x28; // D
-                    romData[0xb261] = batph; // Hundreds
-                    romData[0xb262] = batpt; // Tens
-                    romData[0xb263] = batpo; // Ones
-                    romData[0xb264] = 0x00; // Blank
-                    romData[0xb265] = 0x00; // Blank
-                    romData[0xb266] = 0xff; // Break
                 }
                 else if (lnI == 62)
                 {
@@ -4663,15 +4154,6 @@ namespace DW3Randomizer
                     romData[0xaefd] = 0x16; // l
                     romData[0xaefe] = 0x0e; // d
                     romData[0xaeff] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb267] = 0x28; // D
-                    romData[0xb268] = batph; // Hundreds
-                    romData[0xb269] = batpt; // Tens
-                    romData[0xb26a] = batpo; // Ones
-                    romData[0xb26b] = 0x00; // Blank
-                    romData[0xb26c] = 0x00; // Blank
-                    romData[0xb26d] = 0xff; // Break
                 }
                 else if (lnI == 63)
                 {
@@ -4687,15 +4169,6 @@ namespace DW3Randomizer
                     romData[0xaf08] = 0x21; // w
                     romData[0xaf09] = 0x18; // n
                     romData[0xaf0a] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb26e] = 0x28; // D
-                    romData[0xb26f] = batph; // Hundreds
-                    romData[0xb270] = batpt; // Tens
-                    romData[0xb271] = batpo; // Ones
-                    romData[0xb272] = 0x00; // Blank
-                    romData[0xb273] = 0x00; // Blank
-                    romData[0xb274] = 0xff; // Break
                 }
                 else if (lnI == 64)
                 {
@@ -4713,13 +4186,6 @@ namespace DW3Randomizer
                     romData[0xb278] = 0x00;
                     romData[0xb279] = 0x00;
                     romData[0xb27a] = 0x00;
-
-                    romData[0xb27b] = 0x28; // D
-                    romData[0xb27c] = batph; // Hundreds
-                    romData[0xb27d] = batpt; // Tens
-                    romData[0xb27e] = batpo; // Ones
-                    romData[0xb27f] = 0x00; // Blank
-                    romData[0xb280] = 0xff; // Break
                 }
                 else if (lnI == 65)
                 {
@@ -4731,13 +4197,6 @@ namespace DW3Randomizer
                     romData[0xaf14] = 0x2c; // H
                     romData[0xaf15] = 0x1e; // t
                     romData[0xaf16] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb281] = 0x28; // D
-                    romData[0xb282] = batph; // Hundreds
-                    romData[0xb283] = batpt; // Tens
-                    romData[0xb284] = batpo; // Ones
-                    romData[0xb285] = 0xff; // Break
                 }
                 else if (lnI == 66)
                 {
@@ -4751,13 +4210,6 @@ namespace DW3Randomizer
                     romData[0xaf1d] = 0x17; // m
                     romData[0xaf1e] = 0x1e; // t
                     romData[0xaf1f] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb286] = 0x28; // D
-                    romData[0xb287] = batph; // Hundreds
-                    romData[0xb288] = batpt; // Tens
-                    romData[0xb289] = batpo; // Ones
-                    romData[0xb28a] = 0xff; // Break
                 }
                 else if (lnI == 67)
                 {
@@ -4767,13 +4219,6 @@ namespace DW3Randomizer
                     romData[0xaf22] = 0x0c; // b
                     romData[0xaf23] = 0x18; // n
                     romData[0xaf24] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb28b] = 0x28; // D
-                    romData[0xb28c] = batph; // Hundreds
-                    romData[0xb28d] = batpt; // Tens
-                    romData[0xb28e] = batpo; // Ones
-                    romData[0xb28f] = 0xff; // Break
                 }
                 else if (lnI == 68)
                 {
@@ -4785,13 +4230,6 @@ namespace DW3Randomizer
                     romData[0xaf29] = 0x1d; // s
                     romData[0xaf2a] = 0x15; // k
                     romData[0xaf2b] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb290] = 0x28; // D
-                    romData[0xb291] = batph; // Hundreds
-                    romData[0xb292] = batpt; // Tens
-                    romData[0xb293] = batpo; // Ones
-                    romData[0xb294] = 0xff; // Break
                 }
                 else if (lnI == 69)
                 {
@@ -4804,13 +4242,6 @@ namespace DW3Randomizer
                     romData[0xaf31] = 0x17; // m
                     romData[0xaf32] = 0x1e; // t
                     romData[0xaf33] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb295] = 0x28; // D
-                    romData[0xb296] = batph; // Hundreds
-                    romData[0xb297] = batpt; // Tens
-                    romData[0xb298] = batpo; // Ones
-                    romData[0xb299] = 0xff; // Break
                 }
                 else if (lnI == 70)
                 {
@@ -4822,15 +4253,57 @@ namespace DW3Randomizer
                     romData[0xaf38] = 0x1d; // s
                     romData[0xaf39] = 0x15; // k
                     romData[0xaf3a] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb29a] = 0x28; // D
-                    romData[0xb29b] = batph; // Hundreds
-                    romData[0xb29c] = batpt; // Tens
-                    romData[0xb29d] = batpo; // Ones
-                    romData[0xb29e] = 0xff; // Break
+                }
+                if (lnI < 32)
+                {
+                    romData[0xb0e0 + lnI * 6 + curseOffset1] = 0x25; // A
+                    romData[0xb0e0 + lnI * 6 + 1 + curseOffset1] = 0x75; // :
+                    romData[0xb0e0 + lnI * 6 + 2 + curseOffset1] = batph; // Hundreds
+                    romData[0xb0e0 + lnI * 6 + 3 + curseOffset1] = batpt; // Tens
+                    romData[0xb0e0 + lnI * 6 + 4 + curseOffset1] = batpo; // Ones
+                    if (checkCurse)
+                    {
+                        romData[0xb0e0 + lnI * 6 + 5 + curseOffset1] = 0x5a; // *
+                        romData[0xb0e0 + lnI * 6 + 6 + curseOffset1] = 0xff; // Break
+                        curseOffset1 += 1;
+                    }
+                    else
+                        romData[0xb0e0 + lnI * 6 + 5 + curseOffset1] = 0xff; // Break
+                }
+                else if (lnI < 64)
+                {
+                    romData[0xb0e0 + lnI * 6 + curseOffset1] = 0x28; // D
+                    romData[0xb0e0 + lnI * 6 + 1 + curseOffset1] = 0x75; // :
+                    romData[0xb0e0 + lnI * 6 + 2 + curseOffset1] = batph; // Hundreds
+                    romData[0xb0e0 + lnI * 6 + 3 + curseOffset1] = batpt; // Tens
+                    romData[0xb0e0 + lnI * 6 + 4 + curseOffset1] = batpo; // Ones
+                    if (checkCurse)
+                    {
+                        romData[0xb0e0 + lnI * 6 + 5 + curseOffset1] = 0x5a; // *
+                        romData[0xb0e0 + lnI * 6 + 6 + curseOffset1] = 0xff; // Break
+                        curseOffset1 += 1;
+                    }
+                    else
+                        romData[0xb0e0 + lnI * 6 + 5 + curseOffset1] = 0xff; // Break
+                }
+                else
+                {
+                    romData[0xb27b + (lnI - 64) * 6 + curseOffset2] = 0x28; // D
+                    romData[0xb27b + (lnI - 64) * 6 + 1 + curseOffset2] = 0x75; // :
+                    romData[0xb27b + (lnI - 64) * 6 + 2 + curseOffset2] = batph; // Hundreds
+                    romData[0xb27b + (lnI - 64) * 6 + 3 + curseOffset2] = batpt; // Tens
+                    romData[0xb27b + (lnI - 64) * 6 + 4 + curseOffset2] = batpo; // Ones
+                    if (checkCurse)
+                    {
+                        romData[0xb27b + (lnI - 64) * 6 + 5 + curseOffset2] = 0x5a; // *
+                        romData[0xb27b + (lnI - 64) * 6 + 6 + curseOffset2] = 0xff; // Break
+                        curseOffset2 += 1;
+                    }
+                    else
+                        romData[0xb27b + (lnI - 64) * 6 + 5 + curseOffset2] = 0xff; // Break
                 }
             }
+
 
         }
 
@@ -8449,7 +7922,7 @@ namespace DW3Randomizer
             //            if (chkRandEquip.Checked || chkRandItemEffects.Checked || chkRandWhoCanEquip.Checked)
             //            {
                 string shortVersion2 = versionNumber.Replace(".", "");
-                string finalFile = Path.Combine(Path.GetDirectoryName(txtFileName.Text), "DW3Random_" + txtSeed.Text + "_" + txtFlags.Text + "_" + shortVersion2 + "_guide.txt");
+                string finalFile = Path.Combine(Path.GetDirectoryName(txtFileName.Text), "DW3R_" + txtSeed.Text + "_" + txtFlags.Text + "_" + shortVersion2 + "_guide.txt");
 
                 // Totally randomize who can equip (1a3ce-1a3f0).  At least one person can equip something...
                 using (StreamWriter writer = File.CreateText(finalFile))
