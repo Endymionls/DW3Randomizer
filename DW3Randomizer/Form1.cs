@@ -101,7 +101,7 @@ namespace DW3Randomizer
 
             int treasureEquipmentTab = (chkRandTreasures.Checked ? 1 : 0) + (2 * (chk_GoldenClaw.Checked ? 1 : 0)) + (4 * (chkRandWhoCanEquip.Checked ? 1 : 0)) +
                 (8 * (chkRandEquip.Checked ? 1 : 0)) + (16 * (chk_UseVanEquipValues.Checked ? 1 : 0)) + (32 * (chk_RemoveStartEqRestrictions.Checked ? 1 : 0)) +
-                (64 * (chk_RmFighterPenalty.Checked ? 1 : 0)) + (128 * (chk_GreenSilverOrb.Checked ? 1 : 0));
+                (64 * (chk_RmFighterPenalty.Checked ? 1 : 0)) + (128 * (chk_GreenSilverOrb.Checked ? 1 : 0)) + (256 * (chkRemCurse.Checked ? 1 : 0));
 
             int itemWeaponShopsInsTab = (chkRandItemStores.Checked ? 1 : 0) + (2 * (chk_RandomizeWeaponShops.Checked ? 1 : 0)) + (4 * (chk_Caturday.Checked ? 1 : 0)) +
                 (8 * (chk_RandomizeInnPrices.Checked ? 1 : 0)) + (16 * (chk_StoneofLife.Checked ? 1 : 0)) + (32 * (chk_Seeds.Checked ? 1 : 0)) +
@@ -298,6 +298,7 @@ namespace DW3Randomizer
                 if (chkRandMonsterZones.Checked) randMonsterZones(rni);
                 if (chk_sellUnsellItems.Checked) forceItemSell(rni);
                 if (chkRandItemEffects.Checked) randItemEffects(rni);
+                if (chkRemCurse.Checked) remCurse();
                 if (chkRandEquip.Checked) randEquip(rni);
                 if (chk_RmFighterPenalty.Checked) removeFightPenalty();
                 if (chk_WeapArmPower.Checked) weapArmPower();
@@ -4307,10 +4308,21 @@ namespace DW3Randomizer
                         romData[0xb27b + (lnI - 64) * 6 + 5 + curseOffset2] = 0xff; // Break
                 }
             }
-
-
         }
 
+        private void remCurse()
+        {
+            for (int lnI = 0; lnI < 71; lnI++)
+            {
+                byte value = romData[0x11be + lnI];
+                bool checkCurse = (value & 0x08) == 0x08;
+
+                if (checkCurse)
+                {
+                    romData[0x11be + lnI] = (byte)(value - 8);
+                }
+            }
+        }
         private void removeFightPenalty()
         {
             romData[0x1507] = romData[0x1508] = romData[0x1509] = romData[0x150a] = 0xea;
@@ -8526,9 +8538,12 @@ namespace DW3Randomizer
 
         }
 
+
+/*
         private void superRandomize()
         {
         }
+*/
 
         private int[] inverted_power_curve(int min, int max, int arraySize, double powToUse, Random r1)
         {
@@ -9004,7 +9019,7 @@ namespace DW3Randomizer
             romData[0x29650] = 0x0f; // e
             romData[0x29651] = 0x16; // l
             romData[0x29652] = 0x23; // y
-            romData[0x29653] = 0x61; // ,
+            romData[0x29653] = 0x6a; // ,
             romData[0x29654] = 0x00; //
             romData[0x29655] = 0x1c; // r
             romData[0x29656] = 0x0f; // e
@@ -9487,6 +9502,7 @@ namespace DW3Randomizer
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(13, 1)));
             chk_AdjustEqpPrices.Checked = (number % 2 == 1);
             chk_RmRedundKey.Checked = (number % 4 >= 2);
+            chkRemCurse.Checked = (number % 8 >= 4);
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(14, 1)));
             //chkRandItemEffects.Checked = (number % 2 == 1);
@@ -9562,7 +9578,7 @@ namespace DW3Randomizer
             flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? (chk_RemoveMtnDrgQueen.Checked ? 1 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RmNewTown.Checked ? 2 : 0) : 0));
             flags += convertIntToCharCapsOnly((chkRandTreasures.Checked ? 1 : 0) + (chkRandTreasures.Checked ? (chk_GoldenClaw.Checked ? 2 : 0) : 0)  + (chkRandWhoCanEquip.Checked ? 4 : 0) + (chkRandEquip.Checked ? 8 : 0)); // 10
             flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_UseVanEquipValues.Checked ? 1 : 0) : 0) + (chkRandEquip.Checked ? (chk_RemoveStartEqRestrictions.Checked ? 2 : 0) : 0) + (chkRandEquip.Checked ? (chk_RmFighterPenalty.Checked ? 4 : 0) : 0) + (chkRandTreasures.Checked ? (chk_GreenSilverOrb.Checked ? 8 : 0) : 0)); // 11
-            flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_AdjustEqpPrices.Checked ? 1 : 0) : 0) + (chkRandTreasures.Checked ? (chk_RmRedundKey.Checked ? 2 : 0) : 0));
+            flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_AdjustEqpPrices.Checked ? 1 : 0) : 0) + (chkRandTreasures.Checked ? (chk_RmRedundKey.Checked ? 2 : 0) : 0) + (chkRemCurse.Checked ? 4 : 0));
             flags += convertIntToCharCapsOnly((chkRandItemEffects.Checked ? 1 : 0) + (chkRandItemStores.Checked ? 2 : 0) + (chk_RandomizeWeaponShops.Checked ? 4 : 0) + (chk_Caturday.Checked ? 8 : 0)); // 12
             flags += convertIntToCharCapsOnly((chk_RandomizeInnPrices.Checked ? 1 : 0) + (chk_sellUnsellItems.Checked ? 2 : 0)); //13
             flags += convertIntToCharCapsOnly((chkRandItemStores.Checked ? (chk_StoneofLife.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_Seeds.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_BookofSatori.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_RingofLife.Checked ? 8 : 0) : 0)); // 14
