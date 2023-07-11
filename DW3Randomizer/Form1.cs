@@ -3174,13 +3174,17 @@ namespace DW3Randomizer
                     else
                     {
                         if (lnI < 32)
-                            power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 243252); // max 130
+                            while (power < 2)
+                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 243252); // max 130
                         else if (lnI < 56)
-                            power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 395284); // max 80
+                            while (power < 2)
+                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 395284); // max 80
                         else if (lnI < 63)
-                            power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 574959); // max 55
+                            while (power < 2)
+                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 574959); // max 55
                         else
-                            power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 903507); // max 35
+                            while (power < 2)
+                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 903507); // max 35
 
                     }
                 }
@@ -3230,20 +3234,20 @@ namespace DW3Randomizer
                     else
                     {
                         if (lnI == 0 || lnI == 1 || lnI == 2 || lnI == 32 || lnI == 34 || lnI == 48)
-                            power = (byte)(r1.Next() % 12);
+                            while (power < 2)
+                                power = (byte)(r1.Next() % 12);
                         else if (lnI < 32)
-                            power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 243252); // max 130
+                            while (power < 2)
+                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 243252); // max 130
                         else if (lnI < 56)
-                            power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 395284); // max 80
+                            while (power < 2)
+                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 395284); // max 80
                         else if (lnI < 63)
-                            power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 574959); // max 55
+                            while (power < 2)
+                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 574959); // max 55
                         else
                             power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 903507); // max 35
                     }
-                }
-                if (power <= 1)
-                {
-                    power += 2; // To avoid 0 power and 0 sale price for 1 power weapons and armor
                 }
                 romData[0x279a0 + lnI] = power;
 
