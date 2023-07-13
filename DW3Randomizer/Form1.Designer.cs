@@ -91,6 +91,7 @@ namespace DW3Randomizer
             this.chk_RemMetalMonRun = new System.Windows.Forms.CheckBox();
             this.chkRandEnemyPatterns = new System.Windows.Forms.CheckBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.chk_RemCurse = new System.Windows.Forms.CheckBox();
             this.chk_RmRedundKey = new System.Windows.Forms.CheckBox();
             this.chk_AdjustEqpPrices = new System.Windows.Forms.CheckBox();
             this.chk_GreenSilverOrb = new System.Windows.Forms.CheckBox();
@@ -173,7 +174,7 @@ namespace DW3Randomizer
             this.lblHash = new System.Windows.Forms.Label();
             this.txtSeed = new System.Windows.Forms.TextBox();
             this.btn_CopyHash = new System.Windows.Forms.Button();
-            this.chkRemCurse = new System.Windows.Forms.CheckBox();
+            this.chk_AddRemEquip = new System.Windows.Forms.CheckBox();
             this.grpMonsterStat.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -450,7 +451,7 @@ namespace DW3Randomizer
             this.tabPage1.Controls.Add(this.chkFasterBattles);
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(950, 299);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Adjustments";
@@ -858,7 +859,7 @@ namespace DW3Randomizer
             this.tabPage2.Controls.Add(this.chkRandEnemyPatterns);
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(950, 299);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Monsters";
@@ -924,7 +925,8 @@ namespace DW3Randomizer
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.chkRemCurse);
+            this.tabPage4.Controls.Add(this.chk_AddRemEquip);
+            this.tabPage4.Controls.Add(this.chk_RemCurse);
             this.tabPage4.Controls.Add(this.chk_RmRedundKey);
             this.tabPage4.Controls.Add(this.chk_AdjustEqpPrices);
             this.tabPage4.Controls.Add(this.chk_GreenSilverOrb);
@@ -945,6 +947,18 @@ namespace DW3Randomizer
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Treasures & Equipment";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // chk_RemCurse
+            // 
+            this.chk_RemCurse.AutoSize = true;
+            this.chk_RemCurse.Location = new System.Drawing.Point(659, 11);
+            this.chk_RemCurse.Name = "chk_RemCurse";
+            this.chk_RemCurse.Size = new System.Drawing.Size(257, 24);
+            this.chk_RemCurse.TabIndex = 77;
+            this.chk_RemCurse.Text = "Remove Curse from Equipment";
+            this.adjustments.SetToolTip(this.chk_RemCurse, "Remove Curse effect from equipment");
+            this.chk_RemCurse.UseVisualStyleBackColor = true;
+            this.chk_RemCurse.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // chk_RmRedundKey
             // 
@@ -2050,18 +2064,15 @@ namespace DW3Randomizer
             this.btn_CopyHash.UseVisualStyleBackColor = true;
             this.btn_CopyHash.Click += new System.EventHandler(this.btn_CopyHash_Click);
             // 
-            // chkRemCurse
+            // chk_AddRemEquip
             // 
-            this.chkRemCurse.AutoSize = true;
-            this.chkRemCurse.Location = new System.Drawing.Point(659, 11);
-            this.chkRemCurse.Name = "chkRemCurse";
-            this.chkRemCurse.Size = new System.Drawing.Size(257, 24);
-            this.chkRemCurse.TabIndex = 77;
-            this.chkRemCurse.Text = "Remove Curse from Equipment";
-            this.chkRemCurse.UseVisualStyleBackColor = true;
-            this.adjustments.SetToolTip(this.chkRemCurse, "Remove Curse effect from equipment");
-            this.chkRemCurse.CheckedChanged += new System.EventHandler(this.determineFlags);
-
+            this.chk_AddRemEquip.AutoSize = true;
+            this.chk_AddRemEquip.Location = new System.Drawing.Point(659, 46);
+            this.chk_AddRemEquip.Name = "chk_AddRemEquip";
+            this.chk_AddRemEquip.Size = new System.Drawing.Size(209, 24);
+            this.chk_AddRemEquip.TabIndex = 78;
+            this.chk_AddRemEquip.Text = "Add Remake Equipment";
+            this.chk_AddRemEquip.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -2268,7 +2279,8 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_sellUnsellItems;
         private System.Windows.Forms.CheckBox chk_RmRedundKey;
         private System.Windows.Forms.Button btn_CopyHash;
-        private System.Windows.Forms.CheckBox chkRemCurse;
+        private System.Windows.Forms.CheckBox chk_RemCurse;
+        private System.Windows.Forms.CheckBox chk_AddRemEquip;
     }
 }
 

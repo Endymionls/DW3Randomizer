@@ -12,13 +12,14 @@ using System.Text.RegularExpressions;
 using System.Diagnostics.Eventing.Reader;
 using static System.Windows.Forms.LinkLabel;
 using System.Drawing.Printing;
+using System.Windows.Forms.VisualStyles;
 
 namespace DW3Randomizer
 {
     public partial class Form1 : Form
     {
-        string versionNumber = "2.4.5d";
-        string revisionDate = "7/9/2023";
+        string versionNumber = "2.4.6";
+        string revisionDate = "7/12/2023";
         string SotWFlags = "ACHMHDMBLABJEBODPPPBADB";
         string endyFlags = "ACGMHDPBLACLJDODPPPBADB";
 
@@ -101,7 +102,7 @@ namespace DW3Randomizer
 
             int treasureEquipmentTab = (chkRandTreasures.Checked ? 1 : 0) + (2 * (chk_GoldenClaw.Checked ? 1 : 0)) + (4 * (chkRandWhoCanEquip.Checked ? 1 : 0)) +
                 (8 * (chkRandEquip.Checked ? 1 : 0)) + (16 * (chk_UseVanEquipValues.Checked ? 1 : 0)) + (32 * (chk_RemoveStartEqRestrictions.Checked ? 1 : 0)) +
-                (64 * (chk_RmFighterPenalty.Checked ? 1 : 0)) + (128 * (chk_GreenSilverOrb.Checked ? 1 : 0)) + (256 * (chkRemCurse.Checked ? 1 : 0));
+                (64 * (chk_RmFighterPenalty.Checked ? 1 : 0)) + (128 * (chk_GreenSilverOrb.Checked ? 1 : 0)) + (256 * (chk_RemCurse.Checked ? 1 : 0));
 
             int itemWeaponShopsInsTab = (chkRandItemStores.Checked ? 1 : 0) + (2 * (chk_RandomizeWeaponShops.Checked ? 1 : 0)) + (4 * (chk_Caturday.Checked ? 1 : 0)) +
                 (8 * (chk_RandomizeInnPrices.Checked ? 1 : 0)) + (16 * (chk_StoneofLife.Checked ? 1 : 0)) + (32 * (chk_Seeds.Checked ? 1 : 0)) +
@@ -298,7 +299,7 @@ namespace DW3Randomizer
                 if (chkRandMonsterZones.Checked) randMonsterZones(rni);
                 if (chk_sellUnsellItems.Checked) forceItemSell(rni);
                 if (chkRandItemEffects.Checked) randItemEffects(rni);
-                if (chkRemCurse.Checked) remCurse();
+                if (chk_RemCurse.Checked) remCurse();
                 if (chkRandEquip.Checked) randEquip(rni);
                 if (chk_RmFighterPenalty.Checked) removeFightPenalty();
                 if (chk_WeapArmPower.Checked) weapArmPower();
@@ -3186,7 +3187,6 @@ namespace DW3Randomizer
                         else
                             while (power < 2)
                                 power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 903507); // max 35
-
                     }
                 }
                 else
@@ -3247,7 +3247,8 @@ namespace DW3Randomizer
                             while (power < 2)
                                 power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 574959); // max 55
                         else
-                            power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 903507); // max 35
+                            while (power < 2)
+                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 903507); // max 35
                     }
                 }
                 romData[0x279a0 + lnI] = power;
@@ -3415,849 +3416,287 @@ namespace DW3Randomizer
 
                 if (lnI == 0)
                 {
-                    // Line 1
-                    romData[0xad11] = 0x27; // C
-                    romData[0xad12] = 0x23; // y
-                    romData[0xad13] = 0x1a; // p
-                    romData[0xad14] = 0x37; // S
-                    romData[0xad15] = 0x1e; // t
-                    romData[0xad16] = 0x15; // k
-                    romData[0xad17] = 0xff; // Break
+                    convertStrToHex("CypStk", 0xad11, true);
                 }
                 else if (lnI == 1)
                 {
-                    // Line 1
-                    romData[0xad18] = 0x27; // C
-                    romData[0xad19] = 0x16; // l
-                    romData[0xad1a] = 0x1f; // u
-                    romData[0xad1b] = 0x0c; // b
-                    romData[0xad1c] = 0xff; // Break
+                    convertStrToHex("Club", 0xad18, true);
                 }
                 else if (lnI == 2)
                 {
-                    // Line 1
-                    romData[0xad1d] = 0x27; // C
-                    romData[0xad1e] = 0x1a; // p
-                    romData[0xad1f] = 0x1c; // r
-                    romData[0xad20] = 0x37; // S
-                    romData[0xad21] = 0x21; // w
-                    romData[0xad22] = 0x0e; // d
-                    romData[0xad23] = 0xff; // Break
+                    convertStrToHex("CprSwd", 0xad1d, true);
                 }
                 else if (lnI == 3)
                 {
-                    // Line 1
-                    romData[0xad24] = 0x31; // M
-                    romData[0xad25] = 0x11; // g
-                    romData[0xad26] = 0x0d; // c
-                    romData[0xad27] = 0x2f; // K
-                    romData[0xad28] = 0x18; // n
-                    romData[0xad29] = 0x10; // f
-                    romData[0xad2a] = 0xff; // Break
+                    convertStrToHex("MgcKnf", 0xad24, true);
                 }
                 else if (lnI == 4)
                 {
-                    // Line 1
-                    romData[0xad2b] = 0x2d; // I
-                    romData[0xad2c] = 0x1c; // r
-                    romData[0xad2d] = 0x37; // S
-                    romData[0xad2e] = 0x1a; // p
-                    romData[0xad2f] = 0x1c; // r
-                    romData[0xad30] = 0xff; // Break
+                    convertStrToHex("IrSpr", 0xad2b, true);
                 }
                 else if (lnI == 5)
                 {
-                    // Line 1
-                    romData[0xad31] = 0x26; // B
-                    romData[0xad32] = 0x1e; // t
-                    romData[0xad33] = 0x16; // l
-                    romData[0xad34] = 0x25; // A
-                    romData[0xad35] = 0x22; // x
-                    romData[0xad36] = 0xff; // Break
+                    convertStrToHex("BtlAx", 0xad31, true);
                 }
                 else if (lnI == 6)
                 {
-                    // Line 1
-                    romData[0xad37] = 0x26; // B
-                    romData[0xad38] = 0x1c; // r
-                    romData[0xad39] = 0x0e; // d
-                    romData[0xad3a] = 0x37; // S
-                    romData[0xad3b] = 0x21; // w
-                    romData[0xad3c] = 0xff; // Break
+                    convertStrToHex("BrdSw", 0xad37, true);
                 }
                 else if (lnI == 7)
                 {
-                    // Line 1
-                    romData[0xad3d] = 0x3b; // W
-                    romData[0xad3e] = 0x24; // z
-                    romData[0xad3f] = 0x3b; // W
-                    romData[0xad40] = 0x18; // n
-                    romData[0xad41] = 0x0e; // d
-                    romData[0xad42] = 0xff; // Break
+                    convertStrToHex("WzWnd", 0xad3d, true);
                 }
                 else if (lnI == 8)
                 {
-                    // Line 1
-                    romData[0xad43] = 0x34; // P
-                    romData[0xad44] = 0x1d; // s
-                    romData[0xad45] = 0x18; // n
-                    romData[0xad46] = 0x32; // N
-                    romData[0xad47] = 0x0e; // d
-                    romData[0xad48] = 0x16; // l
-                    romData[0xad49] = 0xff; // Break
+                    convertStrToHex("PsnNdl", 0xad43, true);
                 }
                 else if (lnI == 9)
                 {
-                    // Line 1
-                    romData[0xad4a] = 0x2d; // I
-                    romData[0xad4b] = 0x1c; // r
-                    romData[0xad4c] = 0x18; // n
-                    romData[0xad4d] = 0x27; // C
-                    romData[0xad4e] = 0x16; // l
-                    romData[0xad4f] = 0xff; // Break
+                    convertStrToHex("IrnCl", 0xad4a, true);
                 }
                 else if (lnI == 10)
                 {
-                    // Line 1
-                    romData[0xad50] = 0x38; // T
-                    romData[0xad51] = 0x12; // h
-                    romData[0xad52] = 0x18; // n
-                    romData[0xad53] = 0x3b; // W
-                    romData[0xad54] = 0x12; // h
-                    romData[0xad55] = 0xff; // Break
+                    convertStrToHex("ThnWh", 0xad50, true);
                 }
                 else if (lnI == 11)
                 {
-                    // Line 1
-                    romData[0xad56] = 0x2b; // G
-                    romData[0xad57] = 0x18; // n
-                    romData[0xad58] = 0x1e; // t
-                    romData[0xad59] = 0x37; // S
-                    romData[0xad5a] = 0x12; // h
-                    romData[0xad5b] = 0x1c; // r
-                    romData[0xad5c] = 0xff; // Break
+                    convertStrToHex("GntShr", 0xad56, true);
                 }
                 else if (lnI == 12)
                 {
-                    // Line 1
-                    romData[0xad5d] = 0x27; // C
-                    romData[0xad5e] = 0x12; // h
-                    romData[0xad5f] = 0x37; // S
-                    romData[0xad60] = 0x15; // k
-                    romData[0xad61] = 0x16; // l
-                    romData[0xad62] = 0xff; // Break
+                    convertStrToHex("ChSkl", 0xad5d, true);
                 }
                 else if (lnI == 13)
                 {
-                    // Line 1
-                    romData[0xad63] = 0x38; // T
-                    romData[0xad64] = 0x12; // h
-                    romData[0xad65] = 0x19; // o
-                    romData[0xad66] = 0x1c; // r
-                    romData[0xad67] = 0x37; // S
-                    romData[0xad68] = 0x21; // w
-                    romData[0xad69] = 0xff; // Break
+                    convertStrToHex("ThorSw", 0xad63, true);
                 }
                 else if (lnI == 14)
                 {
-                    // Line 1
-                    romData[0xad6a] = 0x37; // S
-                    romData[0xad6b] = 0x18; // n
-                    romData[0xad6c] = 0x21; // w
-                    romData[0xad6d] = 0x37; // S
-                    romData[0xad6e] = 0x21; // w
-                    romData[0xad6f] = 0x0e; // d
-                    romData[0xad70] = 0xff; // Break
+                    convertStrToHex("SnwSwd", 0xad6a, true);
                 }
                 else if (lnI == 15)
                 {
-                    // Line 1
-                    romData[0xad71] = 0x28; // D
-                    romData[0xad72] = 0x17; // m
-                    romData[0xad73] = 0x18; // n
-                    romData[0xad74] = 0x25; // A
-                    romData[0xad75] = 0x22; // x
-                    romData[0xad76] = 0xff; // Break
+                    convertStrToHex("DmnAx", 0xad71, true);
                 }
                 else if (lnI == 16)
                 {
-                    // Line 1
-                    romData[0xad77] = 0x36; // R
-                    romData[0xad78] = 0x0b; // a
-                    romData[0xad79] = 0x13; // i
-                    romData[0xad7a] = 0x18; // n
-                    romData[0xad7b] = 0x37; // S
-                    romData[0xad7c] = 0x1e; // t
-                    romData[0xad7d] = 0x10; // f
-                    romData[0xad7e] = 0xff; // Break
+                    convertStrToHex("RainStf", 0xad77, true);
                 }
                 else if (lnI == 17)
                 {
-                    // Line 1
-                    romData[0xad7f] = 0x2b; // G
-                    romData[0xad80] = 0x0b; // a
-                    romData[0xad81] = 0x13; // i
-                    romData[0xad82] = 0x0b; // a
-                    romData[0xad83] = 0x37; // S
-                    romData[0xad84] = 0x21; // w
-                    romData[0xad85] = 0x0e; // d
-                    romData[0xad86] = 0xff; // Break
+                    convertStrToHex("GaiaSwd", 0xad7f, true);
                 }
                 else if (lnI == 18)
                 {
-                    // Line 1
-                    romData[0xad87] = 0x36; // R
-                    romData[0xad88] = 0x10; // f
-                    romData[0xad89] = 0x16; // l
-                    romData[0xad8a] = 0x1e; // t
-                    romData[0xad8b] = 0x37; // S
-                    romData[0xad8c] = 0x1e; // t
-                    romData[0xad8d] = 0x10; // f
-                    romData[0xad8e] = 0xff; // Break
+                    convertStrToHex("RfltStf", 0xad87, true);
                 }
                 else if (lnI == 19)
                 {
-                    // Line 1
-                    romData[0xad8f] = 0x28; // D
-                    romData[0xad90] = 0x1d; // s
-                    romData[0xad91] = 0x1e; // t
-                    romData[0xad92] = 0x18; // n
-                    romData[0xad93] = 0x37; // S
-                    romData[0xad94] = 0x21; // w
-                    romData[0xad95] = 0x0e; // d
-                    romData[0xad96] = 0xff; // Break
+                    convertStrToHex("DstnSwd", 0xad8f, true);
                 }
                 else if (lnI == 20)
                 {
-                    // Line 1
-                    romData[0xad97] = 0x31; // M
-                    romData[0xad98] = 0x29; // E
-                    romData[0xad99] = 0x0e; // d
-                    romData[0xad9a] = 0x11; // g
-                    romData[0xad9b] = 0x0f; // e
-                    romData[0xad9c] = 0x37; // S
-                    romData[0xad9d] = 0x21; // w
-                    romData[0xad9e] = 0x0e; // d
-                    romData[0xad9f] = 0xff; // Break
+                    convertStrToHex("MEdgeSwd", 0xad97, true);
                 }
                 else if (lnI == 21)
                 {
-                    // Line 1
-                    romData[0xada0] = 0x2a; // F
-                    romData[0xada1] = 0x1c; // r
-                    romData[0xada2] = 0x0d; // c
-                    romData[0xada3] = 0x37; // S
-                    romData[0xada4] = 0x1e; // t
-                    romData[0xada5] = 0x10; // f
-                    romData[0xada6] = 0xff; // Break
+                    convertStrToHex("FrcStf", 0xada0, true);
                 }
                 else if (lnI == 22)
                 {
-                    // Line 1
-                    romData[0xada7] = 0x2d; // I
-                    romData[0xada8] = 0x16; // l
-                    romData[0xada9] = 0x1d; // s
-                    romData[0xadaa] = 0x18; // n
-                    romData[0xadab] = 0x37; // S
-                    romData[0xadac] = 0x21; // w
-                    romData[0xadad] = 0x0e; // d
-                    romData[0xadae] = 0xff; // Break
+                    convertStrToHex("IlsnSwd", 0xada7, true);
                 }
                 else if (lnI == 23)
                 {
-                    // Line 1
-                    romData[0xadaf] = 0x3e; // Z
-                    romData[0xadb0] = 0x17; // m
-                    romData[0xadb1] = 0x0c; // b
-                    romData[0xadb2] = 0x37; // S
-                    romData[0xadb3] = 0x16; // l
-                    romData[0xadb4] = 0x1d; // s
-                    romData[0xadb5] = 0x12; // h
-                    romData[0xadb6] = 0x1c; // r
-                    romData[0xadb7] = 0xff; // Break
+                    convertStrToHex("ZmbSlshr", 0xadaf, true);
                 }
                 else if (lnI == 24)
                 {
-                    // Line 1
-                    romData[0xadb8] = 0x2a; // F
-                    romData[0xadb9] = 0x0d; // c
-                    romData[0xadba] = 0x18; // n
-                    romData[0xadbb] = 0x37; // S
-                    romData[0xadbc] = 0x21; // w
-                    romData[0xadbd] = 0x0e; // d
-                    romData[0xadbe] = 0xff; // Break
+                    convertStrToHex("FcnSwd", 0xadb8, true);
                 }
                 else if (lnI == 25)
                 {
-                    // Line 1
-                    romData[0xadbf] = 0x37; // S
-                    romData[0xadc0] = 0x16; // l
-                    romData[0xadc1] = 0x0e; // d
-                    romData[0xadc2] = 0x11; // g
-                    romData[0xadc3] = 0x2c; // H
-                    romData[0xadc4] = 0x17; // m
-                    romData[0xadc5] = 0x1c; // r
-                    romData[0xadc6] = 0xff; // Break
+                    convertStrToHex("SldgHmr", 0xadbf, true);
                 }
                 else if (lnI == 26)
                 {
-                    // Line 1
-                    romData[0xadc7] = 0x38; // T
-                    romData[0xadc8] = 0x12; // h
-                    romData[0xadc9] = 0x18; // n
-                    romData[0xadca] = 0x0e; // d
-                    romData[0xadcb] = 0x37; // S
-                    romData[0xadcc] = 0x21; // w
-                    romData[0xadcd] = 0x0e; // d
-                    romData[0xadce] = 0xff; // Break
+                    convertStrToHex("ThndSwd", 0xadc7, true);
                 }
                 else if (lnI == 27)
                 {
-                    // Line 1
-                    romData[0xadcf] = 0x38; // T
-                    romData[0xadd0] = 0x12; // h
-                    romData[0xadd1] = 0x18; // n
-                    romData[0xadd2] = 0x0e; // d
-                    romData[0xadd3] = 0x37; // S
-                    romData[0xadd4] = 0x1e; // t
-                    romData[0xadd5] = 0x10; // f
-                    romData[0xadd6] = 0xff; // Break
+                    convertStrToHex("ThndStf", 0xadcf, true);
                 }
                 else if (lnI == 28)
                 {
-                    // Line 1
-                    romData[0xadd7] = 0x2f; // K
-                    romData[0xadd8] = 0x13; // i
-                    romData[0xadd9] = 0x18; // n
-                    romData[0xadda] = 0x11; // g
-                    romData[0xaddb] = 0x37; // S
-                    romData[0xaddc] = 0x21; // w
-                    romData[0xaddd] = 0x0e; // d
-                    romData[0xadde] = 0xff; // Break
+                    convertStrToHex("KingSwd", 0xadd7, true);
                 }
                 else if (lnI == 29)
                 {
-                    // Line 1
-                    romData[0xaddf] = 0x33; // O
-                    romData[0xade0] = 0x1c; // r
-                    romData[0xade1] = 0x19; // o
-                    romData[0xade2] = 0x0d; // c
-                    romData[0xade3] = 0x12; // h
-                    romData[0xade4] = 0x13; // i
-                    romData[0xade5] = 0x37; // S
-                    romData[0xade6] = 0x21; // w
-                    romData[0xade7] = 0x0e; // d
-                    romData[0xade8] = 0xff; // Break
+                    convertStrToHex("OrochiSwd", 0xaddf, true);
                 }
                 else if (lnI == 30)
                 {
-                    // Line 1
-                    romData[0xade9] = 0x28; // D
-                    romData[0xadea] = 0x1c; // r
-                    romData[0xadeb] = 0x11; // g
-                    romData[0xadec] = 0x18; // n
-                    romData[0xaded] = 0x2f; // K
-                    romData[0xadee] = 0x16; // l
-                    romData[0xadef] = 0x1c; // r
-                    romData[0xadf0] = 0xff; // Break
+                    convertStrToHex("DrgnKlr", 0xade9, true);
                 }
                 else if (lnI == 31)
                 {
-                    // Line 1
-                    romData[0xadf1] = 0x2e; // J
-                    romData[0xadf2] = 0x0e; // d
-                    romData[0xadf3] = 0x11; // g
-                    romData[0xadf4] = 0x17; // m
-                    romData[0xadf5] = 0x1e; // t
-                    romData[0xadf6] = 0x37; // S
-                    romData[0xadf7] = 0x1e; // t
-                    romData[0xadf8] = 0x10; // f
-                    romData[0xadf9] = 0xff; // Break
+                    convertStrToHex("JdgmtStf", 0xadf1, true);
                 }
                 else if (lnI == 32)
                 {
-                    // Line 1
-                    romData[0xadfa] = 0x27; // C
-                    romData[0xadfb] = 0x16; // l
-                    romData[0xadfc] = 0x19; // o
-                    romData[0xadfd] = 0x1e; // t
-                    romData[0xadfe] = 0x12; // h
-                    romData[0xadff] = 0x0f; // e
-                    romData[0xae00] = 0x1d; // s
-                    romData[0xae01] = 0xff; // Break
+                    convertStrToHex("Clothes", 0xadfa, true);
                 }
                 else if (lnI == 33)
                 {
-                    // Line 1
-                    romData[0xae02] = 0x38; // T
-                    romData[0xae03] = 0x1c; // r
-                    romData[0xae04] = 0x18; // n
-                    romData[0xae05] = 0x11; // g
-                    romData[0xae06] = 0x37; // S
-                    romData[0xae07] = 0x1e; // t
-                    romData[0xae08] = 0xff; // Break
+                    convertStrToHex("TrngSt", 0xae02, true);
                 }
                 else if (lnI == 34)
                 {
-                    // Line 1
-                    romData[0xae09] = 0x30; // L
-                    romData[0xae0a] = 0x1e; // t
-                    romData[0xae0b] = 0x12; // h
-                    romData[0xae0c] = 0x1c; // r
-                    romData[0xae0d] = 0x25; // A
-                    romData[0xae0e] = 0x1c; // r
-                    romData[0xae0f] = 0xff; // Break
+                    convertStrToHex("LthrAr", 0xae09, true);
                 }
                 else if (lnI == 35)
                 {
-                    // Line 1
-                    romData[0xae10] = 0x2a; // F
-                    romData[0xae11] = 0x16; // l
-                    romData[0xae12] = 0x1d; // s
-                    romData[0xae13] = 0x12; // h
-                    romData[0xae14] = 0x27; // C
-                    romData[0xae15] = 0x16; // l
-                    romData[0xae16] = 0xff; // Break
+                    convertStrToHex("FlshCl", 0xae10, true);
                 }
                 else if (lnI == 36)
                 {
-                    // Line 1
-                    romData[0xae17] = 0x2c; // H
-                    romData[0xae18] = 0x0b; // a
-                    romData[0xae19] = 0x16; // l
-                    romData[0xae1a] = 0x10; // f
-                    romData[0xae1b] = 0x34; // P
-                    romData[0xae1c] = 0x16; // l
-                    romData[0xae1d] = 0x25; // A
-                    romData[0xae1e] = 0x1c; // r
-                    romData[0xae1f] = 0xff; // Break
+                    convertStrToHex("HalfPlAr", 0xae17, true);
                 }
                 else if (lnI == 37)
                 {
-                    // Line 1
-                    romData[0xae20] = 0x2a; // F
-                    romData[0xae21] = 0x1f; // u
-                    romData[0xae22] = 0x16; // l
-                    romData[0xae23] = 0x16; // l
-                    romData[0xae24] = 0x34; // P
-                    romData[0xae25] = 0x16; // l
-                    romData[0xae26] = 0x25; // A
-                    romData[0xae27] = 0x1c; // r
-                    romData[0xae28] = 0xff; // Break
+                    convertStrToHex("FullPlAr", 0xae20, true);
                 }
                 else if (lnI == 38)
                 {
-                    // Line 1
-                    romData[0xae29] = 0x31; // M
-                    romData[0xae2a] = 0x0b; // a
-                    romData[0xae2b] = 0x11; // g
-                    romData[0xae2c] = 0x13; // i
-                    romData[0xae2d] = 0x0d; // c
-                    romData[0xae2e] = 0x25; // A
-                    romData[0xae2f] = 0x1c; // r
-                    romData[0xae30] = 0xff; // Break
+                    convertStrToHex("MagicAr", 0xae29, true);
                 }
                 else if (lnI == 39)
                 {
-                    // Line 1
-                    romData[0xae31] = 0x29; // E
-                    romData[0xae32] = 0x20; // v
-                    romData[0xae33] = 0x27; // C
-                    romData[0xae34] = 0x16; // l
-                    romData[0xae35] = 0x19; // o
-                    romData[0xae36] = 0x0b; // a
-                    romData[0xae37] = 0x15; // k
-                    romData[0xae38] = 0xff; // Break
+                    convertStrToHex("EvCloak", 0xae31, true);
                 }
                 else if (lnI == 40)
                 {
-                    // Line 1
-                    romData[0xae39] = 0x36; // R
-                    romData[0xae3a] = 0x0b; // a
-                    romData[0xae3b] = 0x0e; // d
-                    romData[0xae3c] = 0x13; // i
-                    romData[0xae3d] = 0x0b; // a
-                    romData[0xae3e] = 0x18; // n
-                    romData[0xae3f] = 0x1e; // t
-                    romData[0xae40] = 0x25; // A
-                    romData[0xae41] = 0x1c; // r
-                    romData[0xae42] = 0xff; // Break
+                    convertStrToHex("RadiantAr", 0xae39, true);
                 }
                 else if (lnI == 41)
                 {
-                    // Line 1
-                    romData[0xae43] = 0x2d; // I
-                    romData[0xae44] = 0x1c; // r
-                    romData[0xae45] = 0x19; // o
-                    romData[0xae46] = 0x18; // n
-                    romData[0xae47] = 0x25; // A
-                    romData[0xae48] = 0x1a; // p
-                    romData[0xae49] = 0xff; // Break
+                    convertStrToHex("IronAp", 0xae43, true);
                 }
                 else if (lnI == 42)
                 {
-                    // Line 1
-                    romData[0xae4a] = 0x25; // A
-                    romData[0xae4b] = 0x18; // n
-                    romData[0xae4c] = 0x13; // i
-                    romData[0xae4d] = 0x17; // m
-                    romData[0xae4e] = 0x0b; // a
-                    romData[0xae4f] = 0x16; // l
-                    romData[0xae50] = 0x37; // S
-                    romData[0xae51] = 0x1f; // u
-                    romData[0xae52] = 0x13; // i
-                    romData[0xae53] = 0x1e; // t
-                    romData[0xae54] = 0xff; // Break
+                    convertStrToHex("AnimalSuit", 0xae4a, true);
                 }
                 else if (lnI == 43)
                 {
-                    // Line 1
-                    romData[0xae55] = 0x2a; // F
-                    romData[0xae56] = 0x13; // i
-                    romData[0xae57] = 0x11; // g
-                    romData[0xae58] = 0x12; // h
-                    romData[0xae59] = 0x1e; // t
-                    romData[0xae5a] = 0x37; // S
-                    romData[0xae5b] = 0x1f; // u
-                    romData[0xae5c] = 0x13; // i
-                    romData[0xae5d] = 0x1e; // t
-                    romData[0xae5e] = 0xff; // Break
+                    convertStrToHex("FightSuit", 0xae55, true);
                 }
                 else if (lnI == 44)
                 {
-                    // Line 1
-                    romData[0xae5f] = 0x37; // S
-                    romData[0xae60] = 0x0d; // c
-                    romData[0xae61] = 0x1c; // r
-                    romData[0xae62] = 0x0e; // d
-                    romData[0xae63] = 0x36; // R
-                    romData[0xae64] = 0x0c; // b
-                    romData[0xae65] = 0xff; // Break
+                    convertStrToHex("ScrdRb", 0xae5f, true);
                 }
                 else if (lnI == 45)
                 {
-                    // Line 1
-                    romData[0xae66] = 0x2c; // H
-                    romData[0xae67] = 0x0b; // a
-                    romData[0xae68] = 0x0e; // d
-                    romData[0xae69] = 0x0f; // e
-                    romData[0xae6a] = 0x1d; // s
-                    romData[0xae6b] = 0x25; // A
-                    romData[0xae6c] = 0x1c; // r
-                    romData[0xae6d] = 0xff; // Break
+                    convertStrToHex("HadesAr", 0xae66, true);
                 }
                 else if (lnI == 46)
                 {
-                    // Line 1
-                    romData[0xae6e] = 0x3b; // W
-                    romData[0xae6f] = 0x1e; // t
-                    romData[0xae70] = 0x1c; // r
-                    romData[0xae71] = 0x2a; // F
-                    romData[0xae72] = 0x16; // l
-                    romData[0xae73] = 0x23; // y
-                    romData[0xae74] = 0x27; // C
-                    romData[0xae75] = 0x16; // l
-                    romData[0xae76] = 0xff; // Break
+                    convertStrToHex("WtrFlyCl", 0xae6e, true);
                 }
                 else if (lnI == 47)
                 {
-                    // Line 1
-                    romData[0xae77] = 0x27; // C
-                    romData[0xae78] = 0x12; // h
-                    romData[0xae79] = 0x31; // M
-                    romData[0xae7a] = 0x0b; // a
-                    romData[0xae7b] = 0x13; // i
-                    romData[0xae7c] = 0x16; // l
-                    romData[0xae7d] = 0xff; // Break
+                    convertStrToHex("ChMail", 0xae77, true);
                 }
                 else if (lnI == 48)
                 {
-                    // Line 1
-                    romData[0xae7e] = 0x3b; // W
-                    romData[0xae7f] = 0x0b; // a
-                    romData[0xae80] = 0x23; // y
-                    romData[0xae81] = 0x10; // f
-                    romData[0xae82] = 0x1c; // r
-                    romData[0xae83] = 0x27; // C
-                    romData[0xae84] = 0x16; // l
-                    romData[0xae85] = 0xff; // Break
+                    convertStrToHex("WayfrCl", 0xae7e, true);
                 }
                 else if (lnI == 49)
                 {
-                    // Line 1
-                    romData[0xae86] = 0x36; // R
-                    romData[0xae87] = 0x0f; // e
-                    romData[0xae88] = 0x20; // v
-                    romData[0xae89] = 0x0f; // e
-                    romData[0xae8a] = 0x0b; // a
-                    romData[0xae8b] = 0x16; // l
-                    romData[0xae8c] = 0x37; // S
-                    romData[0xae8d] = 0x21; // w
-                    romData[0xae8e] = 0x17; // m
-                    romData[0xae8f] = 0x1d; // s
-                    romData[0xae90] = 0x1e; // t
-                    romData[0xae91] = 0xff; // Break
+                    convertStrToHex("RevealSwmst", 0xae86, true);
                 }
                 else if (lnI == 50)
                 {
-                    // Line 1
-                    romData[0xae92] = 0x31; // M
-                    romData[0xae93] = 0x11; // g
-                    romData[0xae94] = 0x26; // B
-                    romData[0xae95] = 0x13; // i
-                    romData[0xae96] = 0x15; // k
-                    romData[0xae97] = 0x13; // i
-                    romData[0xae98] = 0x18; // n
-                    romData[0xae99] = 0x13; // i
-                    romData[0xae9a] = 0xff; // Break
+                    convertStrToHex("MgBikini", 0xae92, true);
                 }
                 else if (lnI == 51)
                 {
-                    // Line 1
-                    romData[0xae9b] = 0x37; // S
-                    romData[0xae9c] = 0x12; // h
-                    romData[0xae9d] = 0x0f; // e
-                    romData[0xae9e] = 0x16; // l
-                    romData[0xae9f] = 0x16; // l
-                    romData[0xaea0] = 0x25; // A
-                    romData[0xaea1] = 0x1c; // r
-                    romData[0xaea2] = 0xff; // Break
+                    convertStrToHex("ShellAr", 0xae9b, true);
                 }
                 else if (lnI == 52)
                 {
-                    // Line 1
-                    romData[0xaea3] = 0x38; // T
-                    romData[0xaea4] = 0x0f; // e
-                    romData[0xaea5] = 0x1c; // r
-                    romData[0xaea6] = 0x1c; // r
-                    romData[0xaea7] = 0x0b; // a
-                    romData[0xaea8] = 0x10; // f
-                    romData[0xaea9] = 0x17; // m
-                    romData[0xaeaa] = 0x25; // A
-                    romData[0xaeab] = 0x1c; // r
-                    romData[0xaeac] = 0xff; // Break
+                    convertStrToHex("TerrafmAr", 0xaea3, true);
                 }
                 else if (lnI == 53)
                 {
-                    // Line 1
-                    romData[0xaead] = 0x28; // D
-                    romData[0xaeae] = 0x1c; // r
-                    romData[0xaeaf] = 0x11; // g
-                    romData[0xaeb0] = 0x31; // M
-                    romData[0xaeb1] = 0x0b; // a
-                    romData[0xaeb2] = 0x13; // i
-                    romData[0xaeb3] = 0x16; // l
-                    romData[0xaeb4] = 0xff; // Break
+                    convertStrToHex("DrgMail", 0xaead, true);
                 }
                 else if (lnI == 54)
                 {
-                    // Line 1
-                    romData[0xaeb5] = 0x37; // S
-                    romData[0xaeb6] = 0x21; // w
-                    romData[0xaeb7] = 0x0f; // e
-                    romData[0xaeb8] = 0x0e; // d
-                    romData[0xaeb9] = 0x11; // g
-                    romData[0xaeba] = 0x0f; // e
-                    romData[0xaebb] = 0x25; // A
-                    romData[0xaebc] = 0x1c; // r
-                    romData[0xaebd] = 0xff; // Break
+                    convertStrToHex("SwedgeAr", 0xaeb5, true);
                 }
                 else if (lnI == 55)
                 {
-                    // Line 1
-                    romData[0xaebe] = 0x25; // A
-                    romData[0xaebf] = 0x18; // n
-                    romData[0xaec0] = 0x11; // g
-                    romData[0xaec1] = 0x0f; // e
-                    romData[0xaec2] = 0x16; // l
-                    romData[0xaec3] = 0x36; // R
-                    romData[0xaec4] = 0x0c; // b
-                    romData[0xaec5] = 0xff; // Break
+                    convertStrToHex("AngelRb", 0xaebe, true);
                 }
                 else if (lnI == 56)
                 {
-                    // Line 1
-                    romData[0xaec6] = 0x30; // L
-                    romData[0xaec7] = 0x1e; // t
-                    romData[0xaec8] = 0x12; // h
-                    romData[0xaec9] = 0x1c; // r
-                    romData[0xaeca] = 0x37; // S
-                    romData[0xaecb] = 0x12; // h
-                    romData[0xaecc] = 0x16; // l
-                    romData[0xaecd] = 0x0e; // d
-                    romData[0xaece] = 0xff; // Break
+                    convertStrToHex("LthrShld", 0xaec6, true);
                 }
                 else if (lnI == 57)
                 {
-                    // Line 1
-                    romData[0xaecf] = 0x2d; // I
-                    romData[0xaed0] = 0x1c; // r
-                    romData[0xaed1] = 0x18; // n
-                    romData[0xaed2] = 0x37; // S
-                    romData[0xaed3] = 0x12; // h
-                    romData[0xaed4] = 0x16; // l
-                    romData[0xaed5] = 0x0e; // d
-                    romData[0xaed6] = 0xff; // Break
+                    convertStrToHex("IrnShld", 0xaecf, true);
                 }
                 else if (lnI == 58)
                 {
-                    // Line 1
-                    romData[0xaed7] = 0x37; // S
-                    romData[0xaed8] = 0x1e; // t
-                    romData[0xaed9] = 0x1c; // r
-                    romData[0xaeda] = 0x37; // S
-                    romData[0xaedb] = 0x12; // h
-                    romData[0xaedc] = 0x16; // l
-                    romData[0xaedd] = 0x0e; // d
-                    romData[0xaede] = 0xff; // Break
+                    convertStrToHex("StrShld", 0xaed7, true);
                 }
                 else if (lnI == 59)
                 {
-                    // Line 1
-                    romData[0xaedf] = 0x2c; // H
-                    romData[0xaee0] = 0x0f; // e
-                    romData[0xaee1] = 0x1c; // r
-                    romData[0xaee2] = 0x19; // o
-                    romData[0xaee3] = 0x37; // S
-                    romData[0xaee4] = 0x12; // h
-                    romData[0xaee5] = 0x16; // l
-                    romData[0xaee6] = 0x0e; // d
-                    romData[0xaee7] = 0xff; // Break
+                    convertStrToHex("HeroShld", 0xaedf, true);
                 }
                 else if (lnI == 60)
                 {
-                    // Line 1
-                    romData[0xaee8] = 0x37; // S
-                    romData[0xaee9] = 0x1c; // r
-                    romData[0xaeea] = 0x21; // w
-                    romData[0xaeeb] = 0x37; // S
-                    romData[0xaeec] = 0x12; // h
-                    romData[0xaeed] = 0x16; // l
-                    romData[0xaeee] = 0x0e; // d
-                    romData[0xaeef] = 0xff; // Break
+                    convertStrToHex("SrwShld", 0xaee8, true);
                 }
                 else if (lnI == 61)
                 {
-                    // Line 1
-                    romData[0xaef0] = 0x26; // B
-                    romData[0xaef1] = 0x1c; // r
-                    romData[0xaef2] = 0x24; // z
-                    romData[0xaef3] = 0x37; // S
-                    romData[0xaef4] = 0x12; // h
-                    romData[0xaef5] = 0x16; // l
-                    romData[0xaef6] = 0x0e; // d
-                    romData[0xaef7] = 0xff; // Break
+                    convertStrToHex("BrzShld", 0xaef0, true);
                 }
                 else if (lnI == 62)
                 {
-                    // Line 1
-                    romData[0xaef8] = 0x37; // S
-                    romData[0xaef9] = 0x16; // l
-                    romData[0xaefa] = 0x20; // v
-                    romData[0xaefb] = 0x37; // S
-                    romData[0xaefc] = 0x12; // h
-                    romData[0xaefd] = 0x16; // l
-                    romData[0xaefe] = 0x0e; // d
-                    romData[0xaeff] = 0xff; // Break
+                    convertStrToHex("SlvShld", 0xaef8, true);
                 }
                 else if (lnI == 63)
                 {
-                    // Line 1
-                    romData[0xaf00] = 0x2b; // G
-                    romData[0xaf01] = 0x19; // o
-                    romData[0xaf02] = 0x16; // l
-                    romData[0xaf03] = 0x0e; // d
-                    romData[0xaf04] = 0x3f; // Space
-                    romData[0xaf05] = 0x27; // C
-                    romData[0xaf06] = 0x1c; // r
-                    romData[0xaf07] = 0x19; // o
-                    romData[0xaf08] = 0x21; // w
-                    romData[0xaf09] = 0x18; // n
-                    romData[0xaf0a] = 0xff; // Break
+                    convertStrToHex("GoldCrown", 0xaf00, true);
                 }
                 else if (lnI == 64)
                 {
-                    // Line 1
-                    romData[0xaf0b] = 0x2d; // I
-                    romData[0xaf0c] = 0x2c; // H
-                    romData[0xaf0d] = 0x17; // m
-                    romData[0xaf0e] = 0x1e; // t
-                    romData[0xaf0f] = 0xff; // Break
-
-                    // Line 2
-                    romData[0xb275] = 0x00;
-                    romData[0xb276] = 0x00;
-                    romData[0xb277] = 0x00;
-                    romData[0xb278] = 0x00;
-                    romData[0xb279] = 0x00;
-                    romData[0xb27a] = 0x00;
+                    convertStrToHex("IrHmt", 0xaf0a, true);
                 }
                 else if (lnI == 65)
                 {
-                    // Line 1
-                    romData[0xaf10] = 0x31; // M
-                    romData[0xaf11] = 0x23; // y
-                    romData[0xaf12] = 0x1d; // s
-                    romData[0xaf13] = 0x23; // y
-                    romData[0xaf14] = 0x2c; // H
-                    romData[0xaf15] = 0x1e; // t
-                    romData[0xaf16] = 0xff; // Break
+                    convertStrToHex("MystHt", 0xaf10, true);
                 }
                 else if (lnI == 66)
                 {
-                    // Line 1
-                    romData[0xaf17] = 0x39; // U
-                    romData[0xaf18] = 0x18; // n
-                    romData[0xaf19] = 0x16; // l
-                    romData[0xaf1a] = 0x15; // k
-                    romData[0xaf1b] = 0x2c; // H
-                    romData[0xaf1c] = 0x16; // l
-                    romData[0xaf1d] = 0x17; // m
-                    romData[0xaf1e] = 0x1e; // t
-                    romData[0xaf1f] = 0xff; // Break
+                    convertStrToHex("UnlHmt", 0xaf17, true);
                 }
                 else if (lnI == 67)
                 {
-                    // Line 1
-                    romData[0xaf20] = 0x38; // T
-                    romData[0xaf21] = 0x1c; // r
-                    romData[0xaf22] = 0x0c; // b
-                    romData[0xaf23] = 0x18; // n
-                    romData[0xaf24] = 0xff; // Break
+                    convertStrToHex("Turban", 0xaf1e, true);
                 }
                 else if (lnI == 68)
                 {
-                    // Line 1
-                    romData[0xaf25] = 0x32; // N
-                    romData[0xaf26] = 0x19; // o
-                    romData[0xaf27] = 0x12; // h
-                    romData[0xaf28] = 0x31; // M
-                    romData[0xaf29] = 0x1d; // s
-                    romData[0xaf2a] = 0x15; // k
-                    romData[0xaf2b] = 0xff; // Break
+                    convertStrToHex("NohMsk", 0xaf25, true);
                 }
                 else if (lnI == 69)
                 {
-                    // Line 1
-                    romData[0xaf2c] = 0x30; // L
-                    romData[0xaf2d] = 0x1e; // t
-                    romData[0xaf2e] = 0x12; // h
-                    romData[0xaf2f] = 0x2c; // H
-                    romData[0xaf30] = 0x16; // l
-                    romData[0xaf31] = 0x17; // m
-                    romData[0xaf32] = 0x1e; // t
-                    romData[0xaf33] = 0xff; // Break
+                    convertStrToHex("LthHlmt", 0xaf2c, true);
                 }
                 else if (lnI == 70)
                 {
-                    // Line 1
-                    romData[0xaf34] = 0x2d; // I
-                    romData[0xaf35] = 0x1c; // r
-                    romData[0xaf36] = 0x18; // n
-                    romData[0xaf37] = 0x31; // M
-                    romData[0xaf38] = 0x1d; // s
-                    romData[0xaf39] = 0x15; // k
-                    romData[0xaf3a] = 0xff; // Break
+                    convertStrToHex("IrnMsk", 0xaf34, true);
                 }
                 if (lnI < 32)
                 {
@@ -6734,921 +6173,117 @@ namespace DW3Randomizer
         private void lowerCaseMenus()
         // changes caps menus to lower case
         {
-            //Another World
-            romData[0x38943] = 0x18;
-            romData[0x38944] = 0x19;
-            romData[0x38945] = 0x1e;
-            romData[0x38946] = 0x12;
-            romData[0x38947] = 0x0f;
-            romData[0x38948] = 0x1c;
-            romData[0x3894b] = 0x19;
-            romData[0x3894c] = 0x1c;
-            romData[0x3894d] = 0x16;
-            romData[0x3894e] = 0x0e;
-
-            //Non Equipped
-            romData[0x38a72] = 0x19;
-            romData[0x38a73] = 0x18;
-            romData[0x38a76] = 0x1b;
-            romData[0x38a77] = 0x1f;
-            romData[0x38a78] = 0x13;
-            romData[0x38a79] = 0x1a;
-            romData[0x38a7a] = 0x1a;
-            romData[0x38a7b] = 0x0f;
-            romData[0x38a7c] = 0x0e;
-
-            //Sex
-            romData[0x3913a] = 0x0f;
-            romData[0x3913b] = 0x22;
-
-            //Level
-            romData[0x39141] = 0x0f;
-            romData[0x39142] = 0x20;
-            romData[0x39143] = 0x0f;
-            romData[0x39144] = 0x16;
-
-            //Attack Power
-            romData[0x3925d] = 0x1e;
-            romData[0x3925e] = 0x1e;
-            romData[0x3925f] = 0x0b;
-            romData[0x39260] = 0x0d;
-            romData[0x39261] = 0x15;
-            romData[0x39265] = 0x19;
-            romData[0x39266] = 0x21;
-            romData[0x39267] = 0x0f;
-            romData[0x39268] = 0x1c;
-
-            //Defense Power
-            romData[0x3926f] = 0x0f;
-            romData[0x39270] = 0x10;
-            romData[0x39271] = 0x0f;
-            romData[0x39272] = 0x18;
-            romData[0x39273] = 0x1d;
-            romData[0x39274] = 0x0f;
-            romData[0x39278] = 0x19;
-            romData[0x39279] = 0x21;
-            romData[0x3927a] = 0x0f;
-            romData[0x3927b] = 0x1c;
-
-            //Talk
-            romData[0x3940d] = 0x0b;
-            romData[0x3940e] = 0x16;
-            romData[0x3940f] = 0x15;
-
-            //Spell
-            romData[0x39412] = 0x1a;
-            romData[0x39413] = 0x0f;
-            romData[0x39414] = 0x16;
-            romData[0x39415] = 0x16;
-
-            //Status
-            romData[0x39418] = 0x1e;
-            romData[0x39419] = 0x0b;
-            romData[0x3941a] = 0x1e;
-            romData[0x3941b] = 0x1f;
-            romData[0x3941c] = 0x1d;
-
-            //Item
-            romData[0x3941f] = 0x1e;
-            romData[0x39420] = 0x0f;
-            romData[0x39421] = 0x17;
-
-            //Search
-            romData[0x39424] = 0x0f;
-            romData[0x39425] = 0x0b;
-            romData[0x39426] = 0x1c;
-            romData[0x39427] = 0x0d;
-            romData[0x39428] = 0x12;
-
-            //Equip
-            romData[0x3942b] = 0x1b;
-            romData[0x3942c] = 0x1f;
-            romData[0x3942d] = 0x13;
-            romData[0x3942e] = 0x1a;
-
-            //Use
-            romData[0x3943c] = 0x1d;
-            romData[0x3943d] = 0x0f;
-
-            //Transfer
-            romData[0x39440] = 0x1c;
-            romData[0x39441] = 0x0b;
-            romData[0x39442] = 0x18;
-            romData[0x39443] = 0x1d;
-            romData[0x39444] = 0x10;
-            romData[0x39445] = 0x0f;
-            romData[0x39446] = 0x1c;
-
-            //Discard
-            romData[0x39449] = 0x13;
-            romData[0x3944a] = 0x1d;
-            romData[0x3944b] = 0x0d;
-            romData[0x3944c] = 0x0b;
-            romData[0x3944d] = 0x1c;
-            romData[0x3944e] = 0x0e;
-
-            //Buy
-            romData[0x3945c] = 0x1f;
-            romData[0x3945d] = 0x23;
-
-            //Sell
-            romData[0x39460] = 0x0f;
-            romData[0x39461] = 0x16;
-            romData[0x39462] = 0x16;
-
-            //Detoxicate
-            romData[0x39470] = 0x0f;
-            romData[0x39471] = 0x1e;
-            romData[0x39472] = 0x19;
-            romData[0x39473] = 0x22;
-            romData[0x39474] = 0x13;
-            romData[0x39475] = 0x0d;
-            romData[0x39476] = 0x0b;
-            romData[0x39477] = 0x1e;
-            romData[0x39478] = 0x0f;
-
-            //Uncurse
-            romData[0x3947b] = 0x18;
-            romData[0x3947c] = 0x0d;
-            romData[0x3947d] = 0x1f;
-            romData[0x3947e] = 0x1c;
-            romData[0x3947f] = 0x1d;
-            romData[0x39480] = 0x0f;
-
-            //Revive
-            romData[0x39483] = 0x0f;
-            romData[0x39484] = 0x20;
-            romData[0x39485] = 0x13;
-            romData[0x39486] = 0x20;
-            romData[0x39487] = 0x0f;
-
-            //Fight
-            romData[0x39495] = 0x13;
-            romData[0x39496] = 0x11;
-            romData[0x39497] = 0x12;
-            romData[0x39498] = 0x1e;
-
-            //Spell
-            romData[0x3949b] = 0x1a;
-            romData[0x3949c] = 0x0f;
-            romData[0x3949d] = 0x16;
-            romData[0x3949e] = 0x16;
-
-            //Run
-            romData[0x394a1] = 0x1f;
-            romData[0x394a2] = 0x18;
-
-            //Item
-            romData[0x394a5] = 0x1e;
-            romData[0x394a6] = 0x0f;
-            romData[0x394a7] = 0x17;
-
-            //Fight
-            romData[0x394b5] = 0x13;
-            romData[0x394b6] = 0x11;
-            romData[0x394b7] = 0x12;
-            romData[0x394b8] = 0x1e;
-
-            //Spell
-            romData[0x394bb] = 0x1a;
-            romData[0x394bc] = 0x0f;
-            romData[0x394bd] = 0x16;
-            romData[0x394be] = 0x16;
-
-            //Parry
-            romData[0x394c1] = 0x0b;
-            romData[0x394c2] = 0x1c;
-            romData[0x394c3] = 0x1c;
-            romData[0x394c4] = 0x23;
-
-            //Item
-            romData[0x394c7] = 0x1e;
-            romData[0x394c8] = 0x0f;
-            romData[0x394c9] = 0x17;
-
-            //Fight
-            romData[0x394d7] = 0x13;
-            romData[0x394d8] = 0x11;
-            romData[0x394d9] = 0x12;
-            romData[0x394da] = 0x1e;
-
-            //Run
-            romData[0x394dd] = 0x1f;
-            romData[0x394de] = 0x18;
-
-            //Parry
-            romData[0x394e1] = 0x0b;
-            romData[0x394e2] = 0x1c;
-            romData[0x394e3] = 0x1c;
-            romData[0x394e4] = 0x23;
-
-            //Item
-            romData[0x394e7] = 0x1e;
-            romData[0x394e8] = 0x0f;
-            romData[0x394e9] = 0x17;
-
-            //Fight
-            romData[0x394f7] = 0x13;
-            romData[0x394f8] = 0x11;
-            romData[0x394f9] = 0x12;
-            romData[0x394fa] = 0x1e;
-
-            //Parry
-            romData[0x394fd] = 0x0b;
-            romData[0x394fe] = 0x1c;
-            romData[0x394ff] = 0x1c;
-            romData[0x39500] = 0x23;
-
-            //Item
-            romData[0x39503] = 0x1e;
-            romData[0x39504] = 0x0f;
-            romData[0x39505] = 0x17;
-
-            //Yes
-            romData[0x39517] = 0x0f;
-            romData[0x39518] = 0x1d;
-
-            //No
-            romData[0x3951b] = 0x19;
-
-            //Info > Details
-            romData[0x39528] = 0x28;
-            romData[0x39529] = 0x0f;
-            romData[0x3952a] = 0x1e;
-            romData[0x3952b] = 0x0b;
-            romData[0x3952c] = 0x13;
-            romData[0x3952d] = 0x16;
-            romData[0x3952e] = 0x1d;
-            romData[0x3952f] = 0xff;
-
-            //Condition > HP-MP
-            romData[0x39530] = 0x2c;
-            romData[0x39531] = 0x34;
-            romData[0x39532] = 0x6b;
-            romData[0x39533] = 0x31;
-            romData[0x39534] = 0x34;
-            romData[0x39535] = 0x00;
-
-            //Formation
-            romData[0x39538] = 0x19;
-            romData[0x39539] = 0x1c;
-            romData[0x3953a] = 0x17;
-            romData[0x3953b] = 0x0b;
-            romData[0x3953c] = 0x1e;
-            romData[0x3953d] = 0x13;
-            romData[0x3953e] = 0x19;
-            romData[0x3953f] = 0x18;
-
-            //Gold
-            romData[0x39566] = 0x19;
-            romData[0x39567] = 0x16;
-            romData[0x39568] = 0x0e;
-
-            //Item
-            romData[0x3956b] = 0x1e;
-            romData[0x3956c] = 0x0f;
-            romData[0x3956d] = 0x17;
-
-            //Use
-            romData[0x3957b] = 0x1d;
-            romData[0x3957c] = 0x0f;
-
-            //Equip
-            romData[0x3957f] = 0x1b;
-            romData[0x39580] = 0x1f;
-            romData[0x39581] = 0x13;
-            romData[0x39582] = 0x1a;
-
-            //Back End
-            romData[0x39794] = 0x0b;
-            romData[0x39795] = 0x0d;
-            romData[0x39796] = 0x15;
-            romData[0x39799] = 0x18;
-            romData[0x3979a] = 0x0e;
-
-            //Male
-            romData[0x397bd] = 0x0b;
-            romData[0x397be] = 0x16;
-            romData[0x397bf] = 0x0f;
-
-            //Female
-            romData[0x397c2] = 0x0f;
-            romData[0x397c3] = 0x17;
-            romData[0x397c4] = 0x0b;
-            romData[0x397c5] = 0x16;
-            romData[0x397c6] = 0x0f;
-
-            //Add Member
-            romData[0x39839] = 0x0e;
-            romData[0x3983a] = 0x0e;
-            romData[0x3983d] = 0x0f;
-            romData[0x3983e] = 0x17;
-            romData[0x3983f] = 0x0c;
-            romData[0x39840] = 0x0f;
-            romData[0x39841] = 0x1c;
-
-            //Leave Member
-            romData[0x39844] = 0x0f;
-            romData[0x39845] = 0x0b;
-            romData[0x39846] = 0x20;
-            romData[0x39847] = 0x0f;
-            romData[0x3984a] = 0x0f;
-            romData[0x3984b] = 0x17;
-            romData[0x3984c] = 0x0c;
-            romData[0x3984d] = 0x0f;
-            romData[0x3984e] = 0x1c;
-
-            //See List
-            romData[0x39851] = 0x0f;
-            romData[0x39852] = 0x0f;
-            romData[0x39855] = 0x13;
-            romData[0x39856] = 0x1d;
-            romData[0x39857] = 0x1e;
-
-            //Use
-            romData[0x398d0] = 0x1d;
-            romData[0x398d1] = 0x0f;
-
-            //Transfer
-            romData[0x398d4] = 0x1c;
-            romData[0x398d5] = 0x0b;
-            romData[0x398d6] = 0x18;
-            romData[0x398d7] = 0x1d;
-            romData[0x398d8] = 0x10;
-            romData[0x398d9] = 0x0f;
-            romData[0x398da] = 0x1c;
-
-            //Discard
-            romData[0x398dd] = 0x13;
-            romData[0x398de] = 0x1d;
-            romData[0x398df] = 0x0d;
-            romData[0x398e0] = 0x0b;
-            romData[0x398e1] = 0x1c;
-            romData[0x398e2] = 0x0e;
-
-            //Appraise
-            romData[0x398e5] = 0x1a;
-            romData[0x398e6] = 0x1a;
-            romData[0x398e7] = 0x1c;
-            romData[0x398e8] = 0x0b;
-            romData[0x398e9] = 0x13;
-            romData[0x398ea] = 0x1d;
-            romData[0x398eb] = 0x0f;
-
-            //Adventure Log 1
-            romData[0x3993a] = 0x0e;
-            romData[0x3993b] = 0x20;
-            romData[0x3993c] = 0x0f;
-            romData[0x3993d] = 0x18;
-            romData[0x3993e] = 0x1e;
-            romData[0x3993f] = 0x1f;
-            romData[0x39940] = 0x1c;
-            romData[0x39941] = 0x0f;
-            romData[0x39944] = 0x19;
-            romData[0x39945] = 0x11;
-
-            //Adventure Log 2
-            romData[0x39955] = 0x0e;
-            romData[0x39956] = 0x20;
-            romData[0x39957] = 0x0f;
-            romData[0x39958] = 0x18;
-            romData[0x39959] = 0x1e;
-            romData[0x3995a] = 0x1f;
-            romData[0x3995b] = 0x1c;
-            romData[0x3995c] = 0x0f;
-            romData[0x3995f] = 0x19;
-            romData[0x39960] = 0x11;
-
-            //Adventure Log 1
-            romData[0x39970] = 0x0e;
-            romData[0x39971] = 0x20;
-            romData[0x39972] = 0x0f;
-            romData[0x39973] = 0x18;
-            romData[0x39974] = 0x1e;
-            romData[0x39975] = 0x1f;
-            romData[0x39976] = 0x1c;
-            romData[0x39977] = 0x0f;
-            romData[0x3997a] = 0x19;
-            romData[0x3997b] = 0x11;
-
-            //Adventure Log 2
-            romData[0x39980] = 0x0e;
-            romData[0x39981] = 0x20;
-            romData[0x39982] = 0x0f;
-            romData[0x39983] = 0x18;
-            romData[0x39984] = 0x1e;
-            romData[0x39985] = 0x1f;
-            romData[0x39986] = 0x1c;
-            romData[0x39987] = 0x0f;
-            romData[0x3998a] = 0x19;
-            romData[0x3998b] = 0x11;
-
-            //Adventure Log 3
-            romData[0x3999b] = 0x0e;
-            romData[0x3999c] = 0x20;
-            romData[0x3999d] = 0x0f;
-            romData[0x3999e] = 0x18;
-            romData[0x3999f] = 0x1e;
-            romData[0x399a0] = 0x1f;
-            romData[0x399a1] = 0x1c;
-            romData[0x399a2] = 0x0f;
-            romData[0x399a5] = 0x19;
-            romData[0x399a6] = 0x11;
-
-            //Adventure Log 1
-            romData[0x399b6] = 0x0e;
-            romData[0x399b7] = 0x20;
-            romData[0x399b8] = 0x0f;
-            romData[0x399b9] = 0x18;
-            romData[0x399ba] = 0x1e;
-            romData[0x399bb] = 0x1f;
-            romData[0x399bc] = 0x1c;
-            romData[0x399bd] = 0x0f;
-            romData[0x399c0] = 0x19;
-            romData[0x399c1] = 0x11;
-
-            //Adventure Log 3
-            romData[0x399c6] = 0x0e;
-            romData[0x399c7] = 0x20;
-            romData[0x399c8] = 0x0f;
-            romData[0x399c9] = 0x18;
-            romData[0x399ca] = 0x1e;
-            romData[0x399cb] = 0x1f;
-            romData[0x399cc] = 0x1c;
-            romData[0x399cd] = 0x0f;
-            romData[0x399d0] = 0x19;
-            romData[0x399d1] = 0x11;
-
-            //Adventure Log 2
-            romData[0x399e1] = 0x0e;
-            romData[0x399e2] = 0x20;
-            romData[0x399e2] = 0x0f;
-            romData[0x399e4] = 0x18;
-            romData[0x399e5] = 0x1e;
-            romData[0x399e6] = 0x1f;
-            romData[0x399e7] = 0x1c;
-            romData[0x399e8] = 0x0f;
-            romData[0x399eb] = 0x19;
-            romData[0x399ec] = 0x11;
-
-            //Adventure Log 3
-            romData[0x399f1] = 0x0e;
-            romData[0x399f2] = 0x20;
-            romData[0x399f2] = 0x0f;
-            romData[0x399f4] = 0x18;
-            romData[0x399f5] = 0x1e;
-            romData[0x399f6] = 0x1f;
-            romData[0x399f7] = 0x1c;
-            romData[0x399f8] = 0x0f;
-            romData[0x399fb] = 0x19;
-            romData[0x399fc] = 0x11;
-
-            //Adventure Log 1
-            romData[0x39a0c] = 0x0e;
-            romData[0x39a0d] = 0x20;
-            romData[0x39a0e] = 0x0f;
-            romData[0x39a0f] = 0x18;
-            romData[0x39a10] = 0x1e;
-            romData[0x39a11] = 0x1f;
-            romData[0x39a12] = 0x1c;
-            romData[0x39a13] = 0x0f;
-            romData[0x39a16] = 0x19;
-            romData[0x39a17] = 0x11;
-
-            //Adventure Log 2
-            romData[0x39a1c] = 0x0e;
-            romData[0x39a1d] = 0x20;
-            romData[0x39a1e] = 0x0f;
-            romData[0x39a1f] = 0x18;
-            romData[0x39a20] = 0x1e;
-            romData[0x39a21] = 0x1f;
-            romData[0x39a22] = 0x1c;
-            romData[0x39a23] = 0x0f;
-            romData[0x39a26] = 0x19;
-            romData[0x39a27] = 0x11;
-
-            //Adventure Log 3
-            romData[0x39a2c] = 0x0e;
-            romData[0x39a2d] = 0x20;
-            romData[0x39a2e] = 0x0f;
-            romData[0x39a2f] = 0x18;
-            romData[0x39a30] = 0x1e;
-            romData[0x39a31] = 0x1f;
-            romData[0x39a32] = 0x1c;
-            romData[0x39a33] = 0x0f;
-            romData[0x39a36] = 0x19;
-            romData[0x39a37] = 0x11;
-
-            //Input Your Name
-            romData[0x39a9b] = 0x18;
-            romData[0x39a9c] = 0x1a;
-            romData[0x39a9d] = 0x1f;
-            romData[0x39a9e] = 0x1e;
-            romData[0x39aa1] = 0x19;
-            romData[0x39aa2] = 0x1f;
-            romData[0x39aa3] = 0x1c;
-            romData[0x39aa6] = 0x0b;
-            romData[0x39aa7] = 0x17;
-            romData[0x39aa8] = 0x0f;
-
-            //Level
-            romData[0x39abc] = 0x0f;
-            romData[0x39abd] = 0x20;
-            romData[0x39abe] = 0x0f;
-            romData[0x39abf] = 0x16;
-
-            //Adventure Log 1
-            romData[0x39af4] = 0x0e;
-            romData[0x39af5] = 0x20;
-            romData[0x39af6] = 0x0f;
-            romData[0x39af7] = 0x18;
-            romData[0x39af8] = 0x1e;
-            romData[0x39af9] = 0x1f;
-            romData[0x39afa] = 0x1c;
-            romData[0x39afb] = 0x0f;
-            romData[0x39afe] = 0x19;
-            romData[0x39aff] = 0x11;
-
-            //Adventure Log 2
-            romData[0x39b12] = 0x0e;
-            romData[0x39b13] = 0x20;
-            romData[0x39b14] = 0x0f;
-            romData[0x39b15] = 0x18;
-            romData[0x39b16] = 0x1e;
-            romData[0x39b17] = 0x1f;
-            romData[0x39b18] = 0x1c;
-            romData[0x39b19] = 0x0f;
-            romData[0x39b1c] = 0x19;
-            romData[0x39b1d] = 0x11;
-
-            //Adventure Log 1
-            romData[0x39b30] = 0x0e;
-            romData[0x39b31] = 0x20;
-            romData[0x39b32] = 0x0f;
-            romData[0x39b33] = 0x18;
-            romData[0x39b34] = 0x1e;
-            romData[0x39b35] = 0x1f;
-            romData[0x39b36] = 0x1c;
-            romData[0x39b37] = 0x0f;
-            romData[0x39b3a] = 0x19;
-            romData[0x39b3b] = 0x11;
-
-            //Adventure Log 2
-            romData[0x39b43] = 0x0e;
-            romData[0x39b44] = 0x20;
-            romData[0x39b45] = 0x0f;
-            romData[0x39b46] = 0x18;
-            romData[0x39b47] = 0x1e;
-            romData[0x39b48] = 0x1f;
-            romData[0x39b49] = 0x1c;
-            romData[0x39b4a] = 0x0f;
-            romData[0x39b4d] = 0x19;
-            romData[0x39b4e] = 0x11;
-
-            //Adventure Log 3
-            romData[0x39b61] = 0x0e;
-            romData[0x39b62] = 0x20;
-            romData[0x39b63] = 0x0f;
-            romData[0x39b64] = 0x18;
-            romData[0x39b65] = 0x1e;
-            romData[0x39b66] = 0x1f;
-            romData[0x39b67] = 0x1c;
-            romData[0x39b68] = 0x0f;
-            romData[0x39b6b] = 0x19;
-            romData[0x39b6c] = 0x11;
-
-            //Adventure Log 1
-            romData[0x39b7f] = 0x0e;
-            romData[0x39b80] = 0x20;
-            romData[0x39b81] = 0x0f;
-            romData[0x39b82] = 0x18;
-            romData[0x39b83] = 0x1e;
-            romData[0x39b84] = 0x1f;
-            romData[0x39b85] = 0x1c;
-            romData[0x39b86] = 0x0f;
-            romData[0x39b89] = 0x19;
-            romData[0x39b8a] = 0x11;
-
-            //Adventure Log 3
-            romData[0x39b92] = 0x0e;
-            romData[0x39b93] = 0x20;
-            romData[0x39b94] = 0x0f;
-            romData[0x39b95] = 0x18;
-            romData[0x39b96] = 0x1e;
-            romData[0x39b97] = 0x1f;
-            romData[0x39b98] = 0x1c;
-            romData[0x39b99] = 0x0f;
-            romData[0x39b9c] = 0x19;
-            romData[0x39b9d] = 0x11;
-
-            //Adventure Log 2
-            romData[0x39bb0] = 0x0e;
-            romData[0x39bb1] = 0x20;
-            romData[0x39bb2] = 0x0f;
-            romData[0x39bb3] = 0x18;
-            romData[0x39bb4] = 0x1e;
-            romData[0x39bb5] = 0x1f;
-            romData[0x39bb6] = 0x1c;
-            romData[0x39bb7] = 0x0f;
-            romData[0x39bba] = 0x19;
-            romData[0x39bbb] = 0x11;
-
-            //Adventure Log 3
-            romData[0x39bc3] = 0x0e;
-            romData[0x39bc4] = 0x20;
-            romData[0x39bc5] = 0x0f;
-            romData[0x39bc6] = 0x18;
-            romData[0x39bc7] = 0x1e;
-            romData[0x39bc8] = 0x1f;
-            romData[0x39bc9] = 0x1c;
-            romData[0x39bca] = 0x0f;
-            romData[0x39bcd] = 0x19;
-            romData[0x39bce] = 0x11;
-
-            //Adventure Log 1
-            romData[0x39be1] = 0x0e;
-            romData[0x39be2] = 0x20;
-            romData[0x39be3] = 0x0f;
-            romData[0x39be4] = 0x18;
-            romData[0x39be5] = 0x1e;
-            romData[0x39be6] = 0x1f;
-            romData[0x39be7] = 0x1c;
-            romData[0x39be8] = 0x0f;
-            romData[0x39beb] = 0x19;
-            romData[0x39bec] = 0x11;
-
-            //Adventure Log 2
-            romData[0x39bf4] = 0x0e;
-            romData[0x39bf5] = 0x20;
-            romData[0x39bf6] = 0x0f;
-            romData[0x39bf7] = 0x18;
-            romData[0x39bf8] = 0x1e;
-            romData[0x39bf9] = 0x1f;
-            romData[0x39bfa] = 0x1c;
-            romData[0x39bfb] = 0x0f;
-            romData[0x39bfe] = 0x19;
-            romData[0x39bff] = 0x11;
-
-            //Adventure Log 3
-            romData[0x39c07] = 0x0e;
-            romData[0x39c08] = 0x20;
-            romData[0x39c09] = 0x0f;
-            romData[0x39c0a] = 0x18;
-            romData[0x39c0b] = 0x1e;
-            romData[0x39c0c] = 0x1f;
-            romData[0x39c0d] = 0x1c;
-            romData[0x39c0e] = 0x0f;
-            romData[0x39c0f] = 0x19;
-            romData[0x39c10] = 0x11;
-
-            //Continue a quest
-            romData[0x39c25] = 0x19;
-            romData[0x39c26] = 0x18;
-            romData[0x39c27] = 0x1e;
-            romData[0x39c28] = 0x13;
-            romData[0x39c29] = 0x18;
-            romData[0x39c2a] = 0x1f;
-            romData[0x39c2b] = 0x0f;
-            romData[0x39c2d] = 0x0b;
-            romData[0x39c30] = 0x1f;
-            romData[0x39c31] = 0x0f;
-            romData[0x39c32] = 0x1d;
-            romData[0x39c33] = 0x1e;
-
-            //Begin a new quest
-            romData[0x39c36] = 0x0f;
-            romData[0x39c37] = 0x11;
-            romData[0x39c38] = 0x13;
-            romData[0x39c39] = 0x18;
-            romData[0x39c3b] = 0x0b;
-            romData[0x39c3e] = 0x0f;
-            romData[0x39c3f] = 0x21;
-            romData[0x39c42] = 0x1f;
-            romData[0x39c43] = 0x0f;
-            romData[0x39c44] = 0x1d;
-            romData[0x39c45] = 0x1e;
-
-            //Copy a quest
-            romData[0x39c48] = 0x19;
-            romData[0x39c49] = 0x1a;
-            romData[0x39c4a] = 0x23;
-            romData[0x39c4c] = 0x0b;
-            romData[0x39c4f] = 0x1f;
-            romData[0x39c50] = 0x0f;
-            romData[0x39c51] = 0x1d;
-            romData[0x39c52] = 0x1e;
-
-            //Erase a quest
-            romData[0x39c55] = 0x1c;
-            romData[0x39c56] = 0x0b;
-            romData[0x39c57] = 0x1d;
-            romData[0x39c58] = 0x0f;
-            romData[0x39c5a] = 0x0b;
-            romData[0x39c5d] = 0x1f;
-            romData[0x39c5e] = 0x0f;
-            romData[0x39c5f] = 0x1d;
-            romData[0x39c60] = 0x1e;
-
-            //Change Message Speed
-            romData[0x39c63] = 0x12;
-            romData[0x39c64] = 0x0b;
-            romData[0x39c65] = 0x18;
-            romData[0x39c66] = 0x11;
-            romData[0x39c67] = 0x0f;
-            romData[0x39c6a] = 0x0f;
-            romData[0x39c6b] = 0x1d;
-            romData[0x39c6c] = 0x1d;
-            romData[0x39c6d] = 0x0b;
-            romData[0x39c6e] = 0x11;
-            romData[0x39c6f] = 0x0f;
-            romData[0x39c72] = 0x1a;
-            romData[0x39c73] = 0x0f;
-            romData[0x39c74] = 0x0f;
-            romData[0x39c75] = 0x0e;
-
-            //Continue a Quest
-            romData[0x39c83] = 0x19;
-            romData[0x39c84] = 0x18;
-            romData[0x39c85] = 0x1e;
-            romData[0x39c86] = 0x13;
-            romData[0x39c87] = 0x18;
-            romData[0x39c88] = 0x1f;
-            romData[0x39c89] = 0x0f;
-            romData[0x39c8b] = 0x0b;
-            romData[0x39c8e] = 0x1f;
-            romData[0x39c8f] = 0x0f;
-            romData[0x39c90] = 0x1d;
-            romData[0x39c91] = 0x1e;
-
-            //Erase a Quest
-            romData[0x39c94] = 0x1c;
-            romData[0x39c95] = 0x0b;
-            romData[0x39c96] = 0x1d;
-            romData[0x39c97] = 0x0f;
-            romData[0x39c99] = 0x0b;
-            romData[0x39c9c] = 0x1f;
-            romData[0x39c9d] = 0x0f;
-            romData[0x39c9e] = 0x1d;
-            romData[0x39c9f] = 0x1e;
-
-            //Change Message Speed
-            romData[0x39ca2] = 0x12;
-            romData[0x39ca3] = 0x0b;
-            romData[0x39ca4] = 0x18;
-            romData[0x39ca5] = 0x11;
-            romData[0x39ca6] = 0x0f;
-            romData[0x39ca9] = 0x0f;
-            romData[0x39caa] = 0x1d;
-            romData[0x39cab] = 0x1d;
-            romData[0x39cac] = 0x0b;
-            romData[0x39cad] = 0x11;
-            romData[0x39cae] = 0x0f;
-            romData[0x39cb1] = 0x1a;
-            romData[0x39cb2] = 0x0f;
-            romData[0x39cb3] = 0x0f;
-            romData[0x39cb4] = 0x0e;
-
-            //Begin a New Quest
-            romData[0x39cc2] = 0x0f;
-            romData[0x39cc3] = 0x11;
-            romData[0x39cc4] = 0x13;
-            romData[0x39cc5] = 0x18;
-            romData[0x39cc7] = 0x0b;
-            romData[0x39cca] = 0x0f;
-            romData[0x39ccb] = 0x21;
-            romData[0x39cce] = 0x1f;
-            romData[0x39ccf] = 0x0f;
-            romData[0x39cd0] = 0x1d;
-            romData[0x39cd1] = 0x1e;
-
-            //Command
-            romData[0x39d3c] = 0x19;
-            romData[0x39d3d] = 0x17;
-            romData[0x39d3e] = 0x17;
-            romData[0x39d3f] = 0x0b;
-            romData[0x39d40] = 0x18;
-            romData[0x39d41] = 0x0e;
-
-            //Status
-            romData[0x39d44] = 0x1e;
-            romData[0x39d45] = 0x0b;
-            romData[0x39d46] = 0x1e;
-            romData[0x39d47] = 0x1f;
-            romData[0x39d48] = 0x1d;
-
-            //Item
-            romData[0x39d4b] = 0x1e;
-            romData[0x39d4c] = 0x0f;
-            romData[0x39d4d] = 0x17;
-
-            //Whom
-            romData[0x39d50] = 0x12;
-            romData[0x39d51] = 0x19;
-            romData[0x39d52] = 0x17;
-
-            //Spell
-            romData[0x39d55] = 0x1a;
-            romData[0x39d56] = 0x0f;
-            romData[0x39d57] = 0x16;
-            romData[0x39d58] = 0x16;
-
-            //Equip
-            romData[0x39d5b] = 0x1b;
-            romData[0x39d5c] = 0x1f;
-            romData[0x39d5d] = 0x13;
-            romData[0x39d5e] = 0x1a;
-
-            //Weapon
-            romData[0x39d61] = 0x0f;
-            romData[0x39d62] = 0x0b;
-            romData[0x39d63] = 0x1a;
-            romData[0x39d64] = 0x19;
-            romData[0x39d65] = 0x18;
-
-            //Armor
-            romData[0x39d68] = 0x1c;
-            romData[0x39d69] = 0x17;
-            romData[0x39d6a] = 0x19;
-            romData[0x39d6b] = 0x1c;
-
-            //Shield
-            romData[0x39d6e] = 0x12;
-            romData[0x39d6f] = 0x13;
-            romData[0x39d70] = 0x0f;
-            romData[0x39d71] = 0x16;
-            romData[0x39d72] = 0x0e;
-
-            //Helmet
-            romData[0x39d75] = 0x0f;
-            romData[0x39d76] = 0x16;
-            romData[0x39d77] = 0x17;
-            romData[0x39d78] = 0x0f;
-            romData[0x39d79] = 0x1e;
-
-            //Class
-            romData[0x39d7c] = 0x16;
-            romData[0x39d7d] = 0x0b;
-            romData[0x39d7e] = 0x1d;
-            romData[0x39d7f] = 0x1d;
-
-            //Sex
-            romData[0x39d82] = 0x0f;
-            romData[0x39d83] = 0x22;
-
-            //Name
-            romData[0x39d86] = 0x0b;
-            romData[0x39d87] = 0x17;
-            romData[0x39d88] = 0x0f;
-
-            //Fight
-            romData[0x39d8e] = 0x13;
-            romData[0x39d8f] = 0x11;
-            romData[0x39d90] = 0x12;
-            romData[0x39d91] = 0x1e;
-
-            //To
-            romData[0x39d94] = 0x19;
-
-            //and
-            romData[0x3a541] = 0x0b;
-            romData[0x3a542] = 0x18;
-            romData[0x3a543] = 0x0e;
-
-            //Spell
-            romData[0x3a553] = 0x1a;
-            romData[0x3a554] = 0x0f;
-            romData[0x3a555] = 0x16;
-            romData[0x3a556] = 0x16;
-
-            //Item
-            romData[0x3a562] = 0x1e;
-            romData[0x3a563] = 0x0f;
-            romData[0x3a564] = 0x17;
-
-            //Equip
-            romData[0x3a572] = 0x1b;
-            romData[0x3a573] = 0x1f;
-            romData[0x3a574] = 0x13;
-            romData[0x3a575] = 0x1a;
-
-            //NDITION > -MP
-            romData[0x3a5d2] = 0x6b;
-            romData[0x3a5d3] = 0x31;
-            romData[0x3a5d4] = 0x34;
-            romData[0x3a5d5] = 0x3f;
-            romData[0x3a5d6] = 0x3f;
-            romData[0x3a5d7] = 0x3f;
-            romData[0x3a5d8] = 0x3f;
-
-            //rmation
-            romData[0x3a5dd] = 0x1c;
-            romData[0x3a5de] = 0x17;
-            romData[0x3a5df] = 0x0b;
-            romData[0x3a5e0] = 0x1e;
-            romData[0x3a5e1] = 0x13;
-            romData[0x3a5e2] = 0x19;
-            romData[0x3a5e3] = 0x18;
-
+            convertStrToHex("Another World", 0x38942, false);
+            convertStrToHex("Non Equipped", 0x38a71, false);
+            convertStrToHex("Sex", 0x39139, false);
+            convertStrToHex("Level", 0x39140, false);
+            convertStrToHex("Attack Power", 0x3925c, false);
+            convertStrToHex("Defense Power", 0x3926e, false);
+            convertStrToHex("Talk", 0x3940c, false);
+            convertStrToHex("Spell", 0x39411, false);
+            convertStrToHex("Status", 0x39417, false);
+            convertStrToHex("Item", 0x3941e, false);
+            convertStrToHex("Search", 0x39423, false);
+            convertStrToHex("Equip", 0x3942a, false);
+            convertStrToHex("Use", 0x3943b, false);
+            convertStrToHex("Transfer", 0x3943f, false);
+            convertStrToHex("Discard", 0x39448, false);
+            convertStrToHex("Buy", 0x3945b, false);
+            convertStrToHex("Sell", 0x3945f, false);
+            convertStrToHex("Detoxicate", 0x3946f, false);
+            convertStrToHex("Uncurse", 0x3947a, false);
+            convertStrToHex("Revive", 0x39482, false);
+            convertStrToHex("Fight", 0x39494, false);
+            convertStrToHex("Spell", 0x3949a, false);
+            convertStrToHex("Run", 0x394a0, false);
+            convertStrToHex("Item", 0x394a4, false);
+            convertStrToHex("Fight", 0x394b4, false);
+            convertStrToHex("Spell", 0x394ba, false);
+            convertStrToHex("Parry", 0x394c0, false);
+            convertStrToHex("Item", 0x394c6, false);
+            convertStrToHex("Fight", 0x394d6, false);
+            convertStrToHex("Run", 0x394dc, false);
+            convertStrToHex("Parry", 0x394e0, false);
+            convertStrToHex("Item", 0x394e6, false);
+            convertStrToHex("Fight", 0x394f6, false);
+            convertStrToHex("Parry", 0x394fc, false);
+            convertStrToHex("Item", 0x39502, false);
+            convertStrToHex("Yes", 0x39516, false);
+            convertStrToHex("No", 0x3951a, false);
+            convertStrToHex("Info", 0x39528, false);
+            convertStrToHex("Condition", 0x3952d, false);
+            convertStrToHex("Formation", 0x39537, false);
+            convertStrToHex("Gold", 0x39565, false);
+            convertStrToHex("Item", 0x3956a, false);
+            convertStrToHex("Use", 0x3957a, false);
+            convertStrToHex("Equip", 0x3957e, false);
+            convertStrToHex("Back", 0x39793, false);
+            convertStrToHex("End", 0x39798, false);
+            convertStrToHex("Male", 0x397bc, false);
+            convertStrToHex("Female", 0x397c1, false);
+            convertStrToHex("Add Member", 0x39838, false);
+            convertStrToHex("Leave Member", 0x39843, false);
+            convertStrToHex("See List", 0x39850, false);
+            convertStrToHex("Use", 0x398cf, false);
+            convertStrToHex("Transfer", 0x398d3, false);
+            convertStrToHex("Discard", 0x398dc, false);
+            convertStrToHex("Appraise", 0x398e4, false);
+            convertStrToHex("Adventure Log 1", 0x39939, false);
+            convertStrToHex("Adventure Log 2", 0x39954, false);
+            convertStrToHex("Adventure Log 1", 0x3996f, false);
+            convertStrToHex("Adventure Log 2", 0x3997f, false);
+            convertStrToHex("Adventure Log 3", 0x3999a, false);
+            convertStrToHex("Adventure Log 1", 0x399b6, false);
+            convertStrToHex("Adventure Log 3", 0x399c5, false);
+            convertStrToHex("Adventure Log 2", 0x399e0, false);
+            convertStrToHex("Adventure Log 3", 0x399f0, false);
+            convertStrToHex("Adventure Log 1", 0x39a0b, false);
+            convertStrToHex("Adventure Log 2", 0x39a1b, false);
+            convertStrToHex("Adventure Log 3", 0x39a2b, false);
+            convertStrToHex("Input Your Name", 0x39a9a, false);
+            convertStrToHex("Level", 0x39abb, false);
+            convertStrToHex("Adventure Log 1", 0x39af3, false);
+            convertStrToHex("Adventure Log 2", 0x39b11, false);
+            convertStrToHex("Adventure Log 1", 0x39b2f, false);
+            convertStrToHex("Adventure Log 2", 0x39b42, false);
+            convertStrToHex("Adventure Log 3", 0x39b60, false);
+            convertStrToHex("Adventure Log 1", 0x39b7e, false);
+            convertStrToHex("Adventure Log 3", 0x39b91, false);
+            convertStrToHex("Adventure Log 2", 0x39baf, false);
+            convertStrToHex("Adventure Log 3", 0x39bc2, false);
+            convertStrToHex("Adventure Log 1", 0x39be0, false);
+            convertStrToHex("Adventure Log 2", 0x39bf3, false);
+            convertStrToHex("Adventure Log 3", 0x39c06, false);
+            convertStrToHex("Continue a Quest", 0x39c24, false);
+            convertStrToHex("Begin a New Quest", 0x39c35, false);
+            convertStrToHex("Copy a Quest", 0x39c47, false);
+            convertStrToHex("Erase a Quest", 0x39c54, false);
+            convertStrToHex("Change Message Speed", 0x39c62, false);
+            convertStrToHex("Continue a Quest", 0x39c82, false);
+            convertStrToHex("Erase a Quest", 0x39c93, false);
+            convertStrToHex("Change Message Speed", 0x39ca1, false);
+            convertStrToHex("Begin a New Quest", 0x39cc1, false);
+            convertStrToHex("Command", 0x39d3b, false);
+            convertStrToHex("Status", 0x39d43, false);
+            convertStrToHex("Item", 0x39d4a, false);
+            convertStrToHex("Whom", 0x39d4f, false);
+            convertStrToHex("Spell", 0x39d54, false);
+            convertStrToHex("Equip", 0x39d5a, false);
+            convertStrToHex("Weapon", 0x39d60, false);
+            convertStrToHex("Armor", 0x39d67, false);
+            convertStrToHex("Shield", 0x39d6d, false);
+            convertStrToHex("Helmet", 0x39d74, false);
+            convertStrToHex("Class", 0x39d7b, false);
+            convertStrToHex("Sex", 0x39d81, false);
+            convertStrToHex("Name", 0x39d85, false);
+            convertStrToHex("Fight", 0x39d8d, false);
+            convertStrToHex("To", 0x39d93, false);
+            convertStrToHex("and", 0x3a541, false);
+            convertStrToHex("Spell", 0x3a552, false);
+            convertStrToHex("Item", 0x3a561, false);
+            convertStrToHex("Equip", 0x3a571, false);
+            convertStrToHex("ndition", 0x3a5d2, false);
+            convertStrToHex("rmation", 0x3a5dd, false);
         }
 
         private void randSpriteColors(int rni)
@@ -8734,522 +7369,37 @@ namespace DW3Randomizer
 
         private void changeEnd()
         {
-            romData[0x29536] = 0x01; // indent
-            romData[0x29537] = 0x38; // T
-            romData[0x29538] = 0x12; // h
-            romData[0x29539] = 0x1f; // u
-            romData[0x2953a] = 0x1d; // s
-            romData[0x2953b] = 0x6a; // ,
-            romData[0x2953c] = 0x00; //
+            convertStrToHex("0Thus, ", 0x29536, false);
             romData[0x2953d] = 0xf0; // Hero 8 Char
-            romData[0x2953e] = 0x00; //
-            romData[0x2953f] = 0x0c; // b
-            romData[0x29540] = 0x0f; // e
-            romData[0x29541] = 0x0d; // c
-            romData[0x29542] = 0x0b; // a
-            romData[0x29543] = 0x17; // m
-            romData[0x29544] = 0x0f; // e
-            romData[0x29545] = 0x00; //
-            romData[0x29546] = 0x15; // k
-            romData[0x29547] = 0x18; // n
-            romData[0x29548] = 0x19; // o
-            romData[0x29549] = 0x21; // w
-            romData[0x2954a] = 0x18; // n
-            romData[0x2954b] = 0xff; // new line
-            romData[0x2954c] = 0x00; // indent
-            romData[0x2954d] = 0x0b; // a
-            romData[0x2954e] = 0x1d; // s
-            romData[0x2954f] = 0x00; //
-            romData[0x29550] = 0x29; // E
-            romData[0x29551] = 0x1c; // r
-            romData[0x29552] = 0x0e; // d
-            romData[0x29553] = 0x1c; // r
-            romData[0x29554] = 0x13; // i
-            romData[0x29555] = 0x0d; // c
-            romData[0x29556] = 0x15; // k
-            romData[0x29557] = 0x00; //
-            romData[0x29558] = 0x13; // i
-            romData[0x29559] = 0x18; // n
-            romData[0x2955a] = 0x00; //
-            romData[0x2955b] = 0x1d; // s
-            romData[0x2955c] = 0x19; // o
-            romData[0x2955d] = 0x17; // m
-            romData[0x2955e] = 0x0f; // e
-            romData[0x2955f] = 0x00; //
-            romData[0x29560] = 0x1d; // s
-            romData[0x29561] = 0x1e; // t
-            romData[0x29562] = 0x19; // o
-            romData[0x29563] = 0x1c; // r
-            romData[0x29564] = 0x13; // i
-            romData[0x29565] = 0x0f; // e
-            romData[0x29566] = 0x1d; // s
-            romData[0x29567] = 0x00; //
-            romData[0x29568] = 0x0b; // a
-            romData[0x29569] = 0x18; // n
-            romData[0x2956a] = 0x0e; // d
-            romData[0x2956b] = 0xff; // new line
-            romData[0x2956c] = 0x00; // indent
-            romData[0x2956d] = 0x30; // L
-            romData[0x2956e] = 0x19; // o
-            romData[0x2956f] = 0x1e; // t
-            romData[0x29570] = 0x19; // o
-            romData[0x29571] = 0x00; //
-            romData[0x29572] = 0x13; // i
-            romData[0x29573] = 0x18; // n
-            romData[0x29574] = 0x00; //
-            romData[0x29575] = 0x19; // o
-            romData[0x29576] = 0x1e; // t
-            romData[0x29577] = 0x12; // h
-            romData[0x29578] = 0x0f; // e
-            romData[0x29579] = 0x1c; // r
-            romData[0x2957a] = 0x1d; // s
-            romData[0x2957b] = 0x6c; // .
-            romData[0x2957c] = 0xff; // newline
-            romData[0x2957d] = 0x00; //
-            romData[0x2957e] = 0x00; //
-            romData[0x2957f] = 0xff; // new line
-            romData[0x29580] = 0x00; // 
-            romData[0x29581] = 0x00; //
-            romData[0x29582] = 0xff; // new line
-            romData[0x29583] = 0x01; // indent
-            romData[0x29584] = 0x25; // A
-            romData[0x29585] = 0x10; // f
-            romData[0x29586] = 0x1e; // t
-            romData[0x29587] = 0x0f; // e
-            romData[0x29588] = 0x1c; // r
-            romData[0x29589] = 0x00; //
-            romData[0x2958a] = 0x0b; // a
-            romData[0x2958b] = 0x00; // 
-            romData[0x2958c] = 0x21; // w
-            romData[0x2958d] = 0x12; // h
-            romData[0x2958e] = 0x13; // i
-            romData[0x2958f] = 0x16; // l
-            romData[0x29590] = 0x0f; // e
-            romData[0x29591] = 0x6a; // ,
-            romData[0x29592] = 0x00; //
-            romData[0x29593] = 0x19; // o
-            romData[0x29594] = 0x1f; // u
-            romData[0x29595] = 0x1c; // r
-            romData[0x29596] = 0x00; //
-            romData[0x29597] = 0x12; // h
-            romData[0x29598] = 0x0f; // e
-            romData[0x29599] = 0x1c; // r
-            romData[0x2959a] = 0x19; // o
-            romData[0x2959b] = 0x00; //
-            romData[0x2959c] = 0x0b; // a
-            romData[0x2959d] = 0x18; // n
-            romData[0x2959e] = 0x0e; // d
-            romData[0x2959f] = 0xff; // new line
-            romData[0x295a0] = 0x00; // indent
-            romData[0x295a1] = 0x1e; // t
-            romData[0x295a2] = 0x12; // h
-            romData[0x295a3] = 0x0f; // e
-            romData[0x295a4] = 0x00; //
-            romData[0x295a5] = 0x1c; // r
-            romData[0x295a6] = 0x0f; // e
-            romData[0x295a7] = 0x1d; // s
-            romData[0x295a8] = 0x1e; // t
-            romData[0x295a9] = 0x00; // 
-            romData[0x295aa] = 0x19; // o
-            romData[0x295ab] = 0x10; // f
-            romData[0x295ac] = 0x00; //
-            romData[0x295ad] = 0x1e; // t
-            romData[0x295ae] = 0x12; // h
-            romData[0x295af] = 0x0f; // e
-            romData[0x295b0] = 0x00; //
-            romData[0x295b1] = 0x1a; // p
-            romData[0x295b2] = 0x0b; // a
-            romData[0x295b3] = 0x1c; // r
-            romData[0x295b4] = 0x1e; // t
-            romData[0x295b5] = 0x23; // y
-            romData[0x295b6] = 0x00; //
-            romData[0x295b7] = 0x21; // w
-            romData[0x295b8] = 0x0f; // e
-            romData[0x295b9] = 0x18; // n
-            romData[0x295ba] = 0x1e; // t
-            romData[0x295bb] = 0xff; // new line
-            romData[0x295bc] = 0x00; // indent
-            romData[0x295bd] = 0x1e; // t
-            romData[0x295be] = 0x12; // h
-            romData[0x295bf] = 0x0f; // e
-            romData[0x295c0] = 0x13; // i
-            romData[0x295c1] = 0x1c; // r
-            romData[0x295c2] = 0x00; //
-            romData[0x295c3] = 0x1d; // s
-            romData[0x295c4] = 0x0f; // e
-            romData[0x295c5] = 0x1a; // p
-            romData[0x295c6] = 0x0b; // a
-            romData[0x295c7] = 0x1c; // r
-            romData[0x295c8] = 0x0b; // a
-            romData[0x295c9] = 0x1e; // t
-            romData[0x295ca] = 0x0f; // e
-            romData[0x295cb] = 0x00; //
-            romData[0x295cc] = 0x21; // w
-            romData[0x295cd] = 0x0b; // a
-            romData[0x295ce] = 0x23; // y
-            romData[0x295cf] = 0x1d; // s
-            romData[0x295d0] = 0x6c; // .
-            romData[0x295d1] = 0xff; // new line
-            romData[0x295d2] = 0x00; //
-            romData[0x295d3] = 0x00; //
-            romData[0x295d4] = 0xff; // new line
-            romData[0x295d5] = 0x01; // indent
-            romData[0x295d6] = 0x38; // T
-            romData[0x295d7] = 0x12; // h
-            romData[0x295d8] = 0x0f; // e
-            romData[0x295d9] = 0x00; //
-            romData[0x295da] = 0x12; // h
-            romData[0x295db] = 0x0f; // e
-            romData[0x295dc] = 0x1c; // r
-            romData[0x295dd] = 0x19; // o
-            romData[0x295de] = 0x67; // '
-            romData[0x295df] = 0x1d; // s
-            romData[0x295e0] = 0x00; // 
-            romData[0x295e1] = 0x1d; // s
-            romData[0x295e2] = 0x21; // w
-            romData[0x295e3] = 0x19; // o
-            romData[0x295e4] = 0x1c; // r
-            romData[0x295e5] = 0x0e; // d
-            romData[0x295e6] = 0x6a; // ,
-            romData[0x295e7] = 0x00; //
-            romData[0x295e8] = 0x0b; // a
-            romData[0x295e9] = 0x1c; // r
-            romData[0x295ea] = 0x17; // m
-            romData[0x295eb] = 0x19; // o
-            romData[0x295ec] = 0x1c; // r
-            romData[0x295ed] = 0x6a; // ,
-            romData[0x295ee] = 0x00; //
-            romData[0x295ef] = 0x0b; // a
-            romData[0x295f0] = 0x18; // n
-            romData[0x295f1] = 0x0e; // d
-            romData[0x295f2] = 0xff; // new line
-            romData[0x295f3] = 0x00; // paragraph
-            romData[0x295f4] = 0x0b; // a
-            romData[0x295f5] = 0x17; // m
-            romData[0x295f6] = 0x1f; // u
-            romData[0x295f7] = 0x16; // l
-            romData[0x295f8] = 0x0f; // e
-            romData[0x295f9] = 0x1e; // t
-            romData[0x295fa] = 0x00; //
-            romData[0x295fb] = 0x21; // w
-            romData[0x295fc] = 0x0f; // e
-            romData[0x295fd] = 0x1c; // r
-            romData[0x295fe] = 0x0f; // e
-            romData[0x295ff] = 0x00; //
-            romData[0x29600] = 0x16; // l
-            romData[0x29601] = 0x0f; // e
-            romData[0x29602] = 0x10; // f
-            romData[0x29603] = 0x1e; // t
-            romData[0x29604] = 0x00; //
-            romData[0x29605] = 0x0c; // b
-            romData[0x29606] = 0x0f; // e
-            romData[0x29607] = 0x12; // h
-            romData[0x29608] = 0x13; // i
-            romData[0x29609] = 0x18; // n
-            romData[0x2960a] = 0x0e; // d
-            romData[0x2960b] = 0x00; // 
-            romData[0x2960c] = 0x10; // f
-            romData[0x2960d] = 0x19; // o
-            romData[0x2960e] = 0x1c; // r
-            romData[0x2960f] = 0xff; // new line
-            romData[0x29610] = 0x00; // indent
-            romData[0x29611] = 0x10; // f
-            romData[0x29612] = 0x1f; // u
-            romData[0x29613] = 0x1e; // t
-            romData[0x29614] = 0x1f; // u
-            romData[0x29615] = 0x1c; // r
-            romData[0x29616] = 0x0f; // e
-            romData[0x29617] = 0x00; // 
-            romData[0x29618] = 0x11; // g
-            romData[0x29619] = 0x0f; // e
-            romData[0x2961a] = 0x18; // n
-            romData[0x2961b] = 0x0f; // e
-            romData[0x2961c] = 0x1c; // r
-            romData[0x2961d] = 0x0b; // a
-            romData[0x2961e] = 0x1e; // t
-            romData[0x2961f] = 0x13; // i
-            romData[0x29620] = 0x19; // o
-            romData[0x29621] = 0x18; // n
-            romData[0x29622] = 0x1d; // s
-            romData[0x29623] = 0x00; // 
-            romData[0x29624] = 0x0c; // b
-            romData[0x29625] = 0x0f; // e
-            romData[0x29626] = 0x0b; // a
-            romData[0x29627] = 0x1c; // r
-            romData[0x29628] = 0x13; // i
-            romData[0x29629] = 0x18; // n
-            romData[0x2962a] = 0x11; // g
-            romData[0x2962b] = 0xff; // new line
-            romData[0x2962c] = 0x00; // indent
-            romData[0x2962d] = 0x1e; // t
-            romData[0x2962e] = 0x12; // h
-            romData[0x2962f] = 0x0f; // e
-            romData[0x29630] = 0x00; // 
-            romData[0x29631] = 0x18; // n
-            romData[0x29632] = 0x0b; // a
-            romData[0x29633] = 0x17; // m
-            romData[0x29634] = 0x0f; // e
-            romData[0x29635] = 0x00; //
-            romData[0x29636] = 0x19; // o
-            romData[0x29637] = 0x10; // f
-            romData[0x29638] = 0x00; //
-            romData[0x29639] = 0x29; // E
-            romData[0x2963a] = 0x1c; // r
-            romData[0x2963b] = 0x0e; // d
-            romData[0x2963c] = 0x1c; // r
-            romData[0x2963d] = 0x13; // i
-            romData[0x2963e] = 0x0d; // c
-            romData[0x2963f] = 0x15; // k
-            romData[0x29640] = 0x6c; // .
-            romData[0x29641] = 0xff; // new line
-            romData[0x29642] = 0x00; //
-            romData[0x29643] = 0x00; //
-            romData[0x29644] = 0xff; // new line
-            romData[0x29645] = 0x01; // indent
-            romData[0x29646] = 0x39; // U
-            romData[0x29647] = 0x18; // n
-            romData[0x29648] = 0x10; // f
-            romData[0x29649] = 0x19; // o
-            romData[0x2964a] = 0x1c; // r
-            romData[0x2964b] = 0x1e; // t
-            romData[0x2964c] = 0x1f; // u
-            romData[0x2964d] = 0x18; // n
-            romData[0x2964e] = 0x0b; // a
-            romData[0x2964f] = 0x1e; // t
-            romData[0x29650] = 0x0f; // e
-            romData[0x29651] = 0x16; // l
-            romData[0x29652] = 0x23; // y
-            romData[0x29653] = 0x6a; // ,
-            romData[0x29654] = 0x00; //
-            romData[0x29655] = 0x1c; // r
-            romData[0x29656] = 0x0f; // e
-            romData[0x29657] = 0x0d; // c
-            romData[0x29658] = 0x19; // o
-            romData[0x29659] = 0x1c; // r
-            romData[0x2965a] = 0x0e; // d
-            romData[0x2965b] = 0x1d; // s
-            romData[0x2965c] = 0x00; //
-            romData[0x2965d] = 0x19; // o
-            romData[0x2965e] = 0x10; // f
-            romData[0x2965f] = 0xff; // new line
-            romData[0x29660] = 0x00; // indent
-            romData[0x29661] = 0x29; // E
-            romData[0x29662] = 0x1c; // r
-            romData[0x29663] = 0x0e; // d
-            romData[0x29664] = 0x1c; // r
-            romData[0x29665] = 0x13; // i
-            romData[0x29666] = 0x0d; // c
-            romData[0x29667] = 0x15; // k
-            romData[0x29668] = 0x67; // '
-            romData[0x29669] = 0x1d; // s
-            romData[0x2966a] = 0x00; //
-            romData[0x2966b] = 0x1a; // p
-            romData[0x2966c] = 0x0b; // a
-            romData[0x2966d] = 0x1c; // r
-            romData[0x2966e] = 0x1e; // t
-            romData[0x2966f] = 0x23; // y
-            romData[0x29670] = 0x00; //
-            romData[0x29671] = 0x21; // w
-            romData[0x29672] = 0x0f; // e
-            romData[0x29673] = 0x1c; // r
-            romData[0x29674] = 0x0f; // e
-            romData[0x29675] = 0x00; //
-            romData[0x29676] = 0x16; // l
-            romData[0x29677] = 0x19; // o
-            romData[0x29678] = 0x1d; // s
-            romData[0x29679] = 0x1e; // t
-            romData[0x2967a] = 0xff; // new line
-            romData[0x2967b] = 0x00; // indent
-            romData[0x2967c] = 0x21; // w
-            romData[0x2967d] = 0x13; // i
-            romData[0x2967e] = 0x1e; // t
-            romData[0x2967f] = 0x12; // h
-            romData[0x29680] = 0x00; //
-            romData[0x29681] = 0x1e; // t
-            romData[0x29682] = 0x13; // i
-            romData[0x29683] = 0x17; // m
-            romData[0x29684] = 0x0f; // e
-            romData[0x29685] = 0x6c; // .
-            romData[0x29686] = 0xff; // new line
-            romData[0x29687] = 0x00; //
-            romData[0x29688] = 0x00; //
-            romData[0x29689] = 0xff; // new line
-            romData[0x2968a] = 0x00; // indent
-            romData[0x2968b] = 0x28; // D
-            romData[0x2968c] = 0x1c; // r
-            romData[0x2968d] = 0x0b; // a
-            romData[0x2968e] = 0x11; // g
-            romData[0x2968f] = 0x19; // o
-            romData[0x29690] = 0x18; // n
-            romData[0x29691] = 0x00; //
-            romData[0x29692] = 0x3b; // W
-            romData[0x29693] = 0x0b; // a
-            romData[0x29694] = 0x1c; // r
-            romData[0x29695] = 0x1c; // r
-            romData[0x29696] = 0x13; // i
-            romData[0x29697] = 0x19; // o
-            romData[0x29698] = 0x1c; // r
-            romData[0x29699] = 0x00; //
-            romData[0x2969a] = 0x2d; // I
-            romData[0x2969b] = 0x2d; // I
-            romData[0x2969c] = 0x2d; // I
-            romData[0x2969d] = 0x00; //
-            romData[0x2969e] = 0x36; // R
-            romData[0x2969f] = 0x0b; // a
-            romData[0x296a0] = 0x18; // n
-            romData[0x296a1] = 0x0e; // d
-            romData[0x296a2] = 0x19; // o
-            romData[0x296a3] = 0x17; // m
-            romData[0x296a4] = 0x13; // i
-            romData[0x296a5] = 0x24; // z
-            romData[0x296a6] = 0x0f; // e
-            romData[0x296a7] = 0x1c; // r
-            romData[0x296a8] = 0xff; // New Line 
-            romData[0x296a9] = 0x00; // 
-            romData[0x296aa] = 0x00; //
-            romData[0x296ab] = 0xff; // New Line
-            romData[0x296ac] = 0x01; // Paragraph
-            romData[0x296ad] = 0x33; // O
-            romData[0x296ae] = 0x1c; // r
-            romData[0x296af] = 0x13; // i
-            romData[0x296b0] = 0x11; // g
-            romData[0x296b1] = 0x13; // i
-            romData[0x296b2] = 0x18; // n
-            romData[0x296b3] = 0x0b; // a
-            romData[0x296b4] = 0x16; // l
-            romData[0x296b5] = 0x16; // l
-            romData[0x296b6] = 0x23; // y
-            romData[0x296b7] = 0x00; //
-            romData[0x296b8] = 0x28; // D
-            romData[0x296b9] = 0x0f; // e
-            romData[0x296ba] = 0x20; // v
-            romData[0x296bb] = 0x0f; // e
-            romData[0x296bc] = 0x16; // l
-            romData[0x296bd] = 0x19; // o
-            romData[0x296be] = 0x1a; // p
-            romData[0x296bf] = 0x0f; // e
-            romData[0x296c0] = 0x0e; // d
-            romData[0x296c1] = 0x00; //
-            romData[0x296c2] = 0x26; // B
-            romData[0x296c3] = 0x23; // y
-            romData[0x296c4] = 0x75; // :
-            romData[0x296c5] = 0xff; // new line
-            romData[0x296c6] = 0x01; // paragraph
-            romData[0x296c7] = 0x00; //
-            romData[0x296c8] = 0x11; // g
-            romData[0x296c9] = 0x0b; // a
-            romData[0x296ca] = 0x17; // m
-            romData[0x296cb] = 0x0f; // e
-            romData[0x296cc] = 0x0c; // b
-            romData[0x296cd] = 0x19; // o
-            romData[0x296ce] = 0x23; // y
-            romData[0x296cf] = 0x10; // f
-            romData[0x296d0] = 0x0a; // 9
-            romData[0x296d1] = 0xff; // new line
-            romData[0x296d2] = 0x00; //
-            romData[0x296d3] = 0x00; //
-            romData[0x296d4] = 0xff; // new line
-            romData[0x296d5] = 0x01; // paragraph
-            romData[0x296d6] = 0x27; // C
-            romData[0x296d7] = 0x1f; // u
-            romData[0x296d8] = 0x1c; // r
-            romData[0x296d9] = 0x1c; // r
-            romData[0x296da] = 0x0f; // e
-            romData[0x296db] = 0x18; // n
-            romData[0x296dc] = 0x1e; // t
-            romData[0x296dd] = 0x16; // l
-            romData[0x296de] = 0x23; // y
-            romData[0x296df] = 0x00; //
-            romData[0x296e0] = 0x28; // D
-            romData[0x296e1] = 0x0f; // e
-            romData[0x296e2] = 0x20; // v
-            romData[0x296e3] = 0x0f; // e
-            romData[0x296e4] = 0x16; // l
-            romData[0x296e5] = 0x19; // o
-            romData[0x296e6] = 0x1a; // p
-            romData[0x296e7] = 0x0f; // e
-            romData[0x296e8] = 0x0e; // d
-            romData[0x296e9] = 0x00; //
-            romData[0x296ea] = 0x26; // B
-            romData[0x296eb] = 0x23; // y
-            romData[0x296ec] = 0x75; // :
-            romData[0x296ed] = 0xff; // new line
-            romData[0x296ee] = 0x01; // paragraph
-            romData[0x296ef] = 0x00; //
-            romData[0x296f0] = 0x0f; // e
-            romData[0x296f1] = 0x18; // n
-            romData[0x296f2] = 0x0e; // d
-            romData[0x296f3] = 0x23; // y
-            romData[0x296f4] = 0x17; // m
-            romData[0x296f5] = 0x13; // i
-            romData[0x296f6] = 0x19; // o
-            romData[0x296f7] = 0x18; // n
-            romData[0x296f8] = 0x16; // l
-            romData[0x296f9] = 0x1d; // s
-            romData[0x296fa] = 0xff; // new line
-            romData[0x296fb] = 0x00; //
-            romData[0x296fc] = 0x00; //
-            romData[0x296fd] = 0xff; // new line
-            romData[0x296fe] = 0x01; // paragraph
-            romData[0x296ff] = 0x38; // T
-            romData[0x29700] = 0x12; // h
-            romData[0x29701] = 0x0b; // a
-            romData[0x29702] = 0x18; // n
-            romData[0x29703] = 0x15; // k
-            romData[0x29704] = 0x00; //
-            romData[0x29705] = 0x23; // y
-            romData[0x29706] = 0x19; // o
-            romData[0x29707] = 0x1f; // u
-            romData[0x29708] = 0x00; // 
-            romData[0x29709] = 0x10; // f
-            romData[0x2970a] = 0x19; // o
-            romData[0x2970b] = 0x1c; // r
-            romData[0x2970c] = 0x00; //
-            romData[0x2970d] = 0x1a; // p
-            romData[0x2970e] = 0x16; // l
-            romData[0x2970f] = 0x0b; // a
-            romData[0x29710] = 0x23; // y
-            romData[0x29711] = 0x13; // i
-            romData[0x29712] = 0x18; // n
-            romData[0x29713] = 0x11; // g
-            romData[0x29714] = 0x70; // !
-            romData[0x29715] = 0xff; // new line
-            romData[0x29716] = 0x00; // 
-            romData[0x29717] = 0x00; // 
-            romData[0x29718] = 0x00; // 
-            romData[0x29719] = 0x00; // 
-            romData[0x2971a] = 0x00; // 
-            romData[0x2971b] = 0x00; // 
-            romData[0x2971c] = 0x00; // 
-            romData[0x2971d] = 0x00; // 
-            romData[0x2971e] = 0x00; // 
-            romData[0x2971f] = 0x00; // 
-            romData[0x1f777] = 0x00; //
-            romData[0x1f778] = 0x00; //
-            romData[0x1f779] = 0x38; // T
-            romData[0x1f77a] = 0x12; // h
-            romData[0x1f77b] = 0x0b; // a
-            romData[0x1f77c] = 0x18; // n
-            romData[0x1f77d] = 0x15; // k
-            romData[0x1f77e] = 0x00; //
-            romData[0x1f77f] = 0x23; // y
-            romData[0x1f780] = 0x19; // o
-            romData[0x1f781] = 0x1f; // u
-            romData[0x1f782] = 0x00; // 
-            romData[0x1f783] = 0x10; // f
-            romData[0x1f784] = 0x19; // o
-            romData[0x1f785] = 0x1c; // r
-            romData[0x1f786] = 0x00; //
-            romData[0x1f787] = 0x1a; // p
-            romData[0x1f788] = 0x16; // l
-            romData[0x1f789] = 0x0b; // a
-            romData[0x1f78a] = 0x23; // y
-            romData[0x1f78b] = 0x13; // i
-            romData[0x1f78c] = 0x18; // n
-            romData[0x1f78d] = 0x11; // g
-            romData[0x1f78e] = 0x70; // !
-            romData[0x1f78f] = 0x00; //
-            romData[0x1f790] = 0x00; //
+            convertStrToHex("became known", 0x2953e, true);
+            convertStrToHex(" as Erdrick in some stories and", 0x2954c, true);
+            convertStrToHex(" Loto in others.", 0x2956c, true);
+            convertStrToHex("  ", 0x2957d, true);
+            convertStrToHex("  ", 0x29580, true);
+            convertStrToHex("0After a while, our hero and", 0x29583, true);
+            convertStrToHex(" the rest of the party went", 0x295a0, true);
+            convertStrToHex(" their separate ways.", 0x295bc, true);
+            convertStrToHex("  ", 0x295d2, true);
+            convertStrToHex("0The hero^s sword, armor, and", 0x295d5, true);
+            convertStrToHex(" amulet were left behind for", 0x295f3, true);
+            convertStrToHex(" future generations bearing", 0x29610, true);
+            convertStrToHex(" the name Erdrick.", 0x2962c, true);
+            convertStrToHex("  ", 0x29642, true);
+            convertStrToHex("0Unfortunately, records of", 0x29645, true);
+            convertStrToHex(" Erdrick^s party were lost", 0x29660, true);
+            convertStrToHex(" with time.", 0x2967b, true);
+            convertStrToHex("  ", 0x29687,  true);
+            convertStrToHex(" Dragon Warrior III Randomizer", 0x2968a, true);
+            convertStrToHex("  ", 0x296a9, true);
+            convertStrToHex("0Originally Developed By:", 0x296ac, true);
+            convertStrToHex("0 gameboyf9", 0x296c6, true);
+            convertStrToHex("  ", 0x296d2, true);
+            convertStrToHex("0Currently Developed By:", 0x296d5, true);
+            convertStrToHex("0 endymionls", 0x296ee, true);
+            convertStrToHex("  ", 0x296fb, true);
+            convertStrToHex("0                      ", 0x296fe, true);
+            convertStrToHex("            ", 0x29716, true);
+            convertStrToHex("Thank you for playing!  ", 0x1f779, false);
         }
 
         private StreamWriter compareComposeString(string intro, StreamWriter writer, int startAddress, int length, int skip = 1, string delimiter = "")
@@ -9502,7 +7652,7 @@ namespace DW3Randomizer
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(13, 1)));
             chk_AdjustEqpPrices.Checked = (number % 2 == 1);
             chk_RmRedundKey.Checked = (number % 4 >= 2);
-            chkRemCurse.Checked = (number % 8 >= 4);
+            chk_RemCurse.Checked = (number % 8 >= 4);
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(14, 1)));
             //chkRandItemEffects.Checked = (number % 2 == 1);
@@ -9578,7 +7728,7 @@ namespace DW3Randomizer
             flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? (chk_RemoveMtnDrgQueen.Checked ? 1 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RmNewTown.Checked ? 2 : 0) : 0));
             flags += convertIntToCharCapsOnly((chkRandTreasures.Checked ? 1 : 0) + (chkRandTreasures.Checked ? (chk_GoldenClaw.Checked ? 2 : 0) : 0)  + (chkRandWhoCanEquip.Checked ? 4 : 0) + (chkRandEquip.Checked ? 8 : 0)); // 10
             flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_UseVanEquipValues.Checked ? 1 : 0) : 0) + (chkRandEquip.Checked ? (chk_RemoveStartEqRestrictions.Checked ? 2 : 0) : 0) + (chkRandEquip.Checked ? (chk_RmFighterPenalty.Checked ? 4 : 0) : 0) + (chkRandTreasures.Checked ? (chk_GreenSilverOrb.Checked ? 8 : 0) : 0)); // 11
-            flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_AdjustEqpPrices.Checked ? 1 : 0) : 0) + (chkRandTreasures.Checked ? (chk_RmRedundKey.Checked ? 2 : 0) : 0) + (chkRemCurse.Checked ? 4 : 0));
+            flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_AdjustEqpPrices.Checked ? 1 : 0) : 0) + (chkRandTreasures.Checked ? (chk_RmRedundKey.Checked ? 2 : 0) : 0) + (chk_RemCurse.Checked ? 4 : 0));
             flags += convertIntToCharCapsOnly((chkRandItemEffects.Checked ? 1 : 0) + (chkRandItemStores.Checked ? 2 : 0) + (chk_RandomizeWeaponShops.Checked ? 4 : 0) + (chk_Caturday.Checked ? 8 : 0)); // 12
             flags += convertIntToCharCapsOnly((chk_RandomizeInnPrices.Checked ? 1 : 0) + (chk_sellUnsellItems.Checked ? 2 : 0)); //13
             flags += convertIntToCharCapsOnly((chkRandItemStores.Checked ? (chk_StoneofLife.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_Seeds.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_BookofSatori.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_RingofLife.Checked ? 8 : 0) : 0)); // 14
@@ -9645,6 +7795,239 @@ namespace DW3Randomizer
         {
             var filePaths = (string[])e.Data.GetData(DataFormats.FileDrop);
             txtFileName.Text = filePaths[0];
+        }
+        private void convertStrToHex(string textToConvert, int startaddress, bool needBreak)
+        {
+            int offset = 0;
+            char[] characterArray = textToConvert.ToCharArray();
+            foreach (char c in textToConvert)
+            {
+                switch (c)
+                {
+                    case ' ':
+                        romData[startaddress + offset] = 0x00;
+                        break;
+                    case '0':
+                        romData[startaddress + offset] = 0x01;
+                        break;
+                    case '1':
+                        romData[startaddress + offset] = 0x02;
+                        break;
+                    case '2':
+                        romData[startaddress + offset] = 0x03;
+                        break;
+                    case '3':
+                        romData[startaddress + offset] = 0x04;
+                        break;
+                    case '4':
+                        romData[startaddress + offset] = 0x05;
+                        break;
+                    case '5':
+                        romData[startaddress + offset] = 0x06;
+                        break;
+                    case '6':
+                        romData[startaddress + offset] = 0x07;
+                        break;
+                    case '7':
+                        romData[startaddress + offset] = 0x08;
+                        break;
+                    case '8':
+                        romData[startaddress + offset] = 0x09;
+                        break;
+                    case '9':
+                        romData[startaddress + offset] = 0x0a;
+                        break;
+                    case 'a':
+                        romData[startaddress + offset] = 0x0b;
+                        break;
+                    case 'b':
+                        romData[startaddress + offset] = 0x0c;
+                        break;
+                    case 'c':
+                        romData[startaddress + offset] = 0x0d;
+                        break;
+                    case 'd':
+                        romData[startaddress + offset] = 0x0e;
+                        break;
+                    case 'e':
+                        romData[startaddress + offset] = 0x0f;
+                        break;
+                    case 'f':
+                        romData[startaddress + offset] = 0x10;
+                        break;
+                    case 'g':
+                        romData[startaddress + offset] = 0x11;
+                        break;
+                    case 'h':
+                        romData[startaddress + offset] = 0x12;
+                        break;
+                    case 'i':
+                        romData[startaddress + offset] = 0x13;
+                        break;
+                    case 'j':
+                        romData[startaddress + offset] = 0x14;
+                        break;
+                    case 'k':
+                        romData[startaddress + offset] = 0x15;
+                        break;
+                    case 'l':
+                        romData[startaddress + offset] = 0x16;
+                        break;
+                    case 'm':
+                        romData[startaddress + offset] = 0x17;
+                        break;
+                    case 'n':
+                        romData[startaddress + offset] = 0x18;
+                        break;
+                    case 'o':
+                        romData[startaddress + offset] = 0x19;
+                        break;
+                    case 'p':
+                        romData[startaddress + offset] = 0x1a;
+                        break;
+                    case 'q':
+                        romData[startaddress + offset] = 0x1b;
+                        break;
+                    case 'r':
+                        romData[startaddress + offset] = 0x1c;
+                        break;
+                    case 's':
+                        romData[startaddress + offset] = 0x1d;
+                        break;
+                    case 't':
+                        romData[startaddress + offset] = 0x1e;
+                        break;
+                    case 'u':
+                        romData[startaddress + offset] = 0x1f;
+                        break;
+                    case 'v':
+                        romData[startaddress + offset] = 0x20;
+                        break;
+                    case 'w':
+                        romData[startaddress + offset] = 0x21;
+                        break;
+                    case 'x':
+                        romData[startaddress + offset] = 0x22;
+                        break;
+                    case 'y':
+                        romData[startaddress + offset] = 0x23;
+                        break;
+                    case 'z':
+                        romData[startaddress + offset] = 0x24;
+                        break;
+                    case 'A':
+                        romData[startaddress + offset] = 0x25;
+                        break;
+                    case 'B':
+                        romData[startaddress + offset] = 0x26;
+                        break;
+                    case 'C':
+                        romData[startaddress + offset] = 0x27;
+                        break;
+                    case 'D':
+                        romData[startaddress + offset] = 0x28;
+                        break;
+                    case 'E':
+                        romData[startaddress + offset] = 0x29;
+                        break;
+                    case 'F':
+                        romData[startaddress + offset] = 0x2a;
+                        break;
+                    case 'G':
+                        romData[startaddress + offset] = 0x2b;
+                        break;
+                    case 'H':
+                        romData[startaddress + offset] = 0x2c;
+                        break;
+                    case 'I':
+                        romData[startaddress + offset] = 0x2d;
+                        break;
+                    case 'J':
+                        romData[startaddress + offset] = 0x2e;
+                        break;
+                    case 'K':
+                        romData[startaddress + offset] = 0x2f;
+                        break;
+                    case 'L':
+                        romData[startaddress + offset] = 0x30;
+                        break;
+                    case 'M':
+                        romData[startaddress + offset] = 0x31;
+                        break;
+                    case 'N':
+                        romData[startaddress + offset] = 0x32;
+                        break;
+                    case 'O':
+                        romData[startaddress + offset] = 0x33;
+                        break;
+                    case 'P':
+                        romData[startaddress + offset] = 0x34;
+                        break;
+                    case 'Q':
+                        romData[startaddress + offset] = 0x35;
+                        break;
+                    case 'R':
+                        romData[startaddress + offset] = 0x36;
+                        break;
+                    case 'S':
+                        romData[startaddress + offset] = 0x37;
+                        break;
+                    case 'T':
+                        romData[startaddress + offset] = 0x38;
+                        break;
+                    case 'U':
+                        romData[startaddress + offset] = 0x39;
+                        break;
+                    case 'V':
+                        romData[startaddress + offset] = 0x3a;
+                        break;
+                    case 'W':
+                        romData[startaddress + offset] = 0x3b;
+                        break;
+                    case 'X':
+                        romData[startaddress + offset] = 0x3c;
+                        break;
+                    case 'Y':
+                        romData[startaddress + offset] = 0x3d;
+                        break;
+                    case 'Z':
+                        romData[startaddress + offset] = 0x3e;
+                        break;
+                    case '"':
+                        romData[startaddress + offset] = 0x65;
+                        break;
+                    case '^':
+                        romData[startaddress + offset] = 0x68;
+                        break;
+                    case '.':
+                        romData[startaddress + offset] = 0x6c;
+                        break;
+                    case ',':
+                        romData[startaddress + offset] = 0x6a;
+                        break;
+                    case '(':
+                        romData[startaddress + offset] = 0x6d;
+                        break;
+                    case ')':
+                        romData[startaddress + offset] = 0x6e;
+                        break;
+                    case '?':
+                        romData[startaddress + offset] = 0x6f;
+                        break;
+                    case '!':
+                        romData[startaddress + offset] = 0x70;
+                        break;
+                    case ';':
+                        romData[startaddress + offset] = 0x71;
+                        break;
+                    case ':':
+                        romData[startaddress + offset] = 0x75;
+                        break;
+                }
+                offset += 1;
+            }
+            if (needBreak)
+                romData[startaddress + offset] = 0xff;
         }
 
         private void enableDisableFields(object sender, DragEventArgs e)
