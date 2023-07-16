@@ -13,15 +13,16 @@ using System.Diagnostics.Eventing.Reader;
 using static System.Windows.Forms.LinkLabel;
 using System.Drawing.Printing;
 using System.Windows.Forms.VisualStyles;
+using System.Diagnostics;
 
 namespace DW3Randomizer
 {
     public partial class Form1 : Form
     {
         string versionNumber = "2.4.6";
-        string revisionDate = "7/12/2023";
-        string SotWFlags = "ACHMHDMBLABJEBODPPPBADB";
-        string endyFlags = "ACGMHDPBLACLJDODPPPBADB";
+        string revisionDate = "7/15/2023";
+        string SotWFlags = "ACHMHDMBLABJMFODPPPBADB";
+        string endyFlags = "ACGMHDPBLACLNHODPPPBADB";
 
         bool loading = true;
         byte[] romData;
@@ -75,9 +76,11 @@ namespace DW3Randomizer
                 {
                     using (var stream = File.OpenRead(txtFileName.Text))
                     {
-                        lblSHAChecksum.Text = BitConverter.ToString(md5.ComputeHash(stream)).ToLower().Replace("-", ""); }
+                        lblSHAChecksum.Text = BitConverter.ToString(md5.ComputeHash(stream)).ToLower().Replace("-", "");
+                    }
                 }
-            } catch
+            }
+            catch
             {
                 lblSHAChecksum.Text = "????????????????????????????????????????";
             }
@@ -91,41 +94,42 @@ namespace DW3Randomizer
                 (512 * (chkNoLamiaOrbs.Checked ? 1 : 0)) + (1024 * (chk_RandomStartGold.Checked ? 1 : 0) + (2048 * (chk_InvisibleNPCs.Checked ? 1 : 0))) +
                 (4096 * (chk_InvisibleShips.Checked ? 1 : 0));
 
-            int mapTab = (chkRandomizeMap.Checked ? 1 : 0) + (2 * (chkRandMonsterZones.Checked ? 1 : 0)) + (4 * (chkSmallMap.Checked ? 1 : 0)) +
+            int mapTab = 3 * ((chkRandomizeMap.Checked ? 1 : 0) + (2 * (chkRandMonsterZones.Checked ? 1 : 0)) + (4 * (chkSmallMap.Checked ? 1 : 0)) +
                 (8 * (chk_RemoveMtnDrgQueen.Checked ? 1 : 0)) + (16 * (chk_SepBarGaia.Checked ? 1 : 0)) + (32 * (chk_RemLancelMountains.Checked ? 1 : 0)) +
                 (64 * (chk_RmMtnNecrogond.Checked ? 1 : 0)) + (128 * (chk_RemoveBirdRequirement.Checked ? 1 : 0)) +
-                (256 * (chk_lbtoCharlock.Checked ? 1 : 0)) + (512 * (chk_RmNewTown.Checked ? 1 : 0));
+                (256 * (chk_lbtoCharlock.Checked ? 1 : 0)) + (512 * (chk_RmNewTown.Checked ? 1 : 0)));
 
-            int monstersTab = (optMonsterHeavy.Checked ? 1 : optMonsterLight.Checked ? 2 : optMonsterMedium.Checked ? 4 : optMonsterSilly.Checked ? 8 : 0) +
+            int monstersTab = 5 * ((optMonsterHeavy.Checked ? 1 : optMonsterLight.Checked ? 2 : optMonsterMedium.Checked ? 4 : optMonsterSilly.Checked ? 8 : 0) +
                 (16 * (chkRandomizeXP.Checked ? 1 : 0)) + (32 * (chkRandomizeGP.Checked ? 1 : 0)) + (64 * (chkRandEnemyPatterns.Checked ? 1 : 0)) +
-                (128 * (chk_RemMetalMonRun.Checked ? 1 : 0) + (256 * (chk_AdjustEqpPrices.Checked ? 1 : 0)));
+                (128 * (chk_RemMetalMonRun.Checked ? 1 : 0)));
 
-            int treasureEquipmentTab = (chkRandTreasures.Checked ? 1 : 0) + (2 * (chk_GoldenClaw.Checked ? 1 : 0)) + (4 * (chkRandWhoCanEquip.Checked ? 1 : 0)) +
-                (8 * (chkRandEquip.Checked ? 1 : 0)) + (16 * (chk_UseVanEquipValues.Checked ? 1 : 0)) + (32 * (chk_RemoveStartEqRestrictions.Checked ? 1 : 0)) +
-                (64 * (chk_RmFighterPenalty.Checked ? 1 : 0)) + (128 * (chk_GreenSilverOrb.Checked ? 1 : 0)) + (256 * (chk_RemCurse.Checked ? 1 : 0));
+            int treasureEquipmentTab = 7 * ((chkRandTreasures.Checked ? 1 : 0) + (2 * (chk_RmRedundKey.Checked ? 1 : 0)) + (4 * (chk_GoldenClaw.Checked ? 1 : 0)) +
+                (8 * (chk_GreenSilverOrb.Checked ? 1 : 0)) + (16 * (chkRandWhoCanEquip.Checked ? 1 : 0)) + (32 * (chkRandEquip.Checked ? 1 : 0)) +
+                (64 * (chk_AdjustEqpPrices.Checked ? 1 : 0)) + (128 * (chk_UseVanEquipValues.Checked ? 1 : 0)) + (256 * (chk_RemoveStartEqRestrictions.Checked ? 1 : 0)) +
+                (512 * (chk_RmFighterPenalty.Checked ? 1 : 0)) + (1024 * (chk_AddRemakeEq.Checked ? 1 : 0)));
 
-            int itemWeaponShopsInsTab = (chkRandItemStores.Checked ? 1 : 0) + (2 * (chk_RandomizeWeaponShops.Checked ? 1 : 0)) + (4 * (chk_Caturday.Checked ? 1 : 0)) +
-                (8 * (chk_RandomizeInnPrices.Checked ? 1 : 0)) + (16 * (chk_StoneofLife.Checked ? 1 : 0)) + (32 * (chk_Seeds.Checked ? 1 : 0)) +
-                (64 * (chk_BookofSatori.Checked ? 1 : 0)) + (128 * (chk_RingofLife.Checked ? 1 : 0)) + (256 * (chk_EchoingFlute.Checked ? 1 : 0)) +
-                (512 * (chk_SilverHarp.Checked ? 1 : 0)) + (1024 * (chk_LeafoftheWorldTree.Checked ? 1 : 0)) + (2048 * (chk_ShoesofHappiness.Checked ? 1 : 0)) +
-                (4096 * (chk_MeteoriteArmband.Checked ? 1 : 0)) + (8192 * (chk_WizardsRing.Checked ? 1 : 0)) + (16384 * (chk_LampofDarkness.Checked ? 1 : 0)) +
-                (32768 * (chk_PoisonMothPowder.Checked ? 1 : 0));
+            int itemWeaponShopsInsTab = 11 * ((chkRandItemStores.Checked ? 1 : 0) + (2 * (chk_RandomizeWeaponShops.Checked ? 1 : 0)) + (4 * (chk_sellUnsellItems.Checked ? 1 : 0)) +
+                (8 * (chk_Caturday.Checked ? 1 : 0)) + (16 * (chk_RandomizeInnPrices.Checked ? 1 : 0)) + (32 * (chk_StoneofLife.Checked ? 1 : 0)) + (64 * (chk_Seeds.Checked ? 1 : 0)) +
+                (128 * (chk_BookofSatori.Checked ? 1 : 0)) + (256 * (chk_RingofLife.Checked ? 1 : 0)) + (512 * (chk_EchoingFlute.Checked ? 1 : 0)) +
+                (1024 * (chk_SilverHarp.Checked ? 1 : 0)) + (2048 * (chk_LeafoftheWorldTree.Checked ? 1 : 0)) + (4096 * (chk_ShoesofHappiness.Checked ? 1 : 0)) +
+                (8192 * (chk_MeteoriteArmband.Checked ? 1 : 0)) + (16384 * (chk_WizardsRing.Checked ? 1 : 0)) + (32768 * (chk_LampofDarkness.Checked ? 1 : 0)) +
+                (65536 * (chk_PoisonMothPowder.Checked ? 1 : 0)));
 
-            int charactersTab = (chkRandStatGains.Checked ? 1 : 0) + (2 * (chkRandSpellLearning.Checked ? 1 : 0)) + (4 * (chkRandSpellStrength.Checked ? 1 : 0)) +
-                (8 * (chkFourJobFiesta.Checked ? 1 : 0));
+            int charactersTab = 13 * ((chkRandStatGains.Checked ? 1 : 0) + (2 * (chkRandSpellLearning.Checked ? 1 : 0)) + (4 * (chkRandSpellStrength.Checked ? 1 : 0)) +
+                (8 * (chkFourJobFiesta.Checked ? 1 : 0)));
 
-            int fixesTab = (chkRemoveParryFight.Checked ? 1 : 0);
+            int fixesTab = 17 * ((chkRemoveParryFight.Checked ? 1 : 0));
 
-            int values = (int)romData[0x3d126] + (10 * (int)romData[0x123b1 + 10]) + (100 * (int)romData[0x134f9]) + (1000 * (int)romData[0x2a15]) +
+            int values = 19 * ((int)romData[0x3d126] + (10 * (int)romData[0x123b1 + 10]) + (100 * (int)romData[0x134f9]) + (1000 * (int)romData[0x2a15]) +
                 (int)romData[0x2a54] + (10 * (int)romData[0x281b + 10]) + (100 * (int)romData[0x281b + 11]) + (1000 * (int)romData[0x367c1 + 10]) +
                 (int)romData[0x36862] + (10 * (int)romData[0x368e2]) + (100 * (int)romData[0x1147 + 10]) + (1000 * (int)romData[0x279a0]) +
                 (int)romData[0x11be + 10] + (10 * (int)romData[0x2925a]) + (100 * (int)romData[0x2922b]) + (1000 * (int)romData[0x292c2]) +
-                (int)romData[0x2914f] + (10 * (int)romData[0x32e3 + (230)]) + (100 * (int)romData[0x32e3 + 480]) + (1000 * (int)romData[0x32e3 + 10]);
+                (int)romData[0x2914f] + (10 * (int)romData[0x32e3 + (230)]) + (100 * (int)romData[0x32e3 + 480]) + (1000 * (int)romData[0x32e3 + 10]));
 
-            int hashNumber = adjustmentTab + (2 * mapTab) + (3 * monstersTab) + (4 * treasureEquipmentTab) + (5 * itemWeaponShopsInsTab) +
-                (6 * charactersTab) + (7 * fixesTab) + values;
+            int hashNumber = adjustmentTab + mapTab + monstersTab + treasureEquipmentTab + itemWeaponShopsInsTab + charactersTab + fixesTab + values;
 
-            string hashString = hashNumber.ToString();
+            string hashString = hashNumber.ToString("X");
+            hashString = hashString.ToLower();
             lblHash.Text = hashString;
         }
 
@@ -163,6 +167,14 @@ namespace DW3Randomizer
                     else
                     {
                         chk_RandomGender.Checked = false;
+                    }
+                    if (reader.ReadLine() == "True")
+                    {
+                        chk_RandomClass.Checked = true;
+                    }
+                    else
+                    {
+                        chk_RandomClass.Checked = false;
                     }
                     txtCharName1.Text = reader.ReadLine();
                     txtCharName2.Text = reader.ReadLine();
@@ -298,9 +310,10 @@ namespace DW3Randomizer
                 if (chkRandEnemyPatterns.Checked) randEnemyPatterns(rni);
                 if (chkRandMonsterZones.Checked) randMonsterZones(rni);
                 if (chk_sellUnsellItems.Checked) forceItemSell(rni);
-                if (chkRandItemEffects.Checked) randItemEffects(rni);
-                if (chk_RemCurse.Checked) remCurse();
+//                if (chkRandItemEffects.Checked) randItemEffects(rni);
+                //                if (chk_RemCurse.Checked) remCurse();
                 if (chkRandEquip.Checked) randEquip(rni);
+                if (chk_AddRemakeEq.Checked) changeRemakeEq();
                 if (chk_RmFighterPenalty.Checked) removeFightPenalty();
                 if (chk_WeapArmPower.Checked) weapArmPower();
                 if (chkRandSpellLearning.Checked) randSpellLearning(rni);
@@ -621,19 +634,19 @@ namespace DW3Randomizer
                                   0xDE, 0xFE, 0xFE, 0x7C, 0xD8, 0x80, 0x80, 0x80, 0xFD, 0xFD, 0xFD, 0xFA, 0xE4, 0xF8, 0xC0, 0xC0 };
 
             byte[] gbaAniSprite = { 0x00, 0x10, 0x1A, 0x04, 0x0E, 0x04, 0x08, 0x06, 0x30, 0x3B, 0x2F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F,
-                                    0x00, 0x08, 0x58, 0x20, 0x70, 0x20, 0x10, 0x60, 0x0C, 0xDC, 0xF4, 0xFC, 0xF8, 0xF8, 0xF8, 0xF8, 
-                                    0x1C, 0x7E, 0x28, 0x0E, 0x08, 0x0E, 0x0E, 0x06, 0x7F, 0xBF, 0xFF, 0x3F, 0x1F, 0x1F, 0x1F, 0x09, 
-                                    0x38, 0x3C, 0x5C, 0x50, 0x50, 0xB0, 0x60, 0x00, 0xFC, 0xFE, 0xBA, 0xFE, 0xF8, 0xF8, 0xF0, 0xE0, 
+                                    0x00, 0x08, 0x58, 0x20, 0x70, 0x20, 0x10, 0x60, 0x0C, 0xDC, 0xF4, 0xFC, 0xF8, 0xF8, 0xF8, 0xF8,
+                                    0x1C, 0x7E, 0x28, 0x0E, 0x08, 0x0E, 0x0E, 0x06, 0x7F, 0xBF, 0xFF, 0x3F, 0x1F, 0x1F, 0x1F, 0x09,
+                                    0x38, 0x3C, 0x5C, 0x50, 0x50, 0xB0, 0x60, 0x00, 0xFC, 0xFE, 0xBA, 0xFE, 0xF8, 0xF8, 0xF0, 0xE0,
                                     0x00, 0x20, 0x34, 0x08, 0x1C, 0x08, 0x1B, 0x0C, 0x60, 0x77, 0x5F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3B,
-                                    0x00, 0x10, 0xB0, 0x40, 0xE0, 0x40, 0x60, 0xC0, 0x18, 0xB8, 0xE8, 0xF0, 0xF0, 0xF0, 0xF0, 0x70, 
-                                    0x27, 0x78, 0x6B, 0x1C, 0x1F, 0x1F, 0x0D, 0x00, 0x78, 0xFF, 0xB4, 0xF3, 0x30, 0x38, 0x1F, 0x0F, 
-                                    0x90, 0x7C, 0x68, 0xE0, 0xE0, 0xE0, 0xE0, 0xC0, 0x7C, 0xFA, 0xBC, 0x38, 0x30, 0x70, 0xF0, 0x20, 
-                                    0x00, 0x00, 0x02, 0x05, 0x0F, 0x0F, 0x1E, 0x0F, 0x00, 0x07, 0x0F, 0x1F, 0x1F, 0x3F, 0x3F, 0x33, 
-                                    0x00, 0x40, 0xC0, 0x80, 0xE0, 0xC0, 0xE0, 0xC0, 0x60, 0xE0, 0xA0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 
-                                    0x1C, 0x00, 0x35, 0x0D, 0x18, 0x17, 0x0E, 0x0C, 0x23, 0x3F, 0x4B, 0x73, 0x27, 0x2F, 0x1F, 0x13, 
-                                    0x80, 0x68, 0x8C, 0xC4, 0xCC, 0x28, 0xC0, 0x00, 0xF8, 0xF4, 0xFE, 0xFE, 0x3E, 0xFC, 0xF8, 0xE0, 
-                                    0x00, 0x40, 0xC0, 0x80, 0xE0, 0xC0, 0xE0, 0xC0, 0x60, 0xE0, 0xA0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 
-                                    0x1C, 0x00, 0x35, 0x0B, 0x1B, 0x18, 0x0D, 0x00, 0x23, 0x3F, 0x4B, 0x75, 0x25, 0x27, 0x13, 0x1F, 
+                                    0x00, 0x10, 0xB0, 0x40, 0xE0, 0x40, 0x60, 0xC0, 0x18, 0xB8, 0xE8, 0xF0, 0xF0, 0xF0, 0xF0, 0x70,
+                                    0x27, 0x78, 0x6B, 0x1C, 0x1F, 0x1F, 0x0D, 0x00, 0x78, 0xFF, 0xB4, 0xF3, 0x30, 0x38, 0x1F, 0x0F,
+                                    0x90, 0x7C, 0x68, 0xE0, 0xE0, 0xE0, 0xE0, 0xC0, 0x7C, 0xFA, 0xBC, 0x38, 0x30, 0x70, 0xF0, 0x20,
+                                    0x00, 0x00, 0x02, 0x05, 0x0F, 0x0F, 0x1E, 0x0F, 0x00, 0x07, 0x0F, 0x1F, 0x1F, 0x3F, 0x3F, 0x33,
+                                    0x00, 0x40, 0xC0, 0x80, 0xE0, 0xC0, 0xE0, 0xC0, 0x60, 0xE0, 0xA0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0,
+                                    0x1C, 0x00, 0x35, 0x0D, 0x18, 0x17, 0x0E, 0x0C, 0x23, 0x3F, 0x4B, 0x73, 0x27, 0x2F, 0x1F, 0x13,
+                                    0x80, 0x68, 0x8C, 0xC4, 0xCC, 0x28, 0xC0, 0x00, 0xF8, 0xF4, 0xFE, 0xFE, 0x3E, 0xFC, 0xF8, 0xE0,
+                                    0x00, 0x40, 0xC0, 0x80, 0xE0, 0xC0, 0xE0, 0xC0, 0x60, 0xE0, 0xA0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0,
+                                    0x1C, 0x00, 0x35, 0x0B, 0x1B, 0x18, 0x0D, 0x00, 0x23, 0x3F, 0x4B, 0x75, 0x25, 0x27, 0x13, 0x1F,
                                     0xF8, 0x64, 0x84, 0xAC, 0x48, 0xE8, 0xE0, 0xC0, 0xFE, 0xFA, 0xFE, 0xFE, 0xFC, 0xFC, 0xF8, 0x20 };
 
             // index == 0 uses default sprite
@@ -972,7 +985,8 @@ namespace DW3Randomizer
                             maxLake = lakeNumber;
                         }
                         lakeNumber++;
-                    } else
+                    }
+                    else
                     {
                         lastValidIsland = island[lnI, lnJ];
                     }
@@ -1073,18 +1087,18 @@ namespace DW3Randomizer
             islands.Remove(maxIsland[2]);
             islands.Remove(maxIsland[3]);
 
-/*
-            using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "island.txt")))
-            {
-                for (int lnY = 0; lnY < 256; lnY++)
-                {
-                    string output = "";
-                    for (int lnX = 0; lnX < 256; lnX++)
-                        output += island[lnY, lnX].ToString().PadLeft(5) + " ";
-                    writer.WriteLine(output);
-                }
-            }
-*/
+            /*
+                        using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "island.txt")))
+                        {
+                            for (int lnY = 0; lnY < 256; lnY++)
+                            {
+                                string output = "";
+                                for (int lnX = 0; lnX < 256; lnX++)
+                                    output += island[lnY, lnX].ToString().PadLeft(5) + " ";
+                                writer.WriteLine(output);
+                            }
+                        }
+            */
             string[] locTypes = { "C", "C", "C", "?", "S", "X", "T", "T", "?", "T", "X", "T", "T", "X", "T", "?", // Aliahan, Romaly, Eginbear, Baramos, Drought Shrine, XXXXXX, Samanao Town, Brecconary, Charlock, Reeve, Portuga, Noaniels, Assaram, XXXXXX, Baharata, Lancel
                                   // (16) Cantlin, Rimuldar, Hauksness, Luzami, Kanave, Tedanki, Moor, Jipang, Pirate's Den, Soo, Kol, Shrine before Enticement, Shrine S. of Portuga, Sword Of Gaia Shrine, Desert Shrine, Shrine south of Isis
                                   "T", "T", "T", "V", "V", "V", "V", "V", "V", "V", "V", "S", "S", "?", "S", "S",
@@ -1117,8 +1131,8 @@ namespace DW3Randomizer
                 //if (locIslands[lnI] < 0) continue;
                 int x = 300;
                 int y = 300;
-//                int drgqnx = 0;
-//                int drgqny = 0;
+                //                int drgqnx = 0;
+                //                int drgqny = 0;
 
                 if (lnI == 0) { x = midenX[1]; y = midenY[1]; }
                 else if (lnI == 48) { x = midenX[0]; y = midenY[0]; } // Norud Cave East
@@ -1129,10 +1143,12 @@ namespace DW3Randomizer
                     // Subtract 3 for room
                     x = 4 + r1.Next() % (chkSmallMap.Checked ? 80 - 4 - 4 : 132 - 4 - 4);
                     y = 4 + r1.Next() % (chkSmallMap.Checked ? 80 - 4 - 4 : 132 - 4 - 4);
-                } else if (locIslands[lnI] == -100)
+                }
+                else if (locIslands[lnI] == -100)
                 {
                     continue;
-                } else
+                }
+                else
                 {
                     // Subtract 6 for room
                     x = 6 + r1.Next() % (chkSmallMap.Checked ? 128 - 6 - 6 : 256 - 6 - 6);
@@ -1156,55 +1172,55 @@ namespace DW3Randomizer
                         if (validPlot(y, x, 2, 4, (locIslands[lnI] <= 3 ? new int[] { maxIsland[locIslands[lnI]] } : locIslands[lnI] <= 6 ? new int[] { 60000 } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
                             locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], locIslands[lnI] == 6 ? maxLake2 : maxLake, locIslands[lnI] == 6))
                         {
+                            if (locIslands[lnI] == 6)
+                            {
+                                map2[y + 0, x + 1] = 0xe8;
+                                map2[y + 0, x + 2] = 0xe9;
+                                map2[y + 1, x + 1] = 0xec;
+                                map2[y + 1, x + 2] = 0xed;
+                            }
+                            else
+                            {
+                                map[y + 0, x + 1] = 0xe8;
+                                map[y + 0, x + 2] = 0xe9;
+                                map[y + 1, x + 1] = 0xec;
+                                map[y + 1, x + 2] = 0xed;
+                            }
+
+                            int byteToUse = 0x1b252 + (5 * lnI);
+                            romData[byteToUse] = (byte)(x + 1);
+                            romData[byteToUse + 1] = (byte)(y + 1);
+
+                            if (lnI == 0) // Aliahan Castle
+                            {
+                                romData[0x18535] = (byte)(x + 1);
+                                romData[0x18536] = (byte)(y + 1);
+                            }
+
+                            if (returnPoints[lnI] != -1)
+                            {
+                                int byteToUseReturn = 0x1b61c + (4 * returnPoints[lnI]);
+                                romData[byteToUseReturn] = (byte)(x + 1);
                                 if (locIslands[lnI] == 6)
                                 {
-                                    map2[y + 0, x + 1] = 0xe8;
-                                    map2[y + 0, x + 2] = 0xe9;
-                                    map2[y + 1, x + 1] = 0xec;
-                                    map2[y + 1, x + 2] = 0xed;
+                                    if (map2[y + 2, x] == 0x00 || map2[y + 2, x] == 0x06)
+                                        romData[byteToUseReturn + 1] = (byte)(y + 2);
+                                    else
+                                        romData[byteToUseReturn + 1] = (byte)(y + 1);
                                 }
                                 else
                                 {
-                                    map[y + 0, x + 1] = 0xe8;
-                                    map[y + 0, x + 2] = 0xe9;
-                                    map[y + 1, x + 1] = 0xec;
-                                    map[y + 1, x + 2] = 0xed;
-                                }
-
-                                int byteToUse = 0x1b252 + (5 * lnI);
-                                romData[byteToUse] = (byte)(x + 1);
-                                romData[byteToUse + 1] = (byte)(y + 1);
-
-                                if (lnI == 0) // Aliahan Castle
-                                {
-                                    romData[0x18535] = (byte)(x + 1);
-                                    romData[0x18536] = (byte)(y + 1);
-                                }
-
-                                if (returnPoints[lnI] != -1)
-                                {
-                                    int byteToUseReturn = 0x1b61c + (4 * returnPoints[lnI]);
-                                    romData[byteToUseReturn] = (byte)(x + 1);
-                                    if (locIslands[lnI] == 6)
-                                    {
-                                        if (map2[y + 2, x] == 0x00 || map2[y + 2, x] == 0x06)
-                                            romData[byteToUseReturn + 1] = (byte)(y + 2);
-                                        else
-                                            romData[byteToUseReturn + 1] = (byte)(y + 1);
-                                    }
+                                    if (map[y + 2, x] == 0x00 || map[y + 2, x] == 0x06)
+                                        romData[byteToUseReturn + 1] = (byte)(y + 2);
                                     else
-                                    {
-                                        if (map[y + 2, x] == 0x00 || map[y + 2, x] == 0x06)
-                                            romData[byteToUseReturn + 1] = (byte)(y + 2);
-                                        else
-                                            romData[byteToUseReturn + 1] = (byte)(y + 1);
-                                    }
-                                    if (locIslands[lnI] != 6)
-                                        shipPlacement(byteToUseReturn + 2, y + 1, x + 1, maxLake);
-                                    else
-                                        shipPlacement2(byteToUseReturn + 2, y + 1, x + 1, maxLake2);
+                                        romData[byteToUseReturn + 1] = (byte)(y + 1);
                                 }
-                            
+                                if (locIslands[lnI] != 6)
+                                    shipPlacement(byteToUseReturn + 2, y + 1, x + 1, maxLake);
+                                else
+                                    shipPlacement2(byteToUseReturn + 2, y + 1, x + 1, maxLake2);
+                            }
+
                         }
                         else
                             lnI--;
@@ -1411,7 +1427,8 @@ namespace DW3Randomizer
                             {
                                 romData[0x1853d] = (byte)(x);
                                 romData[0x1853e] = (byte)(y);
-                            } else if (lnI == 56)
+                            }
+                            else if (lnI == 56)
                             {
                                 romData[0x30edb] = (byte)(x);
                                 romData[0x30edf] = (byte)(y);
@@ -1846,7 +1863,7 @@ namespace DW3Randomizer
                             if (validPlot(y, x, 6, 6, (locIslands[lnI] <= 6 ? new int[] { maxIsland[locIslands[lnI]] } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
                             locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], maxLake, locIslands[lnI] == 6))
                             {
-                                if(chk_RemoveMtnDrgQueen.Checked)
+                                if (chk_RemoveMtnDrgQueen.Checked)
                                     map[y, x + 2] = map[y, x + 3] = map[y + 1, x + 1] = map[y + 1, x + 4] = map[y + 2, x] = map[y + 2, x + 5] = map[y + 3, x] = map[y + 3, x + 5] = map[y + 4, x + 1] = map[y + 4, x + 4] = map[y + 5, x + 2] = map[y + 5, x + 3] = 0x05;
                                 else
                                     map[y, x + 2] = map[y, x + 3] = map[y + 1, x + 1] = map[y + 1, x + 4] = map[y + 2, x] = map[y + 2, x + 5] = map[y + 3, x] = map[y + 3, x + 5] = map[y + 4, x + 1] = map[y + 4, x + 4] = map[y + 5, x + 2] = map[y + 5, x + 3] = 0x06;
@@ -2304,29 +2321,29 @@ namespace DW3Randomizer
                     case "X":
                         continue;
                 }
-/*                int drgqnx3 = drgqnx + 3;
-                int drgqny5 = drgqny + 5;
-                // Draw landscape around Dragon Queen Castle
-                // Draw Mountains
-                map[drgqny, drgqnx + 2] = 0x06;
-                map[drgqny, drgqnx + 3] = 0x06;
-                map[drgqny + 1, drgqnx] = 0x06;
-                map[drgqny + 1, drgqnx + 4] = 0x06;
-                map[drgqny + 2, drgqnx] = 0x06;
-                map[drgqny + 2, drgqnx + 5] = 0x06;
-                map[drgqny + 3, drgqnx] = 0x06;
-                map[drgqny + 3, drgqnx + 5] = 0x06;
-               // Draw Grass
-                map[drgqny + 1, drgqnx + 2] = 0x02;
-                map[drgqny + 1, drgqnx + 3] = 0x02;
-                map[drgqny + 2, drgqnx + 1] = 0x02;
-                map[drgqny + 2, drgqnx + 4] = 0x02;
-                map[drgqny + 3, drgqnx + 1] = 0x02;
-                map[drgqny + 3, drgqnx + 4] = 0x02;
-                // Draw More Mountains
-                for (int lnM = 1; lnM <= 4; lnM++)
-                   map[drgqny + 4, drgqnx + lnM] = 0x01;
-*/
+                /*                int drgqnx3 = drgqnx + 3;
+                                int drgqny5 = drgqny + 5;
+                                // Draw landscape around Dragon Queen Castle
+                                // Draw Mountains
+                                map[drgqny, drgqnx + 2] = 0x06;
+                                map[drgqny, drgqnx + 3] = 0x06;
+                                map[drgqny + 1, drgqnx] = 0x06;
+                                map[drgqny + 1, drgqnx + 4] = 0x06;
+                                map[drgqny + 2, drgqnx] = 0x06;
+                                map[drgqny + 2, drgqnx + 5] = 0x06;
+                                map[drgqny + 3, drgqnx] = 0x06;
+                                map[drgqny + 3, drgqnx + 5] = 0x06;
+                               // Draw Grass
+                                map[drgqny + 1, drgqnx + 2] = 0x02;
+                                map[drgqny + 1, drgqnx + 3] = 0x02;
+                                map[drgqny + 2, drgqnx + 1] = 0x02;
+                                map[drgqny + 2, drgqnx + 4] = 0x02;
+                                map[drgqny + 3, drgqnx + 1] = 0x02;
+                                map[drgqny + 3, drgqnx + 4] = 0x02;
+                                // Draw More Mountains
+                                for (int lnM = 1; lnM <= 4; lnM++)
+                                   map[drgqny + 4, drgqnx + lnM] = 0x01;
+                */
 
             }
 
@@ -2518,14 +2535,14 @@ namespace DW3Randomizer
         {
             Random r1 = new Random(int.Parse(txtSeed.Text));
 
-            string[] maleNames = { "Bran", "Glynn", "Talint", "Numor", "Lars", "Orfeo", "Artho", "Esgar", "Ragnar", "Cristo", "Brey", 
+            string[] maleNames = { "Bran", "Glynn", "Talint", "Numor", "Lars", "Orfeo", "Artho", "Esgar", "Ragnar", "Cristo", "Brey",
                 "Brindar", "Adan", "Glennard", "Theron", "Elucidus", "Harley", "Mathias", "Sartris", "Petrus", "Hiram", "Viron",
-                "Taloon", "Pankraz", "Parry", "Carver", "Nevan", "Terry", "Amos", "Kiefer", "Gabo", "Melvin", "Angelo", "Yangus", "Erik", 
+                "Taloon", "Pankraz", "Parry", "Carver", "Nevan", "Terry", "Amos", "Kiefer", "Gabo", "Melvin", "Angelo", "Yangus", "Erik",
                 "Sylvando", "Arus", "Luceus", "Lazarel", "Dai", "Alvin", "Ashlay", "Dougie", "Erdwin", "Cobi", "Kendrick", "Hans", "Kiryl",
                 "Hendrik", "Laurel", "Hybris", "Jasper", "Joker", "Nalasia", "Charmles", "Kameha", "Laguas", "Odisu", "Psaro", "Trode",
                 "Vearn"};
-            string[] femaleNames = { "Gwaelin", "Varia", "Elani", "Ollisa", "Roz", "Kailin", "Peta", "Illith", "Gwen", 
-                "Alena", "Nara", "Mara", "Bianca", "Debora", "Madchen", "Nera", "Maria", "Patty", "Milly", "Ashlynn", "Maribel", 
+            string[] femaleNames = { "Gwaelin", "Varia", "Elani", "Ollisa", "Roz", "Kailin", "Peta", "Illith", "Gwen",
+                "Alena", "Nara", "Mara", "Bianca", "Debora", "Madchen", "Nera", "Maria", "Patty", "Milly", "Ashlynn", "Maribel",
                 "Aira", "Jessica", "Jade", "Veronica", "Serena", "Lunafrea", "Aurora", "Teresa", "Tara", "Stella", "Aishe", "Aimi", "Ameria",
                 "Anlucia", "Beryl", "Lin", "Erinn", "Estella", "Merle", "Mina", "Gemma", "Orifiela", "Serena", "Tania", "Anemone", "Lisette",
                 "Minnie", "Medea", "Vistalia"};
@@ -2542,7 +2559,7 @@ namespace DW3Randomizer
             int findex3 = r1.Next() % femaleNameCount;
 
             // Reroll male index if any of the values are the same (don't want characters with the same name)
-            while(mindex1 == mindex2 || mindex1 == mindex3 || mindex2 == mindex3)
+            while (mindex1 == mindex2 || mindex1 == mindex3 || mindex2 == mindex3)
             {
                 mindex1 = r1.Next() % maleNameCount;
                 mindex2 = r1.Next() % maleNameCount;
@@ -2782,7 +2799,7 @@ namespace DW3Randomizer
                                     0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f,
                                     0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x48, 0x49, 0x4b, 0x4c, 0x4e,
                                     0x55, 0x56, 0x5e, 0x5f,
-                                    0x60, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6c, 0x6d,
+                                    0x60, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6c,
                                     0x73, 0x74,
                                     0x65, 0x66, 0x67, 0x68, 0x6c, 0x73, 0x74, 0x65, 0x66, 0x67, 0x68, 0x6c, 0x73, 0x74,
                                     0x65, 0x66, 0x67, 0x68, 0x6c, 0x73, 0x74, 0x65, 0x66, 0x67, 0x68, 0x6c, 0x73, 0x74 };
@@ -3013,7 +3030,7 @@ namespace DW3Randomizer
 
         }
 
-        private void randItemEffects(int rni)
+/*        private void randItemEffects(int rni)
         {
             Random r1 = new Random(int.Parse(txtSeed.Text));
 
@@ -3102,7 +3119,7 @@ namespace DW3Randomizer
             }
 
         }
-
+*/
         private void randEquip(int rni)
         {
             Random r1 = new Random(int.Parse(txtSeed.Text));
@@ -3255,6 +3272,8 @@ namespace DW3Randomizer
 
                 if (chk_AdjustEqpPrices.Checked == true)
                 {
+//                    adjustEqPrices(lnI, (int)power);
+
 
                     // You want a max price of about 20000, shields 18300, helmets 15000 - Will be slightly higher if using standard powers
                     double price = Math.Round((lnI < 32 ? Math.Pow(power, 2.04) : lnI < 56 ? Math.Pow(power, 2.26) : lnI < 63 ? Math.Pow(power, 2.45) : Math.Pow(power, 2.7)), 0);
@@ -3293,6 +3312,8 @@ namespace DW3Randomizer
                             romData[0x123b + lnI] = (byte)(price);
                     }
                 }
+                    
+                
                 if (lnI < 80)
                 {
                     if (lnI <= 2)
@@ -3304,6 +3325,35 @@ namespace DW3Randomizer
             }
         }
 
+        private void adjustEqPrices(int lnI, int power)
+        {
+            // You want a max price of about 20000, shields 18300, helmets 15000 - Will be slightly higher if using standard powers
+            double price = Math.Round((lnI < 32 ? Math.Pow(power, 2.04) : lnI < 56 ? Math.Pow(power, 2.26) : lnI < 63 ? Math.Pow(power, 2.45) : Math.Pow(power, 2.7)), 0);
+            // TO DO:  Round to the nearest 10 (after 100GP), 50(after 1000 GP), or 100 (after 2500 GP)
+            price = (float)Math.Round(price, 0);
+
+            //// Remove any price adjustment first.
+            romData[0x11be + lnI] -= (byte)(romData[0x11be + lnI] % 4);
+            if (price >= 10000)
+            {
+                romData[0x11be + lnI] += 3; // Now multiply by 1000
+                price /= 1000;
+            }
+            else if (price >= 1000)
+            {
+                romData[0x11be + lnI] += 2; // Now multiply by 100
+                price /= 100;
+            }
+            else if (price >= 100)
+            {
+                romData[0x11be + lnI] += 1; // Now multiply by 10
+                price /= 10;
+            }
+            else
+            {
+                romData[0x11be + lnI] += 0;
+            }
+        }
         private void whoCanEquip(int rni)
         {
             Random r1 = new Random(int.Parse(txtSeed.Text));
@@ -3329,6 +3379,10 @@ namespace DW3Randomizer
         {
             int curseOffset1 = 0;
             int curseOffset2 = 0;
+
+            //remove 8 characters to account for the :'s. Removal of water blaster to account for Curse *'s in equipment possibility
+            convertStrToHex(" Herb", 0xafb8, false);
+            convertStrToHex(" Seed", 0xb007, false);
 
             for (int lnI = 0; lnI < 71; lnI++)
             {
@@ -3428,15 +3482,16 @@ namespace DW3Randomizer
                 }
                 else if (lnI == 3)
                 {
-                    convertStrToHex("MgcKnf", 0xad24, true);
+                    convertStrToHex("MgcKn", 0xad24, true);
                 }
                 else if (lnI == 4)
                 {
-                    convertStrToHex("IrSpr", 0xad2b, true);
+                    convertStrToHex("IrSpr", 0xad2a, true);
                 }
                 else if (lnI == 5)
                 {
-                    convertStrToHex("BtlAx", 0xad31, true);
+                    if (chk_AddRemakeEq.Checked == false)
+                        convertStrToHex("BtlAxe", 0xad30, true);
                 }
                 else if (lnI == 6)
                 {
@@ -3456,11 +3511,13 @@ namespace DW3Randomizer
                 }
                 else if (lnI == 10)
                 {
-                    convertStrToHex("ThnWh", 0xad50, true);
+                    if (chk_AddRemakeEq.Checked == false)
+                        convertStrToHex("ThnWh", 0xad50, true);
                 }
                 else if (lnI == 11)
                 {
-                    convertStrToHex("GntShr", 0xad56, true);
+                    if (chk_AddRemakeEq.Checked == false)
+                        convertStrToHex("GntShr", 0xad56, true);
                 }
                 else if (lnI == 12)
                 {
@@ -3516,7 +3573,8 @@ namespace DW3Randomizer
                 }
                 else if (lnI == 25)
                 {
-                    convertStrToHex("SldgHmr", 0xadbf, true);
+                    if (chk_AddRemakeEq.Checked == false)
+                        convertStrToHex("SldgHmr", 0xadbf, true);
                 }
                 else if (lnI == 26)
                 {
@@ -3624,7 +3682,8 @@ namespace DW3Randomizer
                 }
                 else if (lnI == 52)
                 {
-                    convertStrToHex("TerrafmAr", 0xaea3, true);
+                    if (chk_AddRemakeEq.Checked == false)
+                        convertStrToHex("TerrafmAr", 0xaea3, true);
                 }
                 else if (lnI == 53)
                 {
@@ -3644,7 +3703,8 @@ namespace DW3Randomizer
                 }
                 else if (lnI == 57)
                 {
-                    convertStrToHex("IrnShld", 0xaecf, true);
+                    if (chk_AddRemakeEq.Checked == false)
+                        convertStrToHex("IrnShld", 0xaecf, true);
                 }
                 else if (lnI == 58)
                 {
@@ -3668,35 +3728,36 @@ namespace DW3Randomizer
                 }
                 else if (lnI == 63)
                 {
-                    convertStrToHex("GoldCrown", 0xaf00, true);
+                    convertStrToHex("Gold Crown", 0xaf00, true);
                 }
                 else if (lnI == 64)
                 {
-                    convertStrToHex("IrHmt", 0xaf0a, true);
+                    convertStrToHex("IrHmt", 0xaf0b, true);
                 }
                 else if (lnI == 65)
                 {
-                    convertStrToHex("MystHt", 0xaf10, true);
+                    convertStrToHex("MystHt", 0xaf11, true);
                 }
                 else if (lnI == 66)
                 {
-                    convertStrToHex("UnlHmt", 0xaf17, true);
+                    convertStrToHex("UnlyHmt", 0xaf18, true);
                 }
                 else if (lnI == 67)
                 {
-                    convertStrToHex("Turban", 0xaf1e, true);
+                    convertStrToHex("Turbn", 0xaf20, true);
                 }
                 else if (lnI == 68)
                 {
-                    convertStrToHex("NohMsk", 0xaf25, true);
+                    convertStrToHex("NohMask", 0xaf26, true);
                 }
                 else if (lnI == 69)
                 {
-                    convertStrToHex("LthHlmt", 0xaf2c, true);
+                    convertStrToHex("LthHmt", 0xaf2e, true);
                 }
                 else if (lnI == 70)
                 {
-                    convertStrToHex("IrnMsk", 0xaf34, true);
+                    if (chk_AddRemakeEq.Checked == false)
+                        convertStrToHex("IrMsk", 0xaf35, true);
                 }
                 if (lnI < 32)
                 {
@@ -3747,21 +3808,23 @@ namespace DW3Randomizer
                         romData[0xb27b + (lnI - 64) * 6 + 5 + curseOffset2] = 0xff; // Break
                 }
             }
+            convertStrToHex("Amulet&Life&Happiness&Claw&Armband&Satori&&Ring&Pepper&Stone&Ra&Drought&Darkness&Change&Life&&Ball&Key&Key&Key&Ruby&Powder&Scroll&&Seed&Seed&&Seed&Seed&Life&Herb&Herb&Water&Wyvern&World$Tree&&Love&Herb&", 0xb2a5 + curseOffset2, true);
+
+            for (int lnI = 0; lnI < (9 - curseOffset2); lnI++)
+                romData[0xb371 + lnI] = 0x00;
         }
-
-        private void remCurse()
-        {
-            for (int lnI = 0; lnI < 71; lnI++)
-            {
-                byte value = romData[0x11be + lnI];
-                bool checkCurse = (value & 0x08) == 0x08;
-
-                if (checkCurse)
+        /*
+                private void remCurse(int offset)
                 {
-                    romData[0x11be + lnI] = (byte)(value - 8);
+                    byte value = romData[0x11be + offset];
+                    bool checkCurse = (value & 0x08) == 0x08;
+
+                    if (checkCurse)
+                    {
+                        romData[0x11be + offset] = (byte)(value - 8);
+                    }
                 }
-            }
-        }
+        */
         private void removeFightPenalty()
         {
             romData[0x1507] = romData[0x1508] = romData[0x1509] = romData[0x150a] = 0xea;
@@ -3775,7 +3838,7 @@ namespace DW3Randomizer
             {
                 r1.Next();
             }
-            
+
             // Totally randomize spell learning
             // First, clear out all of the magic bytes...
             for (int lnI = 0; lnI < 252; lnI++)
@@ -3946,7 +4009,7 @@ namespace DW3Randomizer
             {
                 r1.Next();
             }
-            
+
             // Totally randomize spell strengths - first, attack spells
             for (int lnI = 0; lnI < 17; lnI++)
             {
@@ -4041,7 +4104,7 @@ namespace DW3Randomizer
             // NOTICE:  Using 0x3b785, supposedly the wake-up powder NPC, warps you to weird places after jumping off the rope in the tower of Garuna...
 
             List<int> allTreasureList = new List<int>();
-            
+
             allTreasureList = addTreasure(allTreasureList, treasureAddrZ0);
             allTreasureList = addTreasure(allTreasureList, treasureAddrZ1);
             allTreasureList = addTreasure(allTreasureList, treasureAddrZ2);
@@ -4071,7 +4134,7 @@ namespace DW3Randomizer
                                           0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f,
                                           0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x48, 0x49, 0x4b, 0x4c, 0x4e,
                                           0x55, 0x56, 0x5e, 0x5f };
-            byte[] legalTreasures2 = {0x60, 0x62, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6c, 0x6d,
+            byte[] legalTreasures2 = {0x60, 0x62, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6c,
                                           0x73, 0x74,
                                           0x88, 0x90, 0x98, 0xa0, 0xa8, 0xb0, 0xb8, 0xc0, 0xc8, 0xd0, 0xd8, 0xe0, 0xe8, 0xf0, 0xf8,
                                           0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff };
@@ -4268,7 +4331,7 @@ namespace DW3Randomizer
                     else if (new int[] { 0x29252, 0x292d2, 0x292e6 }.Contains(treasureLocation))
                         echoLocations = new byte[] { 0x3f, 0xe8, 0xe9, 0xea, 0xeb, 0xec, 0xee }; // Tower of Champagne
                     else if (new int[] { 0x2925c, 0x31b9c, 0x2925d, 0x2925e, 0x2925f, 0x29260, 0x29261, 0x29262, 0x29263, 0x29264 }.Contains(treasureLocation))
-                        echoLocations = new byte[] { 0x29, 0x96, 0x50, 0x51, 0x52, 0x53, 0x54, 0x55, 0x56, 0x57, 0x87}; // Isis
+                        echoLocations = new byte[] { 0x29, 0x96, 0x50, 0x51, 0x52, 0x53, 0x54, 0x55, 0x56, 0x57, 0x87 }; // Isis
                     else if (new int[] { 0x29269, 0x2926a, 0x2926b }.Contains(treasureLocation))
                         echoLocations = new byte[] { 0x0a, 0x6f, 0x70, 0x71 }; // Portoga
                     else if (new int[] { 0x29249, 0x2924a, 0x2924b, 0x2924c, 0x2924d, 0x2924e, 0x2924f, 0x292b4, 0x292b5, 0x292b6, 0x292c3, 0x317f4 }.Contains(treasureLocation))
@@ -4427,7 +4490,7 @@ namespace DW3Randomizer
             {
                 legalStoreItemsList.Add(0x73);
             }
-            
+
 
             int[] weaponStores = { 0x36838, 0x3683f, 0x36846, 0x3684d, 0x36854, 0x3685b, 0x36862, 0x36869, 0x3686e, 0x36874, 0x3687a, 0x36880, 0x36887, 0x3688d, 0x36893, 0x3689a, 0x368a1, 0x368a7, 0x368ae }; // 42
             int[] itemStores = { 0x368b4, 0x368b7, 0x368be, 0x368c4, 0x368ca, 0x368d0, 0x368d6, 0x368db, 0x368e0, 0x368e2, 0x368e6, 0x368ec, 0x368f2, 0x368f4, 0x368fa, 0x368ff, 0x36905, 0x36908, 0x3690e, 0x36914, 0x3691a, 0x36920, 0x36927, 0x3692b }; // 22
@@ -4557,9 +4620,9 @@ namespace DW3Randomizer
 
             if (colorpick == 0)
             {
-                for(int lni = 0; lni < caskettop1_green.Length; lni++)
+                for (int lni = 0; lni < caskettop1_green.Length; lni++)
                     caskettop1.Add(caskettop1_green[lni]);
-                for(int lni = 0; lni < caskettop2_green.Length; lni++)
+                for (int lni = 0; lni < caskettop2_green.Length; lni++)
                     caskettop2.Add(caskettop2_green[lni]);
                 for (int lni = 0; lni < casketbottom1_green.Length; lni++)
                     casketbottom1.Add(casketbottom1_green[lni]);
@@ -4620,11 +4683,11 @@ namespace DW3Randomizer
             romData[0x4265f] = 0x38; // T
             romData[0x42664] = 0x26; // B
             romData[0x42666] = 0x11; // g
-            romData[0x42566]= romData[0x42735] = romData[0x4290e] = romData[0x42913] = 0x0f; // e
+            romData[0x42566] = romData[0x42735] = romData[0x4290e] = romData[0x42913] = 0x0f; // e
             romData[0x4290d] = 0x0d; // c
             romData[0x42915] = 0xf4; // item name
 
-               
+
         }
 
         private void randomizeInnPrices(int rni)
@@ -4798,7 +4861,7 @@ namespace DW3Randomizer
 
             }
         }
-        
+
         private void markZoneSides()
         {
             for (int x = 0; x < 16; x++)
@@ -4823,8 +4886,8 @@ namespace DW3Randomizer
         {
             int xMax = (zoneToUse != -1000 ? (chkSmallMap.Checked ? 128 : 256) : (chkSmallMap.Checked ? 80 : 136)) - 7;
             int yMax = (zoneToUse != -1000 ? (chkSmallMap.Checked ? 128 : 256) : (chkSmallMap.Checked ? 80 : 132)) - 7;
-			int yMin = 6;
-			int xMin = 6;
+            int yMin = 6;
+            int xMin = 6;
 
             int[] terrainTypes = { 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7 };
 
@@ -4858,22 +4921,22 @@ namespace DW3Randomizer
                             int lnX = points[lnI];
                             int lnY = points[lnI + 1];
 
-//                            if (lnX == 127 && lnY == 56) lnX = lnX; // Why redeclare?
+                            //                            if (lnX == 127 && lnY == 56) lnX = lnX; // Why redeclare?
 
                             int direction = (r1.Next() % 16);
                             if (zoneToUse != -1000)
-							{
-								map[lnY, lnX] = terrainTypes[lnMarker];
-								island[lnY, lnX] = (terrainTypes[lnMarker] == 6 ? -1 - zoneToUse : zoneToUse);
-							}
-							else
-							{
-								map2[lnY, lnX] = terrainTypes[lnMarker];
-								island2[lnY, lnX] = (terrainTypes[lnMarker] == 6 ? -1 : 0);
-							}
+                            {
+                                map[lnY, lnX] = terrainTypes[lnMarker];
+                                island[lnY, lnX] = (terrainTypes[lnMarker] == 6 ? -1 - zoneToUse : zoneToUse);
+                            }
+                            else
+                            {
+                                map2[lnY, lnX] = terrainTypes[lnMarker];
+                                island2[lnY, lnX] = (terrainTypes[lnMarker] == 6 ? -1 : 0);
+                            }
 
-							// 1 = North, 2 = east, 4 = south, 8 = west
-							if (direction % 8 >= 4 && lnY <= yMax)
+                            // 1 = North, 2 = east, 4 = south, 8 = west
+                            if (direction % 8 >= 4 && lnY <= yMax)
                             {
                                 if (validPoint(lnX, lnY + 1, zoneToUse))
                                 {
@@ -4882,15 +4945,15 @@ namespace DW3Randomizer
                                         if (map2[lnY + 1, lnX] == 0)
                                             totalLand++;
                                         map2[lnY + 1, lnX] = terrainTypes[lnMarker];
-										island2[lnY + 1, lnX] = (terrainTypes[lnMarker] == 6 ? -1 : 0);
-									}
-									else
+                                        island2[lnY + 1, lnX] = (terrainTypes[lnMarker] == 6 ? -1 : 0);
+                                    }
+                                    else
                                     {
                                         if (map[lnY + 1, lnX] == 0)
                                             totalLand++;
                                         map[lnY + 1, lnX] = terrainTypes[lnMarker];
                                         island[lnY + 1, lnX] = (terrainTypes[lnMarker] == 6 ? -1 - zoneToUse : zoneToUse);
-									}
+                                    }
 
                                     newPoints.Add(lnX);
                                     newPoints.Add(lnY + 1);
@@ -4905,15 +4968,15 @@ namespace DW3Randomizer
                                         if (map2[lnY - 1, lnX] == 0)
                                             totalLand++;
                                         map2[lnY - 1, lnX] = terrainTypes[lnMarker];
-										island2[lnY - 1, lnX] = (terrainTypes[lnMarker] == 6 ? -1 : 0);
-									}
-									else
+                                        island2[lnY - 1, lnX] = (terrainTypes[lnMarker] == 6 ? -1 : 0);
+                                    }
+                                    else
                                     {
                                         if (map[lnY - 1, lnX] == 0)
                                             totalLand++;
                                         map[lnY - 1, lnX] = terrainTypes[lnMarker];
                                         island[lnY - 1, lnX] = (terrainTypes[lnMarker] == 6 ? -1 - zoneToUse : zoneToUse);
-									}
+                                    }
                                     newPoints.Add(lnX);
                                     newPoints.Add(lnY - 1);
                                 }
@@ -4927,15 +4990,15 @@ namespace DW3Randomizer
                                         if (map2[lnY, lnX + 1] == 0)
                                             totalLand++;
                                         map2[lnY, lnX + 1] = terrainTypes[lnMarker];
-										island2[lnY, lnX + 1] = (terrainTypes[lnMarker] == 6 ? -1 : 0);
-									}
-									else
+                                        island2[lnY, lnX + 1] = (terrainTypes[lnMarker] == 6 ? -1 : 0);
+                                    }
+                                    else
                                     {
                                         if (map[lnY, lnX + 1] == 0)
                                             totalLand++;
                                         map[lnY, lnX + 1] = terrainTypes[lnMarker];
                                         island[lnY, lnX + 1] = (terrainTypes[lnMarker] == 6 ? -1 - zoneToUse : zoneToUse);
-									}
+                                    }
                                     newPoints.Add(lnX + 1);
                                     newPoints.Add(lnY);
                                 }
@@ -4949,15 +5012,15 @@ namespace DW3Randomizer
                                         if (map2[lnY, lnX - 1] == 0)
                                             totalLand++;
                                         map2[lnY, lnX - 1] = terrainTypes[lnMarker];
-										island2[lnY, lnX - 1] = (terrainTypes[lnMarker] == 6 ? -1 : 0);
-									}
-									else
+                                        island2[lnY, lnX - 1] = (terrainTypes[lnMarker] == 6 ? -1 : 0);
+                                    }
+                                    else
                                     {
                                         if (map[lnY, lnX - 1] == 0)
                                             totalLand++;
                                         map[lnY, lnX - 1] = terrainTypes[lnMarker];
-										island[lnY, lnX - 1] = (terrainTypes[lnMarker] == 6 ? -1 - zoneToUse : zoneToUse);
-									}
+                                        island[lnY, lnX - 1] = (terrainTypes[lnMarker] == 6 ? -1 - zoneToUse : zoneToUse);
+                                    }
                                     newPoints.Add(lnX - 1);
                                     newPoints.Add(lnY);
                                 }
@@ -5005,16 +5068,16 @@ namespace DW3Randomizer
                     for (int lnX = 0; lnX < 156; lnX++)
                     {
                         if (map2[lnY, lnX] == map2[lnY, lnX + 2] && map2[lnY, lnX] != map2[lnY, lnX + 1])
-						{
-							map2[lnY, lnX + 1] = map2[lnY, lnX];
-							island2[lnY, lnX + 1] = island2[lnY, lnX];
-						}
+                        {
+                            map2[lnY, lnX + 1] = map2[lnY, lnX];
+                            island2[lnY, lnX + 1] = island2[lnY, lnX];
+                        }
                         if (lnX < 149 && land.Contains(map2[lnY, lnX]) && !land.Contains(map2[lnY, lnX + 1]) && !land.Contains(map2[lnY, lnX + 2]) && land.Contains(map2[lnY, lnX + 3]))
                         {
                             map2[lnY, lnX + 1] = map2[lnY, lnX];
                             map2[lnY, lnX + 2] = map2[lnY, lnX + 3];
-							island2[lnY, lnX + 1] = island2[lnY, lnX];
-							island2[lnY, lnX + 2] = island2[lnY, lnX + 3];
+                            island2[lnY, lnX + 1] = island2[lnY, lnX];
+                            island2[lnY, lnX + 2] = island2[lnY, lnX + 3];
                         }
                     }
             }
@@ -5086,74 +5149,74 @@ namespace DW3Randomizer
             }
         }
 
-		private void smoothMap2()
-		{
-			// Remove one byte lands
-			for (int lnX = 0; lnX < 156; lnX++)
-				for (int lnY = 0; lnY < 139; lnY++)
-				{
-					if (map2[lnY, lnX] != map2[lnY, lnX + 1] && map2[lnY, lnX + 1] != map2[lnY, lnX + 2] && island2[lnY, lnX] == island2[lnY, lnX + 2])
-					{
-						map2[lnY, lnX + 1] = map2[lnY, lnX];
-						island2[lnY, lnX + 1] = island2[lnY, lnX];
-					}
-				}
+        private void smoothMap2()
+        {
+            // Remove one byte lands
+            for (int lnX = 0; lnX < 156; lnX++)
+                for (int lnY = 0; lnY < 139; lnY++)
+                {
+                    if (map2[lnY, lnX] != map2[lnY, lnX + 1] && map2[lnY, lnX + 1] != map2[lnY, lnX + 2] && island2[lnY, lnX] == island2[lnY, lnX + 2])
+                    {
+                        map2[lnY, lnX + 1] = map2[lnY, lnX];
+                        island2[lnY, lnX + 1] = island2[lnY, lnX];
+                    }
+                }
 
-			int smoothRequirement = 10;
-			bool badMap = true;
+            int smoothRequirement = 10;
+            bool badMap = true;
 
-			while (badMap)
-			{
-				// Let's PRETEND to enter this into the ROM...
-				int lnPointer = 0x9bab;
+            while (badMap)
+            {
+                // Let's PRETEND to enter this into the ROM...
+                int lnPointer = 0x9bab;
 
-				for (int lnI = 0; lnI <= 138; lnI++) // <---- There is a final pointer for lnI = 256, probably indicating the conclusion of the map2.
-				{
-					int lnJ = 0;
-					while (lnI < 139 && lnJ < 158)
-					{
-						if (map2[lnI, lnJ] >= 0 && map2[lnI, lnJ] <= 7)
-						{
-							int tileNumber = 0;
-							int numberToMatch = map2[lnI, lnJ];
-							while (lnJ < 158 && tileNumber < (numberToMatch == 7 ? 8 : 32) && map2[lnI, lnJ] == numberToMatch)
-							{
-								tileNumber++;
-								lnJ++;
-							}
-							lnPointer++;
-						}
-						else
-						{
-							lnPointer++;
-							lnJ++;
-						}
-					}
-				}
-				//lnPointer = lnPointer;
-				if (lnPointer <= 0xa3ee - 80)
-					badMap = false;
-				else // Time to remove small areas of stuff to hopefully compress the map further.
-				{
-					//MessageBox.Show("Map too big; " + (lnPointer - (0x9a94 - 256)).ToString() + " bytes too big");
+                for (int lnI = 0; lnI <= 138; lnI++) // <---- There is a final pointer for lnI = 256, probably indicating the conclusion of the map2.
+                {
+                    int lnJ = 0;
+                    while (lnI < 139 && lnJ < 158)
+                    {
+                        if (map2[lnI, lnJ] >= 0 && map2[lnI, lnJ] <= 7)
+                        {
+                            int tileNumber = 0;
+                            int numberToMatch = map2[lnI, lnJ];
+                            while (lnJ < 158 && tileNumber < (numberToMatch == 7 ? 8 : 32) && map2[lnI, lnJ] == numberToMatch)
+                            {
+                                tileNumber++;
+                                lnJ++;
+                            }
+                            lnPointer++;
+                        }
+                        else
+                        {
+                            lnPointer++;
+                            lnJ++;
+                        }
+                    }
+                }
+                //lnPointer = lnPointer;
+                if (lnPointer <= 0xa3ee - 80)
+                    badMap = false;
+                else // Time to remove small areas of stuff to hopefully compress the map further.
+                {
+                    //MessageBox.Show("Map too big; " + (lnPointer - (0x9a94 - 256)).ToString() + " bytes too big");
 
-					int lastTile = 0x00;
-					int lastIsland = island2[0, 0];
-					for (int lnY = 0; lnY < 139; lnY++)
-						for (int lnX = 0; lnX < 158; lnX++)
-						{
-							smoothPlot2(lnX, lnY, smoothRequirement, lastTile, lastIsland);
-							lastTile = map2[lnY, lnX];
-							lastIsland = island2[lnY, lnX];
-						}
+                    int lastTile = 0x00;
+                    int lastIsland = island2[0, 0];
+                    for (int lnY = 0; lnY < 139; lnY++)
+                        for (int lnX = 0; lnX < 158; lnX++)
+                        {
+                            smoothPlot2(lnX, lnY, smoothRequirement, lastTile, lastIsland);
+                            lastTile = map2[lnY, lnX];
+                            lastIsland = island2[lnY, lnX];
+                        }
 
-					smoothRequirement += 10;
-				}
-			}
+                    smoothRequirement += 10;
+                }
+            }
 
-		}
+        }
 
-		private void smoothPlot(int initX, int initY, int minimum, int fillTile, int fillIsland)
+        private void smoothPlot(int initX, int initY, int minimum, int fillTile, int fillIsland)
         {
             //if (y == 30 && x == 137)
             //    y = y;
@@ -5219,73 +5282,73 @@ namespace DW3Randomizer
             }
         }
 
-		private void smoothPlot2(int initX, int initY, int minimum, int fillTile, int fillIsland)
-		{
-			//if (y == 30 && x == 137)
-			//    y = y;
+        private void smoothPlot2(int initX, int initY, int minimum, int fillTile, int fillIsland)
+        {
+            //if (y == 30 && x == 137)
+            //    y = y;
 
-			int x = initX;
-			int y = initY;
+            int x = initX;
+            int y = initY;
 
-			bool[,] plotted = new bool[139, 158];
-			int landTile = map2[y, x];
+            bool[,] plotted = new bool[139, 158];
+            int landTile = map2[y, x];
 
-			bool first = true;
-			List<int> toPlot = new List<int>();
-			int plots = 0;
-			int toFill = 0;
-			while (toFill < 2)
-			{
-				while (first || toPlot.Count != 0)
-				{
-					if (!first)
-					{
-						y = toPlot[0];
-						toPlot.RemoveAt(0);
-						x = toPlot[0];
-						toPlot.RemoveAt(0);
-					}
-					else
-						first = false;
+            bool first = true;
+            List<int> toPlot = new List<int>();
+            int plots = 0;
+            int toFill = 0;
+            while (toFill < 2)
+            {
+                while (first || toPlot.Count != 0)
+                {
+                    if (!first)
+                    {
+                        y = toPlot[0];
+                        toPlot.RemoveAt(0);
+                        x = toPlot[0];
+                        toPlot.RemoveAt(0);
+                    }
+                    else
+                        first = false;
 
-					if (toFill == 1)
-					{
-						map2[y, x] = fillTile;
-						island2[y, x] = fillIsland;
-					}
+                    if (toFill == 1)
+                    {
+                        map2[y, x] = fillTile;
+                        island2[y, x] = fillIsland;
+                    }
 
-					for (int dir = 0; dir < 5; dir++)
-					{
-						int dirX = (dir == 4 ? x - 1 : dir == 2 ? x + 1 : x);
-						dirX = (dirX == 158 ? 0 : dirX == -1 ? 157 : dirX);
-						int dirY = (dir == 1 ? y - 1 : dir == 3 ? y + 1 : y);
-						dirY = (dirY == 139 ? 0 : dirY == -1 ? 138 : dirY);
+                    for (int dir = 0; dir < 5; dir++)
+                    {
+                        int dirX = (dir == 4 ? x - 1 : dir == 2 ? x + 1 : x);
+                        dirX = (dirX == 158 ? 0 : dirX == -1 ? 157 : dirX);
+                        int dirY = (dir == 1 ? y - 1 : dir == 3 ? y + 1 : y);
+                        dirY = (dirY == 139 ? 0 : dirY == -1 ? 138 : dirY);
 
-						if (map2[dirY, dirX] == landTile && !plotted[dirY, dirX])
-						{
-							plots++;
-							plotted[dirY, dirX] = true;
+                        if (map2[dirY, dirX] == landTile && !plotted[dirY, dirX])
+                        {
+                            plots++;
+                            plotted[dirY, dirX] = true;
 
-							if (plots > minimum)
-								return;
+                            if (plots > minimum)
+                                return;
 
-							if (dir != 0)
-							{
-								toPlot.Add(dirY);
-								toPlot.Add(dirX);
-							}
-						}
-					}
-				}
+                            if (dir != 0)
+                            {
+                                toPlot.Add(dirY);
+                                toPlot.Add(dirX);
+                            }
+                        }
+                    }
+                }
 
-				toFill++;
-				x = initX;
-				y = initY;
-				first = true;
-			}
-		}
+                toFill++;
+                x = initX;
+                y = initY;
+                first = true;
+            }
+        }
 
-		private bool validPoint(int x, int y, int zoneToUse)
+        private bool validPoint(int x, int y, int zoneToUse)
         {
             if (zoneToUse == -1000) return true;
             int zoneSize = (chkSmallMap.Checked ? 8 : 16);
@@ -5306,49 +5369,50 @@ namespace DW3Randomizer
 
         private void markIslands(int zoneToUse)
         {
-			if (zoneToUse != -1000)
-			{
-				// We should mark islands and inaccessible land...
-				int landNumber = zoneToUse + 1;
-				int maxLand = -2;
+            if (zoneToUse != -1000)
+            {
+                // We should mark islands and inaccessible land...
+                int landNumber = zoneToUse + 1;
+                int maxLand = -2;
 
-				int maxLandPlots = 0;
-				int lastIsland = 0;
-				for (int lnI = 0; lnI < 256; lnI++)
-					for (int lnJ = 0; lnJ < 256; lnJ++)
-					{
-						if (island[lnI, lnJ] == zoneToUse && map[lnI, lnJ] != 0x06)
-						{
-							int plots = landPlot(landNumber, lnI, lnJ, zoneToUse);
-							if (plots > maxLandPlots)
-							{
-								maxLandPlots = plots;
-								maxLand = landNumber;
-							}
-							islands.Add(landNumber);
-							landNumber++;
+                int maxLandPlots = 0;
+                int lastIsland = 0;
+                for (int lnI = 0; lnI < 256; lnI++)
+                    for (int lnJ = 0; lnJ < 256; lnJ++)
+                    {
+                        if (island[lnI, lnJ] == zoneToUse && map[lnI, lnJ] != 0x06)
+                        {
+                            int plots = landPlot(landNumber, lnI, lnJ, zoneToUse);
+                            if (plots > maxLandPlots)
+                            {
+                                maxLandPlots = plots;
+                                maxLand = landNumber;
+                            }
+                            islands.Add(landNumber);
+                            landNumber++;
 
-							lastIsland = island[lnI, lnJ];
-						}
-					}
+                            lastIsland = island[lnI, lnJ];
+                        }
+                    }
 
-				maxIsland[zoneToUse / 1000] = maxLand;
-			} else
-			{
-				// We should mark islands and inaccessible land...
-				int landNumber = 1;
+                maxIsland[zoneToUse / 1000] = maxLand;
+            }
+            else
+            {
+                // We should mark islands and inaccessible land...
+                int landNumber = 1;
 
-				for (int lnI = 0; lnI < 139; lnI++)
-					for (int lnJ = 0; lnJ < 158; lnJ++)
-					{
-						if (island2[lnI, lnJ] == 0 && map2[lnI, lnJ] != 0x06)
-						{
-							int plots = landPlot(landNumber, lnI, lnJ, zoneToUse);
-							landNumber++;
-						}
-					}
-			}
-		}
+                for (int lnI = 0; lnI < 139; lnI++)
+                    for (int lnJ = 0; lnJ < 158; lnJ++)
+                    {
+                        if (island2[lnI, lnJ] == 0 && map2[lnI, lnJ] != 0x06)
+                        {
+                            int plots = landPlot(landNumber, lnI, lnJ, zoneToUse);
+                            landNumber++;
+                        }
+                    }
+            }
+        }
 
         private void resetIslands()
         {
@@ -5499,7 +5563,7 @@ namespace DW3Randomizer
             int tries = 1000;
             bool firstZone = true;
 
-			if (!rectangle)
+            if (!rectangle)
             {
                 while (size > 0 && tries > 0)
                 {
@@ -5572,7 +5636,7 @@ namespace DW3Randomizer
                     for (int j = y; j < y + width; j++)
                         zone[i, j] = zoneNumber;
 
-				return true;
+                return true;
             }
         }
 
@@ -5587,89 +5651,89 @@ namespace DW3Randomizer
             bool first = true;
             List<int> toPlot = new List<int>();
 
-			if (alefgard)
-			{
-				bool[,] plotted = new bool[139, 158];
+            if (alefgard)
+            {
+                bool[,] plotted = new bool[139, 158];
 
-				while (first || toPlot.Count != 0)
-				{
-					if (!first)
-					{
-						y = toPlot[0];
-						toPlot.RemoveAt(0);
-						x = toPlot[0];
-						toPlot.RemoveAt(0);
-					}
-					else
-					{
-						first = false;
-					}
+                while (first || toPlot.Count != 0)
+                {
+                    if (!first)
+                    {
+                        y = toPlot[0];
+                        toPlot.RemoveAt(0);
+                        x = toPlot[0];
+                        toPlot.RemoveAt(0);
+                    }
+                    else
+                    {
+                        first = false;
+                    }
 
-					for (int dir = 0; dir < 5; dir++)
-					{
-						int dirX = (dir == 4 ? x - 1 : dir == 2 ? x + 1 : x);
-						dirX = (dirX == 158 ? 0 : dirX == -1 ? 157 : dirX);
-						int dirY = (dir == 1 ? y - 1 : dir == 3 ? y + 1 : y);
-						dirY = (dirY == 139 ? 0 : dirY == -1 ? 138 : dirY);
+                    for (int dir = 0; dir < 5; dir++)
+                    {
+                        int dirX = (dir == 4 ? x - 1 : dir == 2 ? x + 1 : x);
+                        dirX = (dirX == 158 ? 0 : dirX == -1 ? 157 : dirX);
+                        int dirY = (dir == 1 ? y - 1 : dir == 3 ? y + 1 : y);
+                        dirY = (dirY == 139 ? 0 : dirY == -1 ? 138 : dirY);
 
-						if (validPlots.Contains(map2[dirY, dirX]) && (map2[dirY, dirX] != 0 || island2[dirY, dirX] == maxLake))
-						{
-							if (dir != 0 && plotted[dirY, dirX] == false)
-							{
-								if (finishX == dirX && finishY == dirY)
-									return true;
-								toPlot.Add(dirY);
-								toPlot.Add(dirX);
-								plotted[dirY, dirX] = true;
-							}
-						}
-					}
-				}
+                        if (validPlots.Contains(map2[dirY, dirX]) && (map2[dirY, dirX] != 0 || island2[dirY, dirX] == maxLake))
+                        {
+                            if (dir != 0 && plotted[dirY, dirX] == false)
+                            {
+                                if (finishX == dirX && finishY == dirY)
+                                    return true;
+                                toPlot.Add(dirY);
+                                toPlot.Add(dirX);
+                                plotted[dirY, dirX] = true;
+                            }
+                        }
+                    }
+                }
 
-				return false;
-			}
-			else
-			{
-				bool[,] plotted = new bool[256, 256];
+                return false;
+            }
+            else
+            {
+                bool[,] plotted = new bool[256, 256];
 
-				while (first || toPlot.Count != 0)
-				{
-					if (!first)
-					{
-						y = toPlot[0];
-						toPlot.RemoveAt(0);
-						x = toPlot[0];
-						toPlot.RemoveAt(0);
-					}
-					else
-					{
-						first = false;
-					}
+                while (first || toPlot.Count != 0)
+                {
+                    if (!first)
+                    {
+                        y = toPlot[0];
+                        toPlot.RemoveAt(0);
+                        x = toPlot[0];
+                        toPlot.RemoveAt(0);
+                    }
+                    else
+                    {
+                        first = false;
+                    }
 
-					for (int dir = 0; dir < 5; dir++)
-					{
-						int dirX = (dir == 4 ? x - 1 : dir == 2 ? x + 1 : x);
-						dirX = (dirX == 256 ? 0 : dirX == -1 ? 255 : dirX);
-						int dirY = (dir == 1 ? y - 1 : dir == 3 ? y + 1 : y);
-						dirY = (dirY == 256 ? 0 : dirY == -1 ? 255 : dirY);
+                    for (int dir = 0; dir < 5; dir++)
+                    {
+                        int dirX = (dir == 4 ? x - 1 : dir == 2 ? x + 1 : x);
+                        dirX = (dirX == 256 ? 0 : dirX == -1 ? 255 : dirX);
+                        int dirY = (dir == 1 ? y - 1 : dir == 3 ? y + 1 : y);
+                        dirY = (dirY == 256 ? 0 : dirY == -1 ? 255 : dirY);
 
-						if (validPlots.Contains(map[dirY, dirX]) && (map[dirY, dirX] != 0 || island[dirY, dirX] == maxLake))
-						{
-							if (dir != 0 && plotted[dirY, dirX] == false)
-							{
-								if (finishX == dirX && finishY == dirY)
-									return true;
-								toPlot.Add(dirY);
-								toPlot.Add(dirX);
-								plotted[dirY, dirX] = true;
-							}
-						}
-					}
-				}
+                        if (validPlots.Contains(map[dirY, dirX]) && (map[dirY, dirX] != 0 || island[dirY, dirX] == maxLake))
+                        {
+                            if (dir != 0 && plotted[dirY, dirX] == false)
+                            {
+                                if (finishX == dirX && finishY == dirY)
+                                    return true;
+                                toPlot.Add(dirY);
+                                toPlot.Add(dirX);
+                                plotted[dirY, dirX] = true;
+                            }
+                        }
+                    }
+                }
 
-				return false;
-			}
-		}
+                return false;
+            }
+        }
 
         private int landPlot(int landNumber, int y, int x, int zoneToUse = 0)
         {
@@ -5690,46 +5754,47 @@ namespace DW3Randomizer
                     first = false;
                 }
 
-				for (int dir = 0; dir < 5; dir++)
-				{
-					if (zoneToUse != -1000)
-					{
-						int dirX = (dir == 4 ? x - 1 : dir == 2 ? x + 1 : x);
-						dirX = (dirX == 256 ? 0 : dirX == -1 ? 255 : dirX);
-						int dirY = (dir == 1 ? y - 1 : dir == 3 ? y + 1 : y);
-						dirY = (dirY == 256 ? 0 : dirY == -1 ? 255 : dirY);
+                for (int dir = 0; dir < 5; dir++)
+                {
+                    if (zoneToUse != -1000)
+                    {
+                        int dirX = (dir == 4 ? x - 1 : dir == 2 ? x + 1 : x);
+                        dirX = (dirX == 256 ? 0 : dirX == -1 ? 255 : dirX);
+                        int dirY = (dir == 1 ? y - 1 : dir == 3 ? y + 1 : y);
+                        dirY = (dirY == 256 ? 0 : dirY == -1 ? 255 : dirY);
 
-						if (island[dirY, dirX] == zoneToUse)
-						{
-							plots++;
-							island[dirY, dirX] = landNumber;
+                        if (island[dirY, dirX] == zoneToUse)
+                        {
+                            plots++;
+                            island[dirY, dirX] = landNumber;
 
-							if (dir != 0)
-							{
-								toPlot.Add(dirY);
-								toPlot.Add(dirX);
-							}
-						}
-					} else
-					{
-						int dirX = (dir == 4 ? x - 1 : dir == 2 ? x + 1 : x);
-						dirX = (dirX == 158 ? 0 : dirX == -1 ? 157 : dirX);
-						int dirY = (dir == 1 ? y - 1 : dir == 3 ? y + 1 : y);
-						dirY = (dirY == 138 ? 0 : dirY == -1 ? 137 : dirY);
+                            if (dir != 0)
+                            {
+                                toPlot.Add(dirY);
+                                toPlot.Add(dirX);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        int dirX = (dir == 4 ? x - 1 : dir == 2 ? x + 1 : x);
+                        dirX = (dirX == 158 ? 0 : dirX == -1 ? 157 : dirX);
+                        int dirY = (dir == 1 ? y - 1 : dir == 3 ? y + 1 : y);
+                        dirY = (dirY == 138 ? 0 : dirY == -1 ? 137 : dirY);
 
-						if (island2[dirY, dirX] == 0)
-						{
-							plots++;
-							island2[dirY, dirX] = landNumber;
+                        if (island2[dirY, dirX] == 0)
+                        {
+                            plots++;
+                            island2[dirY, dirX] = landNumber;
 
-							if (dir != 0)
-							{
-								toPlot.Add(dirY);
-								toPlot.Add(dirX);
-							}
-						}
-					}
-				}
+                            if (dir != 0)
+                            {
+                                toPlot.Add(dirY);
+                                toPlot.Add(dirX);
+                            }
+                        }
+                    }
+                }
             }
 
             return plots;
@@ -5737,48 +5802,48 @@ namespace DW3Randomizer
 
         private bool validPlot(int y, int x, int height, int width, int[] legalIsland)
         {
-			if (legalIsland[0] == 60000)
-			{
-				for (int lnI = 0; lnI < height; lnI++)
-					for (int lnJ = 0; lnJ < width; lnJ++)
-					{
-						if (y + lnI >= 137 || x + lnJ >= 156) return false;
+            if (legalIsland[0] == 60000)
+            {
+                for (int lnI = 0; lnI < height; lnI++)
+                    for (int lnJ = 0; lnJ < width; lnJ++)
+                    {
+                        if (y + lnI >= 137 || x + lnJ >= 156) return false;
 
-						int legalY = y + lnI;
-						int legalX = x + lnJ;
+                        int legalY = y + lnI;
+                        int legalX = x + lnJ;
 
-						if (map2[legalY, legalX] == 0x00 || map2[legalY, legalX] == 0x06 || map2[legalY, legalX] >= 0xe8 || map[legalY, legalX] >= 0xe8) // LAST CONDITION:  Castles, towns, villages, etc - Need to not match BOTH maps!
-							return false;
-					}
-			}
-			else
-			{
-				for (int lnI = 0; lnI < height; lnI++)
-					for (int lnJ = 0; lnJ < width; lnJ++)
-					{
-						if (y + lnI >= (chkSmallMap.Checked ? 128 : 256) || x + lnJ >= (chkSmallMap.Checked ? 128 : 256)) return false;
+                        if (map2[legalY, legalX] == 0x00 || map2[legalY, legalX] == 0x06 || map2[legalY, legalX] >= 0xe8 || map[legalY, legalX] >= 0xe8) // LAST CONDITION:  Castles, towns, villages, etc - Need to not match BOTH maps!
+                            return false;
+                    }
+            }
+            else
+            {
+                for (int lnI = 0; lnI < height; lnI++)
+                    for (int lnJ = 0; lnJ < width; lnJ++)
+                    {
+                        if (y + lnI >= (chkSmallMap.Checked ? 128 : 256) || x + lnJ >= (chkSmallMap.Checked ? 128 : 256)) return false;
 
-						int legalY = (y + lnI >= 256 ? y - 256 + lnI : y + lnI);
-						int legalX = (x + lnJ >= 256 ? x - 256 + lnJ : x + lnJ);
+                        int legalY = (y + lnI >= 256 ? y - 256 + lnI : y + lnI);
+                        int legalX = (x + lnJ >= 256 ? x - 256 + lnJ : x + lnJ);
 
-						bool ok = false;
-						for (int lnK = 0; lnK < legalIsland.Length; lnK++)
-							if (island[legalY, legalX] == legalIsland[lnK])
-								ok = true;
-						if (!ok) return false;
-						if (legalY < 139 && legalX < 158)
-						{
-							if (map[legalY, legalX] == 0x00 || map[legalY, legalX] == 0x06 || map[legalY, legalX] >= 0xe8 || map2[legalY, legalX] >= 0xe8) // LAST CONDITION:  Castles, towns, villages, etc - Need to not match BOTH maps!
-								return false;
-						}
-						else
-						{
-							if (map[legalY, legalX] == 0x00 || map[legalY, legalX] == 0x06 || map[legalY, legalX] >= 0xe8) // LAST CONDITION:  Castles, towns, villages, etc
-								return false;
-						}
-					}
-			}
-			return true;
+                        bool ok = false;
+                        for (int lnK = 0; lnK < legalIsland.Length; lnK++)
+                            if (island[legalY, legalX] == legalIsland[lnK])
+                                ok = true;
+                        if (!ok) return false;
+                        if (legalY < 139 && legalX < 158)
+                        {
+                            if (map[legalY, legalX] == 0x00 || map[legalY, legalX] == 0x06 || map[legalY, legalX] >= 0xe8 || map2[legalY, legalX] >= 0xe8) // LAST CONDITION:  Castles, towns, villages, etc - Need to not match BOTH maps!
+                                return false;
+                        }
+                        else
+                        {
+                            if (map[legalY, legalX] == 0x00 || map[legalY, legalX] == 0x06 || map[legalY, legalX] >= 0xe8) // LAST CONDITION:  Castles, towns, villages, etc
+                                return false;
+                        }
+                    }
+            }
+            return true;
         }
 
         private int lakePlot(int lakeNumber, int y, int x, bool fill = false, int islandNumber = -1)
@@ -5830,56 +5895,56 @@ namespace DW3Randomizer
             return plots;
         }
 
-		private int lakePlot2(int lakeNumber, int y, int x, bool fill = false, int islandNumber = -1)
-		{
-			bool first = true;
-			List<int> toPlot = new List<int>();
-			int plots = 1;
-			//if (islandNumber >= 0) plots = 1;
-			while (first || toPlot.Count != 0)
-			{
-				if (!first)
-				{
-					y = toPlot[0];
-					toPlot.RemoveAt(0);
-					x = toPlot[0];
-					toPlot.RemoveAt(0);
-				}
-				else
-				{
-					if (fill)
-						map2[y, x] = (islandNumber == 0 ? 0x02 : islandNumber == 1 ? 0x03 : islandNumber == 2 ? 0x04 : islandNumber == 3 ? 0x01 : 0x05);
-					first = false;
-				}
+        private int lakePlot2(int lakeNumber, int y, int x, bool fill = false, int islandNumber = -1)
+        {
+            bool first = true;
+            List<int> toPlot = new List<int>();
+            int plots = 1;
+            //if (islandNumber >= 0) plots = 1;
+            while (first || toPlot.Count != 0)
+            {
+                if (!first)
+                {
+                    y = toPlot[0];
+                    toPlot.RemoveAt(0);
+                    x = toPlot[0];
+                    toPlot.RemoveAt(0);
+                }
+                else
+                {
+                    if (fill)
+                        map2[y, x] = (islandNumber == 0 ? 0x02 : islandNumber == 1 ? 0x03 : islandNumber == 2 ? 0x04 : islandNumber == 3 ? 0x01 : 0x05);
+                    first = false;
+                }
 
-				for (int dir = 0; dir < 5; dir++)
-				{
-					int dirX = (dir == 4 ? x - 1 : dir == 2 ? x + 1 : x);
-					dirX = (dirX == 158 ? 0 : dirX == -1 ? 157 : dirX);
-					int dirY = (dir == 1 ? y - 1 : dir == 3 ? y + 1 : y);
-					dirY = (dirY == 139 ? 0 : dirY == -1 ? 138 : dirY);
+                for (int dir = 0; dir < 5; dir++)
+                {
+                    int dirX = (dir == 4 ? x - 1 : dir == 2 ? x + 1 : x);
+                    dirX = (dirX == 158 ? 0 : dirX == -1 ? 157 : dirX);
+                    int dirY = (dir == 1 ? y - 1 : dir == 3 ? y + 1 : y);
+                    dirY = (dirY == 139 ? 0 : dirY == -1 ? 138 : dirY);
 
-					if (island2[dirY, dirX] == -1 || (island2[dirY, dirX] == lakeNumber && fill))
-					{
-						plots++;
-						island2[dirY, dirX] = (fill ? islandNumber : lakeNumber);
-						if (fill)
-							map2[dirY, dirX] = (islandNumber == 0 ? 0x02 : islandNumber == 1 ? 0x03 : islandNumber == 2 ? 0x04 : islandNumber == 3 ? 0x01 : 0x05);
+                    if (island2[dirY, dirX] == -1 || (island2[dirY, dirX] == lakeNumber && fill))
+                    {
+                        plots++;
+                        island2[dirY, dirX] = (fill ? islandNumber : lakeNumber);
+                        if (fill)
+                            map2[dirY, dirX] = (islandNumber == 0 ? 0x02 : islandNumber == 1 ? 0x03 : islandNumber == 2 ? 0x04 : islandNumber == 3 ? 0x01 : 0x05);
 
-						if (dir != 0)
-						{
-							toPlot.Add(dirY);
-							toPlot.Add(dirX);
-						}
-						//plots += lakePlot(lakeNumber, y, x, fill);
-					}
-				}
-			}
+                        if (dir != 0)
+                        {
+                            toPlot.Add(dirY);
+                            toPlot.Add(dirX);
+                        }
+                        //plots += lakePlot(lakeNumber, y, x, fill);
+                    }
+                }
+            }
 
-			return plots;
-		}
+            return plots;
+        }
 
-		private void shipPlacement(int byteToUse, int top, int left, int maxLake = 0)
+        private void shipPlacement(int byteToUse, int top, int left, int maxLake = 0)
         {
             int minDirection = -99;
             int minDistance = 999;
@@ -5973,101 +6038,101 @@ namespace DW3Randomizer
             }
         }
 
-		private void shipPlacement2(int byteToUse, int top, int left, int maxLake = 0)
-		{
-			int minDirection = -99;
-			int minDistance = 999;
-			int finalX = 0;
-			int finalY = 0;
-			int distance = 0;
-			int lnJ = top;
-			int lnK = left;
-			for (int lnI = 0; lnI < 4; lnI++)
-			{
-				lnJ = top;
-				lnK = left;
-				if (lnI == 0)
-				{
-					while (island2[lnJ, lnK] != maxLake && distance < 200)
-					{
-						distance++;
-						lnJ = (lnJ == 0 ? 138 : lnJ - 1);
-					}
-				}
-				else if (lnI == 1)
-				{
-					while (island2[lnJ, lnK] != maxLake && distance < 200)
-					{
-						distance++;
-						lnJ = (lnJ == 138 ? 0 : lnJ + 1);
-					}
-				}
-				else if (lnI == 2)
-				{
-					while (island2[lnJ, lnK] != maxLake && distance < 200)
-					{
-						distance++;
-						lnK = (lnK == 157 ? 0 : lnK + 1);
-					}
-				}
-				else
-				{
-					while (island2[lnJ, lnK] != maxLake && distance < 200)
-					{
-						distance++;
-						lnK = (lnK == 0 ? 157 : lnK - 1);
-					}
-				}
-				if (distance < minDistance)
-				{
-					minDistance = distance;
-					minDirection = lnI;
-					finalX = lnK;
-					finalY = lnJ;
-				}
-				distance = 0;
-			}
-			romData[byteToUse] = (byte)(finalX);
-			romData[byteToUse + 1] = (byte)(finalY);
-			if (minDirection == 0)
-			{
-				lnJ = (finalY == 255 ? 0 : finalY + 1);
-				while (map2[lnJ, finalX] == 0x06)
-				{
-					map2[lnJ, finalX] = 0x05;
-					lnJ = (lnJ == 255 ? 0 : lnJ + 1);
-				}
-			}
-			else if (minDirection == 1)
-			{
-				lnJ = (finalY == 0 ? 255 : finalY - 1);
-				while (map2[lnJ, finalX] == 0x06)
-				{
-					map2[lnJ, finalX] = 0x05;
-					lnJ = (lnJ == 0 ? 255 : lnJ - 1);
-				}
-			}
-			else if (minDirection == 2)
-			{
-				lnK = (finalX == 0 ? 255 : finalX - 1);
-				while (map2[finalY, lnK] == 0x06)
-				{
-					map2[finalY, lnK] = 0x05;
-					lnK = (lnK == 0 ? 255 : lnK - 1);
-				}
-			}
-			else
-			{
-				lnK = (finalX == 255 ? 0 : finalX + 1);
-				while (map2[finalY, lnK] == 0x06)
-				{
-					map2[finalY, lnK] = 0x05;
-					lnK = (lnK == 255 ? 0 : lnK + 1);
-				}
-			}
-		}
+        private void shipPlacement2(int byteToUse, int top, int left, int maxLake = 0)
+        {
+            int minDirection = -99;
+            int minDistance = 999;
+            int finalX = 0;
+            int finalY = 0;
+            int distance = 0;
+            int lnJ = top;
+            int lnK = left;
+            for (int lnI = 0; lnI < 4; lnI++)
+            {
+                lnJ = top;
+                lnK = left;
+                if (lnI == 0)
+                {
+                    while (island2[lnJ, lnK] != maxLake && distance < 200)
+                    {
+                        distance++;
+                        lnJ = (lnJ == 0 ? 138 : lnJ - 1);
+                    }
+                }
+                else if (lnI == 1)
+                {
+                    while (island2[lnJ, lnK] != maxLake && distance < 200)
+                    {
+                        distance++;
+                        lnJ = (lnJ == 138 ? 0 : lnJ + 1);
+                    }
+                }
+                else if (lnI == 2)
+                {
+                    while (island2[lnJ, lnK] != maxLake && distance < 200)
+                    {
+                        distance++;
+                        lnK = (lnK == 157 ? 0 : lnK + 1);
+                    }
+                }
+                else
+                {
+                    while (island2[lnJ, lnK] != maxLake && distance < 200)
+                    {
+                        distance++;
+                        lnK = (lnK == 0 ? 157 : lnK - 1);
+                    }
+                }
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    minDirection = lnI;
+                    finalX = lnK;
+                    finalY = lnJ;
+                }
+                distance = 0;
+            }
+            romData[byteToUse] = (byte)(finalX);
+            romData[byteToUse + 1] = (byte)(finalY);
+            if (minDirection == 0)
+            {
+                lnJ = (finalY == 255 ? 0 : finalY + 1);
+                while (map2[lnJ, finalX] == 0x06)
+                {
+                    map2[lnJ, finalX] = 0x05;
+                    lnJ = (lnJ == 255 ? 0 : lnJ + 1);
+                }
+            }
+            else if (minDirection == 1)
+            {
+                lnJ = (finalY == 0 ? 255 : finalY - 1);
+                while (map2[lnJ, finalX] == 0x06)
+                {
+                    map2[lnJ, finalX] = 0x05;
+                    lnJ = (lnJ == 0 ? 255 : lnJ - 1);
+                }
+            }
+            else if (minDirection == 2)
+            {
+                lnK = (finalX == 0 ? 255 : finalX - 1);
+                while (map2[finalY, lnK] == 0x06)
+                {
+                    map2[finalY, lnK] = 0x05;
+                    lnK = (lnK == 0 ? 255 : lnK - 1);
+                }
+            }
+            else
+            {
+                lnK = (finalX == 255 ? 0 : finalX + 1);
+                while (map2[finalY, lnK] == 0x06)
+                {
+                    map2[finalY, lnK] = 0x05;
+                    lnK = (lnK == 255 ? 0 : lnK + 1);
+                }
+            }
+        }
 
-		private void boostGP()
+        private void boostGP()
         {
             // Replace monster data
             for (int lnI = 0; lnI < 139; lnI++)
@@ -6177,8 +6242,10 @@ namespace DW3Randomizer
             convertStrToHex("Non Equipped", 0x38a71, false);
             convertStrToHex("Sex", 0x39139, false);
             convertStrToHex("Level", 0x39140, false);
-            convertStrToHex("Attack Power", 0x3925c, false);
-            convertStrToHex("Defense Power", 0x3926e, false);
+            convertStrToHex("Attack", 0x3925c, false);
+            convertStrToHex("Power", 0x39264, false);
+            convertStrToHex("Defense", 0x3926e, false);
+            convertStrToHex("Power", 0x39277, false);
             convertStrToHex("Talk", 0x3940c, false);
             convertStrToHex("Spell", 0x39411, false);
             convertStrToHex("Status", 0x39417, false);
@@ -6310,7 +6377,7 @@ namespace DW3Randomizer
             byte fighterBrown = 0x06;
 
             selection = r1.Next() % 3;
-            switch(selection)
+            switch (selection)
             {
                 case 0:
                     heroSkin = 0x36;
@@ -6323,7 +6390,7 @@ namespace DW3Randomizer
                     break;
             }
             selection = r1.Next() % 6;
-            switch(selection)
+            switch (selection)
             {
                 case 0:
                     heroWhite = 0x30;
@@ -6346,7 +6413,7 @@ namespace DW3Randomizer
             }
 
             selection = r1.Next() % 7;
-            switch(selection)
+            switch (selection)
             {
                 case 0:
                     heroBlue = 0x11;
@@ -6384,7 +6451,7 @@ namespace DW3Randomizer
                     break;
             }
             selection = r1.Next() % 6;
-            switch(selection)
+            switch (selection)
             {
                 case 0:
                     soldierRed = 0x15;
@@ -6407,7 +6474,7 @@ namespace DW3Randomizer
             }
 
             selection = r1.Next() % 7;
-            switch(selection)
+            switch (selection)
             {
                 case 0:
                     soldierPurple = 0x03;
@@ -6445,7 +6512,7 @@ namespace DW3Randomizer
                     break;
             }
             selection = r1.Next() % 6;
-            switch(selection)
+            switch (selection)
             {
                 case 0:
                     wizardWhite = 0x30;
@@ -6468,7 +6535,7 @@ namespace DW3Randomizer
             }
 
             selection = r1.Next() % 7;
-            switch(selection)
+            switch (selection)
             {
                 case 0:
                     wizardGreen = 0x1b;
@@ -6506,7 +6573,7 @@ namespace DW3Randomizer
                     break;
             }
             selection = r1.Next() % 7;
-            switch(selection)
+            switch (selection)
             {
                 case 0:
                     fighterGreen = 0x1a;
@@ -6532,7 +6599,7 @@ namespace DW3Randomizer
             }
 
             selection = r1.Next() % 6;
-            switch(selection)
+            switch (selection)
             {
                 case 0:
                     fighterBrown = 0x06;
@@ -6572,13 +6639,13 @@ namespace DW3Randomizer
         {
             //            if (chkRandEquip.Checked || chkRandItemEffects.Checked || chkRandWhoCanEquip.Checked)
             //            {
-                string shortVersion2 = versionNumber.Replace(".", "");
-                string finalFile = Path.Combine(Path.GetDirectoryName(txtFileName.Text), "DW3R_" + txtSeed.Text + "_" + txtFlags.Text + "_" + shortVersion2 + "_guide.txt");
+            string shortVersion2 = versionNumber.Replace(".", "");
+            string finalFile = Path.Combine(Path.GetDirectoryName(txtFileName.Text), "DW3R_" + txtSeed.Text + "_" + txtFlags.Text + "_" + shortVersion2 + "_guide.txt");
 
-                // Totally randomize who can equip (1a3ce-1a3f0).  At least one person can equip something...
-                using (StreamWriter writer = File.CreateText(finalFile))
-                {
-                    string[] weaponText = { "Cypress stick", "Club", "Copper sword", "Magic Knife", "Iron Spear", "Battle Axe", "Broad Sword", "Wizard's Wand",
+            // Totally randomize who can equip (1a3ce-1a3f0).  At least one person can equip something...
+            using (StreamWriter writer = File.CreateText(finalFile))
+            {
+                string[] weaponText = { "Cypress stick", "Club", "Copper sword", "Magic Knife", "Iron Spear", "Battle Axe", "Broad Sword", "Wizard's Wand",
                         "Poison Needle", "Iron Claw", "Thorn Whip", "Giant Shears", "Chain Sickle", "Thor's Sword", "Snowblast Sword", "Demon Axe",
                         "Staff of Rain", "Sword of Gaia", "Staff of Reflection", "Sword of Destruction", "Multi - Edge Sword", "Staff of Force", "Sword of Illusion", "Zombie Slasher",
                         "Falcon Sword", "Sledge Hammer", "Thunder Sword", "Staff of Thunder", "Sword of Kings", "Orochi Sword", "Dragon Killer", "Staff of Judgement",
@@ -6588,55 +6655,55 @@ namespace DW3Randomizer
                         "Leather Shield", "Iron Shield", "Shield of Strength", "Shield of Heroes", "Shield of Sorrow", "Bronze Shield", "Silver Shield", "Golden Crown",
                         "Iron Helmet", "Mysterious Hat", "Unlucky Helmet", "Turban", "Noh Mask", "Leather Helmet", "Iron Mask", "Golden Claw" };
 
-                    for (int lnI = 0; lnI <= 70; lnI++)
+                for (int lnI = 0; lnI <= 70; lnI++)
+                {
+                    if (lnI < 71)
                     {
-                        if (lnI < 71)
-                        {
-                            string equipOut = "";
-                            equipOut += (romData[0x1147 + lnI] % 2 >= 1 ? "Hr  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI] % 32 >= 16 ? "Sr  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI] % 8 >= 4 ? "Pr  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI] % 4 >= 2 ? "Wi  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI] % 16 >= 8 ? "Sg  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI] % 128 >= 64 ? "Fi  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI] % 64 >= 32 ? "Mr  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI] >= 128 ? "Gf  " : "--  ");
-                            equipOut += (romData[0x11be + lnI] >= 128 ? "**  " : "    ");
-                            equipOut += (romData[0x279a0 + lnI]);
-                            writer.WriteLine(weaponText[lnI].PadRight(24) + equipOut);
-                        }
-                        else
-                        {
-                            string equipOut = "";
-                            equipOut += (romData[0x1147 + lnI + 3] % 2 >= 1 ? "Hr  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI + 3] % 32 >= 16 ? "Sr  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI + 3] % 8 >= 4 ? "Pr  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI + 3] % 4 >= 2 ? "Wi  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI + 3] % 16 >= 8 ? "Sg  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI + 3] % 128 >= 64 ? "Fi  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI + 3] % 64 >= 32 ? "Mr  " : "--  ");
-                            equipOut += (romData[0x1147 + lnI + 3] >= 128 ? "Gf  " : "--  ");
-                            equipOut += (romData[0x11be + lnI + 3] >= 128 ? "**  " : "    ");
-                            equipOut += (romData[0x279a0 + lnI + 3]);
-                            writer.WriteLine(weaponText[lnI].PadRight(24) + equipOut);
-
-                        }
+                        string equipOut = "";
+                        equipOut += (romData[0x1147 + lnI] % 2 >= 1 ? "Hr  " : "--  ");
+                        equipOut += (romData[0x1147 + lnI] % 32 >= 16 ? "Sr  " : "--  ");
+                        equipOut += (romData[0x1147 + lnI] % 8 >= 4 ? "Pr  " : "--  ");
+                        equipOut += (romData[0x1147 + lnI] % 4 >= 2 ? "Wi  " : "--  ");
+                        equipOut += (romData[0x1147 + lnI] % 16 >= 8 ? "Sg  " : "--  ");
+                        equipOut += (romData[0x1147 + lnI] % 128 >= 64 ? "Fi  " : "--  ");
+                        equipOut += (romData[0x1147 + lnI] % 64 >= 32 ? "Mr  " : "--  ");
+                        equipOut += (romData[0x1147 + lnI] >= 128 ? "Gf  " : "--  ");
+                        equipOut += (romData[0x11be + lnI] >= 128 ? "**  " : "    ");
+                        equipOut += (romData[0x279a0 + lnI]);
+                        writer.WriteLine(weaponText[lnI].PadRight(24) + equipOut);
+                    }
+                    else
+                    {
+                        string equipOut = "";
+                        equipOut += (romData[0x1147 + lnI + 3] % 2 >= 1 ? "Hr  " : "--  ");
+                        equipOut += (romData[0x1147 + lnI + 3] % 32 >= 16 ? "Sr  " : "--  ");
+                        equipOut += (romData[0x1147 + lnI + 3] % 8 >= 4 ? "Pr  " : "--  ");
+                        equipOut += (romData[0x1147 + lnI + 3] % 4 >= 2 ? "Wi  " : "--  ");
+                        equipOut += (romData[0x1147 + lnI + 3] % 16 >= 8 ? "Sg  " : "--  ");
+                        equipOut += (romData[0x1147 + lnI + 3] % 128 >= 64 ? "Fi  " : "--  ");
+                        equipOut += (romData[0x1147 + lnI + 3] % 64 >= 32 ? "Mr  " : "--  ");
+                        equipOut += (romData[0x1147 + lnI + 3] >= 128 ? "Gf  " : "--  ");
+                        equipOut += (romData[0x11be + lnI + 3] >= 128 ? "**  " : "    ");
+                        equipOut += (romData[0x279a0 + lnI + 3]);
+                        writer.WriteLine(weaponText[lnI].PadRight(24) + equipOut);
 
                     }
 
-                    /*
-                                        for (int lnI = 0; lnI < 22; lnI++)
-                                        {
-                                            romData[0xb29e + lnI] = romData[0xb29e + lnI + 1];
-                                        }
-                                        // Gold Claw
-                                        romData[0xb2b4] = 0x27;
-                                        romData[0xb2b5] = 0x16;
-                                        romData[0xb2b6] = 0x0b;
-                                        romData[0xb2b7] = 0x22;
-                                        romData[0xb2b8] = 0x00;
-                    */
-//                }
+                }
+
+                /*
+                                    for (int lnI = 0; lnI < 22; lnI++)
+                                    {
+                                        romData[0xb29e + lnI] = romData[0xb29e + lnI + 1];
+                                    }
+                                    // Gold Claw
+                                    romData[0xb2b4] = 0x27;
+                                    romData[0xb2b5] = 0x16;
+                                    romData[0xb2b6] = 0x0b;
+                                    romData[0xb2b7] = 0x22;
+                                    romData[0xb2b8] = 0x00;
+                */
+                //                }
 
                 // Change Equipment Names to Attack
                 // Copper Sword ad1e-ad23 / b0b7-b0bb
@@ -6833,7 +6900,7 @@ namespace DW3Randomizer
             for (int lni = 0; lni < dreamRubyText.Length; lni++)
                 romData[0x42bc7 + lni] = dreamRubyText[lni];
         }
-         
+
         private void changeHeroAge(int rni)
         {
             Random r1 = new Random(int.Parse(txtSeed.Text));
@@ -6891,121 +6958,121 @@ namespace DW3Randomizer
                                       0x20, 0x7F, 0x3F, 0x20, 0x2F, 0x5E, 0x4E, 0x1E, 0xDF, 0x04, 0x0C, 0x3F, 0x3F, 0x7E, 0xE0, 0x5E,
                                       0xA0, 0xD0, 0xD8, 0x98, 0xEC, 0xEC, 0xE6, 0x00, 0xF0, 0xB0, 0x38, 0x78, 0xFC, 0xFC, 0x0E, 0x06,
                                       0x06, 0x0F, 0x0F, 0x1F, 0x10, 0x1F, 0x3F, 0x3F, 0x06, 0x0F, 0x0F, 0x1F, 0x1F, 0x1C, 0x08, 0x0E,
-                                      0xC0, 0xE0, 0xE0, 0xF0, 0x10, 0xE0, 0xE8, 0xCC, 0xC0, 0xE0, 0xE0, 0xD0, 0xF0, 0x40, 0x40, 0x10, 
+                                      0xC0, 0xE0, 0xE0, 0xF0, 0x10, 0xE0, 0xE8, 0xCC, 0xC0, 0xE0, 0xE0, 0xD0, 0xF0, 0x40, 0x40, 0x10,
                                       0x16, 0x19, 0x1F, 0x1E, 0x34, 0x79, 0xF3, 0x03, 0x07, 0x0F, 0x2F, 0x2F, 0x2F, 0x7F, 0xFC, 0xFB,
                                       0x58, 0x78, 0x70, 0x00, 0xE0, 0xF0, 0xC0, 0xE0, 0xC0, 0x80, 0xC0, 0xE0, 0xE0, 0xF0, 0x00, 0xE0,
                                       0x03, 0x07, 0x07, 0x0F, 0x08, 0x07, 0x17, 0x33, 0x03, 0x07, 0x07, 0x0B, 0x0F, 0x02, 0x02, 0x08,
-                                      0x60, 0xF0, 0xF0, 0xF8, 0x08, 0xF8, 0xFC, 0xFC, 0x60, 0xF0, 0xF0, 0xF8, 0xF8, 0x38, 0x10, 0x70, 
-                                      0x0E, 0x0E, 0x06, 0x00, 0x07, 0x0F, 0x0F, 0x1F, 0x03, 0x01, 0x03, 0x07, 0x07, 0x0F, 0x00, 0x1F, 
+                                      0x60, 0xF0, 0xF0, 0xF8, 0x08, 0xF8, 0xFC, 0xFC, 0x60, 0xF0, 0xF0, 0xF8, 0xF8, 0x38, 0x10, 0x70,
+                                      0x0E, 0x0E, 0x06, 0x00, 0x07, 0x0F, 0x0F, 0x1F, 0x03, 0x01, 0x03, 0x07, 0x07, 0x0F, 0x00, 0x1F,
                                       0x68, 0x98, 0xE8, 0x78, 0x78, 0x3C, 0x9E, 0x00, 0xF0, 0xF0, 0xF0, 0xF0, 0xF4, 0xFC, 0xFE, 0x3F,
                                       0xC0, 0xE0, 0xE0, 0xF0, 0x10, 0xE0, 0xE0, 0xC8, 0xC0, 0xE0, 0xE0, 0xD0, 0xF0, 0x40, 0x40, 0x00,
-                                      0x16, 0x19, 0x1F, 0x1E, 0x32, 0x3C, 0x79, 0x00, 0x07, 0x0F, 0x0F, 0x2F, 0x2F, 0x3F, 0x7F, 0xFC, 
-                                      0x4C, 0x7C, 0x78, 0x00, 0xE0, 0xF0, 0xF0, 0xF8, 0xD0, 0x80, 0xC0, 0xE0, 0xE0, 0xF0, 0x00, 0xF8, 
+                                      0x16, 0x19, 0x1F, 0x1E, 0x32, 0x3C, 0x79, 0x00, 0x07, 0x0F, 0x0F, 0x2F, 0x2F, 0x3F, 0x7F, 0xFC,
+                                      0x4C, 0x7C, 0x78, 0x00, 0xE0, 0xF0, 0xF0, 0xF8, 0xD0, 0x80, 0xC0, 0xE0, 0xE0, 0xF0, 0x00, 0xF8,
                                       0x03, 0x07, 0x07, 0x0F, 0x08, 0x07, 0x07, 0x13, 0x03, 0x07, 0x07, 0x0B, 0x0F, 0x02, 0x02, 0x00,
                                       0x36, 0x0E, 0x0E, 0x00, 0x07, 0x0F, 0x03, 0x07, 0x0B, 0x01, 0x03, 0x07, 0x07, 0x0F, 0x00, 0x07,
                                       0x68, 0x98, 0xE8, 0x78, 0x3C, 0x9E, 0xCF, 0xC0, 0xF0, 0xF0, 0xF0, 0xF4, 0xF4, 0xFE, 0x3F, 0xDF};
 
-            byte[] warriorHeroSprite = { 0x03, 0x07, 0x2F, 0x1F, 0x0F, 0x1F, 0x0F, 0xC7, 0x03, 0x07, 0x2F, 0x1F, 0x0F, 0x1F, 0x0F, 0x07, 
-                                         0xC0, 0xE2, 0xF2, 0xF2, 0xF2, 0xF2, 0xE2, 0xE2, 0xC0, 0xE0, 0xF0, 0xF0, 0xF0, 0xF0, 0xE0, 0xD8, 
-                                         0xE3, 0x61, 0xA3, 0x6F, 0xF2, 0xE2, 0x92, 0x00, 0xDC, 0xDF, 0x5F, 0xCF, 0xDF, 0xBF, 0x1F, 0x00, 
-                                         0xC2, 0x86, 0xC7, 0xF7, 0x48, 0x24, 0x70, 0xF8, 0x3C, 0xFA, 0xF8, 0xF4, 0xF8, 0xFC, 0x80, 0x00, 
-                                         0x03, 0x07, 0x2F, 0x1F, 0x0F, 0x1F, 0x7F, 0xE7, 0x03, 0x07, 0x2F, 0x1F, 0x0F, 0x1F, 0x0F, 0x7B, 
-                                         0xC0, 0xE0, 0xF1, 0xF1, 0xF1, 0xF1, 0xE1, 0xC1, 0xC0, 0xE0, 0xF0, 0xF0, 0xF0, 0xF0, 0xE0, 0xF0, 
-                                         0xC3, 0xE1, 0xE3, 0xFF, 0xF2, 0x64, 0x2E, 0x1F, 0x7C, 0x1F, 0x1F, 0x6F, 0x3F, 0x3F, 0x01, 0x00, 
-                                         0xC1, 0x85, 0xC7, 0xF7, 0x4B, 0x44, 0x48, 0x00, 0x3C, 0xF8, 0xF9, 0xF0, 0xFA, 0xFC, 0xF8, 0x00, 
-                                         0x03, 0x07, 0x8F, 0x8F, 0x8F, 0x8F, 0x87, 0x87, 0x03, 0x07, 0x0D, 0x0D, 0x0C, 0x0A, 0x02, 0x04, 
-                                         0xC0, 0xE0, 0xF4, 0xF8, 0xF0, 0xF8, 0xF3, 0xE7, 0xC0, 0xE0, 0xF4, 0xF8, 0xF0, 0x58, 0x50, 0x3B, 
-                                         0x83, 0xE1, 0xE3, 0xEF, 0xD2, 0x22, 0x12, 0x00, 0x3F, 0x5F, 0xFF, 0x2E, 0x5F, 0x3F, 0x1F, 0x00, 
-                                         0xC6, 0x85, 0xC6, 0xF7, 0x4B, 0x25, 0x70, 0xF8, 0xFB, 0xFA, 0xFB, 0x73, 0xF9, 0xFC, 0x80, 0x00, 
-                                         0x03, 0x47, 0x4F, 0x4F, 0x4F, 0x4F, 0x47, 0x47, 0x03, 0x07, 0x0D, 0x0D, 0x0C, 0x0A, 0x02, 0x1C, 
-                                         0xC0, 0xE0, 0xF4, 0xF8, 0xF0, 0xF8, 0xF0, 0xEE, 0xC0, 0xE0, 0xF4, 0xF8, 0xF0, 0x58, 0x50, 0x20, 
-                                         0x63, 0x71, 0x73, 0x6F, 0x12, 0x24, 0x0E, 0x1F, 0x3F, 0x7F, 0x1F, 0x2E, 0x1F, 0x3F, 0x01, 0x00, 
-                                         0xDF, 0x9B, 0xD5, 0xFB, 0x5F, 0x4E, 0x4C, 0x00, 0xEE, 0xEE, 0xEA, 0x6E, 0xEE, 0xF4, 0xF8, 0x00, 
-                                         0x03, 0x2F, 0x1F, 0x1F, 0x2F, 0x1F, 0x0F, 0x0F, 0x03, 0x2F, 0x1F, 0x1F, 0x2F, 0x1E, 0x08, 0x07, 
-                                         0xC0, 0xE0, 0xF4, 0xF4, 0xF4, 0xF4, 0xE4, 0xC4, 0xC0, 0xE0, 0xF0, 0xB0, 0xB0, 0x50, 0x40, 0x00, 
-                                         0x00, 0x01, 0x13, 0x0F, 0x02, 0x04, 0x0F, 0x07, 0x0F, 0x1F, 0x1E, 0x0F, 0x1F, 0x3F, 0x10, 0x00, 
-                                         0x04, 0xC4, 0xEE, 0xFE, 0x7C, 0x48, 0x70, 0x80, 0xC0, 0x60, 0x2E, 0x02, 0xC4, 0xF8, 0xF0, 0x00, 
-                                         0x03, 0x07, 0x4F, 0x4F, 0x4F, 0x4F, 0x47, 0x43, 0x03, 0x07, 0x0F, 0x0D, 0x0D, 0x0A, 0x02, 0x00, 
-                                         0xC0, 0xF4, 0xF8, 0xF8, 0xF4, 0xF8, 0xF0, 0xE0, 0xC0, 0xF4, 0xF8, 0xF8, 0xF4, 0x78, 0x10, 0x20, 
-                                         0x47, 0x49, 0xFD, 0xF7, 0x61, 0x02, 0x0F, 0x07, 0x06, 0x06, 0xE6, 0x82, 0x47, 0x0F, 0x00, 0x00, 
-                                         0xB0, 0x50, 0xB0, 0xF0, 0xE0, 0x64, 0x38, 0x80, 0xE8, 0xA8, 0xE0, 0xE0, 0x50, 0xBC, 0xF8, 0x00, 
-                                         0xC0, 0xE0, 0xF0, 0xF0, 0xF0, 0xF0, 0xE0, 0xC0, 0xC0, 0xE0, 0x70, 0x30, 0x30, 0x50, 0x40, 0x00, 
-                                         0x0F, 0x1F, 0x1F, 0x0F, 0x04, 0x24, 0x1C, 0x01, 0x1A, 0x13, 0x10, 0x09, 0x1F, 0x3F, 0x1F, 0x00, 
-                                         0x60, 0x00, 0xA0, 0xE0, 0x80, 0x40, 0xF0, 0xE0, 0xE0, 0xE0, 0xE0, 0xC0, 0xE0, 0xF0, 0x00, 0x00, 
-                                         0x03, 0x27, 0x2F, 0x2F, 0x2F, 0x2F, 0x27, 0x27, 0x03, 0x07, 0x0F, 0x0D, 0x0D, 0x0A, 0x02, 0x00, 
-                                         0x2F, 0x7D, 0x7A, 0x3D, 0x0F, 0x17, 0x0E, 0x01, 0x07, 0x77, 0x45, 0x27, 0x07, 0x1A, 0x0D, 0x00, 
+            byte[] warriorHeroSprite = { 0x03, 0x07, 0x2F, 0x1F, 0x0F, 0x1F, 0x0F, 0xC7, 0x03, 0x07, 0x2F, 0x1F, 0x0F, 0x1F, 0x0F, 0x07,
+                                         0xC0, 0xE2, 0xF2, 0xF2, 0xF2, 0xF2, 0xE2, 0xE2, 0xC0, 0xE0, 0xF0, 0xF0, 0xF0, 0xF0, 0xE0, 0xD8,
+                                         0xE3, 0x61, 0xA3, 0x6F, 0xF2, 0xE2, 0x92, 0x00, 0xDC, 0xDF, 0x5F, 0xCF, 0xDF, 0xBF, 0x1F, 0x00,
+                                         0xC2, 0x86, 0xC7, 0xF7, 0x48, 0x24, 0x70, 0xF8, 0x3C, 0xFA, 0xF8, 0xF4, 0xF8, 0xFC, 0x80, 0x00,
+                                         0x03, 0x07, 0x2F, 0x1F, 0x0F, 0x1F, 0x7F, 0xE7, 0x03, 0x07, 0x2F, 0x1F, 0x0F, 0x1F, 0x0F, 0x7B,
+                                         0xC0, 0xE0, 0xF1, 0xF1, 0xF1, 0xF1, 0xE1, 0xC1, 0xC0, 0xE0, 0xF0, 0xF0, 0xF0, 0xF0, 0xE0, 0xF0,
+                                         0xC3, 0xE1, 0xE3, 0xFF, 0xF2, 0x64, 0x2E, 0x1F, 0x7C, 0x1F, 0x1F, 0x6F, 0x3F, 0x3F, 0x01, 0x00,
+                                         0xC1, 0x85, 0xC7, 0xF7, 0x4B, 0x44, 0x48, 0x00, 0x3C, 0xF8, 0xF9, 0xF0, 0xFA, 0xFC, 0xF8, 0x00,
+                                         0x03, 0x07, 0x8F, 0x8F, 0x8F, 0x8F, 0x87, 0x87, 0x03, 0x07, 0x0D, 0x0D, 0x0C, 0x0A, 0x02, 0x04,
+                                         0xC0, 0xE0, 0xF4, 0xF8, 0xF0, 0xF8, 0xF3, 0xE7, 0xC0, 0xE0, 0xF4, 0xF8, 0xF0, 0x58, 0x50, 0x3B,
+                                         0x83, 0xE1, 0xE3, 0xEF, 0xD2, 0x22, 0x12, 0x00, 0x3F, 0x5F, 0xFF, 0x2E, 0x5F, 0x3F, 0x1F, 0x00,
+                                         0xC6, 0x85, 0xC6, 0xF7, 0x4B, 0x25, 0x70, 0xF8, 0xFB, 0xFA, 0xFB, 0x73, 0xF9, 0xFC, 0x80, 0x00,
+                                         0x03, 0x47, 0x4F, 0x4F, 0x4F, 0x4F, 0x47, 0x47, 0x03, 0x07, 0x0D, 0x0D, 0x0C, 0x0A, 0x02, 0x1C,
+                                         0xC0, 0xE0, 0xF4, 0xF8, 0xF0, 0xF8, 0xF0, 0xEE, 0xC0, 0xE0, 0xF4, 0xF8, 0xF0, 0x58, 0x50, 0x20,
+                                         0x63, 0x71, 0x73, 0x6F, 0x12, 0x24, 0x0E, 0x1F, 0x3F, 0x7F, 0x1F, 0x2E, 0x1F, 0x3F, 0x01, 0x00,
+                                         0xDF, 0x9B, 0xD5, 0xFB, 0x5F, 0x4E, 0x4C, 0x00, 0xEE, 0xEE, 0xEA, 0x6E, 0xEE, 0xF4, 0xF8, 0x00,
+                                         0x03, 0x2F, 0x1F, 0x1F, 0x2F, 0x1F, 0x0F, 0x0F, 0x03, 0x2F, 0x1F, 0x1F, 0x2F, 0x1E, 0x08, 0x07,
+                                         0xC0, 0xE0, 0xF4, 0xF4, 0xF4, 0xF4, 0xE4, 0xC4, 0xC0, 0xE0, 0xF0, 0xB0, 0xB0, 0x50, 0x40, 0x00,
+                                         0x00, 0x01, 0x13, 0x0F, 0x02, 0x04, 0x0F, 0x07, 0x0F, 0x1F, 0x1E, 0x0F, 0x1F, 0x3F, 0x10, 0x00,
+                                         0x04, 0xC4, 0xEE, 0xFE, 0x7C, 0x48, 0x70, 0x80, 0xC0, 0x60, 0x2E, 0x02, 0xC4, 0xF8, 0xF0, 0x00,
+                                         0x03, 0x07, 0x4F, 0x4F, 0x4F, 0x4F, 0x47, 0x43, 0x03, 0x07, 0x0F, 0x0D, 0x0D, 0x0A, 0x02, 0x00,
+                                         0xC0, 0xF4, 0xF8, 0xF8, 0xF4, 0xF8, 0xF0, 0xE0, 0xC0, 0xF4, 0xF8, 0xF8, 0xF4, 0x78, 0x10, 0x20,
+                                         0x47, 0x49, 0xFD, 0xF7, 0x61, 0x02, 0x0F, 0x07, 0x06, 0x06, 0xE6, 0x82, 0x47, 0x0F, 0x00, 0x00,
+                                         0xB0, 0x50, 0xB0, 0xF0, 0xE0, 0x64, 0x38, 0x80, 0xE8, 0xA8, 0xE0, 0xE0, 0x50, 0xBC, 0xF8, 0x00,
+                                         0xC0, 0xE0, 0xF0, 0xF0, 0xF0, 0xF0, 0xE0, 0xC0, 0xC0, 0xE0, 0x70, 0x30, 0x30, 0x50, 0x40, 0x00,
+                                         0x0F, 0x1F, 0x1F, 0x0F, 0x04, 0x24, 0x1C, 0x01, 0x1A, 0x13, 0x10, 0x09, 0x1F, 0x3F, 0x1F, 0x00,
+                                         0x60, 0x00, 0xA0, 0xE0, 0x80, 0x40, 0xF0, 0xE0, 0xE0, 0xE0, 0xE0, 0xC0, 0xE0, 0xF0, 0x00, 0x00,
+                                         0x03, 0x27, 0x2F, 0x2F, 0x2F, 0x2F, 0x27, 0x27, 0x03, 0x07, 0x0F, 0x0D, 0x0D, 0x0A, 0x02, 0x00,
+                                         0x2F, 0x7D, 0x7A, 0x3D, 0x0F, 0x17, 0x0E, 0x01, 0x07, 0x77, 0x45, 0x27, 0x07, 0x1A, 0x0D, 0x00,
                                          0x80, 0xE0, 0xE8, 0xF0, 0xC0, 0x20, 0xF0, 0xE0, 0x70, 0x18, 0x18, 0x70, 0x78, 0xFC, 0x08, 0x00 };
 
             byte[] oldHeroSprite = { 0x00, 0x03, 0x07, 0xE7, 0xA3, 0x20, 0x44, 0x5F, 0x00, 0x00, 0x00, 0x00, 0x04, 0x0F, 0x0B, 0x1C,
                                      0x00, 0xC0, 0xE0, 0xE0, 0xC0, 0x00, 0x20, 0xF8, 0x00, 0x00, 0x00, 0x00, 0x20, 0xF0, 0xD0, 0x38,
                                      0x7F, 0xBF, 0xDF, 0x43, 0x5C, 0x7F, 0x60, 0x1F, 0x3F, 0x7F, 0x7F, 0x1F, 0x1F, 0x3F, 0x3F, 0x61,
                                      0xFC, 0xFC, 0xFE, 0xC4, 0x38, 0xFC, 0xFC, 0x00, 0xFC, 0xFE, 0xFA, 0xFC, 0xC0, 0xCC, 0xFC, 0xFE,
-                                     0x00, 0x03, 0x07, 0x07, 0xE3, 0xA0, 0x24, 0x5F, 0x00, 0x00, 0x00, 0x00, 0x04, 0x0F, 0x0B, 0x1C, 
+                                     0x00, 0x03, 0x07, 0x07, 0xE3, 0xA0, 0x24, 0x5F, 0x00, 0x00, 0x00, 0x00, 0x04, 0x0F, 0x0B, 0x1C,
                                      0x00, 0xC0, 0xE0, 0xE0, 0xC0, 0x00, 0x20, 0xF8, 0x00, 0x00, 0x00, 0x00, 0x20, 0xF0, 0xD0, 0x38,
                                      0x7F, 0x7F, 0xBF, 0xCF, 0x50, 0x5F, 0x3F, 0x00, 0x3F, 0x3F, 0x7F, 0x7F, 0x1F, 0x1F, 0x3F, 0x7F,
                                      0xFC, 0xF8, 0xC6, 0x3C, 0xF8, 0xFC, 0x04, 0xF8, 0xFC, 0xFE, 0xFE, 0xC4, 0xC8, 0xFC, 0xFC, 0x86,
                                      0x00, 0x03, 0x07, 0x07, 0x07, 0x07, 0x02, 0x19, 0x00, 0x00, 0x00, 0x00, 0x02, 0x0A, 0x0D, 0x1E,
                                      0x00, 0xC0, 0xE0, 0xE7, 0xE5, 0xE4, 0x42, 0x9A, 0x00, 0x00, 0x00, 0x00, 0x40, 0x50, 0xB0, 0x78,
-                                     0x38, 0x3C, 0x5F, 0x23, 0x1D, 0x3D, 0x20, 0x1F, 0x3F, 0x7F, 0x7F, 0x1E, 0x1F, 0x3F, 0x3F, 0x61, 
+                                     0x38, 0x3C, 0x5F, 0x23, 0x1D, 0x3D, 0x20, 0x1F, 0x3F, 0x7F, 0x7F, 0x1E, 0x1F, 0x3F, 0x3F, 0x61,
                                      0x1E, 0x3E, 0xF6, 0xCE, 0xBA, 0xBA, 0xBE, 0x02, 0xFC, 0xF8, 0xF8, 0x7C, 0xF8, 0xF8, 0xFC, 0xFC,
-                                     0x00, 0x03, 0x07, 0x07, 0x07, 0x07, 0x02, 0x19, 0x00, 0x00, 0x00, 0x00, 0x02, 0x0A, 0x0D, 0x1E, 
-                                     0x00, 0xC0, 0xE0, 0xE0, 0xE7, 0xE5, 0x44, 0x9A, 0x00, 0x00, 0x00, 0x00, 0x40, 0x50, 0xB0, 0x78, 
-                                     0x38, 0x3C, 0x5F, 0x23, 0x1D, 0x1D, 0x3D, 0x00, 0x3F, 0x7F, 0x7F, 0x1E, 0x1F, 0x1F, 0x3F, 0x7F, 
-                                     0x1E, 0x3E, 0xF6, 0xCE, 0xBA, 0xBE, 0x04, 0xF8, 0xF8, 0xFC, 0xF8, 0x78, 0xF8, 0xFC, 0xFC, 0x86, 
-                                     0x00, 0x07, 0x0F, 0x0F, 0x0D, 0x00, 0x02, 0x1F, 0x00, 0x00, 0x00, 0x00, 0x02, 0x0F, 0x0D, 0x17, 
-                                     0x00, 0xC0, 0xE0, 0xE0, 0xE0, 0xE0, 0x43, 0x22, 0x00, 0x00, 0x00, 0x00, 0x40, 0x40, 0xA0, 0xD0, 
-                                     0x3F, 0x21, 0x1E, 0x3F, 0x7F, 0x7F, 0x70, 0x0F, 0x3F, 0x3F, 0x7F, 0x23, 0x67, 0x7F, 0x7F, 0xF0, 
-                                     0x02, 0x94, 0x64, 0xE8, 0xE8, 0xE0, 0x60, 0x98, 0xF0, 0xF8, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 
-                                     0x00, 0x03, 0x07, 0x07, 0x07, 0x07, 0xC2, 0x44, 0x00, 0x00, 0x00, 0x00, 0x02, 0x02, 0x05, 0x0B, 
-                                     0x00, 0xE0, 0xF0, 0xF0, 0xB0, 0x00, 0x40, 0xF8, 0x00, 0x00, 0x00, 0x00, 0x40, 0xF0, 0xB0, 0xE8, 
-                                     0x40, 0x29, 0x3F, 0x1F, 0x1F, 0x0F, 0x08, 0x0F, 0x0F, 0x0F, 0x07, 0x07, 0x0F, 0x07, 0x07, 0x18, 
-                                     0xFC, 0xFC, 0xF0, 0x0C, 0xFE, 0xFE, 0x0E, 0xF0, 0xFC, 0xFE, 0xFC, 0xFC, 0xFE, 0xFE, 0xFE, 0x0F, 
-                                     0x00, 0xC0, 0xE0, 0xE6, 0xE4, 0xE4, 0x42, 0x22, 0x00, 0x00, 0x00, 0x00, 0x40, 0x40, 0xA0, 0xD0, 
-                                     0x3F, 0x3F, 0x18, 0x27, 0x7F, 0x7F, 0x7E, 0x01, 0x3F, 0x7F, 0x3F, 0x3F, 0x63, 0x67, 0x7F, 0xFE, 
-                                     0x04, 0x94, 0xEC, 0x14, 0xE4, 0xE4, 0x04, 0xF4, 0xF0, 0xF8, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0x18, 
-                                     0x00, 0x03, 0x07, 0x67, 0x27, 0x27, 0x42, 0x44, 0x00, 0x00, 0x00, 0x00, 0x02, 0x02, 0x05, 0x0B, 
-                                     0x40, 0x79, 0x7F, 0x5C, 0x4F, 0x47, 0x46, 0x49, 0x0F, 0x1F, 0x0F, 0x1F, 0x0F, 0x0F, 0x0F, 0x1F, 
+                                     0x00, 0x03, 0x07, 0x07, 0x07, 0x07, 0x02, 0x19, 0x00, 0x00, 0x00, 0x00, 0x02, 0x0A, 0x0D, 0x1E,
+                                     0x00, 0xC0, 0xE0, 0xE0, 0xE7, 0xE5, 0x44, 0x9A, 0x00, 0x00, 0x00, 0x00, 0x40, 0x50, 0xB0, 0x78,
+                                     0x38, 0x3C, 0x5F, 0x23, 0x1D, 0x1D, 0x3D, 0x00, 0x3F, 0x7F, 0x7F, 0x1E, 0x1F, 0x1F, 0x3F, 0x7F,
+                                     0x1E, 0x3E, 0xF6, 0xCE, 0xBA, 0xBE, 0x04, 0xF8, 0xF8, 0xFC, 0xF8, 0x78, 0xF8, 0xFC, 0xFC, 0x86,
+                                     0x00, 0x07, 0x0F, 0x0F, 0x0D, 0x00, 0x02, 0x1F, 0x00, 0x00, 0x00, 0x00, 0x02, 0x0F, 0x0D, 0x17,
+                                     0x00, 0xC0, 0xE0, 0xE0, 0xE0, 0xE0, 0x43, 0x22, 0x00, 0x00, 0x00, 0x00, 0x40, 0x40, 0xA0, 0xD0,
+                                     0x3F, 0x21, 0x1E, 0x3F, 0x7F, 0x7F, 0x70, 0x0F, 0x3F, 0x3F, 0x7F, 0x23, 0x67, 0x7F, 0x7F, 0xF0,
+                                     0x02, 0x94, 0x64, 0xE8, 0xE8, 0xE0, 0x60, 0x98, 0xF0, 0xF8, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0,
+                                     0x00, 0x03, 0x07, 0x07, 0x07, 0x07, 0xC2, 0x44, 0x00, 0x00, 0x00, 0x00, 0x02, 0x02, 0x05, 0x0B,
+                                     0x00, 0xE0, 0xF0, 0xF0, 0xB0, 0x00, 0x40, 0xF8, 0x00, 0x00, 0x00, 0x00, 0x40, 0xF0, 0xB0, 0xE8,
+                                     0x40, 0x29, 0x3F, 0x1F, 0x1F, 0x0F, 0x08, 0x0F, 0x0F, 0x0F, 0x07, 0x07, 0x0F, 0x07, 0x07, 0x18,
+                                     0xFC, 0xFC, 0xF0, 0x0C, 0xFE, 0xFE, 0x0E, 0xF0, 0xFC, 0xFE, 0xFC, 0xFC, 0xFE, 0xFE, 0xFE, 0x0F,
+                                     0x00, 0xC0, 0xE0, 0xE6, 0xE4, 0xE4, 0x42, 0x22, 0x00, 0x00, 0x00, 0x00, 0x40, 0x40, 0xA0, 0xD0,
+                                     0x3F, 0x3F, 0x18, 0x27, 0x7F, 0x7F, 0x7E, 0x01, 0x3F, 0x7F, 0x3F, 0x3F, 0x63, 0x67, 0x7F, 0xFE,
+                                     0x04, 0x94, 0xEC, 0x14, 0xE4, 0xE4, 0x04, 0xF4, 0xF0, 0xF8, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0x18,
+                                     0x00, 0x03, 0x07, 0x67, 0x27, 0x27, 0x42, 0x44, 0x00, 0x00, 0x00, 0x00, 0x02, 0x02, 0x05, 0x0B,
+                                     0x40, 0x79, 0x7F, 0x5C, 0x4F, 0x47, 0x46, 0x49, 0x0F, 0x1F, 0x0F, 0x1F, 0x0F, 0x0F, 0x0F, 0x1F,
                                      0xFC, 0xFC, 0xF0, 0x0C, 0xFE, 0xFE, 0x7E, 0x80, 0xFC, 0xFE, 0xFC, 0xFC, 0xFE, 0xFE, 0xFE, 0x7F };
-/*
-            for (int lni=0; lni < 16; lni++)
-            {
-                // code for moving sprite parts to hero sprite
+            /*
+                        for (int lni=0; lni < 16; lni++)
+                        {
+                            // code for moving sprite parts to hero sprite
 
-                romData[0x20010 + lni] = romData[0x22d10 + lni]; // left head back 1
-                romData[0x20020 + lni] = romData[0x22d20 + lni]; // right head back 1
-                romData[0x20030 + lni] = romData[0x22d30 + lni]; // left body back 1
-                romData[0x20040 + lni] = romData[0x22d40 + lni]; // right body back 1
-                romData[0x20050 + lni] = romData[0x22d50 + lni]; // left head back 2
-                romData[0x20060 + lni] = romData[0x22d60 + lni]; // right head back 2
-                romData[0x20070 + lni] = romData[0x22d70 + lni]; // left body back 2
-                romData[0x20080 + lni] = romData[0x22d80 + lni]; // right body back 2
+                            romData[0x20010 + lni] = romData[0x22d10 + lni]; // left head back 1
+                            romData[0x20020 + lni] = romData[0x22d20 + lni]; // right head back 1
+                            romData[0x20030 + lni] = romData[0x22d30 + lni]; // left body back 1
+                            romData[0x20040 + lni] = romData[0x22d40 + lni]; // right body back 1
+                            romData[0x20050 + lni] = romData[0x22d50 + lni]; // left head back 2
+                            romData[0x20060 + lni] = romData[0x22d60 + lni]; // right head back 2
+                            romData[0x20070 + lni] = romData[0x22d70 + lni]; // left body back 2
+                            romData[0x20080 + lni] = romData[0x22d80 + lni]; // right body back 2
 
-                romData[0x20090 + lni] = romData[0x22940 + lni]; // left head front 1
-                romData[0x200a0 + lni] = romData[0x22950 + lni]; // right head front 1
-                romData[0x200b0 + lni] = romData[0x22960 + lni]; // left body front 1
-                romData[0x200c0 + lni] = romData[0x22970 + lni]; // right body front 1
-                romData[0x200d0 + lni] = romData[0x22980 + lni]; // left head front 2
-                romData[0x200e0 + lni] = romData[0x22990 + lni]; // right head front 2
-                romData[0x200f0 + lni] = romData[0x229a0 + lni]; // left body front 2
-                romData[0x20100 + lni] = romData[0x229b0 + lni]; // right body front 2
+                            romData[0x20090 + lni] = romData[0x22940 + lni]; // left head front 1
+                            romData[0x200a0 + lni] = romData[0x22950 + lni]; // right head front 1
+                            romData[0x200b0 + lni] = romData[0x22960 + lni]; // left body front 1
+                            romData[0x200c0 + lni] = romData[0x22970 + lni]; // right body front 1
+                            romData[0x200d0 + lni] = romData[0x22980 + lni]; // left head front 2
+                            romData[0x200e0 + lni] = romData[0x22990 + lni]; // right head front 2
+                            romData[0x200f0 + lni] = romData[0x229a0 + lni]; // left body front 2
+                            romData[0x20100 + lni] = romData[0x229b0 + lni]; // right body front 2
 
-                romData[0x20110 + lni] = romData[0x229d0 + lni]; // facing right head left
-                romData[0x20120 + lni] = romData[0x22a40 + lni]; // facing right head right 1
-                romData[0x20130 + lni] = romData[0x22a50 + lni]; // facing right body left 1
-                romData[0x20140 + lni] = romData[0x22a60 + lni]; // facing right body right 1
-                romData[0x20190 + lni] = romData[0x22a80 + lni]; // facing right head left 2
-                romData[0x201a0 + lni] = romData[0x22a90 + lni]; // facing right body left 2
-                romData[0x201b0 + lni] = romData[0x22aa0 + lni]; // facing right body right 2
+                            romData[0x20110 + lni] = romData[0x229d0 + lni]; // facing right head left
+                            romData[0x20120 + lni] = romData[0x22a40 + lni]; // facing right head right 1
+                            romData[0x20130 + lni] = romData[0x22a50 + lni]; // facing right body left 1
+                            romData[0x20140 + lni] = romData[0x22a60 + lni]; // facing right body right 1
+                            romData[0x20190 + lni] = romData[0x22a80 + lni]; // facing right head left 2
+                            romData[0x201a0 + lni] = romData[0x22a90 + lni]; // facing right body left 2
+                            romData[0x201b0 + lni] = romData[0x22aa0 + lni]; // facing right body right 2
 
-                romData[0x20150 + lni] = romData[0x229c0 + lni]; // facing left head left 1
-                romData[0x20160 + lni] = romData[0x22a10 + lni]; // facing left head right
-                romData[0x20170 + lni] = romData[0x229e0 + lni]; // facing left body left 1
-                romData[0x20180 + lni] = romData[0x229f0 + lni]; // facing left body right 1
-                romData[0x201c0 + lni] = romData[0x22a00 + lni]; // facing left head left 2
-                romData[0x201d0 + lni] = romData[0x22a20 + lni]; // facing left body left 2
-                romData[0x201e0 + lni] = romData[0x22a30 + lni]; // facing left body right 2
-            }
-*/
+                            romData[0x20150 + lni] = romData[0x229c0 + lni]; // facing left head left 1
+                            romData[0x20160 + lni] = romData[0x22a10 + lni]; // facing left head right
+                            romData[0x20170 + lni] = romData[0x229e0 + lni]; // facing left body left 1
+                            romData[0x20180 + lni] = romData[0x229f0 + lni]; // facing left body right 1
+                            romData[0x201c0 + lni] = romData[0x22a00 + lni]; // facing left head left 2
+                            romData[0x201d0 + lni] = romData[0x22a20 + lni]; // facing left body left 2
+                            romData[0x201e0 + lni] = romData[0x22a30 + lni]; // facing left body right 2
+                        }
+            */
 
             int age = (r1.Next() % 99) + 1;
             int tens = age / 10;
@@ -7114,7 +7181,7 @@ namespace DW3Randomizer
             }
             if (tens == 0) offset = 1;
             romData[0x43876] = tensHex;
-            romData[0x43877-offset] = onesHex;
+            romData[0x43877 - offset] = onesHex;
             if (tens == 1)
             {
                 romData[0x43878 - offset] = 0x1e;
@@ -7164,21 +7231,88 @@ namespace DW3Randomizer
             }
         }
 
+        private void changeRemakeEq()
+        {
+            if (chk_WeapArmPower.Checked == true)
+            {
+                convertStrToHex("HlyLnc", 0xad30, false);
+                convertStrToHex("BstCl", 0xad50, true);
+                convertStrToHex("JustAb", 0xad56, true);
+                convertStrToHex("DrgClaw", 0xadbf, true);
+                convertStrToHex("NinjaSuit", 0xaea3, true);
+                convertStrToHex("Pot Lid", 0xaecf, true);
+                convertStrToHex("BlkHd", 0xaf35, true);
+            }
+            else
+            {
+                // First line of equipment names
+                convertStrToHex("Holy&Broad&Wizard^s&Poison&Iron&Beast&Justice", 0xad30, false);
+                convertStrToHex("Dragon&Thunder&Staff$of&Sword$of&Orochi&Dragon&Staff$of&Clothes&Trainging&Leather&Flashy&Half$Plate&Full$Plate&Magic&Cloak$of&Armor$of&Water$Flying&Chain&Wayfarer^s&Revealing&Magic&Shell&Ninja&Dragon&Swordedge&Angel^s&Leather&Pot&Shield$of&Shield$of&Bronze&Silver&Golden&$$$$", 0xadca, false);
+                convertStrToHex("Unluck&Turban&Noh&Leather&Black", 0xaf1b, false);
+
+                // Second line of equipment names
+                convertStrToHex("Lance&Sword&Wand&Needle&Claw&Claw&Abacus&Sickle&Sword&Sword&Axe&Rain&Gaia&Reflection&Destruction&Sword&Force&Illusion&Slasher&Sword&Claw",0xb0f9, false);
+                convertStrToHex("Suit&Mail&Armor&Robe&Shield&Lid&Strength&Heroes&Sorrow&Shield&Shield&Crown&$$$$$$$$$", 0xb227, false);
+                convertStrToHex("Hood", 0xb29a, false);
+            }
+
+            int[] prices = { 2300, 24000, 17000, 25000, 4200, 50, 140 };
+            int[] itemToChange = { 0x05, 0x0a, 0x0b, 0x19, 0x35, 0x39, 0x46 };
+            //            int[] locs = { 0x15, 0x1a, 0x0d, 0x0b, 0x34, 0x39, 0x46 };
+            int[] powers = { 35, 40, 95, 110, 58, 2, 18 };
+            int[] whocanequip = { 0x0c, 0x40, 0x20, 0x40,  0x40, 0xff, 0x40 };
+            int[] effect = { 0x01, 0x01, 0x01, 0x01, 0x1d, 0x01, 0x01 };
+
+            int price = 0;
+
+            if (chk_AdjustEqpPrices.Checked == false)
+            {
+                for (int lnI = 0; lnI < itemToChange.Length; lnI++)
+                {
+                    romData[0x11be + itemToChange[lnI]] -= (byte)(romData[0x11be + itemToChange[lnI]] % 4);
+                    price = itemToChange[lnI];
+                    //                int priceToUse = (romData[0x123b + itemstoAdjust[lnI]] >= 128 ? romData[0x123b + itemstoAdjust[lnI]] - 128 : romData[0x123b + itemstoAdjust[lnI]]);
+                    if (price >= 10000)
+                    {
+                        romData[0x11be + itemToChange[lnI]] += 3; // Now multiply by 1000
+                        romData[0x123b + itemToChange[lnI]] = (byte)(romData[0x123b + itemToChange[lnI]] >= 128 ? (price / 1000) + 128 : price / 1000);
+                    }
+                    else if (price >= 1000)
+                    {
+                        romData[0x11be + itemToChange[lnI]] += 2; // Now multiply by 100
+                        romData[0x123b + itemToChange[lnI]] = (byte)(romData[0x123b + itemToChange[lnI]] >= 128 ? (price / 100) + 128 : price / 100);
+                    }
+                    else if (price >= 100)
+                    {
+                        romData[0x11be + itemToChange[lnI]] += 1; // Now multiply by 10
+                        romData[0x123b + itemToChange[lnI]] = (byte)(romData[0x123b + itemToChange[lnI]] >= 128 ? (price / 10) + 128 : price / 10);
+                    }
+                    else
+                    {
+                        romData[0x123b + itemToChange[lnI]] = (byte)(romData[0x123b + itemToChange[lnI]] >= 128 ? price + 128 : price);
+                    }
+                }
+            }
+
+            if (chkRandWhoCanEquip.Checked == false)
+            {
+                for (int lnI = 0; lnI < itemToChange.Length; lnI++)
+                {
+                    romData[0x1147 + itemToChange[lnI]] = (byte)whocanequip[lnI];
+                    if (romData[0x1196 + itemToChange[lnI]] != 255 && romData[0x1196 + itemToChange[lnI]] != 0 && itemToChange[lnI] < 32)
+                        romData[0x1196 + itemToChange[lnI]] = (byte)whocanequip[lnI];
+                }
+            }
+
+        }
+
         private void randStartGold()
         {
             Random r1 = new Random(int.Parse(txtSeed.Text));
 
             // randomize starting gold
             romData[0x2914f] = (byte)(r1.Next() % 256);
-
         }
-
-
-/*
-        private void superRandomize()
-        {
-        }
-*/
 
         private int[] inverted_power_curve(int min, int max, int arraySize, double powToUse, Random r1)
         {
@@ -7201,32 +7335,6 @@ namespace DW3Randomizer
             return currentList;
         }
 
-        private void shuffle(int[] treasureData, Random r1, bool keyItemAvoidance = false)
-        {
-            // Do not exceed these zones defined for the key items, or you're going to be stuck!
-            int[] keyZoneMax = { 13, 13, 23, 40, 45, 53 }; // Cloak of wind, Mirror Of Ra, Golden Key, Jailor's Key, Moon Fragment, Eye Of Malroth
-            List<byte> keyItems = new List<byte> { 0x2b, 0x2e, 0x37, 0x39, 0x26, 0x28 }; // When we reach insane randomness, we'll want to know what the key items are so we place them in the appropriate zones...
-
-            // Shuffle each zone 15 times the length of the array for randomness.
-            for (int lnI = 0; lnI < 15 * treasureData.Length; lnI++)
-            {
-                int swap1 = r1.Next() % treasureData.Length;
-                int swap2 = r1.Next() % treasureData.Length;
-
-                // Don't shuffle if key items would be swapped into inaccessible areas.
-                if (keyItemAvoidance) {
-                    int position1 = keyItems.IndexOf(romData[treasureData[swap1]]);
-                    int position2 = keyItems.IndexOf(romData[treasureData[swap2]]);
-                    if (position1 > -1 && swap2 > keyZoneMax[position1])
-                        continue;
-                    if (position2 > -1 && swap1 > keyZoneMax[position2])
-                        continue;
-                }
-
-                swap(treasureData[swap1], treasureData[swap2]);
-            }
-        }
-
         private void swap(int firstAddress, int secondAddress)
         {
             byte holdAddress = romData[secondAddress];
@@ -7247,7 +7355,7 @@ namespace DW3Randomizer
             if (!loadRom(true)) return;
             using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "DW3Compare.txt")))
             {
-               for (int lnI = 0; lnI < 0x8a; lnI++)
+                for (int lnI = 0; lnI < 0x8a; lnI++)
                     compareComposeString("monsters" + lnI.ToString("X2"), writer, (0x32e3 + (23 * lnI)), 23);
 
                 compareComposeString("itemPrice1", writer, 0x11be, 128);
@@ -7388,7 +7496,7 @@ namespace DW3Randomizer
             convertStrToHex("0Unfortunately, records of", 0x29645, true);
             convertStrToHex(" Erdrick^s party were lost", 0x29660, true);
             convertStrToHex(" with time.", 0x2967b, true);
-            convertStrToHex("  ", 0x29687,  true);
+            convertStrToHex("  ", 0x29687, true);
             convertStrToHex(" Dragon Warrior III Randomizer", 0x2968a, true);
             convertStrToHex("  ", 0x296a9, true);
             convertStrToHex("0Originally Developed By:", 0x296ac, true);
@@ -7475,6 +7583,7 @@ namespace DW3Randomizer
                     writer.WriteLine(chk_ChangeDefaultParty.Checked);
                     writer.WriteLine(chk_RandomName.Checked);
                     writer.WriteLine(chk_RandomGender.Checked);
+                    writer.WriteLine(chk_RandomClass.Checked);
                     writer.WriteLine(txtCharName1.Text);
                     writer.WriteLine(txtCharName2.Text);
                     writer.WriteLine(txtCharName3.Text);
@@ -7524,7 +7633,7 @@ namespace DW3Randomizer
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
             openFileDialog1.InitialDirectory = Path.Combine(Application.StartupPath);
-//            openFileDialog1.InitialDirectory = "c:\\";
+            //            openFileDialog1.InitialDirectory = "c:\\";
             openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
             openFileDialog1.FilterIndex = 2;
             openFileDialog1.RestoreDirectory = true;
@@ -7597,7 +7706,7 @@ namespace DW3Randomizer
             chkFasterBattles.Checked = (number % 8 >= 4);
             chkSpeedText.Checked = (number % 16 >= 8);
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(4,1)));    
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(4, 1)));
             chk_SpeedUpMenus.Checked = (number % 2 == 1);
             chk_Cod.Checked = (number % 4 >= 2);
             chk_WeapArmPower.Checked = (number % 8 >= 4);
@@ -7617,7 +7726,7 @@ namespace DW3Randomizer
             chkRandomizeXP.Checked = (number % 8 >= 4);
             chkRandomizeGP.Checked = (number % 16 >= 8);
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(7,1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(7, 1)));
             chkRandEnemyPatterns.Checked = (number % 2 == 1);
             chk_RemMetalMonRun.Checked = (number % 4 >= 2);
 
@@ -7639,7 +7748,7 @@ namespace DW3Randomizer
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(11, 1)));
             chkRandTreasures.Checked = (number % 2 == 1);
-            chk_GoldenClaw.Checked = (number % 4 >= 2);;
+            chk_GoldenClaw.Checked = (number % 4 >= 2); ;
             chkRandWhoCanEquip.Checked = (number % 8 >= 4);
             chkRandEquip.Checked = (number % 16 >= 8);
 
@@ -7652,7 +7761,7 @@ namespace DW3Randomizer
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(13, 1)));
             chk_AdjustEqpPrices.Checked = (number % 2 == 1);
             chk_RmRedundKey.Checked = (number % 4 >= 2);
-            chk_RemCurse.Checked = (number % 8 >= 4);
+            chk_AddRemakeEq.Checked = (number % 8 >= 4);
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(14, 1)));
             //chkRandItemEffects.Checked = (number % 2 == 1);
@@ -7688,16 +7797,16 @@ namespace DW3Randomizer
             //chk_RandomGender.Checked = (number % 2 == 1);
             //chk_RandomClass.Checked = (number % 4 >= 2);
             chkRandStatGains.Checked = (number % 2 == 1);
-/*
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(19, 1)));
-            chk_RandSoldier.Checked = (number % 2 == 1);
-            chk_RandPilgrim.Checked = (number % 4 >= 2);
-            chk_RandWizard.Checked = (number % 8 >= 4);
-            chk_RandFighter.Checked = (number % 16 >= 8);
-*/
+            /*
+                        number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(19, 1)));
+                        chk_RandSoldier.Checked = (number % 2 == 1);
+                        chk_RandPilgrim.Checked = (number % 4 >= 2);
+                        chk_RandWizard.Checked = (number % 8 >= 4);
+                        chk_RandFighter.Checked = (number % 16 >= 8);
+            */
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(20, 1)));
-//            chk_RandMerchant.Checked = (number % 2 == 1);
-//            chk_RandGoofOff.Checked = (number % 4 >= 2);
+            //            chk_RandMerchant.Checked = (number % 2 == 1);
+            //            chk_RandGoofOff.Checked = (number % 4 >= 2);
             chk_RandSage.Checked = (number % 2 == 1);
             chk_RandHero.Checked = (number % 4 >= 2);
 
@@ -7726,22 +7835,23 @@ namespace DW3Randomizer
             flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? 1 : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? 2 : 0) : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? (chk_SepBarGaia.Checked ? 4 : 0) : 0) : 0) + (chkRandomizeMap.Checked ? (chkRandMonsterZones.Checked ? 8 : 0) : 0)); // 8
             flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? (chk_RemoveBirdRequirement.Checked ? 1 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RemLancelMountains.Checked ? 2 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_lbtoCharlock.Checked ? 4 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RmMtnNecrogond.Checked ? 8 : 0) : 0)); // 9
             flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? (chk_RemoveMtnDrgQueen.Checked ? 1 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RmNewTown.Checked ? 2 : 0) : 0));
-            flags += convertIntToCharCapsOnly((chkRandTreasures.Checked ? 1 : 0) + (chkRandTreasures.Checked ? (chk_GoldenClaw.Checked ? 2 : 0) : 0)  + (chkRandWhoCanEquip.Checked ? 4 : 0) + (chkRandEquip.Checked ? 8 : 0)); // 10
-            flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_UseVanEquipValues.Checked ? 1 : 0) : 0) + (chkRandEquip.Checked ? (chk_RemoveStartEqRestrictions.Checked ? 2 : 0) : 0) + (chkRandEquip.Checked ? (chk_RmFighterPenalty.Checked ? 4 : 0) : 0) + (chkRandTreasures.Checked ? (chk_GreenSilverOrb.Checked ? 8 : 0) : 0)); // 11
-            flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_AdjustEqpPrices.Checked ? 1 : 0) : 0) + (chkRandTreasures.Checked ? (chk_RmRedundKey.Checked ? 2 : 0) : 0) + (chk_RemCurse.Checked ? 4 : 0));
+            flags += convertIntToCharCapsOnly((chkRandTreasures.Checked ? 1 : 0) + (chkRandTreasures.Checked ? (chk_GoldenClaw.Checked ? 2 : 0) : 0) + (chkRandWhoCanEquip.Checked ? 4 : 0) + (chkRandEquip.Checked ? 8 : 0)); // 10
+            flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_UseVanEquipValues.Checked ? 1 : 0) : 0) + (chkRandEquip.Checked ? (chk_RemoveStartEqRestrictions.Checked ? 2 : 0) : 0) + (chk_RmFighterPenalty.Checked ? 4 : 0) + (chkRandTreasures.Checked ? (chk_GreenSilverOrb.Checked ? 8 : 0) : 0)); // 11
+            flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_AdjustEqpPrices.Checked ? 1 : 0) : 0) + (chkRandTreasures.Checked ? (chk_RmRedundKey.Checked ? 2 : 0) : 0) + (chk_AddRemakeEq.Checked ? 4 : 0));
+
             flags += convertIntToCharCapsOnly((chkRandItemEffects.Checked ? 1 : 0) + (chkRandItemStores.Checked ? 2 : 0) + (chk_RandomizeWeaponShops.Checked ? 4 : 0) + (chk_Caturday.Checked ? 8 : 0)); // 12
             flags += convertIntToCharCapsOnly((chk_RandomizeInnPrices.Checked ? 1 : 0) + (chk_sellUnsellItems.Checked ? 2 : 0)); //13
             flags += convertIntToCharCapsOnly((chkRandItemStores.Checked ? (chk_StoneofLife.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_Seeds.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_BookofSatori.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_RingofLife.Checked ? 8 : 0) : 0)); // 14
             flags += convertIntToCharCapsOnly((chkRandItemStores.Checked ? (chk_EchoingFlute.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_SilverHarp.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_LeafoftheWorldTree.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_ShoesofHappiness.Checked ? 8 : 0) : 0)); // 15
             flags += convertIntToCharCapsOnly((chkRandItemStores.Checked ? (chk_MeteoriteArmband.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_WizardsRing.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_LampofDarkness.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_PoisonMothPowder.Checked ? 8 : 0) : 0)); // 16
             flags += convertIntToCharCapsOnly(/*(chk_ChangeDefaultParty.Checked ? (chk_RandomName.Checked ? 1 : 0) :0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomGender.Checked ? 1 : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? 2 : 0) : 0) + */(chkRandStatGains.Checked ? 1 : 0)); // 17
- //           flags += convertIntToCharCapsOnly((chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandSoldier.Checked ? 1 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandPilgrim.Checked ? 2 : 0) : 0) :0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandWizard.Checked ? 4 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandFighter.Checked ? 8 : 0) : 0) : 0)); // 18
+                                                                                                                                                                                                                                                                                                                       //           flags += convertIntToCharCapsOnly((chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandSoldier.Checked ? 1 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandPilgrim.Checked ? 2 : 0) : 0) :0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandWizard.Checked ? 4 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandFighter.Checked ? 8 : 0) : 0) : 0)); // 18
             flags += convertIntToCharCapsOnly(/*(chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandMerchant.Checked ? 1 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandGoofOff.Checked ? 2 : 0) : 0) : 0) + */(chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandSage.Checked ? 1 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandHero.Checked ? 2 : 0) : 0) : 0)); // 19
             flags += convertIntToCharCapsOnly((chkRandSpellLearning.Checked ? 1 : 0) + (chkRandSpellStrength.Checked ? 2 : 0) + (chkFourJobFiesta.Checked ? 4 : 0)); // 20
             flags += convertIntToCharCapsOnly((chkRemoveParryFight.Checked ? 1 : 0)); // 21
 
             txtFlags.Text = flags;
-            enableDisableFields(null,null);
+            enableDisableFields(null, null);
         }
 
         private string convertIntToCharCapsOnly(int number)
@@ -7780,10 +7890,10 @@ namespace DW3Randomizer
             return 0;
         }
 
-		private void btnCopyChecksum_Click(object sender, EventArgs e)
-		{
-			Clipboard.SetText(lblNewChecksum.Text);
-		}
+        private void btnCopyChecksum_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(lblNewChecksum.Text);
+        }
 
 
         private void txtFileName_DragEnter(object sender, DragEventArgs e)
@@ -7993,6 +8103,9 @@ namespace DW3Randomizer
                     case 'Z':
                         romData[startaddress + offset] = 0x3e;
                         break;
+                    case '$':
+                        romData[startaddress + offset] = 0x50;
+                        break;
                     case '"':
                         romData[startaddress + offset] = 0x65;
                         break;
@@ -8022,6 +8135,9 @@ namespace DW3Randomizer
                         break;
                     case ':':
                         romData[startaddress + offset] = 0x75;
+                        break;
+                    case '&':
+                        romData[startaddress + offset] = 0xff;
                         break;
                 }
                 offset += 1;
@@ -8120,11 +8236,12 @@ namespace DW3Randomizer
             this.chk_RemoveMtnDrgQueen.Visible = this.chkRandomizeMap.Checked;
             this.chk_RmNewTown.Visible = this.chkRandomizeMap.Checked;
             this.chk_RmMtnNecrogond.Visible = this.chkRandomizeMap.Checked;
-            this.chk_RmFighterPenalty.Visible = this.chkRandEquip.Checked;
             this.chk_UseVanEquipValues.Visible = this.chkRandEquip.Checked;
             this.chk_RemLancelMountains.Visible = this.chkRandomizeMap.Checked;
             this.chk_lbtoCharlock.Visible = this.chkRandomizeMap.Checked;
             this.chk_RmRedundKey.Visible = this.chkRandTreasures.Checked;
+            if (this.chk_AddRemakeEq.Checked)
+                this.chk_RmFighterPenalty.CheckState = CheckState.Checked;
         }
     }
 }

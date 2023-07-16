@@ -91,7 +91,7 @@ namespace DW3Randomizer
             this.chk_RemMetalMonRun = new System.Windows.Forms.CheckBox();
             this.chkRandEnemyPatterns = new System.Windows.Forms.CheckBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.chk_RemCurse = new System.Windows.Forms.CheckBox();
+            this.chk_AddRemakeEq = new System.Windows.Forms.CheckBox();
             this.chk_RmRedundKey = new System.Windows.Forms.CheckBox();
             this.chk_AdjustEqpPrices = new System.Windows.Forms.CheckBox();
             this.chk_GreenSilverOrb = new System.Windows.Forms.CheckBox();
@@ -174,7 +174,6 @@ namespace DW3Randomizer
             this.lblHash = new System.Windows.Forms.Label();
             this.txtSeed = new System.Windows.Forms.TextBox();
             this.btn_CopyHash = new System.Windows.Forms.Button();
-            this.chk_AddRemEquip = new System.Windows.Forms.CheckBox();
             this.grpMonsterStat.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -925,8 +924,7 @@ namespace DW3Randomizer
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.chk_AddRemEquip);
-            this.tabPage4.Controls.Add(this.chk_RemCurse);
+            this.tabPage4.Controls.Add(this.chk_AddRemakeEq);
             this.tabPage4.Controls.Add(this.chk_RmRedundKey);
             this.tabPage4.Controls.Add(this.chk_AdjustEqpPrices);
             this.tabPage4.Controls.Add(this.chk_GreenSilverOrb);
@@ -948,17 +946,18 @@ namespace DW3Randomizer
             this.tabPage4.Text = "Treasures & Equipment";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // chk_RemCurse
+            // chk_AddRemakeEq
             // 
-            this.chk_RemCurse.AutoSize = true;
-            this.chk_RemCurse.Location = new System.Drawing.Point(659, 11);
-            this.chk_RemCurse.Name = "chk_RemCurse";
-            this.chk_RemCurse.Size = new System.Drawing.Size(257, 24);
-            this.chk_RemCurse.TabIndex = 77;
-            this.chk_RemCurse.Text = "Remove Curse from Equipment";
-            this.adjustments.SetToolTip(this.chk_RemCurse, "Remove Curse effect from equipment");
-            this.chk_RemCurse.UseVisualStyleBackColor = true;
-            this.chk_RemCurse.CheckedChanged += new System.EventHandler(this.determineFlags);
+            this.chk_AddRemakeEq.AutoSize = true;
+            this.chk_AddRemakeEq.Location = new System.Drawing.Point(653, 11);
+            this.chk_AddRemakeEq.Name = "chk_AddRemakeEq";
+            this.chk_AddRemakeEq.Size = new System.Drawing.Size(209, 24);
+            this.chk_AddRemakeEq.TabIndex = 78;
+            this.chk_AddRemakeEq.Text = "Add Remake Equipment";
+            this.chk_AddRemakeEq.UseVisualStyleBackColor = true;
+            this.adjustments.SetToolTip(this.chk_AddRemakeEq, "Replaces some equipment with equipment from the remakes. Makes Fighter and Merchant more viable jobs.");
+            this.chk_AddRemakeEq.CheckedChanged += new System.EventHandler(this.determineFlags);
+
             // 
             // chk_RmRedundKey
             // 
@@ -2064,16 +2063,6 @@ namespace DW3Randomizer
             this.btn_CopyHash.UseVisualStyleBackColor = true;
             this.btn_CopyHash.Click += new System.EventHandler(this.btn_CopyHash_Click);
             // 
-            // chk_AddRemEquip
-            // 
-            this.chk_AddRemEquip.AutoSize = true;
-            this.chk_AddRemEquip.Location = new System.Drawing.Point(659, 46);
-            this.chk_AddRemEquip.Name = "chk_AddRemEquip";
-            this.chk_AddRemEquip.Size = new System.Drawing.Size(209, 24);
-            this.chk_AddRemEquip.TabIndex = 78;
-            this.chk_AddRemEquip.Text = "Add Remake Equipment";
-            this.chk_AddRemEquip.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -2279,8 +2268,7 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_sellUnsellItems;
         private System.Windows.Forms.CheckBox chk_RmRedundKey;
         private System.Windows.Forms.Button btn_CopyHash;
-        private System.Windows.Forms.CheckBox chk_RemCurse;
-        private System.Windows.Forms.CheckBox chk_AddRemEquip;
+        private System.Windows.Forms.CheckBox chk_AddRemakeEq;
     }
 }
 
