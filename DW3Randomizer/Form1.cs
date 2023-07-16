@@ -286,7 +286,6 @@ namespace DW3Randomizer
                 }
 
                 if (chk_RmManip.Checked) dw4RNG();
-                //superRandomize();
                 boostGP();
                 boostXP();
                 adjustEncounters();
@@ -311,7 +310,6 @@ namespace DW3Randomizer
                 if (chkRandMonsterZones.Checked) randMonsterZones(rni);
                 if (chk_sellUnsellItems.Checked) forceItemSell(rni);
 //                if (chkRandItemEffects.Checked) randItemEffects(rni);
-                //                if (chk_RemCurse.Checked) remCurse();
                 if (chkRandEquip.Checked) randEquip(rni);
                 if (chk_AddRemakeEq.Checked) changeRemakeEq();
                 if (chk_RmFighterPenalty.Checked) removeFightPenalty();
@@ -7256,10 +7254,10 @@ namespace DW3Randomizer
                 convertStrToHex("Hood", 0xb29a, false);
             }
 
-            int[] prices = { 2300, 24000, 17000, 25000, 4200, 50, 140 };
+            int[] prices = { 2300, 24000, 25000, 17000, 4200, 50, 1200 };
             int[] itemToChange = { 0x05, 0x0a, 0x0b, 0x19, 0x35, 0x39, 0x46 };
             //            int[] locs = { 0x15, 0x1a, 0x0d, 0x0b, 0x34, 0x39, 0x46 };
-            int[] powers = { 35, 40, 95, 110, 58, 2, 18 };
+            int[] powers = { 35, 95, 110, 85, 58, 2, 18 };
             int[] whocanequip = { 0x0c, 0x40, 0x20, 0x40,  0x40, 0xff, 0x40 };
             int[] effect = { 0x01, 0x01, 0x01, 0x01, 0x1d, 0x01, 0x01 };
 
