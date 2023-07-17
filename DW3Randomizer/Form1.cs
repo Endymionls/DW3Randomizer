@@ -19,8 +19,8 @@ namespace DW3Randomizer
 {
     public partial class Form1 : Form
     {
-        string versionNumber = "2.4.6";
-        string revisionDate = "7/15/2023";
+        string versionNumber = "2.4.6a";
+        string revisionDate = "7/16/2023";
         string SotWFlags = "ACHMHDMBLABJMFODPPPBADB";
         string endyFlags = "ACGMHDPBLACLNHODPPPBADB";
 
@@ -6643,7 +6643,7 @@ namespace DW3Randomizer
             // Totally randomize who can equip (1a3ce-1a3f0).  At least one person can equip something...
             using (StreamWriter writer = File.CreateText(finalFile))
             {
-                string[] weaponText = { "Cypress stick", "Club", "Copper sword", "Magic Knife", "Iron Spear", "Battle Axe", "Broad Sword", "Wizard's Wand",
+                string[] weaponText1 = { "Cypress stick", "Club", "Copper sword", "Magic Knife", "Iron Spear", "Battle Axe", "Broad Sword", "Wizard's Wand",
                         "Poison Needle", "Iron Claw", "Thorn Whip", "Giant Shears", "Chain Sickle", "Thor's Sword", "Snowblast Sword", "Demon Axe",
                         "Staff of Rain", "Sword of Gaia", "Staff of Reflection", "Sword of Destruction", "Multi - Edge Sword", "Staff of Force", "Sword of Illusion", "Zombie Slasher",
                         "Falcon Sword", "Sledge Hammer", "Thunder Sword", "Staff of Thunder", "Sword of Kings", "Orochi Sword", "Dragon Killer", "Staff of Judgement",
@@ -6652,6 +6652,16 @@ namespace DW3Randomizer
                         "Wayfarers Clothes", "Revealing Swimsuit", "Magic Bikini", "Shell Armor", "Armor of Terrafirma", "Dragon Mail", "Swordedge Armor", "Angel's Robe",
                         "Leather Shield", "Iron Shield", "Shield of Strength", "Shield of Heroes", "Shield of Sorrow", "Bronze Shield", "Silver Shield", "Golden Crown",
                         "Iron Helmet", "Mysterious Hat", "Unlucky Helmet", "Turban", "Noh Mask", "Leather Helmet", "Iron Mask", "Golden Claw" };
+
+                string[] weaponText2 = { "Cypress stick", "Club", "Copper sword", "Magic Knife", "Iron Spear", "Holy Lance", "Broad Sword", "Wizard's Wand",
+                        "Poison Needle", "Iron Claw", "Beast Claw", "Justice Abacus", "Chain Sickle", "Thor's Sword", "Snowblast Sword", "Demon Axe",
+                        "Staff of Rain", "Sword of Gaia", "Staff of Reflection", "Sword of Destruction", "Multi - Edge Sword", "Staff of Force", "Sword of Illusion", "Zombie Slasher",
+                        "Falcon Sword", "Dragon Claw", "Thunder Sword", "Staff of Thunder", "Sword of Kings", "Orochi Sword", "Dragon Killer", "Staff of Judgement",
+                        "Clothes", "Training Suit", "Leather Armor", "Flashy Clothes", "Half Plate Armor", "Full Plate Armor", "Magic Armor", "Cloak of Evasion",
+                        "Armor of Radiance", "Iron Apron", "Animal Suit", "Fighting Suit", "Sacred Robe", "Armor of Hades", "Water Flying Cloth", "Chain Mail",
+                        "Wayfarers Clothes", "Revealing Swimsuit", "Magic Bikini", "Shell Armor", "Ninja Suit", "Dragon Mail", "Swordedge Armor", "Angel's Robe",
+                        "Leather Shield", "Pot Lid", "Shield of Strength", "Shield of Heroes", "Shield of Sorrow", "Bronze Shield", "Silver Shield", "Golden Crown",
+                        "Iron Helmet", "Mysterious Hat", "Unlucky Helmet", "Turban", "Noh Mask", "Leather Helmet", "Black Hood", "Golden Claw" };
 
                 for (int lnI = 0; lnI <= 70; lnI++)
                 {
@@ -6668,9 +6678,12 @@ namespace DW3Randomizer
                         equipOut += (romData[0x1147 + lnI] >= 128 ? "Gf  " : "--  ");
                         equipOut += (romData[0x11be + lnI] >= 128 ? "**  " : "    ");
                         equipOut += (romData[0x279a0 + lnI]);
-                        writer.WriteLine(weaponText[lnI].PadRight(24) + equipOut);
+                        if(chk_AddRemakeEq.Checked == true)
+                            writer.WriteLine(weaponText2[lnI].PadRight(24) + equipOut);
+                        else
+                            writer.WriteLine(weaponText1[lnI].PadRight(24) + equipOut);
                     }
-                    else
+                    else //writes out Golden Claw
                     {
                         string equipOut = "";
                         equipOut += (romData[0x1147 + lnI + 3] % 2 >= 1 ? "Hr  " : "--  ");
@@ -6683,7 +6696,10 @@ namespace DW3Randomizer
                         equipOut += (romData[0x1147 + lnI + 3] >= 128 ? "Gf  " : "--  ");
                         equipOut += (romData[0x11be + lnI + 3] >= 128 ? "**  " : "    ");
                         equipOut += (romData[0x279a0 + lnI + 3]);
-                        writer.WriteLine(weaponText[lnI].PadRight(24) + equipOut);
+                        if (chk_AddRemakeEq.Checked == true)
+                            writer.WriteLine(weaponText2[lnI].PadRight(24) + equipOut);
+                        else
+                            writer.WriteLine(weaponText1[lnI].PadRight(24) + equipOut);
 
                     }
 
@@ -7255,8 +7271,7 @@ namespace DW3Randomizer
             }
 
             int[] prices = { 2300, 24000, 25000, 17000, 4200, 50, 1200 };
-            int[] itemToChange = { 0x05, 0x0a, 0x0b, 0x19, 0x35, 0x39, 0x46 };
-            //            int[] locs = { 0x15, 0x1a, 0x0d, 0x0b, 0x34, 0x39, 0x46 };
+            int[] itemToChange = { 0x05, 0x0a, 0x0b, 0x19, 0x34, 0x39, 0x46 };
             int[] powers = { 35, 95, 110, 85, 58, 2, 18 };
             int[] whocanequip = { 0x0c, 0x40, 0x20, 0x40,  0x40, 0xff, 0x40 };
             int[] effect = { 0x01, 0x01, 0x01, 0x01, 0x1d, 0x01, 0x01 };
@@ -7268,7 +7283,7 @@ namespace DW3Randomizer
                 for (int lnI = 0; lnI < itemToChange.Length; lnI++)
                 {
                     romData[0x11be + itemToChange[lnI]] -= (byte)(romData[0x11be + itemToChange[lnI]] % 4);
-                    price = itemToChange[lnI];
+                    price = prices[lnI];
                     //                int priceToUse = (romData[0x123b + itemstoAdjust[lnI]] >= 128 ? romData[0x123b + itemstoAdjust[lnI]] - 128 : romData[0x123b + itemstoAdjust[lnI]]);
                     if (price >= 10000)
                     {
