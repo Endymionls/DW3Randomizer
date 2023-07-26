@@ -174,6 +174,7 @@ namespace DW3Randomizer
             this.lblHash = new System.Windows.Forms.Label();
             this.txtSeed = new System.Windows.Forms.TextBox();
             this.btn_CopyHash = new System.Windows.Forms.Button();
+            this.chk_FixHeroSpell = new System.Windows.Forms.CheckBox();
             this.grpMonsterStat.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -954,10 +955,10 @@ namespace DW3Randomizer
             this.chk_AddRemakeEq.Size = new System.Drawing.Size(209, 24);
             this.chk_AddRemakeEq.TabIndex = 78;
             this.chk_AddRemakeEq.Text = "Add Remake Equipment";
+            this.adjustments.SetToolTip(this.chk_AddRemakeEq, "Replaces some equipment with equipment from the remakes. Makes Fighter and Mercha" +
+        "nt more viable jobs.");
             this.chk_AddRemakeEq.UseVisualStyleBackColor = true;
-            this.adjustments.SetToolTip(this.chk_AddRemakeEq, "Replaces some equipment with equipment from the remakes. Makes Fighter and Merchant more viable jobs.");
             this.chk_AddRemakeEq.CheckedChanged += new System.EventHandler(this.determineFlags);
-
             // 
             // chk_RmRedundKey
             // 
@@ -1779,6 +1780,7 @@ namespace DW3Randomizer
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.chk_FixHeroSpell);
             this.tabPage5.Controls.Add(this.chkRemoveParryFight);
             this.tabPage5.Location = new System.Drawing.Point(4, 29);
             this.tabPage5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -2063,6 +2065,21 @@ namespace DW3Randomizer
             this.btn_CopyHash.UseVisualStyleBackColor = true;
             this.btn_CopyHash.Click += new System.EventHandler(this.btn_CopyHash_Click);
             // 
+            // chk_FixHeroSpell
+            // 
+            this.chk_FixHeroSpell.AutoSize = true;
+            this.chk_FixHeroSpell.Checked = true;
+            this.chk_FixHeroSpell.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_FixHeroSpell.Location = new System.Drawing.Point(9, 41);
+            this.chk_FixHeroSpell.Name = "chk_FixHeroSpell";
+            this.chk_FixHeroSpell.Size = new System.Drawing.Size(178, 24);
+            this.chk_FixHeroSpell.TabIndex = 2;
+            this.chk_FixHeroSpell.Text = "Fix Hero Spell Glitch";
+            this.chk_FixHeroSpell.UseVisualStyleBackColor = true;
+            this.adjustments.SetToolTip(this.chk_FixHeroSpell, "Removes Hero 8 Spell glitch when creating characters.");
+            this.chk_FixHeroSpell.CheckedChanged += new System.EventHandler(this.determineFlags);
+
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -2269,6 +2286,7 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_RmRedundKey;
         private System.Windows.Forms.Button btn_CopyHash;
         private System.Windows.Forms.CheckBox chk_AddRemakeEq;
+        private System.Windows.Forms.CheckBox chk_FixHeroSpell;
     }
 }
 

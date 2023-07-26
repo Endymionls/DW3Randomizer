@@ -19,15 +19,15 @@ namespace DW3Randomizer
 {
     public partial class Form1 : Form
     {
-        string versionNumber = "2.4.6a";
-        string revisionDate = "7/16/2023";
-        string SotWFlags = "ACHMHDMBLABJMFODPPPBADB";
-        string endyFlags = "ACGMHDPBLACLNHODPPPBADB";
+        readonly string versionNumber = "2.4.6b";
+        readonly string revisionDate = "7/25/2023";
+        readonly string SotWFlags = "ACHMHDMBLABJMFODPPPBADB";
+        readonly string endyFlags = "ACGMHDPBLACLNHODPPPBADB";
 
         bool loading = true;
         byte[] romData;
         byte[] romData2;
-        byte[] monsterOrder = { 0x00, 0x01, 0x68, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e,
+        readonly byte[] monsterOrder = { 0x00, 0x01, 0x68, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e,
                                 0x0f, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e,
                                 0x1f, 0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x8a, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d,
                                 0x2e, 0x2f, 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d,
@@ -118,7 +118,7 @@ namespace DW3Randomizer
             int charactersTab = 13 * ((chkRandStatGains.Checked ? 1 : 0) + (2 * (chkRandSpellLearning.Checked ? 1 : 0)) + (4 * (chkRandSpellStrength.Checked ? 1 : 0)) +
                 (8 * (chkFourJobFiesta.Checked ? 1 : 0)));
 
-            int fixesTab = 17 * ((chkRemoveParryFight.Checked ? 1 : 0));
+            int fixesTab = 17 * ((chkRemoveParryFight.Checked ? 1 : 0) + 2 *(chk_FixHeroSpell.Checked ? 1 : 0));
 
             int values = 19 * ((int)romData[0x3d126] + (10 * (int)romData[0x123b1 + 10]) + (100 * (int)romData[0x134f9]) + (1000 * (int)romData[0x2a15]) +
                 (int)romData[0x2a54] + (10 * (int)romData[0x281b + 10]) + (100 * (int)romData[0x281b + 11]) + (1000 * (int)romData[0x367c1 + 10]) +
@@ -290,6 +290,7 @@ namespace DW3Randomizer
                 boostXP();
                 adjustEncounters();
                 if (chk_Cod.Checked) cod();
+                if (chk_FixHeroSpell.Checked) fixHeroSpell();
                 if (chkSpeedText.Checked) speedText();
                 if (chkFasterBattles.Checked) battleSpeed();
                 if (chkFourJobFiesta.Checked) fourJobFiesta();
@@ -334,6 +335,11 @@ namespace DW3Randomizer
                 runHash();
 
             }
+        }
+
+        private void fixHeroSpell()
+        {
+            romData[0x1ef72] = 0x07;
         }
 
         private void dw4RNG()
@@ -7830,6 +7836,7 @@ namespace DW3Randomizer
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(22, 1)));
             chkRemoveParryFight.Checked = (number % 2 == 1);
+            chk_FixHeroSpell.Checked = (number % 4 >= 2);
         }
 
         private void determineFlags(object sender, EventArgs e)
@@ -7861,7 +7868,7 @@ namespace DW3Randomizer
                                                                                                                                                                                                                                                                                                                        //           flags += convertIntToCharCapsOnly((chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandSoldier.Checked ? 1 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandPilgrim.Checked ? 2 : 0) : 0) :0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandWizard.Checked ? 4 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandFighter.Checked ? 8 : 0) : 0) : 0)); // 18
             flags += convertIntToCharCapsOnly(/*(chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandMerchant.Checked ? 1 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandGoofOff.Checked ? 2 : 0) : 0) : 0) + */(chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandSage.Checked ? 1 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandHero.Checked ? 2 : 0) : 0) : 0)); // 19
             flags += convertIntToCharCapsOnly((chkRandSpellLearning.Checked ? 1 : 0) + (chkRandSpellStrength.Checked ? 2 : 0) + (chkFourJobFiesta.Checked ? 4 : 0)); // 20
-            flags += convertIntToCharCapsOnly((chkRemoveParryFight.Checked ? 1 : 0)); // 21
+            flags += convertIntToCharCapsOnly((chkRemoveParryFight.Checked ? 1 : 0) + (chk_FixHeroSpell.Checked ? 2 : 0)); // 21
 
             txtFlags.Text = flags;
             enableDisableFields(null, null);
