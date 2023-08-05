@@ -24,7 +24,6 @@ namespace DW3Randomizer
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
 
         /// <summary>
         /// Required method for Designer support - do not modify
@@ -57,6 +56,7 @@ namespace DW3Randomizer
             this.optMonsterLight = new System.Windows.Forms.RadioButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.chk_DoubleAtk = new System.Windows.Forms.CheckBox();
             this.chk_InvisibleShips = new System.Windows.Forms.CheckBox();
             this.chk_InvisibleNPCs = new System.Windows.Forms.CheckBox();
             this.chk_RandomStartGold = new System.Windows.Forms.CheckBox();
@@ -74,6 +74,7 @@ namespace DW3Randomizer
             this.chkSpeedText = new System.Windows.Forms.CheckBox();
             this.chkFasterBattles = new System.Windows.Forms.CheckBox();
             this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.chk_RandTowns = new System.Windows.Forms.CheckBox();
             this.chk_RmNewTown = new System.Windows.Forms.CheckBox();
             this.chk_RemoveMtnDrgQueen = new System.Windows.Forms.CheckBox();
             this.chk_RmMtnNecrogond = new System.Windows.Forms.CheckBox();
@@ -91,6 +92,8 @@ namespace DW3Randomizer
             this.chk_RemMetalMonRun = new System.Windows.Forms.CheckBox();
             this.chkRandEnemyPatterns = new System.Windows.Forms.CheckBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.chk_HeroItems = new System.Windows.Forms.CheckBox();
+            this.chk_RandShoesEffect = new System.Windows.Forms.CheckBox();
             this.chk_AddRemakeEq = new System.Windows.Forms.CheckBox();
             this.chk_RmRedundKey = new System.Windows.Forms.CheckBox();
             this.chk_AdjustEqpPrices = new System.Windows.Forms.CheckBox();
@@ -150,6 +153,7 @@ namespace DW3Randomizer
             this.txtCharName3 = new System.Windows.Forms.TextBox();
             this.txtCharName1 = new System.Windows.Forms.TextBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.chk_FixHeroSpell = new System.Windows.Forms.CheckBox();
             this.chkRemoveParryFight = new System.Windows.Forms.CheckBox();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.chk_changeCats = new System.Windows.Forms.CheckBox();
@@ -167,6 +171,7 @@ namespace DW3Randomizer
             this.lblNewChecksum = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.grpFlags = new System.Windows.Forms.GroupBox();
+            this.opt_JustForFun = new System.Windows.Forms.RadioButton();
             this.optEndysFlags = new System.Windows.Forms.RadioButton();
             this.optSotWFlags = new System.Windows.Forms.RadioButton();
             this.optManualFlags = new System.Windows.Forms.RadioButton();
@@ -174,7 +179,6 @@ namespace DW3Randomizer
             this.lblHash = new System.Windows.Forms.Label();
             this.txtSeed = new System.Windows.Forms.TextBox();
             this.btn_CopyHash = new System.Windows.Forms.Button();
-            this.chk_FixHeroSpell = new System.Windows.Forms.CheckBox();
             this.grpMonsterStat.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -433,6 +437,7 @@ namespace DW3Randomizer
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.chk_DoubleAtk);
             this.tabPage1.Controls.Add(this.chk_InvisibleShips);
             this.tabPage1.Controls.Add(this.chk_InvisibleNPCs);
             this.tabPage1.Controls.Add(this.chk_RandomStartGold);
@@ -457,10 +462,22 @@ namespace DW3Randomizer
             this.tabPage1.Text = "Adjustments";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // chk_DoubleAtk
+            // 
+            this.chk_DoubleAtk.AutoSize = true;
+            this.chk_DoubleAtk.Location = new System.Drawing.Point(392, 186);
+            this.chk_DoubleAtk.Name = "chk_DoubleAtk";
+            this.chk_DoubleAtk.Size = new System.Drawing.Size(208, 24);
+            this.chk_DoubleAtk.TabIndex = 17;
+            this.chk_DoubleAtk.Text = "Normal Attacks hit Twice";
+            this.adjustments.SetToolTip(this.chk_DoubleAtk, "Party\'s normal attacks hit twice.");
+            this.chk_DoubleAtk.UseVisualStyleBackColor = true;
+            this.chk_DoubleAtk.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
             // chk_InvisibleShips
             // 
             this.chk_InvisibleShips.AutoSize = true;
-            this.chk_InvisibleShips.Location = new System.Drawing.Point(612, 157);
+            this.chk_InvisibleShips.Location = new System.Drawing.Point(612, 119);
             this.chk_InvisibleShips.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_InvisibleShips.Name = "chk_InvisibleShips";
             this.chk_InvisibleShips.Size = new System.Drawing.Size(198, 24);
@@ -473,7 +490,7 @@ namespace DW3Randomizer
             // chk_InvisibleNPCs
             // 
             this.chk_InvisibleNPCs.AutoSize = true;
-            this.chk_InvisibleNPCs.Location = new System.Drawing.Point(612, 120);
+            this.chk_InvisibleNPCs.Location = new System.Drawing.Point(612, 153);
             this.chk_InvisibleNPCs.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_InvisibleNPCs.Name = "chk_InvisibleNPCs";
             this.chk_InvisibleNPCs.Size = new System.Drawing.Size(135, 24);
@@ -503,7 +520,7 @@ namespace DW3Randomizer
             this.chk_RmManip.AutoSize = true;
             this.chk_RmManip.Checked = true;
             this.chk_RmManip.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_RmManip.Location = new System.Drawing.Point(392, 157);
+            this.chk_RmManip.Location = new System.Drawing.Point(392, 154);
             this.chk_RmManip.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_RmManip.Name = "chk_RmManip";
             this.chk_RmManip.Size = new System.Drawing.Size(196, 24);
@@ -533,7 +550,7 @@ namespace DW3Randomizer
             this.chk_Cod.AutoSize = true;
             this.chk_Cod.Checked = true;
             this.chk_Cod.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_Cod.Location = new System.Drawing.Point(392, 122);
+            this.chk_Cod.Location = new System.Drawing.Point(392, 120);
             this.chk_Cod.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_Cod.Name = "chk_Cod";
             this.chk_Cod.Size = new System.Drawing.Size(219, 24);
@@ -610,7 +627,8 @@ namespace DW3Randomizer
             "100%",
             "75%",
             "50%",
-            "25%"});
+            "25%",
+            "0%"});
             this.cboEncounterRate.Location = new System.Drawing.Point(164, 85);
             this.cboEncounterRate.Name = "cboEncounterRate";
             this.cboEncounterRate.Size = new System.Drawing.Size(150, 28);
@@ -683,6 +701,7 @@ namespace DW3Randomizer
             // 
             // tabPage8
             // 
+            this.tabPage8.Controls.Add(this.chk_RandTowns);
             this.tabPage8.Controls.Add(this.chk_RmNewTown);
             this.tabPage8.Controls.Add(this.chk_RemoveMtnDrgQueen);
             this.tabPage8.Controls.Add(this.chk_RmMtnNecrogond);
@@ -702,6 +721,20 @@ namespace DW3Randomizer
             this.tabPage8.TabIndex = 7;
             this.tabPage8.Text = "Map";
             this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // chk_RandTowns
+            // 
+            this.chk_RandTowns.AutoSize = true;
+            this.chk_RandTowns.Location = new System.Drawing.Point(9, 61);
+            this.chk_RandTowns.Name = "chk_RandTowns";
+            this.chk_RandTowns.Size = new System.Drawing.Size(166, 24);
+            this.chk_RandTowns.TabIndex = 61;
+            this.chk_RandTowns.Text = "Randomize Towns";
+            this.adjustments.SetToolTip(this.chk_RandTowns, "Generates compare file on build. This will adjust randomization to avoid spoilers" +
+        " (item locations, monster stats/spells.)");
+            this.chk_RandTowns.UseVisualStyleBackColor = true;
+            this.chk_RandTowns.Visible = false;
+            this.chk_RandTowns.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // chk_RmNewTown
             // 
@@ -824,7 +857,7 @@ namespace DW3Randomizer
             this.chkSmallMap.AutoSize = true;
             this.chkSmallMap.Checked = true;
             this.chkSmallMap.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSmallMap.Location = new System.Drawing.Point(9, 100);
+            this.chkSmallMap.Location = new System.Drawing.Point(9, 127);
             this.chkSmallMap.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkSmallMap.Name = "chkSmallMap";
             this.chkSmallMap.Size = new System.Drawing.Size(109, 24);
@@ -839,7 +872,7 @@ namespace DW3Randomizer
             this.chkRandMonsterZones.AutoSize = true;
             this.chkRandMonsterZones.Checked = true;
             this.chkRandMonsterZones.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandMonsterZones.Location = new System.Drawing.Point(9, 65);
+            this.chkRandMonsterZones.Location = new System.Drawing.Point(9, 93);
             this.chkRandMonsterZones.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkRandMonsterZones.Name = "chkRandMonsterZones";
             this.chkRandMonsterZones.Size = new System.Drawing.Size(225, 24);
@@ -925,6 +958,8 @@ namespace DW3Randomizer
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.chk_HeroItems);
+            this.tabPage4.Controls.Add(this.chk_RandShoesEffect);
             this.tabPage4.Controls.Add(this.chk_AddRemakeEq);
             this.tabPage4.Controls.Add(this.chk_RmRedundKey);
             this.tabPage4.Controls.Add(this.chk_AdjustEqpPrices);
@@ -947,6 +982,30 @@ namespace DW3Randomizer
             this.tabPage4.Text = "Treasures & Equipment";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // chk_HeroItems
+            // 
+            this.chk_HeroItems.AutoSize = true;
+            this.chk_HeroItems.Location = new System.Drawing.Point(653, 42);
+            this.chk_HeroItems.Name = "chk_HeroItems";
+            this.chk_HeroItems.Size = new System.Drawing.Size(194, 24);
+            this.chk_HeroItems.TabIndex = 80;
+            this.chk_HeroItems.Text = "Party Starts with Items";
+            this.adjustments.SetToolTip(this.chk_HeroItems, "Party starts with consumable items.");
+            this.chk_HeroItems.UseVisualStyleBackColor = true;
+            this.chk_HeroItems.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // chk_RandShoesEffect
+            // 
+            this.chk_RandShoesEffect.AutoSize = true;
+            this.chk_RandShoesEffect.Location = new System.Drawing.Point(303, 74);
+            this.chk_RandShoesEffect.Name = "chk_RandShoesEffect";
+            this.chk_RandShoesEffect.Size = new System.Drawing.Size(311, 24);
+            this.chk_RandShoesEffect.TabIndex = 79;
+            this.chk_RandShoesEffect.Text = "Randomize Shoes of Happiness Effect";
+            this.adjustments.SetToolTip(this.chk_RandShoesEffect, "Randomize XP earned from Shoes of Happiness");
+            this.chk_RandShoesEffect.UseVisualStyleBackColor = true;
+            this.chk_RandShoesEffect.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
             // chk_AddRemakeEq
             // 
             this.chk_AddRemakeEq.AutoSize = true;
@@ -963,7 +1022,7 @@ namespace DW3Randomizer
             // chk_RmRedundKey
             // 
             this.chk_RmRedundKey.AutoSize = true;
-            this.chk_RmRedundKey.Location = new System.Drawing.Point(9, 83);
+            this.chk_RmRedundKey.Location = new System.Drawing.Point(9, 79);
             this.chk_RmRedundKey.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_RmRedundKey.Name = "chk_RmRedundKey";
             this.chk_RmRedundKey.Size = new System.Drawing.Size(216, 24);
@@ -977,7 +1036,7 @@ namespace DW3Randomizer
             // chk_AdjustEqpPrices
             // 
             this.chk_AdjustEqpPrices.AutoSize = true;
-            this.chk_AdjustEqpPrices.Location = new System.Drawing.Point(301, 82);
+            this.chk_AdjustEqpPrices.Location = new System.Drawing.Point(303, 106);
             this.chk_AdjustEqpPrices.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_AdjustEqpPrices.Name = "chk_AdjustEqpPrices";
             this.chk_AdjustEqpPrices.Size = new System.Drawing.Size(322, 24);
@@ -990,7 +1049,7 @@ namespace DW3Randomizer
             // chk_GreenSilverOrb
             // 
             this.chk_GreenSilverOrb.AutoSize = true;
-            this.chk_GreenSilverOrb.Location = new System.Drawing.Point(9, 220);
+            this.chk_GreenSilverOrb.Location = new System.Drawing.Point(8, 242);
             this.chk_GreenSilverOrb.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_GreenSilverOrb.Name = "chk_GreenSilverOrb";
             this.chk_GreenSilverOrb.Size = new System.Drawing.Size(254, 44);
@@ -1004,7 +1063,7 @@ namespace DW3Randomizer
             // chk_UseVanEquipValues
             // 
             this.chk_UseVanEquipValues.AutoSize = true;
-            this.chk_UseVanEquipValues.Location = new System.Drawing.Point(301, 117);
+            this.chk_UseVanEquipValues.Location = new System.Drawing.Point(303, 140);
             this.chk_UseVanEquipValues.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_UseVanEquipValues.Name = "chk_UseVanEquipValues";
             this.chk_UseVanEquipValues.Size = new System.Drawing.Size(301, 24);
@@ -1017,7 +1076,7 @@ namespace DW3Randomizer
             // chk_RmFighterPenalty
             // 
             this.chk_RmFighterPenalty.AutoSize = true;
-            this.chk_RmFighterPenalty.Location = new System.Drawing.Point(301, 188);
+            this.chk_RmFighterPenalty.Location = new System.Drawing.Point(303, 208);
             this.chk_RmFighterPenalty.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_RmFighterPenalty.Name = "chk_RmFighterPenalty";
             this.chk_RmFighterPenalty.Size = new System.Drawing.Size(268, 24);
@@ -1030,7 +1089,7 @@ namespace DW3Randomizer
             // lbl_TreasurePool
             // 
             this.lbl_TreasurePool.AutoSize = true;
-            this.lbl_TreasurePool.Location = new System.Drawing.Point(52, 143);
+            this.lbl_TreasurePool.Location = new System.Drawing.Point(54, 174);
             this.lbl_TreasurePool.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_TreasurePool.Name = "lbl_TreasurePool";
             this.lbl_TreasurePool.Size = new System.Drawing.Size(158, 20);
@@ -1040,7 +1099,7 @@ namespace DW3Randomizer
             // chk_RemoveStartEqRestrictions
             // 
             this.chk_RemoveStartEqRestrictions.AutoSize = true;
-            this.chk_RemoveStartEqRestrictions.Location = new System.Drawing.Point(301, 152);
+            this.chk_RemoveStartEqRestrictions.Location = new System.Drawing.Point(303, 174);
             this.chk_RemoveStartEqRestrictions.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_RemoveStartEqRestrictions.Name = "chk_RemoveStartEqRestrictions";
             this.chk_RemoveStartEqRestrictions.Size = new System.Drawing.Size(323, 24);
@@ -1054,7 +1113,7 @@ namespace DW3Randomizer
             // chk_GoldenClaw
             // 
             this.chk_GoldenClaw.AutoSize = true;
-            this.chk_GoldenClaw.Location = new System.Drawing.Point(9, 185);
+            this.chk_GoldenClaw.Location = new System.Drawing.Point(8, 208);
             this.chk_GoldenClaw.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_GoldenClaw.Name = "chk_GoldenClaw";
             this.chk_GoldenClaw.Size = new System.Drawing.Size(125, 24);
@@ -1069,7 +1128,7 @@ namespace DW3Randomizer
             this.chkRandEquip.AutoSize = true;
             this.chkRandEquip.Checked = true;
             this.chkRandEquip.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandEquip.Location = new System.Drawing.Point(303, 46);
+            this.chkRandEquip.Location = new System.Drawing.Point(303, 42);
             this.chkRandEquip.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkRandEquip.Name = "chkRandEquip";
             this.chkRandEquip.Size = new System.Drawing.Size(242, 24);
@@ -1111,7 +1170,7 @@ namespace DW3Randomizer
             this.chkRandTreasures.AutoSize = true;
             this.chkRandTreasures.Checked = true;
             this.chkRandTreasures.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandTreasures.Location = new System.Drawing.Point(9, 46);
+            this.chkRandTreasures.Location = new System.Drawing.Point(9, 45);
             this.chkRandTreasures.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkRandTreasures.Name = "chkRandTreasures";
             this.chkRandTreasures.Size = new System.Drawing.Size(187, 24);
@@ -1791,6 +1850,20 @@ namespace DW3Randomizer
             this.tabPage5.Text = "Fixes";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // chk_FixHeroSpell
+            // 
+            this.chk_FixHeroSpell.AutoSize = true;
+            this.chk_FixHeroSpell.Checked = true;
+            this.chk_FixHeroSpell.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_FixHeroSpell.Location = new System.Drawing.Point(9, 41);
+            this.chk_FixHeroSpell.Name = "chk_FixHeroSpell";
+            this.chk_FixHeroSpell.Size = new System.Drawing.Size(178, 24);
+            this.chk_FixHeroSpell.TabIndex = 2;
+            this.chk_FixHeroSpell.Text = "Fix Hero Spell Glitch";
+            this.adjustments.SetToolTip(this.chk_FixHeroSpell, "Removes Hero 8 Spell glitch when creating characters.");
+            this.chk_FixHeroSpell.UseVisualStyleBackColor = true;
+            this.chk_FixHeroSpell.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
             // chkRemoveParryFight
             // 
             this.chkRemoveParryFight.AutoSize = true;
@@ -1977,6 +2050,7 @@ namespace DW3Randomizer
             // 
             // grpFlags
             // 
+            this.grpFlags.Controls.Add(this.opt_JustForFun);
             this.grpFlags.Controls.Add(this.optEndysFlags);
             this.grpFlags.Controls.Add(this.optSotWFlags);
             this.grpFlags.Controls.Add(this.optManualFlags);
@@ -1984,9 +2058,20 @@ namespace DW3Randomizer
             this.grpFlags.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.grpFlags.Name = "grpFlags";
             this.grpFlags.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.grpFlags.Size = new System.Drawing.Size(507, 52);
+            this.grpFlags.Size = new System.Drawing.Size(816, 52);
             this.grpFlags.TabIndex = 7;
             this.grpFlags.TabStop = false;
+            // 
+            // opt_JustForFun
+            // 
+            this.opt_JustForFun.AutoSize = true;
+            this.opt_JustForFun.Location = new System.Drawing.Point(487, 17);
+            this.opt_JustForFun.Name = "opt_JustForFun";
+            this.opt_JustForFun.Size = new System.Drawing.Size(124, 24);
+            this.opt_JustForFun.TabIndex = 3;
+            this.opt_JustForFun.TabStop = true;
+            this.opt_JustForFun.Text = "Just For Fun";
+            this.opt_JustForFun.UseVisualStyleBackColor = true;
             // 
             // optEndysFlags
             // 
@@ -2065,21 +2150,6 @@ namespace DW3Randomizer
             this.btn_CopyHash.UseVisualStyleBackColor = true;
             this.btn_CopyHash.Click += new System.EventHandler(this.btn_CopyHash_Click);
             // 
-            // chk_FixHeroSpell
-            // 
-            this.chk_FixHeroSpell.AutoSize = true;
-            this.chk_FixHeroSpell.Checked = true;
-            this.chk_FixHeroSpell.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_FixHeroSpell.Location = new System.Drawing.Point(9, 41);
-            this.chk_FixHeroSpell.Name = "chk_FixHeroSpell";
-            this.chk_FixHeroSpell.Size = new System.Drawing.Size(178, 24);
-            this.chk_FixHeroSpell.TabIndex = 2;
-            this.chk_FixHeroSpell.Text = "Fix Hero Spell Glitch";
-            this.chk_FixHeroSpell.UseVisualStyleBackColor = true;
-            this.adjustments.SetToolTip(this.chk_FixHeroSpell, "Removes Hero 8 Spell glitch when creating characters.");
-            this.chk_FixHeroSpell.CheckedChanged += new System.EventHandler(this.determineFlags);
-
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -2143,8 +2213,6 @@ namespace DW3Randomizer
             this.PerformLayout();
 
         }
-
-        #endregion
 
         private System.Windows.Forms.TextBox txtFileName;
         private System.Windows.Forms.Label label1;
@@ -2287,6 +2355,11 @@ namespace DW3Randomizer
         private System.Windows.Forms.Button btn_CopyHash;
         private System.Windows.Forms.CheckBox chk_AddRemakeEq;
         private System.Windows.Forms.CheckBox chk_FixHeroSpell;
+        private System.Windows.Forms.CheckBox chk_RandTowns;
+        private System.Windows.Forms.CheckBox chk_RandShoesEffect;
+        private System.Windows.Forms.CheckBox chk_DoubleAtk;
+        private System.Windows.Forms.RadioButton opt_JustForFun;
+        private System.Windows.Forms.CheckBox chk_HeroItems;
     }
 }
 
