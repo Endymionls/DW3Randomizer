@@ -21,9 +21,10 @@ namespace DW3Randomizer
     {
         readonly string versionNumber = "2.4.6b";
         readonly string revisionDate = "8/5/2023";
-        readonly string SotWFlags = "ACHMHDAPBLABJMHAODPPPAHD";
-        readonly string endyFlags = "ACGMHDAPBLACJNHAODPPPAHD";
-        readonly string jffFlags = "AAIMPDBPDPPDPPPBODPPPAPD";
+        readonly string buildnumber = "159"; // build starting 8/18/23
+        readonly string SotWFlags = "ACHMHDAOFLABJMPAODPPPAHD";
+        readonly string endyFlags = "ACGMHDAONLACJNPAODPPPAHD";
+        readonly string jffFlags = "AAIMPDBOPPPDPPPBODPPPAPD";
 
         bool loading = true;
         byte[] romData;
@@ -90,37 +91,35 @@ namespace DW3Randomizer
         private void runHash()
         {
             int adjustmentTab = cboExpGains.SelectedIndex + (2 * cboGoldReq.SelectedIndex) + (4 * cboEncounterRate.SelectedIndex) +
-                (8 * (chkFasterBattles.Checked ? 1 : 0)) + (16 * (chkSpeedText.Checked ? 1 : 0)) + (32 * (chk_SpeedUpMenus.Checked ? 1 : 0)) +
-                (64 * (chk_Cod.Checked ? 1 : 0)) + (128 * (chk_RmManip.Checked ? 1 : 0)) + (256 * (chk_WeapArmPower.Checked ? 1 : 0)) +
-                (512 * (chkNoLamiaOrbs.Checked ? 1 : 0)) + (1024 * (chk_RandomStartGold.Checked ? 1 : 0)) + 
-                (2048 * (chk_InvisibleNPCs.Checked ? 1 : 0)) + (4096 * (chk_InvisibleShips.Checked ? 1 : 0)) + (8192 * (chk_DoubleAtk.Checked ? 1 : 0));
+                (chkFasterBattles.Checked ? 8 : 0) + (chkSpeedText.Checked ? 16 : 0) + (chk_SpeedUpMenus.Checked ? 32 : 0) +
+                (chk_Cod.Checked ? 64 : 0) + (chk_RmManip.Checked ? 128 : 0) + (chk_WeapArmPower.Checked ? 256 : 0) +
+                (chkNoLamiaOrbs.Checked ? 512 : 0) + (chk_RandomStartGold.Checked ? 1024 : 0) + 
+                (chk_InvisibleNPCs.Checked ? 2048 : 0) + (chk_InvisibleShips.Checked ? 4096 : 0) + (chk_DoubleAtk.Checked ? 8192 : 0);
 
-            int mapTab = 3 * ((chkRandomizeMap.Checked ? 1 : 0) + (2 * (chkRandMonsterZones.Checked ? 1 : 0)) + (4 * (chkSmallMap.Checked ? 1 : 0)) +
-                (8 * (chk_RemoveMtnDrgQueen.Checked ? 1 : 0)) + (16 * (chk_SepBarGaia.Checked ? 1 : 0)) + (32 * (chk_RemLancelMountains.Checked ? 1 : 0)) +
-                (64 * (chk_RmMtnNecrogond.Checked ? 1 : 0)) + (128 * (chk_RemoveBirdRequirement.Checked ? 1 : 0)) +
-                (256 * (chk_lbtoCharlock.Checked ? 1 : 0)) + (512 * (chk_RmNewTown.Checked ? 1 : 0)) + (1024 * (chk_RandTowns.Checked ? 1 : 0)));
+            int mapTab = 3 * ((chkRandomizeMap.Checked ? 1 : 0) + (chkRandMonsterZones.Checked ? 2 : 0) + (chkSmallMap.Checked ? 4 : 0) +
+                (chk_RemoveMtnDrgQueen.Checked ? 8 : 0) + (chk_SepBarGaia.Checked ? 16 : 0) + (chk_RemLancelMountains.Checked ? 32 : 0) +
+                (chk_RmMtnNecrogond.Checked ? 64 : 0) + (chk_RemoveBirdRequirement.Checked ? 128 : 0) + (chk_lbtoCharlock.Checked ? 256 : 0) + 
+                (chk_RmNewTown.Checked ? 512 : 0) + (chk_RandTowns.Checked ? 1024 : 0));
 
-            int monstersTab = 5 * ((optMonsterHeavy.Checked ? 1 : optMonsterLight.Checked ? 2 : optMonsterMedium.Checked ? 4 : optMonsterSilly.Checked ? 8 : 0) +
-                (16 * (chkRandomizeXP.Checked ? 1 : 0)) + (32 * (chkRandomizeGP.Checked ? 1 : 0)) + (64 * (chkRandEnemyPatterns.Checked ? 1 : 0)) +
-                (128 * (chk_RemMetalMonRun.Checked ? 1 : 0)));
+            int monstersTab = 5 * ((chkRandomizeXP.Checked ? 1 : 0) + (chkRandomizeGP.Checked ? 2 : 0) + (chkRandEnemyPatterns.Checked ? 4 : 0) +
+                (chk_RemMetalMonRun.Checked ? 8 : 0) + (chk_RandDrop.Checked ? 16 : 0) + (chk_RemDupPool.Checked ? 32 :0));
 
-            int treasureEquipmentTab = 7 * ((chkRandTreasures.Checked ? 1 : 0) + (2 * (chk_RmRedundKey.Checked ? 1 : 0)) + (4 * (chk_GoldenClaw.Checked ? 1 : 0)) +
-                (8 * (chk_GreenSilverOrb.Checked ? 1 : 0)) + (16 * (chkRandWhoCanEquip.Checked ? 1 : 0)) + (32 * (chkRandEquip.Checked ? 1 : 0)) +
-                (64 * (chk_AdjustEqpPrices.Checked ? 1 : 0)) + (128 * (chk_UseVanEquipValues.Checked ? 1 : 0)) + (256 * (chk_RemoveStartEqRestrictions.Checked ? 1 : 0)) +
-                (512 * (chk_RmFighterPenalty.Checked ? 1 : 0)) + (1024 * (chk_AddRemakeEq.Checked ? 1 : 0)) + (2048 * (chk_RandShoesEffect.Checked ? 1: 0))) +
-                (4096 * (chk_HeroItems.Checked ? 1 : 0));
+            int treasureEquipmentTab = 7 * ((chkRandTreasures.Checked ? 1 : 0) + (chk_RmRedundKey.Checked ? 2 : 0) + (chk_GoldenClaw.Checked ? 4 : 0) +
+                (chk_GreenSilverOrb.Checked ? 8 : 0) + (chkRandWhoCanEquip.Checked ? 16 : 0) + (chkRandEquip.Checked ? 32 : 0) +
+                (chk_AdjustEqpPrices.Checked ? 64 : 0) + (chk_UseVanEquipValues.Checked ? 128 : 0) + (chk_RemoveStartEqRestrictions.Checked ? 256 : 0) +
+                (chk_RmFighterPenalty.Checked ? 512 : 0) + (chk_AddRemakeEq.Checked ? 1024 : 0) + (chk_RandShoesEffect.Checked ? 2048: 0) + 
+                (chk_BigShoes.Checked ? 4096 : 0) +(chk_HeroItems.Checked ? 8192 : 0));
 
-            int itemWeaponShopsInsTab = 11 * ((chkRandItemStores.Checked ? 1 : 0) + (2 * (chk_RandomizeWeaponShops.Checked ? 1 : 0)) + (4 * (chk_sellUnsellItems.Checked ? 1 : 0)) +
-                (8 * (chk_Caturday.Checked ? 1 : 0)) + (16 * (chk_RandomizeInnPrices.Checked ? 1 : 0)) + (32 * (chk_StoneofLife.Checked ? 1 : 0)) + (64 * (chk_Seeds.Checked ? 1 : 0)) +
-                (128 * (chk_BookofSatori.Checked ? 1 : 0)) + (256 * (chk_RingofLife.Checked ? 1 : 0)) + (512 * (chk_EchoingFlute.Checked ? 1 : 0)) +
-                (1024 * (chk_SilverHarp.Checked ? 1 : 0)) + (2048 * (chk_LeafoftheWorldTree.Checked ? 1 : 0)) + (4096 * (chk_ShoesofHappiness.Checked ? 1 : 0)) +
-                (8192 * (chk_MeteoriteArmband.Checked ? 1 : 0)) + (16384 * (chk_WizardsRing.Checked ? 1 : 0)) + (32768 * (chk_LampofDarkness.Checked ? 1 : 0)) +
-                (65536 * (chk_PoisonMothPowder.Checked ? 1 : 0)));
+            int itemWeaponShopsInsTab = 11 * ((chkRandItemStores.Checked ? 1 : 0) + (chk_RandomizeWeaponShops.Checked ? 2 : 0) + (chk_sellUnsellItems.Checked ? 4 : 0) +
+                (chk_Caturday.Checked ? 8 : 0) + (chk_RandomizeInnPrices.Checked ? 16 : 0) + (chk_StoneofLife.Checked ? 32 : 0) + (chk_Seeds.Checked ? 64 : 0) +
+                (chk_BookofSatori.Checked ? 128 : 0) + (chk_RingofLife.Checked ? 256 : 0) + (chk_EchoingFlute.Checked ? 512 : 0) + (chk_SilverHarp.Checked ? 1024 : 0) + 
+                (chk_LeafoftheWorldTree.Checked ? 2048 : 0) + (chk_ShoesofHappiness.Checked ? 4096 : 0) + (chk_MeteoriteArmband.Checked ? 8192 : 0) + 
+                (chk_WizardsRing.Checked ? 16384 : 0) + (chk_LampofDarkness.Checked ? 32768 : 0) + (chk_PoisonMothPowder.Checked ? 65536 : 0));
 
-            int charactersTab = 13 * ((chkRandStatGains.Checked ? 1 : 0) + (2 * (chkRandSpellLearning.Checked ? 1 : 0)) + (4 * (chkRandSpellStrength.Checked ? 1 : 0)) +
-                (8 * (chkFourJobFiesta.Checked ? 1 : 0)));
+            int charactersTab = 13 * ((optStatHeavy.Checked ? 1 : optStatMedium.Checked ? 2 : optStatSilly.Checked ? 4 : 0) + (chkRandStatGains.Checked ? 8 : 0) + (chkRandSpellLearning.Checked ? 16 : 0)
+                + (chkRandSpellStrength.Checked ? 32 : 0) + (chkFourJobFiesta.Checked ? 64 : 0));
 
-            int fixesTab = 17 * ((chkRemoveParryFight.Checked ? 1 : 0) + 2 *(chk_FixHeroSpell.Checked ? 1 : 0));
+            int fixesTab = 17 * ((chkRemoveParryFight.Checked ? 1 : 0) + (chk_FixHeroSpell.Checked ? 2 : 0));
 
             int values = 19 * ((int)romData[0x3d126] + (2 * (int)romData[0x123b1 + 10]) + (4 * (int)romData[0x134f9]) + (8 * (int)romData[0x2a15]) +
                 (16 * (int)romData[0x2a54]) + (32 * (int)romData[0x281b + 10]) + (64 * (int)romData[0x281b + 11]) + (128 * (int)romData[0x367c1 + 10]) +
@@ -351,13 +350,16 @@ namespace DW3Randomizer
             {
                 r1.Next();
             }
+            if (chk_BigShoes.Checked) // Shoes will give 1-255 exp per step
+                romData[0x330fc] = (byte)((r1.Next() % 255) + 1);
+            else // Shoes will give 1-10 exp per step
+                romData[0x330fc] = (byte)((r1.Next() % 10) + 1);
 
-            romData[0x330fc] = (byte)((r1.Next() % 255) + 1);
         }
 
         private void heroitems(int rni)
         {
-            // Gives Hero 6 of a random consumable item
+            // Gives party of a random consumable item
             Random r1 = new Random(int.Parse(txtSeed.Text));
 
             for (int lnI = 0; lnI < rni; lnI++)
@@ -2892,6 +2894,7 @@ namespace DW3Randomizer
                 //enemyStats[8] = 255; // Always make sure the monster has MP
 
                 // Needs to be a "legal treasure..."
+
                 byte[] legalMonsterTreasures = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
                                     0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
                                     0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
@@ -2900,6 +2903,7 @@ namespace DW3Randomizer
                                     0x55, 0x56, 0x5e, 0x5f,
                                     0x60, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6c,
                                     0x73, 0x74,
+                                    // These increase the odds of receiving herbs and other items more than other items
                                     0x65, 0x66, 0x67, 0x68, 0x6c, 0x73, 0x74, 0x65, 0x66, 0x67, 0x68, 0x6c, 0x73, 0x74,
                                     0x65, 0x66, 0x67, 0x68, 0x6c, 0x73, 0x74, 0x65, 0x66, 0x67, 0x68, 0x6c, 0x73, 0x74 };
                 enemyStats[9] = (legalMonsterTreasures[r1.Next() % legalMonsterTreasures.Length]);
@@ -4871,16 +4875,16 @@ namespace DW3Randomizer
             {
                 for (int lnI = 0; lnI < 8; lnI++)
                 {
-                    if (optMonsterSilly.Checked || optMonsterMedium.Checked)
+                    if (optStatSilly.Checked || optStatMedium.Checked)
                     {
                         int randomDir = (r1.Next() % 3);
-                        int difference = heroL41Gains[lnI, lnJ] / (optMonsterSilly.Checked ? 4 : 2);
+                        int difference = heroL41Gains[lnI, lnJ] / (optStatSilly.Checked ? 4 : 2);
                         if (randomDir == 0)
                             heroL41Gains[lnI, lnJ] -= (r1.Next() % difference);
                         if (randomDir == 1)
                             heroL41Gains[lnI, lnJ] += (r1.Next() % difference);
                     }
-                    if (optMonsterHeavy.Checked)
+                    if (optStatHeavy.Checked)
                     {
                         if (lnJ == 2)
                             heroL41Gains[lnI, lnJ] = (r1.Next() % (lnI == 0 || lnI >= 4 ? 140 : 170)) + (lnI == 0 || lnI >= 4 ? 110 : 80);
@@ -7786,6 +7790,12 @@ namespace DW3Randomizer
             Clipboard.SetText(lblHash.Text);
         }
 
+        private void btn_chksumHash_Click(object sender, EventArgs e)
+        {
+            string chksumhash = lblNewChecksum.Text + " / " + lblHash.Text;
+            Clipboard.SetText(chksumhash);
+        }
+
         private StreamWriter outputComposeString(string intro, StreamWriter writer, int startAddress, int length, int skip = 1, int duplicate = 0)
         {
             string final = "";
@@ -7841,16 +7851,17 @@ namespace DW3Randomizer
 
             // Monsters
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(7, 1)));
-            optMonsterLight.Checked = (number % 4 == 0);
-            optMonsterSilly.Checked = (number % 4 == 1);
-            optMonsterMedium.Checked = (number % 4 == 2);
-            optMonsterHeavy.Checked = (number % 4 == 3);
+            optStatSilly.Checked = (number % 4 == 0);
+            optStatMedium.Checked = (number % 4 == 1);
+            optStatHeavy.Checked = (number % 4 == 2);
             chkRandomizeXP.Checked = (number % 8 >= 4);
             chkRandomizeGP.Checked = (number % 16 >= 8);
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(8, 1)));
             chkRandEnemyPatterns.Checked = (number % 2 == 1);
             chk_RemMetalMonRun.Checked = (number % 4 >= 2);
+            chk_RandDrop.Checked = (number % 8 >= 4);
+            chk_RemDupPool.Checked = (number % 16 >= 8);
 
             // Map
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(9, 1)));
@@ -7953,8 +7964,8 @@ namespace DW3Randomizer
             flags += convertIntToCharCapsOnly((chk_RmManip.Checked ? 1 : 0) + (chk_RandomStartGold.Checked ? 2 : 0) + (chk_InvisibleNPCs.Checked ? 4 : 0) + (chk_InvisibleShips.Checked ? 8 : 0)); // 5
             flags += convertIntToCharCapsOnly((chk_DoubleAtk.Checked ? 1 : 0)); // 6
             // Monsters
-            flags += convertIntToCharCapsOnly((optMonsterLight.Checked ? 0 : optMonsterSilly.Checked ? 1 : optMonsterMedium.Checked ? 2 : 3) + (chkRandomizeXP.Checked ? 4 : 0) + (chkRandomizeGP.Checked ? 8 : 0)); // 7
-            flags += convertIntToCharCapsOnly((chkRandEnemyPatterns.Checked ? 1 : 0) + (chk_RemMetalMonRun.Checked ? 2 : 0)); // 8
+            flags += convertIntToCharCapsOnly((optStatSilly.Checked ? 0 : optStatMedium.Checked ? 1 : 2) + (chkRandomizeXP.Checked ? 4 : 0) + (chkRandomizeGP.Checked ? 8 : 0)); // 7
+            flags += convertIntToCharCapsOnly((chkRandEnemyPatterns.Checked ? 1 : 0) + (chk_RemMetalMonRun.Checked ? 2 : 0) + (chk_RandDrop.Checked ? 4 : 0) + (chk_RandDrop.Checked ? (chk_RemDupPool.Checked ? 8 : 0) : 0)); // 8
             // Map
             flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? 1 : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? 2 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_SepBarGaia.Checked ? 4 : 0) : 0) + (chkRandomizeMap.Checked ? (chkRandMonsterZones.Checked ? 8 : 0) : 0)); // 9
             flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? (chk_RemoveBirdRequirement.Checked ? 1 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RemLancelMountains.Checked ? 2 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_lbtoCharlock.Checked ? 4 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RmMtnNecrogond.Checked ? 8 : 0) : 0)); // 10
@@ -8372,6 +8383,8 @@ namespace DW3Randomizer
             this.chk_RemLancelMountains.Visible = this.chkRandomizeMap.Checked;
             this.chk_lbtoCharlock.Visible = this.chkRandomizeMap.Checked;
             this.chk_RmRedundKey.Visible = this.chkRandTreasures.Checked;
+            this.chk_RemDupPool.Visible = this.chk_RandDrop.Checked;
+            this.chk_BigShoes.Visible = this.chk_RandShoesEffect.Checked;
             if (this.chk_AddRemakeEq.Checked)
                 this.chk_RmFighterPenalty.CheckState = CheckState.Checked;
         }

@@ -49,11 +49,6 @@ namespace DW3Randomizer
             this.btnNewSeed = new System.Windows.Forms.Button();
             this.lblIntensityDesc = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.grpMonsterStat = new System.Windows.Forms.GroupBox();
-            this.optMonsterSilly = new System.Windows.Forms.RadioButton();
-            this.optMonsterHeavy = new System.Windows.Forms.RadioButton();
-            this.optMonsterMedium = new System.Windows.Forms.RadioButton();
-            this.optMonsterLight = new System.Windows.Forms.RadioButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.chk_DoubleAtk = new System.Windows.Forms.CheckBox();
@@ -87,11 +82,14 @@ namespace DW3Randomizer
             this.chkSmallMap = new System.Windows.Forms.CheckBox();
             this.chkRandMonsterZones = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.chk_RemDupPool = new System.Windows.Forms.CheckBox();
+            this.chk_RandDrop = new System.Windows.Forms.CheckBox();
             this.chkRandomizeGP = new System.Windows.Forms.CheckBox();
             this.chkRandomizeXP = new System.Windows.Forms.CheckBox();
             this.chk_RemMetalMonRun = new System.Windows.Forms.CheckBox();
             this.chkRandEnemyPatterns = new System.Windows.Forms.CheckBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.chk_BigShoes = new System.Windows.Forms.CheckBox();
             this.chk_HeroItems = new System.Windows.Forms.CheckBox();
             this.chk_RandShoesEffect = new System.Windows.Forms.CheckBox();
             this.chk_AddRemakeEq = new System.Windows.Forms.CheckBox();
@@ -127,6 +125,10 @@ namespace DW3Randomizer
             this.chk_PoisonMothPowder = new System.Windows.Forms.CheckBox();
             this.chk_RandomizeInnPrices = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.grpMonsterStat = new System.Windows.Forms.GroupBox();
+            this.optStatSilly = new System.Windows.Forms.RadioButton();
+            this.optStatHeavy = new System.Windows.Forms.RadioButton();
+            this.optStatMedium = new System.Windows.Forms.RadioButton();
             this.chk_ChangeDefaultParty = new System.Windows.Forms.CheckBox();
             this.chkFourJobFiesta = new System.Windows.Forms.CheckBox();
             this.chkRandStatGains = new System.Windows.Forms.CheckBox();
@@ -179,7 +181,7 @@ namespace DW3Randomizer
             this.lblHash = new System.Windows.Forms.Label();
             this.txtSeed = new System.Windows.Forms.TextBox();
             this.btn_CopyHash = new System.Windows.Forms.Button();
-            this.grpMonsterStat.SuspendLayout();
+            this.btn_chksumHash = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage8.SuspendLayout();
@@ -187,6 +189,7 @@ namespace DW3Randomizer
             this.tabPage4.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.grpMonsterStat.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tabPage7.SuspendLayout();
             this.grpFlags.SuspendLayout();
@@ -353,71 +356,6 @@ namespace DW3Randomizer
             this.label9.Size = new System.Drawing.Size(173, 20);
             this.label9.TabIndex = 39;
             this.label9.Text = "Monster Random Level";
-            // 
-            // grpMonsterStat
-            // 
-            this.grpMonsterStat.Controls.Add(this.optMonsterSilly);
-            this.grpMonsterStat.Controls.Add(this.optMonsterHeavy);
-            this.grpMonsterStat.Controls.Add(this.optMonsterMedium);
-            this.grpMonsterStat.Controls.Add(this.optMonsterLight);
-            this.grpMonsterStat.Location = new System.Drawing.Point(42, 45);
-            this.grpMonsterStat.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.grpMonsterStat.Name = "grpMonsterStat";
-            this.grpMonsterStat.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.grpMonsterStat.Size = new System.Drawing.Size(406, 46);
-            this.grpMonsterStat.TabIndex = 1;
-            this.grpMonsterStat.TabStop = false;
-            this.grpMonsterStat.Enter += new System.EventHandler(this.grpMonsterStat_Enter);
-            // 
-            // optMonsterSilly
-            // 
-            this.optMonsterSilly.AutoSize = true;
-            this.optMonsterSilly.Location = new System.Drawing.Point(94, 12);
-            this.optMonsterSilly.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.optMonsterSilly.Name = "optMonsterSilly";
-            this.optMonsterSilly.Size = new System.Drawing.Size(61, 24);
-            this.optMonsterSilly.TabIndex = 2;
-            this.optMonsterSilly.Text = "Silly";
-            this.optMonsterSilly.UseVisualStyleBackColor = true;
-            this.optMonsterSilly.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // optMonsterHeavy
-            // 
-            this.optMonsterHeavy.AutoSize = true;
-            this.optMonsterHeavy.Location = new System.Drawing.Point(288, 12);
-            this.optMonsterHeavy.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.optMonsterHeavy.Name = "optMonsterHeavy";
-            this.optMonsterHeavy.Size = new System.Drawing.Size(103, 24);
-            this.optMonsterHeavy.TabIndex = 4;
-            this.optMonsterHeavy.Text = "Ludicrous";
-            this.optMonsterHeavy.UseVisualStyleBackColor = true;
-            this.optMonsterHeavy.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // optMonsterMedium
-            // 
-            this.optMonsterMedium.AutoSize = true;
-            this.optMonsterMedium.Location = new System.Drawing.Point(168, 12);
-            this.optMonsterMedium.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.optMonsterMedium.Name = "optMonsterMedium";
-            this.optMonsterMedium.Size = new System.Drawing.Size(107, 24);
-            this.optMonsterMedium.TabIndex = 3;
-            this.optMonsterMedium.Text = "Ridiculous";
-            this.optMonsterMedium.UseVisualStyleBackColor = true;
-            this.optMonsterMedium.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // optMonsterLight
-            // 
-            this.optMonsterLight.AutoSize = true;
-            this.optMonsterLight.Checked = true;
-            this.optMonsterLight.Location = new System.Drawing.Point(9, 12);
-            this.optMonsterLight.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.optMonsterLight.Name = "optMonsterLight";
-            this.optMonsterLight.Size = new System.Drawing.Size(69, 24);
-            this.optMonsterLight.TabIndex = 1;
-            this.optMonsterLight.TabStop = true;
-            this.optMonsterLight.Text = "Light";
-            this.optMonsterLight.UseVisualStyleBackColor = true;
-            this.optMonsterLight.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // tabControl1
             // 
@@ -884,10 +822,11 @@ namespace DW3Randomizer
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.chk_RemDupPool);
+            this.tabPage2.Controls.Add(this.chk_RandDrop);
             this.tabPage2.Controls.Add(this.chkRandomizeGP);
             this.tabPage2.Controls.Add(this.chkRandomizeXP);
             this.tabPage2.Controls.Add(this.chk_RemMetalMonRun);
-            this.tabPage2.Controls.Add(this.grpMonsterStat);
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.chkRandEnemyPatterns);
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
@@ -898,12 +837,37 @@ namespace DW3Randomizer
             this.tabPage2.Text = "Monsters";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // chk_RemDupPool
+            // 
+            this.chk_RemDupPool.AutoSize = true;
+            this.chk_RemDupPool.Location = new System.Drawing.Point(42, 194);
+            this.chk_RemDupPool.Name = "chk_RemDupPool";
+            this.chk_RemDupPool.Size = new System.Drawing.Size(244, 24);
+            this.chk_RemDupPool.TabIndex = 41;
+            this.chk_RemDupPool.Text = "Remove Duplicates from Pool";
+            this.adjustments.SetToolTip(this.chk_RemDupPool, "Removes duplicate herbs & misc items from pool, to increase odds of getting bette" +
+        "r items");
+            this.chk_RemDupPool.UseVisualStyleBackColor = true;
+            this.chk_RemDupPool.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // chk_RandDrop
+            // 
+            this.chk_RandDrop.AutoSize = true;
+            this.chk_RandDrop.Location = new System.Drawing.Point(42, 164);
+            this.chk_RandDrop.Name = "chk_RandDrop";
+            this.chk_RandDrop.Size = new System.Drawing.Size(226, 24);
+            this.chk_RandDrop.TabIndex = 40;
+            this.chk_RandDrop.Text = "Randomize Dropped Items";
+            this.adjustments.SetToolTip(this.chk_RandDrop, "Randomize Monster Drops");
+            this.chk_RandDrop.UseVisualStyleBackColor = true;
+            this.chk_RandDrop.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
             // chkRandomizeGP
             // 
             this.chkRandomizeGP.AutoSize = true;
             this.chkRandomizeGP.Checked = true;
             this.chkRandomizeGP.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandomizeGP.Location = new System.Drawing.Point(12, 151);
+            this.chkRandomizeGP.Location = new System.Drawing.Point(42, 132);
             this.chkRandomizeGP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkRandomizeGP.Name = "chkRandomizeGP";
             this.chkRandomizeGP.Size = new System.Drawing.Size(150, 24);
@@ -918,7 +882,7 @@ namespace DW3Randomizer
             this.chkRandomizeXP.AutoSize = true;
             this.chkRandomizeXP.Checked = true;
             this.chkRandomizeXP.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandomizeXP.Location = new System.Drawing.Point(12, 115);
+            this.chkRandomizeXP.Location = new System.Drawing.Point(42, 100);
             this.chkRandomizeXP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkRandomizeXP.Name = "chkRandomizeXP";
             this.chkRandomizeXP.Size = new System.Drawing.Size(197, 24);
@@ -931,7 +895,7 @@ namespace DW3Randomizer
             // chk_RemMetalMonRun
             // 
             this.chk_RemMetalMonRun.AutoSize = true;
-            this.chk_RemMetalMonRun.Location = new System.Drawing.Point(254, 151);
+            this.chk_RemMetalMonRun.Location = new System.Drawing.Point(307, 132);
             this.chk_RemMetalMonRun.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_RemMetalMonRun.Name = "chk_RemMetalMonRun";
             this.chk_RemMetalMonRun.Size = new System.Drawing.Size(210, 24);
@@ -946,7 +910,7 @@ namespace DW3Randomizer
             this.chkRandEnemyPatterns.AutoSize = true;
             this.chkRandEnemyPatterns.Checked = true;
             this.chkRandEnemyPatterns.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandEnemyPatterns.Location = new System.Drawing.Point(254, 115);
+            this.chkRandEnemyPatterns.Location = new System.Drawing.Point(307, 100);
             this.chkRandEnemyPatterns.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkRandEnemyPatterns.Name = "chkRandEnemyPatterns";
             this.chkRandEnemyPatterns.Size = new System.Drawing.Size(230, 24);
@@ -958,6 +922,7 @@ namespace DW3Randomizer
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.chk_BigShoes);
             this.tabPage4.Controls.Add(this.chk_HeroItems);
             this.tabPage4.Controls.Add(this.chk_RandShoesEffect);
             this.tabPage4.Controls.Add(this.chk_AddRemakeEq);
@@ -982,6 +947,18 @@ namespace DW3Randomizer
             this.tabPage4.Text = "Treasures & Equipment";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // chk_BigShoes
+            // 
+            this.chk_BigShoes.AutoSize = true;
+            this.chk_BigShoes.Location = new System.Drawing.Point(303, 244);
+            this.chk_BigShoes.Name = "chk_BigShoes";
+            this.chk_BigShoes.Size = new System.Drawing.Size(155, 24);
+            this.chk_BigShoes.TabIndex = 81;
+            this.chk_BigShoes.Text = "Big Shoes Effect";
+            this.adjustments.SetToolTip(this.chk_BigShoes, "Increases random range for Shoes of Happiness to 1 - 255");
+            this.chk_BigShoes.UseVisualStyleBackColor = true;
+            this.chk_BigShoes.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
             // chk_HeroItems
             // 
             this.chk_HeroItems.AutoSize = true;
@@ -997,12 +974,12 @@ namespace DW3Randomizer
             // chk_RandShoesEffect
             // 
             this.chk_RandShoesEffect.AutoSize = true;
-            this.chk_RandShoesEffect.Location = new System.Drawing.Point(303, 74);
+            this.chk_RandShoesEffect.Location = new System.Drawing.Point(303, 213);
             this.chk_RandShoesEffect.Name = "chk_RandShoesEffect";
             this.chk_RandShoesEffect.Size = new System.Drawing.Size(311, 24);
             this.chk_RandShoesEffect.TabIndex = 79;
             this.chk_RandShoesEffect.Text = "Randomize Shoes of Happiness Effect";
-            this.adjustments.SetToolTip(this.chk_RandShoesEffect, "Randomize XP earned from Shoes of Happiness");
+            this.adjustments.SetToolTip(this.chk_RandShoesEffect, "Randomize XP earned from Shoes of Happiness between 1 - 5 per step");
             this.chk_RandShoesEffect.UseVisualStyleBackColor = true;
             this.chk_RandShoesEffect.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -1036,7 +1013,7 @@ namespace DW3Randomizer
             // chk_AdjustEqpPrices
             // 
             this.chk_AdjustEqpPrices.AutoSize = true;
-            this.chk_AdjustEqpPrices.Location = new System.Drawing.Point(303, 106);
+            this.chk_AdjustEqpPrices.Location = new System.Drawing.Point(303, 79);
             this.chk_AdjustEqpPrices.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_AdjustEqpPrices.Name = "chk_AdjustEqpPrices";
             this.chk_AdjustEqpPrices.Size = new System.Drawing.Size(322, 24);
@@ -1063,7 +1040,7 @@ namespace DW3Randomizer
             // chk_UseVanEquipValues
             // 
             this.chk_UseVanEquipValues.AutoSize = true;
-            this.chk_UseVanEquipValues.Location = new System.Drawing.Point(303, 140);
+            this.chk_UseVanEquipValues.Location = new System.Drawing.Point(303, 113);
             this.chk_UseVanEquipValues.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_UseVanEquipValues.Name = "chk_UseVanEquipValues";
             this.chk_UseVanEquipValues.Size = new System.Drawing.Size(301, 24);
@@ -1076,7 +1053,7 @@ namespace DW3Randomizer
             // chk_RmFighterPenalty
             // 
             this.chk_RmFighterPenalty.AutoSize = true;
-            this.chk_RmFighterPenalty.Location = new System.Drawing.Point(303, 208);
+            this.chk_RmFighterPenalty.Location = new System.Drawing.Point(303, 181);
             this.chk_RmFighterPenalty.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_RmFighterPenalty.Name = "chk_RmFighterPenalty";
             this.chk_RmFighterPenalty.Size = new System.Drawing.Size(268, 24);
@@ -1099,7 +1076,7 @@ namespace DW3Randomizer
             // chk_RemoveStartEqRestrictions
             // 
             this.chk_RemoveStartEqRestrictions.AutoSize = true;
-            this.chk_RemoveStartEqRestrictions.Location = new System.Drawing.Point(303, 174);
+            this.chk_RemoveStartEqRestrictions.Location = new System.Drawing.Point(303, 147);
             this.chk_RemoveStartEqRestrictions.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_RemoveStartEqRestrictions.Name = "chk_RemoveStartEqRestrictions";
             this.chk_RemoveStartEqRestrictions.Size = new System.Drawing.Size(323, 24);
@@ -1128,7 +1105,7 @@ namespace DW3Randomizer
             this.chkRandEquip.AutoSize = true;
             this.chkRandEquip.Checked = true;
             this.chkRandEquip.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandEquip.Location = new System.Drawing.Point(303, 42);
+            this.chkRandEquip.Location = new System.Drawing.Point(303, 45);
             this.chkRandEquip.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkRandEquip.Name = "chkRandEquip";
             this.chkRandEquip.Size = new System.Drawing.Size(242, 24);
@@ -1459,6 +1436,7 @@ namespace DW3Randomizer
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.grpMonsterStat);
             this.tabPage3.Controls.Add(this.chk_ChangeDefaultParty);
             this.tabPage3.Controls.Add(this.chkFourJobFiesta);
             this.tabPage3.Controls.Add(this.chkRandStatGains);
@@ -1491,6 +1469,54 @@ namespace DW3Randomizer
             this.tabPage3.Text = "Characters";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // grpMonsterStat
+            // 
+            this.grpMonsterStat.Controls.Add(this.optStatSilly);
+            this.grpMonsterStat.Controls.Add(this.optStatHeavy);
+            this.grpMonsterStat.Controls.Add(this.optStatMedium);
+            this.grpMonsterStat.Location = new System.Drawing.Point(221, 204);
+            this.grpMonsterStat.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.grpMonsterStat.Name = "grpMonsterStat";
+            this.grpMonsterStat.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.grpMonsterStat.Size = new System.Drawing.Size(304, 43);
+            this.grpMonsterStat.TabIndex = 27;
+            this.grpMonsterStat.TabStop = false;
+            // 
+            // optStatSilly
+            // 
+            this.optStatSilly.AutoSize = true;
+            this.optStatSilly.Checked = true;
+            this.optStatSilly.Location = new System.Drawing.Point(8, 13);
+            this.optStatSilly.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.optStatSilly.Name = "optStatSilly";
+            this.optStatSilly.Size = new System.Drawing.Size(61, 24);
+            this.optStatSilly.TabIndex = 2;
+            this.optStatSilly.TabStop = true;
+            this.optStatSilly.Text = "Silly";
+            this.optStatSilly.UseVisualStyleBackColor = true;
+            // 
+            // optStatHeavy
+            // 
+            this.optStatHeavy.AutoSize = true;
+            this.optStatHeavy.Location = new System.Drawing.Point(195, 13);
+            this.optStatHeavy.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.optStatHeavy.Name = "optStatHeavy";
+            this.optStatHeavy.Size = new System.Drawing.Size(103, 24);
+            this.optStatHeavy.TabIndex = 4;
+            this.optStatHeavy.Text = "Ludicrous";
+            this.optStatHeavy.UseVisualStyleBackColor = true;
+            // 
+            // optStatMedium
+            // 
+            this.optStatMedium.AutoSize = true;
+            this.optStatMedium.Location = new System.Drawing.Point(80, 13);
+            this.optStatMedium.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.optStatMedium.Name = "optStatMedium";
+            this.optStatMedium.Size = new System.Drawing.Size(107, 24);
+            this.optStatMedium.TabIndex = 3;
+            this.optStatMedium.Text = "Ridiculous";
+            this.optStatMedium.UseVisualStyleBackColor = true;
+            // 
             // chk_ChangeDefaultParty
             // 
             this.chk_ChangeDefaultParty.AutoSize = true;
@@ -1508,7 +1534,7 @@ namespace DW3Randomizer
             // chkFourJobFiesta
             // 
             this.chkFourJobFiesta.AutoSize = true;
-            this.chkFourJobFiesta.Location = new System.Drawing.Point(698, 218);
+            this.chkFourJobFiesta.Location = new System.Drawing.Point(461, 251);
             this.chkFourJobFiesta.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkFourJobFiesta.Name = "chkFourJobFiesta";
             this.chkFourJobFiesta.Size = new System.Drawing.Size(237, 24);
@@ -1539,7 +1565,7 @@ namespace DW3Randomizer
             this.chkRandSpellStrength.AutoSize = true;
             this.chkRandSpellStrength.Checked = true;
             this.chkRandSpellStrength.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandSpellStrength.Location = new System.Drawing.Point(468, 218);
+            this.chkRandSpellStrength.Location = new System.Drawing.Point(230, 251);
             this.chkRandSpellStrength.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkRandSpellStrength.Name = "chkRandSpellStrength";
             this.chkRandSpellStrength.Size = new System.Drawing.Size(223, 24);
@@ -1554,7 +1580,7 @@ namespace DW3Randomizer
             this.chkRandSpellLearning.AutoSize = true;
             this.chkRandSpellLearning.Checked = true;
             this.chkRandSpellLearning.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandSpellLearning.Location = new System.Drawing.Point(234, 218);
+            this.chkRandSpellLearning.Location = new System.Drawing.Point(10, 251);
             this.chkRandSpellLearning.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkRandSpellLearning.Name = "chkRandSpellLearning";
             this.chkRandSpellLearning.Size = new System.Drawing.Size(212, 24);
@@ -2150,11 +2176,22 @@ namespace DW3Randomizer
             this.btn_CopyHash.UseVisualStyleBackColor = true;
             this.btn_CopyHash.Click += new System.EventHandler(this.btn_CopyHash_Click);
             // 
+            // btn_chksumHash
+            // 
+            this.btn_chksumHash.Location = new System.Drawing.Point(796, 266);
+            this.btn_chksumHash.Name = "btn_chksumHash";
+            this.btn_chksumHash.Size = new System.Drawing.Size(180, 34);
+            this.btn_chksumHash.TabIndex = 206;
+            this.btn_chksumHash.Text = "Copy Checksum/Hash";
+            this.btn_chksumHash.UseVisualStyleBackColor = true;
+            this.btn_chksumHash.Click += new System.EventHandler(this.btn_chksumHash_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1011, 842);
+            this.Controls.Add(this.btn_chksumHash);
             this.Controls.Add(this.btn_CopyHash);
             this.Controls.Add(this.lblHash);
             this.Controls.Add(this.label12);
@@ -2188,8 +2225,6 @@ namespace DW3Randomizer
             this.Name = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.grpMonsterStat.ResumeLayout(false);
-            this.grpMonsterStat.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -2203,6 +2238,8 @@ namespace DW3Randomizer
             this.tabPage6.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.grpMonsterStat.ResumeLayout(false);
+            this.grpMonsterStat.PerformLayout();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             this.tabPage7.ResumeLayout(false);
@@ -2230,11 +2267,6 @@ namespace DW3Randomizer
         private System.Windows.Forms.Button btnCompareBrowse;
         private System.Windows.Forms.Label lblIntensityDesc;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.GroupBox grpMonsterStat;
-        private System.Windows.Forms.RadioButton optMonsterSilly;
-        private System.Windows.Forms.RadioButton optMonsterHeavy;
-        private System.Windows.Forms.RadioButton optMonsterMedium;
-        private System.Windows.Forms.RadioButton optMonsterLight;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -2360,6 +2392,14 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_DoubleAtk;
         private System.Windows.Forms.RadioButton opt_JustForFun;
         private System.Windows.Forms.CheckBox chk_HeroItems;
+        private System.Windows.Forms.CheckBox chk_RandDrop;
+        private System.Windows.Forms.CheckBox chk_RemDupPool;
+        private System.Windows.Forms.GroupBox grpMonsterStat;
+        private System.Windows.Forms.RadioButton optStatSilly;
+        private System.Windows.Forms.RadioButton optStatHeavy;
+        private System.Windows.Forms.RadioButton optStatMedium;
+        private System.Windows.Forms.CheckBox chk_BigShoes;
+        private System.Windows.Forms.Button btn_chksumHash;
     }
 }
 
