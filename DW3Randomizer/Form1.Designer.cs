@@ -182,6 +182,7 @@ namespace DW3Randomizer
             this.txtSeed = new System.Windows.Forms.TextBox();
             this.btn_CopyHash = new System.Windows.Forms.Button();
             this.btn_chksumHash = new System.Windows.Forms.Button();
+            this.chk_EveryoneCat = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage8.SuspendLayout();
@@ -1907,6 +1908,7 @@ namespace DW3Randomizer
             // 
             // tabPage7
             // 
+            this.tabPage7.Controls.Add(this.chk_EveryoneCat);
             this.tabPage7.Controls.Add(this.chk_changeCats);
             this.tabPage7.Controls.Add(this.chk_GhostToCasket);
             this.tabPage7.Controls.Add(this.chk_RandSpriteColor);
@@ -1925,7 +1927,7 @@ namespace DW3Randomizer
             // chk_changeCats
             // 
             this.chk_changeCats.AutoSize = true;
-            this.chk_changeCats.Location = new System.Drawing.Point(9, 191);
+            this.chk_changeCats.Location = new System.Drawing.Point(8, 179);
             this.chk_changeCats.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_changeCats.Name = "chk_changeCats";
             this.chk_changeCats.Size = new System.Drawing.Size(242, 24);
@@ -1937,7 +1939,7 @@ namespace DW3Randomizer
             // chk_GhostToCasket
             // 
             this.chk_GhostToCasket.AutoSize = true;
-            this.chk_GhostToCasket.Location = new System.Drawing.Point(10, 154);
+            this.chk_GhostToCasket.Location = new System.Drawing.Point(9, 145);
             this.chk_GhostToCasket.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_GhostToCasket.Name = "chk_GhostToCasket";
             this.chk_GhostToCasket.Size = new System.Drawing.Size(227, 24);
@@ -1950,7 +1952,7 @@ namespace DW3Randomizer
             // chk_RandSpriteColor
             // 
             this.chk_RandSpriteColor.AutoSize = true;
-            this.chk_RandSpriteColor.Location = new System.Drawing.Point(9, 117);
+            this.chk_RandSpriteColor.Location = new System.Drawing.Point(9, 111);
             this.chk_RandSpriteColor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_RandSpriteColor.Name = "chk_RandSpriteColor";
             this.chk_RandSpriteColor.Size = new System.Drawing.Size(211, 24);
@@ -1963,7 +1965,7 @@ namespace DW3Randomizer
             // chk_ChangeHeroAge
             // 
             this.chk_ChangeHeroAge.AutoSize = true;
-            this.chk_ChangeHeroAge.Location = new System.Drawing.Point(9, 82);
+            this.chk_ChangeHeroAge.Location = new System.Drawing.Point(9, 77);
             this.chk_ChangeHeroAge.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_ChangeHeroAge.Name = "chk_ChangeHeroAge";
             this.chk_ChangeHeroAge.Size = new System.Drawing.Size(174, 24);
@@ -1988,7 +1990,7 @@ namespace DW3Randomizer
             // chk_FixSlimeSnail
             // 
             this.chk_FixSlimeSnail.AutoSize = true;
-            this.chk_FixSlimeSnail.Location = new System.Drawing.Point(9, 45);
+            this.chk_FixSlimeSnail.Location = new System.Drawing.Point(9, 43);
             this.chk_FixSlimeSnail.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_FixSlimeSnail.Name = "chk_FixSlimeSnail";
             this.chk_FixSlimeSnail.Size = new System.Drawing.Size(137, 24);
@@ -2185,6 +2187,16 @@ namespace DW3Randomizer
             this.btn_chksumHash.Text = "Copy Checksum/Hash";
             this.btn_chksumHash.UseVisualStyleBackColor = true;
             this.btn_chksumHash.Click += new System.EventHandler(this.btn_chksumHash_Click);
+            // 
+            // chk_EveryoneCat
+            // 
+            this.chk_EveryoneCat.AutoSize = true;
+            this.chk_EveryoneCat.Location = new System.Drawing.Point(7, 211);
+            this.chk_EveryoneCat.Name = "chk_EveryoneCat";
+            this.chk_EveryoneCat.Size = new System.Drawing.Size(155, 24);
+            this.chk_EveryoneCat.TabIndex = 7;
+            this.chk_EveryoneCat.Text = "Everyone is a cat";
+            this.chk_EveryoneCat.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -2400,6 +2412,7 @@ namespace DW3Randomizer
         private System.Windows.Forms.RadioButton optStatMedium;
         private System.Windows.Forms.CheckBox chk_BigShoes;
         private System.Windows.Forms.Button btn_chksumHash;
+        private System.Windows.Forms.CheckBox chk_EveryoneCat;
     }
 }
 

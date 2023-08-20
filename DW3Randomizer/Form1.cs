@@ -21,7 +21,7 @@ namespace DW3Randomizer
     {
         readonly string versionNumber = "2.4.6b";
         readonly string revisionDate = "8/5/2023";
-        readonly string buildnumber = "159"; // build starting 8/18/23
+        readonly string buildnumber = "160"; // build starting 8/18/23
         readonly string SotWFlags = "ACHMHDAOFLABJMPAODPPPAHD";
         readonly string endyFlags = "ACGMHDAONLACJNPAODPPPAHD";
         readonly string jffFlags = "AAIMPDBOPPPDPPPBODPPPAPD";
@@ -3236,10 +3236,10 @@ namespace DW3Randomizer
 
             // Used if chk_UseVanEquipValues
             int[] attackPower = { 2, 7, 12 };
-            int[] attackPower2 = { 14, 28, 40, 34, 15, 10, 30, 18, 48, 24, 100, 80, 90, 16, 48, 33, 110, 100, 55, 50, 65, 5, 55, 85, 30, 120, 63, 77, 35, 55 };
+            int[] attackPower2 = { 14, 28, 40, 34, 15, 10, 30, 18, 48, 24, 100, 80, 90, 16, 48, 33, 110, 100, 55, 50, 65, 5, 55, 85, 30, 120, 63, 77, 35, 55 }; //20
             int[] armorDefPower = { 4, 8, 12 };
-            int[] armorDefPower2 = { 10, 28, 25, 32, 40, 20, 75, 22, 8, 23, 30, 65, 40, 20, 2, 40, 16, 50, 45, 55, 35 };
-            int[] shieldDefPower = { 4, 12, 40, 50, 35, 7, 30 };
+            int[] armorDefPower2 = { 10, 28, 25, 32, 40, 20, 75, 22, 8, 23, 30, 65, 40, 20, 2, 40, 16, 50, 45, 55, 35 }; //38
+            int[] shieldDefPower = { 4, 12, 40, 50, 35, 7, 30 }; //45
             int[] helmetDefPower = { 6, 16, 10, 35, 8, 45, 2, 25 };
 
             List<int> attackPowerList = new List<int>(attackPower);
@@ -3249,6 +3249,16 @@ namespace DW3Randomizer
             List<int> shieldDefPowerList = new List<int>(shieldDefPower);
             List<int> helmetDefPowerList = new List<int>(helmetDefPower);
 
+            if (chk_AddRemakeEq.Checked)
+            {
+                attackPowerList2[2] = 35;
+                attackPowerList2[7] = 95;
+                attackPowerList2[8] = 110;
+                attackPowerList2[16] = 85;
+                armorDefPowerList2[17] = 58;
+                shieldDefPowerList[1] = 2;
+                helmetDefPowerList[7] = 18;
+            }
             if (chk_RemoveStartEqRestrictions.Checked == true)
             {
                 for (int lnI = 0; lnI < attackPower2.Length; lnI++)
