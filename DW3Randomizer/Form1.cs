@@ -20,8 +20,8 @@ namespace DW3Randomizer
     public partial class Form1 : Form
     {
         readonly string versionNumber = "2.4.6b";
-        readonly string revisionDate = "8/5/2023";
-        readonly string buildnumber = "160"; // build starting 8/18/23
+        readonly string revisionDate = "8/20/2023";
+        readonly string buildnumber = "162"; // build starting 8/18/23
         readonly string SotWFlags = "ACHMHDAOFLABJMPAODPPPAHD";
         readonly string endyFlags = "ACGMHDAONLACJNPAODPPPAHD";
         readonly string jffFlags = "AAIMPDBOPPPDPPPBODPPPAPD";
@@ -291,6 +291,7 @@ namespace DW3Randomizer
                 boostGP();
                 boostXP();
                 adjustEncounters();
+                if (chk_RandShoesEffect.Checked) randshoes(rni);
                 if (chk_Cod.Checked) cod();
                 if (chk_FixHeroSpell.Checked) fixHeroSpell();
                 if (chkSpeedText.Checked) speedText();
@@ -330,7 +331,6 @@ namespace DW3Randomizer
                 if (chk_changeCats.Checked) changeCats(rni);
                 if (chk_InvisibleNPCs.Checked) invisibleNPCs();
                 if (chk_InvisibleShips.Checked) invisbleShips();
-                if (chk_RandShoesEffect.Checked) randshoes(rni);
                 if (chk_DoubleAtk.Checked) doubleattack();
                 if (chk_HeroItems.Checked) heroitems(rni);
                 changeEnd();
@@ -6983,10 +6983,10 @@ namespace DW3Randomizer
                 if (romData[0x11be + forcedItemSell[lnI]] % 32 >= 16) // Not allowed to be sold
                     romData[0x11be + forcedItemSell[lnI]] -= 16; // Now allowed to be sold!
 
-            int[] itemstoAdjust = { 0x16, 0x1c, 0x28, 0x32, 0x34, 0x36, 0x3b, 0x3f, 0x42, 0x48, 0x4b, 0x4c, 0x50, 0x52, 0x53, 0x58, 0x59, 0x5a, 0x69, 0x6f, 0x70, 0x71, // forced items to sell AND...
+            int[] itemstoAdjust = { 0x16, 0x1c, 0x28, 0x32, 0x34, 0x36, 0x3b, 0x3f, 0x42, 0x48, 0x49, 0x4b, 0x4c, 0x50, 0x52, 0x53, 0x58, 0x59, 0x5a, 0x69, 0x6f, 0x70, 0x71, // forced items to sell AND...
                0x5f, 0x60, 0x61, 0x62, 0x63, 0x64, 0x57, 0x75, 0x55, 0x4e, 0x4f, 0x49, 0x5b, 0x5c, 0x5d, 0x6b, 0x6e, 0x51 }; // Some other items I want sold (see above)
 
-            int[] itemPriceAdjust = { 5000, 35000, 15000, 10000, 8000, 12000, 10000, 800, 10, 5000, 5000, 8000, 20000, 1000, 1000, 500, 2000, 5000, 5000, 500, 2000, 500,
+            int[] itemPriceAdjust = { 5000, 35000, 15000, 10000, 8000, 12000, 10000, 800, 10, 5000, 5000, 5000, 8000, 20000, 1000, 1000, 500, 2000, 5000, 5000, 500, 2000, 500,
                 5000, 3000, 2000, 2500, 2500, 5000, 800, 10000, 3000, 2000, 10000, 5000, 1000, 500, 500, 500, 500, 500 };
 
             int price = 0;
@@ -6998,6 +6998,11 @@ namespace DW3Randomizer
                 if (itemstoAdjust[lnI] == 0x5b)
                 {
                     price = 1000 * ((r1.Next() % 10) + 1);
+                }
+                else if (itemstoAdjust[lnI] == 0x49)
+                {
+                    int priceoffset = Convert.ToInt32(romData[0x330fc]);
+                    price = itemPriceAdjust[lnI] + priceoffset;
                 }
                 else
                 {
@@ -7623,22 +7628,22 @@ namespace DW3Randomizer
             convertStrToHex(" amulet were left behind for", 0x295f3, true);
             convertStrToHex(" future generations bearing", 0x29610, true);
             convertStrToHex(" the name Erdrick.", 0x2962c, true);
-            convertStrToHex("  ", 0x29642, true);
-            convertStrToHex("0Unfortunately, records of", 0x29645, true);
-            convertStrToHex(" Erdrick^s party were lost", 0x29660, true);
-            convertStrToHex(" with time.", 0x2967b, true);
-            convertStrToHex("  ", 0x29687, true);
-            convertStrToHex(" Dragon Warrior III Randomizer", 0x2968a, true);
-            convertStrToHex("  ", 0x296a9, true);
-            convertStrToHex("0Originally Developed By:", 0x296ac, true);
-            convertStrToHex("0 gameboyf9", 0x296c6, true);
-            convertStrToHex("  ", 0x296d2, true);
-            convertStrToHex("0Currently Developed By:", 0x296d5, true);
-            convertStrToHex("0 endymionls", 0x296ee, true);
-            convertStrToHex("  ", 0x296fb, true);
-            convertStrToHex("0                      ", 0x296fe, true);
-            convertStrToHex("            ", 0x29716, true);
-            convertStrToHex("Thank you for playing!  ", 0x1f779, false);
+            convertStrToHex("  ", 0x2963f, true);
+            convertStrToHex("0Unfortunately, records of", 0x29642, true);
+            convertStrToHex(" Erdrick^s party were lost", 0x2965d, true);
+            convertStrToHex(" with time.", 0x29678, true);
+            convertStrToHex("  ", 0x29684, true);
+            convertStrToHex(" Dragon Warrior III Randomizer", 0x29687, true);
+            convertStrToHex("  ", 0x296a6, true);
+            convertStrToHex("0Originally Developed By:", 0x296a9, true);
+            convertStrToHex("0 gameboyf9", 0x296c3, true);
+            convertStrToHex("  ", 0x296cf, true);
+            convertStrToHex("0Currently Developed By:", 0x296d2, true);
+            convertStrToHex("0 endymionls", 0x296eb, true);
+            convertStrToHex("  ", 0x296f8, true);
+            convertStrToHex("0                      ", 0x296fb, true);
+            convertStrToHex("            ", 0x29713, true);
+            convertStrToHex("Thank you for playing!  ", 0x1f777, false);
         }
 
         private StreamWriter compareComposeString(string intro, StreamWriter writer, int startAddress, int length, int skip = 1, string delimiter = "")
