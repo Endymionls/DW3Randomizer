@@ -7447,7 +7447,7 @@ namespace DW3Randomizer
             Random r1 = new Random(int.Parse(txtSeed.Text));
 
             // randomize starting gold
-            romData[0x2914f] = (byte)(r1.Next() % 256);
+            romData[0x2914f] = (byte)((r1.Next() % 255) + 1);
         }
 
         private int[] inverted_power_curve(int min, int max, int arraySize, double powToUse, Random r1)

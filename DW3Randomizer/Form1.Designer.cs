@@ -450,7 +450,7 @@ namespace DW3Randomizer
             this.chk_RandomStartGold.Size = new System.Drawing.Size(214, 24);
             this.chk_RandomStartGold.TabIndex = 11;
             this.chk_RandomStartGold.Text = "Randomize Starting Gold";
-            this.adjustments.SetToolTip(this.chk_RandomStartGold, "Removes Parry/Fight bug found in original DWIII");
+            this.adjustments.SetToolTip(this.chk_RandomStartGold, "Randomizes the amount of gold given by the king (1-255)");
             this.chk_RandomStartGold.UseVisualStyleBackColor = true;
             this.chk_RandomStartGold.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
