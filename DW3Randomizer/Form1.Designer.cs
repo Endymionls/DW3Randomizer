@@ -89,6 +89,7 @@ namespace DW3Randomizer
             this.chk_RemMetalMonRun = new System.Windows.Forms.CheckBox();
             this.chkRandEnemyPatterns = new System.Windows.Forms.CheckBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.chk_randsagestone = new System.Windows.Forms.CheckBox();
             this.chk_BigShoes = new System.Windows.Forms.CheckBox();
             this.chk_HeroItems = new System.Windows.Forms.CheckBox();
             this.chk_RandShoesEffect = new System.Windows.Forms.CheckBox();
@@ -183,7 +184,7 @@ namespace DW3Randomizer
             this.txtSeed = new System.Windows.Forms.TextBox();
             this.btn_CopyHash = new System.Windows.Forms.Button();
             this.btn_chksumHash = new System.Windows.Forms.Button();
-            this.chk_randsagestone = new System.Windows.Forms.CheckBox();
+            this.chk_HealUsAllStone = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage8.SuspendLayout();
@@ -924,6 +925,7 @@ namespace DW3Randomizer
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.chk_HealUsAllStone);
             this.tabPage4.Controls.Add(this.chk_randsagestone);
             this.tabPage4.Controls.Add(this.chk_BigShoes);
             this.tabPage4.Controls.Add(this.chk_HeroItems);
@@ -949,6 +951,18 @@ namespace DW3Randomizer
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Treasures & Equipment";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // chk_randsagestone
+            // 
+            this.chk_randsagestone.AutoSize = true;
+            this.chk_randsagestone.Location = new System.Drawing.Point(653, 71);
+            this.chk_randsagestone.Name = "chk_randsagestone";
+            this.chk_randsagestone.Size = new System.Drawing.Size(216, 24);
+            this.chk_randsagestone.TabIndex = 82;
+            this.chk_randsagestone.Text = "Randomize Sage\'s Stone";
+            this.adjustments.SetToolTip(this.chk_randsagestone, "1 in 4 chance Sage\'s Stone will cast HealUsAll");
+            this.chk_randsagestone.UseVisualStyleBackColor = true;
+            this.chk_randsagestone.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // chk_BigShoes
             // 
@@ -2200,17 +2214,17 @@ namespace DW3Randomizer
             this.btn_chksumHash.UseVisualStyleBackColor = true;
             this.btn_chksumHash.Click += new System.EventHandler(this.btn_chksumHash_Click);
             // 
-            // chk_randsagestone
+            // chk_HealUsAllStone
             // 
-            this.chk_randsagestone.AutoSize = true;
-            this.chk_randsagestone.Location = new System.Drawing.Point(653, 71);
-            this.chk_randsagestone.Name = "chk_randsagestone";
-            this.chk_randsagestone.Size = new System.Drawing.Size(216, 24);
-            this.chk_randsagestone.TabIndex = 82;
-            this.chk_randsagestone.Text = "Randomize Sage\'s Stone";
-            this.chk_randsagestone.UseVisualStyleBackColor = true;
-            this.adjustments.SetToolTip(this.chk_randsagestone, "1 in 4 chance Sage's Stone will cast HealUsAll");
-            this.chk_randsagestone.CheckedChanged += new System.EventHandler(this.determineFlags);
+            this.chk_HealUsAllStone.AutoSize = true;
+            this.chk_HealUsAllStone.Location = new System.Drawing.Point(653, 102);
+            this.chk_HealUsAllStone.Name = "chk_HealUsAllStone";
+            this.chk_HealUsAllStone.Size = new System.Drawing.Size(242, 24);
+            this.chk_HealUsAllStone.TabIndex = 83;
+            this.chk_HealUsAllStone.Text = "Guaranteed HealUsAll Stone";
+            this.chk_HealUsAllStone.UseVisualStyleBackColor = true;
+            this.adjustments.SetToolTip(this.chk_HealUsAllStone, "Guarantees HealUsAll for Sage's Stone");
+            this.chk_HealUsAllStone.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // Form1
             // 
@@ -2428,6 +2442,7 @@ namespace DW3Randomizer
         private System.Windows.Forms.Button btn_chksumHash;
         private System.Windows.Forms.CheckBox chk_EveryoneCat;
         private System.Windows.Forms.CheckBox chk_randsagestone;
+        private System.Windows.Forms.CheckBox chk_HealUsAllStone;
     }
 }
 

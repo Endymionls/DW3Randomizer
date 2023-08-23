@@ -21,10 +21,10 @@ namespace DW3Randomizer
     {
         readonly string versionNumber = "2.4.7";
         readonly string revisionDate = "8/22/2023";
-        readonly string buildnumber = "164"; // build starting 8/18/23
+        readonly string buildnumber = "165"; // build starting 8/18/23
         readonly string SotWFlags = "ACHMHDAOFLABJMPCODPPPAHD";
         readonly string endyFlags = "ACGMHDAONLACJNPCODPPPAHD";
-        readonly string jffFlags = "AAIMPDBOPPPDPPPHODPPPAPD";
+        readonly string jffFlags = "AAIMPDBOPPPDPPPPODPPPAPD";
 
         bool loading = true;
         byte[] romData;
@@ -108,7 +108,8 @@ namespace DW3Randomizer
                 (chk_GreenSilverOrb.Checked ? 8 : 0) + (chkRandWhoCanEquip.Checked ? 16 : 0) + (chkRandEquip.Checked ? 32 : 0) +
                 (chk_AdjustEqpPrices.Checked ? 64 : 0) + (chk_UseVanEquipValues.Checked ? 128 : 0) + (chk_RemoveStartEqRestrictions.Checked ? 256 : 0) +
                 (chk_RmFighterPenalty.Checked ? 512 : 0) + (chk_AddRemakeEq.Checked ? 1024 : 0) + (chk_RandShoesEffect.Checked ? 2048: 0) + 
-                (chk_BigShoes.Checked ? 4096 : 0) + (chk_HeroItems.Checked ? 8192 : 0) + (chk_randsagestone.Checked ? 16384 : 0));
+                (chk_BigShoes.Checked ? 4096 : 0) + (chk_HeroItems.Checked ? 8192 : 0) + (chk_randsagestone.Checked ? 16384 : 0) + 
+                (chk_HealUsAllStone.Checked ? 32768 : 0));
 
             int itemWeaponShopsInsTab = 11 * ((chkRandItemStores.Checked ? 1 : 0) + (chk_RandomizeWeaponShops.Checked ? 2 : 0) + (chk_sellUnsellItems.Checked ? 4 : 0) +
                 (chk_Caturday.Checked ? 8 : 0) + (chk_RandomizeInnPrices.Checked ? 16 : 0) + (chk_StoneofLife.Checked ? 32 : 0) + (chk_Seeds.Checked ? 64 : 0) +
@@ -362,7 +363,9 @@ namespace DW3Randomizer
         {
             Random r1 = new Random(int.Parse(txtSeed.Text));
 
-            if (r1.Next() % 4 == 0)
+            if (chk_HealUsAllStone.Checked)
+                romData[0x13293] = 0x1f;
+            else if (r1.Next() % 4 == 0)
                 romData[0x13293] = 0x1f;
         }
         private void heroitems(int rni)
@@ -7927,6 +7930,7 @@ namespace DW3Randomizer
             chk_HeroItems.Checked = (number % 2 == 1);
             chk_randsagestone.Checked = (number % 4 >= 2);
             chk_BigShoes.Checked = (number % 8 >= 4);
+            chk_HealUsAllStone.Checked = (number % 16 >= 8);
 
             // Item & Weapon Shops & Inns
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(16, 1)));
@@ -7999,7 +8003,7 @@ namespace DW3Randomizer
             flags += convertIntToCharCapsOnly((chkRandTreasures.Checked ? 1 : 0) + (chkRandTreasures.Checked ? (chk_GoldenClaw.Checked ? 2 : 0) : 0) + (chkRandWhoCanEquip.Checked ? 4 : 0) + (chkRandEquip.Checked ? 8 : 0)); // 12
             flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_UseVanEquipValues.Checked ? 1 : 0) : 0) + (chkRandEquip.Checked ? (chk_RemoveStartEqRestrictions.Checked ? 2 : 0) : 0) + (chk_RmFighterPenalty.Checked ? 4 : 0) + (chkRandTreasures.Checked ? (chk_GreenSilverOrb.Checked ? 8 : 0) : 0)); // 13
             flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_AdjustEqpPrices.Checked ? 1 : 0) : 0) + (chkRandTreasures.Checked ? (chk_RmRedundKey.Checked ? 2 : 0) : 0) + (chk_AddRemakeEq.Checked ? 4 : 0) + (chk_RandShoesEffect.Checked ? 8 : 0)); //14
-            flags += convertIntToCharCapsOnly((chk_HeroItems.Checked ? 1 : 0) + (chk_randsagestone.Checked ? 2 : 0) + (chk_RandShoesEffect.Checked ? (chk_BigShoes.Checked ? 4 : 0) : 0)); // 15
+            flags += convertIntToCharCapsOnly((chk_HeroItems.Checked ? 1 : 0) + (chk_randsagestone.Checked ? 2 : 0) + (chk_RandShoesEffect.Checked ? (chk_BigShoes.Checked ? 4 : 0) : 0) + (chk_randsagestone.Checked ? (chk_HealUsAllStone.Checked ? 8 : 0) : 0)); // 15
             // Item & Weapon Shops & Inns
             flags += convertIntToCharCapsOnly((chkRandItemEffects.Checked ? 1 : 0) + (chkRandItemStores.Checked ? 2 : 0) + (chk_RandomizeWeaponShops.Checked ? 4 : 0) + (chk_Caturday.Checked ? 8 : 0)); // 16
             flags += convertIntToCharCapsOnly((chk_RandomizeInnPrices.Checked ? 1 : 0) + (chk_sellUnsellItems.Checked ? 2 : 0)); //17
@@ -8412,6 +8416,7 @@ namespace DW3Randomizer
             this.chk_BigShoes.Visible = this.chk_RandShoesEffect.Checked;
             if (this.chk_AddRemakeEq.Checked)
                 this.chk_RmFighterPenalty.CheckState = CheckState.Checked;
+            this.chk_HealUsAllStone.Visible = this.chk_randsagestone.Checked;
         }
     }
 }
