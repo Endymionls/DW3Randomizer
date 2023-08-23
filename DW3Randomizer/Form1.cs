@@ -19,12 +19,12 @@ namespace DW3Randomizer
 {
     public partial class Form1 : Form
     {
-        readonly string versionNumber = "2.4.6b";
-        readonly string revisionDate = "8/20/2023";
-        readonly string buildnumber = "162"; // build starting 8/18/23
-        readonly string SotWFlags = "ACHMHDAOFLABJMPAODPPPAHD";
-        readonly string endyFlags = "ACGMHDAONLACJNPAODPPPAHD";
-        readonly string jffFlags = "AAIMPDBOPPPDPPPBODPPPAPD";
+        readonly string versionNumber = "2.4.7";
+        readonly string revisionDate = "8/22/2023";
+        readonly string buildnumber = "164"; // build starting 8/18/23
+        readonly string SotWFlags = "ACHMHDAOFLABJMPCODPPPAHD";
+        readonly string endyFlags = "ACGMHDAONLACJNPCODPPPAHD";
+        readonly string jffFlags = "AAIMPDBOPPPDPPPHODPPPAPD";
 
         bool loading = true;
         byte[] romData;
@@ -50,7 +50,7 @@ namespace DW3Randomizer
         public Form1()
         {
             InitializeComponent();
-            this.Text = "Dragon Warrior III Randomizer ~ " + versionNumber + " ~ " + revisionDate;
+            this.Text = "Dragon Warrior III Randomizer ~ " + versionNumber + " ~ " + revisionDate + " (" + buildnumber + ")";
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -108,7 +108,7 @@ namespace DW3Randomizer
                 (chk_GreenSilverOrb.Checked ? 8 : 0) + (chkRandWhoCanEquip.Checked ? 16 : 0) + (chkRandEquip.Checked ? 32 : 0) +
                 (chk_AdjustEqpPrices.Checked ? 64 : 0) + (chk_UseVanEquipValues.Checked ? 128 : 0) + (chk_RemoveStartEqRestrictions.Checked ? 256 : 0) +
                 (chk_RmFighterPenalty.Checked ? 512 : 0) + (chk_AddRemakeEq.Checked ? 1024 : 0) + (chk_RandShoesEffect.Checked ? 2048: 0) + 
-                (chk_BigShoes.Checked ? 4096 : 0) +(chk_HeroItems.Checked ? 8192 : 0));
+                (chk_BigShoes.Checked ? 4096 : 0) + (chk_HeroItems.Checked ? 8192 : 0) + (chk_randsagestone.Checked ? 16384 : 0));
 
             int itemWeaponShopsInsTab = 11 * ((chkRandItemStores.Checked ? 1 : 0) + (chk_RandomizeWeaponShops.Checked ? 2 : 0) + (chk_sellUnsellItems.Checked ? 4 : 0) +
                 (chk_Caturday.Checked ? 8 : 0) + (chk_RandomizeInnPrices.Checked ? 16 : 0) + (chk_StoneofLife.Checked ? 32 : 0) + (chk_Seeds.Checked ? 64 : 0) +
@@ -291,6 +291,7 @@ namespace DW3Randomizer
                 boostGP();
                 boostXP();
                 adjustEncounters();
+                if (chk_randsagestone.Checked) randsagestone(rni);
                 if (chk_RandShoesEffect.Checked) randshoes(rni);
                 if (chk_Cod.Checked) cod();
                 if (chk_FixHeroSpell.Checked) fixHeroSpell();
@@ -357,6 +358,13 @@ namespace DW3Randomizer
 
         }
 
+        private void randsagestone(int rni)
+        {
+            Random r1 = new Random(int.Parse(txtSeed.Text));
+
+            if (r1.Next() % 4 == 0)
+                romData[0x13293] = 0x1f;
+        }
         private void heroitems(int rni)
         {
             // Gives party of a random consumable item
@@ -7917,6 +7925,8 @@ namespace DW3Randomizer
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(15, 1)));
             chk_HeroItems.Checked = (number % 2 == 1);
+            chk_randsagestone.Checked = (number % 4 >= 2);
+            chk_BigShoes.Checked = (number % 8 >= 4);
 
             // Item & Weapon Shops & Inns
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(16, 1)));
@@ -7989,7 +7999,7 @@ namespace DW3Randomizer
             flags += convertIntToCharCapsOnly((chkRandTreasures.Checked ? 1 : 0) + (chkRandTreasures.Checked ? (chk_GoldenClaw.Checked ? 2 : 0) : 0) + (chkRandWhoCanEquip.Checked ? 4 : 0) + (chkRandEquip.Checked ? 8 : 0)); // 12
             flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_UseVanEquipValues.Checked ? 1 : 0) : 0) + (chkRandEquip.Checked ? (chk_RemoveStartEqRestrictions.Checked ? 2 : 0) : 0) + (chk_RmFighterPenalty.Checked ? 4 : 0) + (chkRandTreasures.Checked ? (chk_GreenSilverOrb.Checked ? 8 : 0) : 0)); // 13
             flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_AdjustEqpPrices.Checked ? 1 : 0) : 0) + (chkRandTreasures.Checked ? (chk_RmRedundKey.Checked ? 2 : 0) : 0) + (chk_AddRemakeEq.Checked ? 4 : 0) + (chk_RandShoesEffect.Checked ? 8 : 0)); //14
-            flags += convertIntToCharCapsOnly((chk_HeroItems.Checked ? 1 : 0)); // 15
+            flags += convertIntToCharCapsOnly((chk_HeroItems.Checked ? 1 : 0) + (chk_randsagestone.Checked ? 2 : 0) + (chk_RandShoesEffect.Checked ? (chk_BigShoes.Checked ? 4 : 0) : 0)); // 15
             // Item & Weapon Shops & Inns
             flags += convertIntToCharCapsOnly((chkRandItemEffects.Checked ? 1 : 0) + (chkRandItemStores.Checked ? 2 : 0) + (chk_RandomizeWeaponShops.Checked ? 4 : 0) + (chk_Caturday.Checked ? 8 : 0)); // 16
             flags += convertIntToCharCapsOnly((chk_RandomizeInnPrices.Checked ? 1 : 0) + (chk_sellUnsellItems.Checked ? 2 : 0)); //17

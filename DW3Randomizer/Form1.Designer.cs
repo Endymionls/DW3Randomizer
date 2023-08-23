@@ -158,6 +158,7 @@ namespace DW3Randomizer
             this.chk_FixHeroSpell = new System.Windows.Forms.CheckBox();
             this.chkRemoveParryFight = new System.Windows.Forms.CheckBox();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.chk_EveryoneCat = new System.Windows.Forms.CheckBox();
             this.chk_changeCats = new System.Windows.Forms.CheckBox();
             this.chk_GhostToCasket = new System.Windows.Forms.CheckBox();
             this.chk_RandSpriteColor = new System.Windows.Forms.CheckBox();
@@ -182,7 +183,7 @@ namespace DW3Randomizer
             this.txtSeed = new System.Windows.Forms.TextBox();
             this.btn_CopyHash = new System.Windows.Forms.Button();
             this.btn_chksumHash = new System.Windows.Forms.Button();
-            this.chk_EveryoneCat = new System.Windows.Forms.CheckBox();
+            this.chk_randsagestone = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage8.SuspendLayout();
@@ -923,6 +924,7 @@ namespace DW3Randomizer
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.chk_randsagestone);
             this.tabPage4.Controls.Add(this.chk_BigShoes);
             this.tabPage4.Controls.Add(this.chk_HeroItems);
             this.tabPage4.Controls.Add(this.chk_RandShoesEffect);
@@ -951,7 +953,7 @@ namespace DW3Randomizer
             // chk_BigShoes
             // 
             this.chk_BigShoes.AutoSize = true;
-            this.chk_BigShoes.Location = new System.Drawing.Point(303, 244);
+            this.chk_BigShoes.Location = new System.Drawing.Point(303, 243);
             this.chk_BigShoes.Name = "chk_BigShoes";
             this.chk_BigShoes.Size = new System.Drawing.Size(155, 24);
             this.chk_BigShoes.TabIndex = 81;
@@ -963,7 +965,7 @@ namespace DW3Randomizer
             // chk_HeroItems
             // 
             this.chk_HeroItems.AutoSize = true;
-            this.chk_HeroItems.Location = new System.Drawing.Point(653, 42);
+            this.chk_HeroItems.Location = new System.Drawing.Point(653, 41);
             this.chk_HeroItems.Name = "chk_HeroItems";
             this.chk_HeroItems.Size = new System.Drawing.Size(194, 24);
             this.chk_HeroItems.TabIndex = 80;
@@ -1924,6 +1926,16 @@ namespace DW3Randomizer
             this.tabPage7.Text = "Cosmetic";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
+            // chk_EveryoneCat
+            // 
+            this.chk_EveryoneCat.AutoSize = true;
+            this.chk_EveryoneCat.Location = new System.Drawing.Point(7, 211);
+            this.chk_EveryoneCat.Name = "chk_EveryoneCat";
+            this.chk_EveryoneCat.Size = new System.Drawing.Size(155, 24);
+            this.chk_EveryoneCat.TabIndex = 7;
+            this.chk_EveryoneCat.Text = "Everyone is a cat";
+            this.chk_EveryoneCat.UseVisualStyleBackColor = true;
+            // 
             // chk_changeCats
             // 
             this.chk_changeCats.AutoSize = true;
@@ -2188,15 +2200,17 @@ namespace DW3Randomizer
             this.btn_chksumHash.UseVisualStyleBackColor = true;
             this.btn_chksumHash.Click += new System.EventHandler(this.btn_chksumHash_Click);
             // 
-            // chk_EveryoneCat
+            // chk_randsagestone
             // 
-            this.chk_EveryoneCat.AutoSize = true;
-            this.chk_EveryoneCat.Location = new System.Drawing.Point(7, 211);
-            this.chk_EveryoneCat.Name = "chk_EveryoneCat";
-            this.chk_EveryoneCat.Size = new System.Drawing.Size(155, 24);
-            this.chk_EveryoneCat.TabIndex = 7;
-            this.chk_EveryoneCat.Text = "Everyone is a cat";
-            this.chk_EveryoneCat.UseVisualStyleBackColor = true;
+            this.chk_randsagestone.AutoSize = true;
+            this.chk_randsagestone.Location = new System.Drawing.Point(653, 71);
+            this.chk_randsagestone.Name = "chk_randsagestone";
+            this.chk_randsagestone.Size = new System.Drawing.Size(216, 24);
+            this.chk_randsagestone.TabIndex = 82;
+            this.chk_randsagestone.Text = "Randomize Sage\'s Stone";
+            this.chk_randsagestone.UseVisualStyleBackColor = true;
+            this.adjustments.SetToolTip(this.chk_randsagestone, "1 in 4 chance Sage's Stone will cast HealUsAll");
+            this.chk_randsagestone.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // Form1
             // 
@@ -2413,6 +2427,7 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_BigShoes;
         private System.Windows.Forms.Button btn_chksumHash;
         private System.Windows.Forms.CheckBox chk_EveryoneCat;
+        private System.Windows.Forms.CheckBox chk_randsagestone;
     }
 }
 
