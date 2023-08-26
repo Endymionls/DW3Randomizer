@@ -20,11 +20,11 @@ namespace DW3Randomizer
     public partial class Form1 : Form
     {
         readonly string versionNumber = "2.4.7";
-        readonly string revisionDate = "8/22/2023";
-        readonly string buildnumber = "165"; // build starting 8/18/23
-        readonly string SotWFlags = "ACHMHDAOFLABJMPCODPPPAHD";
-        readonly string endyFlags = "ACGMHDAONLACJNPCODPPPAHD";
-        readonly string jffFlags = "AAIMPDBOPPPDPPPPODPPPAPD";
+        readonly string revisionDate = "8/25/2023";
+        readonly string buildnumber = "166"; // build starting 8/18/23
+        readonly string SotWFlags = "ACHMHDAEOHLABJMFODPPPAHD";
+        readonly string endyFlags = "ACGMHDAFOPLACLNHODPPPAHD";
+        readonly string jffFlags = "AAIMPDDPOPPPHPPHODPPPDPD";
 
         bool loading = true;
         byte[] romData;
@@ -94,7 +94,9 @@ namespace DW3Randomizer
                 (chkFasterBattles.Checked ? 8 : 0) + (chkSpeedText.Checked ? 16 : 0) + (chk_SpeedUpMenus.Checked ? 32 : 0) +
                 (chk_Cod.Checked ? 64 : 0) + (chk_RmManip.Checked ? 128 : 0) + (chk_WeapArmPower.Checked ? 256 : 0) +
                 (chkNoLamiaOrbs.Checked ? 512 : 0) + (chk_RandomStartGold.Checked ? 1024 : 0) + 
-                (chk_InvisibleNPCs.Checked ? 2048 : 0) + (chk_InvisibleShips.Checked ? 4096 : 0) + (chk_DoubleAtk.Checked ? 8192 : 0);
+                (chk_InvisibleNPCs.Checked ? 2048 : 0) + (chk_InvisibleShips.Checked ? 4096 : 0) + (chk_DoubleAtk.Checked ? 8192 : 0) +
+                (chk_RandShoesEffect.Checked ? 16384 : 0) + (chk_BigShoes.Checked ? 32768 : 0) + (chk_randsagestone.Checked ? 65536 : 0) +
+                (chk_HealUsAllStone.Checked ? 131072 : 0) + (chk_HeroItems.Checked ? 262144 : 0);
 
             int mapTab = 3 * ((chkRandomizeMap.Checked ? 1 : 0) + (chkRandMonsterZones.Checked ? 2 : 0) + (chkSmallMap.Checked ? 4 : 0) +
                 (chk_RemoveMtnDrgQueen.Checked ? 8 : 0) + (chk_SepBarGaia.Checked ? 16 : 0) + (chk_RemLancelMountains.Checked ? 32 : 0) +
@@ -107,9 +109,7 @@ namespace DW3Randomizer
             int treasureEquipmentTab = 7 * ((chkRandTreasures.Checked ? 1 : 0) + (chk_RmRedundKey.Checked ? 2 : 0) + (chk_GoldenClaw.Checked ? 4 : 0) +
                 (chk_GreenSilverOrb.Checked ? 8 : 0) + (chkRandWhoCanEquip.Checked ? 16 : 0) + (chkRandEquip.Checked ? 32 : 0) +
                 (chk_AdjustEqpPrices.Checked ? 64 : 0) + (chk_UseVanEquipValues.Checked ? 128 : 0) + (chk_RemoveStartEqRestrictions.Checked ? 256 : 0) +
-                (chk_RmFighterPenalty.Checked ? 512 : 0) + (chk_AddRemakeEq.Checked ? 1024 : 0) + (chk_RandShoesEffect.Checked ? 2048: 0) + 
-                (chk_BigShoes.Checked ? 4096 : 0) + (chk_HeroItems.Checked ? 8192 : 0) + (chk_randsagestone.Checked ? 16384 : 0) + 
-                (chk_HealUsAllStone.Checked ? 32768 : 0));
+                (chk_RmFighterPenalty.Checked ? 512 : 0) + (chk_AddRemakeEq.Checked ? 1024 : 0));
 
             int itemWeaponShopsInsTab = 11 * ((chkRandItemStores.Checked ? 1 : 0) + (chk_RandomizeWeaponShops.Checked ? 2 : 0) + (chk_sellUnsellItems.Checked ? 4 : 0) +
                 (chk_Caturday.Checked ? 8 : 0) + (chk_RandomizeInnPrices.Checked ? 16 : 0) + (chk_StoneofLife.Checked ? 32 : 0) + (chk_Seeds.Checked ? 64 : 0) +
@@ -7874,63 +7874,63 @@ namespace DW3Randomizer
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(6,1)));
             chk_DoubleAtk.Checked = (number % 2 == 1);
+            chk_HeroItems.Checked = (number % 4 >= 2);
+
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(7, 1)));
+            chk_randsagestone.Checked = (number % 2 == 1);
+            chk_HealUsAllStone.Checked = (number % 4 >= 2);
+            chk_RandShoesEffect.Checked = (number % 8 >= 4);
+            chk_BigShoes.Checked = (number % 16 >= 8);
 
             // Monsters
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(7, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(8, 1)));
             optStatSilly.Checked = (number % 4 == 0);
             optStatMedium.Checked = (number % 4 == 1);
             optStatHeavy.Checked = (number % 4 == 2);
             chkRandomizeXP.Checked = (number % 8 >= 4);
             chkRandomizeGP.Checked = (number % 16 >= 8);
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(8, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(9, 1)));
             chkRandEnemyPatterns.Checked = (number % 2 == 1);
             chk_RemMetalMonRun.Checked = (number % 4 >= 2);
             chk_RandDrop.Checked = (number % 8 >= 4);
             chk_RemDupPool.Checked = (number % 16 >= 8);
 
             // Map
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(9, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(10, 1)));
             chkRandomizeMap.Checked = (number % 2 == 1);
             chkSmallMap.Checked = (number % 4 >= 2);
             chk_SepBarGaia.Checked = (number % 8 >= 4);
             chkRandMonsterZones.Checked = (number % 16 >= 8);
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(10, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(11, 1)));
             chk_RemoveBirdRequirement.Checked = (number % 2 == 1);
             chk_RemLancelMountains.Checked = (number % 4 >= 2);
             chk_lbtoCharlock.Checked = (number % 8 >= 4);
             chk_RmMtnNecrogond.Checked = (number % 16 >= 8);
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(11, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(12, 1)));
             chk_RemoveMtnDrgQueen.Checked = (number % 2 == 1);
             chk_RmNewTown.Checked = (number % 4 >= 2);
             chk_RandTowns.Checked = (number % 8 >= 4);
 
             // Treasures & Equipment
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(12, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(13, 1)));
             chkRandTreasures.Checked = (number % 2 == 1);
             chk_GoldenClaw.Checked = (number % 4 >= 2); ;
             chkRandWhoCanEquip.Checked = (number % 8 >= 4);
             chkRandEquip.Checked = (number % 16 >= 8);
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(13, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(14, 1)));
             chk_UseVanEquipValues.Checked = (number % 2 == 1);
             chk_RemoveStartEqRestrictions.Checked = (number % 4 >= 2);
             chk_RmFighterPenalty.Checked = (number % 8 >= 4);
             chk_GreenSilverOrb.Checked = (number % 16 >= 8);
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(14, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(15, 1)));
             chk_AdjustEqpPrices.Checked = (number % 2 == 1);
             chk_RmRedundKey.Checked = (number % 4 >= 2);
             chk_AddRemakeEq.Checked = (number % 8 >= 4);
-            chk_RandShoesEffect.Checked = (number % 16 >= 8);
-
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(15, 1)));
-            chk_HeroItems.Checked = (number % 2 == 1);
-            chk_randsagestone.Checked = (number % 4 >= 2);
-            chk_BigShoes.Checked = (number % 8 >= 4);
-            chk_HealUsAllStone.Checked = (number % 16 >= 8);
 
             // Item & Weapon Shops & Inns
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(16, 1)));
@@ -7991,19 +7991,19 @@ namespace DW3Randomizer
             flags += convertIntToCharCapsOnly((cboGoldReq.SelectedIndex) + (chkFasterBattles.Checked ? 4 : 0) + (chkSpeedText.Checked ? 8 : 0)); // 3
             flags += convertIntToCharCapsOnly((chk_SpeedUpMenus.Checked ? 1 : 0) + (chk_Cod.Checked ? 2 : 0) + (chk_WeapArmPower.Checked ? 4 : 0) + (chkNoLamiaOrbs.Checked ? 8 : 0)); // 4
             flags += convertIntToCharCapsOnly((chk_RmManip.Checked ? 1 : 0) + (chk_RandomStartGold.Checked ? 2 : 0) + (chk_InvisibleNPCs.Checked ? 4 : 0) + (chk_InvisibleShips.Checked ? 8 : 0)); // 5
-            flags += convertIntToCharCapsOnly((chk_DoubleAtk.Checked ? 1 : 0)); // 6
+            flags += convertIntToCharCapsOnly((chk_DoubleAtk.Checked ? 1 : 0) + (chk_HeroItems.Checked ? 2 : 0)); // 6
+            flags += convertIntToCharCapsOnly((chk_randsagestone.Checked ? 1 : 0) + (chk_randsagestone.Checked ? (chk_HealUsAllStone.Checked ? 2 : 0) : 0) + (chk_RandShoesEffect.Checked ? 4 : 0) + (chk_RandShoesEffect.Checked ? (chk_BigShoes.Checked ? 8 : 0) : 0)); // 7
             // Monsters
-            flags += convertIntToCharCapsOnly((optStatSilly.Checked ? 0 : optStatMedium.Checked ? 1 : 2) + (chkRandomizeXP.Checked ? 4 : 0) + (chkRandomizeGP.Checked ? 8 : 0)); // 7
-            flags += convertIntToCharCapsOnly((chkRandEnemyPatterns.Checked ? 1 : 0) + (chk_RemMetalMonRun.Checked ? 2 : 0) + (chk_RandDrop.Checked ? 4 : 0) + (chk_RandDrop.Checked ? (chk_RemDupPool.Checked ? 8 : 0) : 0)); // 8
+            flags += convertIntToCharCapsOnly((optStatSilly.Checked ? 0 : optStatMedium.Checked ? 1 : 2) + (chkRandomizeXP.Checked ? 4 : 0) + (chkRandomizeGP.Checked ? 8 : 0)); // 8
+            flags += convertIntToCharCapsOnly((chkRandEnemyPatterns.Checked ? 1 : 0) + (chk_RemMetalMonRun.Checked ? 2 : 0) + (chk_RandDrop.Checked ? 4 : 0) + (chk_RandDrop.Checked ? (chk_RemDupPool.Checked ? 8 : 0) : 0)); // 9
             // Map
-            flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? 1 : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? 2 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_SepBarGaia.Checked ? 4 : 0) : 0) + (chkRandomizeMap.Checked ? (chkRandMonsterZones.Checked ? 8 : 0) : 0)); // 9
-            flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? (chk_RemoveBirdRequirement.Checked ? 1 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RemLancelMountains.Checked ? 2 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_lbtoCharlock.Checked ? 4 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RmMtnNecrogond.Checked ? 8 : 0) : 0)); // 10
-            flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? (chk_RemoveMtnDrgQueen.Checked ? 1 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RmNewTown.Checked ? 2 : 0) : 0) + (chk_RandTowns.Checked ? 4 : 0)); //11
+            flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? 1 : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? 2 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_SepBarGaia.Checked ? 4 : 0) : 0) + (chkRandomizeMap.Checked ? (chkRandMonsterZones.Checked ? 8 : 0) : 0)); // 10
+            flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? (chk_RemoveBirdRequirement.Checked ? 1 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RemLancelMountains.Checked ? 2 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_lbtoCharlock.Checked ? 4 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RmMtnNecrogond.Checked ? 8 : 0) : 0)); // 11
+            flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? (chk_RemoveMtnDrgQueen.Checked ? 1 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RmNewTown.Checked ? 2 : 0) : 0) + (chk_RandTowns.Checked ? 4 : 0)); //12
             // Treasures & Equipment
-            flags += convertIntToCharCapsOnly((chkRandTreasures.Checked ? 1 : 0) + (chkRandTreasures.Checked ? (chk_GoldenClaw.Checked ? 2 : 0) : 0) + (chkRandWhoCanEquip.Checked ? 4 : 0) + (chkRandEquip.Checked ? 8 : 0)); // 12
-            flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_UseVanEquipValues.Checked ? 1 : 0) : 0) + (chkRandEquip.Checked ? (chk_RemoveStartEqRestrictions.Checked ? 2 : 0) : 0) + (chk_RmFighterPenalty.Checked ? 4 : 0) + (chkRandTreasures.Checked ? (chk_GreenSilverOrb.Checked ? 8 : 0) : 0)); // 13
-            flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_AdjustEqpPrices.Checked ? 1 : 0) : 0) + (chkRandTreasures.Checked ? (chk_RmRedundKey.Checked ? 2 : 0) : 0) + (chk_AddRemakeEq.Checked ? 4 : 0) + (chk_RandShoesEffect.Checked ? 8 : 0)); //14
-            flags += convertIntToCharCapsOnly((chk_HeroItems.Checked ? 1 : 0) + (chk_randsagestone.Checked ? 2 : 0) + (chk_RandShoesEffect.Checked ? (chk_BigShoes.Checked ? 4 : 0) : 0) + (chk_randsagestone.Checked ? (chk_HealUsAllStone.Checked ? 8 : 0) : 0)); // 15
+            flags += convertIntToCharCapsOnly((chkRandTreasures.Checked ? 1 : 0) + (chkRandTreasures.Checked ? (chk_GoldenClaw.Checked ? 2 : 0) : 0) + (chkRandWhoCanEquip.Checked ? 4 : 0) + (chkRandEquip.Checked ? 8 : 0)); // 13
+            flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_UseVanEquipValues.Checked ? 1 : 0) : 0) + (chkRandEquip.Checked ? (chk_RemoveStartEqRestrictions.Checked ? 2 : 0) : 0) + (chk_RmFighterPenalty.Checked ? 4 : 0) + (chkRandTreasures.Checked ? (chk_GreenSilverOrb.Checked ? 8 : 0) : 0)); // 14
+            flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_AdjustEqpPrices.Checked ? 1 : 0) : 0) + (chkRandTreasures.Checked ? (chk_RmRedundKey.Checked ? 2 : 0) : 0) + (chk_AddRemakeEq.Checked ? 4 : 0)); //15
             // Item & Weapon Shops & Inns
             flags += convertIntToCharCapsOnly((chkRandItemEffects.Checked ? 1 : 0) + (chkRandItemStores.Checked ? 2 : 0) + (chk_RandomizeWeaponShops.Checked ? 4 : 0) + (chk_Caturday.Checked ? 8 : 0)); // 16
             flags += convertIntToCharCapsOnly((chk_RandomizeInnPrices.Checked ? 1 : 0) + (chk_sellUnsellItems.Checked ? 2 : 0)); //17
