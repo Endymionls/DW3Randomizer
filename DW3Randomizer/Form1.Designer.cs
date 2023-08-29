@@ -650,7 +650,8 @@ namespace DW3Randomizer
             "200%",
             "150%",
             "100%",
-            "50%"});
+            "50%",
+            "0%"});
             this.cboGoldReq.Location = new System.Drawing.Point(440, 15);
             this.cboGoldReq.Name = "cboGoldReq";
             this.cboGoldReq.Size = new System.Drawing.Size(150, 28);
@@ -662,6 +663,8 @@ namespace DW3Randomizer
             this.cboExpGains.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboExpGains.FormattingEnabled = true;
             this.cboExpGains.Items.AddRange(new object[] {
+            "1000%",
+            "750%",
             "500%",
             "400%",
             "300%",
@@ -669,7 +672,8 @@ namespace DW3Randomizer
             "150%",
             "100%",
             "50%",
-            "25%"});
+            "25%",
+            "0%"});
             this.cboExpGains.Location = new System.Drawing.Point(160, 15);
             this.cboExpGains.Name = "cboExpGains";
             this.cboExpGains.Size = new System.Drawing.Size(150, 28);
