@@ -404,7 +404,7 @@ namespace DW3Randomizer
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(957, 257);
+            this.tabPage1.Size = new System.Drawing.Size(957, 262);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Adjustments";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -607,7 +607,7 @@ namespace DW3Randomizer
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(330, 15);
+            this.label8.Location = new System.Drawing.Point(262, 15);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(89, 20);
             this.label8.TabIndex = 52;
@@ -651,10 +651,10 @@ namespace DW3Randomizer
             "150%",
             "100%",
             "50%",
-            "0%"});
-            this.cboGoldReq.Location = new System.Drawing.Point(440, 15);
+            "1 G per monster + battle"});
+            this.cboGoldReq.Location = new System.Drawing.Point(357, 15);
             this.cboGoldReq.Name = "cboGoldReq";
-            this.cboGoldReq.Size = new System.Drawing.Size(150, 28);
+            this.cboGoldReq.Size = new System.Drawing.Size(257, 28);
             this.cboGoldReq.TabIndex = 53;
             this.cboGoldReq.SelectedIndexChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -676,7 +676,7 @@ namespace DW3Randomizer
             "0%"});
             this.cboExpGains.Location = new System.Drawing.Point(160, 15);
             this.cboExpGains.Name = "cboExpGains";
-            this.cboExpGains.Size = new System.Drawing.Size(150, 28);
+            this.cboExpGains.Size = new System.Drawing.Size(94, 28);
             this.cboExpGains.TabIndex = 51;
             this.cboExpGains.SelectedIndexChanged += new System.EventHandler(this.determineFlags);
             // 
@@ -905,7 +905,7 @@ namespace DW3Randomizer
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(957, 257);
+            this.tabPage2.Size = new System.Drawing.Size(957, 262);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Monsters";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1012,7 +1012,7 @@ namespace DW3Randomizer
             this.tabPage4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPage4.Size = new System.Drawing.Size(957, 257);
+            this.tabPage4.Size = new System.Drawing.Size(957, 262);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Treasures & Equipment";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -1214,7 +1214,7 @@ namespace DW3Randomizer
             this.tabPage6.Location = new System.Drawing.Point(4, 29);
             this.tabPage6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(957, 257);
+            this.tabPage6.Size = new System.Drawing.Size(957, 262);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "Item & Weapon Shops & Inns";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -1498,7 +1498,7 @@ namespace DW3Randomizer
             this.tabPage3.Controls.Add(this.txtCharName1);
             this.tabPage3.Location = new System.Drawing.Point(4, 29);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(957, 257);
+            this.tabPage3.Size = new System.Drawing.Size(957, 262);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Characters";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1908,7 +1908,7 @@ namespace DW3Randomizer
             this.tabPage5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPage5.Size = new System.Drawing.Size(957, 257);
+            this.tabPage5.Size = new System.Drawing.Size(957, 262);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Fixes";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -1955,7 +1955,7 @@ namespace DW3Randomizer
             this.tabPage7.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPage7.Size = new System.Drawing.Size(957, 257);
+            this.tabPage7.Size = new System.Drawing.Size(957, 262);
             this.tabPage7.TabIndex = 6;
             this.tabPage7.Text = "Cosmetic";
             this.tabPage7.UseVisualStyleBackColor = true;

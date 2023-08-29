@@ -21,7 +21,7 @@ namespace DW3Randomizer
     {
         readonly string versionNumber = "2.4.7";
         readonly string revisionDate = "8/28/2023";
-        readonly int buildnumber = 167; // build starting 8/18/23
+        readonly int buildnumber = 168; // build starting 8/18/23
         readonly string SotWFlags = "AEHADHDAFOFLABJMFODPPPAHD";
         readonly string endyFlags = "AEGADHDAFONLACLNHODPPPAHD";
         readonly string jffFlags = "AAHADPDDPOPPPDLPHODPPPAPD";
@@ -247,11 +247,10 @@ namespace DW3Randomizer
         {
             int rni = 0; //Random Number Increment
             Random r1 = new Random(int.Parse(txtSeed.Text));
-            // Randomize how many steps up rni is increased if GenCompareFile is checked
-            for (int lnI = 0, lnI < buildnumber; lnI++)
-            {
+            for (int lnI = 0; lnI < buildnumber; lnI++)
                 rni++;
-            }
+
+            // Randomize how many steps up rni is increased if GenCompareFile is checked
             if (chk_GenCompareFile.Checked)
             {
                 for (int lnI = 0; lnI < (r1.Next() % buildnumber) + 1; lnI++)
@@ -6287,8 +6286,18 @@ namespace DW3Randomizer
                 }
                 gp = (gp > 1000 ? 1000 : gp);
 
-                romData[byteValStart + 4] = (byte)(gp % 256);
-                romData[byteValStart + 18] = (byte)(romData[byteValStart + 18] - (romData[byteValStart + 18] % 4) + (gp / 256));
+                if (gp > 0)
+                {
+                    romData[byteValStart + 4] = (byte)(gp % 256);
+                    romData[byteValStart + 18] = (byte)(romData[byteValStart + 18] - (romData[byteValStart + 18] % 4) + (gp / 256));
+                }
+                else
+                {
+                    romData[byteValStart + 4] = 0x00;
+                    romData[byteValStart + 18] = 0x00;
+                }
+
+                
             }
         }
 
