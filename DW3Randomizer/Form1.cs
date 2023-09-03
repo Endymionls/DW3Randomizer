@@ -19,9 +19,9 @@ namespace DW3Randomizer
 {
     public partial class Form1 : Form
     {
-        readonly string versionNumber = "2.4.7";
-        readonly string revisionDate = "8/28/2023";
-        readonly int buildnumber = 168; // build starting 8/18/23
+        readonly string versionNumber = "2.5.0";
+        readonly string revisionDate = "9/3/2023";
+        readonly int buildnumber = 170; // build starting 8/18/23
         readonly string SotWFlags = "AEHADHDAFOFLABJMFODPPPAHD";
         readonly string endyFlags = "AEGADHDAFONLACLNHODPPPAHD";
         readonly string jffFlags = "AAHADPDDPOPPPDLPHODPPPAPD";
@@ -353,10 +353,10 @@ namespace DW3Randomizer
             {
                 r1.Next();
             }
-            if (chk_BigShoes.Checked) // Shoes will give 1-255 exp per step
-                romData[0x330fc] = (byte)((r1.Next() % 255) + 1);
-            else // Shoes will give 1-10 exp per step
-                romData[0x330fc] = (byte)((r1.Next() % 10) + 1);
+            if (chk_BigShoes.Checked) // Shoes will give 0-255 exp per step
+                romData[0x330fc] = (byte)((r1.Next() % 256));
+            else // Shoes will give 0-10 exp per step
+                romData[0x330fc] = (byte)((r1.Next() % 11));
 
         }
 
@@ -2383,6 +2383,8 @@ namespace DW3Randomizer
 
                                 romData[0x18523] = (byte)(x);
                                 romData[0x18524] = (byte)(y);
+
+                                map[y, x] = 0xf5;
                             }
                             else
                                 lnI--;
@@ -7652,34 +7654,34 @@ namespace DW3Randomizer
             convertStrToHex("0Thus, ", 0x29536, false);
             romData[0x2953d] = 0xf0; // Hero 8 Char
             convertStrToHex("became known", 0x2953e, true);
-            convertStrToHex(" as Erdrick in some stories and", 0x2954c, true);
-            convertStrToHex(" Loto in others.", 0x2956c, true);
-            convertStrToHex("  ", 0x2957d, true);
-            convertStrToHex("  ", 0x29580, true);
-            convertStrToHex("0After a while, our hero and", 0x29583, true);
-            convertStrToHex(" the rest of the party went", 0x295a0, true);
-            convertStrToHex(" their separate ways.", 0x295bc, true);
-            convertStrToHex("  ", 0x295d2, true);
-            convertStrToHex("0The hero^s sword, armor, and", 0x295d5, true);
-            convertStrToHex(" amulet were left behind for", 0x295f3, true);
-            convertStrToHex(" future generations bearing", 0x29610, true);
-            convertStrToHex(" the name Erdrick.", 0x2962c, true);
-            convertStrToHex("  ", 0x2963f, true);
-            convertStrToHex("0Unfortunately, records of", 0x29642, true);
-            convertStrToHex(" Erdrick^s party were lost", 0x2965d, true);
-            convertStrToHex(" with time.", 0x29678, true);
-            convertStrToHex("  ", 0x29684, true);
-            convertStrToHex(" Dragon Warrior III Randomizer", 0x29687, true);
-            convertStrToHex("  ", 0x296a6, true);
-            convertStrToHex("0Originally Developed By:", 0x296a9, true);
-            convertStrToHex("0 gameboyf9", 0x296c3, true);
-            convertStrToHex("  ", 0x296cf, true);
-            convertStrToHex("0Currently Developed By:", 0x296d2, true);
-            convertStrToHex("0 endymionls", 0x296eb, true);
-            convertStrToHex("  ", 0x296f8, true);
-            convertStrToHex("0                      ", 0x296fb, true);
-            convertStrToHex("            ", 0x29713, true);
-            convertStrToHex("Thank you for playing!  ", 0x1f777, false);
+            convertStrToHex(" as Erdrick in some stories and", 0x2954b, true);
+            convertStrToHex(" Loto in others.", 0x2956b, true);
+            convertStrToHex("  ", 0x2957c, true);
+            convertStrToHex("  ", 0x2957f, true);
+            convertStrToHex("0After a while, our hero and", 0x29582, true);
+            convertStrToHex(" the rest of the party went", 0x2959f, true);
+            convertStrToHex(" their separate ways.", 0x295bb, true);
+            convertStrToHex("  ", 0x295d1, true);
+            convertStrToHex("0The hero^s sword, armor, and", 0x295d4, true);
+            convertStrToHex(" amulet were left behind for", 0x295f2, true);
+            convertStrToHex(" future generations bearing", 0x2960f, true);
+            convertStrToHex(" the name Erdrick.", 0x2962b, true);
+            convertStrToHex("  ", 0x2963e, true);
+            convertStrToHex("0Unfortunately, records of", 0x29641, true);
+            convertStrToHex(" Erdrick^s party were lost", 0x2965c, true);
+            convertStrToHex(" with time.", 0x29677, true);
+            convertStrToHex("  ", 0x29683, true);
+            convertStrToHex(" Dragon Warrior III Randomizer", 0x29686, true);
+            convertStrToHex("  ", 0x296a5, true);
+            convertStrToHex("0Originally Developed By:", 0x296a8, true);
+            convertStrToHex("0 gameboyf9", 0x296c2, true);
+            convertStrToHex("  ", 0x296ce, true);
+            convertStrToHex("0Currently Developed By:", 0x296d1, true);
+            convertStrToHex("0 endymionls", 0x296ea, true);
+            convertStrToHex("  ", 0x296f7, true);
+            convertStrToHex("0                      ", 0x296fa, true);
+            convertStrToHex("            ", 0x29712, true);
+            convertStrToHex("Thank you for playing!     ", 0x1f777, false);
         }
 
         private StreamWriter compareComposeString(string intro, StreamWriter writer, int startAddress, int length, int skip = 1, string delimiter = "")
