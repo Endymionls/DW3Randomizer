@@ -19,9 +19,9 @@ namespace DW3Randomizer
 {
     public partial class Form1 : Form
     {
-        readonly string versionNumber = "2.5.0";
+        readonly string versionNumber = "2.5.1";
         readonly string revisionDate = "9/3/2023";
-        readonly int buildnumber = 170; // build starting 8/18/23
+        readonly int buildnumber = 171; // build starting 8/18/23
         readonly string SotWFlags = "AEHADHDAFOFLABJMFODPPPAHD";
         readonly string endyFlags = "AEGADHDAFONLACLNHODPPPAHD";
         readonly string jffFlags = "AAHADPDDPOPPPDLPHODPPPAPD";
@@ -2384,7 +2384,6 @@ namespace DW3Randomizer
                                 romData[0x18523] = (byte)(x);
                                 romData[0x18524] = (byte)(y);
 
-                                map[y, x] = 0xf5;
                             }
                             else
                                 lnI--;
