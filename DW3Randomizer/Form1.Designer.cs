@@ -160,6 +160,9 @@ namespace DW3Randomizer
             this.chk_FixHeroSpell = new System.Windows.Forms.CheckBox();
             this.chkRemoveParryFight = new System.Windows.Forms.CheckBox();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.chk_FemaleHero = new System.Windows.Forms.CheckBox();
+            this.chk_RandNPCSprites = new System.Windows.Forms.CheckBox();
+            this.chk_FFigherSprite = new System.Windows.Forms.CheckBox();
             this.chk_EveryoneCat = new System.Windows.Forms.CheckBox();
             this.chk_changeCats = new System.Windows.Forms.CheckBox();
             this.chk_GhostToCasket = new System.Windows.Forms.CheckBox();
@@ -1944,6 +1947,9 @@ namespace DW3Randomizer
             // 
             // tabPage7
             // 
+            this.tabPage7.Controls.Add(this.chk_FemaleHero);
+            this.tabPage7.Controls.Add(this.chk_RandNPCSprites);
+            this.tabPage7.Controls.Add(this.chk_FFigherSprite);
             this.tabPage7.Controls.Add(this.chk_EveryoneCat);
             this.tabPage7.Controls.Add(this.chk_changeCats);
             this.tabPage7.Controls.Add(this.chk_GhostToCasket);
@@ -1960,6 +1966,38 @@ namespace DW3Randomizer
             this.tabPage7.Text = "Cosmetic";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
+            // chk_FemaleHero
+            // 
+            this.chk_FemaleHero.AutoSize = true;
+            this.chk_FemaleHero.Location = new System.Drawing.Point(10, 75);
+            this.chk_FemaleHero.Name = "chk_FemaleHero";
+            this.chk_FemaleHero.Size = new System.Drawing.Size(181, 24);
+            this.chk_FemaleHero.TabIndex = 202;
+            this.chk_FemaleHero.Text = "Female Hero Sprites";
+            this.adjustments.SetToolTip(this.chk_FemaleHero, "Selects female sprites for the Hero Sprite. (Does not affect gameplay. Choose Fem" +
+        "ale as sex at start to add equipment benefits.)");
+            this.chk_FemaleHero.UseVisualStyleBackColor = true;
+            // 
+            // chk_RandNPCSprites
+            // 
+            this.chk_RandNPCSprites.AutoSize = true;
+            this.chk_RandNPCSprites.Location = new System.Drawing.Point(300, 75);
+            this.chk_RandNPCSprites.Name = "chk_RandNPCSprites";
+            this.chk_RandNPCSprites.Size = new System.Drawing.Size(206, 24);
+            this.chk_RandNPCSprites.TabIndex = 209;
+            this.chk_RandNPCSprites.Text = "Randomize NPC Sprites";
+            this.chk_RandNPCSprites.UseVisualStyleBackColor = true;
+            // 
+            // chk_FFigherSprite
+            // 
+            this.chk_FFigherSprite.AutoSize = true;
+            this.chk_FFigherSprite.Location = new System.Drawing.Point(300, 45);
+            this.chk_FFigherSprite.Name = "chk_FFigherSprite";
+            this.chk_FFigherSprite.Size = new System.Drawing.Size(212, 24);
+            this.chk_FFigherSprite.TabIndex = 208;
+            this.chk_FFigherSprite.Text = "Female Fighter Sprite Fix";
+            this.chk_FFigherSprite.UseVisualStyleBackColor = true;
+            // 
             // chk_EveryoneCat
             // 
             this.chk_EveryoneCat.AutoSize = true;
@@ -1974,11 +2012,11 @@ namespace DW3Randomizer
             // chk_changeCats
             // 
             this.chk_changeCats.AutoSize = true;
-            this.chk_changeCats.Location = new System.Drawing.Point(10, 165);
+            this.chk_changeCats.Location = new System.Drawing.Point(300, 15);
             this.chk_changeCats.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_changeCats.Name = "chk_changeCats";
             this.chk_changeCats.Size = new System.Drawing.Size(242, 24);
-            this.chk_changeCats.TabIndex = 205;
+            this.chk_changeCats.TabIndex = 207;
             this.chk_changeCats.Text = "Change cats to other animals";
             this.adjustments.SetToolTip(this.chk_changeCats, "Changes cat sprites to other animals from other Dragon Warrior games.");
             this.chk_changeCats.UseVisualStyleBackColor = true;
@@ -1986,11 +2024,11 @@ namespace DW3Randomizer
             // chk_GhostToCasket
             // 
             this.chk_GhostToCasket.AutoSize = true;
-            this.chk_GhostToCasket.Location = new System.Drawing.Point(10, 135);
+            this.chk_GhostToCasket.Location = new System.Drawing.Point(10, 165);
             this.chk_GhostToCasket.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_GhostToCasket.Name = "chk_GhostToCasket";
             this.chk_GhostToCasket.Size = new System.Drawing.Size(227, 24);
-            this.chk_GhostToCasket.TabIndex = 204;
+            this.chk_GhostToCasket.TabIndex = 205;
             this.chk_GhostToCasket.Text = "Change Ghosts to Caskets";
             this.adjustments.SetToolTip(this.chk_GhostToCasket, "This will change dead party members from ghosts into caskets (palls) and adjusts " +
         "relevant text.");
@@ -1999,11 +2037,11 @@ namespace DW3Randomizer
             // chk_RandSpriteColor
             // 
             this.chk_RandSpriteColor.AutoSize = true;
-            this.chk_RandSpriteColor.Location = new System.Drawing.Point(10, 105);
+            this.chk_RandSpriteColor.Location = new System.Drawing.Point(10, 135);
             this.chk_RandSpriteColor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_RandSpriteColor.Name = "chk_RandSpriteColor";
             this.chk_RandSpriteColor.Size = new System.Drawing.Size(211, 24);
-            this.chk_RandSpriteColor.TabIndex = 203;
+            this.chk_RandSpriteColor.TabIndex = 204;
             this.chk_RandSpriteColor.Text = "Randomize Sprite Colors";
             this.adjustments.SetToolTip(this.chk_RandSpriteColor, "Randomizes the colors of overworld sprites. There may be some interesting combina" +
         "tions.");
@@ -2012,11 +2050,11 @@ namespace DW3Randomizer
             // chk_ChangeHeroAge
             // 
             this.chk_ChangeHeroAge.AutoSize = true;
-            this.chk_ChangeHeroAge.Location = new System.Drawing.Point(10, 75);
+            this.chk_ChangeHeroAge.Location = new System.Drawing.Point(10, 105);
             this.chk_ChangeHeroAge.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_ChangeHeroAge.Name = "chk_ChangeHeroAge";
             this.chk_ChangeHeroAge.Size = new System.Drawing.Size(174, 24);
-            this.chk_ChangeHeroAge.TabIndex = 202;
+            this.chk_ChangeHeroAge.TabIndex = 203;
             this.chk_ChangeHeroAge.Text = "Change Hero\'s Age";
             this.adjustments.SetToolTip(this.chk_ChangeHeroAge, "Changes the hero\'s age in opening to a random number and potentially the sprite b" +
         "ased on age.");
@@ -2452,6 +2490,9 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_BigShoes;
         private System.Windows.Forms.CheckBox chk_HeroItems;
         private System.Windows.Forms.CheckBox chk_RandShoesEffect;
+        private System.Windows.Forms.CheckBox chk_FFigherSprite;
+        private System.Windows.Forms.CheckBox chk_RandNPCSprites;
+        private System.Windows.Forms.CheckBox chk_FemaleHero;
     }
 }
 
