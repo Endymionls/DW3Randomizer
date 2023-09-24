@@ -25,7 +25,7 @@ namespace DW3Randomizer
     {
         readonly string versionNumber = "2.5.2";
         readonly string revisionDate = "9/24/2023";
-        readonly int buildnumber = 245; // build starting 8/18/23
+        readonly int buildnumber = 246; // build starting 8/18/23
         readonly string SotWFlags = "A-EHADHDAF-ON-LANB-JMF-ODPPP-AH-D";
         readonly string TradSotWFlags = "A-EHADHDAF-ON-LABA-JMF-ODPPP-AH-D";
         readonly string jffFlags = "A-AHADPDDP-OP-PPPB-LPH-ODPPP-AP-D";
@@ -4970,7 +4970,8 @@ namespace DW3Randomizer
 
             // changes references from ghost to pall (synonym for casket).
             convertStrToHex("pall and throws it away. ", 0x424f1, false);
-            convertStrToHex("uts the ", 0x42560, false);
+            convertStrToHex("puts the ", 0x42559, false);
+            romData[0x42568] = 0xf4;
             convertStrToHex(" into ", 0x42569, false);
             romData[0x4256f] = 0xf5;
             convertStrToHex("^s pall.", 0x42570, false);
