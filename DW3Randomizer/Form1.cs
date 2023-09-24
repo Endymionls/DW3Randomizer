@@ -25,10 +25,10 @@ namespace DW3Randomizer
     {
         readonly string versionNumber = "2.5.2";
         readonly string revisionDate = "9/24/2023";
-        readonly int buildnumber = 244; // build starting 8/18/23
+        readonly int buildnumber = 245; // build starting 8/18/23
         readonly string SotWFlags = "A-EHADHDAF-ON-LANB-JMF-ODPPP-AH-D";
         readonly string TradSotWFlags = "A-EHADHDAF-ON-LABA-JMF-ODPPP-AH-D";
-        readonly string jffFlags = "A-GFBDPDDP-OP-PPPB-LPH-ODPPP-AP-D";
+        readonly string jffFlags = "A-AHADPDDP-OP-PPPB-LPH-ODPPP-AP-D";
         readonly bool debugmode = false;
         Random r1;
 

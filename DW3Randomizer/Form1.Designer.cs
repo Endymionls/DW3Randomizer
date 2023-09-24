@@ -2211,6 +2211,7 @@ namespace DW3Randomizer
             this.optSotWFlags.TabStop = true;
             this.optSotWFlags.Text = "SotW Flags";
             this.optSotWFlags.UseVisualStyleBackColor = true;
+            this.optSotWFlags.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // opt_JustForFun
             // 
@@ -2222,6 +2223,7 @@ namespace DW3Randomizer
             this.opt_JustForFun.TabStop = true;
             this.opt_JustForFun.Text = "Just For Fun";
             this.opt_JustForFun.UseVisualStyleBackColor = true;
+            this.opt_JustForFun.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // optTradSotWFlags
             // 
