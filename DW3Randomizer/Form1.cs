@@ -25,7 +25,7 @@ namespace DW3Randomizer
     {
         readonly string versionNumber = "2.5.2";
         readonly string revisionDate = "9/24/2023";
-        readonly int buildnumber = 246; // build starting 8/18/23
+        readonly int buildnumber = 247; // build starting 8/18/23
         readonly string SotWFlags = "A-EHADHDAF-ON-LANB-JMF-ODPPP-AH-D";
         readonly string TradSotWFlags = "A-EHADHDAF-ON-LABA-JMF-ODPPP-AH-D";
         readonly string jffFlags = "A-AHADPDDP-OP-PPPB-LPH-ODPPP-AP-D";
@@ -791,38 +791,42 @@ namespace DW3Randomizer
             {
                 for (int lni = 0; lni < dogSprite.Length; lni++)
                     romData[0x23060 + lni] = dogSprite[lni];
-                romData[0x46a58] = romData[0x514cb] = romData[0x52dd7] = romData[0x52e1f] = romData[0x55e59] = 0x3b; // W
-                romData[0x46a59] = romData[0x514cc] = romData[0x52dd8] = romData[0x52e20] = romData[0x55e5a] = 0x19; // o
-                romData[0x46a5a] = romData[0x514cd] = romData[0x52dd9] = romData[0x52e21] = romData[0x55e5b] = 0x19; // o
-                romData[0x46a5b] = romData[0x514ce] = romData[0x52dda] = romData[0x52e22] = romData[0x55e5c] = 0x10; // f
+                convertStrToHex("Woof", 0x46a58, false);
+                convertStrToHex("Woof", 0x514cb, false);
+                convertStrToHex("Woof", 0x52dd7, false);
+                convertStrToHex("Woof", 0x52e1f, false);
+                convertStrToHex("Woof", 0x55e59, false);
             }
 
             else if (index == 2)
             {
                 for (int lni = 0; lni < yetiSprite.Length; lni++)
                     romData[0x23060 + lni] = yetiSprite[lni];
-                romData[0x46a58] = romData[0x514cb] = romData[0x52dd7] = romData[0x52e1f] = romData[0x55e59] = 0x36; // R
-                romData[0x46a59] = romData[0x514cc] = romData[0x52dd8] = romData[0x52e20] = romData[0x55e5a] = 0x19; // o
-                romData[0x46a5a] = romData[0x514cd] = romData[0x52dd9] = romData[0x52e21] = romData[0x55e5b] = 0x0b; // a
-                romData[0x46a5b] = romData[0x514ce] = romData[0x52dda] = romData[0x52e22] = romData[0x55e5c] = 0x1c; // r
+                convertStrToHex("Roar", 0x46a58, false);
+                convertStrToHex("Roar", 0x514cb, false);
+                convertStrToHex("Roar", 0x52dd7, false);
+                convertStrToHex("Roar", 0x52e1f, false);
+                convertStrToHex("Roar", 0x55e59, false);
             }
             else if (index == 3)
             {
                 for (int lni = 0; lni < tigerSprite.Length; lni++)
                     romData[0x23060 + lni] = tigerSprite[lni];
-                romData[0x46a58] = romData[0x514cb] = romData[0x52dd7] = romData[0x52e1f] = romData[0x55e59] = 0x2b; // G
-                romData[0x46a59] = romData[0x514cc] = romData[0x52dd8] = romData[0x52e20] = romData[0x55e5a] = 0x1c; // r
-                romData[0x46a5a] = romData[0x514cd] = romData[0x52dd9] = romData[0x52e21] = romData[0x55e5b] = 0x1c; // r
-                romData[0x46a5b] = romData[0x514ce] = romData[0x52dda] = romData[0x52e22] = romData[0x55e5c] = 0x1c; // r
+                convertStrToHex("Grrr", 0x46a58, false);
+                convertStrToHex("Grrr", 0x514cb, false);
+                convertStrToHex("Grrr", 0x52dd7, false);
+                convertStrToHex("Grrr", 0x52e1f, false);
+                convertStrToHex("Grrr", 0x55e59, false);
             }
             else if (index == 4)
             {
                 for (int lni = 0; lni < puppySprite.Length; lni++)
                     romData[0x23060 + lni] = puppySprite[lni];
-                romData[0x46a58] = romData[0x514cb] = romData[0x52dd7] = romData[0x52e1f] = romData[0x55e59] = 0x3b; // W
-                romData[0x46a59] = romData[0x514cc] = romData[0x52dd8] = romData[0x52e20] = romData[0x55e5a] = 0x19; // o
-                romData[0x46a5a] = romData[0x514cd] = romData[0x52dd9] = romData[0x52e21] = romData[0x55e5b] = 0x19; // o
-                romData[0x46a5b] = romData[0x514ce] = romData[0x52dda] = romData[0x52e22] = romData[0x55e5c] = 0x10; // f
+                convertStrToHex("Woof", 0x46a58, false);
+                convertStrToHex("Woof", 0x514cb, false);
+                convertStrToHex("Woof", 0x52dd7, false);
+                convertStrToHex("Woof", 0x52e1f, false);
+                convertStrToHex("Woof", 0x55e59, false);
             }
             else if (index == 5)
             {
@@ -832,42 +836,51 @@ namespace DW3Randomizer
                 romData[0x46a59] = romData[0x514cc] = romData[0x52dd8] = romData[0x52e20] = romData[0x55e5a] = 0x12; // h
                 romData[0x46a5a] = romData[0x514cd] = romData[0x52dd9] = romData[0x52e21] = romData[0x55e5b] = 0x0b; // a
                 romData[0x46a5b] = romData[0x514ce] = romData[0x52dda] = romData[0x52e22] = romData[0x55e5c] = 0x1e; // t
+                convertStrToHex("Chat", 0x46a58, false);
+                convertStrToHex("Chat", 0x514cb, false);
+                convertStrToHex("Chat", 0x52dd7, false);
+                convertStrToHex("Chat", 0x52e1f, false);
+                convertStrToHex("Chat", 0x55e59, false);
             }
             else if (index == 6)
             {
                 for (int lni = 0; lni < dw4CatSprite.Length; lni++)
                     romData[0x23060 + lni] = dw4CatSprite[lni];
-                romData[0x46a58] = romData[0x514cb] = romData[0x52dd7] = romData[0x52e1f] = romData[0x55e59] = 0x34; // P
-                romData[0x46a59] = romData[0x514cc] = romData[0x52dd8] = romData[0x52e20] = romData[0x55e5a] = 0x1c; // r
-                romData[0x46a5a] = romData[0x514cd] = romData[0x52dd9] = romData[0x52e21] = romData[0x55e5b] = 0x1c; // r
-                romData[0x46a5b] = romData[0x514ce] = romData[0x52dda] = romData[0x52e22] = romData[0x55e5c] = 0x1c; // r
+                convertStrToHex("Prrr", 0x46a58, false);
+                convertStrToHex("Prrr", 0x514cb, false);
+                convertStrToHex("Prrr", 0x52dd7, false);
+                convertStrToHex("Prrr", 0x52e1f, false);
+                convertStrToHex("Prrr", 0x55e59, false);
             }
             else if (index == 7)
             {
                 for (int lni = 0; lni < lionSprite.Length; lni++)
                     romData[0x23060 + lni] = lionSprite[lni];
-                romData[0x46a58] = romData[0x514cb] = romData[0x52dd7] = romData[0x52e1f] = romData[0x55e59] = 0x36; // R
-                romData[0x46a59] = romData[0x514cc] = romData[0x52dd8] = romData[0x52e20] = romData[0x55e5a] = 0x19; // o
-                romData[0x46a5a] = romData[0x514cd] = romData[0x52dd9] = romData[0x52e21] = romData[0x55e5b] = 0x0b; // a
-                romData[0x46a5b] = romData[0x514ce] = romData[0x52dda] = romData[0x52e22] = romData[0x55e5c] = 0x1c; // r
+                convertStrToHex("Roar", 0x46a58, false);
+                convertStrToHex("Roar", 0x514cb, false);
+                convertStrToHex("Roar", 0x52dd7, false);
+                convertStrToHex("Roar", 0x52e1f, false);
+                convertStrToHex("Roar", 0x55e59, false);
             }
             else if (index == 8)
             {
                 for (int lni = 0; lni < dinoSprite.Length; lni++)
                     romData[0x23060 + lni] = dinoSprite[lni];
-                romData[0x46a58] = romData[0x514cb] = romData[0x52dd7] = romData[0x52e1f] = romData[0x55e59] = 0x36; // R
-                romData[0x46a59] = romData[0x514cc] = romData[0x52dd8] = romData[0x52e20] = romData[0x55e5a] = 0x19; // o
-                romData[0x46a5a] = romData[0x514cd] = romData[0x52dd9] = romData[0x52e21] = romData[0x55e5b] = 0x0b; // a
-                romData[0x46a5b] = romData[0x514ce] = romData[0x52dda] = romData[0x52e22] = romData[0x55e5c] = 0x1c; // r
+                convertStrToHex("Roar", 0x46a58, false);
+                convertStrToHex("Roar", 0x514cb, false);
+                convertStrToHex("Roar", 0x52dd7, false);
+                convertStrToHex("Roar", 0x52e1f, false);
+                convertStrToHex("Roar", 0x55e59, false);
             }
             else if (index == 9)
             {
                 for (int lni = 0; lni < gbaAniSprite.Length; lni++)
                     romData[0x23060 + lni] = gbaAniSprite[lni];
-                romData[0x46a58] = romData[0x514cb] = romData[0x52dd7] = romData[0x52e1f] = romData[0x55e59] = 0x36; // R
-                romData[0x46a59] = romData[0x514cc] = romData[0x52dd8] = romData[0x52e20] = romData[0x55e5a] = 0x19; // o
-                romData[0x46a5a] = romData[0x514cd] = romData[0x52dd9] = romData[0x52e21] = romData[0x55e5b] = 0x0b; // a
-                romData[0x46a5b] = romData[0x514ce] = romData[0x52dda] = romData[0x52e22] = romData[0x55e5c] = 0x1c; // r
+                convertStrToHex("Roar", 0x46a58, false);
+                convertStrToHex("Roar", 0x514cb, false);
+                convertStrToHex("Roar", 0x52dd7, false);
+                convertStrToHex("Roar", 0x52e1f, false);
+                convertStrToHex("Roar", 0x55e59, false);
             }
         }
 
