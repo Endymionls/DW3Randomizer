@@ -23,7 +23,7 @@ namespace DW3Randomizer
 {
     public partial class Form1 : Form
     {
-        readonly string versionNumber = "2.5.3";
+        readonly string versionNumber = "2.5.2";
         readonly string revisionDate = "9/26/2023";
         readonly int buildnumber = 250; // build starting 8/18/23
         readonly string SotWFlags = "A-EHADHDAF-ON-LANB-JMF-ODPPP-AHB-D";
