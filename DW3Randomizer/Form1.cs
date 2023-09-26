@@ -25,7 +25,7 @@ namespace DW3Randomizer
     {
         readonly string versionNumber = "2.5.3";
         readonly string revisionDate = "9/26/2023";
-        readonly int buildnumber = 249; // build starting 8/18/23
+        readonly int buildnumber = 250; // build starting 8/18/23
         readonly string SotWFlags = "A-EHADHDAF-ON-LANB-JMF-ODPPP-AHB-D";
         readonly string TradSotWFlags = "A-EHADHDAF-ON-LABA-JMF-ODPPP-AHA-D";
         readonly string jffFlags = "A-AHADPDDP-OP-PPPB-LPH-ODPPP-APB-D";
@@ -379,8 +379,9 @@ namespace DW3Randomizer
 
         private void nonMagicMP()
         {
-            romData[0x2540]
+            romData[0x2540] = 0x08;
         }
+
         private void randshoes()
         {
             if (chk_BigShoes.Checked) // Shoes will give 0-255 exp per step
