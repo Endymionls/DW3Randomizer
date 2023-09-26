@@ -190,6 +190,7 @@ namespace DW3Randomizer
             this.txtSeed = new System.Windows.Forms.TextBox();
             this.btn_CopyHash = new System.Windows.Forms.Button();
             this.btn_chksumHash = new System.Windows.Forms.Button();
+            this.chk_nonMagicMP = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage8.SuspendLayout();
@@ -1442,6 +1443,7 @@ namespace DW3Randomizer
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.chk_nonMagicMP);
             this.tabPage3.Controls.Add(this.grpMonsterStat);
             this.tabPage3.Controls.Add(this.chk_ChangeDefaultParty);
             this.tabPage3.Controls.Add(this.chkFourJobFiesta);
@@ -1547,7 +1549,7 @@ namespace DW3Randomizer
             this.chkFourJobFiesta.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkFourJobFiesta.Name = "chkFourJobFiesta";
             this.chkFourJobFiesta.Size = new System.Drawing.Size(237, 24);
-            this.chkFourJobFiesta.TabIndex = 179;
+            this.chkFourJobFiesta.TabIndex = 180;
             this.chkFourJobFiesta.Text = "Four Job Fiesta adjustments";
             this.adjustments.SetToolTip(this.chkFourJobFiesta, "Allows the hero to be removed from the party, the hero to change classes, and any" +
         " hero to become a sage.");
@@ -1574,7 +1576,7 @@ namespace DW3Randomizer
             this.chkRandSpellStrength.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkRandSpellStrength.Name = "chkRandSpellStrength";
             this.chkRandSpellStrength.Size = new System.Drawing.Size(223, 24);
-            this.chkRandSpellStrength.TabIndex = 178;
+            this.chkRandSpellStrength.TabIndex = 179;
             this.chkRandSpellStrength.Text = "Randomize spell strengths";
             this.adjustments.SetToolTip(this.chkRandSpellStrength, "Randomizes the strength of spells.");
             this.chkRandSpellStrength.UseVisualStyleBackColor = true;
@@ -1587,7 +1589,7 @@ namespace DW3Randomizer
             this.chkRandSpellLearning.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkRandSpellLearning.Name = "chkRandSpellLearning";
             this.chkRandSpellLearning.Size = new System.Drawing.Size(212, 24);
-            this.chkRandSpellLearning.TabIndex = 177;
+            this.chkRandSpellLearning.TabIndex = 178;
             this.chkRandSpellLearning.Text = "Randomize spell learning";
             this.adjustments.SetToolTip(this.chkRandSpellLearning, "Randomizes the class and level spells are learned. Field and battle spells are le" +
         "arned separately.");
@@ -2221,6 +2223,18 @@ namespace DW3Randomizer
             this.btn_chksumHash.UseVisualStyleBackColor = true;
             this.btn_chksumHash.Click += new System.EventHandler(this.btn_chksumHash_Click);
             // 
+            // chk_nonMagicMP
+            // 
+            this.chk_nonMagicMP.AutoSize = true;
+            this.chk_nonMagicMP.Location = new System.Drawing.Point(541, 180);
+            this.chk_nonMagicMP.Name = "chk_nonMagicMP";
+            this.chk_nonMagicMP.Size = new System.Drawing.Size(236, 24);
+            this.chk_nonMagicMP.TabIndex = 177;
+            this.chk_nonMagicMP.Text = "Non-Magic Jobs Gain MP";
+            this.chk_nonMagicMP.UseVisualStyleBackColor = true;
+            this.adjustments.SetToolTip(this.chk_nonMagicMP, "Non-spellcasting jobs gain MP at level up.");
+            this.chk_nonMagicMP.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -2443,6 +2457,7 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_RandoCaves;
         private System.Windows.Forms.CheckBox chk_RandoTowns;
         private System.Windows.Forms.RadioButton optSotWFlags;
+        private System.Windows.Forms.CheckBox chk_nonMagicMP;
     }
 }
 

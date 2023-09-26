@@ -23,12 +23,12 @@ namespace DW3Randomizer
 {
     public partial class Form1 : Form
     {
-        readonly string versionNumber = "2.5.2";
-        readonly string revisionDate = "9/25/2023";
-        readonly int buildnumber = 248; // build starting 8/18/23
-        readonly string SotWFlags = "A-EHADHDAF-ON-LANB-JMF-ODPPP-AH-D";
-        readonly string TradSotWFlags = "A-EHADHDAF-ON-LABA-JMF-ODPPP-AH-D";
-        readonly string jffFlags = "A-AHADPDDP-OP-PPPB-LPH-ODPPP-AP-D";
+        readonly string versionNumber = "2.5.3";
+        readonly string revisionDate = "9/26/2023";
+        readonly int buildnumber = 249; // build starting 8/18/23
+        readonly string SotWFlags = "A-EHADHDAF-ON-LANB-JMF-ODPPP-AHB-D";
+        readonly string TradSotWFlags = "A-EHADHDAF-ON-LABA-JMF-ODPPP-AHA-D";
+        readonly string jffFlags = "A-AHADPDDP-OP-PPPB-LPH-ODPPP-APB-D";
         readonly bool debugmode = false;
         Random r1;
 
@@ -125,7 +125,7 @@ namespace DW3Randomizer
                 (chk_WizardsRing.Checked ? 16384 : 0) + (chk_LampofDarkness.Checked ? 32768 : 0) + (chk_PoisonMothPowder.Checked ? 65536 : 0));
 
             int charactersTab = 13 * ((optStatHeavy.Checked ? 1 : optStatMedium.Checked ? 2 : optStatSilly.Checked ? 4 : 0) + (chkRandStatGains.Checked ? 8 : 0) + (chkRandSpellLearning.Checked ? 16 : 0)
-                + (chkRandSpellStrength.Checked ? 32 : 0) + (chkFourJobFiesta.Checked ? 64 : 0));
+                + (chkRandSpellStrength.Checked ? 32 : 0) + (chkFourJobFiesta.Checked ? 64 : 0) + (chk_nonMagicMP.Checked ? 128 : 0));
 
             int fixesTab = 17 * ((chkRemoveParryFight.Checked ? 1 : 0) + (chk_FixHeroSpell.Checked ? 2 : 0));
 
@@ -367,6 +367,7 @@ namespace DW3Randomizer
                 if (chk_HeroItems.Checked) heroitems();
                 if (chk_FFigherSprite.Checked) fixFFigherSprite();
                 if (chk_RandNPCSprites.Checked) randomNPCSprites();
+                if (chk_nonMagicMP.Checked) nonMagicMP();
                 changeEnd();
                 saveRom(true);
                 saveRom(false);
@@ -376,6 +377,10 @@ namespace DW3Randomizer
             }
         }
 
+        private void nonMagicMP()
+        {
+            romData[0x2540]
+        }
         private void randshoes()
         {
             if (chk_BigShoes.Checked) // Shoes will give 0-255 exp per step
@@ -9198,8 +9203,11 @@ namespace DW3Randomizer
             chkRandSpellStrength.Checked = (number % 8 >= 4);
             chkFourJobFiesta.Checked = (number % 16 >= 8);
 
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(31, 1)));
+            chk_nonMagicMP.Checked = (number % 2 == 1);
+
             // Fixes
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(32, 1)));
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(33, 1)));
             chkRemoveParryFight.Checked = (number % 2 == 1);
             chk_FixHeroSpell.Checked = (number % 4 >= 2);
         }
@@ -9246,9 +9254,10 @@ namespace DW3Randomizer
             // Characters
             flags += convertIntToCharCapsOnly((chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandSage.Checked ? 1 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandHero.Checked ? 2 : 0) : 0) : 0)); // 29
             flags += convertIntToCharCapsOnly((chkRandStatGains.Checked ? 1 : 0) + (chkRandSpellLearning.Checked ? 2 : 0) + (chkRandSpellStrength.Checked ? 4 : 0) + (chkFourJobFiesta.Checked ? 8 : 0)); // 30
+            flags += convertIntToCharCapsOnly((chk_nonMagicMP.Checked ? 1 : 0)); // 31
             flags += "-";
             // Fixes
-            flags += convertIntToCharCapsOnly((chkRemoveParryFight.Checked ? 1 : 0) + (chk_FixHeroSpell.Checked ? 2 : 0)); // 32
+            flags += convertIntToCharCapsOnly((chkRemoveParryFight.Checked ? 1 : 0) + (chk_FixHeroSpell.Checked ? 2 : 0)); // 33
 
             txtFlags.Text = flags;
             enableDisableFields(null, null);
