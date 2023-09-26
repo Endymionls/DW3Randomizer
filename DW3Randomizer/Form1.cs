@@ -25,7 +25,7 @@ namespace DW3Randomizer
     {
         readonly string versionNumber = "2.5.2";
         readonly string revisionDate = "9/26/2023";
-        readonly int buildnumber = 250; // build starting 8/18/23
+        readonly int buildnumber = 251; // build starting 8/18/23
         readonly string SotWFlags = "A-EHADHDAF-ON-LANB-JMF-ODPPP-AHB-D";
         readonly string TradSotWFlags = "A-EHADHDAF-ON-LABA-JMF-ODPPP-AHA-D";
         readonly string jffFlags = "A-AHADPDDP-OP-PPPB-LPH-ODPPP-APB-D";
@@ -235,6 +235,38 @@ namespace DW3Randomizer
                         chk_FemaleHero.Checked = true;
                     else
                         chk_FemaleHero.Checked = false;
+                    if (reader.ReadLine() == "True")
+                        chk_RandSoldier.Checked = true;
+                    else
+                        chk_RandSoldier.Checked = false;
+                    if (reader.ReadLine() == "True")
+                        chk_RandPilgrim.Checked = true;
+                    else
+                        chk_RandPilgrim.Checked = false;
+                    if (reader.ReadLine() == "True")
+                        chk_RandWizard.Checked = true;
+                    else
+                        chk_RandWizard.Checked = false;
+                    if (reader.ReadLine() == "True")
+                        chk_RandFighter.Checked = true;
+                    else
+                        chk_RandFighter.Checked = false;
+                    if (reader.ReadLine() == "True")
+                        chk_RandMerchant.Checked = true;
+                    else
+                        chk_RandMerchant.Checked = false;
+                    if (reader.ReadLine() == "True")
+                        chk_RandGoofOff.Checked = true;
+                    else
+                        chk_RandGoofOff.Checked = false;
+                    if (reader.ReadLine() == "True")
+                        chk_RandSage.Checked = true;
+                    else
+                        chk_RandSage.Checked = false;
+                    if (reader.ReadLine() == "True")
+                        chk_RandHero.Checked = true;
+                    else
+                        chk_RandHero.Checked = false;
                     runChecksum();
                 }
             }
@@ -8971,6 +9003,14 @@ namespace DW3Randomizer
                     writer.WriteLine(chk_FFigherSprite.Checked);
                     writer.WriteLine(chk_RandNPCSprites.Checked);
                     writer.WriteLine(chk_FemaleHero.Checked);
+                    writer.WriteLine(chk_RandSoldier.Checked);
+                    writer.WriteLine(chk_RandPilgrim.Checked);
+                    writer.WriteLine(chk_RandWizard.Checked);
+                    writer.WriteLine(chk_RandFighter.Checked);
+                    writer.WriteLine(chk_RandMerchant.Checked);
+                    writer.WriteLine(chk_RandGoofOff.Checked);
+                    writer.WriteLine(chk_RandSage.Checked);
+                    writer.WriteLine(chk_RandHero.Checked);
                 }
             }
         }
