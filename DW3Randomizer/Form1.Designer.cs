@@ -441,11 +441,11 @@ namespace DW3Randomizer
             // chk_BigShoes
             // 
             this.chk_BigShoes.AutoSize = true;
-            this.chk_BigShoes.Location = new System.Drawing.Point(620, 170);
+            this.chk_BigShoes.Location = new System.Drawing.Point(620, 200);
             this.chk_BigShoes.Name = "chk_BigShoes";
-            this.chk_BigShoes.Size = new System.Drawing.Size(155, 24);
+            this.chk_BigShoes.Size = new System.Drawing.Size(223, 24);
             this.chk_BigShoes.TabIndex = 71;
-            this.chk_BigShoes.Text = "Big Shoes Effect";
+            this.chk_BigShoes.Text = "Big Shoes and Ring Effect";
             this.adjustments.SetToolTip(this.chk_BigShoes, "Increases random range for Shoes of Happiness to 1 - 255");
             this.chk_BigShoes.UseVisualStyleBackColor = true;
             this.chk_BigShoes.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -467,9 +467,9 @@ namespace DW3Randomizer
             this.chk_RandShoesEffect.AutoSize = true;
             this.chk_RandShoesEffect.Location = new System.Drawing.Point(620, 140);
             this.chk_RandShoesEffect.Name = "chk_RandShoesEffect";
-            this.chk_RandShoesEffect.Size = new System.Drawing.Size(311, 24);
+            this.chk_RandShoesEffect.Size = new System.Drawing.Size(264, 44);
             this.chk_RandShoesEffect.TabIndex = 70;
-            this.chk_RandShoesEffect.Text = "Randomize Shoes of Happiness Effect";
+            this.chk_RandShoesEffect.Text = "Randomize Shoes of Happiness\r\nand Ring of Life Effect";
             this.adjustments.SetToolTip(this.chk_RandShoesEffect, "Randomize XP earned from Shoes of Happiness between 1 - 5 per step");
             this.chk_RandShoesEffect.UseVisualStyleBackColor = true;
             this.chk_RandShoesEffect.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -515,8 +515,6 @@ namespace DW3Randomizer
             // chk_RandomStartGold
             // 
             this.chk_RandomStartGold.AutoSize = true;
-            this.chk_RandomStartGold.Checked = true;
-            this.chk_RandomStartGold.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_RandomStartGold.Location = new System.Drawing.Point(330, 50);
             this.chk_RandomStartGold.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_RandomStartGold.Name = "chk_RandomStartGold";
@@ -530,8 +528,6 @@ namespace DW3Randomizer
             // chk_RmManip
             // 
             this.chk_RmManip.AutoSize = true;
-            this.chk_RmManip.Checked = true;
-            this.chk_RmManip.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_RmManip.Location = new System.Drawing.Point(10, 140);
             this.chk_RmManip.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_RmManip.Name = "chk_RmManip";
@@ -560,8 +556,6 @@ namespace DW3Randomizer
             // chk_Cod
             // 
             this.chk_Cod.AutoSize = true;
-            this.chk_Cod.Checked = true;
-            this.chk_Cod.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_Cod.Location = new System.Drawing.Point(10, 170);
             this.chk_Cod.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_Cod.Name = "chk_Cod";
@@ -575,8 +569,6 @@ namespace DW3Randomizer
             // chk_SpeedUpMenus
             // 
             this.chk_SpeedUpMenus.AutoSize = true;
-            this.chk_SpeedUpMenus.Checked = true;
-            this.chk_SpeedUpMenus.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_SpeedUpMenus.Location = new System.Drawing.Point(10, 110);
             this.chk_SpeedUpMenus.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_SpeedUpMenus.Name = "chk_SpeedUpMenus";
@@ -665,6 +657,7 @@ namespace DW3Randomizer
             // 
             // cboExpGains
             // 
+            this.cboExpGains.Cursor = System.Windows.Forms.Cursors.Default;
             this.cboExpGains.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboExpGains.FormattingEnabled = true;
             this.cboExpGains.Items.AddRange(new object[] {
@@ -688,8 +681,6 @@ namespace DW3Randomizer
             // chkSpeedText
             // 
             this.chkSpeedText.AutoSize = true;
-            this.chkSpeedText.Checked = true;
-            this.chkSpeedText.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSpeedText.Location = new System.Drawing.Point(10, 80);
             this.chkSpeedText.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkSpeedText.Name = "chkSpeedText";
@@ -703,8 +694,6 @@ namespace DW3Randomizer
             // chkFasterBattles
             // 
             this.chkFasterBattles.AutoSize = true;
-            this.chkFasterBattles.Checked = true;
-            this.chkFasterBattles.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkFasterBattles.Location = new System.Drawing.Point(10, 50);
             this.chkFasterBattles.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkFasterBattles.Name = "chkFasterBattles";
@@ -880,8 +869,6 @@ namespace DW3Randomizer
             // chkRandomizeMap
             // 
             this.chkRandomizeMap.AutoSize = true;
-            this.chkRandomizeMap.Checked = true;
-            this.chkRandomizeMap.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRandomizeMap.Location = new System.Drawing.Point(10, 45);
             this.chkRandomizeMap.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkRandomizeMap.Name = "chkRandomizeMap";
@@ -895,8 +882,6 @@ namespace DW3Randomizer
             // chkSmallMap
             // 
             this.chkSmallMap.AutoSize = true;
-            this.chkSmallMap.Checked = true;
-            this.chkSmallMap.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSmallMap.Location = new System.Drawing.Point(10, 195);
             this.chkSmallMap.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkSmallMap.Name = "chkSmallMap";
@@ -910,8 +895,6 @@ namespace DW3Randomizer
             // chkRandMonsterZones
             // 
             this.chkRandMonsterZones.AutoSize = true;
-            this.chkRandMonsterZones.Checked = true;
-            this.chkRandMonsterZones.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRandMonsterZones.Location = new System.Drawing.Point(10, 165);
             this.chkRandMonsterZones.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkRandMonsterZones.Name = "chkRandMonsterZones";
@@ -967,8 +950,6 @@ namespace DW3Randomizer
             // chkRandomizeGP
             // 
             this.chkRandomizeGP.AutoSize = true;
-            this.chkRandomizeGP.Checked = true;
-            this.chkRandomizeGP.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRandomizeGP.Location = new System.Drawing.Point(10, 75);
             this.chkRandomizeGP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkRandomizeGP.Name = "chkRandomizeGP";
@@ -982,8 +963,6 @@ namespace DW3Randomizer
             // chkRandomizeXP
             // 
             this.chkRandomizeXP.AutoSize = true;
-            this.chkRandomizeXP.Checked = true;
-            this.chkRandomizeXP.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRandomizeXP.Location = new System.Drawing.Point(10, 45);
             this.chkRandomizeXP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkRandomizeXP.Name = "chkRandomizeXP";
@@ -1010,8 +989,6 @@ namespace DW3Randomizer
             // chkRandEnemyPatterns
             // 
             this.chkRandEnemyPatterns.AutoSize = true;
-            this.chkRandEnemyPatterns.Checked = true;
-            this.chkRandEnemyPatterns.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRandEnemyPatterns.Location = new System.Drawing.Point(275, 45);
             this.chkRandEnemyPatterns.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkRandEnemyPatterns.Name = "chkRandEnemyPatterns";
@@ -1166,8 +1143,6 @@ namespace DW3Randomizer
             // chkRandEquip
             // 
             this.chkRandEquip.AutoSize = true;
-            this.chkRandEquip.Checked = true;
-            this.chkRandEquip.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRandEquip.Location = new System.Drawing.Point(300, 45);
             this.chkRandEquip.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkRandEquip.Name = "chkRandEquip";
@@ -1208,8 +1183,6 @@ namespace DW3Randomizer
             // chkRandTreasures
             // 
             this.chkRandTreasures.AutoSize = true;
-            this.chkRandTreasures.Checked = true;
-            this.chkRandTreasures.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRandTreasures.Location = new System.Drawing.Point(10, 45);
             this.chkRandTreasures.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkRandTreasures.Name = "chkRandTreasures";
@@ -1264,8 +1237,6 @@ namespace DW3Randomizer
             // chk_LeafoftheWorldTree
             // 
             this.chk_LeafoftheWorldTree.AutoSize = true;
-            this.chk_LeafoftheWorldTree.Checked = true;
-            this.chk_LeafoftheWorldTree.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_LeafoftheWorldTree.Location = new System.Drawing.Point(472, 45);
             this.chk_LeafoftheWorldTree.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_LeafoftheWorldTree.Name = "chk_LeafoftheWorldTree";
@@ -1278,8 +1249,6 @@ namespace DW3Randomizer
             // chk_RandomizeWeaponShops
             // 
             this.chk_RandomizeWeaponShops.AutoSize = true;
-            this.chk_RandomizeWeaponShops.Checked = true;
-            this.chk_RandomizeWeaponShops.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_RandomizeWeaponShops.Location = new System.Drawing.Point(10, 105);
             this.chk_RandomizeWeaponShops.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_RandomizeWeaponShops.Name = "chk_RandomizeWeaponShops";
@@ -1292,8 +1261,6 @@ namespace DW3Randomizer
             // chk_LampofDarkness
             // 
             this.chk_LampofDarkness.AutoSize = true;
-            this.chk_LampofDarkness.Checked = true;
-            this.chk_LampofDarkness.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_LampofDarkness.Location = new System.Drawing.Point(472, 165);
             this.chk_LampofDarkness.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_LampofDarkness.Name = "chk_LampofDarkness";
@@ -1306,8 +1273,6 @@ namespace DW3Randomizer
             // chk_WizardsRing
             // 
             this.chk_WizardsRing.AutoSize = true;
-            this.chk_WizardsRing.Checked = true;
-            this.chk_WizardsRing.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_WizardsRing.Location = new System.Drawing.Point(472, 135);
             this.chk_WizardsRing.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_WizardsRing.Name = "chk_WizardsRing";
@@ -1320,8 +1285,6 @@ namespace DW3Randomizer
             // chk_MeteoriteArmband
             // 
             this.chk_MeteoriteArmband.AutoSize = true;
-            this.chk_MeteoriteArmband.Checked = true;
-            this.chk_MeteoriteArmband.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_MeteoriteArmband.Location = new System.Drawing.Point(472, 105);
             this.chk_MeteoriteArmband.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_MeteoriteArmband.Name = "chk_MeteoriteArmband";
@@ -1334,8 +1297,6 @@ namespace DW3Randomizer
             // chk_ShoesofHappiness
             // 
             this.chk_ShoesofHappiness.AutoSize = true;
-            this.chk_ShoesofHappiness.Checked = true;
-            this.chk_ShoesofHappiness.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_ShoesofHappiness.Location = new System.Drawing.Point(472, 75);
             this.chk_ShoesofHappiness.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_ShoesofHappiness.Name = "chk_ShoesofHappiness";
@@ -1358,8 +1319,6 @@ namespace DW3Randomizer
             // chk_SilverHarp
             // 
             this.chk_SilverHarp.AutoSize = true;
-            this.chk_SilverHarp.Checked = true;
-            this.chk_SilverHarp.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_SilverHarp.Location = new System.Drawing.Point(308, 195);
             this.chk_SilverHarp.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_SilverHarp.Name = "chk_SilverHarp";
@@ -1372,8 +1331,6 @@ namespace DW3Randomizer
             // chk_EchoingFlute
             // 
             this.chk_EchoingFlute.AutoSize = true;
-            this.chk_EchoingFlute.Checked = true;
-            this.chk_EchoingFlute.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_EchoingFlute.Location = new System.Drawing.Point(308, 165);
             this.chk_EchoingFlute.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_EchoingFlute.Name = "chk_EchoingFlute";
@@ -1386,8 +1343,6 @@ namespace DW3Randomizer
             // chk_RingofLife
             // 
             this.chk_RingofLife.AutoSize = true;
-            this.chk_RingofLife.Checked = true;
-            this.chk_RingofLife.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_RingofLife.Location = new System.Drawing.Point(308, 135);
             this.chk_RingofLife.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_RingofLife.Name = "chk_RingofLife";
@@ -1400,8 +1355,6 @@ namespace DW3Randomizer
             // chk_BookofSatori
             // 
             this.chk_BookofSatori.AutoSize = true;
-            this.chk_BookofSatori.Checked = true;
-            this.chk_BookofSatori.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_BookofSatori.Location = new System.Drawing.Point(308, 105);
             this.chk_BookofSatori.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_BookofSatori.Name = "chk_BookofSatori";
@@ -1414,8 +1367,6 @@ namespace DW3Randomizer
             // chk_Seeds
             // 
             this.chk_Seeds.AutoSize = true;
-            this.chk_Seeds.Checked = true;
-            this.chk_Seeds.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_Seeds.Location = new System.Drawing.Point(308, 75);
             this.chk_Seeds.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_Seeds.Name = "chk_Seeds";
@@ -1428,8 +1379,6 @@ namespace DW3Randomizer
             // chk_StoneofLife
             // 
             this.chk_StoneofLife.AutoSize = true;
-            this.chk_StoneofLife.Checked = true;
-            this.chk_StoneofLife.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_StoneofLife.Location = new System.Drawing.Point(308, 45);
             this.chk_StoneofLife.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_StoneofLife.Name = "chk_StoneofLife";
@@ -1442,8 +1391,6 @@ namespace DW3Randomizer
             // chkRandItemStores
             // 
             this.chkRandItemStores.AutoSize = true;
-            this.chkRandItemStores.Checked = true;
-            this.chkRandItemStores.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRandItemStores.Location = new System.Drawing.Point(10, 75);
             this.chkRandItemStores.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkRandItemStores.Name = "chkRandItemStores";
@@ -1470,8 +1417,6 @@ namespace DW3Randomizer
             // chk_PoisonMothPowder
             // 
             this.chk_PoisonMothPowder.AutoSize = true;
-            this.chk_PoisonMothPowder.Checked = true;
-            this.chk_PoisonMothPowder.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_PoisonMothPowder.Location = new System.Drawing.Point(472, 195);
             this.chk_PoisonMothPowder.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_PoisonMothPowder.Name = "chk_PoisonMothPowder";
@@ -1484,8 +1429,6 @@ namespace DW3Randomizer
             // chk_RandomizeInnPrices
             // 
             this.chk_RandomizeInnPrices.AutoSize = true;
-            this.chk_RandomizeInnPrices.Checked = true;
-            this.chk_RandomizeInnPrices.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_RandomizeInnPrices.Location = new System.Drawing.Point(10, 45);
             this.chk_RandomizeInnPrices.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_RandomizeInnPrices.Name = "chk_RandomizeInnPrices";
@@ -1614,8 +1557,6 @@ namespace DW3Randomizer
             // chkRandStatGains
             // 
             this.chkRandStatGains.AutoSize = true;
-            this.chkRandStatGains.Checked = true;
-            this.chkRandStatGains.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRandStatGains.Location = new System.Drawing.Point(10, 180);
             this.chkRandStatGains.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkRandStatGains.Name = "chkRandStatGains";
@@ -1629,8 +1570,6 @@ namespace DW3Randomizer
             // chkRandSpellStrength
             // 
             this.chkRandSpellStrength.AutoSize = true;
-            this.chkRandSpellStrength.Checked = true;
-            this.chkRandSpellStrength.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRandSpellStrength.Location = new System.Drawing.Point(230, 215);
             this.chkRandSpellStrength.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkRandSpellStrength.Name = "chkRandSpellStrength";
@@ -1644,8 +1583,6 @@ namespace DW3Randomizer
             // chkRandSpellLearning
             // 
             this.chkRandSpellLearning.AutoSize = true;
-            this.chkRandSpellLearning.Checked = true;
-            this.chkRandSpellLearning.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRandSpellLearning.Location = new System.Drawing.Point(10, 215);
             this.chkRandSpellLearning.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkRandSpellLearning.Name = "chkRandSpellLearning";
@@ -1684,8 +1621,6 @@ namespace DW3Randomizer
             // chk_RandGoofOff
             // 
             this.chk_RandGoofOff.AutoSize = true;
-            this.chk_RandGoofOff.Checked = true;
-            this.chk_RandGoofOff.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_RandGoofOff.Location = new System.Drawing.Point(808, 75);
             this.chk_RandGoofOff.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_RandGoofOff.Name = "chk_RandGoofOff";
@@ -1698,8 +1633,6 @@ namespace DW3Randomizer
             // chk_RandMerchant
             // 
             this.chk_RandMerchant.AutoSize = true;
-            this.chk_RandMerchant.Checked = true;
-            this.chk_RandMerchant.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_RandMerchant.Location = new System.Drawing.Point(808, 45);
             this.chk_RandMerchant.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_RandMerchant.Name = "chk_RandMerchant";
@@ -1712,8 +1645,6 @@ namespace DW3Randomizer
             // chk_RandFighter
             // 
             this.chk_RandFighter.AutoSize = true;
-            this.chk_RandFighter.Checked = true;
-            this.chk_RandFighter.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_RandFighter.Location = new System.Drawing.Point(698, 135);
             this.chk_RandFighter.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_RandFighter.Name = "chk_RandFighter";
@@ -1725,8 +1656,6 @@ namespace DW3Randomizer
             // 
             // chk_RandWizard
             // 
-            this.chk_RandWizard.Checked = true;
-            this.chk_RandWizard.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_RandWizard.Location = new System.Drawing.Point(698, 105);
             this.chk_RandWizard.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_RandWizard.Name = "chk_RandWizard";
@@ -1739,8 +1668,6 @@ namespace DW3Randomizer
             // chk_RandPilgrim
             // 
             this.chk_RandPilgrim.AutoSize = true;
-            this.chk_RandPilgrim.Checked = true;
-            this.chk_RandPilgrim.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_RandPilgrim.Location = new System.Drawing.Point(698, 75);
             this.chk_RandPilgrim.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_RandPilgrim.Name = "chk_RandPilgrim";
@@ -1753,8 +1680,6 @@ namespace DW3Randomizer
             // chk_RandSoldier
             // 
             this.chk_RandSoldier.AutoSize = true;
-            this.chk_RandSoldier.Checked = true;
-            this.chk_RandSoldier.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_RandSoldier.Location = new System.Drawing.Point(698, 45);
             this.chk_RandSoldier.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_RandSoldier.Name = "chk_RandSoldier";
@@ -1945,8 +1870,6 @@ namespace DW3Randomizer
             // chk_FixHeroSpell
             // 
             this.chk_FixHeroSpell.AutoSize = true;
-            this.chk_FixHeroSpell.Checked = true;
-            this.chk_FixHeroSpell.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_FixHeroSpell.Location = new System.Drawing.Point(10, 45);
             this.chk_FixHeroSpell.Name = "chk_FixHeroSpell";
             this.chk_FixHeroSpell.Size = new System.Drawing.Size(178, 24);
@@ -1959,8 +1882,6 @@ namespace DW3Randomizer
             // chkRemoveParryFight
             // 
             this.chkRemoveParryFight.AutoSize = true;
-            this.chkRemoveParryFight.Checked = true;
-            this.chkRemoveParryFight.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRemoveParryFight.Location = new System.Drawing.Point(10, 15);
             this.chkRemoveParryFight.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkRemoveParryFight.Name = "chkRemoveParryFight";

@@ -24,8 +24,8 @@ namespace DW3Randomizer
     public partial class Form1 : Form
     {
         readonly string versionNumber = "2.5.2";
-        readonly string revisionDate = "9/24/2023";
-        readonly int buildnumber = 247; // build starting 8/18/23
+        readonly string revisionDate = "9/25/2023";
+        readonly int buildnumber = 248; // build starting 8/18/23
         readonly string SotWFlags = "A-EHADHDAF-ON-LANB-JMF-ODPPP-AH-D";
         readonly string TradSotWFlags = "A-EHADHDAF-ON-LABA-JMF-ODPPP-AH-D";
         readonly string jffFlags = "A-AHADPDDP-OP-PPPB-LPH-ODPPP-AP-D";
@@ -241,18 +241,18 @@ namespace DW3Randomizer
             catch
             {
                 // ignore error
-                txtCharName1.Text = "Ragnar";
-                txtCharName2.Text = "Cristo";
-                txtCharName3.Text = "Mara";
+                txtCharName1.Text = "Glennard";
+                txtCharName2.Text = "Elucidus";
+                txtCharName3.Text = "Hiram";
                 cboClass1.SelectedIndex = 0;
                 cboClass2.SelectedIndex = 1;
                 cboClass3.SelectedIndex = 2;
                 cboGender1.SelectedIndex = 0;
                 cboGender2.SelectedIndex = 0;
-                cboGender3.SelectedIndex = 1;
-                cboEncounterRate.SelectedIndex = 5;
-                cboExpGains.SelectedIndex = 6;
-                cboGoldReq.SelectedIndex = 1;
+                cboGender3.SelectedIndex = 0;
+                cboEncounterRate.SelectedIndex = 4;
+                cboExpGains.SelectedIndex = 7;
+                cboGoldReq.SelectedIndex = 2;
                 chk_LowerCaseMenus.Checked = false;
                 chk_FixSlimeSnail.Checked = false;
                 chk_ChangeHeroAge.Checked = false;
