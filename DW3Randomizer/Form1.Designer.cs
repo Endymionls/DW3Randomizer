@@ -129,6 +129,7 @@ namespace DW3Randomizer
             this.chk_PoisonMothPowder = new System.Windows.Forms.CheckBox();
             this.chk_RandomizeInnPrices = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.chk_nonMagicMP = new System.Windows.Forms.CheckBox();
             this.grpMonsterStat = new System.Windows.Forms.GroupBox();
             this.optStatSilly = new System.Windows.Forms.RadioButton();
             this.optStatHeavy = new System.Windows.Forms.RadioButton();
@@ -190,7 +191,11 @@ namespace DW3Randomizer
             this.txtSeed = new System.Windows.Forms.TextBox();
             this.btn_CopyHash = new System.Windows.Forms.Button();
             this.btn_chksumHash = new System.Windows.Forms.Button();
-            this.chk_nonMagicMP = new System.Windows.Forms.CheckBox();
+            this.chk_levelUpText = new System.Windows.Forms.CheckBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage8.SuspendLayout();
@@ -1477,6 +1482,18 @@ namespace DW3Randomizer
             this.tabPage3.Text = "Characters";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // chk_nonMagicMP
+            // 
+            this.chk_nonMagicMP.AutoSize = true;
+            this.chk_nonMagicMP.Location = new System.Drawing.Point(541, 180);
+            this.chk_nonMagicMP.Name = "chk_nonMagicMP";
+            this.chk_nonMagicMP.Size = new System.Drawing.Size(214, 24);
+            this.chk_nonMagicMP.TabIndex = 177;
+            this.chk_nonMagicMP.Text = "Non-Magic Jobs Gain MP";
+            this.adjustments.SetToolTip(this.chk_nonMagicMP, "Non-spellcasting jobs gain MP at level up.");
+            this.chk_nonMagicMP.UseVisualStyleBackColor = true;
+            this.chk_nonMagicMP.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
             // grpMonsterStat
             // 
             this.grpMonsterStat.Controls.Add(this.optStatSilly);
@@ -1896,6 +1913,11 @@ namespace DW3Randomizer
             // 
             // tabPage7
             // 
+            this.tabPage7.Controls.Add(this.label17);
+            this.tabPage7.Controls.Add(this.label16);
+            this.tabPage7.Controls.Add(this.label15);
+            this.tabPage7.Controls.Add(this.label13);
+            this.tabPage7.Controls.Add(this.chk_levelUpText);
             this.tabPage7.Controls.Add(this.chk_FemaleHero);
             this.tabPage7.Controls.Add(this.chk_RandNPCSprites);
             this.tabPage7.Controls.Add(this.chk_FFigherSprite);
@@ -1918,10 +1940,10 @@ namespace DW3Randomizer
             // chk_FemaleHero
             // 
             this.chk_FemaleHero.AutoSize = true;
-            this.chk_FemaleHero.Location = new System.Drawing.Point(10, 75);
+            this.chk_FemaleHero.Location = new System.Drawing.Point(480, 45);
             this.chk_FemaleHero.Name = "chk_FemaleHero";
             this.chk_FemaleHero.Size = new System.Drawing.Size(181, 24);
-            this.chk_FemaleHero.TabIndex = 202;
+            this.chk_FemaleHero.TabIndex = 221;
             this.chk_FemaleHero.Text = "Female Hero Sprites";
             this.adjustments.SetToolTip(this.chk_FemaleHero, "Selects female sprites for the Hero Sprite. (Does not affect gameplay. Choose Fem" +
         "ale as sex at start to add equipment benefits.)");
@@ -1930,30 +1952,30 @@ namespace DW3Randomizer
             // chk_RandNPCSprites
             // 
             this.chk_RandNPCSprites.AutoSize = true;
-            this.chk_RandNPCSprites.Location = new System.Drawing.Point(300, 75);
+            this.chk_RandNPCSprites.Location = new System.Drawing.Point(480, 135);
             this.chk_RandNPCSprites.Name = "chk_RandNPCSprites";
             this.chk_RandNPCSprites.Size = new System.Drawing.Size(206, 24);
-            this.chk_RandNPCSprites.TabIndex = 209;
+            this.chk_RandNPCSprites.TabIndex = 224;
             this.chk_RandNPCSprites.Text = "Randomize NPC Sprites";
             this.chk_RandNPCSprites.UseVisualStyleBackColor = true;
             // 
             // chk_FFigherSprite
             // 
             this.chk_FFigherSprite.AutoSize = true;
-            this.chk_FFigherSprite.Location = new System.Drawing.Point(300, 45);
+            this.chk_FFigherSprite.Location = new System.Drawing.Point(480, 105);
             this.chk_FFigherSprite.Name = "chk_FFigherSprite";
             this.chk_FFigherSprite.Size = new System.Drawing.Size(212, 24);
-            this.chk_FFigherSprite.TabIndex = 208;
+            this.chk_FFigherSprite.TabIndex = 223;
             this.chk_FFigherSprite.Text = "Female Fighter Sprite Fix";
             this.chk_FFigherSprite.UseVisualStyleBackColor = true;
             // 
             // chk_EveryoneCat
             // 
             this.chk_EveryoneCat.AutoSize = true;
-            this.chk_EveryoneCat.Location = new System.Drawing.Point(10, 195);
+            this.chk_EveryoneCat.Location = new System.Drawing.Point(480, 199);
             this.chk_EveryoneCat.Name = "chk_EveryoneCat";
             this.chk_EveryoneCat.Size = new System.Drawing.Size(155, 24);
-            this.chk_EveryoneCat.TabIndex = 206;
+            this.chk_EveryoneCat.TabIndex = 226;
             this.chk_EveryoneCat.Text = "Everyone is a cat";
             this.chk_EveryoneCat.UseVisualStyleBackColor = true;
             this.chk_EveryoneCat.Visible = false;
@@ -1961,11 +1983,11 @@ namespace DW3Randomizer
             // chk_changeCats
             // 
             this.chk_changeCats.AutoSize = true;
-            this.chk_changeCats.Location = new System.Drawing.Point(300, 15);
+            this.chk_changeCats.Location = new System.Drawing.Point(480, 167);
             this.chk_changeCats.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_changeCats.Name = "chk_changeCats";
             this.chk_changeCats.Size = new System.Drawing.Size(242, 24);
-            this.chk_changeCats.TabIndex = 207;
+            this.chk_changeCats.TabIndex = 225;
             this.chk_changeCats.Text = "Change cats to other animals";
             this.adjustments.SetToolTip(this.chk_changeCats, "Changes cat sprites to other animals from other Dragon Warrior games.");
             this.chk_changeCats.UseVisualStyleBackColor = true;
@@ -1973,11 +1995,11 @@ namespace DW3Randomizer
             // chk_GhostToCasket
             // 
             this.chk_GhostToCasket.AutoSize = true;
-            this.chk_GhostToCasket.Location = new System.Drawing.Point(10, 165);
+            this.chk_GhostToCasket.Location = new System.Drawing.Point(715, 75);
             this.chk_GhostToCasket.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_GhostToCasket.Name = "chk_GhostToCasket";
             this.chk_GhostToCasket.Size = new System.Drawing.Size(227, 24);
-            this.chk_GhostToCasket.TabIndex = 205;
+            this.chk_GhostToCasket.TabIndex = 232;
             this.chk_GhostToCasket.Text = "Change Ghosts to Caskets";
             this.adjustments.SetToolTip(this.chk_GhostToCasket, "This will change dead party members from ghosts into caskets (palls) and adjusts " +
         "relevant text.");
@@ -1986,11 +2008,11 @@ namespace DW3Randomizer
             // chk_RandSpriteColor
             // 
             this.chk_RandSpriteColor.AutoSize = true;
-            this.chk_RandSpriteColor.Location = new System.Drawing.Point(10, 135);
+            this.chk_RandSpriteColor.Location = new System.Drawing.Point(480, 75);
             this.chk_RandSpriteColor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_RandSpriteColor.Name = "chk_RandSpriteColor";
             this.chk_RandSpriteColor.Size = new System.Drawing.Size(211, 24);
-            this.chk_RandSpriteColor.TabIndex = 204;
+            this.chk_RandSpriteColor.TabIndex = 222;
             this.chk_RandSpriteColor.Text = "Randomize Sprite Colors";
             this.adjustments.SetToolTip(this.chk_RandSpriteColor, "Randomizes the colors of overworld sprites. There may be some interesting combina" +
         "tions.");
@@ -1999,11 +2021,11 @@ namespace DW3Randomizer
             // chk_ChangeHeroAge
             // 
             this.chk_ChangeHeroAge.AutoSize = true;
-            this.chk_ChangeHeroAge.Location = new System.Drawing.Point(10, 105);
+            this.chk_ChangeHeroAge.Location = new System.Drawing.Point(715, 45);
             this.chk_ChangeHeroAge.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_ChangeHeroAge.Name = "chk_ChangeHeroAge";
             this.chk_ChangeHeroAge.Size = new System.Drawing.Size(174, 24);
-            this.chk_ChangeHeroAge.TabIndex = 203;
+            this.chk_ChangeHeroAge.TabIndex = 231;
             this.chk_ChangeHeroAge.Text = "Change Hero\'s Age";
             this.adjustments.SetToolTip(this.chk_ChangeHeroAge, "Changes the hero\'s age in opening to a random number and potentially the sprite b" +
         "ased on age.");
@@ -2012,11 +2034,11 @@ namespace DW3Randomizer
             // chk_LowerCaseMenus
             // 
             this.chk_LowerCaseMenus.AutoSize = true;
-            this.chk_LowerCaseMenus.Location = new System.Drawing.Point(10, 15);
+            this.chk_LowerCaseMenus.Location = new System.Drawing.Point(10, 45);
             this.chk_LowerCaseMenus.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_LowerCaseMenus.Name = "chk_LowerCaseMenus";
             this.chk_LowerCaseMenus.Size = new System.Drawing.Size(194, 24);
-            this.chk_LowerCaseMenus.TabIndex = 200;
+            this.chk_LowerCaseMenus.TabIndex = 202;
             this.chk_LowerCaseMenus.Text = "Standard Case Menus";
             this.adjustments.SetToolTip(this.chk_LowerCaseMenus, "Changes casing of all caps menu items to standard caps and lower case.");
             this.chk_LowerCaseMenus.UseVisualStyleBackColor = true;
@@ -2024,11 +2046,11 @@ namespace DW3Randomizer
             // chk_FixSlimeSnail
             // 
             this.chk_FixSlimeSnail.AutoSize = true;
-            this.chk_FixSlimeSnail.Location = new System.Drawing.Point(10, 45);
+            this.chk_FixSlimeSnail.Location = new System.Drawing.Point(10, 75);
             this.chk_FixSlimeSnail.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chk_FixSlimeSnail.Name = "chk_FixSlimeSnail";
             this.chk_FixSlimeSnail.Size = new System.Drawing.Size(137, 24);
-            this.chk_FixSlimeSnail.TabIndex = 201;
+            this.chk_FixSlimeSnail.TabIndex = 203;
             this.chk_FixSlimeSnail.Text = "Fix Slime Snail";
             this.adjustments.SetToolTip(this.chk_FixSlimeSnail, "Fixes Slime Snaii name to Slime Snail");
             this.chk_FixSlimeSnail.UseVisualStyleBackColor = true;
@@ -2223,17 +2245,51 @@ namespace DW3Randomizer
             this.btn_chksumHash.UseVisualStyleBackColor = true;
             this.btn_chksumHash.Click += new System.EventHandler(this.btn_chksumHash_Click);
             // 
-            // chk_nonMagicMP
+            // chk_levelUpText
             // 
-            this.chk_nonMagicMP.AutoSize = true;
-            this.chk_nonMagicMP.Location = new System.Drawing.Point(541, 180);
-            this.chk_nonMagicMP.Name = "chk_nonMagicMP";
-            this.chk_nonMagicMP.Size = new System.Drawing.Size(236, 24);
-            this.chk_nonMagicMP.TabIndex = 177;
-            this.chk_nonMagicMP.Text = "Non-Magic Jobs Gain MP";
-            this.chk_nonMagicMP.UseVisualStyleBackColor = true;
-            this.adjustments.SetToolTip(this.chk_nonMagicMP, "Non-spellcasting jobs gain MP at level up.");
-            this.chk_nonMagicMP.CheckedChanged += new System.EventHandler(this.determineFlags);
+            this.chk_levelUpText.AutoSize = true;
+            this.chk_levelUpText.Location = new System.Drawing.Point(249, 45);
+            this.chk_levelUpText.Name = "chk_levelUpText";
+            this.chk_levelUpText.Size = new System.Drawing.Size(191, 24);
+            this.chk_levelUpText.TabIndex = 211;
+            this.chk_levelUpText.Text = "Change Level Up Text";
+            this.chk_levelUpText.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(10, 15);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(88, 20);
+            this.label13.TabIndex = 201;
+            this.label13.Text = "Text Adjust";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(249, 15);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(192, 20);
+            this.label15.TabIndex = 210;
+            this.label15.Text = "Text Adjust - Flag Change";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(480, 15);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(111, 20);
+            this.label16.TabIndex = 220;
+            this.label16.Text = "Sprite Change";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(715, 15);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(215, 20);
+            this.label17.TabIndex = 230;
+            this.label17.Text = "Sprite Change - Flag Change";
             // 
             // Form1
             // 
@@ -2458,6 +2514,11 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_RandoTowns;
         private System.Windows.Forms.RadioButton optSotWFlags;
         private System.Windows.Forms.CheckBox chk_nonMagicMP;
+        private System.Windows.Forms.CheckBox chk_levelUpText;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label13;
     }
 }
 

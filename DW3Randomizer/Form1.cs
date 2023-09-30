@@ -24,11 +24,11 @@ namespace DW3Randomizer
     public partial class Form1 : Form
     {
         readonly string versionNumber = "2.5.2";
-        readonly string revisionDate = "9/26/2023";
-        readonly int buildnumber = 251; // build starting 8/18/23
-        readonly string SotWFlags = "A-EHADHDAF-ON-LANB-JMF-ODPPP-AHB-D";
-        readonly string TradSotWFlags = "A-EHADHDAF-ON-LABA-JMF-ODPPP-AHA-D";
-        readonly string jffFlags = "A-AHADPDDP-OP-PPPB-LPH-ODPPP-APB-D";
+        readonly string revisionDate = "9/30/2023";
+        readonly int buildnumber = 253; // build starting 8/18/23
+        readonly string SotWFlags = "A-EHADHDAF-ON-LANB-JMF-ODPPP-AHB-D-H";
+        readonly string TradSotWFlags = "A-EHADHDAF-ON-LABA-JMF-ODPPP-AHA-D-G";
+        readonly string jffFlags = "A-AHADPDDP-OP-PPPB-LPH-ODPPP-APB-D-H";
         readonly bool debugmode = false;
         Random r1;
 
@@ -129,14 +129,16 @@ namespace DW3Randomizer
 
             int fixesTab = 17 * ((chkRemoveParryFight.Checked ? 1 : 0) + (chk_FixHeroSpell.Checked ? 2 : 0));
 
-            int values = 19 * ((int)romData[0x3d126] + (2 * (int)romData[0x123b1 + 10]) + (4 * (int)romData[0x134f9]) + (8 * (int)romData[0x2a15]) +
+            int cosmeticTab = 19 * ((chk_levelUpText.Checked ? 1 : 0) + (chk_ChangeHeroAge.Checked ? 2 : 0) + (chk_GhostToCasket.Checked ? 4 : 0));
+
+            int values = 23 * ((int)romData[0x3d126] + (2 * (int)romData[0x123b1 + 10]) + (4 * (int)romData[0x134f9]) + (8 * (int)romData[0x2a15]) +
                 (16 * (int)romData[0x2a54]) + (32 * (int)romData[0x281b + 10]) + (64 * (int)romData[0x281b + 11]) + (128 * (int)romData[0x367c1 + 10]) +
                 (256 * (int)romData[0x36862]) + (512 * (int)romData[0x368e2]) + (1024 * (int)romData[0x1147 + 10]) + (2048 * (int)romData[0x279a0]) +
                 (4096 * (int)romData[0x11be + 10]) + (8192 * (int)romData[0x2925a]) + (16384 * (int)romData[0x2922b]) + (32768 * (int)romData[0x292c2]) +
                 (65536 * (int)romData[0x2914f]) + (131072 * (int)romData[0x32e3 + (230)]) + (262144 * (int)romData[0x32e3 + 480]) + (524288 * (int)romData[0x32e3 + 10])) +
                 (1048576 * (int)romData[0x1ef20]);
 
-            int hashNumber = adjustmentTab + mapTab + monstersTab + treasureEquipmentTab + itemWeaponShopsInsTab + charactersTab + fixesTab + values;
+            int hashNumber = adjustmentTab + mapTab + monstersTab + treasureEquipmentTab + itemWeaponShopsInsTab + charactersTab + fixesTab + cosmeticTab + values;
 
             string hashString = hashNumber.ToString("X");
             hashString = hashString.ToLower();
@@ -147,13 +149,15 @@ namespace DW3Randomizer
         {
             r1 = new Random(int.Parse(txtSeed.Text));
         }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             txtSeed.Text = (DateTime.Now.Ticks % 2147483647).ToString();
+            string shortVersion = versionNumber.Replace(".", "");
 
             try
             {
-                using (TextReader reader = File.OpenText("lastFile.txt"))
+                using (TextReader reader = File.OpenText("lastFile" + shortVersion + ".txt"))
                 {
                     txtFileName.Text = reader.ReadLine();
                     txtFlags.Text = reader.ReadLine();
@@ -208,17 +212,9 @@ namespace DW3Randomizer
                     else
                         chk_FixSlimeSnail.Checked = false;
                     if (reader.ReadLine() == "True")
-                        chk_ChangeHeroAge.Checked = true;
-                    else
-                        chk_ChangeHeroAge.Checked = false;
-                    if (reader.ReadLine() == "True")
                         chk_RandSpriteColor.Checked = true;
                     else
                         chk_RandSpriteColor.Checked = false;
-                    if (reader.ReadLine() == "True")
-                        chk_GhostToCasket.Checked = true;
-                    else
-                        chk_GhostToCasket.Checked = false;
                     if (reader.ReadLine() == "True")
                         chk_changeCats.Checked = true;
                     else
@@ -287,9 +283,7 @@ namespace DW3Randomizer
                 cboGoldReq.SelectedIndex = 2;
                 chk_LowerCaseMenus.Checked = false;
                 chk_FixSlimeSnail.Checked = false;
-                chk_ChangeHeroAge.Checked = false;
                 chk_RandSpriteColor.Checked = false;
-                chk_GhostToCasket.Checked = false;
                 chk_changeCats.Checked = false;
                 chk_FFigherSprite.Checked = false;
                 chk_RandNPCSprites.Checked = false;
@@ -400,6 +394,7 @@ namespace DW3Randomizer
                 if (chk_FFigherSprite.Checked) fixFFigherSprite();
                 if (chk_RandNPCSprites.Checked) randomNPCSprites();
                 if (chk_nonMagicMP.Checked) nonMagicMP();
+                if (chk_levelUpText.Checked) levelUpText();
                 changeEnd();
                 saveRom(true);
                 saveRom(false);
@@ -407,6 +402,19 @@ namespace DW3Randomizer
                 runHash();
 
             }
+        }
+
+        private void levelUpText()
+        {
+            convertStrToHex("[^s}Maximum}HP}raises}]}point{!}", 0x413dd, false); // Acorns of life Raise HP
+            convertStrToHex("[^s}STR}raises ] point{.}}", 0x412de, false);
+            convertStrToHex("[^s}AGI}raises ] point{.}", 0x412f9, false);
+            convertStrToHex("[^s}VIT}raises ] point{.}}", 0x41313, false);
+            convertStrToHex("[^s}LUC}raises ] point{.@", 0x4132e, false);
+            convertStrToHex("[^s}INT}raises}]}point{.}}}}", 0x41347, false);
+            convertStrToHex("[^s}Maximum}HP}raises}]}point{.}", 0x415b6, false); // Max HP Level Up
+            convertStrToHex("[^s}Maximum}MP}raises}]}point{.}", 0x415d7, false); // Max MP Level Up
+            convertStrToHex("[^s}Maximum}MP}raises}]}point{.}", 0x4163c, false); // Max MP
         }
 
         private void nonMagicMP()
@@ -677,7 +685,9 @@ namespace DW3Randomizer
 
         private void changeCats()
         {
-            int index = r1.Next() % 10;
+            Random r2 = new Random(int.Parse(txtSeed.Text));
+
+            int index = r2.Next() % 10;
 
             byte[] dogSprite = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x1F, 0x1F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x1C, 0x18,
                                  0x00, 0x00, 0x00, 0x00, 0x00, 0xE0, 0xF8, 0xF8, 0x00, 0x00, 0x00, 0x00, 0x00, 0xE0, 0x38, 0x18,
@@ -4973,8 +4983,10 @@ namespace DW3Randomizer
 
             int colorpick = 0;
 
+            Random r2 = new Random(int.Parse(txtSeed.Text));
+
             if (chk_RandSpriteColor.Checked == true)
-                colorpick = r1.Next() % 3;
+                colorpick = r2.Next() % 3;
 
             if (colorpick == 0)
             {
@@ -5021,31 +5033,19 @@ namespace DW3Randomizer
 
             // changes references from ghost to pall (synonym for casket).
             convertStrToHex("pall and throws it away. ", 0x424f1, false);
-            convertStrToHex("puts the ", 0x42559, false);
-            romData[0x42568] = 0xf4;
-            convertStrToHex(" into ", 0x42569, false);
-            romData[0x4256f] = 0xf5;
-            convertStrToHex("^s pall.", 0x42570, false);
-            convertStrToHex("puts it into ", 0x425fb, false);
-            romData[0x42608] = 0xf5;
-            convertStrToHex("^s pall.", 0x42609, false);
+            convertStrToHex("puts the < into [^s pall. ", 0x4255f, false);
+            convertStrToHex(" into [^s pall. ", 0x42569, false);
+            convertStrToHex("puts it into [^s pall. ", 0x425fb, false);
             convertStrToHex("pall. ", 0x42629, false);
-            convertStrToHex("pall and puts it in ", 0x42647, false);
-            romData[0x4265b] = 0xf5;
-            convertStrToHex("'s Tool Bag. ", 0x4265c, false);
-            convertStrToHex("pall and puts it into ", 0x42681, false);
-            romData[0x42697] = 0xf5;
-            convertStrToHex("^s pall. ", 0x42698, false);
-            convertStrToHex("pall and returns it to ", 0x4272b, false);
-            romData[0x42742] = 0xf5;
-            convertStrToHex("^s pall.  ", 0x42743, false);
-            convertStrToHex("pall and places the ", 0x42901, false);
-            romData[0x42915] = 0xf4;
-            convertStrToHex(" in it. ", 0x42916, false);
-            convertStrToHex("put it into ", 0x450b6, false);
-            romData[0x450c2] = 0xf5;
-            convertStrToHex("^s pall. ", 0x450c3, false);
-            convertStrToHex("put it into this pall", 0x452c9, false);
+            convertStrToHex("pall and puts it in ['s Tool Bag. ", 0x42647, false);
+            convertStrToHex("pall and puts it into [^s pall. ", 0x42681, false);
+            convertStrToHex("pall and returns it to [^s pall.  ", 0x4272b, false);
+            convertStrToHex("pall and places the < in it. ", 0x42901, false);
+            convertStrToHex("put it into ", 0x450c6, false);
+            convertStrToHex("put it into this pall", 0x452b6, false);
+            romData[0x450ca] = 0x69;
+            romData[0x450cb] = 0x60;
+            romData[0x450cc] = 0xef;
         }
 
         private void randomizeInnPrices()
@@ -7672,10 +7672,11 @@ namespace DW3Randomizer
                                 0x1F, 0x1E, 0x39, 0x21, 0x17, 0x00, 0x1F, 0x01, 0x1B, 0x1F, 0x3E, 0x3E, 0x0F, 0x3F, 0x1E, 0x01, 
                                 0x98, 0xC8, 0xC8, 0x80, 0xE0, 0x00, 0xE0, 0xF0, 0x78, 0x38, 0x38, 0x70, 0xF8, 0xF8, 0x10, 0xF0 };
 
+            Random r2 = new Random(int.Parse(txtSeed.Text));
 
 
             // Merchant Randomization
-            int spriteChoice = r1.Next() % 5;
+            int spriteChoice = r2.Next() % 5;
             if (spriteChoice == 1)
             {
                for (int lnI = 0; lnI < dw1MerchantSprite.Length; lnI++)
@@ -7706,7 +7707,7 @@ namespace DW3Randomizer
             }
 
             // Priest Randomization
-            spriteChoice = r1.Next() % 3;
+            spriteChoice = r2.Next() % 3;
             if (spriteChoice == 1)
             {
                 for (int lnI = 0; lnI < dw2PriestJ.Length; lnI++)
@@ -7723,7 +7724,7 @@ namespace DW3Randomizer
             }
 
             // King Randomization
-            spriteChoice = r1.Next() % 2;
+            spriteChoice = r2.Next() % 2;
             if (spriteChoice == 1)
             {
                 for (int lnI = 0; lnI < dw2King.Length; lnI++)
@@ -7733,7 +7734,7 @@ namespace DW3Randomizer
             }
 
             // Girl Randomization
-            spriteChoice = r1.Next() % 4;
+            spriteChoice = r2.Next() % 4;
             if (spriteChoice == 1)
             {
                 for (int lnI = 0; lnI < dw1Girl.Length; lnI++)
@@ -7756,7 +7757,7 @@ namespace DW3Randomizer
                 }
             }
             // Town Man Randomization
-            spriteChoice = r1.Next() % 3;
+            spriteChoice = r2.Next() % 3;
             if (spriteChoice == 1)
             {
                 for (int lnI = 0; lnI < dw4TownMan.Length; lnI++)
@@ -7765,7 +7766,7 @@ namespace DW3Randomizer
                 }
             }
             // Old Man Randomization
-            spriteChoice = r1.Next() % 3;
+            spriteChoice = r2.Next() % 3;
             if (spriteChoice == 1)
             {
                 for (int lnI = 0; lnI < dw1OldMan.Length; lnI++)
@@ -7781,7 +7782,7 @@ namespace DW3Randomizer
                 }
             }
             // Town Soldier Randomization
-            spriteChoice = r1.Next() % 2;
+            spriteChoice = r2.Next() % 2;
             if (spriteChoice == 1)
             {
                 for (int lnI = 0; lnI < dw1SoldierP1.Length; lnI++)
@@ -7794,7 +7795,7 @@ namespace DW3Randomizer
                 }
             }
             // Dwarf Randomization
-            spriteChoice = r1.Next() % 3;
+            spriteChoice = r2.Next() % 3;
             if (spriteChoice == 1)
             {
                 for (int lnI = 0; lnI < dw4Dwarf.Length; lnI++)
@@ -8977,7 +8978,8 @@ namespace DW3Randomizer
         {
             if (txtFileName.Text != "")
             {
-                using (StreamWriter writer = File.CreateText("lastFile.txt"))
+                string shortVersion = versionNumber.Replace(".", "");
+                using (StreamWriter writer = File.CreateText("lastFile" + shortVersion + ".txt"))
                 {
                     writer.WriteLine(txtFileName.Text);
                     writer.WriteLine(txtFlags.Text);
@@ -8996,9 +8998,7 @@ namespace DW3Randomizer
                     writer.WriteLine(cboGender3.SelectedIndex);
                     writer.WriteLine(chk_LowerCaseMenus.Checked);
                     writer.WriteLine(chk_FixSlimeSnail.Checked);
-                    writer.WriteLine(chk_ChangeHeroAge.Checked);
                     writer.WriteLine(chk_RandSpriteColor.Checked);
-                    writer.WriteLine(chk_GhostToCasket.Checked);
                     writer.WriteLine(chk_changeCats.Checked);
                     writer.WriteLine(chk_FFigherSprite.Checked);
                     writer.WriteLine(chk_RandNPCSprites.Checked);
@@ -9251,6 +9251,12 @@ namespace DW3Randomizer
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(33, 1)));
             chkRemoveParryFight.Checked = (number % 2 == 1);
             chk_FixHeroSpell.Checked = (number % 4 >= 2);
+
+            // Cosmetic
+            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(35, 1)));
+            chk_levelUpText.Checked = (number % 2 == 1);
+            chk_ChangeHeroAge.Checked = (number % 4 >= 2);
+            chk_GhostToCasket.Checked = (number % 8 >= 4);
         }
 
         private void determineFlags(object sender, EventArgs e)
@@ -9299,6 +9305,9 @@ namespace DW3Randomizer
             flags += "-";
             // Fixes
             flags += convertIntToCharCapsOnly((chkRemoveParryFight.Checked ? 1 : 0) + (chk_FixHeroSpell.Checked ? 2 : 0)); // 33
+            flags += "-";
+            // Cosmetic
+            flags += convertIntToCharCapsOnly((chk_levelUpText.Checked ? 1 : 0) + (chk_ChangeHeroAge.Checked ? 2 : 0) + (chk_GhostToCasket.Checked ? 4 : 0));
 
             txtFlags.Text = flags;
             enableDisableFields(null, null);
@@ -9556,6 +9565,9 @@ namespace DW3Randomizer
                     case '$':
                         romData[startaddress + offset] = 0x50;
                         break;
+                    case '}':
+                        romData[startaddress + offset] = 0x60;
+                        break;
                     case '"':
                         romData[startaddress + offset] = 0x65;
                         break;
@@ -9585,6 +9597,21 @@ namespace DW3Randomizer
                         break;
                     case ':':
                         romData[startaddress + offset] = 0x75;
+                        break;
+                    case '{':
+                        romData[startaddress + offset] = 0xc0;
+                        break;
+                    case '@':
+                        romData[startaddress + offset] = 0xee;
+                        break;
+                    case '<':
+                        romData[startaddress + offset] = 0xf4;
+                        break;
+                    case '[':
+                        romData[startaddress + offset] = 0xf5;
+                        break;
+                    case ']':
+                        romData[startaddress + offset] = 0xf8;
                         break;
                     case '&':
                         romData[startaddress + offset] = 0xff;
