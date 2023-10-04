@@ -24,8 +24,8 @@ namespace DW3Randomizer
     public partial class Form1 : Form
     {
         readonly string versionNumber = "2.5.2";
-        readonly string revisionDate = "9/30/2023";
-        readonly int buildnumber = 253; // build starting 8/18/23
+        readonly string revisionDate = "10/4/2023";
+        readonly int buildnumber = 254; // build starting 8/18/23
         readonly string SotWFlags = "A-EHADHDAF-ON-LANB-JMF-ODPPP-AHB-D-H";
         readonly string TradSotWFlags = "A-EHADHDAF-ON-LABA-JMF-ODPPP-AHA-D-G";
         readonly string jffFlags = "A-AHADPDDP-OP-PPPB-LPH-ODPPP-APB-D-H";
@@ -1293,7 +1293,7 @@ namespace DW3Randomizer
             {
                 midenX[1] = 6 + (r1.Next() % (chkSmallMap.Checked ? 116 : 244));
                 midenY[1] = 6 + (r1.Next() % (chkSmallMap.Checked ? 116 : 244));
-                if (validPlot(midenY[1], midenX[1], 2, 2, new int[] { maxIsland[1] }))
+                if (validPlot(midenY[1], midenX[1], 2, 4, new int[] { maxIsland[1] }))
                     midenOK = true;
             }
 
@@ -1323,7 +1323,7 @@ namespace DW3Randomizer
             {
                 midenX[6] = r1.Next() % 132;
                 midenY[6] = r1.Next() % 132;
-                if (validPlot(midenY[6], midenX[6], 2, 2, new int[] { 60000 }))
+                if (validPlot(midenY[6], midenX[6], 2, 4, new int[] { 60000 }))
                     midenOK = true;
             }
 
@@ -1581,7 +1581,7 @@ namespace DW3Randomizer
                         if (debugmode)
                         {
                             using (StreamWriter writer2 = File.AppendText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "loop_" + txtSeed.Text + "_" + txtFlags.Text + "_" + shortVersion + ".txt")))
-                                writer2.WriteLine(validPlot(y, x, 2, 2, (locIslands[lnI] <= 3 ? new int[] { maxIsland[locIslands[lnI]] } : locIslands[lnI] <= 6 ? new int[] { 60000 } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
+                                writer2.WriteLine(validPlot(y, x, 2, 4, (locIslands[lnI] <= 3 ? new int[] { maxIsland[locIslands[lnI]] } : locIslands[lnI] <= 6 ? new int[] { 60000 } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
                                 locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], locIslands[lnI] == 6 ? maxLake2 : maxLake, locIslands[lnI] == 6));
                         }
                         if (validPlot(y, x, 2, 2, (locIslands[lnI] <= 3 ? new int[] { maxIsland[locIslands[lnI]] } : locIslands[lnI] <= 6 ? new int[] { 60000 } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
@@ -1642,7 +1642,7 @@ namespace DW3Randomizer
 
                         break;
                     case "T": // Town
-                        if (validPlot(y, x, 1, 2, (locIslands[lnI] <= 3 ? new int[] { maxIsland[locIslands[lnI]] } : locIslands[lnI] <= 6 ? new int[] { 60000 } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
+                        if (validPlot(y, x, 1, 4, (locIslands[lnI] <= 3 ? new int[] { maxIsland[locIslands[lnI]] } : locIslands[lnI] <= 6 ? new int[] { 60000 } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
                             locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], locIslands[lnI] == 6 ? maxLake2 : maxLake, locIslands[lnI] == 6))
                         {
                             if (locIslands[lnI] == 6)
@@ -1750,7 +1750,7 @@ namespace DW3Randomizer
 
                         break;
                     case "V": // Village
-                        if (validPlot(y, x, 1, 1, (locIslands[lnI] <= 3 ? new int[] { maxIsland[locIslands[lnI]] } : locIslands[lnI] <= 6 ? new int[] { 60000 } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
+                        if (validPlot(y, x, 1, 3, (locIslands[lnI] <= 3 ? new int[] { maxIsland[locIslands[lnI]] } : locIslands[lnI] <= 6 ? new int[] { 60000 } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
                             locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], locIslands[lnI] == 6 ? maxLake2 : maxLake, locIslands[lnI] == 6))
                         {
                             if (locIslands[lnI] == 6)
@@ -1797,7 +1797,7 @@ namespace DW3Randomizer
 
                         break;
                     case "P": // Pyramid
-                        if (validPlot(y, x, 1, 3, (locIslands[lnI] <= 3 ? new int[] { maxIsland[locIslands[lnI]] } : locIslands[lnI] <= 6 ? new int[] { 60000 } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
+                        if (validPlot(y, x, 3, 1, (locIslands[lnI] <= 3 ? new int[] { maxIsland[locIslands[lnI]] } : locIslands[lnI] <= 6 ? new int[] { 60000 } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
                             locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], locIslands[lnI] == 6 ? maxLake2 : maxLake, locIslands[lnI] == 6))
                         {
                             map[y + 2, x] = 0xf3;
@@ -5033,19 +5033,16 @@ namespace DW3Randomizer
 
             // changes references from ghost to pall (synonym for casket).
             convertStrToHex("pall and throws it away. ", 0x424f1, false);
-            convertStrToHex("puts the < into [^s pall. ", 0x4255f, false);
+            convertStrToHex("puts the < into [^s pall.", 0x4255f, false);
             convertStrToHex(" into [^s pall. ", 0x42569, false);
-            convertStrToHex("puts it into [^s pall. ", 0x425fb, false);
+            convertStrToHex("puts it into [^s pall.", 0x425fb, false);
             convertStrToHex("pall. ", 0x42629, false);
-            convertStrToHex("pall and puts it in ['s Tool Bag. ", 0x42647, false);
+            convertStrToHex("pall and puts it in [^s Tool Bag. ", 0x42647, false);
             convertStrToHex("pall and puts it into [^s pall. ", 0x42681, false);
             convertStrToHex("pall and returns it to [^s pall.  ", 0x4272b, false);
             convertStrToHex("pall and places the < in it. ", 0x42901, false);
-            convertStrToHex("put it into ", 0x450c6, false);
-            convertStrToHex("put it into this pall", 0x452b6, false);
-            romData[0x450ca] = 0x69;
-            romData[0x450cb] = 0x60;
-            romData[0x450cc] = 0xef;
+            convertStrToHex("put it into this pall", 0x450c6, false);
+            convertStrToHex("put it into this pall", 0x452c9, false);
         }
 
         private void randomizeInnPrices()
