@@ -24,8 +24,8 @@ namespace DW3Randomizer
     public partial class Form1 : Form
     {
         readonly string versionNumber = "2.5.3";
-        readonly string revisionDate = "10/5/2023";
-        readonly int buildnumber = 255; // build starting 8/18/23
+        readonly string revisionDate = "10/6/2023";
+        readonly int buildnumber = 256; // build starting 8/18/23
         readonly string SotWFlags = "A-EHADHDAF-ON-LANB-JMF-ODPPP-AHB-D-H";
         readonly string TradSotWFlags = "A-EHADHDAF-ON-LABA-JMF-ODPPP-AHA-D-G";
         readonly string jffFlags = "A-AHADPDDP-OP-PPPB-LPH-ODPPP-APB-D-H";
@@ -1293,6 +1293,7 @@ namespace DW3Randomizer
             bool midenOK = false;
             int[] midenX = new int[7];
             int[] midenY = new int[7];
+
             while (!midenOK)
             {
                 midenX[1] = 6 + (r1.Next() % (chkSmallMap.Checked ? 116 : 244));
@@ -1331,6 +1332,7 @@ namespace DW3Randomizer
                     midenOK = true;
             }
 
+
             int charlockX = -255;
             int charlockY = -255;
 
@@ -1341,9 +1343,9 @@ namespace DW3Randomizer
             romData[0x1b3ec] = 0x01;
 
             // Don't include Romaly, Aliahan, or Portoga islands in future location hunting.
-            islands.Remove(maxIsland[1]);
-            islands.Remove(maxIsland[2]);
-            islands.Remove(maxIsland[3]);
+//            islands.Remove(maxIsland[1]);
+//            islands.Remove(maxIsland[2]);
+//            islands.Remove(maxIsland[3]);
 
             /*
                         using (StreamWriter writer = File.CreateText(Path.Combine(Path.GetDirectoryName(txtFileName.Text), "island.txt")))
@@ -1542,11 +1544,12 @@ namespace DW3Randomizer
                 int x = 300;
                 int y = 300;
 
-                if (lnI == 0) { x = midenX[1]; y = midenY[1]; }
-                else if (lnI == 48) { x = midenX[0]; y = midenY[0]; } // Norud Cave East
-                else if (lnI == 68) { x = midenX[2]; y = midenY[2]; } // Shrine South Of Romaly
-                else if (lnI == 7) { x = midenX[6]; y = midenY[6]; } // Brecconary/Tantegel
-                else if (locIslands[lnI] == -1 || locIslands[lnI] == -2)
+                //                if (lnI == 0) { x = midenX[1]; y = midenY[1]; }
+                //                else if (lnI == 48) { x = midenX[0]; y = midenY[0]; } // Norud Cave East
+                //                else if (lnI == 68) { x = midenX[2]; y = midenY[2]; } // Shrine South Of Romaly
+                //                else if (lnI == 7) { x = midenX[6]; y = midenY[6]; } // Brecconary/Tantegel
+                //                else if (locIslands[lnI] == -1 || locIslands[lnI] == -2)
+                if (locIslands[lnI] == -1 || locIslands[lnI] == -2)
                 {
                     // Subtract 3 for room
                     x = 4 + r1.Next() % (chkSmallMap.Checked ? 80 - 4 - 4 : 132 - 4 - 4);
@@ -1669,15 +1672,19 @@ namespace DW3Randomizer
                         {
                             if (locIslands[lnI] == 6)
                             {
-                                map2[y + 0, x + 1] = 0xea;
-                                map2[y + 0, x + 2] = 0xeb;
+                                map2[y, x] = 0x05;
+                                map2[y, x + 1] = 0xea;
+                                map2[y, x + 2] = 0xeb;
+                                map2[y, x + 3] = 0x05;
                             }
                             else
                             {
                                 if (checkRandoMap(y, x, maxY, maxX))
                                 {
-                                    map[y + 0, x + 1] = 0xea;
-                                    map[y + 0, x + 2] = 0xeb;
+                                    map[y, x] = 0x05;
+                                    map[y, x + 1] = 0xea;
+                                    map[y, x + 2] = 0xeb;
+                                    map[y, x + 3] = 0x05;
                                 }
                             }
 
@@ -1731,12 +1738,14 @@ namespace DW3Randomizer
                             if (locIslands[lnI] == 6)
                             {
                                 map2[y, x] = 0xf5;
+                                map2[y + 1, x] = 0x05;
                             }
                             else
                             {
                                 if (checkRandoMap(y, x, maxY, maxX))
                                 {
                                     map[y, x] = 0xf5;
+                                    map[y + 1, x] = 0x05;
                                 }
                             }
 
@@ -1805,11 +1814,19 @@ namespace DW3Randomizer
                             locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], locIslands[lnI] == 6 ? maxLake2 : maxLake, locIslands[lnI] == 6))
                         {
                             if (locIslands[lnI] == 6)
-                                map2[y + 0, x + 1] = 0xf1;
+                            {
+                                map2[y, x] = 0x05;
+                                map2[y, x + 1] = 0xf1;
+                                map2[y, x + 2] = 0x05;
+                            }
                             else
                             {
                                 if (checkRandoMap(y, x, maxY, maxX))
+                                {
+                                    map[y, x] = 0x05;
                                     map[y, x + 1] = 0xf1;
+                                    map[y, x + 2] = 0x05;
+                                }
                             }
 
                             if (checkRandoMap(y, x, maxY, maxX) || locIslands[lnI] == 6)
@@ -1866,6 +1883,8 @@ namespace DW3Randomizer
                         {
                             if (checkRandoMap(y, x, maxY, maxX))
                             {
+                                map[y, x] = 0x01;
+                                map[y + 1, x] = 0x01;
                                 map[y + 2, x] = 0xf3;
 
                                 int byteToUse = 0x1b252 + (5 * lnI);
@@ -1887,7 +1906,10 @@ namespace DW3Randomizer
                             locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], locIslands[lnI] == 6 ? maxLake2 : maxLake, locIslands[lnI] == 6))
                         {
                             if (locIslands[lnI] == 6)
-                                map2[y + 0, x + 0] = 0xef;
+                            {
+                                map2[y, x] = 0xef;
+                                map2[y + 1, x] = 0x05;
+                            }
                             else
                             {
                                 if (checkRandoMap(y, x, maxY, maxX))
@@ -1945,40 +1967,52 @@ namespace DW3Randomizer
                         {
                             if (locIslands[lnI] == 6)
                             {
-                                map2[y + 0, x + 0] = 0xf2;
-                                map2[y + 1, x + 0] = 0xee;
+                                for (int lnQ = 0; lnQ < maxY; lnQ++)
+                                {
+                                    map2[y + lnQ, x] = 0x05;
+                                    map2[y + lnQ, x + 2] = 0x05;
+                                }
+                                map2[y, x + 1] = 0x05;
+                                map2[y + 1, x + 1] = 0xf2;
+                                map2[y + 2, x + 1] = 0xee;
                             }
                             else
                             {
                                 if (checkRandoMap(y, x, maxY, maxX))
                                 {
-                                    map[y + 0, x + 0] = 0xf2;
-                                    map[y + 1, x + 0] = 0xee;
+                                    for (int lnQ = 0; lnQ < maxY; lnQ++)
+                                    {
+                                        map[y + lnQ, x] = 0x05;
+                                        map[y + lnQ, x + 2] = 0x05;
+                                    }
+                                    map[y, x + 1] = 0x05;
+                                    map[y + 1, x + 1] = 0xf2;
+                                    map[y + 2, x + 1] = 0xee;
                                 }
                             }
 
                             if (checkRandoMap(y, x, maxY, maxX) || locIslands[lnI] == 6)
                             {
                                 int byteToUse = 0x1b252 + (5 * lnI);
-                                romData[byteToUse] = (byte)(x);
-                                romData[byteToUse + 1] = (byte)(y + 1);
+                                romData[byteToUse] = (byte)(x + 1);
+                                romData[byteToUse + 1] = (byte)(y + 2);
 
                                 if (lnI == 60) // Najimi Tower
                                 {
-                                    romData[0x18537] = (byte)(x);
-                                    romData[0x18538] = (byte)(y + 1);
+                                    romData[0x18537] = (byte)(x + 1);
+                                    romData[0x18538] = (byte)(y + 2);
 
                                     // Direct LDA of Tower fall point
-                                    romData[0x3d401] = (byte)(x);
-                                    romData[0x3d405] = (byte)(y + 1);
+                                    romData[0x3d401] = (byte)(x + 1);
+                                    romData[0x3d405] = (byte)(y + 2);
 
-                                    romData[0x7d401] = (byte)(x);
-                                    romData[0x7d405] = (byte)(y + 1);
+                                    romData[0x7d401] = (byte)(x + 1);
+                                    romData[0x7d405] = (byte)(y + 2);
                                 }
                                 else if (lnI == 61) // Garuna Tower
                                 {
-                                    romData[0x1851d] = romData[0x18520] = romData[0x18526] = romData[0x18529] = (byte)x;
-                                    romData[0x1851e] = romData[0x18521] = romData[0x18527] = romData[0x1852a] = (byte)(y + 1);
+                                    romData[0x1851d] = romData[0x18520] = romData[0x18526] = romData[0x18529] = (byte)(x + 1);
+                                    romData[0x1851e] = romData[0x18521] = romData[0x18527] = romData[0x1852a] = (byte)(y + 2);
                                 }
                                 if (locIslands[lnI] != 6)
                                 {
@@ -2414,6 +2448,7 @@ namespace DW3Randomizer
                                     for (int lnJ = 5; lnJ < 8; lnJ++)
                                     {
                                         map[y + 2, x + lnJ] = 0x00;
+                                        map[y + 1, x + lnJ] = 0x00;
                                         map[y, x + lnJ] = 0x00;
                                     }
                                     map[y + 1, x] = 0x06;
@@ -2510,8 +2545,8 @@ namespace DW3Randomizer
                             maxY = 6;
 
                             bool necrogundLegal = true;
-                            for (int lnJ = x; lnJ < x + 10; lnJ++)
-                                for (int lnK = y; lnK < y + 6; lnK++)
+                            for (int lnJ = x; lnJ < x + maxX; lnJ++)
+                                for (int lnK = y; lnK < y + maxY; lnK++)
                                 {
                                     if (map[lnK, lnJ] > 0x07)
                                         necrogundLegal = false;
@@ -2521,13 +2556,13 @@ namespace DW3Randomizer
                             {
                                 if (checkRandoMap(y, x, maxY, maxX))
                                 {
-                                    for (int lnJ = x; lnJ < x + 10; lnJ++)
-                                        for (int lnK = y; lnK < y + 6; lnK++)
+                                    for (int lnJ = x; lnJ < x + maxX; lnJ++)
+                                        for (int lnK = y; lnK < y + maxY; lnK++)
                                         {
                                             island[lnK, lnJ] = 5001;
                                         }
 
-                                    for (int lnJ = y; lnJ < y + 6; lnJ++)
+                                    for (int lnJ = y + 1; lnJ < y + maxY; lnJ++)
                                     {
                                         if (chk_RmMtnNecrogond.Checked == true)
                                         {
@@ -2566,12 +2601,12 @@ namespace DW3Randomizer
                                     map[y + 1, x + 5] = 0x05;
                                     map[y + 1, x + 6] = 0x06;
 
-                                    map[y + 1, x + 1] = 0x05;
-                                    map[y + 1, x + 2] = 0x05;
-                                    map[y + 1, x + 3] = 0x00;
-                                    map[y + 1, x + 4] = 0x05;
-                                    map[y + 1, x + 5] = 0xf0;
-                                    map[y + 1, x + 6] = 0x05;
+                                    map[y + 2, x + 1] = 0x05;
+                                    map[y + 2, x + 2] = 0x05;
+                                    map[y + 2, x + 3] = 0x00;
+                                    map[y + 2, x + 4] = 0x05;
+                                    map[y + 2, x + 5] = 0xf0;
+                                    map[y + 2, x + 6] = 0x05;
 
                                     map[y + 3, x + 1] = 0x05;
                                     map[y + 3, x + 2] = 0x00;
@@ -5205,6 +5240,9 @@ namespace DW3Randomizer
             convertStrToHex("pall and returns it to [^s pall.  ", 0x4272b, false);
             convertStrToHex("pall and places the < in it. ", 0x42901, false);
             convertStrToHex("put it into this pall", 0x450c6, false);
+            romData[0x450db] = 0x69;
+            romData[0x450dc] = 0x60;
+            romData[0x450dd] = 0xef;
             convertStrToHex("put it into this pall", 0x452c9, false);
         }
 
