@@ -24,8 +24,8 @@ namespace DW3Randomizer
     public partial class Form1 : Form
     {
         readonly string versionNumber = "2.5.3";
-        readonly string revisionDate = "10/6/2023";
-        readonly int buildnumber = 256; // build starting 8/18/23
+        readonly string revisionDate = "10/7/2023";
+        readonly int buildnumber = 258; // build starting 8/18/23
         readonly string SotWFlags = "A-EHADHDAF-ON-LANB-JMF-ODPPP-AHB-D-H";
         readonly string TradSotWFlags = "A-EHADHDAF-ON-LABA-JMF-ODPPP-AHA-D-G";
         readonly string jffFlags = "A-AHADPDDP-OP-PPPB-LPH-ODPPP-APB-D-H";
@@ -5254,7 +5254,7 @@ namespace DW3Randomizer
             // changes references from ghost to pall (synonym for casket).
             convertStrToHex("pall and throws it away. ", 0x424f1, false);
             convertStrToHex("puts the < into [^s pall.", 0x4255f, false);
-            convertStrToHex(" into [^s pall. ", 0x42569, false);
+            convertStrToHex(" into [^s pall.", 0x42569, false);
             convertStrToHex("puts it into [^s pall.", 0x425fb, false);
             convertStrToHex("pall. ", 0x42629, false);
             convertStrToHex("pall and puts it in [^s Tool Bag. ", 0x42647, false);
@@ -7459,16 +7459,16 @@ namespace DW3Randomizer
 
         private void forceItemSell()
         {
-            int[] forcedItemSell = { 0x16, 0x1c, 0x28, 0x32, 0x34, 0x36, 0x3b, 0x3f, 0x42, 0x48, 0x4b, 0x4c, 0x50, 0x51, 0x52, 0x53, 0x55, 0x58, 0x59, 0x5b, 0x5c, 0x5d, 0x5e, 0x69, 0x6b, 0x6e, 0x6f, 0x70, 0x71 };
+            int[] forcedItemSell = { 0x16, 0x1c, 0x28, 0x32, 0x34, 0x36, 0x3b, 0x3f, 0x42, 0x48, 0x4b, 0x4c, 0x50, 0x51, 0x52, 0x53, 0x54, 0x55, 0x58, 0x59, 0x5b, 0x5c, 0x5d, 0x5e, 0x69, 0x6b, 0x6e, 0x6f, 0x70, 0x71 };
             for (int lnI = 0; lnI < forcedItemSell.Length; lnI++)
                 if (romData[0x11be + forcedItemSell[lnI]] % 32 >= 16) // Not allowed to be sold
                     romData[0x11be + forcedItemSell[lnI]] -= 16; // Now allowed to be sold!
 
             int[] itemstoAdjust = { 0x16, 0x1c, 0x28, 0x32, 0x34, 0x36, 0x3b, 0x3f, 0x42, 0x48, 0x49, 0x4b, 0x4c, 0x50, 0x52, 0x53, 0x58, 0x59, 0x5a, 0x69, 0x6f, 0x70, 0x71, // forced items to sell AND...
-               0x5f, 0x60, 0x61, 0x62, 0x63, 0x64, 0x57, 0x75, 0x55, 0x4e, 0x4f, 0x49, 0x5b, 0x5c, 0x5d, 0x6b, 0x6e, 0x51 }; // Some other items I want sold (see above)
+               0x5f, 0x60, 0x61, 0x62, 0x63, 0x64, 0x57, 0x75, 0x55, 0x4e, 0x4f, 0x49, 0x5b, 0x5c, 0x5d, 0x6b, 0x6e, 0x51, 0x54 }; // Some other items I want sold (see above)
 
             int[] itemPriceAdjust = { 5000, 35000, 15000, 10000, 8000, 12000, 10000, 800, 10, 5000, 5000, 5000, 8000, 20000, 1000, 1000, 500, 2000, 5000, 5000, 500, 2000, 500,
-                5000, 3000, 2000, 2500, 2500, 5000, 800, 10000, 3000, 2000, 10000, 5000, 1000, 500, 500, 500, 500, 500 };
+                5000, 3000, 2000, 2500, 2500, 5000, 800, 10000, 3000, 2000, 10000, 5000, 1000, 500, 500, 500, 500, 500, 500 };
 
             int price = 0;
 
