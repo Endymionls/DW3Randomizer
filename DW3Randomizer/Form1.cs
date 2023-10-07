@@ -1371,7 +1371,7 @@ namespace DW3Randomizer
 
                                   "?", "S", "S", "?", 
                                   "S", "S", "S", "S", 
-                                  "S", "S", "S", "S", 
+                                  "S", "S", "S", "X", 
                                   "X", "E", "E", "E",
 
                                   "E", "?", "?", "C", 
@@ -1427,8 +1427,8 @@ namespace DW3Randomizer
 
                                       10, 9, 9, 9, 
                                       9, 9, 9, 9, 
-                                      6, 6, 6, 2, 
-                                      3, 1, 2, 2,
+                                      6, 6, 6, -100, 
+                                      -100, 1, 2, 2,
             
                                       0, 9, 10, 9, 
                                       0, 9, 9, 9, 
@@ -1458,7 +1458,6 @@ namespace DW3Randomizer
                 locIslands[37] = randoCont(5);
                 locIslands[38] = randoCont(5);
                 locIslands[39] = randoCont(5);
-                locIslands[43] = randoCont(4);
             }
 
             if (chk_RandoCaves.Checked)
@@ -1490,6 +1489,7 @@ namespace DW3Randomizer
                 locIslands[1] = randoCont(5);
                 locIslands[2] = randoCont(5);
                 locIslands[6] = randoCont(5);
+                locIslands[10] = randoCont(4);
                 locIslands[11] = randoCont(5);
                 locIslands[12] = randoCont(5);
                 locIslands[14] = randoCont(3);
@@ -1789,11 +1789,6 @@ namespace DW3Randomizer
                                 {
                                     romData[0x184fc] = romData[0x18502] = romData[0x18517] = (byte)x;
                                     romData[0x184fd] = romData[0x18503] = romData[0x18518] = (byte)y;
-                                }
-                                else if (lnI == 43)
-                                {
-                                    romData[0x1850b] = romData[0x3d18b] = romData[0x7d18b] = (byte)x;
-                                    romData[0x1850c] = romData[0x3d181] = romData[0x7d181] = (byte)y;
                                 }
                                 if (locIslands[lnI] != 6)
                                 {
@@ -2259,92 +2254,119 @@ namespace DW3Randomizer
                         }
                         else if (lnI == 10)
                         {
-                            maxX = 8;
-                            maxY = 5;
+                            // Portoga Shrines share the same Y coordinate
+                            // Portoga weird, does not follow same creation convention as other islands, etc.
+                            //
 
-                            bool portogaLegal = true;
-                            x = 8 + r1.Next() % (chkSmallMap.Checked ? 128 - 8 - 4 : 256 - 8 - 8);
+                            int shrineX = x;
+                            int shrineY = y;
+                            int maxShrineX = 1;
+                            int maxShrineY = 2;
 
-                            for (int lnJ = x; lnJ < x + maxX; lnJ++)
-                                for (int lnK = y; lnK < y + maxY; lnK++)
-                                {
-                                    if (map[lnK, lnJ] != 0x00 || island[lnK, lnJ] != maxLake)
-                                        portogaLegal = false;
-                                }
+                            int islandX = 8 + r1.Next() % (chkSmallMap.Checked ? 128 - 8 - 4 : 256 - 8 - 8);
+                            int islandY = y;
+                            int maxIslandX = 8;
+                            int maxIslandY = 5;
 
-                            if (portogaLegal)
+                            if (validPlot(shrineY, shrineX, maxShrineY, maxShrineX, (locIslands[lnI] <= 6 ? new int[] { maxIsland[locIslands[lnI]] } : islands.ToArray())) && reachable(y, x, !landLocs.Contains(lnI),
+                                          locIslands[lnI] <= 6 ? midenX[locIslands[lnI]] : midenX[1], locIslands[lnI] <= 6 ? midenY[locIslands[lnI]] : midenY[1], maxLake, locIslands[lnI] == 6))
                             {
-                                if (checkRandoMap(y, x, maxY, maxX))
+                                bool portogaLegal = true;
+
+                                for (int lnJ = islandX; lnJ < islandX + maxIslandX; lnJ++)
+                                    for (int lnK = islandY - 1; lnK < islandY + maxIslandY; lnK++)
+                                    {
+                                        if (map[lnK, lnJ] != 0x00 || island[lnK, lnJ] != maxLake)
+                                            portogaLegal = false;
+                                    }
+
+                                if (portogaLegal)
                                 {
-                                    int byteToUse = 0x1b252 + (5 * lnI);
-                                    map[y, x + 7] = 0x00;
-                                    map[y, x + 6] = 0x00;
-                                    map[y, x + 5] = 0x00;
-                                    map[y, x + 4] = 0x00;
-                                    map[y, x + 3] = 0x00;
-                                    map[y, x + 2] = 0x00;
-                                    map[y, x + 1] = 0x00;
-                                    map[y, x] = 0x00;
-                                    map[y + 1, x] = 0x00;
-                                    map[y + 1, x + 5] = 0x05;
-                                    map[y + 1, x + 4] = 0x05;
-                                    map[y + 1, x + 3] = 0x05;
-                                    map[y + 1, x + 2] = 0x05;
-                                    map[y + 1, x + 1] = 0x05;
-                                    map[y + 1, x] = 0x00;
-                                    map[y + 2, x + 7] = 0x00;
-                                    map[y + 2, x + 5] = 0x05;
-                                    map[y + 2, x + 4] = 0xeb;
-                                    map[y + 2, x + 3] = 0xea;
-                                    map[y + 2, x + 2] = 0x00;
-                                    map[y + 2, x + 1] = 0x05;
-                                    map[y + 2, x] = 0x00;
-                                    map[y + 3, x + 7] = 0x00;
-                                    map[y + 3, x + 6] = 0x00;
-                                    map[y + 3, x + 5] = 0x05;
-                                    map[y + 3, x + 4] = 0x05;
-                                    map[y + 3, x + 3] = 0x05;
-                                    map[y + 3, x + 2] = 0x00;
-                                    map[y + 3, x + 1] = 0x05;
-                                    map[y + 3, x] = 0x00;
-                                    map[y + 4, x + 7] = 0x00;
-                                    map[y + 4, x + 6] = 0x00;
-                                    map[y + 4, x + 5] = 0x00;
-                                    map[y + 4, x + 4] = 0x00;
-                                    map[y + 4, x + 3] = 0x00;
-                                    map[y + 4, x + 2] = 0x00;
-                                    map[y + 4, x + 1] = 0x00;
-                                    map[y + 4, x] = 0x00;
+                                    if (checkRandoMap(islandY, islandX, maxIslandY, maxIslandX))
+                                    {
+                                        // Draw Portoga Shrine East to Map
+                                        map[shrineY, shrineX] = 0xf5;
+                                        map[shrineY + 1, shrineX] = 0x01;
 
-                                    // Map Portoga Castle to the ROM
-                                    byteToUse = 0x1b252 + (5 * 10);
-                                    romData[byteToUse] = (byte)(x + 3);
-                                    romData[byteToUse + 1] = (byte)(y + 2);
+                                        // Allocate Island to 3000
+                                        for (int lnJ = islandX; lnJ == islandX + maxIslandX; lnJ++)
+                                            for (int lnK = islandY; lnK == islandY + maxIslandY; lnK++)
+                                                island[lnK, lnJ] = 3000;
 
-                                    map[y + 2, x + 6] = 0xf5;
-                                    // Map Portoga Shrine West to the ROM
-                                    byteToUse = 0x1b252 + (5 * 44);
-                                    romData[byteToUse] = (byte)(x + 6);
-                                    romData[byteToUse + 1] = (byte)(y + 2);
+                                        // Draw Portoga Island to Map
+                                        int byteToUse = 0x1b252 + (5 * lnI);
+                                        map[islandY, islandX] = 0x00;
+                                        map[islandY, islandX + 5] = 0x05;
+                                        map[islandY, islandX + 4] = 0x05;
+                                        map[islandY, islandX + 3] = 0x05;
+                                        map[islandY, islandX + 2] = 0x05;
+                                        map[islandY, islandX + 1] = 0x05;
+                                        map[islandY, islandX] = 0x00;
+                                        map[islandY + 1, islandX + 7] = 0x00;
+                                        map[islandY + 1, islandX + 5] = 0x05;
+                                        map[islandY + 1, islandX + 4] = 0xeb;
+                                        map[islandY + 1, islandX + 3] = 0xea;
+                                        map[islandY + 1, islandX + 2] = 0x00;
+                                        map[islandY + 1, islandX + 1] = 0x05;
+                                        map[islandY + 1, islandX] = 0x00;
+                                        map[islandY + 2, islandX + 7] = 0x00;
+                                        map[islandY + 2, islandX + 6] = 0x00;
+                                        map[islandY + 2, islandX + 5] = 0x05;
+                                        map[islandY + 2, islandX + 4] = 0x05;
+                                        map[islandY + 2, islandX + 3] = 0x05;
+                                        map[islandY + 2, islandX + 2] = 0x00;
+                                        map[islandY + 2, islandX + 1] = 0x05;
+                                        map[islandY + 2, islandX] = 0x00;
+                                        map[islandY + 3, islandX + 7] = 0x00;
+                                        map[islandY + 3, islandX + 6] = 0x00;
+                                        map[islandY + 3, islandX + 5] = 0x00;
+                                        map[islandY + 3, islandX + 4] = 0x00;
+                                        map[islandY + 3, islandX + 3] = 0x00;
+                                        map[islandY + 3, islandX + 2] = 0x00;
+                                        map[islandY + 3, islandX + 1] = 0x00;
+                                        map[islandY + 3, islandX] = 0x00;
 
-                                    int byteToUseReturn = 0x1b61c + (4 * returnPoints[10]);
-                                    romData[byteToUseReturn] = (byte)(x + 5);
-                                    romData[byteToUseReturn + 1] = (byte)(y + 2);
-                                    shipPlacement(byteToUseReturn + 2, y + 2, x + 2, maxLake);
+                                        // Map Portoga Town to the ROM
+                                        byteToUse = 0x1b252 + (5 * 10);
+                                        romData[byteToUse] = (byte)(islandX + 3);
+                                        romData[byteToUse + 1] = (byte)(islandY + 1);
 
-                                    romData[0x3d126] = romData[0x7d126] = romData[byteToUseReturn + 2];
-                                    romData[0x3d12a] = romData[0x7d12a] = romData[byteToUseReturn + 3];
+                                        // Draw Portoga Shrine West to the Map
+                                        map[islandY, islandX + 6] = 0xf5;
 
-                                    romData[0x3d192] = romData[0x7d192] = (byte)(x + 6);
+                                        // Map Portoga Shrine East to the ROM
+                                        byteToUse = 0x1b252 + (5 * 43);
+                                        romData[byteToUse] = (byte)shrineX;
+                                        romData[byteToUse + 1] = (byte)shrineY;
+                                        romData[0x1850b] = romData[0x3d18b] = romData[0x7d18b] = (byte)shrineX;
+                                        romData[0x1850c] = romData[0x3d181] = romData[0x7d181] = (byte)shrineY;
 
-                                    writeRandoMap(y, x, maxY, maxX);
+                                        // Map Portoga Shrine West to the ROM
+                                        byteToUse = 0x1b252 + (5 * 44);
+                                        romData[byteToUse] = (byte)(islandX + 6);
+                                        romData[byteToUse + 1] = (byte)(islandY + 2);
+                                        romData[0x3d192] = romData[0x7d192] = (byte)(islandX + 6);
+
+                                        // Write Portoga return point and ship placement
+                                        int byteToUseReturn = 0x1b61c + (4 * returnPoints[10]);
+                                        romData[byteToUseReturn] = (byte)(islandX + 5);
+                                        romData[byteToUseReturn + 1] = (byte)(islandY + 2);
+                                        shipPlacement(byteToUseReturn + 2, islandY + 2, islandX + 2, maxLake);
+
+                                        romData[0x3d126] = romData[0x7d126] = romData[byteToUseReturn + 2];
+                                        romData[0x3d12a] = romData[0x7d12a] = romData[byteToUseReturn + 3];
+
+                                        writeRandoMap(shrineY, shrineX, maxShrineY, maxShrineX);
+                                        writeRandoMap(islandY - 1, islandX, maxIslandY, maxIslandX); // -1 accounts for north water that is needed to generate Portoga
+                                    }
+                                    else
+                                        lnI--;
                                 }
                                 else
                                     lnI--;
                             }
                             else
                                 lnI--;
-
                         }
                         else if (lnI == 15) // Lancel / Lancel Cave
                         {
@@ -6956,7 +6978,9 @@ namespace DW3Randomizer
             byte fighterGreen = 0x1a;
             byte fighterBrown = 0x06;
 
-            selection = r1.Next() % 3;
+            Random r2 = new Random(int.Parse(txtSeed.Text));
+
+            selection = r2.Next() % 3;
             switch (selection)
             {
                 case 0:
@@ -6969,7 +6993,7 @@ namespace DW3Randomizer
                     heroSkin = 0x17;
                     break;
             }
-            selection = r1.Next() % 6;
+            selection = r2.Next() % 6;
             switch (selection)
             {
                 case 0:
@@ -6992,7 +7016,7 @@ namespace DW3Randomizer
                     break;
             }
 
-            selection = r1.Next() % 7;
+            selection = r2.Next() % 7;
             switch (selection)
             {
                 case 0:
@@ -7017,7 +7041,7 @@ namespace DW3Randomizer
                     heroBlue = 0x0c;
                     break;
             }
-            selection = r1.Next() % 3;
+            selection = r2.Next() % 3;
             switch (selection)
             {
                 case 0:
@@ -7030,7 +7054,7 @@ namespace DW3Randomizer
                     soldierSkin = 0x17;
                     break;
             }
-            selection = r1.Next() % 6;
+            selection = r2.Next() % 6;
             switch (selection)
             {
                 case 0:
@@ -7053,7 +7077,7 @@ namespace DW3Randomizer
                     break;
             }
 
-            selection = r1.Next() % 7;
+            selection = r2.Next() % 7;
             switch (selection)
             {
                 case 0:
@@ -7078,7 +7102,7 @@ namespace DW3Randomizer
                     soldierPurple = 0x39;
                     break;
             }
-            selection = r1.Next() % 3;
+            selection = r2.Next() % 3;
             switch (selection)
             {
                 case 0:
@@ -7091,7 +7115,7 @@ namespace DW3Randomizer
                     wizardSkin = 0x17;
                     break;
             }
-            selection = r1.Next() % 6;
+            selection = r2.Next() % 6;
             switch (selection)
             {
                 case 0:
@@ -7114,7 +7138,7 @@ namespace DW3Randomizer
                     break;
             }
 
-            selection = r1.Next() % 7;
+            selection = r2.Next() % 7;
             switch (selection)
             {
                 case 0:
@@ -7139,7 +7163,7 @@ namespace DW3Randomizer
                     wizardGreen = 0x2d;
                     break;
             }
-            selection = r1.Next() % 3;
+            selection = r2.Next() % 3;
             switch (selection)
             {
                 case 0:
@@ -7152,7 +7176,7 @@ namespace DW3Randomizer
                     fighterSkin = 0x17;
                     break;
             }
-            selection = r1.Next() % 7;
+            selection = r2.Next() % 7;
             switch (selection)
             {
                 case 0:
@@ -7178,7 +7202,7 @@ namespace DW3Randomizer
                     break;
             }
 
-            selection = r1.Next() % 6;
+            selection = r2.Next() % 6;
             switch (selection)
             {
                 case 0:
