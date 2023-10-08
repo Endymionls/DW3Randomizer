@@ -25,7 +25,7 @@ namespace DW3Randomizer
     {
         readonly string versionNumber = "2.5.3";
         readonly string revisionDate = "10/7/2023";
-        readonly int buildnumber = 258; // build starting 8/18/23
+        readonly int buildnumber = 259; // build starting 8/18/23
         readonly string SotWFlags = "A-EHADHDAF-ON-LANB-JMF-ODPPP-AHB-D-H";
         readonly string TradSotWFlags = "A-EHADHDAF-ON-LABA-JMF-ODPPP-AHA-D-G";
         readonly string jffFlags = "A-AHADPDDP-OP-PPPB-LPH-ODPPP-APB-D-H";
@@ -1417,7 +1417,7 @@ namespace DW3Randomizer
             List<int> locIslands = new List<int>();
             int[] locIslandsarray = { 1, 2, 9, 9, 
                                       9, -100, 9, 6, 
-                                      -2, 1, 3, 2, 
+                                      -2, 1, 2, 2, 
                                       2, -100, 0, 4,
 
                                       6, 6, 6, 9, 
