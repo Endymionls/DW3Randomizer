@@ -25,7 +25,7 @@ namespace DW3Randomizer
     {
         readonly string versionNumber = "2.5.3";
         readonly string revisionDate = "10/7/2023";
-        readonly int buildnumber = 259; // build starting 8/18/23
+        readonly int buildnumber = 260; // build starting 8/18/23
         readonly string SotWFlags = "A-EHADHDAF-ON-LANB-JMF-ODPPP-AHB-D-H";
         readonly string TradSotWFlags = "A-EHADHDAF-ON-LABA-JMF-ODPPP-AHA-D-G";
         readonly string jffFlags = "A-AHADPDDP-OP-PPPB-LPH-ODPPP-APB-D-H";
@@ -2199,6 +2199,7 @@ namespace DW3Randomizer
                                 for (int lnJ = 0; lnJ < 10; lnJ++)
                                     for (int lnK = 0; lnK < 10; lnK++)
                                         map2[y + lnJ, x + lnK] = 0x02;
+
                                 for (int lnJ = 1; lnJ < 9; lnJ++)
                                     for (int lnK = 1; lnK < 9; lnK++)
                                         if (chk_lbtoCharlock.Checked == true)
@@ -2230,7 +2231,7 @@ namespace DW3Randomizer
                                 map2[y + 4, x + 5] = 0xe9;
                                 map2[y + 5, x + 4] = 0xec;
                                 map2[y + 5, x + 5] = 0xed;
-                                map2[y + 5, x + 5] = 0x01;
+                                map2[y + 5, x + 8] = 0x01;
                                 int lnL = x + 9;
                                 while (map2[y + 5, lnL] == 0x00 && lnL < 132)
                                 {
@@ -2449,8 +2450,8 @@ namespace DW3Randomizer
                             maxY = 3;
 
                             bool oliviaLegal = true;
-                            for (int lnJ = x; lnJ < maxX; lnJ++)
-                                for (int lnK = y; lnK < maxY; lnK++)
+                            for (int lnJ = x; lnJ < x + maxX; lnJ++)
+                                for (int lnK = y; lnK < y + maxY; lnK++)
                                 {
                                     if (map[lnK, lnJ] != 0x00 || island[lnK, lnJ] != maxLake)
                                         oliviaLegal = false;
