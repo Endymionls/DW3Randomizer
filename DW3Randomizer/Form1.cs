@@ -24,8 +24,8 @@ namespace DW3Randomizer
     public partial class Form1 : Form
     {
         readonly string versionNumber = "2.5.3";
-        readonly string revisionDate = "10/7/2023";
-        readonly int buildnumber = 260; // build starting 8/18/23
+        readonly string revisionDate = "10/8/2023";
+        readonly int buildnumber = 261; // build starting 8/18/23
         readonly string SotWFlags = "A-EHADHDAF-ON-LANB-JMF-ODPPP-AHB-D-H";
         readonly string TradSotWFlags = "A-EHADHDAF-ON-LABA-JMF-ODPPP-AHA-D-G";
         readonly string jffFlags = "A-AHADPDDP-OP-PPPB-LPH-ODPPP-APB-D-H";
@@ -280,7 +280,7 @@ namespace DW3Randomizer
                 cboGender2.SelectedIndex = 0;
                 cboGender3.SelectedIndex = 0;
                 cboEncounterRate.SelectedIndex = 4;
-                cboExpGains.SelectedIndex = 7;
+                cboExpGains.SelectedIndex = 8;
                 cboGoldReq.SelectedIndex = 2;
                 chk_LowerCaseMenus.Checked = false;
                 chk_FixSlimeSnail.Checked = false;
@@ -6719,26 +6719,33 @@ namespace DW3Randomizer
 
         private void boostGP()
         {
+            // Allow for Randomization of gold change
+            int index = 0;
+            if (cboGoldReq.SelectedIndex == 0)
+                index = (r1.Next() % 5) + 1;
+            else
+                index = cboGoldReq.SelectedIndex;
+
             // Replace monster data
             for (int lnI = 0; lnI < 139; lnI++)
             {
                 int byteValStart = 0x32e3 + (23 * lnI);
 
                 int gp = romData[byteValStart + 4] + ((romData[byteValStart + 18] % 2) * 256);
-                switch (cboGoldReq.SelectedIndex)
+                switch (index)
                 {
-                    case 0:
+                    case 1:
                         gp *= 2;
                         break;
-                    case 1:
+                    case 2:
                         gp = gp * 3 / 2;
                         break;
-                    case 2:
-                        break;
                     case 3:
-                        gp /= 2;
                         break;
                     case 4:
+                        gp /= 2;
+                        break;
+                    case 5:
                         gp = 0;
                         break;
                 }
@@ -6761,44 +6768,50 @@ namespace DW3Randomizer
 
         private void boostXP()
         {
+            int index = 0;
+            if (cboExpGains.SelectedIndex == 0)
+                index = (r1.Next() % 11) + 1;
+            else
+                index = cboExpGains.SelectedIndex;
+ 
             // Replace monster data
             for (int lnI = 0; lnI < 139; lnI++)
             {
                 int byteValStart = 0x32e3 + (23 * lnI);
 
                 int xp = romData[byteValStart + 1] + (romData[byteValStart + 2] * 256);
-                switch (cboExpGains.SelectedIndex)
+                switch (index)
                 {
-                    case 0:
+                    case 1:
                         xp *= 10;
                         break;
-                    case 1:
+                    case 2:
                         xp = xp * 15 / 2;
                         break;
-                    case 2:
+                    case 3:
                         xp *= 5;
                         break;
-                    case 3:
+                    case 4:
                         xp *= 4;
                         break;
-                    case 4:
+                    case 5:
                         xp *= 3;
                         break;
-                    case 5:
+                    case 6:
                         xp *= 2;
                         break;
-                    case 6:
+                    case 7:
                         xp = xp * 3 / 2;
                         break;
-                    case 7:
-                        break;
                     case 8:
-                        xp /= 2;
                         break;
                     case 9:
-                        xp /= 4;
+                        xp /= 2;
                         break;
                     case 10:
+                        xp /= 4;
+                        break;
+                    case 11:
                         xp = 0;
                         break;
                 }
@@ -6811,34 +6824,42 @@ namespace DW3Randomizer
 
         private void adjustEncounters()
         {
+            // Randomize Encounter Rate
+            int index = 0;
+            if (cboEncounterRate.SelectedIndex == 0)
+                index = (r1.Next() % 9) + 1;
+            else
+                index = cboEncounterRate.SelectedIndex;
+
+
             for (int i = 0x944; i <= 0x955; i++)
             {
-                switch (cboEncounterRate.SelectedIndex)
+                switch (index)
                 {
-                    case 0:
+                    case 1:
                         romData[i] *= 4;
                         break;
-                    case 1:
+                    case 2:
                         romData[i] *= 3;
                         break;
-                    case 2:
+                    case 3:
                         romData[i] *= 2;
                         break;
-                    case 3:
+                    case 4:
                         romData[i] = (byte)(romData[i] * 3 / 2);
                         break;
-                    case 4:
-                        break;
                     case 5:
-                        romData[i] = (byte)(romData[i] * 3 / 4);
                         break;
                     case 6:
-                        romData[i] /= 2;
+                        romData[i] = (byte)(romData[i] * 3 / 4);
                         break;
                     case 7:
-                        romData[i] /= 4;
+                        romData[i] /= 2;
                         break;
                     case 8:
+                        romData[i] /= 4;
+                        break;
+                    case 9:
                         romData[i] = 0;
                         break;
                 }
@@ -9333,22 +9354,32 @@ namespace DW3Randomizer
         private void determineChecks(object sender, EventArgs e)
         {
             string flags = txtFlags.Text;
+            string binary = "";
             int number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(0, 1)));
             chk_GenCompareFile.Checked = (number % 2 == 1);
 
             // Adjustments
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(2, 1)));
-            cboExpGains.SelectedIndex = (number % 11);
+            cboExpGains.SelectedIndex = (number % 12);
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(3, 1)));
-            cboEncounterRate.SelectedIndex = (number % 9);
+            cboEncounterRate.SelectedIndex = (number % 10);
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(4, 1)));
-            cboGoldReq.SelectedIndex = (number % 5);
+            cboGoldReq.SelectedIndex = (number % 6);
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(5, 1)));
             chkFasterBattles.Checked = (number % 2 == 1);
             chkSpeedText.Checked = (number % 4 >= 2);
+/*
+            if (number % 2 == 1)
+                chkFasterBattles.CheckState = CheckState.Indeterminate;
+            else if (number % 4 >= 2)
+                chkFasterBattles.CheckState = CheckState.Checked;
+
+            // chkFasterBattles.Checked = (number % 2 == 1);
+            chkSpeedText.Checked = (number % 8 >= 4);
+*/
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(6, 1)));
             chk_SpeedUpMenus.Checked = (number % 2 == 1);
@@ -9493,7 +9524,9 @@ namespace DW3Randomizer
             flags += convertIntToCharCapsOnly(cboExpGains.SelectedIndex); // 2
             flags += convertIntToCharCapsOnly(cboEncounterRate.SelectedIndex); // 3
             flags += convertIntToCharCapsOnly(cboGoldReq.SelectedIndex); // 4
-            flags += convertIntToCharCapsOnly((chkFasterBattles.Checked ? 1 : 0) + (chkSpeedText.Checked ? 2 : 0)) ; // 5
+            flags += convertIntToCharCapsOnly((chkFasterBattles.Checked ? 1 : 0) + (chkSpeedText.Checked ? 2 : 0)); // 5
+
+            //flags += convertIntToCharCapsOnly((chkFasterBattles.CheckState == 2 ? 1 : chkFasterBattles.CheckState == 1 ? 2 : 0) + (chkSpeedText.Checked ? 8 : 0)) ; // 5
             flags += convertIntToCharCapsOnly((chk_SpeedUpMenus.Checked ? 1 : 0) + (chk_Cod.Checked ? 2 : 0) + (chk_WeapArmPower.Checked ? 4 : 0) + (chkNoLamiaOrbs.Checked ? 8 : 0)); // 6
             flags += convertIntToCharCapsOnly((chk_RmManip.Checked ? 1 : 0) + (chk_RandomStartGold.Checked ? 2 : 0) + (chk_InvisibleNPCs.Checked ? 4 : 0) + (chk_InvisibleShips.Checked ? 8 : 0)); // 7
             flags += convertIntToCharCapsOnly((chk_DoubleAtk.Checked ? 1 : 0) + (chk_HeroItems.Checked ? 2 : 0)); // 8

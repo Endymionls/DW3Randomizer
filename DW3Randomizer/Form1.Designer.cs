@@ -163,6 +163,11 @@ namespace DW3Randomizer
             this.chk_FixHeroSpell = new System.Windows.Forms.CheckBox();
             this.chkRemoveParryFight = new System.Windows.Forms.CheckBox();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.chk_levelUpText = new System.Windows.Forms.CheckBox();
             this.chk_FemaleHero = new System.Windows.Forms.CheckBox();
             this.chk_RandNPCSprites = new System.Windows.Forms.CheckBox();
             this.chk_FFigherSprite = new System.Windows.Forms.CheckBox();
@@ -191,11 +196,6 @@ namespace DW3Randomizer
             this.txtSeed = new System.Windows.Forms.TextBox();
             this.btn_CopyHash = new System.Windows.Forms.Button();
             this.btn_chksumHash = new System.Windows.Forms.Button();
-            this.chk_levelUpText = new System.Windows.Forms.CheckBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage8.SuspendLayout();
@@ -630,6 +630,7 @@ namespace DW3Randomizer
             this.cboEncounterRate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboEncounterRate.FormattingEnabled = true;
             this.cboEncounterRate.Items.AddRange(new object[] {
+            "Random",
             "400%",
             "300%",
             "200%",
@@ -650,6 +651,7 @@ namespace DW3Randomizer
             this.cboGoldReq.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboGoldReq.FormattingEnabled = true;
             this.cboGoldReq.Items.AddRange(new object[] {
+            "Random",
             "200%",
             "150%",
             "100%",
@@ -667,6 +669,7 @@ namespace DW3Randomizer
             this.cboExpGains.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboExpGains.FormattingEnabled = true;
             this.cboExpGains.Items.AddRange(new object[] {
+            "Random",
             "1000%",
             "750%",
             "500%",
@@ -706,6 +709,7 @@ namespace DW3Randomizer
             this.chkFasterBattles.Size = new System.Drawing.Size(203, 24);
             this.chkFasterBattles.TabIndex = 56;
             this.chkFasterBattles.Text = "Increased Battle Speed";
+            this.chkFasterBattles.ThreeState = true;
             this.adjustments.SetToolTip(this.chkFasterBattles, "Speeds up menus and text in battle.");
             this.chkFasterBattles.UseVisualStyleBackColor = true;
             this.chkFasterBattles.CheckedChanged += new System.EventHandler(this.determineFlags);
@@ -1937,6 +1941,52 @@ namespace DW3Randomizer
             this.tabPage7.Text = "Cosmetic";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(715, 15);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(215, 20);
+            this.label17.TabIndex = 230;
+            this.label17.Text = "Sprite Change - Flag Change";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(480, 15);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(111, 20);
+            this.label16.TabIndex = 220;
+            this.label16.Text = "Sprite Change";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(249, 15);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(192, 20);
+            this.label15.TabIndex = 210;
+            this.label15.Text = "Text Adjust - Flag Change";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(10, 15);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(88, 20);
+            this.label13.TabIndex = 201;
+            this.label13.Text = "Text Adjust";
+            // 
+            // chk_levelUpText
+            // 
+            this.chk_levelUpText.AutoSize = true;
+            this.chk_levelUpText.Location = new System.Drawing.Point(249, 45);
+            this.chk_levelUpText.Name = "chk_levelUpText";
+            this.chk_levelUpText.Size = new System.Drawing.Size(191, 24);
+            this.chk_levelUpText.TabIndex = 211;
+            this.chk_levelUpText.Text = "Change Level Up Text";
+            this.chk_levelUpText.UseVisualStyleBackColor = true;
+            // 
             // chk_FemaleHero
             // 
             this.chk_FemaleHero.AutoSize = true;
@@ -2244,52 +2294,6 @@ namespace DW3Randomizer
             this.btn_chksumHash.Text = "Copy Checksum/Hash";
             this.btn_chksumHash.UseVisualStyleBackColor = true;
             this.btn_chksumHash.Click += new System.EventHandler(this.btn_chksumHash_Click);
-            // 
-            // chk_levelUpText
-            // 
-            this.chk_levelUpText.AutoSize = true;
-            this.chk_levelUpText.Location = new System.Drawing.Point(249, 45);
-            this.chk_levelUpText.Name = "chk_levelUpText";
-            this.chk_levelUpText.Size = new System.Drawing.Size(191, 24);
-            this.chk_levelUpText.TabIndex = 211;
-            this.chk_levelUpText.Text = "Change Level Up Text";
-            this.chk_levelUpText.UseVisualStyleBackColor = true;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(10, 15);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(88, 20);
-            this.label13.TabIndex = 201;
-            this.label13.Text = "Text Adjust";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(249, 15);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(192, 20);
-            this.label15.TabIndex = 210;
-            this.label15.Text = "Text Adjust - Flag Change";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(480, 15);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(111, 20);
-            this.label16.TabIndex = 220;
-            this.label16.Text = "Sprite Change";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(715, 15);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(215, 20);
-            this.label17.TabIndex = 230;
-            this.label17.Text = "Sprite Change - Flag Change";
             // 
             // Form1
             // 
