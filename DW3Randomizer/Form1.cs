@@ -18,14 +18,15 @@ using System.Drawing.Printing;
 using System.Windows.Forms.VisualStyles;
 using System.Diagnostics;
 using System.Globalization;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace DW3Randomizer
 {
     public partial class Form1 : Form
     {
-        readonly string versionNumber = "2.5.3";
-        readonly string revisionDate = "10/8/2023";
-        readonly int buildnumber = 261; // build starting 8/18/23
+        readonly string versionNumber = "2.5.4";
+        readonly string revisionDate = "10/11/2023";
+        readonly int buildnumber = 262; // build starting 8/18/23
         readonly string SotWFlags = "A-EHADHDAF-ON-LANB-JMF-ODPPP-AHB-D-H";
         readonly string TradSotWFlags = "A-EHADHDAF-ON-LABA-JMF-ODPPP-AHA-D-G";
         readonly string jffFlags = "A-AHADPDDP-OP-PPPB-LPH-ODPPP-APB-D-H";
@@ -347,17 +348,20 @@ namespace DW3Randomizer
                     MessageBox.Show("Invalid seed.  It must be a number from 0 to 2147483648.");
                     return;
                 }
+                int evalRandTemp = 0; // this will evaluate if Rand is selected on specific options
 
                 if (chk_RmManip.Checked) dw4RNG();
-                boostGP();
                 boostXP();
+                boostGP();
                 adjustEncounters();
+                evalRandTemp = r1.Next() % 2;
+                if (evalRandTemp == 1 || rad_IncBattSpeedOn.Checked)
+                    battleSpeed();
                 if (chk_randsagestone.Checked) randsagestone();
                 if (chk_RandShoesEffect.Checked) randshoes();
                 if (chk_Cod.Checked) cod();
                 if (chk_FixHeroSpell.Checked) fixHeroSpell();
                 if (chkSpeedText.Checked) speedText();
-                if (chkFasterBattles.Checked) battleSpeed();
                 if (chkFourJobFiesta.Checked) fourJobFiesta();
                 if (chkNoLamiaOrbs.Checked) noOrbs();
                 if (chk_SpeedUpMenus.Checked) speedUpMenus();
@@ -9354,13 +9358,52 @@ namespace DW3Randomizer
         private void determineChecks(object sender, EventArgs e)
         {
             string flags = txtFlags.Text;
-            string binary = "";
             int number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(0, 1)));
+            int tempnumber = 0;
             chk_GenCompareFile.Checked = (number % 2 == 1);
 
             // Adjustments
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(2, 1)));
-            cboExpGains.SelectedIndex = (number % 12);
+            switch(number)
+            {
+                case 0: 
+                    cboExpGains.SelectedIndex = 0;
+                    break;
+                case 1: 
+                    cboExpGains.SelectedIndex = 1;
+                    break;
+                case 2: 
+                    cboExpGains.SelectedIndex = 2;
+                    break;
+                case 4: 
+                    cboExpGains.SelectedIndex = 3;
+                    break;
+                case 5: 
+                    cboExpGains.SelectedIndex = 4;
+                    break;
+                case 6:
+                    cboExpGains.SelectedIndex = 5;
+                    break;
+                case 8:
+                    cboExpGains.SelectedIndex = 6;
+                    break;
+                case 9:
+                    cboExpGains.SelectedIndex = 7;
+                    break;
+                case 10:
+                    cboExpGains.SelectedIndex = 8;
+                    break;
+                case 16:
+                    cboExpGains.SelectedIndex = 9;
+                    break;
+                case 17:
+                    cboExpGains.SelectedIndex = 10;
+                    break;
+                case 18:
+                    cboExpGains.SelectedIndex = 11;
+                    break;
+            }
+//            cboExpGains.SelectedIndex = (number % 12);
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(3, 1)));
             cboEncounterRate.SelectedIndex = (number % 10);
@@ -9369,17 +9412,13 @@ namespace DW3Randomizer
             cboGoldReq.SelectedIndex = (number % 6);
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(5, 1)));
-            chkFasterBattles.Checked = (number % 2 == 1);
-            chkSpeedText.Checked = (number % 4 >= 2);
-/*
-            if (number % 2 == 1)
-                chkFasterBattles.CheckState = CheckState.Indeterminate;
-            else if (number % 4 >= 2)
-                chkFasterBattles.CheckState = CheckState.Checked;
-
-            // chkFasterBattles.Checked = (number % 2 == 1);
+            if (number % 4 == 0)
+                rad_IncBattSpeedOff.Checked = true;
+            else if (number % 4 == 1)
+                rad_IncBattSpeedOn.Checked = true;
+            else if (number % 4 == 2)
+                rad_IncBattSpeedRand.Checked = true;
             chkSpeedText.Checked = (number % 8 >= 4);
-*/
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(6, 1)));
             chk_SpeedUpMenus.Checked = (number % 2 == 1);
@@ -9518,13 +9557,50 @@ namespace DW3Randomizer
             if (loading) return;
 
             string flags = "";
+            int tempnum = 0;
             flags += convertIntToCharCapsOnly((chk_GenCompareFile.Checked ? 1 : 0)); // 0
             flags += "-";
             // Adjustments
-            flags += convertIntToCharCapsOnly(cboExpGains.SelectedIndex); // 2
+            switch(cboExpGains.SelectedIndex)
+            {
+                case 0:
+                    tempnum = 0;
+                    break;
+                case 1:
+                    tempnum = 1;
+                    break;
+                case 2:
+                    tempnum = 2;
+                    break;
+                case 3:
+                    tempnum = 4;
+                    break;
+                case 4:
+                    tempnum = 5;
+                    break;
+                case 5:
+                    tempnum = 6;
+                    break;
+                case 6:
+                    tempnum = 8;
+                    break;
+                case 7:
+                    tempnum = 9;
+                    break;
+                case 8:
+                    tempnum = 10;
+                    break;
+                case 9:
+                    tempnum = 16;
+                    break;
+                case 10:
+                    tempnum = 17;
+                    break;
+            }
+            flags += convertIntToCharCapsOnly(tempnum); // 2
             flags += convertIntToCharCapsOnly(cboEncounterRate.SelectedIndex); // 3
             flags += convertIntToCharCapsOnly(cboGoldReq.SelectedIndex); // 4
-            flags += convertIntToCharCapsOnly((chkFasterBattles.Checked ? 1 : 0) + (chkSpeedText.Checked ? 2 : 0)); // 5
+            flags += convertIntToCharCapsOnly((rad_IncBattSpeedOff.Checked ? 0 : 0) + (rad_IncBattSpeedOn.Checked ? 1 : 0) + (rad_IncBattSpeedRand.Checked ? 2 : 0) + (chkSpeedText.Checked ? 4 : 0)); // 5
 
             //flags += convertIntToCharCapsOnly((chkFasterBattles.CheckState == 2 ? 1 : chkFasterBattles.CheckState == 1 ? 2 : 0) + (chkSpeedText.Checked ? 8 : 0)) ; // 5
             flags += convertIntToCharCapsOnly((chk_SpeedUpMenus.Checked ? 1 : 0) + (chk_Cod.Checked ? 2 : 0) + (chk_WeapArmPower.Checked ? 4 : 0) + (chkNoLamiaOrbs.Checked ? 8 : 0)); // 6
@@ -9571,6 +9647,36 @@ namespace DW3Randomizer
 
         private string convertIntToCharCapsOnly(int number)
         {
+            switch (number)
+            {
+                case 0: return "A";
+                case 1: return "B";
+                case 2: return "C";
+                case 4: return "D";
+                case 5: return "E";
+                case 6: return "F";
+                case 8: return "G";
+                case 9: return "H";
+                case 10: return "I";
+                case 16: return "J";
+                case 17: return "K";
+                case 18: return "L";
+                case 20: return "M";
+                case 21: return "N";
+                case 22: return "O";
+                case 24: return "P";
+                case 25: return "Q";
+                case 26: return "R";
+                case 32: return "S";
+                case 33: return "T";
+                case 34: return "U";
+                case 36: return "V";
+                case 37: return "W";
+                case 38: return "X";
+                case 40: return "Y";
+                case 41: return "Z";
+                case 42: return "!";
+            }
             return Convert.ToChar(65 + number).ToString();
         }
 
@@ -9589,7 +9695,37 @@ namespace DW3Randomizer
 
         private int convertChartoIntCapsOnly(char character)
         {
-            return character - 65;
+            switch(character)
+            {
+                case 'A': return 0;
+                case 'B': return 1;
+                case 'C': return 2;
+                case 'D': return 4;
+                case 'E': return 5;
+                case 'F': return 6;
+                case 'G': return 8;
+                case 'H': return 9;
+                case 'I': return 10;
+                case 'J': return 16;
+                case 'K': return 17;
+                case 'L': return 18;
+                case 'M': return 20;
+                case 'N': return 21;
+                case 'O': return 22;
+                case 'P': return 24;
+                case 'Q': return 25;
+                case 'R': return 26;
+                case 'S': return 32;
+                case 'T': return 33;
+                case 'U': return 34;
+                case 'V': return 36;
+                case 'W': return 37;
+                case 'X': return 38;
+                case 'Y': return 40;
+                case 'Z': return 41;
+                case '!': return 42;
+            }
+            return character;
         }
 
         private int convertChartoInt(char character)
