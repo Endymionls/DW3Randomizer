@@ -51,28 +51,61 @@ namespace DW3Randomizer
             this.label9 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.grp_InvisShipBird = new System.Windows.Forms.GroupBox();
+            this.rad_InvisShipBirdRand = new System.Windows.Forms.RadioButton();
+            this.rad_InvisShipBirdOn = new System.Windows.Forms.RadioButton();
+            this.rad_InvisShipBirdOff = new System.Windows.Forms.RadioButton();
+            this.grp_PartyItems = new System.Windows.Forms.GroupBox();
+            this.rad_PartyItemsRand = new System.Windows.Forms.RadioButton();
+            this.rad_PartyItemsOn = new System.Windows.Forms.RadioButton();
+            this.rad_PartyItemsOff = new System.Windows.Forms.RadioButton();
+            this.grp_doubleAtt = new System.Windows.Forms.GroupBox();
+            this.rad_DoubleAttRand = new System.Windows.Forms.RadioButton();
+            this.rad_DoubleAttOn = new System.Windows.Forms.RadioButton();
+            this.rad_DoubleAttOff = new System.Windows.Forms.RadioButton();
+            this.grp_DispEqPower = new System.Windows.Forms.GroupBox();
+            this.rad_DispEqPowerRand = new System.Windows.Forms.RadioButton();
+            this.rad_DispEqPowerOn = new System.Windows.Forms.RadioButton();
+            this.rad_DispEqPowerOff = new System.Windows.Forms.RadioButton();
+            this.grp_Lamia = new System.Windows.Forms.GroupBox();
+            this.rad_LamiaRand = new System.Windows.Forms.RadioButton();
+            this.rad_LamiaOn = new System.Windows.Forms.RadioButton();
+            this.rad_LamiaOff = new System.Windows.Forms.RadioButton();
+            this.grp_cod = new System.Windows.Forms.GroupBox();
+            this.rad_codRand = new System.Windows.Forms.RadioButton();
+            this.rad_codOn = new System.Windows.Forms.RadioButton();
+            this.rad_codOff = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rad_StartGoldRand = new System.Windows.Forms.RadioButton();
+            this.rad_StartGoldOff = new System.Windows.Forms.RadioButton();
+            this.rad_StartGoldOn = new System.Windows.Forms.RadioButton();
+            this.grp_RmManips = new System.Windows.Forms.GroupBox();
+            this.rad_RmManipRand = new System.Windows.Forms.RadioButton();
+            this.rad_RmManipOn = new System.Windows.Forms.RadioButton();
+            this.rad_RmManipOff = new System.Windows.Forms.RadioButton();
+            this.grp_SpeedUpMenus = new System.Windows.Forms.GroupBox();
+            this.rad_SpeedUpMenuRand = new System.Windows.Forms.RadioButton();
+            this.rad_SpeedUpMenusOn = new System.Windows.Forms.RadioButton();
+            this.rad_SpeedUpMenuOff = new System.Windows.Forms.RadioButton();
+            this.grp_SpeedUpText = new System.Windows.Forms.GroupBox();
+            this.rad_SpeedTextRand = new System.Windows.Forms.RadioButton();
+            this.rad_SpeedTextOn = new System.Windows.Forms.RadioButton();
+            this.rad_SpeedTextOff = new System.Windows.Forms.RadioButton();
+            this.grp_IncBatSpeed = new System.Windows.Forms.GroupBox();
+            this.rad_IncBattSpeedRand = new System.Windows.Forms.RadioButton();
+            this.rad_IncBattSpeedOn = new System.Windows.Forms.RadioButton();
+            this.rad_IncBattSpeedOff = new System.Windows.Forms.RadioButton();
             this.chk_HealUsAllStone = new System.Windows.Forms.CheckBox();
             this.chk_randsagestone = new System.Windows.Forms.CheckBox();
             this.chk_BigShoes = new System.Windows.Forms.CheckBox();
-            this.chk_HeroItems = new System.Windows.Forms.CheckBox();
             this.chk_RandShoesEffect = new System.Windows.Forms.CheckBox();
-            this.chk_DoubleAtk = new System.Windows.Forms.CheckBox();
-            this.chk_InvisibleShips = new System.Windows.Forms.CheckBox();
             this.chk_InvisibleNPCs = new System.Windows.Forms.CheckBox();
-            this.chk_RandomStartGold = new System.Windows.Forms.CheckBox();
-            this.chk_RmManip = new System.Windows.Forms.CheckBox();
-            this.chk_WeapArmPower = new System.Windows.Forms.CheckBox();
-            this.chk_Cod = new System.Windows.Forms.CheckBox();
-            this.chk_SpeedUpMenus = new System.Windows.Forms.CheckBox();
-            this.chkNoLamiaOrbs = new System.Windows.Forms.CheckBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.cboEncounterRate = new System.Windows.Forms.ComboBox();
             this.cboGoldReq = new System.Windows.Forms.ComboBox();
             this.cboExpGains = new System.Windows.Forms.ComboBox();
-            this.chkSpeedText = new System.Windows.Forms.CheckBox();
-            this.chkFasterBattles = new System.Windows.Forms.CheckBox();
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.chk_RandoTowns = new System.Windows.Forms.CheckBox();
             this.chk_RandoCaves = new System.Windows.Forms.CheckBox();
@@ -196,12 +229,19 @@ namespace DW3Randomizer
             this.txtSeed = new System.Windows.Forms.TextBox();
             this.btn_CopyHash = new System.Windows.Forms.Button();
             this.btn_chksumHash = new System.Windows.Forms.Button();
-            this.rad_IncBattSpeedOff = new System.Windows.Forms.RadioButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rad_IncBattSpeedOn = new System.Windows.Forms.RadioButton();
-            this.rad_IncBattSpeedRand = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.grp_InvisShipBird.SuspendLayout();
+            this.grp_PartyItems.SuspendLayout();
+            this.grp_doubleAtt.SuspendLayout();
+            this.grp_DispEqPower.SuspendLayout();
+            this.grp_Lamia.SuspendLayout();
+            this.grp_cod.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.grp_RmManips.SuspendLayout();
+            this.grp_SpeedUpMenus.SuspendLayout();
+            this.grp_SpeedUpText.SuspendLayout();
+            this.grp_IncBatSpeed.SuspendLayout();
             this.tabPage8.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage4.SuspendLayout();
@@ -211,7 +251,6 @@ namespace DW3Randomizer
             this.tabPage5.SuspendLayout();
             this.tabPage7.SuspendLayout();
             this.grpFlags.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtFileName
@@ -279,7 +318,7 @@ namespace DW3Randomizer
             // 
             // btnRandomize
             // 
-            this.btnRandomize.Location = new System.Drawing.Point(573, 426);
+            this.btnRandomize.Location = new System.Drawing.Point(573, 520);
             this.btnRandomize.Name = "btnRandomize";
             this.btnRandomize.Size = new System.Drawing.Size(77, 23);
             this.btnRandomize.TabIndex = 250;
@@ -375,46 +414,570 @@ namespace DW3Randomizer
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(643, 192);
+            this.tabControl1.Size = new System.Drawing.Size(705, 284);
             this.tabControl1.TabIndex = 40;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.grp_InvisShipBird);
+            this.tabPage1.Controls.Add(this.grp_PartyItems);
+            this.tabPage1.Controls.Add(this.grp_doubleAtt);
+            this.tabPage1.Controls.Add(this.grp_DispEqPower);
+            this.tabPage1.Controls.Add(this.grp_Lamia);
+            this.tabPage1.Controls.Add(this.grp_cod);
             this.tabPage1.Controls.Add(this.groupBox1);
+            this.tabPage1.Controls.Add(this.grp_RmManips);
+            this.tabPage1.Controls.Add(this.grp_SpeedUpMenus);
+            this.tabPage1.Controls.Add(this.grp_SpeedUpText);
+            this.tabPage1.Controls.Add(this.grp_IncBatSpeed);
             this.tabPage1.Controls.Add(this.chk_HealUsAllStone);
             this.tabPage1.Controls.Add(this.chk_randsagestone);
             this.tabPage1.Controls.Add(this.chk_BigShoes);
-            this.tabPage1.Controls.Add(this.chk_HeroItems);
             this.tabPage1.Controls.Add(this.chk_RandShoesEffect);
-            this.tabPage1.Controls.Add(this.chk_DoubleAtk);
-            this.tabPage1.Controls.Add(this.chk_InvisibleShips);
             this.tabPage1.Controls.Add(this.chk_InvisibleNPCs);
-            this.tabPage1.Controls.Add(this.chk_RandomStartGold);
-            this.tabPage1.Controls.Add(this.chk_RmManip);
-            this.tabPage1.Controls.Add(this.chk_WeapArmPower);
-            this.tabPage1.Controls.Add(this.chk_Cod);
-            this.tabPage1.Controls.Add(this.chk_SpeedUpMenus);
-            this.tabPage1.Controls.Add(this.chkNoLamiaOrbs);
             this.tabPage1.Controls.Add(this.label10);
             this.tabPage1.Controls.Add(this.label8);
             this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.cboEncounterRate);
             this.tabPage1.Controls.Add(this.cboGoldReq);
             this.tabPage1.Controls.Add(this.cboExpGains);
-            this.tabPage1.Controls.Add(this.chkSpeedText);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage1.Size = new System.Drawing.Size(635, 166);
+            this.tabPage1.Size = new System.Drawing.Size(697, 258);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Adjustments";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // grp_InvisShipBird
+            // 
+            this.grp_InvisShipBird.Controls.Add(this.rad_InvisShipBirdRand);
+            this.grp_InvisShipBird.Controls.Add(this.rad_InvisShipBirdOn);
+            this.grp_InvisShipBird.Controls.Add(this.rad_InvisShipBirdOff);
+            this.grp_InvisShipBird.Location = new System.Drawing.Point(348, 130);
+            this.grp_InvisShipBird.Name = "grp_InvisShipBird";
+            this.grp_InvisShipBird.Size = new System.Drawing.Size(163, 41);
+            this.grp_InvisShipBird.TabIndex = 83;
+            this.grp_InvisShipBird.TabStop = false;
+            this.grp_InvisShipBird.Text = "Invisible Ships and Bird";
+            this.adjustments.SetToolTip(this.grp_InvisShipBird, "Ships and Bird are invisible on world map.");
+            // 
+            // rad_InvisShipBirdRand
+            // 
+            this.rad_InvisShipBirdRand.AutoSize = true;
+            this.rad_InvisShipBirdRand.Location = new System.Drawing.Point(96, 17);
+            this.rad_InvisShipBirdRand.Name = "rad_InvisShipBirdRand";
+            this.rad_InvisShipBirdRand.Size = new System.Drawing.Size(65, 17);
+            this.rad_InvisShipBirdRand.TabIndex = 2;
+            this.rad_InvisShipBirdRand.TabStop = true;
+            this.rad_InvisShipBirdRand.Text = "Random";
+            this.rad_InvisShipBirdRand.UseVisualStyleBackColor = true;
+            this.rad_InvisShipBirdRand.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_InvisShipBirdOn
+            // 
+            this.rad_InvisShipBirdOn.AutoSize = true;
+            this.rad_InvisShipBirdOn.Location = new System.Drawing.Point(51, 17);
+            this.rad_InvisShipBirdOn.Name = "rad_InvisShipBirdOn";
+            this.rad_InvisShipBirdOn.Size = new System.Drawing.Size(39, 17);
+            this.rad_InvisShipBirdOn.TabIndex = 1;
+            this.rad_InvisShipBirdOn.TabStop = true;
+            this.rad_InvisShipBirdOn.Text = "On";
+            this.rad_InvisShipBirdOn.UseVisualStyleBackColor = true;
+            this.rad_InvisShipBirdOn.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_InvisShipBirdOff
+            // 
+            this.rad_InvisShipBirdOff.AutoSize = true;
+            this.rad_InvisShipBirdOff.Location = new System.Drawing.Point(6, 17);
+            this.rad_InvisShipBirdOff.Name = "rad_InvisShipBirdOff";
+            this.rad_InvisShipBirdOff.Size = new System.Drawing.Size(39, 17);
+            this.rad_InvisShipBirdOff.TabIndex = 0;
+            this.rad_InvisShipBirdOff.TabStop = true;
+            this.rad_InvisShipBirdOff.Text = "Off";
+            this.rad_InvisShipBirdOff.UseVisualStyleBackColor = true;
+            this.rad_InvisShipBirdOff.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // grp_PartyItems
+            // 
+            this.grp_PartyItems.Controls.Add(this.rad_PartyItemsRand);
+            this.grp_PartyItems.Controls.Add(this.rad_PartyItemsOn);
+            this.grp_PartyItems.Controls.Add(this.rad_PartyItemsOff);
+            this.grp_PartyItems.Location = new System.Drawing.Point(348, 83);
+            this.grp_PartyItems.Name = "grp_PartyItems";
+            this.grp_PartyItems.Size = new System.Drawing.Size(163, 41);
+            this.grp_PartyItems.TabIndex = 82;
+            this.grp_PartyItems.TabStop = false;
+            this.grp_PartyItems.Text = "Party Starts with Items";
+            this.adjustments.SetToolTip(this.grp_PartyItems, "Party starts with consumable items.");
+            // 
+            // rad_PartyItemsRand
+            // 
+            this.rad_PartyItemsRand.AutoSize = true;
+            this.rad_PartyItemsRand.Location = new System.Drawing.Point(96, 19);
+            this.rad_PartyItemsRand.Name = "rad_PartyItemsRand";
+            this.rad_PartyItemsRand.Size = new System.Drawing.Size(65, 17);
+            this.rad_PartyItemsRand.TabIndex = 2;
+            this.rad_PartyItemsRand.TabStop = true;
+            this.rad_PartyItemsRand.Text = "Random";
+            this.rad_PartyItemsRand.UseVisualStyleBackColor = true;
+            this.rad_PartyItemsRand.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_PartyItemsOn
+            // 
+            this.rad_PartyItemsOn.AutoSize = true;
+            this.rad_PartyItemsOn.Location = new System.Drawing.Point(51, 19);
+            this.rad_PartyItemsOn.Name = "rad_PartyItemsOn";
+            this.rad_PartyItemsOn.Size = new System.Drawing.Size(39, 17);
+            this.rad_PartyItemsOn.TabIndex = 1;
+            this.rad_PartyItemsOn.TabStop = true;
+            this.rad_PartyItemsOn.Text = "On";
+            this.rad_PartyItemsOn.UseVisualStyleBackColor = true;
+            this.rad_PartyItemsOn.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_PartyItemsOff
+            // 
+            this.rad_PartyItemsOff.AutoSize = true;
+            this.rad_PartyItemsOff.Location = new System.Drawing.Point(6, 19);
+            this.rad_PartyItemsOff.Name = "rad_PartyItemsOff";
+            this.rad_PartyItemsOff.Size = new System.Drawing.Size(39, 17);
+            this.rad_PartyItemsOff.TabIndex = 0;
+            this.rad_PartyItemsOff.TabStop = true;
+            this.rad_PartyItemsOff.Text = "Off";
+            this.rad_PartyItemsOff.UseVisualStyleBackColor = true;
+            this.rad_PartyItemsOff.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // grp_doubleAtt
+            // 
+            this.grp_doubleAtt.Controls.Add(this.rad_DoubleAttRand);
+            this.grp_doubleAtt.Controls.Add(this.rad_DoubleAttOn);
+            this.grp_doubleAtt.Controls.Add(this.rad_DoubleAttOff);
+            this.grp_doubleAtt.Location = new System.Drawing.Point(348, 36);
+            this.grp_doubleAtt.Name = "grp_doubleAtt";
+            this.grp_doubleAtt.Size = new System.Drawing.Size(163, 41);
+            this.grp_doubleAtt.TabIndex = 81;
+            this.grp_doubleAtt.TabStop = false;
+            this.grp_doubleAtt.Text = "Normal Attacks Hit Twice";
+            this.adjustments.SetToolTip(this.grp_doubleAtt, "Party physical attacks hit twice (is not influenced by Falcon Sword).");
+            // 
+            // rad_DoubleAttRand
+            // 
+            this.rad_DoubleAttRand.AutoSize = true;
+            this.rad_DoubleAttRand.Location = new System.Drawing.Point(96, 19);
+            this.rad_DoubleAttRand.Name = "rad_DoubleAttRand";
+            this.rad_DoubleAttRand.Size = new System.Drawing.Size(65, 17);
+            this.rad_DoubleAttRand.TabIndex = 2;
+            this.rad_DoubleAttRand.TabStop = true;
+            this.rad_DoubleAttRand.Text = "Random";
+            this.rad_DoubleAttRand.UseVisualStyleBackColor = true;
+            this.rad_DoubleAttRand.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_DoubleAttOn
+            // 
+            this.rad_DoubleAttOn.AutoSize = true;
+            this.rad_DoubleAttOn.Location = new System.Drawing.Point(51, 19);
+            this.rad_DoubleAttOn.Name = "rad_DoubleAttOn";
+            this.rad_DoubleAttOn.Size = new System.Drawing.Size(39, 17);
+            this.rad_DoubleAttOn.TabIndex = 1;
+            this.rad_DoubleAttOn.TabStop = true;
+            this.rad_DoubleAttOn.Text = "On";
+            this.rad_DoubleAttOn.UseVisualStyleBackColor = true;
+            this.rad_DoubleAttOn.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_DoubleAttOff
+            // 
+            this.rad_DoubleAttOff.AutoSize = true;
+            this.rad_DoubleAttOff.Location = new System.Drawing.Point(6, 19);
+            this.rad_DoubleAttOff.Name = "rad_DoubleAttOff";
+            this.rad_DoubleAttOff.Size = new System.Drawing.Size(39, 17);
+            this.rad_DoubleAttOff.TabIndex = 0;
+            this.rad_DoubleAttOff.TabStop = true;
+            this.rad_DoubleAttOff.Text = "Off";
+            this.rad_DoubleAttOff.UseVisualStyleBackColor = true;
+            this.rad_DoubleAttOff.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // grp_DispEqPower
+            // 
+            this.grp_DispEqPower.Controls.Add(this.rad_DispEqPowerRand);
+            this.grp_DispEqPower.Controls.Add(this.rad_DispEqPowerOn);
+            this.grp_DispEqPower.Controls.Add(this.rad_DispEqPowerOff);
+            this.grp_DispEqPower.Location = new System.Drawing.Point(179, 177);
+            this.grp_DispEqPower.Name = "grp_DispEqPower";
+            this.grp_DispEqPower.Size = new System.Drawing.Size(163, 41);
+            this.grp_DispEqPower.TabIndex = 80;
+            this.grp_DispEqPower.TabStop = false;
+            this.grp_DispEqPower.Text = "Display Equipment Power";
+            this.adjustments.SetToolTip(this.grp_DispEqPower, "Display equipment power as part of equipment name.");
+            // 
+            // rad_DispEqPowerRand
+            // 
+            this.rad_DispEqPowerRand.AutoSize = true;
+            this.rad_DispEqPowerRand.Location = new System.Drawing.Point(96, 19);
+            this.rad_DispEqPowerRand.Name = "rad_DispEqPowerRand";
+            this.rad_DispEqPowerRand.Size = new System.Drawing.Size(65, 17);
+            this.rad_DispEqPowerRand.TabIndex = 2;
+            this.rad_DispEqPowerRand.Text = "Random";
+            this.rad_DispEqPowerRand.UseVisualStyleBackColor = true;
+            this.rad_DispEqPowerRand.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_DispEqPowerOn
+            // 
+            this.rad_DispEqPowerOn.AutoSize = true;
+            this.rad_DispEqPowerOn.Location = new System.Drawing.Point(51, 19);
+            this.rad_DispEqPowerOn.Name = "rad_DispEqPowerOn";
+            this.rad_DispEqPowerOn.Size = new System.Drawing.Size(39, 17);
+            this.rad_DispEqPowerOn.TabIndex = 1;
+            this.rad_DispEqPowerOn.Text = "On";
+            this.rad_DispEqPowerOn.UseVisualStyleBackColor = true;
+            this.rad_DispEqPowerOn.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_DispEqPowerOff
+            // 
+            this.rad_DispEqPowerOff.AutoSize = true;
+            this.rad_DispEqPowerOff.Checked = true;
+            this.rad_DispEqPowerOff.Location = new System.Drawing.Point(6, 19);
+            this.rad_DispEqPowerOff.Name = "rad_DispEqPowerOff";
+            this.rad_DispEqPowerOff.Size = new System.Drawing.Size(39, 17);
+            this.rad_DispEqPowerOff.TabIndex = 0;
+            this.rad_DispEqPowerOff.TabStop = true;
+            this.rad_DispEqPowerOff.Text = "Off";
+            this.rad_DispEqPowerOff.UseVisualStyleBackColor = true;
+            this.rad_DispEqPowerOff.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // grp_Lamia
+            // 
+            this.grp_Lamia.Controls.Add(this.rad_LamiaRand);
+            this.grp_Lamia.Controls.Add(this.rad_LamiaOn);
+            this.grp_Lamia.Controls.Add(this.rad_LamiaOff);
+            this.grp_Lamia.Location = new System.Drawing.Point(179, 130);
+            this.grp_Lamia.Name = "grp_Lamia";
+            this.grp_Lamia.Size = new System.Drawing.Size(163, 41);
+            this.grp_Lamia.TabIndex = 79;
+            this.grp_Lamia.TabStop = false;
+            this.grp_Lamia.Text = "Require No Orbs for Lamia";
+            // 
+            // rad_LamiaRand
+            // 
+            this.rad_LamiaRand.AutoSize = true;
+            this.rad_LamiaRand.Location = new System.Drawing.Point(96, 17);
+            this.rad_LamiaRand.Name = "rad_LamiaRand";
+            this.rad_LamiaRand.Size = new System.Drawing.Size(65, 17);
+            this.rad_LamiaRand.TabIndex = 2;
+            this.rad_LamiaRand.Text = "Random";
+            this.rad_LamiaRand.UseVisualStyleBackColor = true;
+            this.rad_LamiaRand.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_LamiaOn
+            // 
+            this.rad_LamiaOn.AutoSize = true;
+            this.rad_LamiaOn.Location = new System.Drawing.Point(51, 17);
+            this.rad_LamiaOn.Name = "rad_LamiaOn";
+            this.rad_LamiaOn.Size = new System.Drawing.Size(39, 17);
+            this.rad_LamiaOn.TabIndex = 1;
+            this.rad_LamiaOn.Text = "On";
+            this.rad_LamiaOn.UseVisualStyleBackColor = true;
+            this.rad_LamiaOn.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_LamiaOff
+            // 
+            this.rad_LamiaOff.AutoSize = true;
+            this.rad_LamiaOff.Checked = true;
+            this.rad_LamiaOff.Location = new System.Drawing.Point(6, 17);
+            this.rad_LamiaOff.Name = "rad_LamiaOff";
+            this.rad_LamiaOff.Size = new System.Drawing.Size(39, 17);
+            this.rad_LamiaOff.TabIndex = 0;
+            this.rad_LamiaOff.TabStop = true;
+            this.rad_LamiaOff.Text = "Off";
+            this.rad_LamiaOff.UseVisualStyleBackColor = true;
+            this.rad_LamiaOff.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // grp_cod
+            // 
+            this.grp_cod.Controls.Add(this.rad_codRand);
+            this.grp_cod.Controls.Add(this.rad_codOn);
+            this.grp_cod.Controls.Add(this.rad_codOff);
+            this.grp_cod.Location = new System.Drawing.Point(179, 83);
+            this.grp_cod.Name = "grp_cod";
+            this.grp_cod.Size = new System.Drawing.Size(163, 41);
+            this.grp_cod.TabIndex = 78;
+            this.grp_cod.TabStop = false;
+            this.grp_cod.Text = "Cold as a Cod Adjustment";
+            // 
+            // rad_codRand
+            // 
+            this.rad_codRand.AutoSize = true;
+            this.rad_codRand.Location = new System.Drawing.Point(96, 19);
+            this.rad_codRand.Name = "rad_codRand";
+            this.rad_codRand.Size = new System.Drawing.Size(65, 17);
+            this.rad_codRand.TabIndex = 2;
+            this.rad_codRand.Text = "Random";
+            this.rad_codRand.UseVisualStyleBackColor = true;
+            this.rad_codRand.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_codOn
+            // 
+            this.rad_codOn.AutoSize = true;
+            this.rad_codOn.Location = new System.Drawing.Point(51, 20);
+            this.rad_codOn.Name = "rad_codOn";
+            this.rad_codOn.Size = new System.Drawing.Size(39, 17);
+            this.rad_codOn.TabIndex = 1;
+            this.rad_codOn.Text = "On";
+            this.rad_codOn.UseVisualStyleBackColor = true;
+            this.rad_codOn.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_codOff
+            // 
+            this.rad_codOff.AutoSize = true;
+            this.rad_codOff.Checked = true;
+            this.rad_codOff.Location = new System.Drawing.Point(6, 20);
+            this.rad_codOff.Name = "rad_codOff";
+            this.rad_codOff.Size = new System.Drawing.Size(39, 17);
+            this.rad_codOff.TabIndex = 0;
+            this.rad_codOff.TabStop = true;
+            this.rad_codOff.Text = "Off";
+            this.rad_codOff.UseVisualStyleBackColor = true;
+            this.rad_codOff.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rad_StartGoldRand);
+            this.groupBox1.Controls.Add(this.rad_StartGoldOff);
+            this.groupBox1.Controls.Add(this.rad_StartGoldOn);
+            this.groupBox1.Location = new System.Drawing.Point(179, 36);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(163, 41);
+            this.groupBox1.TabIndex = 77;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Randomize Starting Gold";
+            // 
+            // rad_StartGoldRand
+            // 
+            this.rad_StartGoldRand.AutoSize = true;
+            this.rad_StartGoldRand.Location = new System.Drawing.Point(96, 19);
+            this.rad_StartGoldRand.Name = "rad_StartGoldRand";
+            this.rad_StartGoldRand.Size = new System.Drawing.Size(65, 17);
+            this.rad_StartGoldRand.TabIndex = 80;
+            this.rad_StartGoldRand.Text = "Random";
+            this.rad_StartGoldRand.UseVisualStyleBackColor = true;
+            this.rad_StartGoldRand.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_StartGoldOff
+            // 
+            this.rad_StartGoldOff.AutoSize = true;
+            this.rad_StartGoldOff.Checked = true;
+            this.rad_StartGoldOff.Location = new System.Drawing.Point(6, 19);
+            this.rad_StartGoldOff.Name = "rad_StartGoldOff";
+            this.rad_StartGoldOff.Size = new System.Drawing.Size(39, 17);
+            this.rad_StartGoldOff.TabIndex = 78;
+            this.rad_StartGoldOff.TabStop = true;
+            this.rad_StartGoldOff.Text = "Off";
+            this.rad_StartGoldOff.UseVisualStyleBackColor = true;
+            this.rad_StartGoldOff.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_StartGoldOn
+            // 
+            this.rad_StartGoldOn.AutoSize = true;
+            this.rad_StartGoldOn.Location = new System.Drawing.Point(51, 19);
+            this.rad_StartGoldOn.Name = "rad_StartGoldOn";
+            this.rad_StartGoldOn.Size = new System.Drawing.Size(39, 17);
+            this.rad_StartGoldOn.TabIndex = 79;
+            this.rad_StartGoldOn.Text = "On";
+            this.rad_StartGoldOn.UseVisualStyleBackColor = true;
+            this.rad_StartGoldOn.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // grp_RmManips
+            // 
+            this.grp_RmManips.Controls.Add(this.rad_RmManipRand);
+            this.grp_RmManips.Controls.Add(this.rad_RmManipOn);
+            this.grp_RmManips.Controls.Add(this.rad_RmManipOff);
+            this.grp_RmManips.Location = new System.Drawing.Point(10, 177);
+            this.grp_RmManips.Name = "grp_RmManips";
+            this.grp_RmManips.Size = new System.Drawing.Size(163, 41);
+            this.grp_RmManips.TabIndex = 76;
+            this.grp_RmManips.TabStop = false;
+            this.grp_RmManips.Text = "Remove Manipulations";
+            // 
+            // rad_RmManipRand
+            // 
+            this.rad_RmManipRand.AutoSize = true;
+            this.rad_RmManipRand.Location = new System.Drawing.Point(95, 19);
+            this.rad_RmManipRand.Name = "rad_RmManipRand";
+            this.rad_RmManipRand.Size = new System.Drawing.Size(65, 17);
+            this.rad_RmManipRand.TabIndex = 2;
+            this.rad_RmManipRand.Text = "Random";
+            this.rad_RmManipRand.UseVisualStyleBackColor = true;
+            this.rad_RmManipRand.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_RmManipOn
+            // 
+            this.rad_RmManipOn.AutoSize = true;
+            this.rad_RmManipOn.Location = new System.Drawing.Point(51, 19);
+            this.rad_RmManipOn.Name = "rad_RmManipOn";
+            this.rad_RmManipOn.Size = new System.Drawing.Size(39, 17);
+            this.rad_RmManipOn.TabIndex = 1;
+            this.rad_RmManipOn.Text = "On";
+            this.rad_RmManipOn.UseVisualStyleBackColor = true;
+            this.rad_RmManipOn.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_RmManipOff
+            // 
+            this.rad_RmManipOff.AutoSize = true;
+            this.rad_RmManipOff.Checked = true;
+            this.rad_RmManipOff.Location = new System.Drawing.Point(6, 19);
+            this.rad_RmManipOff.Name = "rad_RmManipOff";
+            this.rad_RmManipOff.Size = new System.Drawing.Size(39, 17);
+            this.rad_RmManipOff.TabIndex = 0;
+            this.rad_RmManipOff.TabStop = true;
+            this.rad_RmManipOff.Text = "Off";
+            this.rad_RmManipOff.UseVisualStyleBackColor = true;
+            this.rad_RmManipOff.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // grp_SpeedUpMenus
+            // 
+            this.grp_SpeedUpMenus.Controls.Add(this.rad_SpeedUpMenuRand);
+            this.grp_SpeedUpMenus.Controls.Add(this.rad_SpeedUpMenusOn);
+            this.grp_SpeedUpMenus.Controls.Add(this.rad_SpeedUpMenuOff);
+            this.grp_SpeedUpMenus.Location = new System.Drawing.Point(10, 130);
+            this.grp_SpeedUpMenus.Name = "grp_SpeedUpMenus";
+            this.grp_SpeedUpMenus.Size = new System.Drawing.Size(163, 41);
+            this.grp_SpeedUpMenus.TabIndex = 75;
+            this.grp_SpeedUpMenus.TabStop = false;
+            this.grp_SpeedUpMenus.Text = "Speed Up Menus";
+            // 
+            // rad_SpeedUpMenuRand
+            // 
+            this.rad_SpeedUpMenuRand.AutoSize = true;
+            this.rad_SpeedUpMenuRand.Location = new System.Drawing.Point(95, 17);
+            this.rad_SpeedUpMenuRand.Name = "rad_SpeedUpMenuRand";
+            this.rad_SpeedUpMenuRand.Size = new System.Drawing.Size(65, 17);
+            this.rad_SpeedUpMenuRand.TabIndex = 2;
+            this.rad_SpeedUpMenuRand.Text = "Random";
+            this.rad_SpeedUpMenuRand.UseVisualStyleBackColor = true;
+            this.rad_SpeedUpMenuRand.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_SpeedUpMenusOn
+            // 
+            this.rad_SpeedUpMenusOn.AutoSize = true;
+            this.rad_SpeedUpMenusOn.Location = new System.Drawing.Point(51, 17);
+            this.rad_SpeedUpMenusOn.Name = "rad_SpeedUpMenusOn";
+            this.rad_SpeedUpMenusOn.Size = new System.Drawing.Size(39, 17);
+            this.rad_SpeedUpMenusOn.TabIndex = 1;
+            this.rad_SpeedUpMenusOn.Text = "On";
+            this.rad_SpeedUpMenusOn.UseVisualStyleBackColor = true;
+            this.rad_SpeedUpMenusOn.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_SpeedUpMenuOff
+            // 
+            this.rad_SpeedUpMenuOff.AutoSize = true;
+            this.rad_SpeedUpMenuOff.Checked = true;
+            this.rad_SpeedUpMenuOff.Location = new System.Drawing.Point(6, 17);
+            this.rad_SpeedUpMenuOff.Name = "rad_SpeedUpMenuOff";
+            this.rad_SpeedUpMenuOff.Size = new System.Drawing.Size(39, 17);
+            this.rad_SpeedUpMenuOff.TabIndex = 0;
+            this.rad_SpeedUpMenuOff.TabStop = true;
+            this.rad_SpeedUpMenuOff.Text = "Off";
+            this.rad_SpeedUpMenuOff.UseVisualStyleBackColor = true;
+            this.rad_SpeedUpMenuOff.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // grp_SpeedUpText
+            // 
+            this.grp_SpeedUpText.Controls.Add(this.rad_SpeedTextRand);
+            this.grp_SpeedUpText.Controls.Add(this.rad_SpeedTextOn);
+            this.grp_SpeedUpText.Controls.Add(this.rad_SpeedTextOff);
+            this.grp_SpeedUpText.Location = new System.Drawing.Point(10, 83);
+            this.grp_SpeedUpText.Name = "grp_SpeedUpText";
+            this.grp_SpeedUpText.Size = new System.Drawing.Size(163, 41);
+            this.grp_SpeedUpText.TabIndex = 74;
+            this.grp_SpeedUpText.TabStop = false;
+            this.grp_SpeedUpText.Text = "Speed Up Text";
+            // 
+            // rad_SpeedTextRand
+            // 
+            this.rad_SpeedTextRand.AutoSize = true;
+            this.rad_SpeedTextRand.Location = new System.Drawing.Point(95, 18);
+            this.rad_SpeedTextRand.Name = "rad_SpeedTextRand";
+            this.rad_SpeedTextRand.Size = new System.Drawing.Size(65, 17);
+            this.rad_SpeedTextRand.TabIndex = 2;
+            this.rad_SpeedTextRand.Text = "Random";
+            this.rad_SpeedTextRand.UseVisualStyleBackColor = true;
+            this.rad_SpeedTextRand.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_SpeedTextOn
+            // 
+            this.rad_SpeedTextOn.AutoSize = true;
+            this.rad_SpeedTextOn.Location = new System.Drawing.Point(51, 18);
+            this.rad_SpeedTextOn.Name = "rad_SpeedTextOn";
+            this.rad_SpeedTextOn.Size = new System.Drawing.Size(39, 17);
+            this.rad_SpeedTextOn.TabIndex = 1;
+            this.rad_SpeedTextOn.Text = "On";
+            this.rad_SpeedTextOn.UseVisualStyleBackColor = true;
+            this.rad_SpeedTextOn.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_SpeedTextOff
+            // 
+            this.rad_SpeedTextOff.AutoSize = true;
+            this.rad_SpeedTextOff.Checked = true;
+            this.rad_SpeedTextOff.Location = new System.Drawing.Point(6, 19);
+            this.rad_SpeedTextOff.Name = "rad_SpeedTextOff";
+            this.rad_SpeedTextOff.Size = new System.Drawing.Size(39, 17);
+            this.rad_SpeedTextOff.TabIndex = 0;
+            this.rad_SpeedTextOff.TabStop = true;
+            this.rad_SpeedTextOff.Text = "Off";
+            this.rad_SpeedTextOff.UseVisualStyleBackColor = true;
+            this.rad_SpeedTextOff.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // grp_IncBatSpeed
+            // 
+            this.grp_IncBatSpeed.Controls.Add(this.rad_IncBattSpeedRand);
+            this.grp_IncBatSpeed.Controls.Add(this.rad_IncBattSpeedOn);
+            this.grp_IncBatSpeed.Controls.Add(this.rad_IncBattSpeedOff);
+            this.grp_IncBatSpeed.Location = new System.Drawing.Point(10, 36);
+            this.grp_IncBatSpeed.Name = "grp_IncBatSpeed";
+            this.grp_IncBatSpeed.Size = new System.Drawing.Size(163, 41);
+            this.grp_IncBatSpeed.TabIndex = 73;
+            this.grp_IncBatSpeed.TabStop = false;
+            this.grp_IncBatSpeed.Text = "Increased Battle Speed";
+            // 
+            // rad_IncBattSpeedRand
+            // 
+            this.rad_IncBattSpeedRand.AutoSize = true;
+            this.rad_IncBattSpeedRand.Location = new System.Drawing.Point(96, 19);
+            this.rad_IncBattSpeedRand.Name = "rad_IncBattSpeedRand";
+            this.rad_IncBattSpeedRand.Size = new System.Drawing.Size(65, 17);
+            this.rad_IncBattSpeedRand.TabIndex = 74;
+            this.rad_IncBattSpeedRand.Text = "Random";
+            this.rad_IncBattSpeedRand.UseVisualStyleBackColor = true;
+            this.rad_IncBattSpeedRand.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_IncBattSpeedOn
+            // 
+            this.rad_IncBattSpeedOn.AutoSize = true;
+            this.rad_IncBattSpeedOn.Location = new System.Drawing.Point(51, 19);
+            this.rad_IncBattSpeedOn.Name = "rad_IncBattSpeedOn";
+            this.rad_IncBattSpeedOn.Size = new System.Drawing.Size(39, 17);
+            this.rad_IncBattSpeedOn.TabIndex = 73;
+            this.rad_IncBattSpeedOn.Text = "On";
+            this.rad_IncBattSpeedOn.UseVisualStyleBackColor = true;
+            this.rad_IncBattSpeedOn.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_IncBattSpeedOff
+            // 
+            this.rad_IncBattSpeedOff.AutoSize = true;
+            this.rad_IncBattSpeedOff.Checked = true;
+            this.rad_IncBattSpeedOff.Location = new System.Drawing.Point(6, 19);
+            this.rad_IncBattSpeedOff.Name = "rad_IncBattSpeedOff";
+            this.rad_IncBattSpeedOff.Size = new System.Drawing.Size(39, 17);
+            this.rad_IncBattSpeedOff.TabIndex = 72;
+            this.rad_IncBattSpeedOff.TabStop = true;
+            this.rad_IncBattSpeedOff.Text = "Off";
+            this.rad_IncBattSpeedOff.UseVisualStyleBackColor = true;
+            this.rad_IncBattSpeedOff.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
             // chk_HealUsAllStone
             // 
             this.chk_HealUsAllStone.AutoSize = true;
-            this.chk_HealUsAllStone.Location = new System.Drawing.Point(413, 72);
+            this.chk_HealUsAllStone.Location = new System.Drawing.Point(533, 83);
             this.chk_HealUsAllStone.Margin = new System.Windows.Forms.Padding(2);
             this.chk_HealUsAllStone.Name = "chk_HealUsAllStone";
             this.chk_HealUsAllStone.Size = new System.Drawing.Size(162, 17);
@@ -427,7 +990,7 @@ namespace DW3Randomizer
             // chk_randsagestone
             // 
             this.chk_randsagestone.AutoSize = true;
-            this.chk_randsagestone.Location = new System.Drawing.Point(413, 52);
+            this.chk_randsagestone.Location = new System.Drawing.Point(537, 36);
             this.chk_randsagestone.Margin = new System.Windows.Forms.Padding(2);
             this.chk_randsagestone.Name = "chk_randsagestone";
             this.chk_randsagestone.Size = new System.Drawing.Size(145, 17);
@@ -440,7 +1003,7 @@ namespace DW3Randomizer
             // chk_BigShoes
             // 
             this.chk_BigShoes.AutoSize = true;
-            this.chk_BigShoes.Location = new System.Drawing.Point(413, 130);
+            this.chk_BigShoes.Location = new System.Drawing.Point(542, 187);
             this.chk_BigShoes.Margin = new System.Windows.Forms.Padding(2);
             this.chk_BigShoes.Name = "chk_BigShoes";
             this.chk_BigShoes.Size = new System.Drawing.Size(151, 17);
@@ -450,23 +1013,10 @@ namespace DW3Randomizer
             this.chk_BigShoes.UseVisualStyleBackColor = true;
             this.chk_BigShoes.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
-            // chk_HeroItems
-            // 
-            this.chk_HeroItems.AutoSize = true;
-            this.chk_HeroItems.Location = new System.Drawing.Point(413, 32);
-            this.chk_HeroItems.Margin = new System.Windows.Forms.Padding(2);
-            this.chk_HeroItems.Name = "chk_HeroItems";
-            this.chk_HeroItems.Size = new System.Drawing.Size(130, 17);
-            this.chk_HeroItems.TabIndex = 67;
-            this.chk_HeroItems.Text = "Party Starts with Items";
-            this.adjustments.SetToolTip(this.chk_HeroItems, "Party starts with consumable items.");
-            this.chk_HeroItems.UseVisualStyleBackColor = true;
-            this.chk_HeroItems.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
             // chk_RandShoesEffect
             // 
             this.chk_RandShoesEffect.AutoSize = true;
-            this.chk_RandShoesEffect.Location = new System.Drawing.Point(413, 91);
+            this.chk_RandShoesEffect.Location = new System.Drawing.Point(533, 123);
             this.chk_RandShoesEffect.Margin = new System.Windows.Forms.Padding(2);
             this.chk_RandShoesEffect.Name = "chk_RandShoesEffect";
             this.chk_RandShoesEffect.Size = new System.Drawing.Size(177, 30);
@@ -476,35 +1026,10 @@ namespace DW3Randomizer
             this.chk_RandShoesEffect.UseVisualStyleBackColor = true;
             this.chk_RandShoesEffect.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
-            // chk_DoubleAtk
-            // 
-            this.chk_DoubleAtk.AutoSize = true;
-            this.chk_DoubleAtk.Location = new System.Drawing.Point(238, 72);
-            this.chk_DoubleAtk.Margin = new System.Windows.Forms.Padding(2);
-            this.chk_DoubleAtk.Name = "chk_DoubleAtk";
-            this.chk_DoubleAtk.Size = new System.Drawing.Size(144, 17);
-            this.chk_DoubleAtk.TabIndex = 63;
-            this.chk_DoubleAtk.Text = "Normal Attacks hit Twice";
-            this.adjustments.SetToolTip(this.chk_DoubleAtk, "Party\'s normal attacks hit twice.");
-            this.chk_DoubleAtk.UseVisualStyleBackColor = true;
-            this.chk_DoubleAtk.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // chk_InvisibleShips
-            // 
-            this.chk_InvisibleShips.AutoSize = true;
-            this.chk_InvisibleShips.Location = new System.Drawing.Point(238, 111);
-            this.chk_InvisibleShips.Name = "chk_InvisibleShips";
-            this.chk_InvisibleShips.Size = new System.Drawing.Size(135, 17);
-            this.chk_InvisibleShips.TabIndex = 65;
-            this.chk_InvisibleShips.Text = "Invisible Ships and Bird";
-            this.adjustments.SetToolTip(this.chk_InvisibleShips, "Ships and bird will be invisible on the world map.");
-            this.chk_InvisibleShips.UseVisualStyleBackColor = true;
-            this.chk_InvisibleShips.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
             // chk_InvisibleNPCs
             // 
             this.chk_InvisibleNPCs.AutoSize = true;
-            this.chk_InvisibleNPCs.Location = new System.Drawing.Point(238, 130);
+            this.chk_InvisibleNPCs.Location = new System.Drawing.Point(354, 187);
             this.chk_InvisibleNPCs.Name = "chk_InvisibleNPCs";
             this.chk_InvisibleNPCs.Size = new System.Drawing.Size(94, 17);
             this.chk_InvisibleNPCs.TabIndex = 66;
@@ -512,80 +1037,6 @@ namespace DW3Randomizer
             this.adjustments.SetToolTip(this.chk_InvisibleNPCs, "Makes NPCs invisible. Will also cause party to be invisible with Animal Suits.");
             this.chk_InvisibleNPCs.UseVisualStyleBackColor = true;
             this.chk_InvisibleNPCs.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // chk_RandomStartGold
-            // 
-            this.chk_RandomStartGold.AutoSize = true;
-            this.chk_RandomStartGold.Location = new System.Drawing.Point(238, 52);
-            this.chk_RandomStartGold.Name = "chk_RandomStartGold";
-            this.chk_RandomStartGold.Size = new System.Drawing.Size(143, 17);
-            this.chk_RandomStartGold.TabIndex = 62;
-            this.chk_RandomStartGold.Text = "Randomize Starting Gold";
-            this.adjustments.SetToolTip(this.chk_RandomStartGold, "Randomizes the amount of gold given by the king (1-255)");
-            this.chk_RandomStartGold.UseVisualStyleBackColor = true;
-            this.chk_RandomStartGold.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // chk_RmManip
-            // 
-            this.chk_RmManip.AutoSize = true;
-            this.chk_RmManip.Location = new System.Drawing.Point(10, 111);
-            this.chk_RmManip.Name = "chk_RmManip";
-            this.chk_RmManip.Size = new System.Drawing.Size(133, 17);
-            this.chk_RmManip.TabIndex = 59;
-            this.chk_RmManip.Text = "Remove manipulations";
-            this.adjustments.SetToolTip(this.chk_RmManip, "Implement DWIV RNG so any currently known manipulations won\'t work. Default Rando" +
-        "mizer behavior.");
-            this.chk_RmManip.UseVisualStyleBackColor = true;
-            this.chk_RmManip.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // chk_WeapArmPower
-            // 
-            this.chk_WeapArmPower.AutoSize = true;
-            this.chk_WeapArmPower.Location = new System.Drawing.Point(10, 150);
-            this.chk_WeapArmPower.Name = "chk_WeapArmPower";
-            this.chk_WeapArmPower.Size = new System.Drawing.Size(146, 17);
-            this.chk_WeapArmPower.TabIndex = 61;
-            this.chk_WeapArmPower.Text = "Display Equipment Power";
-            this.adjustments.SetToolTip(this.chk_WeapArmPower, "Displays attack and defense power of equipment in Item menu. Item names are trunc" +
-        "ated to allow this.");
-            this.chk_WeapArmPower.UseVisualStyleBackColor = true;
-            this.chk_WeapArmPower.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // chk_Cod
-            // 
-            this.chk_Cod.AutoSize = true;
-            this.chk_Cod.Location = new System.Drawing.Point(10, 130);
-            this.chk_Cod.Name = "chk_Cod";
-            this.chk_Cod.Size = new System.Drawing.Size(147, 17);
-            this.chk_Cod.TabIndex = 60;
-            this.chk_Cod.Text = "Cold as a Cod Adjustment";
-            this.adjustments.SetToolTip(this.chk_Cod, "Entire party is revived when wiped. Causes temporary graphical errors.");
-            this.chk_Cod.UseVisualStyleBackColor = true;
-            this.chk_Cod.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // chk_SpeedUpMenus
-            // 
-            this.chk_SpeedUpMenus.AutoSize = true;
-            this.chk_SpeedUpMenus.Location = new System.Drawing.Point(10, 92);
-            this.chk_SpeedUpMenus.Name = "chk_SpeedUpMenus";
-            this.chk_SpeedUpMenus.Size = new System.Drawing.Size(107, 17);
-            this.chk_SpeedUpMenus.TabIndex = 58;
-            this.chk_SpeedUpMenus.Text = "Speed up Menus";
-            this.adjustments.SetToolTip(this.chk_SpeedUpMenus, "Speeds up menus.");
-            this.chk_SpeedUpMenus.UseVisualStyleBackColor = true;
-            this.chk_SpeedUpMenus.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // chkNoLamiaOrbs
-            // 
-            this.chkNoLamiaOrbs.AutoSize = true;
-            this.chkNoLamiaOrbs.Location = new System.Drawing.Point(238, 92);
-            this.chkNoLamiaOrbs.Name = "chkNoLamiaOrbs";
-            this.chkNoLamiaOrbs.Size = new System.Drawing.Size(151, 17);
-            this.chkNoLamiaOrbs.TabIndex = 64;
-            this.chkNoLamiaOrbs.Text = "Require No Orbs for Lamia";
-            this.adjustments.SetToolTip(this.chkNoLamiaOrbs, "Able to hatch Lamia without any orbs.");
-            this.chkNoLamiaOrbs.UseVisualStyleBackColor = true;
-            this.chkNoLamiaOrbs.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // label10
             // 
@@ -682,31 +1133,6 @@ namespace DW3Randomizer
             this.cboExpGains.TabIndex = 51;
             this.cboExpGains.SelectedIndexChanged += new System.EventHandler(this.determineFlags);
             // 
-            // chkSpeedText
-            // 
-            this.chkSpeedText.AutoSize = true;
-            this.chkSpeedText.Location = new System.Drawing.Point(10, 72);
-            this.chkSpeedText.Name = "chkSpeedText";
-            this.chkSpeedText.Size = new System.Drawing.Size(115, 17);
-            this.chkSpeedText.TabIndex = 57;
-            this.chkSpeedText.Text = "Speedy Text Hack";
-            this.adjustments.SetToolTip(this.chkSpeedText, "Speeds up text.");
-            this.chkSpeedText.UseVisualStyleBackColor = true;
-            this.chkSpeedText.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // chkFasterBattles
-            // 
-            this.chkFasterBattles.AutoSize = true;
-            this.chkFasterBattles.Location = new System.Drawing.Point(21, 432);
-            this.chkFasterBattles.Name = "chkFasterBattles";
-            this.chkFasterBattles.Size = new System.Drawing.Size(137, 17);
-            this.chkFasterBattles.TabIndex = 56;
-            this.chkFasterBattles.Text = "Increased Battle Speed";
-            this.chkFasterBattles.ThreeState = true;
-            this.adjustments.SetToolTip(this.chkFasterBattles, "Speeds up menus and text in battle.");
-            this.chkFasterBattles.UseVisualStyleBackColor = true;
-            this.chkFasterBattles.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
             // tabPage8
             // 
             this.tabPage8.Controls.Add(this.chk_RandoTowns);
@@ -726,7 +1152,7 @@ namespace DW3Randomizer
             this.tabPage8.Location = new System.Drawing.Point(4, 22);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(635, 166);
+            this.tabPage8.Size = new System.Drawing.Size(697, 258);
             this.tabPage8.TabIndex = 7;
             this.tabPage8.Text = "Map";
             this.tabPage8.UseVisualStyleBackColor = true;
@@ -912,7 +1338,7 @@ namespace DW3Randomizer
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(635, 166);
+            this.tabPage2.Size = new System.Drawing.Size(697, 258);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Monsters";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1010,7 +1436,7 @@ namespace DW3Randomizer
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(635, 166);
+            this.tabPage4.Size = new System.Drawing.Size(697, 258);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Treasures & Equipment";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -1196,7 +1622,7 @@ namespace DW3Randomizer
             this.tabPage6.Controls.Add(this.chk_RandomizeInnPrices);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(635, 166);
+            this.tabPage6.Size = new System.Drawing.Size(697, 258);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "Item & Weapon Shops & Inns";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -1434,7 +1860,7 @@ namespace DW3Randomizer
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(635, 166);
+            this.tabPage3.Size = new System.Drawing.Size(697, 258);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Characters";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1808,7 +2234,7 @@ namespace DW3Randomizer
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(635, 166);
+            this.tabPage5.Size = new System.Drawing.Size(697, 258);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Fixes";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -1858,7 +2284,7 @@ namespace DW3Randomizer
             this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(635, 166);
+            this.tabPage7.Size = new System.Drawing.Size(697, 258);
             this.tabPage7.TabIndex = 6;
             this.tabPage7.Text = "Cosmetic";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -2051,7 +2477,7 @@ namespace DW3Randomizer
             // chk_GenCompareFile
             // 
             this.chk_GenCompareFile.AutoSize = true;
-            this.chk_GenCompareFile.Location = new System.Drawing.Point(187, 426);
+            this.chk_GenCompareFile.Location = new System.Drawing.Point(187, 520);
             this.chk_GenCompareFile.Name = "chk_GenCompareFile";
             this.chk_GenCompareFile.Size = new System.Drawing.Size(134, 17);
             this.chk_GenCompareFile.TabIndex = 230;
@@ -2064,7 +2490,7 @@ namespace DW3Randomizer
             // chk_GenIslandsMonstersZones
             // 
             this.chk_GenIslandsMonstersZones.AutoSize = true;
-            this.chk_GenIslandsMonstersZones.Location = new System.Drawing.Point(337, 426);
+            this.chk_GenIslandsMonstersZones.Location = new System.Drawing.Point(337, 520);
             this.chk_GenIslandsMonstersZones.Name = "chk_GenIslandsMonstersZones";
             this.chk_GenIslandsMonstersZones.Size = new System.Drawing.Size(229, 17);
             this.chk_GenIslandsMonstersZones.TabIndex = 231;
@@ -2208,61 +2634,11 @@ namespace DW3Randomizer
             this.btn_chksumHash.UseVisualStyleBackColor = true;
             this.btn_chksumHash.Click += new System.EventHandler(this.btn_chksumHash_Click);
             // 
-            // rad_IncBattSpeedOff
-            // 
-            this.rad_IncBattSpeedOff.AutoSize = true;
-            this.rad_IncBattSpeedOff.Checked = true;
-            this.rad_IncBattSpeedOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_IncBattSpeedOff.Name = "rad_IncBattSpeedOff";
-            this.rad_IncBattSpeedOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_IncBattSpeedOff.TabIndex = 72;
-            this.rad_IncBattSpeedOff.TabStop = true;
-            this.rad_IncBattSpeedOff.Text = "Off";
-            this.rad_IncBattSpeedOff.UseVisualStyleBackColor = true;
-            this.rad_IncBattSpeedOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.rad_IncBattSpeedRand);
-            this.groupBox1.Controls.Add(this.rad_IncBattSpeedOn);
-            this.groupBox1.Controls.Add(this.rad_IncBattSpeedOff);
-            this.groupBox1.Location = new System.Drawing.Point(10, 36);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(163, 37);
-            this.groupBox1.TabIndex = 73;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Increased Battle Speed";
-            // 
-            // rad_IncBattSpeedOn
-            // 
-            this.rad_IncBattSpeedOn.AutoSize = true;
-            this.rad_IncBattSpeedOn.Location = new System.Drawing.Point(51, 19);
-            this.rad_IncBattSpeedOn.Name = "rad_IncBattSpeedOn";
-            this.rad_IncBattSpeedOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_IncBattSpeedOn.TabIndex = 73;
-            this.rad_IncBattSpeedOn.Text = "On";
-            this.rad_IncBattSpeedOn.UseVisualStyleBackColor = true;
-            this.rad_IncBattSpeedOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-
-            // 
-            // rad_IncBattSpeedRand
-            // 
-            this.rad_IncBattSpeedRand.AutoSize = true;
-            this.rad_IncBattSpeedRand.Location = new System.Drawing.Point(96, 19);
-            this.rad_IncBattSpeedRand.Name = "rad_IncBattSpeedRand";
-            this.rad_IncBattSpeedRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_IncBattSpeedRand.TabIndex = 74;
-            this.rad_IncBattSpeedRand.Text = "Random";
-            this.rad_IncBattSpeedRand.UseVisualStyleBackColor = true;
-            this.rad_IncBattSpeedRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(656, 461);
+            this.ClientSize = new System.Drawing.Size(723, 555);
             this.Controls.Add(this.btn_chksumHash);
             this.Controls.Add(this.btn_CopyHash);
             this.Controls.Add(this.lblHash);
@@ -2284,7 +2660,6 @@ namespace DW3Randomizer
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtSeed);
             this.Controls.Add(this.btnCompare);
-            this.Controls.Add(this.chkFasterBattles);
             this.Controls.Add(this.btnRandomize);
             this.Controls.Add(this.lblReqChecksum);
             this.Controls.Add(this.label4);
@@ -2300,6 +2675,28 @@ namespace DW3Randomizer
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.grp_InvisShipBird.ResumeLayout(false);
+            this.grp_InvisShipBird.PerformLayout();
+            this.grp_PartyItems.ResumeLayout(false);
+            this.grp_PartyItems.PerformLayout();
+            this.grp_doubleAtt.ResumeLayout(false);
+            this.grp_doubleAtt.PerformLayout();
+            this.grp_DispEqPower.ResumeLayout(false);
+            this.grp_DispEqPower.PerformLayout();
+            this.grp_Lamia.ResumeLayout(false);
+            this.grp_Lamia.PerformLayout();
+            this.grp_cod.ResumeLayout(false);
+            this.grp_cod.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.grp_RmManips.ResumeLayout(false);
+            this.grp_RmManips.PerformLayout();
+            this.grp_SpeedUpMenus.ResumeLayout(false);
+            this.grp_SpeedUpMenus.PerformLayout();
+            this.grp_SpeedUpText.ResumeLayout(false);
+            this.grp_SpeedUpText.PerformLayout();
+            this.grp_IncBatSpeed.ResumeLayout(false);
+            this.grp_IncBatSpeed.PerformLayout();
             this.tabPage8.ResumeLayout(false);
             this.tabPage8.PerformLayout();
             this.tabPage2.ResumeLayout(false);
@@ -2318,8 +2715,6 @@ namespace DW3Randomizer
             this.tabPage7.PerformLayout();
             this.grpFlags.ResumeLayout(false);
             this.grpFlags.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2357,8 +2752,6 @@ namespace DW3Randomizer
         private System.Windows.Forms.TextBox txtCharName1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtFlags;
-        private System.Windows.Forms.CheckBox chkSpeedText;
-        private System.Windows.Forms.CheckBox chkFasterBattles;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label6;
@@ -2372,7 +2765,6 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chkFourJobFiesta;
         private System.Windows.Forms.ToolTip adjustments;
         private System.Windows.Forms.CheckBox chkRemoveParryFight;
-		private System.Windows.Forms.CheckBox chkNoLamiaOrbs;
 		private System.Windows.Forms.Button btnCopyChecksum;
 		private System.Windows.Forms.Label lblNewChecksum;
 		private System.Windows.Forms.Label label14;
@@ -2413,16 +2805,12 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_FixSlimeSnail;
         private System.Windows.Forms.CheckBox chk_PoisonMothPowder;
         private System.Windows.Forms.CheckBox chk_LeafoftheWorldTree;
-        private System.Windows.Forms.CheckBox chk_Cod;
-        private System.Windows.Forms.CheckBox chk_SpeedUpMenus;
         private System.Windows.Forms.CheckBox chk_RemoveStartEqRestrictions;
         private System.Windows.Forms.CheckBox chk_RemMetalMonRun;
         private System.Windows.Forms.Label lbl_TreasurePool;
         private System.Windows.Forms.CheckBox chk_RmFighterPenalty;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.CheckBox chk_UseVanEquipValues;
-        private System.Windows.Forms.CheckBox chk_WeapArmPower;
-        private System.Windows.Forms.CheckBox chk_RmManip;
         private System.Windows.Forms.TabPage tabPage7;
         private System.Windows.Forms.CheckBox chk_LowerCaseMenus;
         private System.Windows.Forms.CheckBox chk_ChangeDefaultParty;
@@ -2430,7 +2818,6 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_ChangeHeroAge;
         private System.Windows.Forms.CheckBox chk_GenIslandsMonstersZones;
         private System.Windows.Forms.CheckBox chk_RandSpriteColor;
-        private System.Windows.Forms.CheckBox chk_RandomStartGold;
         private System.Windows.Forms.CheckBox chk_GhostToCasket;
         private System.Windows.Forms.TabPage tabPage8;
         private System.Windows.Forms.CheckBox chk_RmNewTown;
@@ -2453,14 +2840,12 @@ namespace DW3Randomizer
         private System.Windows.Forms.TextBox txtSeed;
         private System.Windows.Forms.CheckBox chk_AdjustEqpPrices;
         private System.Windows.Forms.CheckBox chk_InvisibleNPCs;
-        private System.Windows.Forms.CheckBox chk_InvisibleShips;
         private System.Windows.Forms.CheckBox chk_changeCats;
         private System.Windows.Forms.CheckBox chk_sellUnsellItems;
         private System.Windows.Forms.CheckBox chk_RmRedundKey;
         private System.Windows.Forms.Button btn_CopyHash;
         private System.Windows.Forms.CheckBox chk_AddRemakeEq;
         private System.Windows.Forms.CheckBox chk_FixHeroSpell;
-        private System.Windows.Forms.CheckBox chk_DoubleAtk;
         private System.Windows.Forms.RadioButton opt_JustForFun;
         private System.Windows.Forms.CheckBox chk_RandDrop;
         private System.Windows.Forms.CheckBox chk_RemDupPool;
@@ -2473,7 +2858,6 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_HealUsAllStone;
         private System.Windows.Forms.CheckBox chk_randsagestone;
         private System.Windows.Forms.CheckBox chk_BigShoes;
-        private System.Windows.Forms.CheckBox chk_HeroItems;
         private System.Windows.Forms.CheckBox chk_RandShoesEffect;
         private System.Windows.Forms.CheckBox chk_FFigherSprite;
         private System.Windows.Forms.CheckBox chk_RandNPCSprites;
@@ -2488,10 +2872,50 @@ namespace DW3Randomizer
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox grp_IncBatSpeed;
         private System.Windows.Forms.RadioButton rad_IncBattSpeedRand;
         private System.Windows.Forms.RadioButton rad_IncBattSpeedOn;
         private System.Windows.Forms.RadioButton rad_IncBattSpeedOff;
+        private System.Windows.Forms.GroupBox grp_SpeedUpText;
+        private System.Windows.Forms.RadioButton rad_SpeedTextRand;
+        private System.Windows.Forms.RadioButton rad_SpeedTextOn;
+        private System.Windows.Forms.RadioButton rad_SpeedTextOff;
+        private System.Windows.Forms.GroupBox grp_SpeedUpMenus;
+        private System.Windows.Forms.RadioButton rad_SpeedUpMenuRand;
+        private System.Windows.Forms.RadioButton rad_SpeedUpMenusOn;
+        private System.Windows.Forms.RadioButton rad_SpeedUpMenuOff;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox grp_RmManips;
+        private System.Windows.Forms.RadioButton rad_RmManipRand;
+        private System.Windows.Forms.RadioButton rad_RmManipOn;
+        private System.Windows.Forms.RadioButton rad_RmManipOff;
+        private System.Windows.Forms.RadioButton rad_StartGoldRand;
+        private System.Windows.Forms.RadioButton rad_StartGoldOff;
+        private System.Windows.Forms.RadioButton rad_StartGoldOn;
+        private System.Windows.Forms.GroupBox grp_cod;
+        private System.Windows.Forms.RadioButton rad_codRand;
+        private System.Windows.Forms.RadioButton rad_codOn;
+        private System.Windows.Forms.RadioButton rad_codOff;
+        private System.Windows.Forms.GroupBox grp_Lamia;
+        private System.Windows.Forms.RadioButton rad_LamiaRand;
+        private System.Windows.Forms.RadioButton rad_LamiaOn;
+        private System.Windows.Forms.RadioButton rad_LamiaOff;
+        private System.Windows.Forms.GroupBox grp_DispEqPower;
+        private System.Windows.Forms.RadioButton rad_DispEqPowerRand;
+        private System.Windows.Forms.RadioButton rad_DispEqPowerOn;
+        private System.Windows.Forms.RadioButton rad_DispEqPowerOff;
+        private System.Windows.Forms.GroupBox grp_doubleAtt;
+        private System.Windows.Forms.RadioButton rad_DoubleAttRand;
+        private System.Windows.Forms.RadioButton rad_DoubleAttOn;
+        private System.Windows.Forms.RadioButton rad_DoubleAttOff;
+        private System.Windows.Forms.GroupBox grp_PartyItems;
+        private System.Windows.Forms.RadioButton rad_PartyItemsRand;
+        private System.Windows.Forms.RadioButton rad_PartyItemsOn;
+        private System.Windows.Forms.RadioButton rad_PartyItemsOff;
+        private System.Windows.Forms.GroupBox grp_InvisShipBird;
+        private System.Windows.Forms.RadioButton rad_InvisShipBirdRand;
+        private System.Windows.Forms.RadioButton rad_InvisShipBirdOn;
+        private System.Windows.Forms.RadioButton rad_InvisShipBirdOff;
     }
 }
 

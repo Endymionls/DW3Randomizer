@@ -25,8 +25,8 @@ namespace DW3Randomizer
     public partial class Form1 : Form
     {
         readonly string versionNumber = "2.5.4";
-        readonly string revisionDate = "10/11/2023";
-        readonly int buildnumber = 262; // build starting 8/18/23
+        readonly string revisionDate = "10/12/2023";
+        readonly int buildnumber = 264; // build starting 8/18/23
         readonly string SotWFlags = "A-EHADHDAF-ON-LANB-JMF-ODPPP-AHB-D-H";
         readonly string TradSotWFlags = "A-EHADHDAF-ON-LABA-JMF-ODPPP-AHA-D-G";
         readonly string jffFlags = "A-AHADPDDP-OP-PPPB-LPH-ODPPP-APB-D-H";
@@ -54,6 +54,8 @@ namespace DW3Randomizer
         int[] maxIsland = new int[4];
         List<int> islands = new List<int>();
         int[] heroComSpell, pilgrimComSpell, wizardComSpell, heroComLvl, pilgrimComLvl, wizardComLvl, heroBatSpell, pilgrimBatSpell, wizardBatSpell, heroBatLvl, pilgrimBatLvl, wizardBatLvl;
+        bool noLamia = false;
+        bool dispEqPower = false;
 
         public Form1()
         {
@@ -99,12 +101,15 @@ namespace DW3Randomizer
         private void runHash()
         {
             int adjustmentTab = cboExpGains.SelectedIndex + (2 * cboGoldReq.SelectedIndex) + (4 * cboEncounterRate.SelectedIndex) +
-                (chkFasterBattles.Checked ? 8 : 0) + (chkSpeedText.Checked ? 16 : 0) + (chk_SpeedUpMenus.Checked ? 32 : 0) +
-                (chk_Cod.Checked ? 64 : 0) + (chk_RmManip.Checked ? 128 : 0) + (chk_WeapArmPower.Checked ? 256 : 0) +
-                (chkNoLamiaOrbs.Checked ? 512 : 0) + (chk_RandomStartGold.Checked ? 1024 : 0) +
-                (chk_InvisibleNPCs.Checked ? 2048 : 0) + (chk_InvisibleShips.Checked ? 4096 : 0) + (chk_DoubleAtk.Checked ? 8192 : 0) +
+                (rad_IncBattSpeedOn.Checked ? 8 : (rad_IncBattSpeedRand.Checked ? 16 : 0)) + (rad_SpeedTextOn.Checked ? 32 : (rad_SpeedTextRand.Checked ? 64 : 0)) +
+                (rad_SpeedUpMenusOn.Checked ? 128 : (rad_SpeedUpMenuRand.Checked ? 256 : 0)) + (rad_RmManipOn.Checked ? 512 : 0) + (rad_RmManipRand.Checked ? 1024 : 0) +
+                (rad_codOn.Checked ? 2048 : (rad_codRand.Checked ? 4096 : 0)) + (rad_LamiaOn.Checked ? 8192 : (rad_LamiaRand.Checked ? 16384 : 0)) +
+                (rad_DispEqPowerOn.Checked ? 32768 : (rad_DispEqPowerRand.Checked ? 65536 : 0)) + (rad_DoubleAttOn.Checked ? 131072 : (rad_DoubleAttRand.Checked ? 262144 : 0));
+
+            int adjustmentTab2 = 3 * ((rad_PartyItemsOn.Checked ? 1 : (rad_PartyItemsRand.Checked ? 2 : 0)) + (rad_InvisShipBirdOn.Checked ? 4 : (rad_InvisShipBirdRand.Checked ? 8 : 0)) +
+                (chk_InvisibleNPCs.Checked ? 2048 : 0) + 
                 (chk_RandShoesEffect.Checked ? 16384 : 0) + (chk_BigShoes.Checked ? 32768 : 0) + (chk_randsagestone.Checked ? 65536 : 0) +
-                (chk_HealUsAllStone.Checked ? 131072 : 0) + (chk_HeroItems.Checked ? 262144 : 0);
+                (chk_HealUsAllStone.Checked ? 131072 : 0));
 
             int mapTab = 3 * ((chkRandomizeMap.Checked ? 1 : 0) + (chkRandMonsterZones.Checked ? 2 : 0) + (chkSmallMap.Checked ? 4 : 0) +
                 (chk_RemoveMtnDrgQueen.Checked ? 8 : 0) + (chk_SepBarGaia.Checked ? 16 : 0) + (chk_RemLancelMountains.Checked ? 32 : 0) +
@@ -271,6 +276,9 @@ namespace DW3Randomizer
             catch
             {
                 // ignore error
+                cboExpGains.SelectedIndex = 8;
+                cboGoldReq.SelectedIndex = 3;
+                cboEncounterRate.SelectedIndex = 5;
                 txtCharName1.Text = "Glennard";
                 txtCharName2.Text = "Elucidus";
                 txtCharName3.Text = "Hiram";
@@ -280,9 +288,6 @@ namespace DW3Randomizer
                 cboGender1.SelectedIndex = 0;
                 cboGender2.SelectedIndex = 0;
                 cboGender3.SelectedIndex = 0;
-                cboEncounterRate.SelectedIndex = 4;
-                cboExpGains.SelectedIndex = 8;
-                cboGoldReq.SelectedIndex = 2;
                 chk_LowerCaseMenus.Checked = false;
                 chk_FixSlimeSnail.Checked = false;
                 chk_RandSpriteColor.Checked = false;
@@ -350,21 +355,46 @@ namespace DW3Randomizer
                 }
                 int evalRandTemp = 0; // this will evaluate if Rand is selected on specific options
 
-                if (chk_RmManip.Checked) dw4RNG();
                 boostXP();
                 boostGP();
                 adjustEncounters();
                 evalRandTemp = r1.Next() % 2;
                 if (evalRandTemp == 1 || rad_IncBattSpeedOn.Checked)
                     battleSpeed();
+                evalRandTemp = r1.Next() % 2;
+                if (evalRandTemp == 1 || rad_SpeedTextOn.Checked)
+                    speedText();
+                evalRandTemp = r1.Next() % 2;
+                if (evalRandTemp == 1 || rad_SpeedUpMenusOn.Checked)
+                    speedUpMenus();
+                evalRandTemp = r1.Next() % 2;
+                if (evalRandTemp == 1 || rad_RmManipOn.Checked)
+                    dw4RNG();
+                evalRandTemp = r1.Next() % 2;
+                if (evalRandTemp == 1 || rad_StartGoldOn.Checked)
+                    randStartGold();
+                evalRandTemp = r1.Next() % 2;
+                if (evalRandTemp == 1 || rad_codOn.Checked)
+                    cod();
+                evalRandTemp = r1.Next() % 2;
+                if (evalRandTemp == 1 || rad_LamiaOn.Checked)
+                    noOrbs();
+                evalRandTemp = r1.Next() % 2;
+                if (evalRandTemp == 1 || rad_DispEqPowerOn.Checked)
+                    weapArmPower();
+                evalRandTemp = r1.Next() % 2;
+                if (evalRandTemp == 1 || rad_DoubleAttOn.Checked)
+                    doubleattack();
+                evalRandTemp = r1.Next() % 2;
+                if (evalRandTemp == 1 || rad_PartyItemsOn.Checked)
+                    heroitems();
+                evalRandTemp = r1.Next() % 2;
+                if (evalRandTemp == 1 || rad_InvisShipBirdOn.Checked)
+                    invisbleShips();
                 if (chk_randsagestone.Checked) randsagestone();
                 if (chk_RandShoesEffect.Checked) randshoes();
-                if (chk_Cod.Checked) cod();
                 if (chk_FixHeroSpell.Checked) fixHeroSpell();
-                if (chkSpeedText.Checked) speedText();
                 if (chkFourJobFiesta.Checked) fourJobFiesta();
-                if (chkNoLamiaOrbs.Checked) noOrbs();
-                if (chk_SpeedUpMenus.Checked) speedUpMenus();
                 if (chkRemoveParryFight.Checked) removeParryFight();
                 if (chk_LowerCaseMenus.Checked) lowerCaseMenus();
                 if (chk_FixSlimeSnail.Checked) slimeSnail();
@@ -383,7 +413,6 @@ namespace DW3Randomizer
                 if (chkRandEquip.Checked) randEquip();
                 if (chk_AddRemakeEq.Checked) changeRemakeEq();
                 if (chk_RmFighterPenalty.Checked) removeFightPenalty();
-                if (chk_WeapArmPower.Checked) weapArmPower();
                 if (chkRandSpellLearning.Checked) randSpellLearning();
                 if (chkRandSpellStrength.Checked) randSpellStrength();
                 if (chkRandTreasures.Checked) randTreasures();
@@ -392,13 +421,9 @@ namespace DW3Randomizer
                 if (chkRandStatGains.Checked) randStatGains();
                 if (chk_ChangeHeroAge.Checked) changeHeroAge();
                 if (chk_RandSpriteColor.Checked) randSpriteColors();
-                if (chk_RandomStartGold.Checked) randStartGold();
                 if (chk_GhostToCasket.Checked) changeGhostToCasket();
                 if (chk_changeCats.Checked) changeCats();
                 if (chk_InvisibleNPCs.Checked) invisibleNPCs();
-                if (chk_InvisibleShips.Checked) invisbleShips();
-                if (chk_DoubleAtk.Checked) doubleattack();
-                if (chk_HeroItems.Checked) heroitems();
                 if (chk_FFigherSprite.Checked) fixFFigherSprite();
                 if (chk_RandNPCSprites.Checked) randomNPCSprites();
                 if (chk_nonMagicMP.Checked) nonMagicMP();
@@ -573,6 +598,7 @@ namespace DW3Randomizer
 
             romData[0x3794b] = 0xea;
             romData[0x3794c] = 0xea;
+            noLamia = true;
         }
 
         private void fourJobFiesta()
@@ -4011,6 +4037,7 @@ namespace DW3Randomizer
             convertStrToHex(" Herb", 0xafb8, false);
             convertStrToHex(" Seed", 0xb007, false);
 
+            dispEqPower = true;
             for (int lnI = 0; lnI < 71; lnI++)
             {
                 byte value = romData[0x11be + lnI];
@@ -4813,7 +4840,7 @@ namespace DW3Randomizer
             {
                 int treasureLocation = 0;
                 int index = 0;
-                if (chkNoLamiaOrbs.Checked)
+                if (noLamia)
                 {
                     if (keyItems[lnJ] >= 0x77 && keyItems[lnJ] <= 0x7c)
                     {
@@ -8877,7 +8904,7 @@ namespace DW3Randomizer
 
         private void changeRemakeEq()
         {
-            if (chk_WeapArmPower.Checked == true)
+            if (dispEqPower)
             {
                 convertStrToHex("HlyLnc", 0xad30, false);
                 convertStrToHex("BstCl", 0xad50, true);
@@ -9359,82 +9386,202 @@ namespace DW3Randomizer
         {
             string flags = txtFlags.Text;
             int number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(0, 1)));
-            int tempnumber = 0;
+            int bank1 = 0; // Generally 0,1,2
+            int bank2 = 0; // Generally 4-10, may be combined with bank 1
+            int bank3 = 0; // Generally 16-42
             chk_GenCompareFile.Checked = (number % 2 == 1);
 
             // Adjustments
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(2, 1)));
-            switch(number)
+            bank3 = number; // cboExpGains - 11 options
+            switch (bank3)
             {
-                case 0: 
+                case 16: 
                     cboExpGains.SelectedIndex = 0;
                     break;
-                case 1: 
+                case 17: 
                     cboExpGains.SelectedIndex = 1;
                     break;
-                case 2: 
+                case 18: 
                     cboExpGains.SelectedIndex = 2;
                     break;
-                case 4: 
+                case 20: 
                     cboExpGains.SelectedIndex = 3;
                     break;
-                case 5: 
+                case 21: 
                     cboExpGains.SelectedIndex = 4;
                     break;
-                case 6:
+                case 22:
                     cboExpGains.SelectedIndex = 5;
                     break;
-                case 8:
+                case 24:
                     cboExpGains.SelectedIndex = 6;
                     break;
-                case 9:
+                case 25:
                     cboExpGains.SelectedIndex = 7;
                     break;
-                case 10:
+                case 26:
                     cboExpGains.SelectedIndex = 8;
                     break;
-                case 16:
+                case 32:
                     cboExpGains.SelectedIndex = 9;
                     break;
-                case 17:
+                case 33:
                     cboExpGains.SelectedIndex = 10;
                     break;
-                case 18:
+                case 34:
                     cboExpGains.SelectedIndex = 11;
                     break;
             }
-//            cboExpGains.SelectedIndex = (number % 12);
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(3, 1)));
-            cboEncounterRate.SelectedIndex = (number % 10);
+            bank3 = number;
+            switch(bank3)
+            {
+                case 16:
+                    cboEncounterRate.SelectedIndex = 0;
+                    break;
+                case 17:
+                    cboEncounterRate.SelectedIndex = 1;
+                    break;
+                case 18:
+                    cboEncounterRate.SelectedIndex = 2;
+                    break;
+                case 20:
+                    cboEncounterRate.SelectedIndex = 3;
+                    break;
+                case 21:
+                    cboEncounterRate.SelectedIndex = 4;
+                    break;
+                case 22:
+                    cboEncounterRate.SelectedIndex = 5;
+                    break;
+                case 24:
+                    cboEncounterRate.SelectedIndex = 6;
+                    break;
+                case 25:
+                    cboEncounterRate.SelectedIndex = 7;
+                    break;
+                case 26:
+                    cboEncounterRate.SelectedIndex = 8;
+                    break;
+                case 32:
+                    cboEncounterRate.SelectedIndex = 9;
+                    break;
+            }
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(4, 1)));
-            cboGoldReq.SelectedIndex = (number % 6);
+            bank2 = number % 16; // cboGoldReq - 6 options
+            switch (bank2)
+            {
+                case 4:
+                    cboGoldReq.SelectedIndex = 0;
+                    break;
+                case 5:
+                    cboGoldReq.SelectedIndex = 1;
+                    break;
+                case 6:
+                    cboGoldReq.SelectedIndex = 2;
+                    break;
+                case 8:
+                    cboGoldReq.SelectedIndex = 3;
+                    break;
+                case 9:
+                    cboGoldReq.SelectedIndex = 4;
+                    break;
+                case 10:
+                    cboGoldReq.SelectedIndex = 5;
+                    break;
+            }
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(5, 1)));
-            if (number % 4 == 0)
+            bank1 = number % 4;
+            bank2 = (number % 16) - (bank1);
+            bank3 = number - bank2;
+            if (bank1 == 0)
                 rad_IncBattSpeedOff.Checked = true;
-            else if (number % 4 == 1)
+            else if (bank1 == 1)
                 rad_IncBattSpeedOn.Checked = true;
-            else if (number % 4 == 2)
+            else if (bank1 == 2)
                 rad_IncBattSpeedRand.Checked = true;
-            chkSpeedText.Checked = (number % 8 >= 4);
+            if (bank2 == 0)
+                rad_SpeedTextOff.Checked = true;
+            else if (bank2 == 4)
+                rad_SpeedTextOn.Checked = true;
+            else if (bank2 == 8)
+                rad_SpeedTextRand.Checked = true;
+            if (bank3 == 0)
+                rad_SpeedUpMenuOff.Checked = true;
+            else if (bank3 == 16)
+                rad_SpeedUpMenusOn.Checked = true;
+            else if (bank3 == 32)
+                rad_SpeedUpMenuRand.Checked = true;
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(6, 1)));
-            chk_SpeedUpMenus.Checked = (number % 2 == 1);
-            chk_Cod.Checked = (number % 4 >= 2);
-            chk_WeapArmPower.Checked = (number % 8 >= 4);
-            chkNoLamiaOrbs.Checked = (number % 16 >= 8);
+            bank1 = number % 4;
+            bank2 = (number % 16) - (bank1);
+            bank3 = number - bank2;
+            if (bank1 == 0)
+                rad_RmManipOff.Checked = true;
+            else if (bank1 == 1)
+                rad_RmManipOn.Checked = true;
+            else if (bank1 == 2)
+                rad_RmManipRand.Checked = true;
+            if (bank2 == 0)
+                rad_StartGoldOff.Checked = true;
+            else if (bank2 == 4)
+                rad_StartGoldOn.Checked = true;
+            else if (bank2 == 8)
+                rad_StartGoldRand.Checked = true;
+            if (bank3 == 0)
+                rad_codOff.Checked = true;
+            else if (bank3 == 16)
+                rad_codOn.Checked = true;
+            else if (bank3 == 32)
+                rad_codRand.Checked = true;
+
+                //chk_WeapArmPower.Checked = (number % 8 >= 4);
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(7, 1)));
-            chk_RmManip.Checked = (number % 2 == 1);
-            chk_RandomStartGold.Checked = (number % 4 >= 2);
-            chk_InvisibleNPCs.Checked = (number % 8 >= 4);
-            chk_InvisibleShips.Checked = (number % 16 >= 8);
+            bank1 = number % 4;
+            bank2 = (number % 16) - (bank1);
+            bank3 = number - bank2;
+            if (bank1 == 0)
+                rad_LamiaOff.Checked = true;
+            else if (bank1 == 1)
+                rad_LamiaOn.Checked = true;
+            else if (bank1 == 2)
+                rad_LamiaRand.Checked = true;
+            if (bank2 == 0)
+                rad_DispEqPowerOff.Checked = true;
+            else if (bank2 == 4)
+                rad_DispEqPowerOn.Checked = true;
+            else if (bank2 == 8)
+                rad_DispEqPowerRand.Checked = true;
+            if (bank3 == 0)
+                rad_DoubleAttOff.Checked = true;
+            else if (bank3 == 16)
+                rad_DoubleAttOn.Checked = true;
+            else if (bank3 == 32)
+                rad_DoubleAttRand.Checked = true;
+            //chk_InvisibleNPCs.Checked = (number % 8 >= 4);
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(8,1)));
-            chk_DoubleAtk.Checked = (number % 2 == 1);
-            chk_HeroItems.Checked = (number % 4 >= 2);
+            bank1 = number % 4;
+            bank2 = (number % 16) - (bank1);
+            bank3 = number - bank2;
+            if (bank1 == 0)
+                rad_PartyItemsOff.Checked = true;
+            else if (bank1 == 1)
+                rad_PartyItemsOn.Checked = true;
+            else if (bank1 == 2)
+                rad_PartyItemsRand.Checked = true;
+            if (bank2 == 0)
+                rad_InvisShipBirdOff.Checked = true;
+            else if (bank2 == 4)
+                rad_InvisShipBirdOn.Checked = true;
+            else if (bank2 == 8)
+                rad_InvisShipBirdRand.Checked = true;
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(9, 1)));
             chk_randsagestone.Checked = (number % 2 == 1);
@@ -9557,88 +9704,190 @@ namespace DW3Randomizer
             if (loading) return;
 
             string flags = "";
-            int tempnum = 0;
+            int bank1 = 0; // 0,1,2
+            int bank2 = 0; // 4-10
+            int bank3 = 0; // 16-42
             flags += convertIntToCharCapsOnly((chk_GenCompareFile.Checked ? 1 : 0)); // 0
             flags += "-";
             // Adjustments
-            switch(cboExpGains.SelectedIndex)
+
+            switch (cboExpGains.SelectedIndex)
             {
                 case 0:
-                    tempnum = 0;
+                    bank3 = 16;
                     break;
                 case 1:
-                    tempnum = 1;
+                    bank3 = 17;
                     break;
                 case 2:
-                    tempnum = 2;
+                    bank3 = 18;
                     break;
                 case 3:
-                    tempnum = 4;
+                    bank3 = 20;
                     break;
                 case 4:
-                    tempnum = 5;
+                    bank3 = 21;
                     break;
                 case 5:
-                    tempnum = 6;
+                    bank3 = 22;
                     break;
                 case 6:
-                    tempnum = 8;
+                    bank3 = 24;
                     break;
                 case 7:
-                    tempnum = 9;
+                    bank3 = 25;
                     break;
                 case 8:
-                    tempnum = 10;
+                    bank3 = 26;
                     break;
                 case 9:
-                    tempnum = 16;
+                    bank3 = 32;
                     break;
                 case 10:
-                    tempnum = 17;
+                    bank3 = 33;
+                    break;
+                case 11:
+                    bank3 = 34;
                     break;
             }
-            flags += convertIntToCharCapsOnly(tempnum); // 2
-            flags += convertIntToCharCapsOnly(cboEncounterRate.SelectedIndex); // 3
-            flags += convertIntToCharCapsOnly(cboGoldReq.SelectedIndex); // 4
-            flags += convertIntToCharCapsOnly((rad_IncBattSpeedOff.Checked ? 0 : 0) + (rad_IncBattSpeedOn.Checked ? 1 : 0) + (rad_IncBattSpeedRand.Checked ? 2 : 0) + (chkSpeedText.Checked ? 4 : 0)); // 5
+            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 2
 
-            //flags += convertIntToCharCapsOnly((chkFasterBattles.CheckState == 2 ? 1 : chkFasterBattles.CheckState == 1 ? 2 : 0) + (chkSpeedText.Checked ? 8 : 0)) ; // 5
-            flags += convertIntToCharCapsOnly((chk_SpeedUpMenus.Checked ? 1 : 0) + (chk_Cod.Checked ? 2 : 0) + (chk_WeapArmPower.Checked ? 4 : 0) + (chkNoLamiaOrbs.Checked ? 8 : 0)); // 6
-            flags += convertIntToCharCapsOnly((chk_RmManip.Checked ? 1 : 0) + (chk_RandomStartGold.Checked ? 2 : 0) + (chk_InvisibleNPCs.Checked ? 4 : 0) + (chk_InvisibleShips.Checked ? 8 : 0)); // 7
-            flags += convertIntToCharCapsOnly((chk_DoubleAtk.Checked ? 1 : 0) + (chk_HeroItems.Checked ? 2 : 0)); // 8
+            bank1 = bank2 = bank3 = 0;
+            switch(cboEncounterRate.SelectedIndex)
+            {
+                case 0:
+                    bank3 = 16;
+                    break;
+                case 1:
+                    bank3 = 17;
+                    break;
+                case 2:
+                    bank3 = 18;
+                    break;
+                case 3:
+                    bank3 = 20;
+                    break;
+                case 4:
+                    bank3 = 21;
+                    break;
+                case 5:
+                    bank3 = 22;
+                    break;
+                case 6:
+                    bank3 = 24;
+                    break;
+                case 7:
+                    bank3 = 25;
+                    break;
+                case 8:
+                    bank3 = 26;
+                    break;
+                case 9:
+                    bank3 = 32;
+                    break;
+            }
+            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 3
+
+            bank1 = bank2 = bank3 = 0;
+            switch (cboGoldReq.SelectedIndex)
+            {
+                case 0:
+                    bank2 = 4;
+                    break;
+                case 1:
+                    bank2 = 5;
+                    break;
+                case 2:
+                    bank2 = 6;
+                    break;
+                case 3:
+                    bank2 = 8;
+                    break;
+                case 4:
+                    bank2 = 9;
+                    break;
+                case 5:
+                    bank2 = 10;
+                    break;
+            }
+            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 4
+
+            bank1 = bank2 = bank3 = 0;
+            bank1 += ((rad_IncBattSpeedOff.Checked ? 0 : 0) + (rad_IncBattSpeedOn.Checked ? 1 : 0) + (rad_IncBattSpeedRand.Checked ? 2 : 0));
+            bank2 += ((rad_SpeedTextOff.Checked ? 0 : 0) + (rad_SpeedTextOn.Checked ? 4 : 0) + (rad_SpeedTextRand.Checked ? 8 : 0));
+            bank3 += ((rad_SpeedUpMenuOff.Checked ? 0 : 0) + (rad_SpeedUpMenusOn.Checked ? 16 : 0) + (rad_SpeedUpMenuRand.Checked ? 32 : 0));
+            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 5
+
+            bank1 = bank2 = bank3 = 0;
+            bank1 += ((rad_RmManipOff.Checked ? 0 : 0) + (rad_RmManipOn.Checked ? 1 : 0) + (rad_RmManipRand.Checked ? 2 : 0));
+            bank2 += ((rad_StartGoldOff.Checked ? 0 : 0) + (rad_StartGoldOn.Checked ? 4 : 0) + (rad_StartGoldRand.Checked ? 8 : 0));
+            bank3 += ((rad_codOff.Checked ? 0 : 0) + (rad_codOn.Checked ? 16 : 0) + (rad_codRand.Checked ? 32 : 0));
+            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 6
+
+            bank1 = bank2 = bank3 = 0;
+            bank1 += ((rad_LamiaOff.Checked ? 0 : 0) + (rad_LamiaOn.Checked ? 1 : 0) + (rad_LamiaRand.Checked ? 2 : 0));
+            bank2 += ((rad_DispEqPowerOff.Checked ? 0 : 0) + (rad_DispEqPowerOn.Checked ? 4 : 0) + (rad_DispEqPowerRand.Checked ? 8 : 0));
+            bank3 += ((rad_DoubleAttOff.Checked ? 0 : 0) + (rad_DoubleAttOn.Checked ? 16 : 0) + (rad_DoubleAttRand.Checked ? 32 : 0));
+            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 7
+            //flags += convertIntToCharCapsOnly((chk_InvisibleNPCs.Checked ? 4 : 0) + (chk_InvisibleShips.Checked ? 8 : 0)); // 7
+            bank1 = bank2 = bank3 = 0;
+            bank1 += ((rad_PartyItemsOff.Checked ? 0 : 0) + (rad_PartyItemsOn.Checked ? 1 : 0) + (rad_PartyItemsRand.Checked ? 2 : 0));
+            bank2 += ((rad_InvisShipBirdOff.Checked ? 0 : 0) + (rad_InvisShipBirdOn.Checked ? 4 : 0) + (rad_InvisShipBirdRand.Checked ? 8 : 0));
+            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 8
+            bank1 = bank2 = bank3 = 0;
             flags += convertIntToCharCapsOnly((chk_randsagestone.Checked ? 1 : 0) + (chk_randsagestone.Checked ? (chk_HealUsAllStone.Checked ? 2 : 0) : 0) + (chk_RandShoesEffect.Checked ? 4 : 0) + (chk_RandShoesEffect.Checked ? (chk_BigShoes.Checked ? 8 : 0) : 0)); // 9
             flags += "-";
             // Monsters
+            bank1 = bank2 = bank3 = 0;
             flags += convertIntToCharCapsOnly((optStatSilly.Checked ? 0 : optStatMedium.Checked ? 1 : 2) + (chkRandomizeXP.Checked ? 4 : 0) + (chkRandomizeGP.Checked ? 8 : 0)); // 11
+            bank1 = bank2 = bank3 = 0;
             flags += convertIntToCharCapsOnly((chkRandEnemyPatterns.Checked ? 1 : 0) + (chk_RemMetalMonRun.Checked ? 2 : 0) + (chk_RandDrop.Checked ? 4 : 0) + (chk_RandDrop.Checked ? (chk_RemDupPool.Checked ? 8 : 0) : 0)); // 12
             flags += "-";
             // Map
+            bank1 = bank2 = bank3 = 0;
             flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? 1 : 0) + (chkRandomizeMap.Checked ? (chkSmallMap.Checked ? 2 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_SepBarGaia.Checked ? 4 : 0) : 0) + (chkRandomizeMap.Checked ? (chkRandMonsterZones.Checked ? 8 : 0) : 0)); // 14
+            bank1 = bank2 = bank3 = 0;
             flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? (chk_RemoveBirdRequirement.Checked ? 1 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RemLancelMountains.Checked ? 2 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_lbtoCharlock.Checked ? 4 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RmMtnNecrogond.Checked ? 8 : 0) : 0)); // 15
+            bank1 = bank2 = bank3 = 0;
             flags += convertIntToCharCapsOnly((chkRandomizeMap.Checked ? (chk_RemoveMtnDrgQueen.Checked ? 1 : 0) : 0) + (chkRandomizeMap.Checked ? (chk_RmNewTown.Checked ? 2 : 0) : 0) + (chk_ShrineRando.Checked ? 4 : 0) + (chk_RandoCaves.Checked ? 8 : 0)); //16
+            bank1 = bank2 = bank3 = 0;
             flags += convertIntToCharCapsOnly((chk_RandoTowns.Checked ? 1 : 0)); // 17
             flags += "-";
             // Treasures & Equipment
+            bank1 = bank2 = bank3 = 0;
             flags += convertIntToCharCapsOnly((chkRandTreasures.Checked ? 1 : 0) + (chkRandTreasures.Checked ? (chk_GoldenClaw.Checked ? 2 : 0) : 0) + (chkRandWhoCanEquip.Checked ? 4 : 0) + (chkRandEquip.Checked ? 8 : 0)); // 19
+            bank1 = bank2 = bank3 = 0;
             flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_UseVanEquipValues.Checked ? 1 : 0) : 0) + (chkRandEquip.Checked ? (chk_RemoveStartEqRestrictions.Checked ? 2 : 0) : 0) + (chk_RmFighterPenalty.Checked ? 4 : 0) + (chkRandTreasures.Checked ? (chk_GreenSilverOrb.Checked ? 8 : 0) : 0)); // 20
+            bank1 = bank2 = bank3 = 0;
             flags += convertIntToCharCapsOnly((chkRandEquip.Checked ? (chk_AdjustEqpPrices.Checked ? 1 : 0) : 0) + (chkRandTreasures.Checked ? (chk_RmRedundKey.Checked ? 2 : 0) : 0) + (chk_AddRemakeEq.Checked ? 4 : 0)); //21
             flags += "-";
             // Item & Weapon Shops & Inns
+            bank1 = bank2 = bank3 = 0;
             flags += convertIntToCharCapsOnly((chkRandItemEffects.Checked ? 1 : 0) + (chkRandItemStores.Checked ? 2 : 0) + (chk_RandomizeWeaponShops.Checked ? 4 : 0) + (chk_Caturday.Checked ? 8 : 0)); // 23
+            bank1 = bank2 = bank3 = 0;
             flags += convertIntToCharCapsOnly((chk_RandomizeInnPrices.Checked ? 1 : 0) + (chk_sellUnsellItems.Checked ? 2 : 0)); //24
+            bank1 = bank2 = bank3 = 0;
             flags += convertIntToCharCapsOnly((chkRandItemStores.Checked ? (chk_StoneofLife.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_Seeds.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_BookofSatori.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_RingofLife.Checked ? 8 : 0) : 0)); // 25
+            bank1 = bank2 = bank3 = 0;
             flags += convertIntToCharCapsOnly((chkRandItemStores.Checked ? (chk_EchoingFlute.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_SilverHarp.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_LeafoftheWorldTree.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_ShoesofHappiness.Checked ? 8 : 0) : 0)); // 26
+            bank1 = bank2 = bank3 = 0;
+            flags += convertIntToCharCapsOnly((chkRandItemStores.Checked ? (chk_MeteoriteArmband.Checked ? 1 : 0) : 0) + (chkRandItemStores.Checked ? (chk_WizardsRing.Checked ? 2 : 0) : 0) + (chkRandItemStores.Checked ? (chk_LampofDarkness.Checked ? 4 : 0) : 0) + (chkRandItemStores.Checked ? (chk_PoisonMothPowder.Checked ? 8 : 0) : 0)); // 27
             flags += "-";
             // Characters
+            bank1 = bank2 = bank3 = 0;
             flags += convertIntToCharCapsOnly((chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandSage.Checked ? 1 : 0) : 0) : 0) + (chk_ChangeDefaultParty.Checked ? (chk_RandomClass.Checked ? (chk_RandHero.Checked ? 2 : 0) : 0) : 0)); // 29
+            bank1 = bank2 = bank3 = 0;
             flags += convertIntToCharCapsOnly((chkRandStatGains.Checked ? 1 : 0) + (chkRandSpellLearning.Checked ? 2 : 0) + (chkRandSpellStrength.Checked ? 4 : 0) + (chkFourJobFiesta.Checked ? 8 : 0)); // 30
+            bank1 = bank2 = bank3 = 0;
             flags += convertIntToCharCapsOnly((chk_nonMagicMP.Checked ? 1 : 0)); // 31
             flags += "-";
             // Fixes
+            bank1 = bank2 = bank3 = 0;
             flags += convertIntToCharCapsOnly((chkRemoveParryFight.Checked ? 1 : 0) + (chk_FixHeroSpell.Checked ? 2 : 0)); // 33
             flags += "-";
             // Cosmetic
-            flags += convertIntToCharCapsOnly((chk_levelUpText.Checked ? 1 : 0) + (chk_ChangeHeroAge.Checked ? 2 : 0) + (chk_GhostToCasket.Checked ? 4 : 0));
+            bank1 = bank2 = bank3 = 0;
+            flags += convertIntToCharCapsOnly((chk_levelUpText.Checked ? 1 : 0) + (chk_ChangeHeroAge.Checked ? 2 : 0) + (chk_GhostToCasket.Checked ? 4 : 0)); // 35
 
             txtFlags.Text = flags;
             enableDisableFields(null, null);
