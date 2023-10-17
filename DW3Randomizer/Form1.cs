@@ -27,11 +27,11 @@ namespace DW3Randomizer
     {
         readonly string versionNumber = "2.5.4";
         readonly string revisionDate = "10/16/2023";
-        readonly int buildnumber = 267; // build starting 8/18/23
-        readonly string SotWFlags = "A-QLINKDAKA-NB-NNABA-JMF-ODPPP-AHB-D-H";
-        readonly string TradSotWFlags = "A-QLINKDAKA-JB-NAABA-JMF-ODPPP-AHA-D-G";
-        readonly string jffFlags = "A-ULINNNBNB-NN-NNNNB-LPH-ODPPP-APB-D-H";
-        readonly string randomFlags = "A-JJD!!!!!C-!!-!!!!C-AAA-AAAAA-AAA-A-A";
+        readonly int buildnumber = 268; // build starting 8/18/23
+        readonly string SotWFlags = "A-QLINKDAKA-NB-NNABA-JMF-ODPPP-AHB-E-H";
+        readonly string TradSotWFlags = "A-QLINKDAKA-JB-NAABA-JMF-ODPPP-AHA-B-G";
+        readonly string jffFlags = "A-ULINNNBNB-NN-NNNNB-LPH-ODPPP-APB-E-H";
+        readonly string randomFlags = "A-JJD!!!!!C-!!-!!!!C-AAA-AAAAA-AAA-I-A";
         readonly bool debugmode = false;
         Random r1;
 
@@ -148,7 +148,7 @@ namespace DW3Randomizer
             int charactersTab = 23 * ((optStatHeavy.Checked ? 1 : optStatMedium.Checked ? 2 : optStatSilly.Checked ? 4 : 0) + (chkRandStatGains.Checked ? 8 : 0) + (chkRandSpellLearning.Checked ? 16 : 0)
                 + (chkRandSpellStrength.Checked ? 32 : 0) + (chkFourJobFiesta.Checked ? 64 : 0) + (chk_nonMagicMP.Checked ? 128 : 0));
 
-            int fixesTab = 29 * ((chkRemoveParryFight.Checked ? 1 : 0) + (chk_FixHeroSpell.Checked ? 2 : 0));
+            int fixesTab = 29 * ((rad_RmParryBugOn.Checked ? 1 : (rad_RmParryBugRand.Checked ? 2 : 0)) + (rad_FixHeroSpellOn.Checked ? 4 : (rad_FixHeroSpellRand.Checked ? 8 : 0)));
 
             int cosmeticTab = 31 * ((chk_levelUpText.Checked ? 1 : 0) + (chk_ChangeHeroAge.Checked ? 2 : 0) + (chk_GhostToCasket.Checked ? 4 : 0));
 
@@ -421,9 +421,13 @@ namespace DW3Randomizer
                 evalRandTemp = r1.Next() % 2;
                 if ((rad_RandEnePatRand.Checked && evalRandTemp == 1) || (rad_RandEnePatOn.Checked))
                     randEnemyPatterns();
-                if (chk_FixHeroSpell.Checked) fixHeroSpell();
+                evalRandTemp = r1.Next() % 2;
+                if ((rad_FixHeroSpellRand.Checked && evalRandTemp == 1) || (rad_FixHeroSpellOn.Checked))
+                    fixHeroSpell();
+                evalRandTemp = r1.Next() % 2;
+                if ((rad_RmParryBugRand.Checked && evalRandTemp == 1) || (rad_RmParryBugOn.Checked))
+                    removeParryFight();
                 if (chkFourJobFiesta.Checked) fourJobFiesta();
-                if (chkRemoveParryFight.Checked) removeParryFight();
                 if (chk_LowerCaseMenus.Checked) lowerCaseMenus();
                 if (chk_FixSlimeSnail.Checked) slimeSnail();
                 if (chk_ChangeDefaultParty.Checked)
@@ -9964,8 +9968,19 @@ namespace DW3Randomizer
 
             // Fixes
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(35, 1)));
-            chkRemoveParryFight.Checked = (number % 2 == 1);
-            chk_FixHeroSpell.Checked = (number % 4 >= 2);
+            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            if (bank1 == 0)
+                rad_RmParryBugOff.Checked = true;
+            else if (bank1 == 1)
+                rad_RmParryBugOn.Checked = true;
+            else if (bank1 == 2)
+                rad_RmParryBugRand.Checked = true;
+            if (bank2 == 0)
+                rad_FixHeroSpellOff.Checked = true;
+            else if (bank2 == 1)
+                rad_FixHeroSpellOn.Checked = true;
+            else if (bank2 == 2)
+                rad_FixHeroSpellRand.Checked = true;
 
             // Cosmetic
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(37, 1)));
@@ -10138,7 +10153,9 @@ namespace DW3Randomizer
             flags += "-"; // 34
             // Fixes
             bank1 = bank2 = bank3 = 0;
-            flags += convertIntToCharCapsOnly((chkRemoveParryFight.Checked ? 1 : 0) + (chk_FixHeroSpell.Checked ? 2 : 0)); // 35
+            bank1 = ((rad_RmParryBugOff.Checked ? 0 : 0) + (rad_RmParryBugOn.Checked ? 1 : 0) + (rad_RmParryBugRand.Checked ? 2 : 0));
+            bank2 = ((rad_FixHeroSpellOff.Checked ? 0 : 0) + (rad_FixHeroSpellOn.Checked ? 4 : 0) + (rad_FixHeroSpellRand.Checked ? 8 : 0));
+            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 35
 
             flags += "-"; // 36
             // Cosmetic
