@@ -48,7 +48,6 @@ namespace DW3Randomizer
             this.txtCompare = new System.Windows.Forms.TextBox();
             this.btnNewSeed = new System.Windows.Forms.Button();
             this.lblIntensityDesc = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.grp_EncRate = new System.Windows.Forms.GroupBox();
@@ -202,12 +201,6 @@ namespace DW3Randomizer
             this.rad_RandMapsOn = new System.Windows.Forms.RadioButton();
             this.rad_RandMapsOff = new System.Windows.Forms.RadioButton();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.chk_RemDupPool = new System.Windows.Forms.CheckBox();
-            this.chk_RandDrop = new System.Windows.Forms.CheckBox();
-            this.chkRandomizeGP = new System.Windows.Forms.CheckBox();
-            this.chkRandomizeXP = new System.Windows.Forms.CheckBox();
-            this.chk_RemMetalMonRun = new System.Windows.Forms.CheckBox();
-            this.chkRandEnemyPatterns = new System.Windows.Forms.CheckBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.chk_AddRemakeEq = new System.Windows.Forms.CheckBox();
             this.chk_RmRedundKey = new System.Windows.Forms.CheckBox();
@@ -309,6 +302,30 @@ namespace DW3Randomizer
             this.txtSeed = new System.Windows.Forms.TextBox();
             this.btn_CopyHash = new System.Windows.Forms.Button();
             this.btn_chksumHash = new System.Windows.Forms.Button();
+            this.grp_RandExp = new System.Windows.Forms.GroupBox();
+            this.rad_RandExpOff = new System.Windows.Forms.RadioButton();
+            this.rad_RandExpOn = new System.Windows.Forms.RadioButton();
+            this.rad_RandExpRand = new System.Windows.Forms.RadioButton();
+            this.grp_RandDrop = new System.Windows.Forms.GroupBox();
+            this.rad_RandDropRand = new System.Windows.Forms.RadioButton();
+            this.rad_RandDropOn = new System.Windows.Forms.RadioButton();
+            this.rad_RandDropOff = new System.Windows.Forms.RadioButton();
+            this.grp_RandGold = new System.Windows.Forms.GroupBox();
+            this.rad_RandGoldRand = new System.Windows.Forms.RadioButton();
+            this.rad_RandGoldOn = new System.Windows.Forms.RadioButton();
+            this.rad_RandGoldOff = new System.Windows.Forms.RadioButton();
+            this.grp_RmDupDrop = new System.Windows.Forms.GroupBox();
+            this.rad_RmDupDropRand = new System.Windows.Forms.RadioButton();
+            this.rad_RmDupDropOn = new System.Windows.Forms.RadioButton();
+            this.rad_RmDupDropOff = new System.Windows.Forms.RadioButton();
+            this.grp_RandEnePat = new System.Windows.Forms.GroupBox();
+            this.rad_RandEnePatRand = new System.Windows.Forms.RadioButton();
+            this.rad_RandEnePatOn = new System.Windows.Forms.RadioButton();
+            this.rad_RandEnePatOff = new System.Windows.Forms.RadioButton();
+            this.grp_RmMetalRun = new System.Windows.Forms.GroupBox();
+            this.rad_RmMetalRunRand = new System.Windows.Forms.RadioButton();
+            this.rad_RmMetalRunOn = new System.Windows.Forms.RadioButton();
+            this.rad_RmMetalRunOff = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.grp_EncRate.SuspendLayout();
@@ -354,6 +371,12 @@ namespace DW3Randomizer
             this.tabPage5.SuspendLayout();
             this.tabPage7.SuspendLayout();
             this.grpFlags.SuspendLayout();
+            this.grp_RandExp.SuspendLayout();
+            this.grp_RandDrop.SuspendLayout();
+            this.grp_RandGold.SuspendLayout();
+            this.grp_RmDupDrop.SuspendLayout();
+            this.grp_RandEnePat.SuspendLayout();
+            this.grp_RmMetalRun.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtFileName
@@ -507,17 +530,6 @@ namespace DW3Randomizer
             this.lblIntensityDesc.Name = "lblIntensityDesc";
             this.lblIntensityDesc.Size = new System.Drawing.Size(600, 28);
             this.lblIntensityDesc.TabIndex = 35;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(154, 15);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(173, 20);
-            this.label9.TabIndex = 100;
-            this.label9.Text = "Monster Random Level";
-            this.label9.Visible = false;
             // 
             // tabControl1
             // 
@@ -1777,7 +1789,7 @@ namespace DW3Randomizer
             this.grp_Continents.Controls.Add(this.grp_RandTown);
             this.grp_Continents.Controls.Add(this.grp_RandCaves);
             this.grp_Continents.Controls.Add(this.grp_RandShrine);
-            this.grp_Continents.Location = new System.Drawing.Point(261, 78);
+            this.grp_Continents.Location = new System.Drawing.Point(261, 75);
             this.grp_Continents.Name = "grp_Continents";
             this.grp_Continents.Size = new System.Drawing.Size(244, 234);
             this.grp_Continents.TabIndex = 99;
@@ -1934,7 +1946,7 @@ namespace DW3Randomizer
             this.grp_RmMountains.Controls.Add(this.grp_CaveOfNecro);
             this.grp_RmMountains.Controls.Add(this.grp_BaramosCast);
             this.grp_RmMountains.Controls.Add(this.grp_DrgQnCast);
-            this.grp_RmMountains.Location = new System.Drawing.Point(511, 8);
+            this.grp_RmMountains.Location = new System.Drawing.Point(511, 6);
             this.grp_RmMountains.Name = "grp_RmMountains";
             this.grp_RmMountains.Size = new System.Drawing.Size(244, 303);
             this.grp_RmMountains.TabIndex = 98;
@@ -2138,7 +2150,7 @@ namespace DW3Randomizer
             this.grp_NoNewTown.Controls.Add(this.rad_NoNewTownRand);
             this.grp_NoNewTown.Controls.Add(this.rad_NoNewTownOn);
             this.grp_NoNewTown.Controls.Add(this.rad_NoNewTownOff);
-            this.grp_NoNewTown.Location = new System.Drawing.Point(760, 147);
+            this.grp_NoNewTown.Location = new System.Drawing.Point(765, 144);
             this.grp_NoNewTown.Name = "grp_NoNewTown";
             this.grp_NoNewTown.Size = new System.Drawing.Size(244, 63);
             this.grp_NoNewTown.TabIndex = 97;
@@ -2186,7 +2198,7 @@ namespace DW3Randomizer
             this.grp_Charlock.Controls.Add(this.rad_CharlockRand);
             this.grp_Charlock.Controls.Add(this.rad_CharlockOn);
             this.grp_Charlock.Controls.Add(this.rad_CharlockOff);
-            this.grp_Charlock.Location = new System.Drawing.Point(761, 78);
+            this.grp_Charlock.Location = new System.Drawing.Point(765, 75);
             this.grp_Charlock.Name = "grp_Charlock";
             this.grp_Charlock.Size = new System.Drawing.Size(244, 63);
             this.grp_Charlock.TabIndex = 97;
@@ -2234,7 +2246,7 @@ namespace DW3Randomizer
             this.grp_DisAlefGlitch.Controls.Add(this.rad_DisAlefGlitchRand);
             this.grp_DisAlefGlitch.Controls.Add(this.rad_DisAlefGlitchOn);
             this.grp_DisAlefGlitch.Controls.Add(this.rad_DisAlefGlitchOff);
-            this.grp_DisAlefGlitch.Location = new System.Drawing.Point(761, 8);
+            this.grp_DisAlefGlitch.Location = new System.Drawing.Point(765, 6);
             this.grp_DisAlefGlitch.Name = "grp_DisAlefGlitch";
             this.grp_DisAlefGlitch.Size = new System.Drawing.Size(244, 63);
             this.grp_DisAlefGlitch.TabIndex = 97;
@@ -2282,7 +2294,7 @@ namespace DW3Randomizer
             this.grp_RandMonstZone.Controls.Add(this.rad_RandMonstZoneRand);
             this.grp_RandMonstZone.Controls.Add(this.rad_RandMonstZoneOn);
             this.grp_RandMonstZone.Controls.Add(this.rad_RandMonstZoneOff);
-            this.grp_RandMonstZone.Location = new System.Drawing.Point(261, 8);
+            this.grp_RandMonstZone.Location = new System.Drawing.Point(259, 6);
             this.grp_RandMonstZone.Name = "grp_RandMonstZone";
             this.grp_RandMonstZone.Size = new System.Drawing.Size(244, 63);
             this.grp_RandMonstZone.TabIndex = 96;
@@ -2330,7 +2342,7 @@ namespace DW3Randomizer
             this.grp_SmallMap.Controls.Add(this.rad_SmallMapRand);
             this.grp_SmallMap.Controls.Add(this.rad_SmallMapOn);
             this.grp_SmallMap.Controls.Add(this.rad_SmallMapOff);
-            this.grp_SmallMap.Location = new System.Drawing.Point(10, 78);
+            this.grp_SmallMap.Location = new System.Drawing.Point(6, 75);
             this.grp_SmallMap.Name = "grp_SmallMap";
             this.grp_SmallMap.Size = new System.Drawing.Size(244, 63);
             this.grp_SmallMap.TabIndex = 95;
@@ -2378,7 +2390,7 @@ namespace DW3Randomizer
             this.grp_RandMap.Controls.Add(this.rad_RandMapsRand);
             this.grp_RandMap.Controls.Add(this.rad_RandMapsOn);
             this.grp_RandMap.Controls.Add(this.rad_RandMapsOff);
-            this.grp_RandMap.Location = new System.Drawing.Point(10, 8);
+            this.grp_RandMap.Location = new System.Drawing.Point(6, 6);
             this.grp_RandMap.Name = "grp_RandMap";
             this.grp_RandMap.Size = new System.Drawing.Size(244, 63);
             this.grp_RandMap.TabIndex = 94;
@@ -2423,13 +2435,12 @@ namespace DW3Randomizer
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.chk_RemDupPool);
-            this.tabPage2.Controls.Add(this.chk_RandDrop);
-            this.tabPage2.Controls.Add(this.chkRandomizeGP);
-            this.tabPage2.Controls.Add(this.chkRandomizeXP);
-            this.tabPage2.Controls.Add(this.chk_RemMetalMonRun);
-            this.tabPage2.Controls.Add(this.label9);
-            this.tabPage2.Controls.Add(this.chkRandEnemyPatterns);
+            this.tabPage2.Controls.Add(this.grp_RmMetalRun);
+            this.tabPage2.Controls.Add(this.grp_RandEnePat);
+            this.tabPage2.Controls.Add(this.grp_RmDupDrop);
+            this.tabPage2.Controls.Add(this.grp_RandGold);
+            this.tabPage2.Controls.Add(this.grp_RandDrop);
+            this.tabPage2.Controls.Add(this.grp_RandExp);
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -2437,83 +2448,6 @@ namespace DW3Randomizer
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Monsters";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // chk_RemDupPool
-            // 
-            this.chk_RemDupPool.AutoSize = true;
-            this.chk_RemDupPool.Location = new System.Drawing.Point(10, 135);
-            this.chk_RemDupPool.Name = "chk_RemDupPool";
-            this.chk_RemDupPool.Size = new System.Drawing.Size(244, 24);
-            this.chk_RemDupPool.TabIndex = 104;
-            this.chk_RemDupPool.Text = "Remove Duplicates from Pool";
-            this.adjustments.SetToolTip(this.chk_RemDupPool, "Removes duplicate herbs & misc items from pool, to increase odds of getting bette" +
-        "r items");
-            this.chk_RemDupPool.UseVisualStyleBackColor = true;
-            this.chk_RemDupPool.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // chk_RandDrop
-            // 
-            this.chk_RandDrop.AutoSize = true;
-            this.chk_RandDrop.Location = new System.Drawing.Point(10, 105);
-            this.chk_RandDrop.Name = "chk_RandDrop";
-            this.chk_RandDrop.Size = new System.Drawing.Size(226, 24);
-            this.chk_RandDrop.TabIndex = 103;
-            this.chk_RandDrop.Text = "Randomize Dropped Items";
-            this.adjustments.SetToolTip(this.chk_RandDrop, "Randomize Monster Drops");
-            this.chk_RandDrop.UseVisualStyleBackColor = true;
-            this.chk_RandDrop.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // chkRandomizeGP
-            // 
-            this.chkRandomizeGP.AutoSize = true;
-            this.chkRandomizeGP.Location = new System.Drawing.Point(10, 75);
-            this.chkRandomizeGP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.chkRandomizeGP.Name = "chkRandomizeGP";
-            this.chkRandomizeGP.Size = new System.Drawing.Size(150, 24);
-            this.chkRandomizeGP.TabIndex = 102;
-            this.chkRandomizeGP.Text = "Randomize gold";
-            this.adjustments.SetToolTip(this.chkRandomizeGP, "Randomizes gold dropped by monsters.");
-            this.chkRandomizeGP.UseVisualStyleBackColor = true;
-            this.chkRandomizeGP.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // chkRandomizeXP
-            // 
-            this.chkRandomizeXP.AutoSize = true;
-            this.chkRandomizeXP.Location = new System.Drawing.Point(10, 45);
-            this.chkRandomizeXP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.chkRandomizeXP.Name = "chkRandomizeXP";
-            this.chkRandomizeXP.Size = new System.Drawing.Size(197, 24);
-            this.chkRandomizeXP.TabIndex = 101;
-            this.chkRandomizeXP.Text = "Randomize experience";
-            this.adjustments.SetToolTip(this.chkRandomizeXP, "Randomizes experience given my monsters.");
-            this.chkRandomizeXP.UseVisualStyleBackColor = true;
-            this.chkRandomizeXP.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // chk_RemMetalMonRun
-            // 
-            this.chk_RemMetalMonRun.AutoSize = true;
-            this.chk_RemMetalMonRun.Location = new System.Drawing.Point(274, 75);
-            this.chk_RemMetalMonRun.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.chk_RemMetalMonRun.Name = "chk_RemMetalMonRun";
-            this.chk_RemMetalMonRun.Size = new System.Drawing.Size(210, 24);
-            this.chk_RemMetalMonRun.TabIndex = 106;
-            this.chk_RemMetalMonRun.Text = "Remove Metal Mon. Run";
-            this.adjustments.SetToolTip(this.chk_RemMetalMonRun, "Metal Slimes and Metal Babble are less likely to have running in their logic");
-            this.chk_RemMetalMonRun.UseVisualStyleBackColor = true;
-            this.chk_RemMetalMonRun.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // chkRandEnemyPatterns
-            // 
-            this.chkRandEnemyPatterns.AutoSize = true;
-            this.chkRandEnemyPatterns.Location = new System.Drawing.Point(274, 45);
-            this.chkRandEnemyPatterns.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.chkRandEnemyPatterns.Name = "chkRandEnemyPatterns";
-            this.chkRandEnemyPatterns.Size = new System.Drawing.Size(230, 24);
-            this.chkRandEnemyPatterns.TabIndex = 105;
-            this.chkRandEnemyPatterns.Text = "Randomize enemy patterns";
-            this.adjustments.SetToolTip(this.chkRandEnemyPatterns, "Randomizes enemy attack patterns.");
-            this.chkRandEnemyPatterns.UseVisualStyleBackColor = true;
-            this.chkRandEnemyPatterns.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // tabPage4
             // 
@@ -3801,6 +3735,294 @@ namespace DW3Randomizer
             this.btn_chksumHash.UseVisualStyleBackColor = true;
             this.btn_chksumHash.Click += new System.EventHandler(this.btn_chksumHash_Click);
             // 
+            // grp_RandExp
+            // 
+            this.grp_RandExp.Controls.Add(this.rad_RandExpRand);
+            this.grp_RandExp.Controls.Add(this.rad_RandExpOn);
+            this.grp_RandExp.Controls.Add(this.rad_RandExpOff);
+            this.grp_RandExp.Location = new System.Drawing.Point(6, 6);
+            this.grp_RandExp.Name = "grp_RandExp";
+            this.grp_RandExp.Size = new System.Drawing.Size(244, 63);
+            this.grp_RandExp.TabIndex = 107;
+            this.grp_RandExp.TabStop = false;
+            this.grp_RandExp.Text = "Randomize Experience";
+            this.adjustments.SetToolTip(this.grp_RandExp, "Randomizes experience granted by monsters by + or - 25%");
+            // 
+            // rad_RandExpOff
+            // 
+            this.rad_RandExpOff.AutoSize = true;
+            this.rad_RandExpOff.Checked = true;
+            this.rad_RandExpOff.Location = new System.Drawing.Point(6, 25);
+            this.rad_RandExpOff.Name = "rad_RandExpOff";
+            this.rad_RandExpOff.Size = new System.Drawing.Size(56, 24);
+            this.rad_RandExpOff.TabIndex = 0;
+            this.rad_RandExpOff.TabStop = true;
+            this.rad_RandExpOff.Text = "Off";
+            this.rad_RandExpOff.UseVisualStyleBackColor = true;
+            this.rad_RandExpOff.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_RandExpOn
+            // 
+            this.rad_RandExpOn.AutoSize = true;
+            this.rad_RandExpOn.Location = new System.Drawing.Point(68, 25);
+            this.rad_RandExpOn.Name = "rad_RandExpOn";
+            this.rad_RandExpOn.Size = new System.Drawing.Size(55, 24);
+            this.rad_RandExpOn.TabIndex = 1;
+            this.rad_RandExpOn.Text = "On";
+            this.rad_RandExpOn.UseVisualStyleBackColor = true;
+            this.rad_RandExpOn.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_RandExpRand
+            // 
+            this.rad_RandExpRand.AutoSize = true;
+            this.rad_RandExpRand.Location = new System.Drawing.Point(129, 25);
+            this.rad_RandExpRand.Name = "rad_RandExpRand";
+            this.rad_RandExpRand.Size = new System.Drawing.Size(95, 24);
+            this.rad_RandExpRand.TabIndex = 2;
+            this.rad_RandExpRand.Text = "Random";
+            this.rad_RandExpRand.UseVisualStyleBackColor = true;
+            this.rad_RandExpRand.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // grp_RandDrop
+            // 
+            this.grp_RandDrop.Controls.Add(this.rad_RandDropRand);
+            this.grp_RandDrop.Controls.Add(this.rad_RandDropOn);
+            this.grp_RandDrop.Controls.Add(this.rad_RandDropOff);
+            this.grp_RandDrop.Location = new System.Drawing.Point(6, 75);
+            this.grp_RandDrop.Name = "grp_RandDrop";
+            this.grp_RandDrop.Size = new System.Drawing.Size(244, 63);
+            this.grp_RandDrop.TabIndex = 108;
+            this.grp_RandDrop.TabStop = false;
+            this.grp_RandDrop.Text = "Randomize Drops";
+            this.adjustments.SetToolTip(this.grp_RandDrop, "Randomizes drops from monsters");
+            // 
+            // rad_RandDropRand
+            // 
+            this.rad_RandDropRand.AutoSize = true;
+            this.rad_RandDropRand.Location = new System.Drawing.Point(129, 25);
+            this.rad_RandDropRand.Name = "rad_RandDropRand";
+            this.rad_RandDropRand.Size = new System.Drawing.Size(95, 24);
+            this.rad_RandDropRand.TabIndex = 2;
+            this.rad_RandDropRand.Text = "Random";
+            this.rad_RandDropRand.UseVisualStyleBackColor = true;
+            this.rad_RandDropRand.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_RandDropOn
+            // 
+            this.rad_RandDropOn.AutoSize = true;
+            this.rad_RandDropOn.Location = new System.Drawing.Point(68, 25);
+            this.rad_RandDropOn.Name = "rad_RandDropOn";
+            this.rad_RandDropOn.Size = new System.Drawing.Size(55, 24);
+            this.rad_RandDropOn.TabIndex = 1;
+            this.rad_RandDropOn.Text = "On";
+            this.rad_RandDropOn.UseVisualStyleBackColor = true;
+            this.rad_RandDropOn.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_RandDropOff
+            // 
+            this.rad_RandDropOff.AutoSize = true;
+            this.rad_RandDropOff.Checked = true;
+            this.rad_RandDropOff.Location = new System.Drawing.Point(6, 25);
+            this.rad_RandDropOff.Name = "rad_RandDropOff";
+            this.rad_RandDropOff.Size = new System.Drawing.Size(56, 24);
+            this.rad_RandDropOff.TabIndex = 0;
+            this.rad_RandDropOff.TabStop = true;
+            this.rad_RandDropOff.Text = "Off";
+            this.rad_RandDropOff.UseVisualStyleBackColor = true;
+            this.rad_RandDropOff.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // grp_RandGold
+            // 
+            this.grp_RandGold.Controls.Add(this.rad_RandGoldRand);
+            this.grp_RandGold.Controls.Add(this.rad_RandGoldOn);
+            this.grp_RandGold.Controls.Add(this.rad_RandGoldOff);
+            this.grp_RandGold.Location = new System.Drawing.Point(259, 6);
+            this.grp_RandGold.Name = "grp_RandGold";
+            this.grp_RandGold.Size = new System.Drawing.Size(244, 63);
+            this.grp_RandGold.TabIndex = 108;
+            this.grp_RandGold.TabStop = false;
+            this.grp_RandGold.Text = "Randomize Gold";
+            this.adjustments.SetToolTip(this.grp_RandGold, "Randomizes gold granted by monsters by + or - 25%");
+            // 
+            // rad_RandGoldRand
+            // 
+            this.rad_RandGoldRand.AutoSize = true;
+            this.rad_RandGoldRand.Location = new System.Drawing.Point(129, 25);
+            this.rad_RandGoldRand.Name = "rad_RandGoldRand";
+            this.rad_RandGoldRand.Size = new System.Drawing.Size(95, 24);
+            this.rad_RandGoldRand.TabIndex = 2;
+            this.rad_RandGoldRand.Text = "Random";
+            this.rad_RandGoldRand.UseVisualStyleBackColor = true;
+            this.rad_RandGoldRand.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_RandGoldOn
+            // 
+            this.rad_RandGoldOn.AutoSize = true;
+            this.rad_RandGoldOn.Location = new System.Drawing.Point(68, 25);
+            this.rad_RandGoldOn.Name = "rad_RandGoldOn";
+            this.rad_RandGoldOn.Size = new System.Drawing.Size(55, 24);
+            this.rad_RandGoldOn.TabIndex = 1;
+            this.rad_RandGoldOn.Text = "On";
+            this.rad_RandGoldOn.UseVisualStyleBackColor = true;
+            this.rad_RandGoldOn.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_RandGoldOff
+            // 
+            this.rad_RandGoldOff.AutoSize = true;
+            this.rad_RandGoldOff.Checked = true;
+            this.rad_RandGoldOff.Location = new System.Drawing.Point(6, 25);
+            this.rad_RandGoldOff.Name = "rad_RandGoldOff";
+            this.rad_RandGoldOff.Size = new System.Drawing.Size(56, 24);
+            this.rad_RandGoldOff.TabIndex = 0;
+            this.rad_RandGoldOff.TabStop = true;
+            this.rad_RandGoldOff.Text = "Off";
+            this.rad_RandGoldOff.UseVisualStyleBackColor = true;
+            this.rad_RandGoldOff.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // grp_RmDupDrop
+            // 
+            this.grp_RmDupDrop.Controls.Add(this.rad_RmDupDropRand);
+            this.grp_RmDupDrop.Controls.Add(this.rad_RmDupDropOn);
+            this.grp_RmDupDrop.Controls.Add(this.rad_RmDupDropOff);
+            this.grp_RmDupDrop.Location = new System.Drawing.Point(259, 75);
+            this.grp_RmDupDrop.Name = "grp_RmDupDrop";
+            this.grp_RmDupDrop.Size = new System.Drawing.Size(244, 63);
+            this.grp_RmDupDrop.TabIndex = 108;
+            this.grp_RmDupDrop.TabStop = false;
+            this.grp_RmDupDrop.Text = "Remove Duplicates";
+            this.adjustments.SetToolTip(this.grp_RmDupDrop, "Removes duplicate consumable items from drop table");
+            // 
+            // rad_RmDupDropRand
+            // 
+            this.rad_RmDupDropRand.AutoSize = true;
+            this.rad_RmDupDropRand.Location = new System.Drawing.Point(129, 25);
+            this.rad_RmDupDropRand.Name = "rad_RmDupDropRand";
+            this.rad_RmDupDropRand.Size = new System.Drawing.Size(95, 24);
+            this.rad_RmDupDropRand.TabIndex = 2;
+            this.rad_RmDupDropRand.Text = "Random";
+            this.rad_RmDupDropRand.UseVisualStyleBackColor = true;
+            this.rad_RmDupDropRand.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_RmDupDropOn
+            // 
+            this.rad_RmDupDropOn.AutoSize = true;
+            this.rad_RmDupDropOn.Location = new System.Drawing.Point(68, 25);
+            this.rad_RmDupDropOn.Name = "rad_RmDupDropOn";
+            this.rad_RmDupDropOn.Size = new System.Drawing.Size(55, 24);
+            this.rad_RmDupDropOn.TabIndex = 1;
+            this.rad_RmDupDropOn.Text = "On";
+            this.rad_RmDupDropOn.UseVisualStyleBackColor = true;
+            this.rad_RmDupDropOn.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_RmDupDropOff
+            // 
+            this.rad_RmDupDropOff.AutoSize = true;
+            this.rad_RmDupDropOff.Checked = true;
+            this.rad_RmDupDropOff.Location = new System.Drawing.Point(6, 25);
+            this.rad_RmDupDropOff.Name = "rad_RmDupDropOff";
+            this.rad_RmDupDropOff.Size = new System.Drawing.Size(56, 24);
+            this.rad_RmDupDropOff.TabIndex = 0;
+            this.rad_RmDupDropOff.TabStop = true;
+            this.rad_RmDupDropOff.Text = "Off";
+            this.rad_RmDupDropOff.UseVisualStyleBackColor = true;
+            this.rad_RmDupDropOff.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // grp_RandEnePat
+            // 
+            this.grp_RandEnePat.Controls.Add(this.rad_RandEnePatRand);
+            this.grp_RandEnePat.Controls.Add(this.rad_RandEnePatOn);
+            this.grp_RandEnePat.Controls.Add(this.rad_RandEnePatOff);
+            this.grp_RandEnePat.Location = new System.Drawing.Point(511, 6);
+            this.grp_RandEnePat.Name = "grp_RandEnePat";
+            this.grp_RandEnePat.Size = new System.Drawing.Size(244, 63);
+            this.grp_RandEnePat.TabIndex = 108;
+            this.grp_RandEnePat.TabStop = false;
+            this.grp_RandEnePat.Text = "Randomize Enemy Patterns";
+            this.adjustments.SetToolTip(this.grp_RandEnePat, "Randomizes the attacks that monsters can use");
+            // 
+            // rad_RandEnePatRand
+            // 
+            this.rad_RandEnePatRand.AutoSize = true;
+            this.rad_RandEnePatRand.Location = new System.Drawing.Point(129, 25);
+            this.rad_RandEnePatRand.Name = "rad_RandEnePatRand";
+            this.rad_RandEnePatRand.Size = new System.Drawing.Size(95, 24);
+            this.rad_RandEnePatRand.TabIndex = 2;
+            this.rad_RandEnePatRand.Text = "Random";
+            this.rad_RandEnePatRand.UseVisualStyleBackColor = true;
+            this.rad_RandEnePatRand.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_RandEnePatOn
+            // 
+            this.rad_RandEnePatOn.AutoSize = true;
+            this.rad_RandEnePatOn.Location = new System.Drawing.Point(68, 25);
+            this.rad_RandEnePatOn.Name = "rad_RandEnePatOn";
+            this.rad_RandEnePatOn.Size = new System.Drawing.Size(55, 24);
+            this.rad_RandEnePatOn.TabIndex = 1;
+            this.rad_RandEnePatOn.Text = "On";
+            this.rad_RandEnePatOn.UseVisualStyleBackColor = true;
+            this.rad_RandEnePatOn.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_RandEnePatOff
+            // 
+            this.rad_RandEnePatOff.AutoSize = true;
+            this.rad_RandEnePatOff.Checked = true;
+            this.rad_RandEnePatOff.Location = new System.Drawing.Point(6, 25);
+            this.rad_RandEnePatOff.Name = "rad_RandEnePatOff";
+            this.rad_RandEnePatOff.Size = new System.Drawing.Size(56, 24);
+            this.rad_RandEnePatOff.TabIndex = 0;
+            this.rad_RandEnePatOff.TabStop = true;
+            this.rad_RandEnePatOff.Text = "Off";
+            this.rad_RandEnePatOff.UseVisualStyleBackColor = true;
+            this.rad_RandEnePatOff.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // grp_RmMetalRun
+            // 
+            this.grp_RmMetalRun.Controls.Add(this.rad_RmMetalRunRand);
+            this.grp_RmMetalRun.Controls.Add(this.rad_RmMetalRunOn);
+            this.grp_RmMetalRun.Controls.Add(this.rad_RmMetalRunOff);
+            this.grp_RmMetalRun.Location = new System.Drawing.Point(765, 6);
+            this.grp_RmMetalRun.Name = "grp_RmMetalRun";
+            this.grp_RmMetalRun.Size = new System.Drawing.Size(244, 63);
+            this.grp_RmMetalRun.TabIndex = 108;
+            this.grp_RmMetalRun.TabStop = false;
+            this.grp_RmMetalRun.Text = "Remove Metal Run";
+            this.adjustments.SetToolTip(this.grp_RmMetalRun, "Removes high run rate from metal monsters");
+            // 
+            // rad_RmMetalRunRand
+            // 
+            this.rad_RmMetalRunRand.AutoSize = true;
+            this.rad_RmMetalRunRand.Location = new System.Drawing.Point(129, 25);
+            this.rad_RmMetalRunRand.Name = "rad_RmMetalRunRand";
+            this.rad_RmMetalRunRand.Size = new System.Drawing.Size(95, 24);
+            this.rad_RmMetalRunRand.TabIndex = 2;
+            this.rad_RmMetalRunRand.Text = "Random";
+            this.rad_RmMetalRunRand.UseVisualStyleBackColor = true;
+            this.rad_RmMetalRunRand.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_RmMetalRunOn
+            // 
+            this.rad_RmMetalRunOn.AutoSize = true;
+            this.rad_RmMetalRunOn.Location = new System.Drawing.Point(68, 25);
+            this.rad_RmMetalRunOn.Name = "rad_RmMetalRunOn";
+            this.rad_RmMetalRunOn.Size = new System.Drawing.Size(55, 24);
+            this.rad_RmMetalRunOn.TabIndex = 1;
+            this.rad_RmMetalRunOn.Text = "On";
+            this.rad_RmMetalRunOn.UseVisualStyleBackColor = true;
+            this.rad_RmMetalRunOn.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_RmMetalRunOff
+            // 
+            this.rad_RmMetalRunOff.AutoSize = true;
+            this.rad_RmMetalRunOff.Checked = true;
+            this.rad_RmMetalRunOff.Location = new System.Drawing.Point(6, 25);
+            this.rad_RmMetalRunOff.Name = "rad_RmMetalRunOff";
+            this.rad_RmMetalRunOff.Size = new System.Drawing.Size(56, 24);
+            this.rad_RmMetalRunOff.TabIndex = 0;
+            this.rad_RmMetalRunOff.TabStop = true;
+            this.rad_RmMetalRunOff.Text = "Off";
+            this.rad_RmMetalRunOff.UseVisualStyleBackColor = true;
+            this.rad_RmMetalRunOff.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -3910,7 +4132,6 @@ namespace DW3Randomizer
             this.grp_RandMap.ResumeLayout(false);
             this.grp_RandMap.PerformLayout();
             this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.tabPage6.ResumeLayout(false);
@@ -3925,6 +4146,18 @@ namespace DW3Randomizer
             this.tabPage7.PerformLayout();
             this.grpFlags.ResumeLayout(false);
             this.grpFlags.PerformLayout();
+            this.grp_RandExp.ResumeLayout(false);
+            this.grp_RandExp.PerformLayout();
+            this.grp_RandDrop.ResumeLayout(false);
+            this.grp_RandDrop.PerformLayout();
+            this.grp_RandGold.ResumeLayout(false);
+            this.grp_RandGold.PerformLayout();
+            this.grp_RmDupDrop.ResumeLayout(false);
+            this.grp_RmDupDrop.PerformLayout();
+            this.grp_RandEnePat.ResumeLayout(false);
+            this.grp_RandEnePat.PerformLayout();
+            this.grp_RmMetalRun.ResumeLayout(false);
+            this.grp_RmMetalRun.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3945,7 +4178,6 @@ namespace DW3Randomizer
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnCompareBrowse;
         private System.Windows.Forms.Label lblIntensityDesc;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -3954,7 +4186,6 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chkRandSpellStrength;
         private System.Windows.Forms.CheckBox chkRandSpellLearning;
         private System.Windows.Forms.CheckBox chkRandEquip;
-        private System.Windows.Forms.CheckBox chkRandEnemyPatterns;
         private System.Windows.Forms.CheckBox chkRandItemStores;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TextBox txtCharName2;
@@ -3962,8 +4193,6 @@ namespace DW3Randomizer
         private System.Windows.Forms.TextBox txtCharName1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtFlags;
-        private System.Windows.Forms.CheckBox chkRandomizeGP;
-        private System.Windows.Forms.CheckBox chkRandomizeXP;
         private System.Windows.Forms.CheckBox chkRandWhoCanEquip;
         private System.Windows.Forms.CheckBox chkRandItemEffects;
         private System.Windows.Forms.CheckBox chkFourJobFiesta;
@@ -4010,7 +4239,6 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_PoisonMothPowder;
         private System.Windows.Forms.CheckBox chk_LeafoftheWorldTree;
         private System.Windows.Forms.CheckBox chk_RemoveStartEqRestrictions;
-        private System.Windows.Forms.CheckBox chk_RemMetalMonRun;
         private System.Windows.Forms.Label lbl_TreasurePool;
         private System.Windows.Forms.CheckBox chk_RmFighterPenalty;
         private System.Windows.Forms.TabPage tabPage6;
@@ -4039,8 +4267,6 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_AddRemakeEq;
         private System.Windows.Forms.CheckBox chk_FixHeroSpell;
         private System.Windows.Forms.RadioButton opt_JustForFun;
-        private System.Windows.Forms.CheckBox chk_RandDrop;
-        private System.Windows.Forms.CheckBox chk_RemDupPool;
         private System.Windows.Forms.GroupBox grpMonsterStat;
         private System.Windows.Forms.RadioButton optStatSilly;
         private System.Windows.Forms.RadioButton optStatHeavy;
@@ -4206,6 +4432,30 @@ namespace DW3Randomizer
         private System.Windows.Forms.RadioButton rad_CharlockOff;
         private System.Windows.Forms.GroupBox grp_RmMountains;
         private System.Windows.Forms.GroupBox grp_Continents;
+        private System.Windows.Forms.GroupBox grp_RandExp;
+        private System.Windows.Forms.RadioButton rad_RandExpRand;
+        private System.Windows.Forms.RadioButton rad_RandExpOn;
+        private System.Windows.Forms.RadioButton rad_RandExpOff;
+        private System.Windows.Forms.GroupBox grp_RmMetalRun;
+        private System.Windows.Forms.RadioButton rad_RmMetalRunRand;
+        private System.Windows.Forms.RadioButton rad_RmMetalRunOn;
+        private System.Windows.Forms.RadioButton rad_RmMetalRunOff;
+        private System.Windows.Forms.GroupBox grp_RandEnePat;
+        private System.Windows.Forms.RadioButton rad_RandEnePatRand;
+        private System.Windows.Forms.RadioButton rad_RandEnePatOn;
+        private System.Windows.Forms.RadioButton rad_RandEnePatOff;
+        private System.Windows.Forms.GroupBox grp_RmDupDrop;
+        private System.Windows.Forms.RadioButton rad_RmDupDropRand;
+        private System.Windows.Forms.RadioButton rad_RmDupDropOn;
+        private System.Windows.Forms.RadioButton rad_RmDupDropOff;
+        private System.Windows.Forms.GroupBox grp_RandGold;
+        private System.Windows.Forms.RadioButton rad_RandGoldRand;
+        private System.Windows.Forms.RadioButton rad_RandGoldOn;
+        private System.Windows.Forms.RadioButton rad_RandGoldOff;
+        private System.Windows.Forms.GroupBox grp_RandDrop;
+        private System.Windows.Forms.RadioButton rad_RandDropRand;
+        private System.Windows.Forms.RadioButton rad_RandDropOn;
+        private System.Windows.Forms.RadioButton rad_RandDropOff;
     }
 }
 

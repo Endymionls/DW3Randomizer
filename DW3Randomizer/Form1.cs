@@ -27,11 +27,11 @@ namespace DW3Randomizer
     {
         readonly string versionNumber = "2.5.4";
         readonly string revisionDate = "10/16/2023";
-        readonly int buildnumber = 266; // build starting 8/18/23
-        readonly string SotWFlags = "A-QLINKDAKA-ON-NNABA-JMF-ODPPP-AHB-D-H";
-        readonly string TradSotWFlags = "A-QLINKDAKA-ON-NAABA-JMF-ODPPP-AHA-D-G";
-        readonly string jffFlags = "A-ULINNNBNB-OP-NNNNB-LPH-ODPPP-APB-D-H";
-        readonly string randomFlags = "A-JJD!!!!!C-AA-!!!!C-AAA-AAAAA-AAA-A-A";
+        readonly int buildnumber = 267; // build starting 8/18/23
+        readonly string SotWFlags = "A-QLINKDAKA-NB-NNABA-JMF-ODPPP-AHB-D-H";
+        readonly string TradSotWFlags = "A-QLINKDAKA-JB-NAABA-JMF-ODPPP-AHA-D-G";
+        readonly string jffFlags = "A-ULINNNBNB-NN-NNNNB-LPH-ODPPP-APB-D-H";
+        readonly string randomFlags = "A-JJD!!!!!C-!!-!!!!C-AAA-AAAAA-AAA-A-A";
         readonly bool debugmode = false;
         Random r1;
 
@@ -130,8 +130,9 @@ namespace DW3Randomizer
                 (rad_DisAlefGlitchOn.Checked ? 16 : (rad_DisAlefGlitchRand.Checked ? 32 : 0)) + (rad_CharlockOn.Checked ? 64 : (rad_CharlockRand.Checked ? 128 : 0)) + 
                 (rad_NoNewTownOn.Checked ? 256 : (rad_NoNewTownRand.Checked ? 512 : 0)));
 
-            int monstersTab = 13 * ((chkRandomizeXP.Checked ? 1 : 0) + (chkRandomizeGP.Checked ? 2 : 0) + (chkRandEnemyPatterns.Checked ? 4 : 0) +
-                (chk_RemMetalMonRun.Checked ? 8 : 0) + (chk_RandDrop.Checked ? 16 : 0) + (chk_RemDupPool.Checked ? 32 : 0));
+            int monstersTab = 13 * ((rad_RandExpOn.Checked ? 1 : (rad_RandExpRand.Checked ? 2 : 0)) + (rad_RandGoldOn.Checked ? 4 : (rad_RandGoldRand.Checked ? 8 : 0)) +
+                (rad_RandDropOn.Checked ? 16 : (rad_RandDropRand.Checked ? 32 : 0)) + (rad_RandEnePatOn.Checked ? 64 : (rad_RandEnePatRand.Checked ? 128 : 0)) +
+                (rad_RmDupDropOn.Checked ? 256 : (rad_RmDupDropRand.Checked ? 512 : 0)) + (rad_RmMetalRunOn.Checked ? 1024 : (rad_RmMetalRunRand.Checked ? 2048 : 0)));
 
             int treasureEquipmentTab = 17 * ((chkRandTreasures.Checked ? 1 : 0) + (chk_RmRedundKey.Checked ? 2 : 0) + (chk_GoldenClaw.Checked ? 4 : 0) +
                 (chk_GreenSilverOrb.Checked ? 8 : 0) + (chkRandWhoCanEquip.Checked ? 16 : 0) + (chkRandEquip.Checked ? 32 : 0) +
@@ -366,8 +367,8 @@ namespace DW3Randomizer
                 }
                 int evalRandTemp = 0; // this will evaluate if Rand is selected on specific options
 
-                boostXP();
-                boostGP();
+                boostXP(); // Both boosts Exp and Evaluates Random Exp
+                boostGP(); // Both boosts Gold and Evaluates Random Gold
                 adjustEncounters();
                 evalRandTemp = r1.Next() % 2;
                 if ((rad_IncBattSpeedRand.Checked && evalRandTemp == 1) || rad_IncBattSpeedOn.Checked)
@@ -417,6 +418,9 @@ namespace DW3Randomizer
                 evalRandTemp = r1.Next() % 2;
                 if ((rad_RandMonstZoneRand.Checked && evalRandTemp == 1) || (rad_RandMonstZoneOn.Checked))
                     randMonsterZones();
+                evalRandTemp = r1.Next() % 2;
+                if ((rad_RandEnePatRand.Checked && evalRandTemp == 1) || (rad_RandEnePatOn.Checked))
+                    randEnemyPatterns();
                 if (chk_FixHeroSpell.Checked) fixHeroSpell();
                 if (chkFourJobFiesta.Checked) fourJobFiesta();
                 if (chkRemoveParryFight.Checked) removeParryFight();
@@ -429,7 +433,6 @@ namespace DW3Randomizer
                     if (chk_RandomClass.Checked) randomizeClass();
                     chngDftParty();
                 }
-                if (chkRandEnemyPatterns.Checked) randEnemyPatterns();
                 if (chk_sellUnsellItems.Checked) forceItemSell();
                 //                if (chkRandItemEffects.Checked) randItemEffects(rni);
                 if (chkRandEquip.Checked) randEquip();
@@ -479,7 +482,7 @@ namespace DW3Randomizer
         private void randshoes()
         {
             int BigEffect = r1.Next() % 2;
-            if (rad_BigOn.Checked || (rad_BigRand.Checked && BigEffect == 1)) // Shoes will give 0-255 exp per step
+            if (rad_BigOn.Checked || (rad_BigRand.Checked && BigEffect == 1)) // Shoes will give 11-255 exp per step
                 romData[0x330fc] = (byte)((r1.Next() % 245) + 11);
             else // Shoes will give 0-10 exp per step
                 romData[0x330fc] = (byte)((r1.Next() % 10) + 1);
@@ -3643,7 +3646,10 @@ namespace DW3Randomizer
 
                 if (lnI == 0x31 || lnI == 0x6c) // Metal slime, Metal Babble
                 {
-                    if (chk_RemMetalMonRun.Checked == false)
+                    bool rmMetalRun = false;
+                    if (rad_RmMetalRunOn.Checked || ((r1.Next() % 2 == 1) && rad_RmMetalRunRand.Checked))
+                        rmMetalRun = true;
+                    if (rmMetalRun)
                     {
                         enemyPatterns[0] = 7; // run away
                         enemyPatterns[1] = 7; // run away
@@ -6848,6 +6854,24 @@ namespace DW3Randomizer
                         gp = 0;
                         break;
                 }
+
+                bool randGold = false;
+                if (rad_RandGoldOn.Checked || ((r1.Next() % 2 == 1) && (rad_RandGoldRand.Checked)))
+                    randGold = true;
+                if (randGold)
+                {
+                    int addSub = r1.Next() % 2; // 0 means subtract, 1 means add
+                    int randPerc = r1.Next() % 25 + 1; // randomization can be up to 25 % either way
+
+                    if (addSub == 0)
+                    {
+                        gp = gp - (gp * randPerc / 100);
+                    }
+                    else
+                        gp = gp + (gp * randPerc / 100);
+                }
+
+
                 gp = (gp > 1000 ? 1000 : gp);
 
                 if (gp > 0)
@@ -6933,6 +6957,21 @@ namespace DW3Randomizer
                     case 11:
                         xp = 0;
                         break;
+                }
+                bool randExp = false;
+                if (rad_RandExpOn.Checked || ((r1.Next() % 2 == 1) && (rad_RandExpRand.Checked)))
+                    randExp = true;
+                if (randExp)
+                {
+                    int addSub = r1.Next() % 2; // 0 means subtract, 1 means add
+                    int randPerc = r1.Next() % 25 + 1; // randomization can be up to 25 % either way
+
+                    if (addSub == 0)
+                    {
+                        xp = xp - (xp * randPerc / 100);
+                    }
+                    else
+                        xp = xp + (xp * randPerc / 100);
                 }
                 xp = (xp > 65500 ? 65500 : xp);
 
@@ -9721,17 +9760,51 @@ namespace DW3Randomizer
 
             // Monsters
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(12, 1)));
+            /*
             optStatSilly.Checked = (number % 4 == 0);
             optStatMedium.Checked = (number % 4 == 1);
             optStatHeavy.Checked = (number % 4 == 2);
-            chkRandomizeXP.Checked = (number % 8 >= 4);
-            chkRandomizeGP.Checked = (number % 16 >= 8);
+            */
+            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            if (bank1 == 0)
+                rad_RandExpOff.Checked = true;
+            else if (bank1 == 1)
+                rad_RandExpOn.Checked = true;
+            else if (bank1 == 2)
+                rad_RandExpRand.Checked = true;
+            if (bank2 == 0)
+                rad_RandGoldOff.Checked = true;
+            else if (bank2 == 1)
+                rad_RandGoldOn.Checked = true;
+            else if (bank2 == 2)
+                rad_RandGoldRand.Checked = true;
+            if (bank3 == 0)
+                rad_RandDropOff.Checked = true;
+            else if (bank3 == 1)
+                rad_RandDropOn.Checked = true;
+            else if (bank3 == 2)
+                rad_RandDropRand.Checked = true;
 
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(13, 1)));
-            chkRandEnemyPatterns.Checked = (number % 2 == 1);
-            chk_RemMetalMonRun.Checked = (number % 4 >= 2);
-            chk_RandDrop.Checked = (number % 8 >= 4);
-            chk_RemDupPool.Checked = (number % 16 >= 8);
+            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            if (bank1 == 0)
+                rad_RandEnePatOff.Checked = true;
+            else if (bank1 == 1)
+                rad_RandEnePatOn.Checked = true;
+            else if (bank1 == 2)
+                rad_RandEnePatRand.Checked = true;
+            if (bank2 == 0)
+                rad_RmDupDropOff.Checked = true;
+            else if (bank2 == 1)
+                rad_RmDupDropOn.Checked = true;
+            else if (bank2 == 2)
+                rad_RmDupDropRand.Checked = true;
+            if (bank3 == 0)
+                rad_RmMetalRunOff.Checked = true;
+            else if (bank3 == 1)
+                rad_RmMetalRunOn.Checked = true;
+            else if (bank3 == 2)
+                rad_RmMetalRunRand.Checked = true;
 
             // Map
             number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(15, 1)));
@@ -9988,9 +10061,16 @@ namespace DW3Randomizer
 
             // Monsters
             bank1 = bank2 = bank3 = 0;
-            flags += convertIntToCharCapsOnly((optStatSilly.Checked ? 0 : optStatMedium.Checked ? 1 : 2) + (chkRandomizeXP.Checked ? 4 : 0) + (chkRandomizeGP.Checked ? 8 : 0)); // 12
+            bank1 += ((rad_RandExpOff.Checked ? 0 : 0) + (rad_RandExpOn.Checked ? 1 : 0) + (rad_RandExpRand.Checked ? 2 : 0));
+            bank2 += ((rad_RandGoldOff.Checked ? 0 : 0) + (rad_RandGoldOn.Checked ? 4 : 0) + (rad_RandGoldRand.Checked ? 8 : 0));
+            bank3 += ((rad_RandDropOff.Checked ? 0 : 0) + (rad_RandDropOn.Checked ? 16 : 0) + (rad_RandDropRand.Checked ? 32 : 0));
+            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 12
+
             bank1 = bank2 = bank3 = 0;
-            flags += convertIntToCharCapsOnly((chkRandEnemyPatterns.Checked ? 1 : 0) + (chk_RemMetalMonRun.Checked ? 2 : 0) + (chk_RandDrop.Checked ? 4 : 0) + (chk_RandDrop.Checked ? (chk_RemDupPool.Checked ? 8 : 0) : 0)); // 13
+            bank1 += ((rad_RandEnePatOff.Checked ? 0 : 0) + (rad_RandEnePatOn.Checked ? 1 : 0) + (rad_RandEnePatRand.Checked ? 2 : 0));
+            bank2 += ((rad_RmDupDropOff.Checked ? 0 : 0) + (rad_RmDupDropOn.Checked ? 4 : 0) + (rad_RmDupDropRand.Checked ? 8 : 0));
+            bank3 += ((rad_RmMetalRunOff.Checked ? 0 : 0) + (rad_RmMetalRunOn.Checked ? 16 : 0) + (rad_RmMetalRunRand.Checked ? 32 : 0));
+            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 13
 
             flags += "-"; //14
 
@@ -10510,6 +10590,24 @@ namespace DW3Randomizer
                 this.grp_NoNewTown.Visible = false;
                 this.rad_NoNewTownOff.Checked = true;
             }
+            if (rad_RandDropOn.Checked || rad_RandDropRand.Checked)
+            {
+                this.grp_RmDupDrop.Visible = true;
+            }
+            else
+            {
+                this.grp_RmDupDrop.Visible = false;
+                this.rad_RmDupDropOff.Checked = true;
+            }
+            if (this.rad_RandDropOn.Checked || rad_RandDropRand.Checked)
+            {
+                this.grp_RmDupDrop.Visible = true;
+            }
+            else
+            {
+                this.grp_RmDupDrop.Visible = false;
+                this.rad_RmDupDropOff.Checked = true;
+            }
 
             if (chk_ChangeDefaultParty.Checked == false)
             {
@@ -10576,7 +10674,6 @@ namespace DW3Randomizer
             this.chk_AdjustEqpPrices.Visible = this.chkRandEquip.Checked;
             this.chk_RemoveStartEqRestrictions.Visible = this.chkRandEquip.Checked;
             this.chk_RmRedundKey.Visible = this.chkRandTreasures.Checked;
-            this.chk_RemDupPool.Visible = this.chk_RandDrop.Checked;
             if (this.chk_AddRemakeEq.Checked)
                 this.chk_RmFighterPenalty.CheckState = CheckState.Checked;
 
