@@ -290,6 +290,14 @@ namespace DW3Randomizer
             this.txtCharName3 = new System.Windows.Forms.TextBox();
             this.txtCharName1 = new System.Windows.Forms.TextBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.grp_FixHeroSpell = new System.Windows.Forms.GroupBox();
+            this.rad_FixHeroSpellRand = new System.Windows.Forms.RadioButton();
+            this.rad_FixHeroSpellOn = new System.Windows.Forms.RadioButton();
+            this.rad_FixHeroSpellOff = new System.Windows.Forms.RadioButton();
+            this.grp_RmParryBug = new System.Windows.Forms.GroupBox();
+            this.rad_RmParryBugRand = new System.Windows.Forms.RadioButton();
+            this.rad_RmParryBugOn = new System.Windows.Forms.RadioButton();
+            this.rad_RmParryBugOff = new System.Windows.Forms.RadioButton();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -324,14 +332,6 @@ namespace DW3Randomizer
             this.txtSeed = new System.Windows.Forms.TextBox();
             this.btn_CopyHash = new System.Windows.Forms.Button();
             this.btn_chksumHash = new System.Windows.Forms.Button();
-            this.grp_RmParryBug = new System.Windows.Forms.GroupBox();
-            this.rad_RmParryBugOff = new System.Windows.Forms.RadioButton();
-            this.rad_RmParryBugOn = new System.Windows.Forms.RadioButton();
-            this.rad_RmParryBugRand = new System.Windows.Forms.RadioButton();
-            this.grp_FixHeroSpell = new System.Windows.Forms.GroupBox();
-            this.rad_FixHeroSpellRand = new System.Windows.Forms.RadioButton();
-            this.rad_FixHeroSpellOn = new System.Windows.Forms.RadioButton();
-            this.rad_FixHeroSpellOff = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.grp_EncRate.SuspendLayout();
@@ -381,10 +381,10 @@ namespace DW3Randomizer
             this.tabPage3.SuspendLayout();
             this.grpMonsterStat.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.grp_FixHeroSpell.SuspendLayout();
+            this.grp_RmParryBug.SuspendLayout();
             this.tabPage7.SuspendLayout();
             this.grpFlags.SuspendLayout();
-            this.grp_RmParryBug.SuspendLayout();
-            this.grp_FixHeroSpell.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtFileName
@@ -3626,6 +3626,102 @@ namespace DW3Randomizer
             this.tabPage5.Text = "Fixes";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // grp_FixHeroSpell
+            // 
+            this.grp_FixHeroSpell.Controls.Add(this.rad_FixHeroSpellRand);
+            this.grp_FixHeroSpell.Controls.Add(this.rad_FixHeroSpellOn);
+            this.grp_FixHeroSpell.Controls.Add(this.rad_FixHeroSpellOff);
+            this.grp_FixHeroSpell.Location = new System.Drawing.Point(259, 6);
+            this.grp_FixHeroSpell.Name = "grp_FixHeroSpell";
+            this.grp_FixHeroSpell.Size = new System.Drawing.Size(244, 63);
+            this.grp_FixHeroSpell.TabIndex = 193;
+            this.grp_FixHeroSpell.TabStop = false;
+            this.grp_FixHeroSpell.Text = "Fix Hero Spell Glitch";
+            this.adjustments.SetToolTip(this.grp_FixHeroSpell, "Fixes Hero spell overflow glitch when creating too many party members");
+            // 
+            // rad_FixHeroSpellRand
+            // 
+            this.rad_FixHeroSpellRand.AutoSize = true;
+            this.rad_FixHeroSpellRand.Location = new System.Drawing.Point(129, 25);
+            this.rad_FixHeroSpellRand.Name = "rad_FixHeroSpellRand";
+            this.rad_FixHeroSpellRand.Size = new System.Drawing.Size(95, 24);
+            this.rad_FixHeroSpellRand.TabIndex = 2;
+            this.rad_FixHeroSpellRand.Text = "Random";
+            this.rad_FixHeroSpellRand.UseVisualStyleBackColor = true;
+            this.rad_FixHeroSpellRand.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_FixHeroSpellOn
+            // 
+            this.rad_FixHeroSpellOn.AutoSize = true;
+            this.rad_FixHeroSpellOn.Location = new System.Drawing.Point(68, 25);
+            this.rad_FixHeroSpellOn.Name = "rad_FixHeroSpellOn";
+            this.rad_FixHeroSpellOn.Size = new System.Drawing.Size(55, 24);
+            this.rad_FixHeroSpellOn.TabIndex = 1;
+            this.rad_FixHeroSpellOn.Text = "On";
+            this.rad_FixHeroSpellOn.UseVisualStyleBackColor = true;
+            this.rad_FixHeroSpellOn.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_FixHeroSpellOff
+            // 
+            this.rad_FixHeroSpellOff.AutoSize = true;
+            this.rad_FixHeroSpellOff.Checked = true;
+            this.rad_FixHeroSpellOff.Location = new System.Drawing.Point(6, 25);
+            this.rad_FixHeroSpellOff.Name = "rad_FixHeroSpellOff";
+            this.rad_FixHeroSpellOff.Size = new System.Drawing.Size(56, 24);
+            this.rad_FixHeroSpellOff.TabIndex = 0;
+            this.rad_FixHeroSpellOff.TabStop = true;
+            this.rad_FixHeroSpellOff.Text = "Off";
+            this.rad_FixHeroSpellOff.UseVisualStyleBackColor = true;
+            this.rad_FixHeroSpellOff.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // grp_RmParryBug
+            // 
+            this.grp_RmParryBug.Controls.Add(this.rad_RmParryBugRand);
+            this.grp_RmParryBug.Controls.Add(this.rad_RmParryBugOn);
+            this.grp_RmParryBug.Controls.Add(this.rad_RmParryBugOff);
+            this.grp_RmParryBug.Location = new System.Drawing.Point(6, 6);
+            this.grp_RmParryBug.Name = "grp_RmParryBug";
+            this.grp_RmParryBug.Size = new System.Drawing.Size(244, 63);
+            this.grp_RmParryBug.TabIndex = 192;
+            this.grp_RmParryBug.TabStop = false;
+            this.grp_RmParryBug.Text = "Remove Parry/Fight Bug";
+            this.adjustments.SetToolTip(this.grp_RmParryBug, "Removes stacking of Parry with Fight command");
+            // 
+            // rad_RmParryBugRand
+            // 
+            this.rad_RmParryBugRand.AutoSize = true;
+            this.rad_RmParryBugRand.Location = new System.Drawing.Point(129, 25);
+            this.rad_RmParryBugRand.Name = "rad_RmParryBugRand";
+            this.rad_RmParryBugRand.Size = new System.Drawing.Size(95, 24);
+            this.rad_RmParryBugRand.TabIndex = 2;
+            this.rad_RmParryBugRand.Text = "Random";
+            this.rad_RmParryBugRand.UseVisualStyleBackColor = true;
+            this.rad_RmParryBugRand.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_RmParryBugOn
+            // 
+            this.rad_RmParryBugOn.AutoSize = true;
+            this.rad_RmParryBugOn.Location = new System.Drawing.Point(68, 25);
+            this.rad_RmParryBugOn.Name = "rad_RmParryBugOn";
+            this.rad_RmParryBugOn.Size = new System.Drawing.Size(55, 24);
+            this.rad_RmParryBugOn.TabIndex = 1;
+            this.rad_RmParryBugOn.Text = "On";
+            this.rad_RmParryBugOn.UseVisualStyleBackColor = true;
+            this.rad_RmParryBugOn.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_RmParryBugOff
+            // 
+            this.rad_RmParryBugOff.AutoSize = true;
+            this.rad_RmParryBugOff.Checked = true;
+            this.rad_RmParryBugOff.Location = new System.Drawing.Point(6, 25);
+            this.rad_RmParryBugOff.Name = "rad_RmParryBugOff";
+            this.rad_RmParryBugOff.Size = new System.Drawing.Size(56, 24);
+            this.rad_RmParryBugOff.TabIndex = 0;
+            this.rad_RmParryBugOff.TabStop = true;
+            this.rad_RmParryBugOff.Text = "Off";
+            this.rad_RmParryBugOff.UseVisualStyleBackColor = true;
+            this.rad_RmParryBugOff.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
             // tabPage7
             // 
             this.tabPage7.Controls.Add(this.label17);
@@ -4006,104 +4102,6 @@ namespace DW3Randomizer
             this.btn_chksumHash.UseVisualStyleBackColor = true;
             this.btn_chksumHash.Click += new System.EventHandler(this.btn_chksumHash_Click);
             // 
-            // grp_RmParryBug
-            // 
-            this.grp_RmParryBug.Controls.Add(this.rad_RmParryBugRand);
-            this.grp_RmParryBug.Controls.Add(this.rad_RmParryBugOn);
-            this.grp_RmParryBug.Controls.Add(this.rad_RmParryBugOff);
-            this.grp_RmParryBug.Location = new System.Drawing.Point(6, 6);
-            this.grp_RmParryBug.Name = "grp_RmParryBug";
-            this.grp_RmParryBug.Size = new System.Drawing.Size(244, 63);
-            this.grp_RmParryBug.TabIndex = 192;
-            this.grp_RmParryBug.TabStop = false;
-            this.grp_RmParryBug.Text = "Remove Parry/Fight Bug";
-            this.adjustments.SetToolTip(this.grp_RmParryBug, "Removes stacking of Parry with Fight command");
-            // 
-            // rad_RmParryBugOff
-            // 
-            this.rad_RmParryBugOff.AutoSize = true;
-            this.rad_RmParryBugOff.Location = new System.Drawing.Point(6, 25);
-            this.rad_RmParryBugOff.Name = "rad_RmParryBugOff";
-            this.rad_RmParryBugOff.Size = new System.Drawing.Size(56, 24);
-            this.rad_RmParryBugOff.TabIndex = 0;
-            this.rad_RmParryBugOff.TabStop = true;
-            this.rad_RmParryBugOff.Text = "Off";
-            this.rad_RmParryBugOff.UseVisualStyleBackColor = true;
-            this.rad_RmParryBugOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_RmParryBugOn
-            // 
-            this.rad_RmParryBugOn.AutoSize = true;
-            this.rad_RmParryBugOn.Location = new System.Drawing.Point(68, 25);
-            this.rad_RmParryBugOn.Name = "rad_RmParryBugOn";
-            this.rad_RmParryBugOn.Size = new System.Drawing.Size(55, 24);
-            this.rad_RmParryBugOn.TabIndex = 1;
-            this.rad_RmParryBugOn.TabStop = true;
-            this.rad_RmParryBugOn.Text = "On";
-            this.rad_RmParryBugOn.UseVisualStyleBackColor = true;
-            this.rad_RmParryBugOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_RmParryBugRand
-            // 
-            this.rad_RmParryBugRand.AutoSize = true;
-            this.rad_RmParryBugRand.Location = new System.Drawing.Point(129, 25);
-            this.rad_RmParryBugRand.Name = "rad_RmParryBugRand";
-            this.rad_RmParryBugRand.Size = new System.Drawing.Size(95, 24);
-            this.rad_RmParryBugRand.TabIndex = 2;
-            this.rad_RmParryBugRand.TabStop = true;
-            this.rad_RmParryBugRand.Text = "Random";
-            this.rad_RmParryBugRand.UseVisualStyleBackColor = true;
-            this.rad_RmParryBugRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_FixHeroSpell
-            // 
-            this.grp_FixHeroSpell.Controls.Add(this.rad_FixHeroSpellRand);
-            this.grp_FixHeroSpell.Controls.Add(this.rad_FixHeroSpellOn);
-            this.grp_FixHeroSpell.Controls.Add(this.rad_FixHeroSpellOff);
-            this.grp_FixHeroSpell.Location = new System.Drawing.Point(259, 6);
-            this.grp_FixHeroSpell.Name = "grp_FixHeroSpell";
-            this.grp_FixHeroSpell.Size = new System.Drawing.Size(244, 63);
-            this.grp_FixHeroSpell.TabIndex = 193;
-            this.grp_FixHeroSpell.TabStop = false;
-            this.grp_FixHeroSpell.Text = "Fix Hero Spell Glitch";
-            this.adjustments.SetToolTip(this.grp_FixHeroSpell, "Fixes Hero spell overflow glitch when creating too many party members");
-            // 
-            // rad_FixHeroSpellRand
-            // 
-            this.rad_FixHeroSpellRand.AutoSize = true;
-            this.rad_FixHeroSpellRand.Location = new System.Drawing.Point(129, 25);
-            this.rad_FixHeroSpellRand.Name = "rad_FixHeroSpellRand";
-            this.rad_FixHeroSpellRand.Size = new System.Drawing.Size(95, 24);
-            this.rad_FixHeroSpellRand.TabIndex = 2;
-            this.rad_FixHeroSpellRand.TabStop = true;
-            this.rad_FixHeroSpellRand.Text = "Random";
-            this.rad_FixHeroSpellRand.UseVisualStyleBackColor = true;
-            this.rad_FixHeroSpellRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_FixHeroSpellOn
-            // 
-            this.rad_FixHeroSpellOn.AutoSize = true;
-            this.rad_FixHeroSpellOn.Location = new System.Drawing.Point(68, 25);
-            this.rad_FixHeroSpellOn.Name = "rad_FixHeroSpellOn";
-            this.rad_FixHeroSpellOn.Size = new System.Drawing.Size(55, 24);
-            this.rad_FixHeroSpellOn.TabIndex = 1;
-            this.rad_FixHeroSpellOn.TabStop = true;
-            this.rad_FixHeroSpellOn.Text = "On";
-            this.rad_FixHeroSpellOn.UseVisualStyleBackColor = true;
-            this.rad_FixHeroSpellOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_FixHeroSpellOff
-            // 
-            this.rad_FixHeroSpellOff.AutoSize = true;
-            this.rad_FixHeroSpellOff.Location = new System.Drawing.Point(6, 25);
-            this.rad_FixHeroSpellOff.Name = "rad_FixHeroSpellOff";
-            this.rad_FixHeroSpellOff.Size = new System.Drawing.Size(56, 24);
-            this.rad_FixHeroSpellOff.TabIndex = 0;
-            this.rad_FixHeroSpellOff.TabStop = true;
-            this.rad_FixHeroSpellOff.Text = "Off";
-            this.rad_FixHeroSpellOff.UseVisualStyleBackColor = true;
-            this.rad_FixHeroSpellOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -4234,14 +4232,14 @@ namespace DW3Randomizer
             this.grpMonsterStat.ResumeLayout(false);
             this.grpMonsterStat.PerformLayout();
             this.tabPage5.ResumeLayout(false);
+            this.grp_FixHeroSpell.ResumeLayout(false);
+            this.grp_FixHeroSpell.PerformLayout();
+            this.grp_RmParryBug.ResumeLayout(false);
+            this.grp_RmParryBug.PerformLayout();
             this.tabPage7.ResumeLayout(false);
             this.tabPage7.PerformLayout();
             this.grpFlags.ResumeLayout(false);
             this.grpFlags.PerformLayout();
-            this.grp_RmParryBug.ResumeLayout(false);
-            this.grp_RmParryBug.PerformLayout();
-            this.grp_FixHeroSpell.ResumeLayout(false);
-            this.grp_FixHeroSpell.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

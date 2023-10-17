@@ -27,7 +27,7 @@ namespace DW3Randomizer
     {
         readonly string versionNumber = "2.5.4";
         readonly string revisionDate = "10/16/2023";
-        readonly int buildnumber = 268; // build starting 8/18/23
+        readonly int buildnumber = 269; // build starting 8/18/23
         readonly string SotWFlags = "A-QLINKDAKA-NB-NNABA-JMF-ODPPP-AHB-E-H";
         readonly string TradSotWFlags = "A-QLINKDAKA-JB-NAABA-JMF-ODPPP-AHA-B-G";
         readonly string jffFlags = "A-ULINNNBNB-NN-NNNNB-LPH-ODPPP-APB-E-H";
@@ -9532,7 +9532,7 @@ namespace DW3Randomizer
         {
             b3 = num / 16;
             b2 = (num - b3 * 16) / 4;
-            b1 = (num - b2 * 8) % 4;
+            b1 = (num - b2 * 4) % 4;
         }
         private void determineChecks(object sender, EventArgs e)
         {
