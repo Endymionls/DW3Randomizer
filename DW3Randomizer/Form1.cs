@@ -23,8 +23,8 @@ namespace DW3Randomizer
 {
     public partial class Form1 : Form
     {
-        readonly string versionNumber = "2.5.3";
-        readonly string revisionDate = "10/8/2023";
+        readonly string versionNumber = "2.5.3.1";
+        readonly string revisionDate = "10/21/2023";
         readonly int buildnumber = 261; // build starting 8/18/23
         readonly string SotWFlags = "A-EHADHDAF-ON-LANB-JMF-ODPPP-AHB-D-H";
         readonly string TradSotWFlags = "A-EHADHDAF-ON-LABA-JMF-ODPPP-AHA-D-G";
@@ -2345,7 +2345,7 @@ namespace DW3Randomizer
                                         // Map Portoga Shrine West to the ROM
                                         byteToUse = 0x1b252 + (5 * 44);
                                         romData[byteToUse] = (byte)(islandX + 6);
-                                        romData[byteToUse + 1] = (byte)(islandY + 2);
+                                        romData[byteToUse + 1] = (byte)(islandY);
                                         romData[0x3d192] = romData[0x7d192] = (byte)(islandX + 6);
 
                                         // Write Portoga return point and ship placement
