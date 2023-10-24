@@ -454,21 +454,50 @@ namespace DW3Randomizer
             this.rad_RmParryBugOn = new System.Windows.Forms.RadioButton();
             this.rad_RmParryBugOff = new System.Windows.Forms.RadioButton();
             this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.chk_levelUpText = new System.Windows.Forms.CheckBox();
-            this.chk_FemaleHero = new System.Windows.Forms.CheckBox();
-            this.chk_RandNPCSprites = new System.Windows.Forms.CheckBox();
-            this.chk_FFigherSprite = new System.Windows.Forms.CheckBox();
-            this.chk_EveryoneCat = new System.Windows.Forms.CheckBox();
-            this.chk_changeCats = new System.Windows.Forms.CheckBox();
-            this.chk_GhostToCasket = new System.Windows.Forms.CheckBox();
-            this.chk_RandSpriteColor = new System.Windows.Forms.CheckBox();
-            this.chk_ChangeHeroAge = new System.Windows.Forms.CheckBox();
-            this.chk_LowerCaseMenus = new System.Windows.Forms.CheckBox();
-            this.chk_FixSlimeSnail = new System.Windows.Forms.CheckBox();
+            this.grp_EveryCat = new System.Windows.Forms.GroupBox();
+            this.rad_EveryCatRand = new System.Windows.Forms.RadioButton();
+            this.rad_EveryCatOn = new System.Windows.Forms.RadioButton();
+            this.rad_EveryCatOff = new System.Windows.Forms.RadioButton();
+            this.grp_FFightSprite = new System.Windows.Forms.GroupBox();
+            this.rad_FFightSpriteRand = new System.Windows.Forms.RadioButton();
+            this.rad_FFightSpriteOn = new System.Windows.Forms.RadioButton();
+            this.rad_FFightSpriteOff = new System.Windows.Forms.RadioButton();
+            this.grp_ChCats = new System.Windows.Forms.GroupBox();
+            this.rad_ChCatsRand = new System.Windows.Forms.RadioButton();
+            this.rad_ChCatsOn = new System.Windows.Forms.RadioButton();
+            this.rad_ChCatsOff = new System.Windows.Forms.RadioButton();
+            this.grp_RandNPC = new System.Windows.Forms.GroupBox();
+            this.rad_RandNPCRand = new System.Windows.Forms.RadioButton();
+            this.rad_RandNPCOn = new System.Windows.Forms.RadioButton();
+            this.rad_RandNPCOff = new System.Windows.Forms.RadioButton();
+            this.grp_RandSpriteCol = new System.Windows.Forms.GroupBox();
+            this.rad_RandSpriteColRand = new System.Windows.Forms.RadioButton();
+            this.rad_RandSpriteColOn = new System.Windows.Forms.RadioButton();
+            this.rad_RandSpriteColOff = new System.Windows.Forms.RadioButton();
+            this.grp_FHero = new System.Windows.Forms.GroupBox();
+            this.rad_FHeroRand = new System.Windows.Forms.RadioButton();
+            this.rad_FHeroOn = new System.Windows.Forms.RadioButton();
+            this.rad_FHeroOff = new System.Windows.Forms.RadioButton();
+            this.grp_SlimeSnail = new System.Windows.Forms.GroupBox();
+            this.rad_SlimeSnailRand = new System.Windows.Forms.RadioButton();
+            this.rad_SlimeSnailOn = new System.Windows.Forms.RadioButton();
+            this.rad_SlimeSnailOff = new System.Windows.Forms.RadioButton();
+            this.grp_StdCase = new System.Windows.Forms.GroupBox();
+            this.rad_StdCaseRand = new System.Windows.Forms.RadioButton();
+            this.rad_StdCaseOn = new System.Windows.Forms.RadioButton();
+            this.rad_StdCaseOff = new System.Windows.Forms.RadioButton();
+            this.grp_GhostToCasket = new System.Windows.Forms.GroupBox();
+            this.rad_GhostToCasketRand = new System.Windows.Forms.RadioButton();
+            this.rad_GhostToCasketOn = new System.Windows.Forms.RadioButton();
+            this.rad_GhostToCasketOff = new System.Windows.Forms.RadioButton();
+            this.grp_RandHeroAge = new System.Windows.Forms.GroupBox();
+            this.rad_RandHeroAgeRand = new System.Windows.Forms.RadioButton();
+            this.rad_RandHeroAgeOn = new System.Windows.Forms.RadioButton();
+            this.rad_RandHeroAgeOff = new System.Windows.Forms.RadioButton();
+            this.grp_LevelUpTxt = new System.Windows.Forms.GroupBox();
+            this.rad_LevelUpTxtRand = new System.Windows.Forms.RadioButton();
+            this.rad_LevelUpTxtOn = new System.Windows.Forms.RadioButton();
+            this.rad_LevelUpTxtOff = new System.Windows.Forms.RadioButton();
             this.label7 = new System.Windows.Forms.Label();
             this.txtFlags = new System.Windows.Forms.TextBox();
             this.adjustments = new System.Windows.Forms.ToolTip(this.components);
@@ -591,6 +620,17 @@ namespace DW3Randomizer
             this.grp_FixHeroSpell.SuspendLayout();
             this.grp_RmParryBug.SuspendLayout();
             this.tabPage7.SuspendLayout();
+            this.grp_EveryCat.SuspendLayout();
+            this.grp_FFightSprite.SuspendLayout();
+            this.grp_ChCats.SuspendLayout();
+            this.grp_RandNPC.SuspendLayout();
+            this.grp_RandSpriteCol.SuspendLayout();
+            this.grp_FHero.SuspendLayout();
+            this.grp_SlimeSnail.SuspendLayout();
+            this.grp_StdCase.SuspendLayout();
+            this.grp_GhostToCasket.SuspendLayout();
+            this.grp_RandHeroAge.SuspendLayout();
+            this.grp_LevelUpTxt.SuspendLayout();
             this.grpFlags.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -745,7 +785,7 @@ namespace DW3Randomizer
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(683, 448);
+            this.tabControl1.Size = new System.Drawing.Size(686, 448);
             this.tabControl1.TabIndex = 40;
             // 
             // tabPage1
@@ -778,7 +818,7 @@ namespace DW3Randomizer
             this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage1.Size = new System.Drawing.Size(675, 422);
+            this.tabPage1.Size = new System.Drawing.Size(678, 422);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Adjustments";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1073,7 +1113,7 @@ namespace DW3Randomizer
             // rad_EncRateRand
             // 
             this.rad_EncRateRand.AutoSize = true;
-            this.rad_EncRateRand.Location = new System.Drawing.Point(461, 21);
+            this.rad_EncRateRand.Location = new System.Drawing.Point(471, 19);
             this.rad_EncRateRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_EncRateRand.Name = "rad_EncRateRand";
             this.rad_EncRateRand.Size = new System.Drawing.Size(65, 17);
@@ -1085,7 +1125,7 @@ namespace DW3Randomizer
             // rad_EncRate400
             // 
             this.rad_EncRate400.AutoSize = true;
-            this.rad_EncRate400.Location = new System.Drawing.Point(407, 21);
+            this.rad_EncRate400.Location = new System.Drawing.Point(416, 19);
             this.rad_EncRate400.Margin = new System.Windows.Forms.Padding(2);
             this.rad_EncRate400.Name = "rad_EncRate400";
             this.rad_EncRate400.Size = new System.Drawing.Size(51, 17);
@@ -1097,7 +1137,7 @@ namespace DW3Randomizer
             // rad_EncRate300
             // 
             this.rad_EncRate300.AutoSize = true;
-            this.rad_EncRate300.Location = new System.Drawing.Point(353, 21);
+            this.rad_EncRate300.Location = new System.Drawing.Point(361, 19);
             this.rad_EncRate300.Margin = new System.Windows.Forms.Padding(2);
             this.rad_EncRate300.Name = "rad_EncRate300";
             this.rad_EncRate300.Size = new System.Drawing.Size(51, 17);
@@ -1109,7 +1149,7 @@ namespace DW3Randomizer
             // rad_EncRate200
             // 
             this.rad_EncRate200.AutoSize = true;
-            this.rad_EncRate200.Location = new System.Drawing.Point(299, 21);
+            this.rad_EncRate200.Location = new System.Drawing.Point(306, 19);
             this.rad_EncRate200.Margin = new System.Windows.Forms.Padding(2);
             this.rad_EncRate200.Name = "rad_EncRate200";
             this.rad_EncRate200.Size = new System.Drawing.Size(51, 17);
@@ -1121,7 +1161,7 @@ namespace DW3Randomizer
             // rad_EncRate150
             // 
             this.rad_EncRate150.AutoSize = true;
-            this.rad_EncRate150.Location = new System.Drawing.Point(245, 21);
+            this.rad_EncRate150.Location = new System.Drawing.Point(251, 19);
             this.rad_EncRate150.Margin = new System.Windows.Forms.Padding(2);
             this.rad_EncRate150.Name = "rad_EncRate150";
             this.rad_EncRate150.Size = new System.Drawing.Size(51, 17);
@@ -1134,7 +1174,7 @@ namespace DW3Randomizer
             // 
             this.rad_EncRate100.AutoSize = true;
             this.rad_EncRate100.Checked = true;
-            this.rad_EncRate100.Location = new System.Drawing.Point(191, 21);
+            this.rad_EncRate100.Location = new System.Drawing.Point(196, 19);
             this.rad_EncRate100.Margin = new System.Windows.Forms.Padding(2);
             this.rad_EncRate100.Name = "rad_EncRate100";
             this.rad_EncRate100.Size = new System.Drawing.Size(51, 17);
@@ -1147,7 +1187,7 @@ namespace DW3Randomizer
             // rad_EncRate75
             // 
             this.rad_EncRate75.AutoSize = true;
-            this.rad_EncRate75.Location = new System.Drawing.Point(143, 21);
+            this.rad_EncRate75.Location = new System.Drawing.Point(147, 19);
             this.rad_EncRate75.Margin = new System.Windows.Forms.Padding(2);
             this.rad_EncRate75.Name = "rad_EncRate75";
             this.rad_EncRate75.Size = new System.Drawing.Size(45, 17);
@@ -1159,7 +1199,7 @@ namespace DW3Randomizer
             // rad_EncRate50
             // 
             this.rad_EncRate50.AutoSize = true;
-            this.rad_EncRate50.Location = new System.Drawing.Point(96, 21);
+            this.rad_EncRate50.Location = new System.Drawing.Point(98, 19);
             this.rad_EncRate50.Margin = new System.Windows.Forms.Padding(2);
             this.rad_EncRate50.Name = "rad_EncRate50";
             this.rad_EncRate50.Size = new System.Drawing.Size(45, 17);
@@ -1171,7 +1211,7 @@ namespace DW3Randomizer
             // rad_EncRate25
             // 
             this.rad_EncRate25.AutoSize = true;
-            this.rad_EncRate25.Location = new System.Drawing.Point(48, 21);
+            this.rad_EncRate25.Location = new System.Drawing.Point(49, 19);
             this.rad_EncRate25.Margin = new System.Windows.Forms.Padding(2);
             this.rad_EncRate25.Name = "rad_EncRate25";
             this.rad_EncRate25.Size = new System.Drawing.Size(45, 17);
@@ -1183,7 +1223,7 @@ namespace DW3Randomizer
             // rad_EncRate0
             // 
             this.rad_EncRate0.AutoSize = true;
-            this.rad_EncRate0.Location = new System.Drawing.Point(6, 21);
+            this.rad_EncRate0.Location = new System.Drawing.Point(6, 19);
             this.rad_EncRate0.Margin = new System.Windows.Forms.Padding(2);
             this.rad_EncRate0.Name = "rad_EncRate0";
             this.rad_EncRate0.Size = new System.Drawing.Size(39, 17);
@@ -1213,7 +1253,7 @@ namespace DW3Randomizer
             // rad_GoldGain150
             // 
             this.rad_GoldGain150.AutoSize = true;
-            this.rad_GoldGain150.Location = new System.Drawing.Point(251, 16);
+            this.rad_GoldGain150.Location = new System.Drawing.Point(254, 19);
             this.rad_GoldGain150.Margin = new System.Windows.Forms.Padding(2);
             this.rad_GoldGain150.Name = "rad_GoldGain150";
             this.rad_GoldGain150.Size = new System.Drawing.Size(51, 17);
@@ -1226,7 +1266,7 @@ namespace DW3Randomizer
             // rad_GoldGainRand
             // 
             this.rad_GoldGainRand.AutoSize = true;
-            this.rad_GoldGainRand.Location = new System.Drawing.Point(359, 16);
+            this.rad_GoldGainRand.Location = new System.Drawing.Point(364, 19);
             this.rad_GoldGainRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_GoldGainRand.Name = "rad_GoldGainRand";
             this.rad_GoldGainRand.Size = new System.Drawing.Size(65, 17);
@@ -1238,7 +1278,7 @@ namespace DW3Randomizer
             // rad_GoldGain200
             // 
             this.rad_GoldGain200.AutoSize = true;
-            this.rad_GoldGain200.Location = new System.Drawing.Point(305, 16);
+            this.rad_GoldGain200.Location = new System.Drawing.Point(309, 19);
             this.rad_GoldGain200.Margin = new System.Windows.Forms.Padding(2);
             this.rad_GoldGain200.Name = "rad_GoldGain200";
             this.rad_GoldGain200.Size = new System.Drawing.Size(51, 17);
@@ -1251,7 +1291,7 @@ namespace DW3Randomizer
             // 
             this.rad_GoldGain100.AutoSize = true;
             this.rad_GoldGain100.Checked = true;
-            this.rad_GoldGain100.Location = new System.Drawing.Point(197, 16);
+            this.rad_GoldGain100.Location = new System.Drawing.Point(199, 19);
             this.rad_GoldGain100.Margin = new System.Windows.Forms.Padding(2);
             this.rad_GoldGain100.Name = "rad_GoldGain100";
             this.rad_GoldGain100.Size = new System.Drawing.Size(51, 17);
@@ -1264,7 +1304,7 @@ namespace DW3Randomizer
             // rad_GoldGain50
             // 
             this.rad_GoldGain50.AutoSize = true;
-            this.rad_GoldGain50.Location = new System.Drawing.Point(149, 16);
+            this.rad_GoldGain50.Location = new System.Drawing.Point(150, 19);
             this.rad_GoldGain50.Margin = new System.Windows.Forms.Padding(2);
             this.rad_GoldGain50.Name = "rad_GoldGain50";
             this.rad_GoldGain50.Size = new System.Drawing.Size(45, 17);
@@ -1276,7 +1316,7 @@ namespace DW3Randomizer
             // rad_GoldGain1
             // 
             this.rad_GoldGain1.AutoSize = true;
-            this.rad_GoldGain1.Location = new System.Drawing.Point(6, 16);
+            this.rad_GoldGain1.Location = new System.Drawing.Point(6, 19);
             this.rad_GoldGain1.Margin = new System.Windows.Forms.Padding(2);
             this.rad_GoldGain1.Name = "rad_GoldGain1";
             this.rad_GoldGain1.Size = new System.Drawing.Size(140, 17);
@@ -1312,7 +1352,7 @@ namespace DW3Randomizer
             // rad_ExpGainRand
             // 
             this.rad_ExpGainRand.AutoSize = true;
-            this.rad_ExpGainRand.Location = new System.Drawing.Point(581, 16);
+            this.rad_ExpGainRand.Location = new System.Drawing.Point(593, 19);
             this.rad_ExpGainRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_ExpGainRand.Name = "rad_ExpGainRand";
             this.rad_ExpGainRand.Size = new System.Drawing.Size(65, 17);
@@ -1324,7 +1364,7 @@ namespace DW3Randomizer
             // rad_ExpGain1000
             // 
             this.rad_ExpGain1000.AutoSize = true;
-            this.rad_ExpGain1000.Location = new System.Drawing.Point(521, 16);
+            this.rad_ExpGain1000.Location = new System.Drawing.Point(532, 19);
             this.rad_ExpGain1000.Margin = new System.Windows.Forms.Padding(2);
             this.rad_ExpGain1000.Name = "rad_ExpGain1000";
             this.rad_ExpGain1000.Size = new System.Drawing.Size(57, 17);
@@ -1336,7 +1376,7 @@ namespace DW3Randomizer
             // rad_ExpGain750
             // 
             this.rad_ExpGain750.AutoSize = true;
-            this.rad_ExpGain750.Location = new System.Drawing.Point(467, 16);
+            this.rad_ExpGain750.Location = new System.Drawing.Point(477, 19);
             this.rad_ExpGain750.Margin = new System.Windows.Forms.Padding(2);
             this.rad_ExpGain750.Name = "rad_ExpGain750";
             this.rad_ExpGain750.Size = new System.Drawing.Size(51, 17);
@@ -1348,7 +1388,7 @@ namespace DW3Randomizer
             // rad_ExpGain500
             // 
             this.rad_ExpGain500.AutoSize = true;
-            this.rad_ExpGain500.Location = new System.Drawing.Point(413, 16);
+            this.rad_ExpGain500.Location = new System.Drawing.Point(422, 19);
             this.rad_ExpGain500.Margin = new System.Windows.Forms.Padding(2);
             this.rad_ExpGain500.Name = "rad_ExpGain500";
             this.rad_ExpGain500.Size = new System.Drawing.Size(51, 17);
@@ -1360,7 +1400,7 @@ namespace DW3Randomizer
             // rad_ExpGain400
             // 
             this.rad_ExpGain400.AutoSize = true;
-            this.rad_ExpGain400.Location = new System.Drawing.Point(359, 16);
+            this.rad_ExpGain400.Location = new System.Drawing.Point(367, 19);
             this.rad_ExpGain400.Margin = new System.Windows.Forms.Padding(2);
             this.rad_ExpGain400.Name = "rad_ExpGain400";
             this.rad_ExpGain400.Size = new System.Drawing.Size(51, 17);
@@ -1372,7 +1412,7 @@ namespace DW3Randomizer
             // rad_ExpGain300
             // 
             this.rad_ExpGain300.AutoSize = true;
-            this.rad_ExpGain300.Location = new System.Drawing.Point(305, 16);
+            this.rad_ExpGain300.Location = new System.Drawing.Point(312, 19);
             this.rad_ExpGain300.Margin = new System.Windows.Forms.Padding(2);
             this.rad_ExpGain300.Name = "rad_ExpGain300";
             this.rad_ExpGain300.Size = new System.Drawing.Size(51, 17);
@@ -1384,7 +1424,7 @@ namespace DW3Randomizer
             // rad_ExpGain200
             // 
             this.rad_ExpGain200.AutoSize = true;
-            this.rad_ExpGain200.Location = new System.Drawing.Point(251, 16);
+            this.rad_ExpGain200.Location = new System.Drawing.Point(257, 19);
             this.rad_ExpGain200.Margin = new System.Windows.Forms.Padding(2);
             this.rad_ExpGain200.Name = "rad_ExpGain200";
             this.rad_ExpGain200.Size = new System.Drawing.Size(51, 17);
@@ -1396,7 +1436,7 @@ namespace DW3Randomizer
             // rad_ExpGain150
             // 
             this.rad_ExpGain150.AutoSize = true;
-            this.rad_ExpGain150.Location = new System.Drawing.Point(197, 16);
+            this.rad_ExpGain150.Location = new System.Drawing.Point(202, 19);
             this.rad_ExpGain150.Margin = new System.Windows.Forms.Padding(2);
             this.rad_ExpGain150.Name = "rad_ExpGain150";
             this.rad_ExpGain150.Size = new System.Drawing.Size(51, 17);
@@ -1409,7 +1449,7 @@ namespace DW3Randomizer
             // 
             this.rad_ExpGain100.AutoSize = true;
             this.rad_ExpGain100.Checked = true;
-            this.rad_ExpGain100.Location = new System.Drawing.Point(143, 16);
+            this.rad_ExpGain100.Location = new System.Drawing.Point(147, 19);
             this.rad_ExpGain100.Margin = new System.Windows.Forms.Padding(2);
             this.rad_ExpGain100.Name = "rad_ExpGain100";
             this.rad_ExpGain100.Size = new System.Drawing.Size(51, 17);
@@ -1422,7 +1462,7 @@ namespace DW3Randomizer
             // rad_ExpGain50
             // 
             this.rad_ExpGain50.AutoSize = true;
-            this.rad_ExpGain50.Location = new System.Drawing.Point(95, 16);
+            this.rad_ExpGain50.Location = new System.Drawing.Point(98, 19);
             this.rad_ExpGain50.Margin = new System.Windows.Forms.Padding(2);
             this.rad_ExpGain50.Name = "rad_ExpGain50";
             this.rad_ExpGain50.Size = new System.Drawing.Size(45, 17);
@@ -1434,7 +1474,7 @@ namespace DW3Randomizer
             // rad_ExpGain25
             // 
             this.rad_ExpGain25.AutoSize = true;
-            this.rad_ExpGain25.Location = new System.Drawing.Point(48, 16);
+            this.rad_ExpGain25.Location = new System.Drawing.Point(49, 19);
             this.rad_ExpGain25.Margin = new System.Windows.Forms.Padding(2);
             this.rad_ExpGain25.Name = "rad_ExpGain25";
             this.rad_ExpGain25.Size = new System.Drawing.Size(45, 17);
@@ -1446,7 +1486,7 @@ namespace DW3Randomizer
             // rad_ExpGain0
             // 
             this.rad_ExpGain0.AutoSize = true;
-            this.rad_ExpGain0.Location = new System.Drawing.Point(6, 16);
+            this.rad_ExpGain0.Location = new System.Drawing.Point(6, 19);
             this.rad_ExpGain0.Margin = new System.Windows.Forms.Padding(2);
             this.rad_ExpGain0.Name = "rad_ExpGain0";
             this.rad_ExpGain0.Size = new System.Drawing.Size(39, 17);
@@ -1474,7 +1514,7 @@ namespace DW3Randomizer
             // rad_BigRand
             // 
             this.rad_BigRand.AutoSize = true;
-            this.rad_BigRand.Location = new System.Drawing.Point(86, 19);
+            this.rad_BigRand.Location = new System.Drawing.Point(96, 19);
             this.rad_BigRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_BigRand.Name = "rad_BigRand";
             this.rad_BigRand.Size = new System.Drawing.Size(65, 17);
@@ -1486,7 +1526,7 @@ namespace DW3Randomizer
             // rad_BigOn
             // 
             this.rad_BigOn.AutoSize = true;
-            this.rad_BigOn.Location = new System.Drawing.Point(45, 19);
+            this.rad_BigOn.Location = new System.Drawing.Point(51, 19);
             this.rad_BigOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_BigOn.Name = "rad_BigOn";
             this.rad_BigOn.Size = new System.Drawing.Size(39, 17);
@@ -1499,7 +1539,7 @@ namespace DW3Randomizer
             // 
             this.rad_BigOff.AutoSize = true;
             this.rad_BigOff.Checked = true;
-            this.rad_BigOff.Location = new System.Drawing.Point(4, 19);
+            this.rad_BigOff.Location = new System.Drawing.Point(6, 19);
             this.rad_BigOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_BigOff.Name = "rad_BigOff";
             this.rad_BigOff.Size = new System.Drawing.Size(39, 17);
@@ -1527,7 +1567,7 @@ namespace DW3Randomizer
             // rad_SoHRoLEffRand
             // 
             this.rad_SoHRoLEffRand.AutoSize = true;
-            this.rad_SoHRoLEffRand.Location = new System.Drawing.Point(86, 17);
+            this.rad_SoHRoLEffRand.Location = new System.Drawing.Point(96, 17);
             this.rad_SoHRoLEffRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_SoHRoLEffRand.Name = "rad_SoHRoLEffRand";
             this.rad_SoHRoLEffRand.Size = new System.Drawing.Size(65, 17);
@@ -1539,7 +1579,7 @@ namespace DW3Randomizer
             // rad_SoHRoLEffOn
             // 
             this.rad_SoHRoLEffOn.AutoSize = true;
-            this.rad_SoHRoLEffOn.Location = new System.Drawing.Point(45, 17);
+            this.rad_SoHRoLEffOn.Location = new System.Drawing.Point(51, 17);
             this.rad_SoHRoLEffOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_SoHRoLEffOn.Name = "rad_SoHRoLEffOn";
             this.rad_SoHRoLEffOn.Size = new System.Drawing.Size(39, 17);
@@ -1552,7 +1592,7 @@ namespace DW3Randomizer
             // 
             this.rad_SoHRoLEffOff.AutoSize = true;
             this.rad_SoHRoLEffOff.Checked = true;
-            this.rad_SoHRoLEffOff.Location = new System.Drawing.Point(4, 17);
+            this.rad_SoHRoLEffOff.Location = new System.Drawing.Point(6, 19);
             this.rad_SoHRoLEffOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_SoHRoLEffOff.Name = "rad_SoHRoLEffOff";
             this.rad_SoHRoLEffOff.Size = new System.Drawing.Size(39, 17);
@@ -1580,7 +1620,7 @@ namespace DW3Randomizer
             // rad_HUAStoneRand
             // 
             this.rad_HUAStoneRand.AutoSize = true;
-            this.rad_HUAStoneRand.Location = new System.Drawing.Point(86, 19);
+            this.rad_HUAStoneRand.Location = new System.Drawing.Point(96, 19);
             this.rad_HUAStoneRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_HUAStoneRand.Name = "rad_HUAStoneRand";
             this.rad_HUAStoneRand.Size = new System.Drawing.Size(65, 17);
@@ -1592,7 +1632,7 @@ namespace DW3Randomizer
             // rad_HUAStoneOn
             // 
             this.rad_HUAStoneOn.AutoSize = true;
-            this.rad_HUAStoneOn.Location = new System.Drawing.Point(45, 19);
+            this.rad_HUAStoneOn.Location = new System.Drawing.Point(51, 19);
             this.rad_HUAStoneOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_HUAStoneOn.Name = "rad_HUAStoneOn";
             this.rad_HUAStoneOn.Size = new System.Drawing.Size(39, 17);
@@ -1605,7 +1645,7 @@ namespace DW3Randomizer
             // 
             this.rad_HUAStoneOff.AutoSize = true;
             this.rad_HUAStoneOff.Checked = true;
-            this.rad_HUAStoneOff.Location = new System.Drawing.Point(4, 19);
+            this.rad_HUAStoneOff.Location = new System.Drawing.Point(6, 19);
             this.rad_HUAStoneOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_HUAStoneOff.Name = "rad_HUAStoneOff";
             this.rad_HUAStoneOff.Size = new System.Drawing.Size(39, 17);
@@ -1632,7 +1672,7 @@ namespace DW3Randomizer
             // rad_RandSageStoneRand
             // 
             this.rad_RandSageStoneRand.AutoSize = true;
-            this.rad_RandSageStoneRand.Location = new System.Drawing.Point(86, 19);
+            this.rad_RandSageStoneRand.Location = new System.Drawing.Point(96, 19);
             this.rad_RandSageStoneRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandSageStoneRand.Name = "rad_RandSageStoneRand";
             this.rad_RandSageStoneRand.Size = new System.Drawing.Size(65, 17);
@@ -1644,7 +1684,7 @@ namespace DW3Randomizer
             // rad_RandSageStoneOn
             // 
             this.rad_RandSageStoneOn.AutoSize = true;
-            this.rad_RandSageStoneOn.Location = new System.Drawing.Point(45, 19);
+            this.rad_RandSageStoneOn.Location = new System.Drawing.Point(51, 19);
             this.rad_RandSageStoneOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandSageStoneOn.Name = "rad_RandSageStoneOn";
             this.rad_RandSageStoneOn.Size = new System.Drawing.Size(39, 17);
@@ -1657,7 +1697,7 @@ namespace DW3Randomizer
             // 
             this.rad_RandSageStoneOff.AutoSize = true;
             this.rad_RandSageStoneOff.Checked = true;
-            this.rad_RandSageStoneOff.Location = new System.Drawing.Point(4, 19);
+            this.rad_RandSageStoneOff.Location = new System.Drawing.Point(6, 19);
             this.rad_RandSageStoneOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandSageStoneOff.Name = "rad_RandSageStoneOff";
             this.rad_RandSageStoneOff.Size = new System.Drawing.Size(39, 17);
@@ -1736,7 +1776,7 @@ namespace DW3Randomizer
             // rad_InvisShipBirdRand
             // 
             this.rad_InvisShipBirdRand.AutoSize = true;
-            this.rad_InvisShipBirdRand.Location = new System.Drawing.Point(96, 17);
+            this.rad_InvisShipBirdRand.Location = new System.Drawing.Point(96, 19);
             this.rad_InvisShipBirdRand.Name = "rad_InvisShipBirdRand";
             this.rad_InvisShipBirdRand.Size = new System.Drawing.Size(65, 17);
             this.rad_InvisShipBirdRand.TabIndex = 2;
@@ -1747,7 +1787,7 @@ namespace DW3Randomizer
             // rad_InvisShipBirdOn
             // 
             this.rad_InvisShipBirdOn.AutoSize = true;
-            this.rad_InvisShipBirdOn.Location = new System.Drawing.Point(51, 17);
+            this.rad_InvisShipBirdOn.Location = new System.Drawing.Point(51, 19);
             this.rad_InvisShipBirdOn.Name = "rad_InvisShipBirdOn";
             this.rad_InvisShipBirdOn.Size = new System.Drawing.Size(39, 17);
             this.rad_InvisShipBirdOn.TabIndex = 1;
@@ -1759,7 +1799,7 @@ namespace DW3Randomizer
             // 
             this.rad_InvisShipBirdOff.AutoSize = true;
             this.rad_InvisShipBirdOff.Checked = true;
-            this.rad_InvisShipBirdOff.Location = new System.Drawing.Point(6, 17);
+            this.rad_InvisShipBirdOff.Location = new System.Drawing.Point(6, 19);
             this.rad_InvisShipBirdOff.Name = "rad_InvisShipBirdOff";
             this.rad_InvisShipBirdOff.Size = new System.Drawing.Size(39, 17);
             this.rad_InvisShipBirdOff.TabIndex = 0;
@@ -1928,7 +1968,7 @@ namespace DW3Randomizer
             // rad_LamiaRand
             // 
             this.rad_LamiaRand.AutoSize = true;
-            this.rad_LamiaRand.Location = new System.Drawing.Point(96, 17);
+            this.rad_LamiaRand.Location = new System.Drawing.Point(96, 19);
             this.rad_LamiaRand.Name = "rad_LamiaRand";
             this.rad_LamiaRand.Size = new System.Drawing.Size(65, 17);
             this.rad_LamiaRand.TabIndex = 2;
@@ -1939,7 +1979,7 @@ namespace DW3Randomizer
             // rad_LamiaOn
             // 
             this.rad_LamiaOn.AutoSize = true;
-            this.rad_LamiaOn.Location = new System.Drawing.Point(51, 17);
+            this.rad_LamiaOn.Location = new System.Drawing.Point(51, 19);
             this.rad_LamiaOn.Name = "rad_LamiaOn";
             this.rad_LamiaOn.Size = new System.Drawing.Size(39, 17);
             this.rad_LamiaOn.TabIndex = 1;
@@ -1951,7 +1991,7 @@ namespace DW3Randomizer
             // 
             this.rad_LamiaOff.AutoSize = true;
             this.rad_LamiaOff.Checked = true;
-            this.rad_LamiaOff.Location = new System.Drawing.Point(6, 17);
+            this.rad_LamiaOff.Location = new System.Drawing.Point(6, 19);
             this.rad_LamiaOff.Name = "rad_LamiaOff";
             this.rad_LamiaOff.Size = new System.Drawing.Size(39, 17);
             this.rad_LamiaOff.TabIndex = 0;
@@ -1999,7 +2039,7 @@ namespace DW3Randomizer
             // 
             this.rad_codOff.AutoSize = true;
             this.rad_codOff.Checked = true;
-            this.rad_codOff.Location = new System.Drawing.Point(6, 20);
+            this.rad_codOff.Location = new System.Drawing.Point(6, 19);
             this.rad_codOff.Name = "rad_codOff";
             this.rad_codOff.Size = new System.Drawing.Size(39, 17);
             this.rad_codOff.TabIndex = 0;
@@ -2143,7 +2183,7 @@ namespace DW3Randomizer
             // 
             this.rad_SpeedUpMenuOff.AutoSize = true;
             this.rad_SpeedUpMenuOff.Checked = true;
-            this.rad_SpeedUpMenuOff.Location = new System.Drawing.Point(6, 17);
+            this.rad_SpeedUpMenuOff.Location = new System.Drawing.Point(6, 19);
             this.rad_SpeedUpMenuOff.Name = "rad_SpeedUpMenuOff";
             this.rad_SpeedUpMenuOff.Size = new System.Drawing.Size(39, 17);
             this.rad_SpeedUpMenuOff.TabIndex = 0;
@@ -2179,7 +2219,7 @@ namespace DW3Randomizer
             // rad_SpeedTextOn
             // 
             this.rad_SpeedTextOn.AutoSize = true;
-            this.rad_SpeedTextOn.Location = new System.Drawing.Point(51, 18);
+            this.rad_SpeedTextOn.Location = new System.Drawing.Point(51, 19);
             this.rad_SpeedTextOn.Name = "rad_SpeedTextOn";
             this.rad_SpeedTextOn.Size = new System.Drawing.Size(39, 17);
             this.rad_SpeedTextOn.TabIndex = 1;
@@ -2227,7 +2267,7 @@ namespace DW3Randomizer
             // rad_IncBattSpeedOn
             // 
             this.rad_IncBattSpeedOn.AutoSize = true;
-            this.rad_IncBattSpeedOn.Location = new System.Drawing.Point(51, 19);
+            this.rad_IncBattSpeedOn.Location = new System.Drawing.Point(50, 19);
             this.rad_IncBattSpeedOn.Name = "rad_IncBattSpeedOn";
             this.rad_IncBattSpeedOn.Size = new System.Drawing.Size(39, 17);
             this.rad_IncBattSpeedOn.TabIndex = 73;
@@ -2261,7 +2301,7 @@ namespace DW3Randomizer
             this.tabPage8.Location = new System.Drawing.Point(4, 22);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(675, 422);
+            this.tabPage8.Size = new System.Drawing.Size(678, 422);
             this.tabPage8.TabIndex = 7;
             this.tabPage8.Text = "Map";
             this.tabPage8.UseVisualStyleBackColor = true;
@@ -2298,7 +2338,7 @@ namespace DW3Randomizer
             // rad_RandTownsRand
             // 
             this.rad_RandTownsRand.AutoSize = true;
-            this.rad_RandTownsRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_RandTownsRand.Location = new System.Drawing.Point(92, 19);
             this.rad_RandTownsRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandTownsRand.Name = "rad_RandTownsRand";
             this.rad_RandTownsRand.Size = new System.Drawing.Size(65, 17);
@@ -2310,7 +2350,7 @@ namespace DW3Randomizer
             // rad_RandTownsOn
             // 
             this.rad_RandTownsOn.AutoSize = true;
-            this.rad_RandTownsOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_RandTownsOn.Location = new System.Drawing.Point(49, 19);
             this.rad_RandTownsOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandTownsOn.Name = "rad_RandTownsOn";
             this.rad_RandTownsOn.Size = new System.Drawing.Size(39, 17);
@@ -2323,7 +2363,7 @@ namespace DW3Randomizer
             // 
             this.rad_RandTownsOff.AutoSize = true;
             this.rad_RandTownsOff.Checked = true;
-            this.rad_RandTownsOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_RandTownsOff.Location = new System.Drawing.Point(6, 19);
             this.rad_RandTownsOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandTownsOff.Name = "rad_RandTownsOff";
             this.rad_RandTownsOff.Size = new System.Drawing.Size(39, 17);
@@ -2351,7 +2391,7 @@ namespace DW3Randomizer
             // rad_RandCavesRand
             // 
             this.rad_RandCavesRand.AutoSize = true;
-            this.rad_RandCavesRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_RandCavesRand.Location = new System.Drawing.Point(92, 19);
             this.rad_RandCavesRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandCavesRand.Name = "rad_RandCavesRand";
             this.rad_RandCavesRand.Size = new System.Drawing.Size(65, 17);
@@ -2363,7 +2403,7 @@ namespace DW3Randomizer
             // rad_RandCavesOn
             // 
             this.rad_RandCavesOn.AutoSize = true;
-            this.rad_RandCavesOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_RandCavesOn.Location = new System.Drawing.Point(49, 19);
             this.rad_RandCavesOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandCavesOn.Name = "rad_RandCavesOn";
             this.rad_RandCavesOn.Size = new System.Drawing.Size(39, 17);
@@ -2376,7 +2416,7 @@ namespace DW3Randomizer
             // 
             this.rad_RandCavesOff.AutoSize = true;
             this.rad_RandCavesOff.Checked = true;
-            this.rad_RandCavesOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_RandCavesOff.Location = new System.Drawing.Point(6, 19);
             this.rad_RandCavesOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandCavesOff.Name = "rad_RandCavesOff";
             this.rad_RandCavesOff.Size = new System.Drawing.Size(39, 17);
@@ -2404,7 +2444,7 @@ namespace DW3Randomizer
             // rad_RandShrinesRand
             // 
             this.rad_RandShrinesRand.AutoSize = true;
-            this.rad_RandShrinesRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_RandShrinesRand.Location = new System.Drawing.Point(92, 19);
             this.rad_RandShrinesRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandShrinesRand.Name = "rad_RandShrinesRand";
             this.rad_RandShrinesRand.Size = new System.Drawing.Size(65, 17);
@@ -2416,7 +2456,7 @@ namespace DW3Randomizer
             // rad_RandShrinesOn
             // 
             this.rad_RandShrinesOn.AutoSize = true;
-            this.rad_RandShrinesOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_RandShrinesOn.Location = new System.Drawing.Point(49, 19);
             this.rad_RandShrinesOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandShrinesOn.Name = "rad_RandShrinesOn";
             this.rad_RandShrinesOn.Size = new System.Drawing.Size(39, 17);
@@ -2429,7 +2469,7 @@ namespace DW3Randomizer
             // 
             this.rad_RandShrinesOff.AutoSize = true;
             this.rad_RandShrinesOff.Checked = true;
-            this.rad_RandShrinesOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_RandShrinesOff.Location = new System.Drawing.Point(6, 19);
             this.rad_RandShrinesOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandShrinesOff.Name = "rad_RandShrinesOff";
             this.rad_RandShrinesOff.Size = new System.Drawing.Size(39, 17);
@@ -2472,7 +2512,7 @@ namespace DW3Randomizer
             // rad_LancelCaveRand
             // 
             this.rad_LancelCaveRand.AutoSize = true;
-            this.rad_LancelCaveRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_LancelCaveRand.Location = new System.Drawing.Point(92, 19);
             this.rad_LancelCaveRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_LancelCaveRand.Name = "rad_LancelCaveRand";
             this.rad_LancelCaveRand.Size = new System.Drawing.Size(65, 17);
@@ -2484,7 +2524,7 @@ namespace DW3Randomizer
             // rad_LancelCaveOn
             // 
             this.rad_LancelCaveOn.AutoSize = true;
-            this.rad_LancelCaveOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_LancelCaveOn.Location = new System.Drawing.Point(49, 19);
             this.rad_LancelCaveOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_LancelCaveOn.Name = "rad_LancelCaveOn";
             this.rad_LancelCaveOn.Size = new System.Drawing.Size(39, 17);
@@ -2497,7 +2537,7 @@ namespace DW3Randomizer
             // 
             this.rad_LancelCaveOff.AutoSize = true;
             this.rad_LancelCaveOff.Checked = true;
-            this.rad_LancelCaveOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_LancelCaveOff.Location = new System.Drawing.Point(6, 19);
             this.rad_LancelCaveOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_LancelCaveOff.Name = "rad_LancelCaveOff";
             this.rad_LancelCaveOff.Size = new System.Drawing.Size(39, 17);
@@ -2525,7 +2565,7 @@ namespace DW3Randomizer
             // rad_CaveOfNecroRand
             // 
             this.rad_CaveOfNecroRand.AutoSize = true;
-            this.rad_CaveOfNecroRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_CaveOfNecroRand.Location = new System.Drawing.Point(92, 19);
             this.rad_CaveOfNecroRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_CaveOfNecroRand.Name = "rad_CaveOfNecroRand";
             this.rad_CaveOfNecroRand.Size = new System.Drawing.Size(65, 17);
@@ -2537,7 +2577,7 @@ namespace DW3Randomizer
             // rad_CaveOfNecroOn
             // 
             this.rad_CaveOfNecroOn.AutoSize = true;
-            this.rad_CaveOfNecroOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_CaveOfNecroOn.Location = new System.Drawing.Point(49, 19);
             this.rad_CaveOfNecroOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_CaveOfNecroOn.Name = "rad_CaveOfNecroOn";
             this.rad_CaveOfNecroOn.Size = new System.Drawing.Size(39, 17);
@@ -2550,7 +2590,7 @@ namespace DW3Randomizer
             // 
             this.rad_CaveOfNecroOff.AutoSize = true;
             this.rad_CaveOfNecroOff.Checked = true;
-            this.rad_CaveOfNecroOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_CaveOfNecroOff.Location = new System.Drawing.Point(6, 19);
             this.rad_CaveOfNecroOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_CaveOfNecroOff.Name = "rad_CaveOfNecroOff";
             this.rad_CaveOfNecroOff.Size = new System.Drawing.Size(39, 17);
@@ -2578,7 +2618,7 @@ namespace DW3Randomizer
             // rad_BaramosCastRand
             // 
             this.rad_BaramosCastRand.AutoSize = true;
-            this.rad_BaramosCastRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_BaramosCastRand.Location = new System.Drawing.Point(92, 19);
             this.rad_BaramosCastRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_BaramosCastRand.Name = "rad_BaramosCastRand";
             this.rad_BaramosCastRand.Size = new System.Drawing.Size(65, 17);
@@ -2590,7 +2630,7 @@ namespace DW3Randomizer
             // rad_BaramosCastOn
             // 
             this.rad_BaramosCastOn.AutoSize = true;
-            this.rad_BaramosCastOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_BaramosCastOn.Location = new System.Drawing.Point(49, 19);
             this.rad_BaramosCastOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_BaramosCastOn.Name = "rad_BaramosCastOn";
             this.rad_BaramosCastOn.Size = new System.Drawing.Size(39, 17);
@@ -2603,7 +2643,7 @@ namespace DW3Randomizer
             // 
             this.rad_BaramosCastOff.AutoSize = true;
             this.rad_BaramosCastOff.Checked = true;
-            this.rad_BaramosCastOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_BaramosCastOff.Location = new System.Drawing.Point(6, 19);
             this.rad_BaramosCastOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_BaramosCastOff.Name = "rad_BaramosCastOff";
             this.rad_BaramosCastOff.Size = new System.Drawing.Size(39, 17);
@@ -2631,7 +2671,7 @@ namespace DW3Randomizer
             // rad_DrgQnCastRand
             // 
             this.rad_DrgQnCastRand.AutoSize = true;
-            this.rad_DrgQnCastRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_DrgQnCastRand.Location = new System.Drawing.Point(90, 19);
             this.rad_DrgQnCastRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_DrgQnCastRand.Name = "rad_DrgQnCastRand";
             this.rad_DrgQnCastRand.Size = new System.Drawing.Size(65, 17);
@@ -2643,7 +2683,7 @@ namespace DW3Randomizer
             // rad_DrgQnCastOn
             // 
             this.rad_DrgQnCastOn.AutoSize = true;
-            this.rad_DrgQnCastOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_DrgQnCastOn.Location = new System.Drawing.Point(49, 19);
             this.rad_DrgQnCastOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_DrgQnCastOn.Name = "rad_DrgQnCastOn";
             this.rad_DrgQnCastOn.Size = new System.Drawing.Size(39, 17);
@@ -2656,7 +2696,7 @@ namespace DW3Randomizer
             // 
             this.rad_DrgQnCastOff.AutoSize = true;
             this.rad_DrgQnCastOff.Checked = true;
-            this.rad_DrgQnCastOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_DrgQnCastOff.Location = new System.Drawing.Point(6, 19);
             this.rad_DrgQnCastOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_DrgQnCastOff.Name = "rad_DrgQnCastOff";
             this.rad_DrgQnCastOff.Size = new System.Drawing.Size(39, 17);
@@ -2684,7 +2724,7 @@ namespace DW3Randomizer
             // rad_NoNewTownRand
             // 
             this.rad_NoNewTownRand.AutoSize = true;
-            this.rad_NoNewTownRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_NoNewTownRand.Location = new System.Drawing.Point(92, 19);
             this.rad_NoNewTownRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_NoNewTownRand.Name = "rad_NoNewTownRand";
             this.rad_NoNewTownRand.Size = new System.Drawing.Size(65, 17);
@@ -2696,7 +2736,7 @@ namespace DW3Randomizer
             // rad_NoNewTownOn
             // 
             this.rad_NoNewTownOn.AutoSize = true;
-            this.rad_NoNewTownOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_NoNewTownOn.Location = new System.Drawing.Point(49, 19);
             this.rad_NoNewTownOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_NoNewTownOn.Name = "rad_NoNewTownOn";
             this.rad_NoNewTownOn.Size = new System.Drawing.Size(39, 17);
@@ -2709,7 +2749,7 @@ namespace DW3Randomizer
             // 
             this.rad_NoNewTownOff.AutoSize = true;
             this.rad_NoNewTownOff.Checked = true;
-            this.rad_NoNewTownOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_NoNewTownOff.Location = new System.Drawing.Point(6, 19);
             this.rad_NoNewTownOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_NoNewTownOff.Name = "rad_NoNewTownOff";
             this.rad_NoNewTownOff.Size = new System.Drawing.Size(39, 17);
@@ -2737,7 +2777,7 @@ namespace DW3Randomizer
             // rad_CharlockRand
             // 
             this.rad_CharlockRand.AutoSize = true;
-            this.rad_CharlockRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_CharlockRand.Location = new System.Drawing.Point(92, 19);
             this.rad_CharlockRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_CharlockRand.Name = "rad_CharlockRand";
             this.rad_CharlockRand.Size = new System.Drawing.Size(65, 17);
@@ -2749,7 +2789,7 @@ namespace DW3Randomizer
             // rad_CharlockOn
             // 
             this.rad_CharlockOn.AutoSize = true;
-            this.rad_CharlockOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_CharlockOn.Location = new System.Drawing.Point(49, 19);
             this.rad_CharlockOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_CharlockOn.Name = "rad_CharlockOn";
             this.rad_CharlockOn.Size = new System.Drawing.Size(39, 17);
@@ -2762,7 +2802,7 @@ namespace DW3Randomizer
             // 
             this.rad_CharlockOff.AutoSize = true;
             this.rad_CharlockOff.Checked = true;
-            this.rad_CharlockOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_CharlockOff.Location = new System.Drawing.Point(6, 19);
             this.rad_CharlockOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_CharlockOff.Name = "rad_CharlockOff";
             this.rad_CharlockOff.Size = new System.Drawing.Size(39, 17);
@@ -2790,7 +2830,7 @@ namespace DW3Randomizer
             // rad_DisAlefGlitchRand
             // 
             this.rad_DisAlefGlitchRand.AutoSize = true;
-            this.rad_DisAlefGlitchRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_DisAlefGlitchRand.Location = new System.Drawing.Point(92, 19);
             this.rad_DisAlefGlitchRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_DisAlefGlitchRand.Name = "rad_DisAlefGlitchRand";
             this.rad_DisAlefGlitchRand.Size = new System.Drawing.Size(65, 17);
@@ -2802,7 +2842,7 @@ namespace DW3Randomizer
             // rad_DisAlefGlitchOn
             // 
             this.rad_DisAlefGlitchOn.AutoSize = true;
-            this.rad_DisAlefGlitchOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_DisAlefGlitchOn.Location = new System.Drawing.Point(49, 19);
             this.rad_DisAlefGlitchOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_DisAlefGlitchOn.Name = "rad_DisAlefGlitchOn";
             this.rad_DisAlefGlitchOn.Size = new System.Drawing.Size(39, 17);
@@ -2815,7 +2855,7 @@ namespace DW3Randomizer
             // 
             this.rad_DisAlefGlitchOff.AutoSize = true;
             this.rad_DisAlefGlitchOff.Checked = true;
-            this.rad_DisAlefGlitchOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_DisAlefGlitchOff.Location = new System.Drawing.Point(6, 19);
             this.rad_DisAlefGlitchOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_DisAlefGlitchOff.Name = "rad_DisAlefGlitchOff";
             this.rad_DisAlefGlitchOff.Size = new System.Drawing.Size(39, 17);
@@ -2843,7 +2883,7 @@ namespace DW3Randomizer
             // rad_RandMonstZoneRand
             // 
             this.rad_RandMonstZoneRand.AutoSize = true;
-            this.rad_RandMonstZoneRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_RandMonstZoneRand.Location = new System.Drawing.Point(92, 19);
             this.rad_RandMonstZoneRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandMonstZoneRand.Name = "rad_RandMonstZoneRand";
             this.rad_RandMonstZoneRand.Size = new System.Drawing.Size(65, 17);
@@ -2855,7 +2895,7 @@ namespace DW3Randomizer
             // rad_RandMonstZoneOn
             // 
             this.rad_RandMonstZoneOn.AutoSize = true;
-            this.rad_RandMonstZoneOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_RandMonstZoneOn.Location = new System.Drawing.Point(49, 19);
             this.rad_RandMonstZoneOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandMonstZoneOn.Name = "rad_RandMonstZoneOn";
             this.rad_RandMonstZoneOn.Size = new System.Drawing.Size(39, 17);
@@ -2868,7 +2908,7 @@ namespace DW3Randomizer
             // 
             this.rad_RandMonstZoneOff.AutoSize = true;
             this.rad_RandMonstZoneOff.Checked = true;
-            this.rad_RandMonstZoneOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_RandMonstZoneOff.Location = new System.Drawing.Point(6, 19);
             this.rad_RandMonstZoneOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandMonstZoneOff.Name = "rad_RandMonstZoneOff";
             this.rad_RandMonstZoneOff.Size = new System.Drawing.Size(39, 17);
@@ -2896,7 +2936,7 @@ namespace DW3Randomizer
             // rad_SmallMapRand
             // 
             this.rad_SmallMapRand.AutoSize = true;
-            this.rad_SmallMapRand.Location = new System.Drawing.Point(87, 16);
+            this.rad_SmallMapRand.Location = new System.Drawing.Point(92, 19);
             this.rad_SmallMapRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_SmallMapRand.Name = "rad_SmallMapRand";
             this.rad_SmallMapRand.Size = new System.Drawing.Size(65, 17);
@@ -2908,7 +2948,7 @@ namespace DW3Randomizer
             // rad_SmallMapOn
             // 
             this.rad_SmallMapOn.AutoSize = true;
-            this.rad_SmallMapOn.Location = new System.Drawing.Point(46, 16);
+            this.rad_SmallMapOn.Location = new System.Drawing.Point(49, 19);
             this.rad_SmallMapOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_SmallMapOn.Name = "rad_SmallMapOn";
             this.rad_SmallMapOn.Size = new System.Drawing.Size(39, 17);
@@ -2921,7 +2961,7 @@ namespace DW3Randomizer
             // 
             this.rad_SmallMapOff.AutoSize = true;
             this.rad_SmallMapOff.Checked = true;
-            this.rad_SmallMapOff.Location = new System.Drawing.Point(5, 16);
+            this.rad_SmallMapOff.Location = new System.Drawing.Point(6, 19);
             this.rad_SmallMapOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_SmallMapOff.Name = "rad_SmallMapOff";
             this.rad_SmallMapOff.Size = new System.Drawing.Size(39, 17);
@@ -2949,7 +2989,7 @@ namespace DW3Randomizer
             // rad_RandMapsRand
             // 
             this.rad_RandMapsRand.AutoSize = true;
-            this.rad_RandMapsRand.Location = new System.Drawing.Point(87, 17);
+            this.rad_RandMapsRand.Location = new System.Drawing.Point(92, 19);
             this.rad_RandMapsRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandMapsRand.Name = "rad_RandMapsRand";
             this.rad_RandMapsRand.Size = new System.Drawing.Size(65, 17);
@@ -2961,7 +3001,7 @@ namespace DW3Randomizer
             // rad_RandMapsOn
             // 
             this.rad_RandMapsOn.AutoSize = true;
-            this.rad_RandMapsOn.Location = new System.Drawing.Point(46, 17);
+            this.rad_RandMapsOn.Location = new System.Drawing.Point(49, 19);
             this.rad_RandMapsOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandMapsOn.Name = "rad_RandMapsOn";
             this.rad_RandMapsOn.Size = new System.Drawing.Size(39, 17);
@@ -2974,7 +3014,7 @@ namespace DW3Randomizer
             // 
             this.rad_RandMapsOff.AutoSize = true;
             this.rad_RandMapsOff.Checked = true;
-            this.rad_RandMapsOff.Location = new System.Drawing.Point(5, 17);
+            this.rad_RandMapsOff.Location = new System.Drawing.Point(6, 19);
             this.rad_RandMapsOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandMapsOff.Name = "rad_RandMapsOff";
             this.rad_RandMapsOff.Size = new System.Drawing.Size(39, 17);
@@ -2996,7 +3036,7 @@ namespace DW3Randomizer
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(675, 422);
+            this.tabPage2.Size = new System.Drawing.Size(678, 422);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Monsters";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -3019,7 +3059,7 @@ namespace DW3Randomizer
             // rad_RmMetalRunRand
             // 
             this.rad_RmMetalRunRand.AutoSize = true;
-            this.rad_RmMetalRunRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_RmMetalRunRand.Location = new System.Drawing.Point(92, 19);
             this.rad_RmMetalRunRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RmMetalRunRand.Name = "rad_RmMetalRunRand";
             this.rad_RmMetalRunRand.Size = new System.Drawing.Size(65, 17);
@@ -3031,7 +3071,7 @@ namespace DW3Randomizer
             // rad_RmMetalRunOn
             // 
             this.rad_RmMetalRunOn.AutoSize = true;
-            this.rad_RmMetalRunOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_RmMetalRunOn.Location = new System.Drawing.Point(49, 19);
             this.rad_RmMetalRunOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RmMetalRunOn.Name = "rad_RmMetalRunOn";
             this.rad_RmMetalRunOn.Size = new System.Drawing.Size(39, 17);
@@ -3044,7 +3084,7 @@ namespace DW3Randomizer
             // 
             this.rad_RmMetalRunOff.AutoSize = true;
             this.rad_RmMetalRunOff.Checked = true;
-            this.rad_RmMetalRunOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_RmMetalRunOff.Location = new System.Drawing.Point(6, 19);
             this.rad_RmMetalRunOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RmMetalRunOff.Name = "rad_RmMetalRunOff";
             this.rad_RmMetalRunOff.Size = new System.Drawing.Size(39, 17);
@@ -3072,7 +3112,7 @@ namespace DW3Randomizer
             // rad_RandEnePatRand
             // 
             this.rad_RandEnePatRand.AutoSize = true;
-            this.rad_RandEnePatRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_RandEnePatRand.Location = new System.Drawing.Point(92, 19);
             this.rad_RandEnePatRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandEnePatRand.Name = "rad_RandEnePatRand";
             this.rad_RandEnePatRand.Size = new System.Drawing.Size(65, 17);
@@ -3084,7 +3124,7 @@ namespace DW3Randomizer
             // rad_RandEnePatOn
             // 
             this.rad_RandEnePatOn.AutoSize = true;
-            this.rad_RandEnePatOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_RandEnePatOn.Location = new System.Drawing.Point(49, 19);
             this.rad_RandEnePatOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandEnePatOn.Name = "rad_RandEnePatOn";
             this.rad_RandEnePatOn.Size = new System.Drawing.Size(39, 17);
@@ -3097,7 +3137,7 @@ namespace DW3Randomizer
             // 
             this.rad_RandEnePatOff.AutoSize = true;
             this.rad_RandEnePatOff.Checked = true;
-            this.rad_RandEnePatOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_RandEnePatOff.Location = new System.Drawing.Point(6, 19);
             this.rad_RandEnePatOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandEnePatOff.Name = "rad_RandEnePatOff";
             this.rad_RandEnePatOff.Size = new System.Drawing.Size(39, 17);
@@ -3125,7 +3165,7 @@ namespace DW3Randomizer
             // rad_RmDupDropRand
             // 
             this.rad_RmDupDropRand.AutoSize = true;
-            this.rad_RmDupDropRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_RmDupDropRand.Location = new System.Drawing.Point(92, 19);
             this.rad_RmDupDropRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RmDupDropRand.Name = "rad_RmDupDropRand";
             this.rad_RmDupDropRand.Size = new System.Drawing.Size(65, 17);
@@ -3137,7 +3177,7 @@ namespace DW3Randomizer
             // rad_RmDupDropOn
             // 
             this.rad_RmDupDropOn.AutoSize = true;
-            this.rad_RmDupDropOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_RmDupDropOn.Location = new System.Drawing.Point(49, 19);
             this.rad_RmDupDropOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RmDupDropOn.Name = "rad_RmDupDropOn";
             this.rad_RmDupDropOn.Size = new System.Drawing.Size(39, 17);
@@ -3150,7 +3190,7 @@ namespace DW3Randomizer
             // 
             this.rad_RmDupDropOff.AutoSize = true;
             this.rad_RmDupDropOff.Checked = true;
-            this.rad_RmDupDropOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_RmDupDropOff.Location = new System.Drawing.Point(6, 19);
             this.rad_RmDupDropOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RmDupDropOff.Name = "rad_RmDupDropOff";
             this.rad_RmDupDropOff.Size = new System.Drawing.Size(39, 17);
@@ -3178,7 +3218,7 @@ namespace DW3Randomizer
             // rad_RandGoldRand
             // 
             this.rad_RandGoldRand.AutoSize = true;
-            this.rad_RandGoldRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_RandGoldRand.Location = new System.Drawing.Point(92, 19);
             this.rad_RandGoldRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandGoldRand.Name = "rad_RandGoldRand";
             this.rad_RandGoldRand.Size = new System.Drawing.Size(65, 17);
@@ -3190,7 +3230,7 @@ namespace DW3Randomizer
             // rad_RandGoldOn
             // 
             this.rad_RandGoldOn.AutoSize = true;
-            this.rad_RandGoldOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_RandGoldOn.Location = new System.Drawing.Point(49, 19);
             this.rad_RandGoldOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandGoldOn.Name = "rad_RandGoldOn";
             this.rad_RandGoldOn.Size = new System.Drawing.Size(39, 17);
@@ -3203,7 +3243,7 @@ namespace DW3Randomizer
             // 
             this.rad_RandGoldOff.AutoSize = true;
             this.rad_RandGoldOff.Checked = true;
-            this.rad_RandGoldOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_RandGoldOff.Location = new System.Drawing.Point(6, 19);
             this.rad_RandGoldOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandGoldOff.Name = "rad_RandGoldOff";
             this.rad_RandGoldOff.Size = new System.Drawing.Size(39, 17);
@@ -3231,7 +3271,7 @@ namespace DW3Randomizer
             // rad_RandDropRand
             // 
             this.rad_RandDropRand.AutoSize = true;
-            this.rad_RandDropRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_RandDropRand.Location = new System.Drawing.Point(92, 19);
             this.rad_RandDropRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandDropRand.Name = "rad_RandDropRand";
             this.rad_RandDropRand.Size = new System.Drawing.Size(65, 17);
@@ -3243,7 +3283,7 @@ namespace DW3Randomizer
             // rad_RandDropOn
             // 
             this.rad_RandDropOn.AutoSize = true;
-            this.rad_RandDropOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_RandDropOn.Location = new System.Drawing.Point(49, 19);
             this.rad_RandDropOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandDropOn.Name = "rad_RandDropOn";
             this.rad_RandDropOn.Size = new System.Drawing.Size(39, 17);
@@ -3256,7 +3296,7 @@ namespace DW3Randomizer
             // 
             this.rad_RandDropOff.AutoSize = true;
             this.rad_RandDropOff.Checked = true;
-            this.rad_RandDropOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_RandDropOff.Location = new System.Drawing.Point(6, 19);
             this.rad_RandDropOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandDropOff.Name = "rad_RandDropOff";
             this.rad_RandDropOff.Size = new System.Drawing.Size(39, 17);
@@ -3284,7 +3324,7 @@ namespace DW3Randomizer
             // rad_RandExpRand
             // 
             this.rad_RandExpRand.AutoSize = true;
-            this.rad_RandExpRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_RandExpRand.Location = new System.Drawing.Point(92, 19);
             this.rad_RandExpRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandExpRand.Name = "rad_RandExpRand";
             this.rad_RandExpRand.Size = new System.Drawing.Size(65, 17);
@@ -3296,7 +3336,7 @@ namespace DW3Randomizer
             // rad_RandExpOn
             // 
             this.rad_RandExpOn.AutoSize = true;
-            this.rad_RandExpOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_RandExpOn.Location = new System.Drawing.Point(49, 19);
             this.rad_RandExpOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandExpOn.Name = "rad_RandExpOn";
             this.rad_RandExpOn.Size = new System.Drawing.Size(39, 17);
@@ -3309,7 +3349,7 @@ namespace DW3Randomizer
             // 
             this.rad_RandExpOff.AutoSize = true;
             this.rad_RandExpOff.Checked = true;
-            this.rad_RandExpOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_RandExpOff.Location = new System.Drawing.Point(6, 19);
             this.rad_RandExpOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandExpOff.Name = "rad_RandExpOff";
             this.rad_RandExpOff.Size = new System.Drawing.Size(39, 17);
@@ -3336,7 +3376,7 @@ namespace DW3Randomizer
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(675, 422);
+            this.tabPage4.Size = new System.Drawing.Size(678, 422);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Treasures & Equipment";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -3360,7 +3400,7 @@ namespace DW3Randomizer
             // rad_RandItemEffRand
             // 
             this.rad_RandItemEffRand.AutoSize = true;
-            this.rad_RandItemEffRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_RandItemEffRand.Location = new System.Drawing.Point(92, 19);
             this.rad_RandItemEffRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandItemEffRand.Name = "rad_RandItemEffRand";
             this.rad_RandItemEffRand.Size = new System.Drawing.Size(65, 17);
@@ -3373,7 +3413,7 @@ namespace DW3Randomizer
             // rad_RandItemEffOn
             // 
             this.rad_RandItemEffOn.AutoSize = true;
-            this.rad_RandItemEffOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_RandItemEffOn.Location = new System.Drawing.Point(49, 19);
             this.rad_RandItemEffOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandItemEffOn.Name = "rad_RandItemEffOn";
             this.rad_RandItemEffOn.Size = new System.Drawing.Size(39, 17);
@@ -3386,7 +3426,7 @@ namespace DW3Randomizer
             // rad_RandItemEffOff
             // 
             this.rad_RandItemEffOff.AutoSize = true;
-            this.rad_RandItemEffOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_RandItemEffOff.Location = new System.Drawing.Point(6, 19);
             this.rad_RandItemEffOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandItemEffOff.Name = "rad_RandItemEffOff";
             this.rad_RandItemEffOff.Size = new System.Drawing.Size(39, 17);
@@ -3414,7 +3454,7 @@ namespace DW3Randomizer
             // rad_AddRemakeRand
             // 
             this.rad_AddRemakeRand.AutoSize = true;
-            this.rad_AddRemakeRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_AddRemakeRand.Location = new System.Drawing.Point(92, 19);
             this.rad_AddRemakeRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_AddRemakeRand.Name = "rad_AddRemakeRand";
             this.rad_AddRemakeRand.Size = new System.Drawing.Size(65, 17);
@@ -3427,7 +3467,7 @@ namespace DW3Randomizer
             // rad_AddRemakeOn
             // 
             this.rad_AddRemakeOn.AutoSize = true;
-            this.rad_AddRemakeOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_AddRemakeOn.Location = new System.Drawing.Point(49, 19);
             this.rad_AddRemakeOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_AddRemakeOn.Name = "rad_AddRemakeOn";
             this.rad_AddRemakeOn.Size = new System.Drawing.Size(39, 17);
@@ -3440,7 +3480,7 @@ namespace DW3Randomizer
             // rad_AddRemakeOff
             // 
             this.rad_AddRemakeOff.AutoSize = true;
-            this.rad_AddRemakeOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_AddRemakeOff.Location = new System.Drawing.Point(6, 19);
             this.rad_AddRemakeOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_AddRemakeOff.Name = "rad_AddRemakeOff";
             this.rad_AddRemakeOff.Size = new System.Drawing.Size(39, 17);
@@ -3468,7 +3508,7 @@ namespace DW3Randomizer
             // rad_AdjStartEqRand
             // 
             this.rad_AdjStartEqRand.AutoSize = true;
-            this.rad_AdjStartEqRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_AdjStartEqRand.Location = new System.Drawing.Point(92, 19);
             this.rad_AdjStartEqRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_AdjStartEqRand.Name = "rad_AdjStartEqRand";
             this.rad_AdjStartEqRand.Size = new System.Drawing.Size(65, 17);
@@ -3481,7 +3521,7 @@ namespace DW3Randomizer
             // rad_AdjStartEqOn
             // 
             this.rad_AdjStartEqOn.AutoSize = true;
-            this.rad_AdjStartEqOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_AdjStartEqOn.Location = new System.Drawing.Point(49, 19);
             this.rad_AdjStartEqOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_AdjStartEqOn.Name = "rad_AdjStartEqOn";
             this.rad_AdjStartEqOn.Size = new System.Drawing.Size(39, 17);
@@ -3494,7 +3534,7 @@ namespace DW3Randomizer
             // rad_AdjStartEqOff
             // 
             this.rad_AdjStartEqOff.AutoSize = true;
-            this.rad_AdjStartEqOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_AdjStartEqOff.Location = new System.Drawing.Point(6, 19);
             this.rad_AdjStartEqOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_AdjStartEqOff.Name = "rad_AdjStartEqOff";
             this.rad_AdjStartEqOff.Size = new System.Drawing.Size(39, 17);
@@ -3521,7 +3561,7 @@ namespace DW3Randomizer
             // rad_AddGoldClawRand
             // 
             this.rad_AddGoldClawRand.AutoSize = true;
-            this.rad_AddGoldClawRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_AddGoldClawRand.Location = new System.Drawing.Point(92, 19);
             this.rad_AddGoldClawRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_AddGoldClawRand.Name = "rad_AddGoldClawRand";
             this.rad_AddGoldClawRand.Size = new System.Drawing.Size(65, 17);
@@ -3534,7 +3574,7 @@ namespace DW3Randomizer
             // rad_AddGoldClawOn
             // 
             this.rad_AddGoldClawOn.AutoSize = true;
-            this.rad_AddGoldClawOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_AddGoldClawOn.Location = new System.Drawing.Point(49, 19);
             this.rad_AddGoldClawOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_AddGoldClawOn.Name = "rad_AddGoldClawOn";
             this.rad_AddGoldClawOn.Size = new System.Drawing.Size(39, 17);
@@ -3547,7 +3587,7 @@ namespace DW3Randomizer
             // rad_AddGoldClawOff
             // 
             this.rad_AddGoldClawOff.AutoSize = true;
-            this.rad_AddGoldClawOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_AddGoldClawOff.Location = new System.Drawing.Point(6, 19);
             this.rad_AddGoldClawOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_AddGoldClawOff.Name = "rad_AddGoldClawOff";
             this.rad_AddGoldClawOff.Size = new System.Drawing.Size(39, 17);
@@ -3575,7 +3615,7 @@ namespace DW3Randomizer
             // rad_RmFightPenRand
             // 
             this.rad_RmFightPenRand.AutoSize = true;
-            this.rad_RmFightPenRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_RmFightPenRand.Location = new System.Drawing.Point(92, 19);
             this.rad_RmFightPenRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RmFightPenRand.Name = "rad_RmFightPenRand";
             this.rad_RmFightPenRand.Size = new System.Drawing.Size(65, 17);
@@ -3588,7 +3628,7 @@ namespace DW3Randomizer
             // rad_RmFightPenOn
             // 
             this.rad_RmFightPenOn.AutoSize = true;
-            this.rad_RmFightPenOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_RmFightPenOn.Location = new System.Drawing.Point(49, 19);
             this.rad_RmFightPenOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RmFightPenOn.Name = "rad_RmFightPenOn";
             this.rad_RmFightPenOn.Size = new System.Drawing.Size(39, 17);
@@ -3601,7 +3641,7 @@ namespace DW3Randomizer
             // rad_RmFightPenOff
             // 
             this.rad_RmFightPenOff.AutoSize = true;
-            this.rad_RmFightPenOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_RmFightPenOff.Location = new System.Drawing.Point(6, 19);
             this.rad_RmFightPenOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RmFightPenOff.Name = "rad_RmFightPenOff";
             this.rad_RmFightPenOff.Size = new System.Drawing.Size(39, 17);
@@ -3630,7 +3670,7 @@ namespace DW3Randomizer
             // rad_VanEqValRand
             // 
             this.rad_VanEqValRand.AutoSize = true;
-            this.rad_VanEqValRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_VanEqValRand.Location = new System.Drawing.Point(92, 19);
             this.rad_VanEqValRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_VanEqValRand.Name = "rad_VanEqValRand";
             this.rad_VanEqValRand.Size = new System.Drawing.Size(65, 17);
@@ -3643,7 +3683,7 @@ namespace DW3Randomizer
             // rad_VanEqValOn
             // 
             this.rad_VanEqValOn.AutoSize = true;
-            this.rad_VanEqValOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_VanEqValOn.Location = new System.Drawing.Point(49, 19);
             this.rad_VanEqValOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_VanEqValOn.Name = "rad_VanEqValOn";
             this.rad_VanEqValOn.Size = new System.Drawing.Size(39, 17);
@@ -3656,7 +3696,7 @@ namespace DW3Randomizer
             // rad_VanEqValOff
             // 
             this.rad_VanEqValOff.AutoSize = true;
-            this.rad_VanEqValOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_VanEqValOff.Location = new System.Drawing.Point(6, 19);
             this.rad_VanEqValOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_VanEqValOff.Name = "rad_VanEqValOff";
             this.rad_VanEqValOff.Size = new System.Drawing.Size(39, 17);
@@ -3683,7 +3723,7 @@ namespace DW3Randomizer
             // rad_RandClassEqRand
             // 
             this.rad_RandClassEqRand.AutoSize = true;
-            this.rad_RandClassEqRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_RandClassEqRand.Location = new System.Drawing.Point(92, 19);
             this.rad_RandClassEqRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandClassEqRand.Name = "rad_RandClassEqRand";
             this.rad_RandClassEqRand.Size = new System.Drawing.Size(65, 17);
@@ -3696,7 +3736,7 @@ namespace DW3Randomizer
             // rad_RandClassEqOn
             // 
             this.rad_RandClassEqOn.AutoSize = true;
-            this.rad_RandClassEqOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_RandClassEqOn.Location = new System.Drawing.Point(49, 19);
             this.rad_RandClassEqOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandClassEqOn.Name = "rad_RandClassEqOn";
             this.rad_RandClassEqOn.Size = new System.Drawing.Size(39, 17);
@@ -3709,7 +3749,7 @@ namespace DW3Randomizer
             // rad_RandClassEqOff
             // 
             this.rad_RandClassEqOff.AutoSize = true;
-            this.rad_RandClassEqOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_RandClassEqOff.Location = new System.Drawing.Point(6, 19);
             this.rad_RandClassEqOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandClassEqOff.Name = "rad_RandClassEqOff";
             this.rad_RandClassEqOff.Size = new System.Drawing.Size(39, 17);
@@ -3737,7 +3777,7 @@ namespace DW3Randomizer
             // rad_AdjEqPriceRand
             // 
             this.rad_AdjEqPriceRand.AutoSize = true;
-            this.rad_AdjEqPriceRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_AdjEqPriceRand.Location = new System.Drawing.Point(92, 19);
             this.rad_AdjEqPriceRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_AdjEqPriceRand.Name = "rad_AdjEqPriceRand";
             this.rad_AdjEqPriceRand.Size = new System.Drawing.Size(65, 17);
@@ -3750,7 +3790,7 @@ namespace DW3Randomizer
             // rad_AdjEqPriceOn
             // 
             this.rad_AdjEqPriceOn.AutoSize = true;
-            this.rad_AdjEqPriceOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_AdjEqPriceOn.Location = new System.Drawing.Point(49, 19);
             this.rad_AdjEqPriceOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_AdjEqPriceOn.Name = "rad_AdjEqPriceOn";
             this.rad_AdjEqPriceOn.Size = new System.Drawing.Size(39, 17);
@@ -3763,7 +3803,7 @@ namespace DW3Randomizer
             // rad_AdjEqPriceOff
             // 
             this.rad_AdjEqPriceOff.AutoSize = true;
-            this.rad_AdjEqPriceOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_AdjEqPriceOff.Location = new System.Drawing.Point(6, 19);
             this.rad_AdjEqPriceOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_AdjEqPriceOff.Name = "rad_AdjEqPriceOff";
             this.rad_AdjEqPriceOff.Size = new System.Drawing.Size(39, 17);
@@ -3791,7 +3831,7 @@ namespace DW3Randomizer
             // rad_RmRedKeysRand
             // 
             this.rad_RmRedKeysRand.AutoSize = true;
-            this.rad_RmRedKeysRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_RmRedKeysRand.Location = new System.Drawing.Point(92, 19);
             this.rad_RmRedKeysRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RmRedKeysRand.Name = "rad_RmRedKeysRand";
             this.rad_RmRedKeysRand.Size = new System.Drawing.Size(65, 17);
@@ -3804,7 +3844,7 @@ namespace DW3Randomizer
             // rad_RmRedKeysOn
             // 
             this.rad_RmRedKeysOn.AutoSize = true;
-            this.rad_RmRedKeysOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_RmRedKeysOn.Location = new System.Drawing.Point(49, 19);
             this.rad_RmRedKeysOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RmRedKeysOn.Name = "rad_RmRedKeysOn";
             this.rad_RmRedKeysOn.Size = new System.Drawing.Size(39, 17);
@@ -3817,7 +3857,7 @@ namespace DW3Randomizer
             // rad_RmRedKeysOff
             // 
             this.rad_RmRedKeysOff.AutoSize = true;
-            this.rad_RmRedKeysOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_RmRedKeysOff.Location = new System.Drawing.Point(6, 19);
             this.rad_RmRedKeysOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RmRedKeysOff.Name = "rad_RmRedKeysOff";
             this.rad_RmRedKeysOff.Size = new System.Drawing.Size(39, 17);
@@ -3845,7 +3885,7 @@ namespace DW3Randomizer
             // rad_RandEqPwrRand
             // 
             this.rad_RandEqPwrRand.AutoSize = true;
-            this.rad_RandEqPwrRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_RandEqPwrRand.Location = new System.Drawing.Point(92, 19);
             this.rad_RandEqPwrRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandEqPwrRand.Name = "rad_RandEqPwrRand";
             this.rad_RandEqPwrRand.Size = new System.Drawing.Size(65, 17);
@@ -3858,7 +3898,7 @@ namespace DW3Randomizer
             // rad_RandEqPwrOn
             // 
             this.rad_RandEqPwrOn.AutoSize = true;
-            this.rad_RandEqPwrOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_RandEqPwrOn.Location = new System.Drawing.Point(49, 19);
             this.rad_RandEqPwrOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandEqPwrOn.Name = "rad_RandEqPwrOn";
             this.rad_RandEqPwrOn.Size = new System.Drawing.Size(39, 17);
@@ -3871,7 +3911,7 @@ namespace DW3Randomizer
             // rad_RandEqPwrOff
             // 
             this.rad_RandEqPwrOff.AutoSize = true;
-            this.rad_RandEqPwrOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_RandEqPwrOff.Location = new System.Drawing.Point(6, 19);
             this.rad_RandEqPwrOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandEqPwrOff.Name = "rad_RandEqPwrOff";
             this.rad_RandEqPwrOff.Size = new System.Drawing.Size(39, 17);
@@ -3899,7 +3939,7 @@ namespace DW3Randomizer
             // rad_OrbDftRand
             // 
             this.rad_OrbDftRand.AutoSize = true;
-            this.rad_OrbDftRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_OrbDftRand.Location = new System.Drawing.Point(92, 19);
             this.rad_OrbDftRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_OrbDftRand.Name = "rad_OrbDftRand";
             this.rad_OrbDftRand.Size = new System.Drawing.Size(65, 17);
@@ -3912,7 +3952,7 @@ namespace DW3Randomizer
             // rad_OrbDftOn
             // 
             this.rad_OrbDftOn.AutoSize = true;
-            this.rad_OrbDftOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_OrbDftOn.Location = new System.Drawing.Point(49, 19);
             this.rad_OrbDftOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_OrbDftOn.Name = "rad_OrbDftOn";
             this.rad_OrbDftOn.Size = new System.Drawing.Size(39, 17);
@@ -3925,7 +3965,7 @@ namespace DW3Randomizer
             // rad_OrbDftOff
             // 
             this.rad_OrbDftOff.AutoSize = true;
-            this.rad_OrbDftOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_OrbDftOff.Location = new System.Drawing.Point(6, 19);
             this.rad_OrbDftOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_OrbDftOff.Name = "rad_OrbDftOff";
             this.rad_OrbDftOff.Size = new System.Drawing.Size(39, 17);
@@ -3953,7 +3993,7 @@ namespace DW3Randomizer
             // rad_RandTreasRand
             // 
             this.rad_RandTreasRand.AutoSize = true;
-            this.rad_RandTreasRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_RandTreasRand.Location = new System.Drawing.Point(92, 19);
             this.rad_RandTreasRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandTreasRand.Name = "rad_RandTreasRand";
             this.rad_RandTreasRand.Size = new System.Drawing.Size(65, 17);
@@ -3966,7 +4006,7 @@ namespace DW3Randomizer
             // rad_RandTreasOn
             // 
             this.rad_RandTreasOn.AutoSize = true;
-            this.rad_RandTreasOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_RandTreasOn.Location = new System.Drawing.Point(49, 19);
             this.rad_RandTreasOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandTreasOn.Name = "rad_RandTreasOn";
             this.rad_RandTreasOn.Size = new System.Drawing.Size(39, 17);
@@ -3979,7 +4019,7 @@ namespace DW3Randomizer
             // rad_RandTreasOff
             // 
             this.rad_RandTreasOff.AutoSize = true;
-            this.rad_RandTreasOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_RandTreasOff.Location = new System.Drawing.Point(6, 19);
             this.rad_RandTreasOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandTreasOff.Name = "rad_RandTreasOff";
             this.rad_RandTreasOff.Size = new System.Drawing.Size(39, 17);
@@ -3999,7 +4039,7 @@ namespace DW3Randomizer
             this.tabPage6.Controls.Add(this.grp_RandInn);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(675, 422);
+            this.tabPage6.Size = new System.Drawing.Size(678, 422);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "Item & Weapon Shops & Inns";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -4050,7 +4090,7 @@ namespace DW3Randomizer
             // rad_LampOfDarknessRand
             // 
             this.rad_LampOfDarknessRand.AutoSize = true;
-            this.rad_LampOfDarknessRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_LampOfDarknessRand.Location = new System.Drawing.Point(92, 19);
             this.rad_LampOfDarknessRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_LampOfDarknessRand.Name = "rad_LampOfDarknessRand";
             this.rad_LampOfDarknessRand.Size = new System.Drawing.Size(65, 17);
@@ -4063,7 +4103,7 @@ namespace DW3Randomizer
             // rad_LampOfDarknessOn
             // 
             this.rad_LampOfDarknessOn.AutoSize = true;
-            this.rad_LampOfDarknessOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_LampOfDarknessOn.Location = new System.Drawing.Point(49, 19);
             this.rad_LampOfDarknessOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_LampOfDarknessOn.Name = "rad_LampOfDarknessOn";
             this.rad_LampOfDarknessOn.Size = new System.Drawing.Size(39, 17);
@@ -4076,7 +4116,7 @@ namespace DW3Randomizer
             // rad_LampOfDarknessOff
             // 
             this.rad_LampOfDarknessOff.AutoSize = true;
-            this.rad_LampOfDarknessOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_LampOfDarknessOff.Location = new System.Drawing.Point(6, 19);
             this.rad_LampOfDarknessOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_LampOfDarknessOff.Name = "rad_LampOfDarknessOff";
             this.rad_LampOfDarknessOff.Size = new System.Drawing.Size(39, 17);
@@ -4103,7 +4143,7 @@ namespace DW3Randomizer
             // rad_ShoesOfHappinessRand
             // 
             this.rad_ShoesOfHappinessRand.AutoSize = true;
-            this.rad_ShoesOfHappinessRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_ShoesOfHappinessRand.Location = new System.Drawing.Point(92, 19);
             this.rad_ShoesOfHappinessRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_ShoesOfHappinessRand.Name = "rad_ShoesOfHappinessRand";
             this.rad_ShoesOfHappinessRand.Size = new System.Drawing.Size(65, 17);
@@ -4116,7 +4156,7 @@ namespace DW3Randomizer
             // rad_ShoesOfHappinessOn
             // 
             this.rad_ShoesOfHappinessOn.AutoSize = true;
-            this.rad_ShoesOfHappinessOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_ShoesOfHappinessOn.Location = new System.Drawing.Point(49, 19);
             this.rad_ShoesOfHappinessOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_ShoesOfHappinessOn.Name = "rad_ShoesOfHappinessOn";
             this.rad_ShoesOfHappinessOn.Size = new System.Drawing.Size(39, 17);
@@ -4129,7 +4169,7 @@ namespace DW3Randomizer
             // rad_ShoesOfHappinessOff
             // 
             this.rad_ShoesOfHappinessOff.AutoSize = true;
-            this.rad_ShoesOfHappinessOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_ShoesOfHappinessOff.Location = new System.Drawing.Point(6, 19);
             this.rad_ShoesOfHappinessOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_ShoesOfHappinessOff.Name = "rad_ShoesOfHappinessOff";
             this.rad_ShoesOfHappinessOff.Size = new System.Drawing.Size(39, 17);
@@ -4156,7 +4196,7 @@ namespace DW3Randomizer
             // rad_RingOfLifeRand
             // 
             this.rad_RingOfLifeRand.AutoSize = true;
-            this.rad_RingOfLifeRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_RingOfLifeRand.Location = new System.Drawing.Point(92, 19);
             this.rad_RingOfLifeRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RingOfLifeRand.Name = "rad_RingOfLifeRand";
             this.rad_RingOfLifeRand.Size = new System.Drawing.Size(65, 17);
@@ -4169,7 +4209,7 @@ namespace DW3Randomizer
             // rad_RingOfLifeOn
             // 
             this.rad_RingOfLifeOn.AutoSize = true;
-            this.rad_RingOfLifeOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_RingOfLifeOn.Location = new System.Drawing.Point(49, 19);
             this.rad_RingOfLifeOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RingOfLifeOn.Name = "rad_RingOfLifeOn";
             this.rad_RingOfLifeOn.Size = new System.Drawing.Size(39, 17);
@@ -4182,7 +4222,7 @@ namespace DW3Randomizer
             // rad_RingOfLifeOff
             // 
             this.rad_RingOfLifeOff.AutoSize = true;
-            this.rad_RingOfLifeOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_RingOfLifeOff.Location = new System.Drawing.Point(6, 19);
             this.rad_RingOfLifeOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RingOfLifeOff.Name = "rad_RingOfLifeOff";
             this.rad_RingOfLifeOff.Size = new System.Drawing.Size(39, 17);
@@ -4209,7 +4249,7 @@ namespace DW3Randomizer
             // rad_SilverHarpRand
             // 
             this.rad_SilverHarpRand.AutoSize = true;
-            this.rad_SilverHarpRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_SilverHarpRand.Location = new System.Drawing.Point(93, 19);
             this.rad_SilverHarpRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_SilverHarpRand.Name = "rad_SilverHarpRand";
             this.rad_SilverHarpRand.Size = new System.Drawing.Size(65, 17);
@@ -4222,7 +4262,7 @@ namespace DW3Randomizer
             // rad_SilverHarpOn
             // 
             this.rad_SilverHarpOn.AutoSize = true;
-            this.rad_SilverHarpOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_SilverHarpOn.Location = new System.Drawing.Point(50, 19);
             this.rad_SilverHarpOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_SilverHarpOn.Name = "rad_SilverHarpOn";
             this.rad_SilverHarpOn.Size = new System.Drawing.Size(39, 17);
@@ -4235,7 +4275,7 @@ namespace DW3Randomizer
             // rad_SilverHarpOff
             // 
             this.rad_SilverHarpOff.AutoSize = true;
-            this.rad_SilverHarpOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_SilverHarpOff.Location = new System.Drawing.Point(6, 19);
             this.rad_SilverHarpOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_SilverHarpOff.Name = "rad_SilverHarpOff";
             this.rad_SilverHarpOff.Size = new System.Drawing.Size(39, 17);
@@ -4262,7 +4302,7 @@ namespace DW3Randomizer
             // rad_EchoingFluteRand
             // 
             this.rad_EchoingFluteRand.AutoSize = true;
-            this.rad_EchoingFluteRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_EchoingFluteRand.Location = new System.Drawing.Point(92, 19);
             this.rad_EchoingFluteRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_EchoingFluteRand.Name = "rad_EchoingFluteRand";
             this.rad_EchoingFluteRand.Size = new System.Drawing.Size(65, 17);
@@ -4275,7 +4315,7 @@ namespace DW3Randomizer
             // rad_EchoingFluteOn
             // 
             this.rad_EchoingFluteOn.AutoSize = true;
-            this.rad_EchoingFluteOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_EchoingFluteOn.Location = new System.Drawing.Point(49, 19);
             this.rad_EchoingFluteOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_EchoingFluteOn.Name = "rad_EchoingFluteOn";
             this.rad_EchoingFluteOn.Size = new System.Drawing.Size(39, 17);
@@ -4288,7 +4328,7 @@ namespace DW3Randomizer
             // rad_EchoingFluteOff
             // 
             this.rad_EchoingFluteOff.AutoSize = true;
-            this.rad_EchoingFluteOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_EchoingFluteOff.Location = new System.Drawing.Point(6, 19);
             this.rad_EchoingFluteOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_EchoingFluteOff.Name = "rad_EchoingFluteOff";
             this.rad_EchoingFluteOff.Size = new System.Drawing.Size(39, 17);
@@ -4315,7 +4355,7 @@ namespace DW3Randomizer
             // rad_WizardRingRand
             // 
             this.rad_WizardRingRand.AutoSize = true;
-            this.rad_WizardRingRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_WizardRingRand.Location = new System.Drawing.Point(92, 19);
             this.rad_WizardRingRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_WizardRingRand.Name = "rad_WizardRingRand";
             this.rad_WizardRingRand.Size = new System.Drawing.Size(65, 17);
@@ -4328,7 +4368,7 @@ namespace DW3Randomizer
             // rad_WizardRingOn
             // 
             this.rad_WizardRingOn.AutoSize = true;
-            this.rad_WizardRingOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_WizardRingOn.Location = new System.Drawing.Point(49, 19);
             this.rad_WizardRingOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_WizardRingOn.Name = "rad_WizardRingOn";
             this.rad_WizardRingOn.Size = new System.Drawing.Size(39, 17);
@@ -4341,7 +4381,7 @@ namespace DW3Randomizer
             // rad_WizardRingOff
             // 
             this.rad_WizardRingOff.AutoSize = true;
-            this.rad_WizardRingOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_WizardRingOff.Location = new System.Drawing.Point(6, 19);
             this.rad_WizardRingOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_WizardRingOff.Name = "rad_WizardRingOff";
             this.rad_WizardRingOff.Size = new System.Drawing.Size(39, 17);
@@ -4368,7 +4408,7 @@ namespace DW3Randomizer
             // rad_MetoriteArmbandRand
             // 
             this.rad_MetoriteArmbandRand.AutoSize = true;
-            this.rad_MetoriteArmbandRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_MetoriteArmbandRand.Location = new System.Drawing.Point(92, 19);
             this.rad_MetoriteArmbandRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_MetoriteArmbandRand.Name = "rad_MetoriteArmbandRand";
             this.rad_MetoriteArmbandRand.Size = new System.Drawing.Size(65, 17);
@@ -4381,7 +4421,7 @@ namespace DW3Randomizer
             // rad_MetoriteArmbandOn
             // 
             this.rad_MetoriteArmbandOn.AutoSize = true;
-            this.rad_MetoriteArmbandOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_MetoriteArmbandOn.Location = new System.Drawing.Point(49, 19);
             this.rad_MetoriteArmbandOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_MetoriteArmbandOn.Name = "rad_MetoriteArmbandOn";
             this.rad_MetoriteArmbandOn.Size = new System.Drawing.Size(39, 17);
@@ -4394,7 +4434,7 @@ namespace DW3Randomizer
             // rad_MetoriteArmbandOff
             // 
             this.rad_MetoriteArmbandOff.AutoSize = true;
-            this.rad_MetoriteArmbandOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_MetoriteArmbandOff.Location = new System.Drawing.Point(6, 19);
             this.rad_MetoriteArmbandOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_MetoriteArmbandOff.Name = "rad_MetoriteArmbandOff";
             this.rad_MetoriteArmbandOff.Size = new System.Drawing.Size(39, 17);
@@ -4421,7 +4461,7 @@ namespace DW3Randomizer
             // rad_SatoriRand
             // 
             this.rad_SatoriRand.AutoSize = true;
-            this.rad_SatoriRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_SatoriRand.Location = new System.Drawing.Point(92, 19);
             this.rad_SatoriRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_SatoriRand.Name = "rad_SatoriRand";
             this.rad_SatoriRand.Size = new System.Drawing.Size(65, 17);
@@ -4434,7 +4474,7 @@ namespace DW3Randomizer
             // rad_SatoriOn
             // 
             this.rad_SatoriOn.AutoSize = true;
-            this.rad_SatoriOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_SatoriOn.Location = new System.Drawing.Point(49, 19);
             this.rad_SatoriOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_SatoriOn.Name = "rad_SatoriOn";
             this.rad_SatoriOn.Size = new System.Drawing.Size(39, 17);
@@ -4447,7 +4487,7 @@ namespace DW3Randomizer
             // rad_SatoriOff
             // 
             this.rad_SatoriOff.AutoSize = true;
-            this.rad_SatoriOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_SatoriOff.Location = new System.Drawing.Point(6, 19);
             this.rad_SatoriOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_SatoriOff.Name = "rad_SatoriOff";
             this.rad_SatoriOff.Size = new System.Drawing.Size(39, 17);
@@ -4474,7 +4514,7 @@ namespace DW3Randomizer
             // rad_StoneOfLifeRand
             // 
             this.rad_StoneOfLifeRand.AutoSize = true;
-            this.rad_StoneOfLifeRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_StoneOfLifeRand.Location = new System.Drawing.Point(92, 19);
             this.rad_StoneOfLifeRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_StoneOfLifeRand.Name = "rad_StoneOfLifeRand";
             this.rad_StoneOfLifeRand.Size = new System.Drawing.Size(65, 17);
@@ -4487,7 +4527,7 @@ namespace DW3Randomizer
             // rad_StoneOfLifeOn
             // 
             this.rad_StoneOfLifeOn.AutoSize = true;
-            this.rad_StoneOfLifeOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_StoneOfLifeOn.Location = new System.Drawing.Point(49, 19);
             this.rad_StoneOfLifeOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_StoneOfLifeOn.Name = "rad_StoneOfLifeOn";
             this.rad_StoneOfLifeOn.Size = new System.Drawing.Size(39, 17);
@@ -4500,7 +4540,7 @@ namespace DW3Randomizer
             // rad_StoneOfLifeOff
             // 
             this.rad_StoneOfLifeOff.AutoSize = true;
-            this.rad_StoneOfLifeOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_StoneOfLifeOff.Location = new System.Drawing.Point(6, 19);
             this.rad_StoneOfLifeOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_StoneOfLifeOff.Name = "rad_StoneOfLifeOff";
             this.rad_StoneOfLifeOff.Size = new System.Drawing.Size(39, 17);
@@ -4527,7 +4567,7 @@ namespace DW3Randomizer
             // rad_PoisonMothRand
             // 
             this.rad_PoisonMothRand.AutoSize = true;
-            this.rad_PoisonMothRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_PoisonMothRand.Location = new System.Drawing.Point(92, 19);
             this.rad_PoisonMothRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_PoisonMothRand.Name = "rad_PoisonMothRand";
             this.rad_PoisonMothRand.Size = new System.Drawing.Size(65, 17);
@@ -4540,7 +4580,7 @@ namespace DW3Randomizer
             // rad_PoisonMothOn
             // 
             this.rad_PoisonMothOn.AutoSize = true;
-            this.rad_PoisonMothOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_PoisonMothOn.Location = new System.Drawing.Point(49, 19);
             this.rad_PoisonMothOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_PoisonMothOn.Name = "rad_PoisonMothOn";
             this.rad_PoisonMothOn.Size = new System.Drawing.Size(39, 17);
@@ -4553,7 +4593,7 @@ namespace DW3Randomizer
             // rad_PoisonMothOff
             // 
             this.rad_PoisonMothOff.AutoSize = true;
-            this.rad_PoisonMothOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_PoisonMothOff.Location = new System.Drawing.Point(6, 19);
             this.rad_PoisonMothOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_PoisonMothOff.Name = "rad_PoisonMothOff";
             this.rad_PoisonMothOff.Size = new System.Drawing.Size(39, 17);
@@ -4580,7 +4620,7 @@ namespace DW3Randomizer
             // rad_LucSeedRand
             // 
             this.rad_LucSeedRand.AutoSize = true;
-            this.rad_LucSeedRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_LucSeedRand.Location = new System.Drawing.Point(92, 19);
             this.rad_LucSeedRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_LucSeedRand.Name = "rad_LucSeedRand";
             this.rad_LucSeedRand.Size = new System.Drawing.Size(65, 17);
@@ -4593,7 +4633,7 @@ namespace DW3Randomizer
             // rad_LucSeedOn
             // 
             this.rad_LucSeedOn.AutoSize = true;
-            this.rad_LucSeedOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_LucSeedOn.Location = new System.Drawing.Point(49, 19);
             this.rad_LucSeedOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_LucSeedOn.Name = "rad_LucSeedOn";
             this.rad_LucSeedOn.Size = new System.Drawing.Size(39, 17);
@@ -4606,7 +4646,7 @@ namespace DW3Randomizer
             // rad_LucSeedOff
             // 
             this.rad_LucSeedOff.AutoSize = true;
-            this.rad_LucSeedOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_LucSeedOff.Location = new System.Drawing.Point(6, 19);
             this.rad_LucSeedOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_LucSeedOff.Name = "rad_LucSeedOff";
             this.rad_LucSeedOff.Size = new System.Drawing.Size(39, 17);
@@ -4633,7 +4673,7 @@ namespace DW3Randomizer
             // rad_VitSeedRand
             // 
             this.rad_VitSeedRand.AutoSize = true;
-            this.rad_VitSeedRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_VitSeedRand.Location = new System.Drawing.Point(92, 19);
             this.rad_VitSeedRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_VitSeedRand.Name = "rad_VitSeedRand";
             this.rad_VitSeedRand.Size = new System.Drawing.Size(65, 17);
@@ -4646,7 +4686,7 @@ namespace DW3Randomizer
             // rad_VitSeedOn
             // 
             this.rad_VitSeedOn.AutoSize = true;
-            this.rad_VitSeedOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_VitSeedOn.Location = new System.Drawing.Point(49, 19);
             this.rad_VitSeedOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_VitSeedOn.Name = "rad_VitSeedOn";
             this.rad_VitSeedOn.Size = new System.Drawing.Size(39, 17);
@@ -4659,7 +4699,7 @@ namespace DW3Randomizer
             // rad_VitSeedOff
             // 
             this.rad_VitSeedOff.AutoSize = true;
-            this.rad_VitSeedOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_VitSeedOff.Location = new System.Drawing.Point(6, 19);
             this.rad_VitSeedOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_VitSeedOff.Name = "rad_VitSeedOff";
             this.rad_VitSeedOff.Size = new System.Drawing.Size(39, 17);
@@ -4686,7 +4726,7 @@ namespace DW3Randomizer
             // rad_WorldTreeRand
             // 
             this.rad_WorldTreeRand.AutoSize = true;
-            this.rad_WorldTreeRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_WorldTreeRand.Location = new System.Drawing.Point(92, 19);
             this.rad_WorldTreeRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_WorldTreeRand.Name = "rad_WorldTreeRand";
             this.rad_WorldTreeRand.Size = new System.Drawing.Size(65, 17);
@@ -4699,7 +4739,7 @@ namespace DW3Randomizer
             // rad_WorldTreeOn
             // 
             this.rad_WorldTreeOn.AutoSize = true;
-            this.rad_WorldTreeOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_WorldTreeOn.Location = new System.Drawing.Point(49, 19);
             this.rad_WorldTreeOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_WorldTreeOn.Name = "rad_WorldTreeOn";
             this.rad_WorldTreeOn.Size = new System.Drawing.Size(39, 17);
@@ -4712,7 +4752,7 @@ namespace DW3Randomizer
             // rad_WorldTreeOff
             // 
             this.rad_WorldTreeOff.AutoSize = true;
-            this.rad_WorldTreeOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_WorldTreeOff.Location = new System.Drawing.Point(6, 19);
             this.rad_WorldTreeOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_WorldTreeOff.Name = "rad_WorldTreeOff";
             this.rad_WorldTreeOff.Size = new System.Drawing.Size(39, 17);
@@ -4739,7 +4779,7 @@ namespace DW3Randomizer
             // rad_IntSeedRand
             // 
             this.rad_IntSeedRand.AutoSize = true;
-            this.rad_IntSeedRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_IntSeedRand.Location = new System.Drawing.Point(92, 19);
             this.rad_IntSeedRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_IntSeedRand.Name = "rad_IntSeedRand";
             this.rad_IntSeedRand.Size = new System.Drawing.Size(65, 17);
@@ -4752,7 +4792,7 @@ namespace DW3Randomizer
             // rad_IntSeedOn
             // 
             this.rad_IntSeedOn.AutoSize = true;
-            this.rad_IntSeedOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_IntSeedOn.Location = new System.Drawing.Point(49, 19);
             this.rad_IntSeedOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_IntSeedOn.Name = "rad_IntSeedOn";
             this.rad_IntSeedOn.Size = new System.Drawing.Size(39, 17);
@@ -4765,7 +4805,7 @@ namespace DW3Randomizer
             // rad_IntSeedOff
             // 
             this.rad_IntSeedOff.AutoSize = true;
-            this.rad_IntSeedOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_IntSeedOff.Location = new System.Drawing.Point(6, 19);
             this.rad_IntSeedOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_IntSeedOff.Name = "rad_IntSeedOff";
             this.rad_IntSeedOff.Size = new System.Drawing.Size(39, 17);
@@ -4792,7 +4832,7 @@ namespace DW3Randomizer
             // rad_AgiSeedRand
             // 
             this.rad_AgiSeedRand.AutoSize = true;
-            this.rad_AgiSeedRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_AgiSeedRand.Location = new System.Drawing.Point(92, 19);
             this.rad_AgiSeedRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_AgiSeedRand.Name = "rad_AgiSeedRand";
             this.rad_AgiSeedRand.Size = new System.Drawing.Size(65, 17);
@@ -4805,7 +4845,7 @@ namespace DW3Randomizer
             // rad_AgiSeedOn
             // 
             this.rad_AgiSeedOn.AutoSize = true;
-            this.rad_AgiSeedOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_AgiSeedOn.Location = new System.Drawing.Point(49, 19);
             this.rad_AgiSeedOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_AgiSeedOn.Name = "rad_AgiSeedOn";
             this.rad_AgiSeedOn.Size = new System.Drawing.Size(39, 17);
@@ -4818,7 +4858,7 @@ namespace DW3Randomizer
             // rad_AgiSeedOff
             // 
             this.rad_AgiSeedOff.AutoSize = true;
-            this.rad_AgiSeedOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_AgiSeedOff.Location = new System.Drawing.Point(6, 19);
             this.rad_AgiSeedOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_AgiSeedOff.Name = "rad_AgiSeedOff";
             this.rad_AgiSeedOff.Size = new System.Drawing.Size(39, 17);
@@ -4845,7 +4885,7 @@ namespace DW3Randomizer
             // rad_StrSeedRand
             // 
             this.rad_StrSeedRand.AutoSize = true;
-            this.rad_StrSeedRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_StrSeedRand.Location = new System.Drawing.Point(92, 19);
             this.rad_StrSeedRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_StrSeedRand.Name = "rad_StrSeedRand";
             this.rad_StrSeedRand.Size = new System.Drawing.Size(65, 17);
@@ -4858,7 +4898,7 @@ namespace DW3Randomizer
             // rad_StrSeedOn
             // 
             this.rad_StrSeedOn.AutoSize = true;
-            this.rad_StrSeedOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_StrSeedOn.Location = new System.Drawing.Point(49, 19);
             this.rad_StrSeedOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_StrSeedOn.Name = "rad_StrSeedOn";
             this.rad_StrSeedOn.Size = new System.Drawing.Size(39, 17);
@@ -4871,7 +4911,7 @@ namespace DW3Randomizer
             // rad_StrSeedOff
             // 
             this.rad_StrSeedOff.AutoSize = true;
-            this.rad_StrSeedOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_StrSeedOff.Location = new System.Drawing.Point(6, 19);
             this.rad_StrSeedOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_StrSeedOff.Name = "rad_StrSeedOff";
             this.rad_StrSeedOff.Size = new System.Drawing.Size(39, 17);
@@ -4898,7 +4938,7 @@ namespace DW3Randomizer
             // rad_AcornsRand
             // 
             this.rad_AcornsRand.AutoSize = true;
-            this.rad_AcornsRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_AcornsRand.Location = new System.Drawing.Point(92, 19);
             this.rad_AcornsRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_AcornsRand.Name = "rad_AcornsRand";
             this.rad_AcornsRand.Size = new System.Drawing.Size(65, 17);
@@ -4911,7 +4951,7 @@ namespace DW3Randomizer
             // rad_AcornsOn
             // 
             this.rad_AcornsOn.AutoSize = true;
-            this.rad_AcornsOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_AcornsOn.Location = new System.Drawing.Point(49, 19);
             this.rad_AcornsOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_AcornsOn.Name = "rad_AcornsOn";
             this.rad_AcornsOn.Size = new System.Drawing.Size(39, 17);
@@ -4924,7 +4964,7 @@ namespace DW3Randomizer
             // rad_AcornsOff
             // 
             this.rad_AcornsOff.AutoSize = true;
-            this.rad_AcornsOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_AcornsOff.Location = new System.Drawing.Point(6, 19);
             this.rad_AcornsOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_AcornsOff.Name = "rad_AcornsOff";
             this.rad_AcornsOff.Size = new System.Drawing.Size(39, 17);
@@ -4952,7 +4992,7 @@ namespace DW3Randomizer
             // rad_CaturdayRand
             // 
             this.rad_CaturdayRand.AutoSize = true;
-            this.rad_CaturdayRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_CaturdayRand.Location = new System.Drawing.Point(92, 19);
             this.rad_CaturdayRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_CaturdayRand.Name = "rad_CaturdayRand";
             this.rad_CaturdayRand.Size = new System.Drawing.Size(65, 17);
@@ -4965,7 +5005,7 @@ namespace DW3Randomizer
             // rad_CaturdayOn
             // 
             this.rad_CaturdayOn.AutoSize = true;
-            this.rad_CaturdayOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_CaturdayOn.Location = new System.Drawing.Point(49, 19);
             this.rad_CaturdayOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_CaturdayOn.Name = "rad_CaturdayOn";
             this.rad_CaturdayOn.Size = new System.Drawing.Size(39, 17);
@@ -4978,7 +5018,7 @@ namespace DW3Randomizer
             // rad_CaturdayOff
             // 
             this.rad_CaturdayOff.AutoSize = true;
-            this.rad_CaturdayOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_CaturdayOff.Location = new System.Drawing.Point(6, 19);
             this.rad_CaturdayOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_CaturdayOff.Name = "rad_CaturdayOff";
             this.rad_CaturdayOff.Size = new System.Drawing.Size(39, 17);
@@ -5006,7 +5046,7 @@ namespace DW3Randomizer
             // rad_SellUnsellableRand
             // 
             this.rad_SellUnsellableRand.AutoSize = true;
-            this.rad_SellUnsellableRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_SellUnsellableRand.Location = new System.Drawing.Point(92, 19);
             this.rad_SellUnsellableRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_SellUnsellableRand.Name = "rad_SellUnsellableRand";
             this.rad_SellUnsellableRand.Size = new System.Drawing.Size(65, 17);
@@ -5019,7 +5059,7 @@ namespace DW3Randomizer
             // rad_SellUnsellableOn
             // 
             this.rad_SellUnsellableOn.AutoSize = true;
-            this.rad_SellUnsellableOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_SellUnsellableOn.Location = new System.Drawing.Point(49, 19);
             this.rad_SellUnsellableOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_SellUnsellableOn.Name = "rad_SellUnsellableOn";
             this.rad_SellUnsellableOn.Size = new System.Drawing.Size(39, 17);
@@ -5032,7 +5072,7 @@ namespace DW3Randomizer
             // rad_SellUnsellableOff
             // 
             this.rad_SellUnsellableOff.AutoSize = true;
-            this.rad_SellUnsellableOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_SellUnsellableOff.Location = new System.Drawing.Point(6, 19);
             this.rad_SellUnsellableOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_SellUnsellableOff.Name = "rad_SellUnsellableOff";
             this.rad_SellUnsellableOff.Size = new System.Drawing.Size(39, 17);
@@ -5060,7 +5100,7 @@ namespace DW3Randomizer
             // rad_RandItemShopRand
             // 
             this.rad_RandItemShopRand.AutoSize = true;
-            this.rad_RandItemShopRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_RandItemShopRand.Location = new System.Drawing.Point(92, 19);
             this.rad_RandItemShopRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandItemShopRand.Name = "rad_RandItemShopRand";
             this.rad_RandItemShopRand.Size = new System.Drawing.Size(65, 17);
@@ -5073,7 +5113,7 @@ namespace DW3Randomizer
             // rad_RandItemShopOn
             // 
             this.rad_RandItemShopOn.AutoSize = true;
-            this.rad_RandItemShopOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_RandItemShopOn.Location = new System.Drawing.Point(49, 19);
             this.rad_RandItemShopOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandItemShopOn.Name = "rad_RandItemShopOn";
             this.rad_RandItemShopOn.Size = new System.Drawing.Size(39, 17);
@@ -5086,7 +5126,7 @@ namespace DW3Randomizer
             // rad_RandItemShopOff
             // 
             this.rad_RandItemShopOff.AutoSize = true;
-            this.rad_RandItemShopOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_RandItemShopOff.Location = new System.Drawing.Point(6, 19);
             this.rad_RandItemShopOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandItemShopOff.Name = "rad_RandItemShopOff";
             this.rad_RandItemShopOff.Size = new System.Drawing.Size(39, 17);
@@ -5114,7 +5154,7 @@ namespace DW3Randomizer
             // rad_RandWeapShopRand
             // 
             this.rad_RandWeapShopRand.AutoSize = true;
-            this.rad_RandWeapShopRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_RandWeapShopRand.Location = new System.Drawing.Point(92, 19);
             this.rad_RandWeapShopRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandWeapShopRand.Name = "rad_RandWeapShopRand";
             this.rad_RandWeapShopRand.Size = new System.Drawing.Size(65, 17);
@@ -5127,7 +5167,7 @@ namespace DW3Randomizer
             // rad_RandWeapShopOn
             // 
             this.rad_RandWeapShopOn.AutoSize = true;
-            this.rad_RandWeapShopOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_RandWeapShopOn.Location = new System.Drawing.Point(49, 19);
             this.rad_RandWeapShopOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandWeapShopOn.Name = "rad_RandWeapShopOn";
             this.rad_RandWeapShopOn.Size = new System.Drawing.Size(39, 17);
@@ -5140,7 +5180,7 @@ namespace DW3Randomizer
             // rad_RandWeapShopOff
             // 
             this.rad_RandWeapShopOff.AutoSize = true;
-            this.rad_RandWeapShopOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_RandWeapShopOff.Location = new System.Drawing.Point(6, 19);
             this.rad_RandWeapShopOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandWeapShopOff.Name = "rad_RandWeapShopOff";
             this.rad_RandWeapShopOff.Size = new System.Drawing.Size(39, 17);
@@ -5168,7 +5208,7 @@ namespace DW3Randomizer
             // rad_RandInnRand
             // 
             this.rad_RandInnRand.AutoSize = true;
-            this.rad_RandInnRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_RandInnRand.Location = new System.Drawing.Point(92, 19);
             this.rad_RandInnRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandInnRand.Name = "rad_RandInnRand";
             this.rad_RandInnRand.Size = new System.Drawing.Size(65, 17);
@@ -5181,7 +5221,7 @@ namespace DW3Randomizer
             // rad_RandInnOn
             // 
             this.rad_RandInnOn.AutoSize = true;
-            this.rad_RandInnOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_RandInnOn.Location = new System.Drawing.Point(49, 19);
             this.rad_RandInnOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandInnOn.Name = "rad_RandInnOn";
             this.rad_RandInnOn.Size = new System.Drawing.Size(39, 17);
@@ -5194,7 +5234,7 @@ namespace DW3Randomizer
             // rad_RandInnOff
             // 
             this.rad_RandInnOff.AutoSize = true;
-            this.rad_RandInnOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_RandInnOff.Location = new System.Drawing.Point(6, 19);
             this.rad_RandInnOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RandInnOff.Name = "rad_RandInnOff";
             this.rad_RandInnOff.Size = new System.Drawing.Size(39, 17);
@@ -5212,7 +5252,7 @@ namespace DW3Randomizer
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(675, 422);
+            this.tabPage3.Size = new System.Drawing.Size(678, 422);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Tavern Members";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -5356,34 +5396,37 @@ namespace DW3Randomizer
             // rad_Class3Rand
             // 
             this.rad_Class3Rand.AutoSize = true;
-            this.rad_Class3Rand.Location = new System.Drawing.Point(120, 20);
+            this.rad_Class3Rand.Location = new System.Drawing.Point(117, 19);
             this.rad_Class3Rand.Name = "rad_Class3Rand";
             this.rad_Class3Rand.Size = new System.Drawing.Size(65, 17);
             this.rad_Class3Rand.TabIndex = 2;
             this.rad_Class3Rand.Text = "Random";
             this.rad_Class3Rand.UseVisualStyleBackColor = true;
+            this.rad_Class3Rand.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // rad_Class3Manual
             // 
             this.rad_Class3Manual.AutoSize = true;
-            this.rad_Class3Manual.Location = new System.Drawing.Point(53, 20);
+            this.rad_Class3Manual.Location = new System.Drawing.Point(51, 19);
             this.rad_Class3Manual.Name = "rad_Class3Manual";
             this.rad_Class3Manual.Size = new System.Drawing.Size(60, 17);
             this.rad_Class3Manual.TabIndex = 1;
             this.rad_Class3Manual.Text = "Manual";
             this.rad_Class3Manual.UseVisualStyleBackColor = true;
+            this.rad_Class3Manual.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // rad_Class3Off
             // 
             this.rad_Class3Off.AutoSize = true;
             this.rad_Class3Off.Checked = true;
-            this.rad_Class3Off.Location = new System.Drawing.Point(7, 20);
+            this.rad_Class3Off.Location = new System.Drawing.Point(6, 19);
             this.rad_Class3Off.Name = "rad_Class3Off";
             this.rad_Class3Off.Size = new System.Drawing.Size(39, 17);
             this.rad_Class3Off.TabIndex = 0;
             this.rad_Class3Off.TabStop = true;
             this.rad_Class3Off.Text = "Off";
             this.rad_Class3Off.UseVisualStyleBackColor = true;
+            this.rad_Class3Off.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // cbo_Class3
             // 
@@ -5420,34 +5463,37 @@ namespace DW3Randomizer
             // rad_Class2Rand
             // 
             this.rad_Class2Rand.AutoSize = true;
-            this.rad_Class2Rand.Location = new System.Drawing.Point(120, 20);
+            this.rad_Class2Rand.Location = new System.Drawing.Point(117, 19);
             this.rad_Class2Rand.Name = "rad_Class2Rand";
             this.rad_Class2Rand.Size = new System.Drawing.Size(65, 17);
             this.rad_Class2Rand.TabIndex = 2;
             this.rad_Class2Rand.Text = "Random";
             this.rad_Class2Rand.UseVisualStyleBackColor = true;
+            this.rad_Class2Rand.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // rad_Class2Manual
             // 
             this.rad_Class2Manual.AutoSize = true;
-            this.rad_Class2Manual.Location = new System.Drawing.Point(53, 20);
+            this.rad_Class2Manual.Location = new System.Drawing.Point(51, 19);
             this.rad_Class2Manual.Name = "rad_Class2Manual";
             this.rad_Class2Manual.Size = new System.Drawing.Size(60, 17);
             this.rad_Class2Manual.TabIndex = 1;
             this.rad_Class2Manual.Text = "Manual";
             this.rad_Class2Manual.UseVisualStyleBackColor = true;
+            this.rad_Class2Manual.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // rad_Class2Off
             // 
             this.rad_Class2Off.AutoSize = true;
             this.rad_Class2Off.Checked = true;
-            this.rad_Class2Off.Location = new System.Drawing.Point(7, 20);
+            this.rad_Class2Off.Location = new System.Drawing.Point(6, 19);
             this.rad_Class2Off.Name = "rad_Class2Off";
             this.rad_Class2Off.Size = new System.Drawing.Size(39, 17);
             this.rad_Class2Off.TabIndex = 0;
             this.rad_Class2Off.TabStop = true;
             this.rad_Class2Off.Text = "Off";
             this.rad_Class2Off.UseVisualStyleBackColor = true;
+            this.rad_Class2Off.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // cbo_Class2
             // 
@@ -5484,34 +5530,37 @@ namespace DW3Randomizer
             // rad_Class1Rand
             // 
             this.rad_Class1Rand.AutoSize = true;
-            this.rad_Class1Rand.Location = new System.Drawing.Point(120, 20);
+            this.rad_Class1Rand.Location = new System.Drawing.Point(117, 19);
             this.rad_Class1Rand.Name = "rad_Class1Rand";
             this.rad_Class1Rand.Size = new System.Drawing.Size(65, 17);
             this.rad_Class1Rand.TabIndex = 2;
             this.rad_Class1Rand.Text = "Random";
             this.rad_Class1Rand.UseVisualStyleBackColor = true;
+            this.rad_Class1Rand.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // rad_Class1Manual
             // 
             this.rad_Class1Manual.AutoSize = true;
-            this.rad_Class1Manual.Location = new System.Drawing.Point(53, 20);
+            this.rad_Class1Manual.Location = new System.Drawing.Point(51, 19);
             this.rad_Class1Manual.Name = "rad_Class1Manual";
             this.rad_Class1Manual.Size = new System.Drawing.Size(60, 17);
             this.rad_Class1Manual.TabIndex = 1;
             this.rad_Class1Manual.Text = "Manual";
             this.rad_Class1Manual.UseVisualStyleBackColor = true;
+            this.rad_Class1Manual.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // rad_Class1Off
             // 
             this.rad_Class1Off.AutoSize = true;
             this.rad_Class1Off.Checked = true;
-            this.rad_Class1Off.Location = new System.Drawing.Point(7, 20);
+            this.rad_Class1Off.Location = new System.Drawing.Point(6, 19);
             this.rad_Class1Off.Name = "rad_Class1Off";
             this.rad_Class1Off.Size = new System.Drawing.Size(39, 17);
             this.rad_Class1Off.TabIndex = 0;
             this.rad_Class1Off.TabStop = true;
             this.rad_Class1Off.Text = "Off";
             this.rad_Class1Off.UseVisualStyleBackColor = true;
+            this.rad_Class1Off.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // cbo_Class1
             // 
@@ -5560,34 +5609,37 @@ namespace DW3Randomizer
             // rad_Gender3Rand
             // 
             this.rad_Gender3Rand.AutoSize = true;
-            this.rad_Gender3Rand.Location = new System.Drawing.Point(120, 20);
+            this.rad_Gender3Rand.Location = new System.Drawing.Point(117, 19);
             this.rad_Gender3Rand.Name = "rad_Gender3Rand";
             this.rad_Gender3Rand.Size = new System.Drawing.Size(65, 17);
             this.rad_Gender3Rand.TabIndex = 2;
             this.rad_Gender3Rand.Text = "Random";
             this.rad_Gender3Rand.UseVisualStyleBackColor = true;
+            this.rad_Gender3Rand.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // rad_Gender3Manual
             // 
             this.rad_Gender3Manual.AutoSize = true;
-            this.rad_Gender3Manual.Location = new System.Drawing.Point(53, 20);
+            this.rad_Gender3Manual.Location = new System.Drawing.Point(51, 19);
             this.rad_Gender3Manual.Name = "rad_Gender3Manual";
             this.rad_Gender3Manual.Size = new System.Drawing.Size(60, 17);
             this.rad_Gender3Manual.TabIndex = 1;
             this.rad_Gender3Manual.Text = "Manual";
             this.rad_Gender3Manual.UseVisualStyleBackColor = true;
+            this.rad_Gender3Manual.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // rad_Gender3Off
             // 
             this.rad_Gender3Off.AutoSize = true;
             this.rad_Gender3Off.Checked = true;
-            this.rad_Gender3Off.Location = new System.Drawing.Point(7, 20);
+            this.rad_Gender3Off.Location = new System.Drawing.Point(6, 19);
             this.rad_Gender3Off.Name = "rad_Gender3Off";
             this.rad_Gender3Off.Size = new System.Drawing.Size(39, 17);
             this.rad_Gender3Off.TabIndex = 0;
             this.rad_Gender3Off.TabStop = true;
             this.rad_Gender3Off.Text = "Off";
             this.rad_Gender3Off.UseVisualStyleBackColor = true;
+            this.rad_Gender3Off.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // cbo_Gender3
             // 
@@ -5617,34 +5669,37 @@ namespace DW3Randomizer
             // rad_Gender2Rand
             // 
             this.rad_Gender2Rand.AutoSize = true;
-            this.rad_Gender2Rand.Location = new System.Drawing.Point(120, 20);
+            this.rad_Gender2Rand.Location = new System.Drawing.Point(117, 19);
             this.rad_Gender2Rand.Name = "rad_Gender2Rand";
             this.rad_Gender2Rand.Size = new System.Drawing.Size(65, 17);
             this.rad_Gender2Rand.TabIndex = 2;
             this.rad_Gender2Rand.Text = "Random";
             this.rad_Gender2Rand.UseVisualStyleBackColor = true;
+            this.rad_Gender2Rand.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // rad_Gender2Manual
             // 
             this.rad_Gender2Manual.AutoSize = true;
-            this.rad_Gender2Manual.Location = new System.Drawing.Point(53, 20);
+            this.rad_Gender2Manual.Location = new System.Drawing.Point(51, 19);
             this.rad_Gender2Manual.Name = "rad_Gender2Manual";
             this.rad_Gender2Manual.Size = new System.Drawing.Size(60, 17);
             this.rad_Gender2Manual.TabIndex = 1;
             this.rad_Gender2Manual.Text = "Manual";
             this.rad_Gender2Manual.UseVisualStyleBackColor = true;
+            this.rad_Gender2Manual.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // rad_Gender2Off
             // 
             this.rad_Gender2Off.AutoSize = true;
             this.rad_Gender2Off.Checked = true;
-            this.rad_Gender2Off.Location = new System.Drawing.Point(7, 20);
+            this.rad_Gender2Off.Location = new System.Drawing.Point(6, 19);
             this.rad_Gender2Off.Name = "rad_Gender2Off";
             this.rad_Gender2Off.Size = new System.Drawing.Size(39, 17);
             this.rad_Gender2Off.TabIndex = 0;
             this.rad_Gender2Off.TabStop = true;
             this.rad_Gender2Off.Text = "Off";
             this.rad_Gender2Off.UseVisualStyleBackColor = true;
+            this.rad_Gender2Off.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // cbo_Gender2
             // 
@@ -5674,34 +5729,37 @@ namespace DW3Randomizer
             // rad_Gender1Rand
             // 
             this.rad_Gender1Rand.AutoSize = true;
-            this.rad_Gender1Rand.Location = new System.Drawing.Point(120, 20);
+            this.rad_Gender1Rand.Location = new System.Drawing.Point(117, 19);
             this.rad_Gender1Rand.Name = "rad_Gender1Rand";
             this.rad_Gender1Rand.Size = new System.Drawing.Size(65, 17);
             this.rad_Gender1Rand.TabIndex = 2;
             this.rad_Gender1Rand.Text = "Random";
             this.rad_Gender1Rand.UseVisualStyleBackColor = true;
+            this.rad_Gender1Rand.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // rad_Gender1Manual
             // 
             this.rad_Gender1Manual.AutoSize = true;
-            this.rad_Gender1Manual.Location = new System.Drawing.Point(53, 20);
+            this.rad_Gender1Manual.Location = new System.Drawing.Point(51, 19);
             this.rad_Gender1Manual.Name = "rad_Gender1Manual";
             this.rad_Gender1Manual.Size = new System.Drawing.Size(60, 17);
             this.rad_Gender1Manual.TabIndex = 1;
             this.rad_Gender1Manual.Text = "Manual";
             this.rad_Gender1Manual.UseVisualStyleBackColor = true;
+            this.rad_Gender1Manual.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // rad_Gender1Off
             // 
             this.rad_Gender1Off.AutoSize = true;
             this.rad_Gender1Off.Checked = true;
-            this.rad_Gender1Off.Location = new System.Drawing.Point(7, 20);
+            this.rad_Gender1Off.Location = new System.Drawing.Point(6, 19);
             this.rad_Gender1Off.Name = "rad_Gender1Off";
             this.rad_Gender1Off.Size = new System.Drawing.Size(39, 17);
             this.rad_Gender1Off.TabIndex = 0;
             this.rad_Gender1Off.TabStop = true;
             this.rad_Gender1Off.Text = "Off";
             this.rad_Gender1Off.UseVisualStyleBackColor = true;
+            this.rad_Gender1Off.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // cbo_Gender1
             // 
@@ -5743,34 +5801,37 @@ namespace DW3Randomizer
             // rad_ChName3Rand
             // 
             this.rad_ChName3Rand.AutoSize = true;
-            this.rad_ChName3Rand.Location = new System.Drawing.Point(120, 20);
+            this.rad_ChName3Rand.Location = new System.Drawing.Point(117, 19);
             this.rad_ChName3Rand.Name = "rad_ChName3Rand";
             this.rad_ChName3Rand.Size = new System.Drawing.Size(65, 17);
             this.rad_ChName3Rand.TabIndex = 2;
             this.rad_ChName3Rand.Text = "Random";
             this.rad_ChName3Rand.UseVisualStyleBackColor = true;
+            this.rad_ChName3Rand.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // rad_ChName3Manual
             // 
             this.rad_ChName3Manual.AutoSize = true;
-            this.rad_ChName3Manual.Location = new System.Drawing.Point(53, 20);
+            this.rad_ChName3Manual.Location = new System.Drawing.Point(51, 19);
             this.rad_ChName3Manual.Name = "rad_ChName3Manual";
             this.rad_ChName3Manual.Size = new System.Drawing.Size(60, 17);
             this.rad_ChName3Manual.TabIndex = 1;
             this.rad_ChName3Manual.Text = "Manual";
             this.rad_ChName3Manual.UseVisualStyleBackColor = true;
+            this.rad_ChName3Manual.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // rad_ChName3Off
             // 
             this.rad_ChName3Off.AutoSize = true;
             this.rad_ChName3Off.Checked = true;
-            this.rad_ChName3Off.Location = new System.Drawing.Point(7, 20);
+            this.rad_ChName3Off.Location = new System.Drawing.Point(6, 19);
             this.rad_ChName3Off.Name = "rad_ChName3Off";
             this.rad_ChName3Off.Size = new System.Drawing.Size(39, 17);
             this.rad_ChName3Off.TabIndex = 0;
             this.rad_ChName3Off.TabStop = true;
             this.rad_ChName3Off.Text = "Off";
             this.rad_ChName3Off.UseVisualStyleBackColor = true;
+            this.rad_ChName3Off.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // txt_ChName3
             // 
@@ -5796,34 +5857,37 @@ namespace DW3Randomizer
             // rad_ChName2Rand
             // 
             this.rad_ChName2Rand.AutoSize = true;
-            this.rad_ChName2Rand.Location = new System.Drawing.Point(120, 20);
+            this.rad_ChName2Rand.Location = new System.Drawing.Point(117, 19);
             this.rad_ChName2Rand.Name = "rad_ChName2Rand";
             this.rad_ChName2Rand.Size = new System.Drawing.Size(65, 17);
             this.rad_ChName2Rand.TabIndex = 2;
             this.rad_ChName2Rand.Text = "Random";
             this.rad_ChName2Rand.UseVisualStyleBackColor = true;
+            this.rad_ChName2Rand.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // rad_ChName2Manual
             // 
             this.rad_ChName2Manual.AutoSize = true;
-            this.rad_ChName2Manual.Location = new System.Drawing.Point(53, 20);
+            this.rad_ChName2Manual.Location = new System.Drawing.Point(51, 19);
             this.rad_ChName2Manual.Name = "rad_ChName2Manual";
             this.rad_ChName2Manual.Size = new System.Drawing.Size(60, 17);
             this.rad_ChName2Manual.TabIndex = 1;
             this.rad_ChName2Manual.Text = "Manual";
             this.rad_ChName2Manual.UseVisualStyleBackColor = true;
+            this.rad_ChName2Manual.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // rad_ChName2Off
             // 
             this.rad_ChName2Off.AutoSize = true;
             this.rad_ChName2Off.Checked = true;
-            this.rad_ChName2Off.Location = new System.Drawing.Point(7, 20);
+            this.rad_ChName2Off.Location = new System.Drawing.Point(6, 19);
             this.rad_ChName2Off.Name = "rad_ChName2Off";
             this.rad_ChName2Off.Size = new System.Drawing.Size(39, 17);
             this.rad_ChName2Off.TabIndex = 0;
             this.rad_ChName2Off.TabStop = true;
             this.rad_ChName2Off.Text = "Off";
             this.rad_ChName2Off.UseVisualStyleBackColor = true;
+            this.rad_ChName2Off.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // txt_ChName2
             // 
@@ -5849,34 +5913,37 @@ namespace DW3Randomizer
             // rad_ChName1Rand
             // 
             this.rad_ChName1Rand.AutoSize = true;
-            this.rad_ChName1Rand.Location = new System.Drawing.Point(120, 20);
+            this.rad_ChName1Rand.Location = new System.Drawing.Point(117, 19);
             this.rad_ChName1Rand.Name = "rad_ChName1Rand";
             this.rad_ChName1Rand.Size = new System.Drawing.Size(65, 17);
             this.rad_ChName1Rand.TabIndex = 2;
             this.rad_ChName1Rand.Text = "Random";
             this.rad_ChName1Rand.UseVisualStyleBackColor = true;
+            this.rad_ChName1Rand.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // rad_ChName1Manual
             // 
             this.rad_ChName1Manual.AutoSize = true;
-            this.rad_ChName1Manual.Location = new System.Drawing.Point(53, 20);
+            this.rad_ChName1Manual.Location = new System.Drawing.Point(51, 19);
             this.rad_ChName1Manual.Name = "rad_ChName1Manual";
             this.rad_ChName1Manual.Size = new System.Drawing.Size(60, 17);
             this.rad_ChName1Manual.TabIndex = 1;
             this.rad_ChName1Manual.Text = "Manual";
             this.rad_ChName1Manual.UseVisualStyleBackColor = true;
+            this.rad_ChName1Manual.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // rad_ChName1Off
             // 
             this.rad_ChName1Off.AutoSize = true;
             this.rad_ChName1Off.Checked = true;
-            this.rad_ChName1Off.Location = new System.Drawing.Point(7, 20);
+            this.rad_ChName1Off.Location = new System.Drawing.Point(6, 19);
             this.rad_ChName1Off.Name = "rad_ChName1Off";
             this.rad_ChName1Off.Size = new System.Drawing.Size(39, 17);
             this.rad_ChName1Off.TabIndex = 0;
             this.rad_ChName1Off.TabStop = true;
             this.rad_ChName1Off.Text = "Off";
             this.rad_ChName1Off.UseVisualStyleBackColor = true;
+            this.rad_ChName1Off.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // txt_ChName1
             // 
@@ -5893,7 +5960,7 @@ namespace DW3Randomizer
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(675, 422);
+            this.tabPage5.Size = new System.Drawing.Size(678, 422);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Fixes";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -5916,7 +5983,7 @@ namespace DW3Randomizer
             // rad_FixHeroSpellRand
             // 
             this.rad_FixHeroSpellRand.AutoSize = true;
-            this.rad_FixHeroSpellRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_FixHeroSpellRand.Location = new System.Drawing.Point(92, 19);
             this.rad_FixHeroSpellRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_FixHeroSpellRand.Name = "rad_FixHeroSpellRand";
             this.rad_FixHeroSpellRand.Size = new System.Drawing.Size(65, 17);
@@ -5928,7 +5995,7 @@ namespace DW3Randomizer
             // rad_FixHeroSpellOn
             // 
             this.rad_FixHeroSpellOn.AutoSize = true;
-            this.rad_FixHeroSpellOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_FixHeroSpellOn.Location = new System.Drawing.Point(49, 19);
             this.rad_FixHeroSpellOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_FixHeroSpellOn.Name = "rad_FixHeroSpellOn";
             this.rad_FixHeroSpellOn.Size = new System.Drawing.Size(39, 17);
@@ -5941,7 +6008,7 @@ namespace DW3Randomizer
             // 
             this.rad_FixHeroSpellOff.AutoSize = true;
             this.rad_FixHeroSpellOff.Checked = true;
-            this.rad_FixHeroSpellOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_FixHeroSpellOff.Location = new System.Drawing.Point(6, 19);
             this.rad_FixHeroSpellOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_FixHeroSpellOff.Name = "rad_FixHeroSpellOff";
             this.rad_FixHeroSpellOff.Size = new System.Drawing.Size(39, 17);
@@ -5969,7 +6036,7 @@ namespace DW3Randomizer
             // rad_RmParryBugRand
             // 
             this.rad_RmParryBugRand.AutoSize = true;
-            this.rad_RmParryBugRand.Location = new System.Drawing.Point(86, 16);
+            this.rad_RmParryBugRand.Location = new System.Drawing.Point(92, 19);
             this.rad_RmParryBugRand.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RmParryBugRand.Name = "rad_RmParryBugRand";
             this.rad_RmParryBugRand.Size = new System.Drawing.Size(65, 17);
@@ -5981,7 +6048,7 @@ namespace DW3Randomizer
             // rad_RmParryBugOn
             // 
             this.rad_RmParryBugOn.AutoSize = true;
-            this.rad_RmParryBugOn.Location = new System.Drawing.Point(45, 16);
+            this.rad_RmParryBugOn.Location = new System.Drawing.Point(49, 19);
             this.rad_RmParryBugOn.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RmParryBugOn.Name = "rad_RmParryBugOn";
             this.rad_RmParryBugOn.Size = new System.Drawing.Size(39, 17);
@@ -5994,7 +6061,7 @@ namespace DW3Randomizer
             // 
             this.rad_RmParryBugOff.AutoSize = true;
             this.rad_RmParryBugOff.Checked = true;
-            this.rad_RmParryBugOff.Location = new System.Drawing.Point(4, 16);
+            this.rad_RmParryBugOff.Location = new System.Drawing.Point(6, 19);
             this.rad_RmParryBugOff.Margin = new System.Windows.Forms.Padding(2);
             this.rad_RmParryBugOff.Name = "rad_RmParryBugOff";
             this.rad_RmParryBugOff.Size = new System.Drawing.Size(39, 17);
@@ -6006,196 +6073,529 @@ namespace DW3Randomizer
             // 
             // tabPage7
             // 
-            this.tabPage7.Controls.Add(this.label17);
-            this.tabPage7.Controls.Add(this.label16);
-            this.tabPage7.Controls.Add(this.label15);
-            this.tabPage7.Controls.Add(this.label13);
-            this.tabPage7.Controls.Add(this.chk_levelUpText);
-            this.tabPage7.Controls.Add(this.chk_FemaleHero);
-            this.tabPage7.Controls.Add(this.chk_RandNPCSprites);
-            this.tabPage7.Controls.Add(this.chk_FFigherSprite);
-            this.tabPage7.Controls.Add(this.chk_EveryoneCat);
-            this.tabPage7.Controls.Add(this.chk_changeCats);
-            this.tabPage7.Controls.Add(this.chk_GhostToCasket);
-            this.tabPage7.Controls.Add(this.chk_RandSpriteColor);
-            this.tabPage7.Controls.Add(this.chk_ChangeHeroAge);
-            this.tabPage7.Controls.Add(this.chk_LowerCaseMenus);
-            this.tabPage7.Controls.Add(this.chk_FixSlimeSnail);
+            this.tabPage7.Controls.Add(this.grp_EveryCat);
+            this.tabPage7.Controls.Add(this.grp_FFightSprite);
+            this.tabPage7.Controls.Add(this.grp_ChCats);
+            this.tabPage7.Controls.Add(this.grp_RandNPC);
+            this.tabPage7.Controls.Add(this.grp_RandSpriteCol);
+            this.tabPage7.Controls.Add(this.grp_FHero);
+            this.tabPage7.Controls.Add(this.grp_SlimeSnail);
+            this.tabPage7.Controls.Add(this.grp_StdCase);
+            this.tabPage7.Controls.Add(this.grp_GhostToCasket);
+            this.tabPage7.Controls.Add(this.grp_RandHeroAge);
+            this.tabPage7.Controls.Add(this.grp_LevelUpTxt);
             this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(675, 422);
+            this.tabPage7.Size = new System.Drawing.Size(678, 422);
             this.tabPage7.TabIndex = 6;
             this.tabPage7.Text = "Cosmetic";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
-            // label17
+            // grp_EveryCat
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(477, 10);
-            this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(143, 13);
-            this.label17.TabIndex = 230;
-            this.label17.Text = "Sprite Change - Flag Change";
+            this.grp_EveryCat.Controls.Add(this.rad_EveryCatRand);
+            this.grp_EveryCat.Controls.Add(this.rad_EveryCatOn);
+            this.grp_EveryCat.Controls.Add(this.rad_EveryCatOff);
+            this.grp_EveryCat.Location = new System.Drawing.Point(173, 147);
+            this.grp_EveryCat.Name = "grp_EveryCat";
+            this.grp_EveryCat.Size = new System.Drawing.Size(163, 41);
+            this.grp_EveryCat.TabIndex = 237;
+            this.grp_EveryCat.TabStop = false;
+            this.grp_EveryCat.Text = "Everyone is a Cat!";
+            this.adjustments.SetToolTip(this.grp_EveryCat, "Changes all characters into cats.");
+            this.grp_EveryCat.Visible = false;
             // 
-            // label16
+            // rad_EveryCatRand
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(320, 10);
-            this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(74, 13);
-            this.label16.TabIndex = 220;
-            this.label16.Text = "Sprite Change";
+            this.rad_EveryCatRand.AutoSize = true;
+            this.rad_EveryCatRand.Location = new System.Drawing.Point(96, 19);
+            this.rad_EveryCatRand.Name = "rad_EveryCatRand";
+            this.rad_EveryCatRand.Size = new System.Drawing.Size(65, 17);
+            this.rad_EveryCatRand.TabIndex = 2;
+            this.rad_EveryCatRand.Text = "Random";
+            this.rad_EveryCatRand.UseVisualStyleBackColor = true;
             // 
-            // label15
+            // rad_EveryCatOn
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(166, 10);
-            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(129, 13);
-            this.label15.TabIndex = 210;
-            this.label15.Text = "Text Adjust - Flag Change";
+            this.rad_EveryCatOn.AutoSize = true;
+            this.rad_EveryCatOn.Location = new System.Drawing.Point(51, 19);
+            this.rad_EveryCatOn.Name = "rad_EveryCatOn";
+            this.rad_EveryCatOn.Size = new System.Drawing.Size(39, 17);
+            this.rad_EveryCatOn.TabIndex = 1;
+            this.rad_EveryCatOn.Text = "On";
+            this.rad_EveryCatOn.UseVisualStyleBackColor = true;
             // 
-            // label13
+            // rad_EveryCatOff
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(7, 10);
-            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(60, 13);
-            this.label13.TabIndex = 201;
-            this.label13.Text = "Text Adjust";
+            this.rad_EveryCatOff.AutoSize = true;
+            this.rad_EveryCatOff.Checked = true;
+            this.rad_EveryCatOff.Location = new System.Drawing.Point(6, 19);
+            this.rad_EveryCatOff.Name = "rad_EveryCatOff";
+            this.rad_EveryCatOff.Size = new System.Drawing.Size(39, 17);
+            this.rad_EveryCatOff.TabIndex = 0;
+            this.rad_EveryCatOff.TabStop = true;
+            this.rad_EveryCatOff.Text = "Off";
+            this.rad_EveryCatOff.UseVisualStyleBackColor = true;
             // 
-            // chk_levelUpText
+            // grp_FFightSprite
             // 
-            this.chk_levelUpText.AutoSize = true;
-            this.chk_levelUpText.Location = new System.Drawing.Point(166, 29);
-            this.chk_levelUpText.Margin = new System.Windows.Forms.Padding(2);
-            this.chk_levelUpText.Name = "chk_levelUpText";
-            this.chk_levelUpText.Size = new System.Drawing.Size(133, 17);
-            this.chk_levelUpText.TabIndex = 211;
-            this.chk_levelUpText.Text = "Change Level Up Text";
-            this.chk_levelUpText.UseVisualStyleBackColor = true;
+            this.grp_FFightSprite.Controls.Add(this.rad_FFightSpriteRand);
+            this.grp_FFightSprite.Controls.Add(this.rad_FFightSpriteOn);
+            this.grp_FFightSprite.Controls.Add(this.rad_FFightSpriteOff);
+            this.grp_FFightSprite.Location = new System.Drawing.Point(4, 147);
+            this.grp_FFightSprite.Name = "grp_FFightSprite";
+            this.grp_FFightSprite.Size = new System.Drawing.Size(163, 41);
+            this.grp_FFightSprite.TabIndex = 237;
+            this.grp_FFightSprite.TabStop = false;
+            this.grp_FFightSprite.Text = "Female Fighter Sprite Fix";
+            this.adjustments.SetToolTip(this.grp_FFightSprite, "Fixes Female Fighter right facing sprite.");
             // 
-            // chk_FemaleHero
+            // rad_FFightSpriteRand
             // 
-            this.chk_FemaleHero.AutoSize = true;
-            this.chk_FemaleHero.Location = new System.Drawing.Point(320, 29);
-            this.chk_FemaleHero.Margin = new System.Windows.Forms.Padding(2);
-            this.chk_FemaleHero.Name = "chk_FemaleHero";
-            this.chk_FemaleHero.Size = new System.Drawing.Size(121, 17);
-            this.chk_FemaleHero.TabIndex = 221;
-            this.chk_FemaleHero.Text = "Female Hero Sprites";
-            this.adjustments.SetToolTip(this.chk_FemaleHero, "Selects female sprites for the Hero Sprite. (Does not affect gameplay. Choose Fem" +
-        "ale as sex at start to add equipment benefits.)");
-            this.chk_FemaleHero.UseVisualStyleBackColor = true;
+            this.rad_FFightSpriteRand.AutoSize = true;
+            this.rad_FFightSpriteRand.Location = new System.Drawing.Point(96, 19);
+            this.rad_FFightSpriteRand.Name = "rad_FFightSpriteRand";
+            this.rad_FFightSpriteRand.Size = new System.Drawing.Size(65, 17);
+            this.rad_FFightSpriteRand.TabIndex = 2;
+            this.rad_FFightSpriteRand.Text = "Random";
+            this.rad_FFightSpriteRand.UseVisualStyleBackColor = true;
             // 
-            // chk_RandNPCSprites
+            // rad_FFightSpriteOn
             // 
-            this.chk_RandNPCSprites.AutoSize = true;
-            this.chk_RandNPCSprites.Location = new System.Drawing.Point(320, 88);
-            this.chk_RandNPCSprites.Margin = new System.Windows.Forms.Padding(2);
-            this.chk_RandNPCSprites.Name = "chk_RandNPCSprites";
-            this.chk_RandNPCSprites.Size = new System.Drawing.Size(139, 17);
-            this.chk_RandNPCSprites.TabIndex = 224;
-            this.chk_RandNPCSprites.Text = "Randomize NPC Sprites";
-            this.chk_RandNPCSprites.UseVisualStyleBackColor = true;
+            this.rad_FFightSpriteOn.AutoSize = true;
+            this.rad_FFightSpriteOn.Location = new System.Drawing.Point(51, 19);
+            this.rad_FFightSpriteOn.Name = "rad_FFightSpriteOn";
+            this.rad_FFightSpriteOn.Size = new System.Drawing.Size(39, 17);
+            this.rad_FFightSpriteOn.TabIndex = 1;
+            this.rad_FFightSpriteOn.Text = "On";
+            this.rad_FFightSpriteOn.UseVisualStyleBackColor = true;
             // 
-            // chk_FFigherSprite
+            // rad_FFightSpriteOff
             // 
-            this.chk_FFigherSprite.AutoSize = true;
-            this.chk_FFigherSprite.Location = new System.Drawing.Point(320, 68);
-            this.chk_FFigherSprite.Margin = new System.Windows.Forms.Padding(2);
-            this.chk_FFigherSprite.Name = "chk_FFigherSprite";
-            this.chk_FFigherSprite.Size = new System.Drawing.Size(141, 17);
-            this.chk_FFigherSprite.TabIndex = 223;
-            this.chk_FFigherSprite.Text = "Female Fighter Sprite Fix";
-            this.chk_FFigherSprite.UseVisualStyleBackColor = true;
+            this.rad_FFightSpriteOff.AutoSize = true;
+            this.rad_FFightSpriteOff.Checked = true;
+            this.rad_FFightSpriteOff.Location = new System.Drawing.Point(6, 19);
+            this.rad_FFightSpriteOff.Name = "rad_FFightSpriteOff";
+            this.rad_FFightSpriteOff.Size = new System.Drawing.Size(39, 17);
+            this.rad_FFightSpriteOff.TabIndex = 0;
+            this.rad_FFightSpriteOff.TabStop = true;
+            this.rad_FFightSpriteOff.Text = "Off";
+            this.rad_FFightSpriteOff.UseVisualStyleBackColor = true;
             // 
-            // chk_EveryoneCat
+            // grp_ChCats
             // 
-            this.chk_EveryoneCat.AutoSize = true;
-            this.chk_EveryoneCat.Location = new System.Drawing.Point(320, 129);
-            this.chk_EveryoneCat.Margin = new System.Windows.Forms.Padding(2);
-            this.chk_EveryoneCat.Name = "chk_EveryoneCat";
-            this.chk_EveryoneCat.Size = new System.Drawing.Size(108, 17);
-            this.chk_EveryoneCat.TabIndex = 226;
-            this.chk_EveryoneCat.Text = "Everyone is a cat";
-            this.chk_EveryoneCat.UseVisualStyleBackColor = true;
-            this.chk_EveryoneCat.Visible = false;
+            this.grp_ChCats.Controls.Add(this.rad_ChCatsRand);
+            this.grp_ChCats.Controls.Add(this.rad_ChCatsOn);
+            this.grp_ChCats.Controls.Add(this.rad_ChCatsOff);
+            this.grp_ChCats.Location = new System.Drawing.Point(508, 100);
+            this.grp_ChCats.Name = "grp_ChCats";
+            this.grp_ChCats.Size = new System.Drawing.Size(163, 41);
+            this.grp_ChCats.TabIndex = 236;
+            this.grp_ChCats.TabStop = false;
+            this.grp_ChCats.Text = "Change Cats";
+            this.adjustments.SetToolTip(this.grp_ChCats, "Changes cats into different animals.");
             // 
-            // chk_changeCats
+            // rad_ChCatsRand
             // 
-            this.chk_changeCats.AutoSize = true;
-            this.chk_changeCats.Location = new System.Drawing.Point(320, 109);
-            this.chk_changeCats.Name = "chk_changeCats";
-            this.chk_changeCats.Size = new System.Drawing.Size(163, 17);
-            this.chk_changeCats.TabIndex = 225;
-            this.chk_changeCats.Text = "Change cats to other animals";
-            this.adjustments.SetToolTip(this.chk_changeCats, "Changes cat sprites to other animals from other Dragon Warrior games.");
-            this.chk_changeCats.UseVisualStyleBackColor = true;
+            this.rad_ChCatsRand.AutoSize = true;
+            this.rad_ChCatsRand.Location = new System.Drawing.Point(96, 19);
+            this.rad_ChCatsRand.Name = "rad_ChCatsRand";
+            this.rad_ChCatsRand.Size = new System.Drawing.Size(65, 17);
+            this.rad_ChCatsRand.TabIndex = 2;
+            this.rad_ChCatsRand.Text = "Random";
+            this.rad_ChCatsRand.UseVisualStyleBackColor = true;
             // 
-            // chk_GhostToCasket
+            // rad_ChCatsOn
             // 
-            this.chk_GhostToCasket.AutoSize = true;
-            this.chk_GhostToCasket.Location = new System.Drawing.Point(477, 49);
-            this.chk_GhostToCasket.Name = "chk_GhostToCasket";
-            this.chk_GhostToCasket.Size = new System.Drawing.Size(152, 17);
-            this.chk_GhostToCasket.TabIndex = 232;
-            this.chk_GhostToCasket.Text = "Change Ghosts to Caskets";
-            this.adjustments.SetToolTip(this.chk_GhostToCasket, "This will change dead party members from ghosts into caskets (palls) and adjusts " +
-        "relevant text.");
-            this.chk_GhostToCasket.UseVisualStyleBackColor = true;
+            this.rad_ChCatsOn.AutoSize = true;
+            this.rad_ChCatsOn.Location = new System.Drawing.Point(51, 19);
+            this.rad_ChCatsOn.Name = "rad_ChCatsOn";
+            this.rad_ChCatsOn.Size = new System.Drawing.Size(39, 17);
+            this.rad_ChCatsOn.TabIndex = 1;
+            this.rad_ChCatsOn.Text = "On";
+            this.rad_ChCatsOn.UseVisualStyleBackColor = true;
             // 
-            // chk_RandSpriteColor
+            // rad_ChCatsOff
             // 
-            this.chk_RandSpriteColor.AutoSize = true;
-            this.chk_RandSpriteColor.Location = new System.Drawing.Point(320, 49);
-            this.chk_RandSpriteColor.Name = "chk_RandSpriteColor";
-            this.chk_RandSpriteColor.Size = new System.Drawing.Size(141, 17);
-            this.chk_RandSpriteColor.TabIndex = 222;
-            this.chk_RandSpriteColor.Text = "Randomize Sprite Colors";
-            this.adjustments.SetToolTip(this.chk_RandSpriteColor, "Randomizes the colors of overworld sprites. There may be some interesting combina" +
-        "tions.");
-            this.chk_RandSpriteColor.UseVisualStyleBackColor = true;
+            this.rad_ChCatsOff.AutoSize = true;
+            this.rad_ChCatsOff.Checked = true;
+            this.rad_ChCatsOff.Location = new System.Drawing.Point(6, 19);
+            this.rad_ChCatsOff.Name = "rad_ChCatsOff";
+            this.rad_ChCatsOff.Size = new System.Drawing.Size(39, 17);
+            this.rad_ChCatsOff.TabIndex = 0;
+            this.rad_ChCatsOff.TabStop = true;
+            this.rad_ChCatsOff.Text = "Off";
+            this.rad_ChCatsOff.UseVisualStyleBackColor = true;
             // 
-            // chk_ChangeHeroAge
+            // grp_RandNPC
             // 
-            this.chk_ChangeHeroAge.AutoSize = true;
-            this.chk_ChangeHeroAge.Location = new System.Drawing.Point(477, 29);
-            this.chk_ChangeHeroAge.Name = "chk_ChangeHeroAge";
-            this.chk_ChangeHeroAge.Size = new System.Drawing.Size(118, 17);
-            this.chk_ChangeHeroAge.TabIndex = 231;
-            this.chk_ChangeHeroAge.Text = "Change Hero\'s Age";
-            this.adjustments.SetToolTip(this.chk_ChangeHeroAge, "Changes the hero\'s age in opening to a random number and potentially the sprite b" +
-        "ased on age.");
-            this.chk_ChangeHeroAge.UseVisualStyleBackColor = true;
+            this.grp_RandNPC.Controls.Add(this.rad_RandNPCRand);
+            this.grp_RandNPC.Controls.Add(this.rad_RandNPCOn);
+            this.grp_RandNPC.Controls.Add(this.rad_RandNPCOff);
+            this.grp_RandNPC.Location = new System.Drawing.Point(341, 100);
+            this.grp_RandNPC.Name = "grp_RandNPC";
+            this.grp_RandNPC.Size = new System.Drawing.Size(163, 41);
+            this.grp_RandNPC.TabIndex = 236;
+            this.grp_RandNPC.TabStop = false;
+            this.grp_RandNPC.Text = "Randomize NPC Sprite";
+            this.adjustments.SetToolTip(this.grp_RandNPC, "Randomizes NPC sprites into similar sprites from other Dragon Warrior games.");
             // 
-            // chk_LowerCaseMenus
+            // rad_RandNPCRand
             // 
-            this.chk_LowerCaseMenus.AutoSize = true;
-            this.chk_LowerCaseMenus.Location = new System.Drawing.Point(7, 29);
-            this.chk_LowerCaseMenus.Name = "chk_LowerCaseMenus";
-            this.chk_LowerCaseMenus.Size = new System.Drawing.Size(131, 17);
-            this.chk_LowerCaseMenus.TabIndex = 202;
-            this.chk_LowerCaseMenus.Text = "Standard Case Menus";
-            this.adjustments.SetToolTip(this.chk_LowerCaseMenus, "Changes casing of all caps menu items to standard caps and lower case.");
-            this.chk_LowerCaseMenus.UseVisualStyleBackColor = true;
+            this.rad_RandNPCRand.AutoSize = true;
+            this.rad_RandNPCRand.Location = new System.Drawing.Point(96, 19);
+            this.rad_RandNPCRand.Name = "rad_RandNPCRand";
+            this.rad_RandNPCRand.Size = new System.Drawing.Size(65, 17);
+            this.rad_RandNPCRand.TabIndex = 2;
+            this.rad_RandNPCRand.Text = "Random";
+            this.rad_RandNPCRand.UseVisualStyleBackColor = true;
             // 
-            // chk_FixSlimeSnail
+            // rad_RandNPCOn
             // 
-            this.chk_FixSlimeSnail.AutoSize = true;
-            this.chk_FixSlimeSnail.Location = new System.Drawing.Point(7, 49);
-            this.chk_FixSlimeSnail.Name = "chk_FixSlimeSnail";
-            this.chk_FixSlimeSnail.Size = new System.Drawing.Size(93, 17);
-            this.chk_FixSlimeSnail.TabIndex = 203;
-            this.chk_FixSlimeSnail.Text = "Fix Slime Snail";
-            this.adjustments.SetToolTip(this.chk_FixSlimeSnail, "Fixes Slime Snaii name to Slime Snail");
-            this.chk_FixSlimeSnail.UseVisualStyleBackColor = true;
-            this.chk_FixSlimeSnail.CheckedChanged += new System.EventHandler(this.determineFlags);
+            this.rad_RandNPCOn.AutoSize = true;
+            this.rad_RandNPCOn.Location = new System.Drawing.Point(51, 19);
+            this.rad_RandNPCOn.Name = "rad_RandNPCOn";
+            this.rad_RandNPCOn.Size = new System.Drawing.Size(39, 17);
+            this.rad_RandNPCOn.TabIndex = 1;
+            this.rad_RandNPCOn.Text = "On";
+            this.rad_RandNPCOn.UseVisualStyleBackColor = true;
+            // 
+            // rad_RandNPCOff
+            // 
+            this.rad_RandNPCOff.AutoSize = true;
+            this.rad_RandNPCOff.Checked = true;
+            this.rad_RandNPCOff.Location = new System.Drawing.Point(6, 19);
+            this.rad_RandNPCOff.Name = "rad_RandNPCOff";
+            this.rad_RandNPCOff.Size = new System.Drawing.Size(39, 17);
+            this.rad_RandNPCOff.TabIndex = 0;
+            this.rad_RandNPCOff.TabStop = true;
+            this.rad_RandNPCOff.Text = "Off";
+            this.rad_RandNPCOff.UseVisualStyleBackColor = true;
+            // 
+            // grp_RandSpriteCol
+            // 
+            this.grp_RandSpriteCol.Controls.Add(this.rad_RandSpriteColRand);
+            this.grp_RandSpriteCol.Controls.Add(this.rad_RandSpriteColOn);
+            this.grp_RandSpriteCol.Controls.Add(this.rad_RandSpriteColOff);
+            this.grp_RandSpriteCol.Location = new System.Drawing.Point(173, 100);
+            this.grp_RandSpriteCol.Name = "grp_RandSpriteCol";
+            this.grp_RandSpriteCol.Size = new System.Drawing.Size(163, 41);
+            this.grp_RandSpriteCol.TabIndex = 236;
+            this.grp_RandSpriteCol.TabStop = false;
+            this.grp_RandSpriteCol.Text = "Randomize Sprite Colors";
+            this.adjustments.SetToolTip(this.grp_RandSpriteCol, "Randomizes the color pallets of sprites.");
+            // 
+            // rad_RandSpriteColRand
+            // 
+            this.rad_RandSpriteColRand.AutoSize = true;
+            this.rad_RandSpriteColRand.Location = new System.Drawing.Point(96, 19);
+            this.rad_RandSpriteColRand.Name = "rad_RandSpriteColRand";
+            this.rad_RandSpriteColRand.Size = new System.Drawing.Size(65, 17);
+            this.rad_RandSpriteColRand.TabIndex = 2;
+            this.rad_RandSpriteColRand.Text = "Random";
+            this.rad_RandSpriteColRand.UseVisualStyleBackColor = true;
+            // 
+            // rad_RandSpriteColOn
+            // 
+            this.rad_RandSpriteColOn.AutoSize = true;
+            this.rad_RandSpriteColOn.Location = new System.Drawing.Point(51, 19);
+            this.rad_RandSpriteColOn.Name = "rad_RandSpriteColOn";
+            this.rad_RandSpriteColOn.Size = new System.Drawing.Size(39, 17);
+            this.rad_RandSpriteColOn.TabIndex = 1;
+            this.rad_RandSpriteColOn.Text = "On";
+            this.rad_RandSpriteColOn.UseVisualStyleBackColor = true;
+            // 
+            // rad_RandSpriteColOff
+            // 
+            this.rad_RandSpriteColOff.AutoSize = true;
+            this.rad_RandSpriteColOff.Checked = true;
+            this.rad_RandSpriteColOff.Location = new System.Drawing.Point(6, 19);
+            this.rad_RandSpriteColOff.Name = "rad_RandSpriteColOff";
+            this.rad_RandSpriteColOff.Size = new System.Drawing.Size(39, 17);
+            this.rad_RandSpriteColOff.TabIndex = 0;
+            this.rad_RandSpriteColOff.TabStop = true;
+            this.rad_RandSpriteColOff.Text = "Off";
+            this.rad_RandSpriteColOff.UseVisualStyleBackColor = true;
+            // 
+            // grp_FHero
+            // 
+            this.grp_FHero.Controls.Add(this.rad_FHeroRand);
+            this.grp_FHero.Controls.Add(this.rad_FHeroOn);
+            this.grp_FHero.Controls.Add(this.rad_FHeroOff);
+            this.grp_FHero.Location = new System.Drawing.Point(4, 100);
+            this.grp_FHero.Name = "grp_FHero";
+            this.grp_FHero.Size = new System.Drawing.Size(163, 41);
+            this.grp_FHero.TabIndex = 236;
+            this.grp_FHero.TabStop = false;
+            this.grp_FHero.Text = "Female Hero Sprite";
+            this.adjustments.SetToolTip(this.grp_FHero, "Changes the Hero\'s sprite into female sprites from other Dragon Warrior games.");
+            // 
+            // rad_FHeroRand
+            // 
+            this.rad_FHeroRand.AutoSize = true;
+            this.rad_FHeroRand.Location = new System.Drawing.Point(96, 19);
+            this.rad_FHeroRand.Name = "rad_FHeroRand";
+            this.rad_FHeroRand.Size = new System.Drawing.Size(65, 17);
+            this.rad_FHeroRand.TabIndex = 2;
+            this.rad_FHeroRand.Text = "Random";
+            this.rad_FHeroRand.UseVisualStyleBackColor = true;
+            // 
+            // rad_FHeroOn
+            // 
+            this.rad_FHeroOn.AutoSize = true;
+            this.rad_FHeroOn.Location = new System.Drawing.Point(51, 19);
+            this.rad_FHeroOn.Name = "rad_FHeroOn";
+            this.rad_FHeroOn.Size = new System.Drawing.Size(39, 17);
+            this.rad_FHeroOn.TabIndex = 1;
+            this.rad_FHeroOn.Text = "On";
+            this.rad_FHeroOn.UseVisualStyleBackColor = true;
+            // 
+            // rad_FHeroOff
+            // 
+            this.rad_FHeroOff.AutoSize = true;
+            this.rad_FHeroOff.Checked = true;
+            this.rad_FHeroOff.Location = new System.Drawing.Point(6, 19);
+            this.rad_FHeroOff.Name = "rad_FHeroOff";
+            this.rad_FHeroOff.Size = new System.Drawing.Size(39, 17);
+            this.rad_FHeroOff.TabIndex = 0;
+            this.rad_FHeroOff.TabStop = true;
+            this.rad_FHeroOff.Text = "Off";
+            this.rad_FHeroOff.UseVisualStyleBackColor = true;
+            // 
+            // grp_SlimeSnail
+            // 
+            this.grp_SlimeSnail.Controls.Add(this.rad_SlimeSnailRand);
+            this.grp_SlimeSnail.Controls.Add(this.rad_SlimeSnailOn);
+            this.grp_SlimeSnail.Controls.Add(this.rad_SlimeSnailOff);
+            this.grp_SlimeSnail.Location = new System.Drawing.Point(173, 51);
+            this.grp_SlimeSnail.Name = "grp_SlimeSnail";
+            this.grp_SlimeSnail.Size = new System.Drawing.Size(163, 41);
+            this.grp_SlimeSnail.TabIndex = 236;
+            this.grp_SlimeSnail.TabStop = false;
+            this.grp_SlimeSnail.Text = "Fix Slime Snail";
+            this.adjustments.SetToolTip(this.grp_SlimeSnail, "Fixes Slime Snaii to Slime Snail.");
+            // 
+            // rad_SlimeSnailRand
+            // 
+            this.rad_SlimeSnailRand.AutoSize = true;
+            this.rad_SlimeSnailRand.Location = new System.Drawing.Point(96, 19);
+            this.rad_SlimeSnailRand.Name = "rad_SlimeSnailRand";
+            this.rad_SlimeSnailRand.Size = new System.Drawing.Size(65, 17);
+            this.rad_SlimeSnailRand.TabIndex = 2;
+            this.rad_SlimeSnailRand.Text = "Random";
+            this.rad_SlimeSnailRand.UseVisualStyleBackColor = true;
+            // 
+            // rad_SlimeSnailOn
+            // 
+            this.rad_SlimeSnailOn.AutoSize = true;
+            this.rad_SlimeSnailOn.Location = new System.Drawing.Point(51, 19);
+            this.rad_SlimeSnailOn.Name = "rad_SlimeSnailOn";
+            this.rad_SlimeSnailOn.Size = new System.Drawing.Size(39, 17);
+            this.rad_SlimeSnailOn.TabIndex = 1;
+            this.rad_SlimeSnailOn.Text = "On";
+            this.rad_SlimeSnailOn.UseVisualStyleBackColor = true;
+            // 
+            // rad_SlimeSnailOff
+            // 
+            this.rad_SlimeSnailOff.AutoSize = true;
+            this.rad_SlimeSnailOff.Checked = true;
+            this.rad_SlimeSnailOff.Location = new System.Drawing.Point(6, 19);
+            this.rad_SlimeSnailOff.Name = "rad_SlimeSnailOff";
+            this.rad_SlimeSnailOff.Size = new System.Drawing.Size(39, 17);
+            this.rad_SlimeSnailOff.TabIndex = 0;
+            this.rad_SlimeSnailOff.TabStop = true;
+            this.rad_SlimeSnailOff.Text = "Off";
+            this.rad_SlimeSnailOff.UseVisualStyleBackColor = true;
+            // 
+            // grp_StdCase
+            // 
+            this.grp_StdCase.Controls.Add(this.rad_StdCaseRand);
+            this.grp_StdCase.Controls.Add(this.rad_StdCaseOn);
+            this.grp_StdCase.Controls.Add(this.rad_StdCaseOff);
+            this.grp_StdCase.Location = new System.Drawing.Point(4, 51);
+            this.grp_StdCase.Name = "grp_StdCase";
+            this.grp_StdCase.Size = new System.Drawing.Size(163, 41);
+            this.grp_StdCase.TabIndex = 235;
+            this.grp_StdCase.TabStop = false;
+            this.grp_StdCase.Text = "Standard Case Menus";
+            this.adjustments.SetToolTip(this.grp_StdCase, "Changes all caps menus and text to standard casing.");
+            // 
+            // rad_StdCaseRand
+            // 
+            this.rad_StdCaseRand.AutoSize = true;
+            this.rad_StdCaseRand.Location = new System.Drawing.Point(96, 19);
+            this.rad_StdCaseRand.Name = "rad_StdCaseRand";
+            this.rad_StdCaseRand.Size = new System.Drawing.Size(65, 17);
+            this.rad_StdCaseRand.TabIndex = 2;
+            this.rad_StdCaseRand.Text = "Random";
+            this.rad_StdCaseRand.UseVisualStyleBackColor = true;
+            // 
+            // rad_StdCaseOn
+            // 
+            this.rad_StdCaseOn.AutoSize = true;
+            this.rad_StdCaseOn.Location = new System.Drawing.Point(51, 19);
+            this.rad_StdCaseOn.Name = "rad_StdCaseOn";
+            this.rad_StdCaseOn.Size = new System.Drawing.Size(39, 17);
+            this.rad_StdCaseOn.TabIndex = 1;
+            this.rad_StdCaseOn.Text = "On";
+            this.rad_StdCaseOn.UseVisualStyleBackColor = true;
+            // 
+            // rad_StdCaseOff
+            // 
+            this.rad_StdCaseOff.AutoSize = true;
+            this.rad_StdCaseOff.Checked = true;
+            this.rad_StdCaseOff.Location = new System.Drawing.Point(6, 19);
+            this.rad_StdCaseOff.Name = "rad_StdCaseOff";
+            this.rad_StdCaseOff.Size = new System.Drawing.Size(39, 17);
+            this.rad_StdCaseOff.TabIndex = 0;
+            this.rad_StdCaseOff.TabStop = true;
+            this.rad_StdCaseOff.Text = "Off";
+            this.rad_StdCaseOff.UseVisualStyleBackColor = true;
+            // 
+            // grp_GhostToCasket
+            // 
+            this.grp_GhostToCasket.Controls.Add(this.rad_GhostToCasketRand);
+            this.grp_GhostToCasket.Controls.Add(this.rad_GhostToCasketOn);
+            this.grp_GhostToCasket.Controls.Add(this.rad_GhostToCasketOff);
+            this.grp_GhostToCasket.Location = new System.Drawing.Point(341, 4);
+            this.grp_GhostToCasket.Name = "grp_GhostToCasket";
+            this.grp_GhostToCasket.Size = new System.Drawing.Size(163, 41);
+            this.grp_GhostToCasket.TabIndex = 234;
+            this.grp_GhostToCasket.TabStop = false;
+            this.grp_GhostToCasket.Text = "Change Ghosts to Caskets";
+            this.adjustments.SetToolTip(this.grp_GhostToCasket, "Changes dead party members into caskets instead of ghosts.");
+            // 
+            // rad_GhostToCasketRand
+            // 
+            this.rad_GhostToCasketRand.AutoSize = true;
+            this.rad_GhostToCasketRand.Location = new System.Drawing.Point(96, 19);
+            this.rad_GhostToCasketRand.Name = "rad_GhostToCasketRand";
+            this.rad_GhostToCasketRand.Size = new System.Drawing.Size(65, 17);
+            this.rad_GhostToCasketRand.TabIndex = 2;
+            this.rad_GhostToCasketRand.Text = "Random";
+            this.rad_GhostToCasketRand.UseVisualStyleBackColor = true;
+            this.rad_GhostToCasketRand.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_GhostToCasketOn
+            // 
+            this.rad_GhostToCasketOn.AutoSize = true;
+            this.rad_GhostToCasketOn.Location = new System.Drawing.Point(51, 19);
+            this.rad_GhostToCasketOn.Name = "rad_GhostToCasketOn";
+            this.rad_GhostToCasketOn.Size = new System.Drawing.Size(39, 17);
+            this.rad_GhostToCasketOn.TabIndex = 1;
+            this.rad_GhostToCasketOn.Text = "On";
+            this.rad_GhostToCasketOn.UseVisualStyleBackColor = true;
+            this.rad_GhostToCasketOn.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_GhostToCasketOff
+            // 
+            this.rad_GhostToCasketOff.AutoSize = true;
+            this.rad_GhostToCasketOff.Checked = true;
+            this.rad_GhostToCasketOff.Location = new System.Drawing.Point(6, 19);
+            this.rad_GhostToCasketOff.Name = "rad_GhostToCasketOff";
+            this.rad_GhostToCasketOff.Size = new System.Drawing.Size(39, 17);
+            this.rad_GhostToCasketOff.TabIndex = 0;
+            this.rad_GhostToCasketOff.TabStop = true;
+            this.rad_GhostToCasketOff.Text = "Off";
+            this.rad_GhostToCasketOff.UseVisualStyleBackColor = true;
+            this.rad_GhostToCasketOff.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // grp_RandHeroAge
+            // 
+            this.grp_RandHeroAge.Controls.Add(this.rad_RandHeroAgeRand);
+            this.grp_RandHeroAge.Controls.Add(this.rad_RandHeroAgeOn);
+            this.grp_RandHeroAge.Controls.Add(this.rad_RandHeroAgeOff);
+            this.grp_RandHeroAge.Location = new System.Drawing.Point(173, 4);
+            this.grp_RandHeroAge.Name = "grp_RandHeroAge";
+            this.grp_RandHeroAge.Size = new System.Drawing.Size(163, 41);
+            this.grp_RandHeroAge.TabIndex = 234;
+            this.grp_RandHeroAge.TabStop = false;
+            this.grp_RandHeroAge.Text = "Randomize Hero\'s Age";
+            this.adjustments.SetToolTip(this.grp_RandHeroAge, "Randomizes Hero\'s age and changes sprite accordingly.");
+            // 
+            // rad_RandHeroAgeRand
+            // 
+            this.rad_RandHeroAgeRand.AutoSize = true;
+            this.rad_RandHeroAgeRand.Location = new System.Drawing.Point(96, 19);
+            this.rad_RandHeroAgeRand.Name = "rad_RandHeroAgeRand";
+            this.rad_RandHeroAgeRand.Size = new System.Drawing.Size(65, 17);
+            this.rad_RandHeroAgeRand.TabIndex = 2;
+            this.rad_RandHeroAgeRand.Text = "Random";
+            this.rad_RandHeroAgeRand.UseVisualStyleBackColor = true;
+            this.rad_RandHeroAgeRand.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_RandHeroAgeOn
+            // 
+            this.rad_RandHeroAgeOn.AutoSize = true;
+            this.rad_RandHeroAgeOn.Location = new System.Drawing.Point(51, 19);
+            this.rad_RandHeroAgeOn.Name = "rad_RandHeroAgeOn";
+            this.rad_RandHeroAgeOn.Size = new System.Drawing.Size(39, 17);
+            this.rad_RandHeroAgeOn.TabIndex = 1;
+            this.rad_RandHeroAgeOn.Text = "On";
+            this.rad_RandHeroAgeOn.UseVisualStyleBackColor = true;
+            this.rad_RandHeroAgeOn.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_RandHeroAgeOff
+            // 
+            this.rad_RandHeroAgeOff.AutoSize = true;
+            this.rad_RandHeroAgeOff.Checked = true;
+            this.rad_RandHeroAgeOff.Location = new System.Drawing.Point(6, 19);
+            this.rad_RandHeroAgeOff.Name = "rad_RandHeroAgeOff";
+            this.rad_RandHeroAgeOff.Size = new System.Drawing.Size(39, 17);
+            this.rad_RandHeroAgeOff.TabIndex = 0;
+            this.rad_RandHeroAgeOff.TabStop = true;
+            this.rad_RandHeroAgeOff.Text = "Off";
+            this.rad_RandHeroAgeOff.UseVisualStyleBackColor = true;
+            this.rad_RandHeroAgeOff.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // grp_LevelUpTxt
+            // 
+            this.grp_LevelUpTxt.Controls.Add(this.rad_LevelUpTxtRand);
+            this.grp_LevelUpTxt.Controls.Add(this.rad_LevelUpTxtOn);
+            this.grp_LevelUpTxt.Controls.Add(this.rad_LevelUpTxtOff);
+            this.grp_LevelUpTxt.Location = new System.Drawing.Point(4, 4);
+            this.grp_LevelUpTxt.Name = "grp_LevelUpTxt";
+            this.grp_LevelUpTxt.Size = new System.Drawing.Size(163, 41);
+            this.grp_LevelUpTxt.TabIndex = 233;
+            this.grp_LevelUpTxt.TabStop = false;
+            this.grp_LevelUpTxt.Text = "Change Level Up Text";
+            this.adjustments.SetToolTip(this.grp_LevelUpTxt, "Changes Level Up text to include character name.");
+            // 
+            // rad_LevelUpTxtRand
+            // 
+            this.rad_LevelUpTxtRand.AutoSize = true;
+            this.rad_LevelUpTxtRand.Location = new System.Drawing.Point(96, 19);
+            this.rad_LevelUpTxtRand.Name = "rad_LevelUpTxtRand";
+            this.rad_LevelUpTxtRand.Size = new System.Drawing.Size(65, 17);
+            this.rad_LevelUpTxtRand.TabIndex = 2;
+            this.rad_LevelUpTxtRand.Text = "Random";
+            this.rad_LevelUpTxtRand.UseVisualStyleBackColor = true;
+            this.rad_LevelUpTxtRand.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_LevelUpTxtOn
+            // 
+            this.rad_LevelUpTxtOn.AutoSize = true;
+            this.rad_LevelUpTxtOn.Location = new System.Drawing.Point(51, 19);
+            this.rad_LevelUpTxtOn.Name = "rad_LevelUpTxtOn";
+            this.rad_LevelUpTxtOn.Size = new System.Drawing.Size(39, 17);
+            this.rad_LevelUpTxtOn.TabIndex = 1;
+            this.rad_LevelUpTxtOn.Text = "On";
+            this.rad_LevelUpTxtOn.UseVisualStyleBackColor = true;
+            this.rad_LevelUpTxtOn.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // rad_LevelUpTxtOff
+            // 
+            this.rad_LevelUpTxtOff.AutoSize = true;
+            this.rad_LevelUpTxtOff.Checked = true;
+            this.rad_LevelUpTxtOff.Location = new System.Drawing.Point(6, 19);
+            this.rad_LevelUpTxtOff.Name = "rad_LevelUpTxtOff";
+            this.rad_LevelUpTxtOff.Size = new System.Drawing.Size(39, 17);
+            this.rad_LevelUpTxtOff.TabIndex = 0;
+            this.rad_LevelUpTxtOff.TabStop = true;
+            this.rad_LevelUpTxtOff.Text = "Off";
+            this.rad_LevelUpTxtOff.UseVisualStyleBackColor = true;
+            this.rad_LevelUpTxtOff.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // label7
             // 
@@ -6224,7 +6624,6 @@ namespace DW3Randomizer
             this.chk_GenIslandsMonstersZones.Text = "Generate islands, monsters, and zones files";
             this.adjustments.SetToolTip(this.chk_GenIslandsMonstersZones, "Randomizes the healing effect of the Sage\'s Stone");
             this.chk_GenIslandsMonstersZones.UseVisualStyleBackColor = true;
-            this.chk_GenIslandsMonstersZones.CheckedChanged += new System.EventHandler(this.chk_GenIslandsMonstersZones_CheckedChanged);
             // 
             // chk_GenCompareFile
             // 
@@ -6379,7 +6778,7 @@ namespace DW3Randomizer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(695, 717);
+            this.ClientSize = new System.Drawing.Size(698, 717);
             this.Controls.Add(this.btn_chksumHash);
             this.Controls.Add(this.btn_CopyHash);
             this.Controls.Add(this.lblHash);
@@ -6606,7 +7005,28 @@ namespace DW3Randomizer
             this.grp_RmParryBug.ResumeLayout(false);
             this.grp_RmParryBug.PerformLayout();
             this.tabPage7.ResumeLayout(false);
-            this.tabPage7.PerformLayout();
+            this.grp_EveryCat.ResumeLayout(false);
+            this.grp_EveryCat.PerformLayout();
+            this.grp_FFightSprite.ResumeLayout(false);
+            this.grp_FFightSprite.PerformLayout();
+            this.grp_ChCats.ResumeLayout(false);
+            this.grp_ChCats.PerformLayout();
+            this.grp_RandNPC.ResumeLayout(false);
+            this.grp_RandNPC.PerformLayout();
+            this.grp_RandSpriteCol.ResumeLayout(false);
+            this.grp_RandSpriteCol.PerformLayout();
+            this.grp_FHero.ResumeLayout(false);
+            this.grp_FHero.PerformLayout();
+            this.grp_SlimeSnail.ResumeLayout(false);
+            this.grp_SlimeSnail.PerformLayout();
+            this.grp_StdCase.ResumeLayout(false);
+            this.grp_StdCase.PerformLayout();
+            this.grp_GhostToCasket.ResumeLayout(false);
+            this.grp_GhostToCasket.PerformLayout();
+            this.grp_RandHeroAge.ResumeLayout(false);
+            this.grp_RandHeroAge.PerformLayout();
+            this.grp_LevelUpTxt.ResumeLayout(false);
+            this.grp_LevelUpTxt.PerformLayout();
             this.grpFlags.ResumeLayout(false);
             this.grpFlags.PerformLayout();
             this.ResumeLayout(false);
@@ -6658,15 +7078,10 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox chk_RandGoofOff;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.CheckBox chk_FixSlimeSnail;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.TabPage tabPage7;
-        private System.Windows.Forms.CheckBox chk_LowerCaseMenus;
         private System.Windows.Forms.CheckBox chk_GenCompareFile;
-        private System.Windows.Forms.CheckBox chk_ChangeHeroAge;
         private System.Windows.Forms.CheckBox chk_GenIslandsMonstersZones;
-        private System.Windows.Forms.CheckBox chk_RandSpriteColor;
-        private System.Windows.Forms.CheckBox chk_GhostToCasket;
         private System.Windows.Forms.TabPage tabPage8;
         private System.Windows.Forms.GroupBox grpFlags;
         private System.Windows.Forms.RadioButton optTradSotWFlags;
@@ -6674,20 +7089,10 @@ namespace DW3Randomizer
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label lblHash;
         private System.Windows.Forms.TextBox txtSeed;
-        private System.Windows.Forms.CheckBox chk_changeCats;
         private System.Windows.Forms.Button btn_CopyHash;
         private System.Windows.Forms.RadioButton opt_JustForFun;
         private System.Windows.Forms.Button btn_chksumHash;
-        private System.Windows.Forms.CheckBox chk_EveryoneCat;
-        private System.Windows.Forms.CheckBox chk_FFigherSprite;
-        private System.Windows.Forms.CheckBox chk_RandNPCSprites;
-        private System.Windows.Forms.CheckBox chk_FemaleHero;
         private System.Windows.Forms.RadioButton optSotWFlags;
-        private System.Windows.Forms.CheckBox chk_levelUpText;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.GroupBox grp_IncBatSpeed;
         private System.Windows.Forms.RadioButton rad_IncBattSpeedRand;
         private System.Windows.Forms.RadioButton rad_IncBattSpeedOn;
@@ -7068,6 +7473,50 @@ namespace DW3Randomizer
         private System.Windows.Forms.RadioButton rad_RandSpellLearningRand;
         private System.Windows.Forms.RadioButton rad_RandSpellLearningOn;
         private System.Windows.Forms.RadioButton rad_RandSpellLearningOff;
+        private System.Windows.Forms.GroupBox grp_LevelUpTxt;
+        private System.Windows.Forms.RadioButton rad_LevelUpTxtRand;
+        private System.Windows.Forms.RadioButton rad_LevelUpTxtOn;
+        private System.Windows.Forms.RadioButton rad_LevelUpTxtOff;
+        private System.Windows.Forms.GroupBox grp_GhostToCasket;
+        private System.Windows.Forms.RadioButton rad_GhostToCasketRand;
+        private System.Windows.Forms.RadioButton rad_GhostToCasketOn;
+        private System.Windows.Forms.RadioButton rad_GhostToCasketOff;
+        private System.Windows.Forms.GroupBox grp_RandHeroAge;
+        private System.Windows.Forms.RadioButton rad_RandHeroAgeRand;
+        private System.Windows.Forms.RadioButton rad_RandHeroAgeOn;
+        private System.Windows.Forms.RadioButton rad_RandHeroAgeOff;
+        private System.Windows.Forms.GroupBox grp_ChCats;
+        private System.Windows.Forms.RadioButton rad_ChCatsRand;
+        private System.Windows.Forms.RadioButton rad_ChCatsOn;
+        private System.Windows.Forms.RadioButton rad_ChCatsOff;
+        private System.Windows.Forms.GroupBox grp_RandNPC;
+        private System.Windows.Forms.RadioButton rad_RandNPCRand;
+        private System.Windows.Forms.RadioButton rad_RandNPCOn;
+        private System.Windows.Forms.RadioButton rad_RandNPCOff;
+        private System.Windows.Forms.GroupBox grp_RandSpriteCol;
+        private System.Windows.Forms.RadioButton rad_RandSpriteColRand;
+        private System.Windows.Forms.RadioButton rad_RandSpriteColOn;
+        private System.Windows.Forms.RadioButton rad_RandSpriteColOff;
+        private System.Windows.Forms.GroupBox grp_FHero;
+        private System.Windows.Forms.RadioButton rad_FHeroRand;
+        private System.Windows.Forms.RadioButton rad_FHeroOn;
+        private System.Windows.Forms.RadioButton rad_FHeroOff;
+        private System.Windows.Forms.GroupBox grp_SlimeSnail;
+        private System.Windows.Forms.RadioButton rad_SlimeSnailRand;
+        private System.Windows.Forms.RadioButton rad_SlimeSnailOn;
+        private System.Windows.Forms.RadioButton rad_SlimeSnailOff;
+        private System.Windows.Forms.GroupBox grp_StdCase;
+        private System.Windows.Forms.RadioButton rad_StdCaseRand;
+        private System.Windows.Forms.RadioButton rad_StdCaseOn;
+        private System.Windows.Forms.RadioButton rad_StdCaseOff;
+        private System.Windows.Forms.GroupBox grp_EveryCat;
+        private System.Windows.Forms.RadioButton rad_EveryCatRand;
+        private System.Windows.Forms.RadioButton rad_EveryCatOn;
+        private System.Windows.Forms.RadioButton rad_EveryCatOff;
+        private System.Windows.Forms.GroupBox grp_FFightSprite;
+        private System.Windows.Forms.RadioButton rad_FFightSpriteRand;
+        private System.Windows.Forms.RadioButton rad_FFightSpriteOn;
+        private System.Windows.Forms.RadioButton rad_FFightSpriteOff;
     }
 }
 
