@@ -26,12 +26,12 @@ namespace DW3Randomizer
     public partial class Form1 : Form
     {
         readonly string versionNumber = "2.5.4";
-        readonly string revisionDate = "10/23/2023";
-        readonly int buildnumber = 272; // build starting 8/18/23
+        readonly string revisionDate = "10/24/2023";
+        readonly int buildnumber = 273; // build starting 8/18/23
         readonly string SotWFlags = "A-QLINNDAKMBG-NB-NNABA-EMDB-NNNMNNNB-A-E-N";
         readonly string TradSotWFlags = "A-QLINNDAKMAG-JB-NAABA-BMAB-NNNMNNNB-A-B-D";
         readonly string jffFlags = "A-QLINNNBNNEG-NN-NNNNB-NNNE-NNNMNNNB-E-E-N";
-        readonly string randomFlags = "A-JJD!!!!!!IH-!!-!!!!C-!!!H-!!!!!!!C-A-I-!";
+        readonly string randomFlags = "A-JJD!!!!!!IH-!!-!!!!C-!!!H-!!!!!!!C-E-I-!";
         readonly string quickVanila = "A-NOGNAAAAAAD-AA-AAAAA-AAAA-AAAAAAAA-A-E-A";
         readonly bool debugmode = false;
         Random r1;
@@ -370,76 +370,37 @@ namespace DW3Randomizer
                 int evalRandTemp = 0; // this will evaluate if Rand is selected on specific options
                 int evalRandTemp2 = 0;
 
+                evalRandTemp = r1.Next() % 2;
+                if ((rad_RmManipRand.Checked && evalRandTemp == 1) || rad_RmManipOn.Checked) dw4RNG();
                 boostXP(); // Both boosts Exp and Evaluates Random Exp
                 boostGP(); // Both boosts Gold and Evaluates Random Gold
                 adjustEncounters();
                 evalRandTemp = r1.Next() % 2;
-                if ((rad_AdjStartEqRand.Checked && evalRandTemp == 1) || (rad_AdjEqPriceOn.Checked)) adjustEquipmentPrice = true;
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_AddRemakeRand.Checked && evalRandTemp == 1) || (rad_AddRemakeOn.Checked)) changeRemakeEq(); // need to call early because display weapon and armor power is called on tab 1
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_IncBattSpeedRand.Checked && evalRandTemp == 1) || rad_IncBattSpeedOn.Checked) battleSpeed();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_SpeedTextRand.Checked && evalRandTemp == 1) || rad_SpeedTextOn.Checked) speedText();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_SpeedUpMenuRand.Checked && evalRandTemp == 1) || rad_SpeedUpMenusOn.Checked) speedUpMenus();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_RmManipRand.Checked && evalRandTemp == 1) || rad_RmManipOn.Checked) dw4RNG();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_StartGoldRand.Checked && evalRandTemp == 1) || rad_StartGoldOn.Checked) randStartGold();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_codRand.Checked && evalRandTemp == 1) || rad_codOn.Checked) cod();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_LamiaRand.Checked && evalRandTemp == 1) || rad_LamiaOn.Checked) noOrbs();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_DispEqPowerRand.Checked && evalRandTemp == 1) || rad_DispEqPowerOn.Checked) weapArmPower();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_DoubleAttRand.Checked && evalRandTemp == 1) || rad_DoubleAttOn.Checked) doubleattack();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_PartyItemsRand.Checked && evalRandTemp == 1) || rad_PartyItemsOn.Checked) heroitems();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_InvisShipBirdRand.Checked && evalRandTemp == 1) || rad_InvisShipBirdOn.Checked) invisbleShips();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_InvisNPCRand.Checked && evalRandTemp == 1) || rad_InvisNPCOn.Checked) invisibleNPCs();
+                if ((rad_AdjEqPriceRand.Checked && evalRandTemp == 1) || (rad_AdjEqPriceOn.Checked)) adjustEquipmentPrice = true;
                 evalRandTemp = r1.Next() % 2;
                 if ((rad_RandSageStoneRand.Checked && evalRandTemp == 1) || rad_RandSageStoneOn.Checked) randsagestone();
                 evalRandTemp = r1.Next() % 2;
                 if ((rad_SoHRoLEffRand.Checked && evalRandTemp == 1) || rad_SoHRoLEffOn.Checked) randshoes();
                 evalRandTemp = r1.Next() % 2;
-                if ((rad_RandSpellLearningRand.Checked && evalRandTemp == 1) || rad_RandSpellLearningOn.Checked) randSpellLearning();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_RandSpellStrRand.Checked && evalRandTemp == 1) || rad_RandSpellStrOn.Checked) randSpellStrength();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_NonMagMPRand.Checked && evalRandTemp == 1) || rad_NonMagMPOn.Checked) nonMagicMP();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_FourJobFiestaRand.Checked && evalRandTemp == 1) || (rad_FourJobFiestaOn.Checked)) fourJobFiesta();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_RandStatsRand.Checked && evalRandTemp == 1) || rad_RandStatsSilly.Checked || rad_RandStatsRid.Checked || rad_RandStatsLud.Checked) randStatGains();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_RandMapsRand.Checked && evalRandTemp == 1) || rad_RandMapsOn.Checked) randomizeMapv5();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_RandMonstZoneRand.Checked && evalRandTemp == 1) || (rad_RandMonstZoneOn.Checked)) randMonsterZones();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_RandEnePatRand.Checked && evalRandTemp == 1) || (rad_RandEnePatOn.Checked)) randEnemyPatterns();
+                if ((rad_codRand.Checked && evalRandTemp == 1) || rad_codOn.Checked) cod();
                 evalRandTemp = r1.Next() % 2;
                 if ((rad_FixHeroSpellRand.Checked && evalRandTemp == 1) || (rad_FixHeroSpellOn.Checked)) fixHeroSpell();
                 evalRandTemp = r1.Next() % 2;
+                if ((rad_SpeedTextRand.Checked && evalRandTemp == 1) || rad_SpeedTextOn.Checked) speedText();
+                evalRandTemp = r1.Next() % 2;
+                if ((rad_IncBattSpeedRand.Checked && evalRandTemp == 1) || rad_IncBattSpeedOn.Checked) battleSpeed();
+                evalRandTemp = r1.Next() % 2;
+                if ((rad_FourJobFiestaRand.Checked && evalRandTemp == 1) || (rad_FourJobFiestaOn.Checked)) fourJobFiesta();
+                evalRandTemp = r1.Next() % 2;
+                if ((rad_LamiaRand.Checked && evalRandTemp == 1) || rad_LamiaOn.Checked) noOrbs();
+                evalRandTemp = r1.Next() % 2;
+                if ((rad_SpeedUpMenuRand.Checked && evalRandTemp == 1) || rad_SpeedUpMenusOn.Checked) speedUpMenus();
+                evalRandTemp = r1.Next() % 2;
                 if ((rad_RmParryBugRand.Checked && evalRandTemp == 1) || (rad_RmParryBugOn.Checked)) removeParryFight();
                 evalRandTemp = r1.Next() % 2;
-                if ((rad_RandTreasRand.Checked && evalRandTemp == 1) || (rad_RandTreasOn.Checked)) randTreasures();
+                if ((rad_StdCaseRand.Checked && evalRandTemp == 1) || rad_StdCaseOn.Checked) lowerCaseMenus();
                 evalRandTemp = r1.Next() % 2;
-                if ((rad_RandEqPwrRand.Checked && evalRandTemp == 1) || (rad_RandEqPwrOn.Checked)) randEquip();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_RmFightPenRand.Checked && evalRandTemp == 1) || (rad_RmFightPenOn.Checked)) removeFightPenalty();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_SellUnsellableRand.Checked && evalRandTemp == 1) || (rad_SellUnsellableOn.Checked)) forceItemSell();
-                bool randstores = false;
-                evalRandTemp = r1.Next() % 2;
-                evalRandTemp2 = r1.Next() % 2;
-                if ((rad_RandItemShopRand.Checked && evalRandTemp == 1) || (rad_RandItemShopOn.Checked) || (rad_RandWeapShopRand.Checked && evalRandTemp2 == 1) || (rad_RandWeapShopOn.Checked)) randstores = true;
-                if (randstores) randStores();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_RandInnRand.Checked && evalRandTemp == 1) || (rad_RandInnOn.Checked)) randomizeInnPrices();
+                if ((rad_SlimeSnailRand.Checked && evalRandTemp == 1) || rad_SlimeSnailOn.Checked) slimeSnail();
                 evalRandTemp = r1.Next() % 2;
                 if ((rad_Gender1Rand.Checked) || (rad_Gender2Rand.Checked) || (rad_Gender3Rand.Checked)) randomizeGender();
                 if ((rad_Class1Rand.Checked) || (rad_Class2Rand.Checked) || (rad_Class3Rand.Checked)) randomizeClass();
@@ -448,23 +409,62 @@ namespace DW3Randomizer
                     (rad_Class1Rand.Checked) || (rad_Class2Rand.Checked) || (rad_Class3Rand.Checked) || (rad_Class1Manual.Checked) || (rad_Class2Manual.Checked) || (rad_Class3Manual.Checked) ||
                     (rad_ChName1Rand.Checked) || (rad_ChName2Rand.Checked) || (rad_ChName3Rand.Checked) || (rad_ChName1Manual.Checked) || (rad_ChName2Manual.Checked) || (rad_ChName3Manual.Checked)) chngDftParty();
                 evalRandTemp = r1.Next() % 2;
+                if ((rad_RandMapsRand.Checked && evalRandTemp == 1) || rad_RandMapsOn.Checked) randomizeMapv5();
+                evalRandTemp = r1.Next() % 2;
+                if ((rad_RandEnePatRand.Checked && evalRandTemp == 1) || (rad_RandEnePatOn.Checked)) randEnemyPatterns();
+                evalRandTemp = r1.Next() % 2;
+                if ((rad_RandMonstZoneRand.Checked && evalRandTemp == 1) || (rad_RandMonstZoneOn.Checked)) randMonsterZones();
+                evalRandTemp = r1.Next() % 2;
+                if ((rad_SellUnsellableRand.Checked && evalRandTemp == 1) || (rad_SellUnsellableOn.Checked)) forceItemSell();
+                evalRandTemp = r1.Next() % 2;
+                if ((rad_RandEqPwrRand.Checked && evalRandTemp == 1) || (rad_RandEqPwrOn.Checked)) randEquip();
+                evalRandTemp = r1.Next() % 2;
+                if ((rad_AddRemakeRand.Checked && evalRandTemp == 1) || (rad_AddRemakeOn.Checked)) changeRemakeEq(); // need to call early because display weapon and armor power is called on tab 1
+                evalRandTemp = r1.Next() % 2;
+                if ((rad_RmFightPenRand.Checked && evalRandTemp == 1) || (rad_RmFightPenOn.Checked)) removeFightPenalty();
+                evalRandTemp = r1.Next() % 2;
+                if ((rad_DispEqPowerRand.Checked && evalRandTemp == 1) || rad_DispEqPowerOn.Checked) weapArmPower();
+                evalRandTemp = r1.Next() % 2;
+                if ((rad_RandSpellLearningRand.Checked && evalRandTemp == 1) || rad_RandSpellLearningOn.Checked) randSpellLearning();
+                evalRandTemp = r1.Next() % 2;
+                if ((rad_RandSpellStrRand.Checked && evalRandTemp == 1) || rad_RandSpellStrOn.Checked) randSpellStrength();
+                evalRandTemp = r1.Next() % 2;
+                if ((rad_RandTreasRand.Checked && evalRandTemp == 1) || (rad_RandTreasOn.Checked)) randTreasures();
+                bool randstores = false;
+                evalRandTemp = r1.Next() % 2;
+                evalRandTemp2 = r1.Next() % 2;
+                if ((rad_RandItemShopRand.Checked && evalRandTemp == 1) || (rad_RandItemShopOn.Checked) || (rad_RandWeapShopRand.Checked && evalRandTemp2 == 1) || (rad_RandWeapShopOn.Checked)) randstores = true;
+                if (randstores) randStores();
+                evalRandTemp = r1.Next() % 2;
+                if ((rad_RandInnRand.Checked && evalRandTemp == 1) || (rad_RandInnOn.Checked)) randomizeInnPrices();
+                evalRandTemp = r1.Next() % 2;
+                if ((rad_RandStatsRand.Checked && evalRandTemp == 1) || rad_RandStatsSilly.Checked || rad_RandStatsRid.Checked || rad_RandStatsLud.Checked) randStatGains();
+                evalRandTemp = r1.Next() % 2;
                 if ((rad_FHeroRand.Checked && evalRandTemp == 1) || rad_FHeroOn.Checked) fHero = true;
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_StdCaseRand.Checked && evalRandTemp == 1) || rad_StdCaseOn.Checked) lowerCaseMenus();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_SlimeSnailRand.Checked && evalRandTemp == 1) || rad_SlimeSnailOn.Checked) slimeSnail();
                 evalRandTemp = r1.Next() % 2;
                 if ((rad_RandHeroAgeRand.Checked && evalRandTemp == 1) || rad_RandHeroAgeOn.Checked) changeHeroAge();
                 evalRandTemp = r1.Next() % 2;
                 if ((rad_RandSpriteColRand.Checked && evalRandTemp == 1) || rad_RandSpriteColOn.Checked) randSpriteColors();
                 evalRandTemp = r1.Next() % 2;
+                if ((rad_StartGoldRand.Checked && evalRandTemp == 1) || rad_StartGoldOn.Checked) randStartGold();
+                evalRandTemp = r1.Next() % 2;
                 if ((rad_GhostToCasketRand.Checked && evalRandTemp == 1) || rad_GhostToCasketOn.Checked) changeGhostToCasket();
                 evalRandTemp = r1.Next() % 2;
                 if ((rad_ChCatsRand.Checked && evalRandTemp == 1) || rad_ChCatsOn.Checked) changeCats();
                 evalRandTemp = r1.Next() % 2;
+                if ((rad_InvisNPCRand.Checked && evalRandTemp == 1) || rad_InvisNPCOn.Checked) invisibleNPCs();
+                evalRandTemp = r1.Next() % 2;
+                if ((rad_InvisShipBirdRand.Checked && evalRandTemp == 1) || rad_InvisShipBirdOn.Checked) invisbleShips();
+                evalRandTemp = r1.Next() % 2;
+                if ((rad_DoubleAttRand.Checked && evalRandTemp == 1) || rad_DoubleAttOn.Checked) doubleattack();
+                evalRandTemp = r1.Next() % 2;
+                if ((rad_PartyItemsRand.Checked && evalRandTemp == 1) || rad_PartyItemsOn.Checked) heroitems();
+                evalRandTemp = r1.Next() % 2;
                 if ((rad_FFightSpriteRand.Checked && evalRandTemp == 1) || rad_FFightSpriteOn.Checked) fixFFigherSprite();
                 evalRandTemp = r1.Next() % 2;
                 if ((rad_RandNPCRand.Checked && evalRandTemp == 1) || rad_RandNPCOn.Checked) randomNPCSprites();
+                evalRandTemp = r1.Next() % 2;
+                if ((rad_NonMagMPRand.Checked && evalRandTemp == 1) || rad_NonMagMPOn.Checked) nonMagicMP();
                 evalRandTemp = r1.Next() % 2;
                 if ((rad_LevelUpTxtRand.Checked && evalRandTemp == 1 ) || rad_LevelUpTxtOn.Checked) levelUpText();
                 //                if (chkRandItemEffects.Checked) randItemEffects(rni);
@@ -10730,6 +10730,12 @@ namespace DW3Randomizer
                 this.txtFlags.Enabled = false;
                 determineChecks(null, null);
             }
+            else if (rad_FastVanilla.Checked == true)
+            {
+                this.txtFlags.Text = quickVanila;
+                this.txtFlags.Enabled = false;
+                determineChecks(null, null);
+            }
             else if (optTradSotWFlags.Checked == true)
             {
                 this.txtFlags.Text = TradSotWFlags;
@@ -10741,7 +10747,35 @@ namespace DW3Randomizer
                 this.txtFlags.Text = jffFlags;
                 this.txtFlags.Enabled = false;
                 determineChecks(null, null);
-            }    
+            }
+            else if (rad_EverythingRand.Checked)
+            {
+                this.txtFlags.Text = randomFlags;
+                this.txtFlags.Enabled = false;
+                this.rad_ChName1Rand.Checked = true;
+                this.rad_ChName2Rand.Checked = true;
+                this.rad_ChName3Rand.Checked = true;
+                this.rad_Gender1Rand.Checked = true;
+                this.rad_Gender2Rand.Checked = true;
+                this.rad_Gender3Rand.Checked = true;
+                this.chk_RandSoldier.Checked = true;
+                this.chk_RandWizard.Checked = true;
+                this.chk_RandPilgrim.Checked = true;
+                this.chk_RandFighter.Checked = true;
+                this.chk_RandMerchant.Checked = true;
+                this.chk_RandGoofOff.Checked = true;
+                this.rad_Class1Rand.Checked = true;
+                this.rad_Class2Rand.Checked = true;
+                this.rad_Class3Rand.Checked = true;
+                this.rad_StdCaseRand.Checked = true;
+                this.rad_SlimeSnailRand.Checked = true;
+                this.rad_FHeroRand.Checked = true;
+                this.rad_RandSpriteColRand.Checked = true;
+                this.rad_RandNPCRand.Checked = true;
+                this.rad_ChCatsRand.Checked = true;
+                this.rad_FFightSpriteRand.Checked = true;
+                determineChecks(null, null);
+            }
             else if (optManualFlags.Checked == true)
             {
                 this.txtFlags.Enabled = true;
