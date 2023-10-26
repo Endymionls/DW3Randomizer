@@ -26,8 +26,8 @@ namespace DW3Randomizer
     public partial class Form1 : Form
     {
         readonly string versionNumber = "2.5.4";
-        readonly string revisionDate = "10/24/2023";
-        readonly int buildnumber = 273; // build starting 8/18/23
+        readonly string revisionDate = "10/25/2023";
+        readonly int buildnumber = 274; // build starting 8/18/23
         readonly string SotWFlags = "A-QLINNDAKMBG-NB-NNABA-EMDB-NNNMNNNB-A-E-N";
         readonly string TradSotWFlags = "A-QLINNDAKMAG-JB-NAABA-BMAB-NNNMNNNB-A-B-D";
         readonly string jffFlags = "A-QLINNNBNNEG-NN-NNNNB-NNNE-NNNMNNNB-E-E-N";
@@ -179,7 +179,7 @@ namespace DW3Randomizer
                 (65536 * (int)romData[0x2914f]) + (131072 * (int)romData[0x32e3 + (230)]) + (262144 * (int)romData[0x32e3 + 480]) + (524288 * (int)romData[0x32e3 + 10])) +
                 (1048576 * (int)romData[0x1ef20]);
 
-            int hashNumber = adjustmentTab + adjustmentTab2 + adjustmentTab3 + mapTab1 + mapTab2 + monstersTab + treasureEquipmentTab1 + treasureEquipmentTab2 +
+            int hashNumber = adjustmentTab + adjustmentTab2 + adjustmentTab3 + adjustmentTab4 + mapTab1 + mapTab2 + monstersTab + treasureEquipmentTab1 + treasureEquipmentTab2 +
                 itemWeaponShopsInnsTab1 + itemWeaponShopsInnsTab2 + itemWeaponShopsInnsTab3 + fixesTab + cosmeticTab + values;
 
             string hashString = hashNumber.ToString("X");
@@ -408,6 +408,8 @@ namespace DW3Randomizer
                 if ((rad_Gender1Rand.Checked) || (rad_Gender2Rand.Checked) || (rad_Gender3Rand.Checked) || (rad_Gender1Manual.Checked) || (rad_Gender2Manual.Checked) || (rad_Gender3Manual.Checked) ||
                     (rad_Class1Rand.Checked) || (rad_Class2Rand.Checked) || (rad_Class3Rand.Checked) || (rad_Class1Manual.Checked) || (rad_Class2Manual.Checked) || (rad_Class3Manual.Checked) ||
                     (rad_ChName1Rand.Checked) || (rad_ChName2Rand.Checked) || (rad_ChName3Rand.Checked) || (rad_ChName1Manual.Checked) || (rad_ChName2Manual.Checked) || (rad_ChName3Manual.Checked)) chngDftParty();
+                evalRandTemp = r1.Next() % 2;
+                if ((rad_SmallMapRand.Checked && evalRandTemp == 1) || rad_SmallMapOn.Checked) smallMap = true;
                 evalRandTemp = r1.Next() % 2;
                 if ((rad_RandMapsRand.Checked && evalRandTemp == 1) || rad_RandMapsOn.Checked) randomizeMapv5();
                 evalRandTemp = r1.Next() % 2;
@@ -2440,7 +2442,7 @@ namespace DW3Randomizer
                                         // Map Portoga Shrine West to the ROM
                                         byteToUse = 0x1b252 + (5 * 44);
                                         romData[byteToUse] = (byte)(islandX + 6);
-                                        romData[byteToUse + 1] = (byte)(islandY + 2);
+                                        romData[byteToUse + 1] = (byte)(islandY);
                                         romData[0x3d192] = romData[0x7d192] = (byte)(islandX + 6);
 
                                         // Write Portoga return point and ship placement
@@ -3103,6 +3105,7 @@ namespace DW3Randomizer
                     romData[0x14029 + (lnI * 2)] = (byte)(lnPointer / 256);
 
                     int lnJ = 0;
+
                     while (lnI < 256 && lnJ < 256)
                     {
                         if (map[lnI, lnJ] >= 0 && map[lnI, lnJ] <= 7)
@@ -3124,13 +3127,14 @@ namespace DW3Randomizer
                             lnJ++;
                         }
                     }
+
                 }
                 if (compressed) badMap = false;
 
                 //lnPointer = lnPointer;
                 if (lnPointer > 0x9a94)
                 {
-                    MessageBox.Show("WARNING:  The map might have taken too much ROM space... (" + (lnPointer - 0x9a94).ToString() + " over)");
+                    MessageBox.Show("WARNING:  The map1 might have taken too much ROM space... (" + (lnPointer - 0x9a94).ToString() + " over)");
                     compressed = true;
                     // Might have to compress further to remove one byte stuff
                     // Must compress the map by getting rid of further 1 byte lakes
@@ -3179,7 +3183,7 @@ namespace DW3Randomizer
                 //lnPointer = lnPointer;
                 if (lnPointer > 0xa3ee)
                 {
-                    MessageBox.Show("WARNING:  The map might have taken too much ROM space... (" + (lnPointer - 0xa3ee).ToString() + " over)");
+                    MessageBox.Show("WARNING:  The map2 might have taken too much ROM space... (" + (lnPointer - 0xa3ee).ToString() + " over)");
                     compressed = true;
                     // Might have to compress further to remove one byte stuff
                     // Must compress the map by getting rid of further 1 byte lakes
