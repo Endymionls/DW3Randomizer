@@ -501,8 +501,8 @@ namespace DW3Randomizer
             this.label7 = new System.Windows.Forms.Label();
             this.txtFlags = new System.Windows.Forms.TextBox();
             this.adjustments = new System.Windows.Forms.ToolTip(this.components);
-            this.chk_GenIslandsMonstersZones = new System.Windows.Forms.CheckBox();
             this.chk_GenCompareFile = new System.Windows.Forms.CheckBox();
+            this.chk_GenIslandsMonstersZones = new System.Windows.Forms.CheckBox();
             this.lblNewChecksum = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.grpFlags = new System.Windows.Forms.GroupBox();
@@ -516,6 +516,7 @@ namespace DW3Randomizer
             this.lblHash = new System.Windows.Forms.Label();
             this.txtSeed = new System.Windows.Forms.TextBox();
             this.btn_chksumHash = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.grp_RandStats.SuspendLayout();
@@ -804,6 +805,7 @@ namespace DW3Randomizer
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.checkBox1);
             this.tabPage1.Controls.Add(this.grp_RandStats);
             this.tabPage1.Controls.Add(this.grp_FourJobFiesta);
             this.tabPage1.Controls.Add(this.grp_NonMagMP);
@@ -1658,7 +1660,6 @@ namespace DW3Randomizer
             this.grp_RandSageStone.TabIndex = 56;
             this.grp_RandSageStone.TabStop = false;
             this.grp_RandSageStone.Text = "Randomize Sage\'s Stone";
-            this.adjustments.SetToolTip(this.chk_GenCompareFile, "Randomizes whether Sage\'s Stone will cast HealUs or HealUsAll (low rate)");
             // 
             // rad_RandSageStoneRand
             // 
@@ -5006,7 +5007,8 @@ namespace DW3Randomizer
             this.grp_Class.TabIndex = 186;
             this.grp_Class.TabStop = false;
             this.grp_Class.Text = "Class";
-            this.adjustments.SetToolTip(this.grp_Class, "Allows for changing of classes found in tavern or randomizing (Sage and Hero will change flags).");
+            this.adjustments.SetToolTip(this.grp_Class, "Allows for changing of classes found in tavern or randomizing (Sage and Hero will" +
+        " change flags).");
             // 
             // grp_ClassInclude
             // 
@@ -5200,7 +5202,6 @@ namespace DW3Randomizer
             this.cbo_Class3.Name = "cbo_Class3";
             this.cbo_Class3.Size = new System.Drawing.Size(205, 28);
             this.cbo_Class3.TabIndex = 224;
-            this.cbo_Class3.SelectedIndexChanged += new System.EventHandler(this.cboClass3_SelectedIndexChanged);
             // 
             // grp_Class2
             // 
@@ -5273,7 +5274,6 @@ namespace DW3Randomizer
             this.cbo_Class2.Name = "cbo_Class2";
             this.cbo_Class2.Size = new System.Drawing.Size(205, 28);
             this.cbo_Class2.TabIndex = 221;
-            this.cbo_Class2.SelectedIndexChanged += new System.EventHandler(this.cboClass2_SelectedIndexChanged);
             // 
             // grp_Class1
             // 
@@ -5346,7 +5346,6 @@ namespace DW3Randomizer
             this.cbo_Class1.Name = "cbo_Class1";
             this.cbo_Class1.Size = new System.Drawing.Size(205, 28);
             this.cbo_Class1.TabIndex = 218;
-            this.cbo_Class1.SelectedIndexChanged += new System.EventHandler(this.cboClass1_SelectedIndexChanged);
             // 
             // grp_Gender
             // 
@@ -5574,8 +5573,8 @@ namespace DW3Randomizer
             this.grp_ChName.TabIndex = 184;
             this.grp_ChName.TabStop = false;
             this.grp_ChName.Text = "Change Names";
-            this.adjustments.SetToolTip(this.grp_ChName, "Allows for manual setting of Tavern Members names or random name from the Dragon Quest series.");
-
+            this.adjustments.SetToolTip(this.grp_ChName, "Allows for manual setting of Tavern Members names or random name from the Dragon " +
+        "Quest series.");
             // 
             // grp_ChName3
             // 
@@ -6473,18 +6472,6 @@ namespace DW3Randomizer
             this.txtFlags.TabIndex = 31;
             this.txtFlags.Leave += new System.EventHandler(this.determineChecks);
             // 
-            // chk_GenIslandsMonstersZones
-            // 
-            this.chk_GenIslandsMonstersZones.AutoSize = true;
-            this.chk_GenIslandsMonstersZones.Location = new System.Drawing.Point(558, 1058);
-            this.chk_GenIslandsMonstersZones.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.chk_GenIslandsMonstersZones.Name = "chk_GenIslandsMonstersZones";
-            this.chk_GenIslandsMonstersZones.Size = new System.Drawing.Size(344, 24);
-            this.chk_GenIslandsMonstersZones.TabIndex = 261;
-            this.chk_GenIslandsMonstersZones.Text = "Generate islands, monsters, and zones files";
-            this.adjustments.SetToolTip(this.chk_GenIslandsMonstersZones, "Randomizes the healing effect of the Sage\'s Stone");
-            this.chk_GenIslandsMonstersZones.UseVisualStyleBackColor = true;
-            // 
             // chk_GenCompareFile
             // 
             this.chk_GenCompareFile.AutoSize = true;
@@ -6498,6 +6485,18 @@ namespace DW3Randomizer
         " (item locations, monster stats/spells.)");
             this.chk_GenCompareFile.UseVisualStyleBackColor = true;
             this.chk_GenCompareFile.CheckedChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // chk_GenIslandsMonstersZones
+            // 
+            this.chk_GenIslandsMonstersZones.AutoSize = true;
+            this.chk_GenIslandsMonstersZones.Location = new System.Drawing.Point(558, 1058);
+            this.chk_GenIslandsMonstersZones.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.chk_GenIslandsMonstersZones.Name = "chk_GenIslandsMonstersZones";
+            this.chk_GenIslandsMonstersZones.Size = new System.Drawing.Size(344, 24);
+            this.chk_GenIslandsMonstersZones.TabIndex = 261;
+            this.chk_GenIslandsMonstersZones.Text = "Generate islands, monsters, and zones files";
+            this.adjustments.SetToolTip(this.chk_GenIslandsMonstersZones, "Randomizes the healing effect of the Sage\'s Stone");
+            this.chk_GenIslandsMonstersZones.UseVisualStyleBackColor = true;
             // 
             // lblNewChecksum
             // 
@@ -6644,6 +6643,17 @@ namespace DW3Randomizer
             this.btn_chksumHash.UseVisualStyleBackColor = true;
             this.btn_chksumHash.Click += new System.EventHandler(this.btn_chksumHash_Click);
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(512, 593);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(113, 24);
+            this.checkBox1.TabIndex = 601;
+            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.ThreeState = true;
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -6683,6 +6693,7 @@ namespace DW3Randomizer
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.grp_RandStats.ResumeLayout(false);
             this.grp_RandStats.PerformLayout();
             this.grp_FourJobFiesta.ResumeLayout(false);
@@ -7386,6 +7397,7 @@ namespace DW3Randomizer
         private System.Windows.Forms.RadioButton rad_FFightSpriteOff;
         private System.Windows.Forms.RadioButton rad_FastVanilla;
         private System.Windows.Forms.RadioButton rad_EverythingRand;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 

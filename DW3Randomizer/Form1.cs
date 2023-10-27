@@ -20,14 +20,16 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.InteropServices.WindowsRuntime;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
+using DW3Randomizer.classes;
 
 namespace DW3Randomizer
 {
     public partial class Form1 : Form
     {
-        readonly string versionNumber = "2.5.4";
-        readonly string revisionDate = "10/25/2023";
-        readonly int buildnumber = 274; // build starting 8/18/23
+
+        readonly string versionNumber = "2.5.4.1";
+        readonly string revisionDate = "10/27/2023";
+        readonly int buildnumber = 275; // build starting 8/18/23
         readonly string SotWFlags = "A-QLINNDAKMBG-NB-NNABA-EMDB-NNNMNNNB-A-E-N";
         readonly string TradSotWFlags = "A-QLINNDAKMAG-JB-NAABA-BMAB-NNNMNNNB-A-B-D";
         readonly string jffFlags = "A-QLINNNBNNEG-NN-NNNNB-NNNE-NNNMNNNB-E-E-N";
@@ -35,6 +37,8 @@ namespace DW3Randomizer
         readonly string quickVanila = "A-NOGNAAAAAAD-AA-AAAAA-AAAA-AAAAAAAA-A-E-A";
         readonly bool debugmode = false;
         Random r1;
+        Random randomFlagIncrement;
+        Random randomCosmeticIncrement;
 
         bool loading = true;
         byte[] romData;
@@ -66,7 +70,7 @@ namespace DW3Randomizer
         bool adjustEquipmentPrice = false;
         bool randColor = false;
         bool fHero = false;
-
+        bool randClass = false;
         public Form1()
         {
             InitializeComponent();
@@ -185,11 +189,6 @@ namespace DW3Randomizer
             string hashString = hashNumber.ToString("X");
             hashString = hashString.ToLower();
             lblHash.Text = hashString;
-        }
-
-        private void setrandomization()
-        {
-            r1 = new Random(int.Parse(txtSeed.Text));
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -321,23 +320,19 @@ namespace DW3Randomizer
 
         private void btnRandomize_Click(object sender, EventArgs e)
         {
-            setrandomization();
-            for (int lnI = 0; lnI < 256; lnI++)
-                for (int lnJ = 0; lnJ < 256; lnJ++)
-                    maplocs[lnI,lnJ] = 0;
+            bugFixes bugFixes = new bugFixes();
+            flagscalc flagscalc = new flagscalc();
+            initialize initialize = new initialize(); 
+            itemsAndequipment itemsAndequipment = new itemsAndequipment();
+            optimizations optimizations = new optimizations();
+            partyStatChange partyStatChange = new partyStatChange();
+            randomizeFunctions randomizeFunctions = new randomizeFunctions();
+            spritechange spritechange = new spritechange();
+            textchange textchange = new textchange();
 
-            for (int lnI = 0; lnI < buildnumber; lnI++)
-                r1.Next();
-            
-            // Randomize how many steps up rni is increased if GenCompareFile is checked
-            if (chk_GenCompareFile.Checked)
-            {
-                int increment = r1.Next() % buildnumber + 1;
-                for (int lnI = 0; lnI < increment; lnI++)
-                {
-                    r1.Next();
-                }
-            }
+            initialize.setrandomization(ref r1, ref randomFlagIncrement, ref randomCosmeticIncrement, txtSeed.Text, buildnumber, chk_GenCompareFile.Checked);
+            initialize.maplocsfunct(ref maplocs);
+
             if (lblSHAChecksum.Text != lblReqChecksum.Text)
             {
                 if (MessageBox.Show("The checksum of the ROM does not match the required checksum.  Patch anyway?", "Checksum mismatch", MessageBoxButtons.YesNo) == DialogResult.No)
@@ -369,24 +364,31 @@ namespace DW3Randomizer
                 }
                 int evalRandTemp = 0; // this will evaluate if Rand is selected on specific options
                 int evalRandTemp2 = 0;
+                int evalCosmeticTemp = 0;
 
                 evalRandTemp = r1.Next() % 2;
-                if ((rad_RmManipRand.Checked && evalRandTemp == 1) || rad_RmManipOn.Checked) dw4RNG();
+                if (rad_RmManipOn.Checked || (rad_RmManipRand.Checked && evalRandTemp == 1))
+                    randomizeFunctions.dw4RNG(ref romData);
                 boostXP(); // Both boosts Exp and Evaluates Random Exp
                 boostGP(); // Both boosts Gold and Evaluates Random Gold
                 adjustEncounters();
                 evalRandTemp = r1.Next() % 2;
-                if ((rad_AdjEqPriceRand.Checked && evalRandTemp == 1) || (rad_AdjEqPriceOn.Checked)) adjustEquipmentPrice = true;
+                if (rad_AdjEqPriceOn.Checked ||(rad_AdjEqPriceRand.Checked && evalRandTemp == 1)) adjustEquipmentPrice = true;
                 evalRandTemp = r1.Next() % 2;
-                if ((rad_RandSageStoneRand.Checked && evalRandTemp == 1) || rad_RandSageStoneOn.Checked) randsagestone();
+                if ((rad_RandSageStoneRand.Checked && evalRandTemp == 1) || rad_RandSageStoneOn.Checked) 
+                    randomizeFunctions.randsagestone(ref romData, ref r1, rad_HUAStoneOn.Checked, rad_HUAStoneRand.Checked );
                 evalRandTemp = r1.Next() % 2;
-                if ((rad_SoHRoLEffRand.Checked && evalRandTemp == 1) || rad_SoHRoLEffOn.Checked) randshoes();
+                if (rad_SoHRoLEffOn.Checked ||(rad_SoHRoLEffRand.Checked && evalRandTemp == 1)) 
+                    randomizeFunctions.randshoes(ref romData, ref r1, rad_BigOn.Checked, rad_BigRand.Checked);
                 evalRandTemp = r1.Next() % 2;
-                if ((rad_codRand.Checked && evalRandTemp == 1) || rad_codOn.Checked) cod();
+                if (rad_codOn.Checked || (rad_codRand.Checked && evalRandTemp == 1)) 
+                    optimizations.cod(ref romData);
                 evalRandTemp = r1.Next() % 2;
-                if ((rad_FixHeroSpellRand.Checked && evalRandTemp == 1) || (rad_FixHeroSpellOn.Checked)) fixHeroSpell();
+                if (rad_FixHeroSpellOn.Checked || (rad_FixHeroSpellRand.Checked && evalRandTemp == 1)) 
+                    bugFixes.fixHeroSpell(ref romData);
                 evalRandTemp = r1.Next() % 2;
-                if ((rad_SpeedTextRand.Checked && evalRandTemp == 1) || rad_SpeedTextOn.Checked) speedText();
+                if (rad_SpeedTextOn.Checked || (rad_SpeedTextRand.Checked && evalRandTemp == 1)) 
+                    optimizations.speedText(ref romData);
                 evalRandTemp = r1.Next() % 2;
                 if ((rad_IncBattSpeedRand.Checked && evalRandTemp == 1) || rad_IncBattSpeedOn.Checked) battleSpeed();
                 evalRandTemp = r1.Next() % 2;
@@ -394,11 +396,13 @@ namespace DW3Randomizer
                 evalRandTemp = r1.Next() % 2;
                 if ((rad_LamiaRand.Checked && evalRandTemp == 1) || rad_LamiaOn.Checked) noOrbs();
                 evalRandTemp = r1.Next() % 2;
-                if ((rad_SpeedUpMenuRand.Checked && evalRandTemp == 1) || rad_SpeedUpMenusOn.Checked) speedUpMenus();
+                if (rad_SpeedUpMenusOn.Checked || (rad_SpeedUpMenuRand.Checked && evalRandTemp == 1)) 
+                    optimizations.speedUpMenus(ref romData);
                 evalRandTemp = r1.Next() % 2;
                 if ((rad_RmParryBugRand.Checked && evalRandTemp == 1) || (rad_RmParryBugOn.Checked)) removeParryFight();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_StdCaseRand.Checked && evalRandTemp == 1) || rad_StdCaseOn.Checked) lowerCaseMenus();
+                evalCosmeticTemp = randomCosmeticIncrement.Next() % 2;
+                if (rad_StdCaseOn.Checked || (rad_StdCaseRand.Checked && evalCosmeticTemp == 1))
+                    textchange.lowerCaseMenus(ref romData);
                 evalRandTemp = r1.Next() % 2;
                 if ((rad_SlimeSnailRand.Checked && evalRandTemp == 1) || rad_SlimeSnailOn.Checked) slimeSnail();
                 evalRandTemp = r1.Next() % 2;
@@ -419,13 +423,17 @@ namespace DW3Randomizer
                 evalRandTemp = r1.Next() % 2;
                 if ((rad_SellUnsellableRand.Checked && evalRandTemp == 1) || (rad_SellUnsellableOn.Checked)) forceItemSell();
                 evalRandTemp = r1.Next() % 2;
-                if ((rad_RandEqPwrRand.Checked && evalRandTemp == 1) || (rad_RandEqPwrOn.Checked)) randEquip();
+                if (rad_RandEqPwrOn.Checked || (rad_RandEqPwrRand.Checked && evalRandTemp == 1))
+                    itemsAndequipment.randEquip(ref romData, ref r1, rad_AdjStartEqOn.Checked, rad_AdjStartEqRand.Checked, rad_VanEqValOn.Checked, rad_VanEqValRand.Checked, addRemakeEquip, adjustEquipmentPrice);
                 evalRandTemp = r1.Next() % 2;
-                if ((rad_AddRemakeRand.Checked && evalRandTemp == 1) || (rad_AddRemakeOn.Checked)) changeRemakeEq(); // need to call early because display weapon and armor power is called on tab 1
+                if ((rad_AddRemakeOn.Checked || (rad_AddRemakeRand.Checked && evalRandTemp == 1)))
+                    itemsAndequipment.changeRemakeEq(ref romData, out addRemakeEquip, dispEqPower, adjustEquipmentPrice, randClass); // need to call early because display weapon and armor power is called on tab 1
                 evalRandTemp = r1.Next() % 2;
-                if ((rad_RmFightPenRand.Checked && evalRandTemp == 1) || (rad_RmFightPenOn.Checked)) removeFightPenalty();
+                if (rad_RmFightPenOn.Checked || (rad_RmFightPenRand.Checked && evalRandTemp == 1)) 
+                    partyStatChange.removeFightPenalty(ref romData);
                 evalRandTemp = r1.Next() % 2;
-                if ((rad_DispEqPowerRand.Checked && evalRandTemp == 1) || rad_DispEqPowerOn.Checked) weapArmPower();
+                if (rad_DispEqPowerOn.Checked || (rad_DispEqPowerRand.Checked && evalRandTemp == 1))
+                    textchange.weapArmPower(ref romData, out dispEqPower, addRemakeEquip);
                 evalRandTemp = r1.Next() % 2;
                 if ((rad_RandSpellLearningRand.Checked && evalRandTemp == 1) || rad_RandSpellLearningOn.Checked) randSpellLearning();
                 evalRandTemp = r1.Next() % 2;
@@ -438,9 +446,11 @@ namespace DW3Randomizer
                 if ((rad_RandItemShopRand.Checked && evalRandTemp == 1) || (rad_RandItemShopOn.Checked) || (rad_RandWeapShopRand.Checked && evalRandTemp2 == 1) || (rad_RandWeapShopOn.Checked)) randstores = true;
                 if (randstores) randStores();
                 evalRandTemp = r1.Next() % 2;
-                if ((rad_RandInnRand.Checked && evalRandTemp == 1) || (rad_RandInnOn.Checked)) randomizeInnPrices();
+                if (rad_RandInnOn.Checked || (rad_RandInnRand.Checked && evalRandTemp == 1)) 
+                    randomizeFunctions.randomizeInnPrices(ref romData, ref r1);
                 evalRandTemp = r1.Next() % 2;
-                if ((rad_RandStatsRand.Checked && evalRandTemp == 1) || rad_RandStatsSilly.Checked || rad_RandStatsRid.Checked || rad_RandStatsLud.Checked) randStatGains();
+                if (rad_RandStatsSilly.Checked || rad_RandStatsRid.Checked || rad_RandStatsLud.Checked || (rad_RandStatsRand.Checked && evalRandTemp == 1)) 
+                    partyStatChange.randStatGains(ref romData, ref r1, rad_RandStatsSilly.Checked, rad_RandStatsRid.Checked, rad_RandStatsLud.Checked, rad_RandStatsRand.Checked);
                 evalRandTemp = r1.Next() % 2;
                 if ((rad_FHeroRand.Checked && evalRandTemp == 1) || rad_FHeroOn.Checked) fHero = true;
                 evalRandTemp = r1.Next() % 2;
@@ -450,62 +460,48 @@ namespace DW3Randomizer
                 evalRandTemp = r1.Next() % 2;
                 if ((rad_StartGoldRand.Checked && evalRandTemp == 1) || rad_StartGoldOn.Checked) randStartGold();
                 evalRandTemp = r1.Next() % 2;
-                if ((rad_GhostToCasketRand.Checked && evalRandTemp == 1) || rad_GhostToCasketOn.Checked) changeGhostToCasket();
+                if (rad_GhostToCasketOn.Checked || (rad_GhostToCasketRand.Checked && evalRandTemp == 1))
+                    spritechange.changeGhostToCasket(ref romData, txtSeed.Text, randColor);
+                evalCosmeticTemp = randomCosmeticIncrement.Next() % 2;
+                if (rad_ChCatsOn.Checked || (rad_ChCatsRand.Checked && evalCosmeticTemp == 1))
+                    spritechange.changeCats(ref romData, txtSeed.Text);
                 evalRandTemp = r1.Next() % 2;
-                if ((rad_ChCatsRand.Checked && evalRandTemp == 1) || rad_ChCatsOn.Checked) changeCats();
+                if (rad_InvisNPCOn.Checked || (rad_InvisNPCRand.Checked && evalRandTemp == 1)) 
+                   spritechange.invisibleNPCs(ref romData);
                 evalRandTemp = r1.Next() % 2;
-                if ((rad_InvisNPCRand.Checked && evalRandTemp == 1) || rad_InvisNPCOn.Checked) invisibleNPCs();
+                if (rad_InvisShipBirdOn.Checked || (rad_InvisShipBirdRand.Checked && evalRandTemp == 1)) 
+                    spritechange.invisbleShips(ref romData);
                 evalRandTemp = r1.Next() % 2;
-                if ((rad_InvisShipBirdRand.Checked && evalRandTemp == 1) || rad_InvisShipBirdOn.Checked) invisbleShips();
+                if (rad_DoubleAttOn.Checked ||(rad_DoubleAttRand.Checked && evalRandTemp == 1))
+                    partyStatChange.doubleattack(ref romData);
                 evalRandTemp = r1.Next() % 2;
-                if ((rad_DoubleAttRand.Checked && evalRandTemp == 1) || rad_DoubleAttOn.Checked) doubleattack();
+                if (rad_PartyItemsOn.Checked || (rad_PartyItemsRand.Checked && evalRandTemp == 1))
+                    itemsAndequipment.heroitems(ref romData, ref r1);
+                evalCosmeticTemp = randomCosmeticIncrement.Next() % 2;
+                if (rad_FFightSpriteOn.Checked || (rad_FFightSpriteRand.Checked && evalCosmeticTemp == 1))
+                    romData = spritechange.fixFFigherSprite(ref romData);
+                evalCosmeticTemp = randomCosmeticIncrement.Next() % 2;
+                if (rad_RandNPCOn.Checked || (rad_RandNPCRand.Checked && evalCosmeticTemp == 1))
+                    spritechange.randomNPCSprites(ref romData, txtSeed.Text);
                 evalRandTemp = r1.Next() % 2;
-                if ((rad_PartyItemsRand.Checked && evalRandTemp == 1) || rad_PartyItemsOn.Checked) heroitems();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_FFightSpriteRand.Checked && evalRandTemp == 1) || rad_FFightSpriteOn.Checked) fixFFigherSprite();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_RandNPCRand.Checked && evalRandTemp == 1) || rad_RandNPCOn.Checked) randomNPCSprites();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_NonMagMPRand.Checked && evalRandTemp == 1) || rad_NonMagMPOn.Checked) nonMagicMP();
-                evalRandTemp = r1.Next() % 2;
-                if ((rad_LevelUpTxtRand.Checked && evalRandTemp == 1 ) || rad_LevelUpTxtOn.Checked) levelUpText();
-                //                if (chkRandItemEffects.Checked) randItemEffects(rni);
-                changeEnd();
+                if (rad_NonMagMPOn.Checked || (rad_NonMagMPRand.Checked && evalRandTemp == 1))
+                    partyStatChange.nonMagicMP(ref romData);
+                evalCosmeticTemp = randomCosmeticIncrement.Next() % 2;
+                if (rad_LevelUpTxtOn.Checked || (rad_LevelUpTxtRand.Checked && (randomCosmeticIncrement.Next () % 2 == 1 )))
+                    textchange.levelUpText(ref romData);
+
+                // if (chkRandItemEffects.Checked) randItemEffects(rni);
+
+                textchange.changeEnd(ref romData);
                 saveRom(true);
                 saveRom(false);
                 createGuides();
                 runHash();
-
             }
         }
 
-        private void levelUpText()
-        {
-            convertStrToHex("[^s}Maximum}HP}raises}]}point{!}", 0x413dd, false); // Acorns of life Raise HP
-            convertStrToHex("[^s}STR}raises ] point{.}}", 0x412de, false);
-            convertStrToHex("[^s}AGI}raises ] point{.}", 0x412f9, false);
-            convertStrToHex("[^s}VIT}raises ] point{.}}", 0x41313, false);
-            convertStrToHex("[^s}LUC}raises ] point{.@", 0x4132e, false);
-            convertStrToHex("[^s}INT}raises}]}point{.}}}}", 0x41347, false);
-            convertStrToHex("[^s}Maximum}HP}raises}]}point{.}", 0x415b6, false); // Max HP Level Up
-            convertStrToHex("[^s}Maximum}MP}raises}]}point{.}", 0x415d7, false); // Max MP Level Up
-            convertStrToHex("[^s}Maximum}MP}raises}]}point{.}", 0x4163c, false); // Max MP
-        }
 
-        private void nonMagicMP()
-        {
-            romData[0x2540] = 0x08;
-        }
 
-        private void randshoes()
-        {
-            int BigEffect = r1.Next() % 2;
-            if (rad_BigOn.Checked || (rad_BigRand.Checked && BigEffect == 1)) // Shoes will give 11-255 exp per step
-                romData[0x330fc] = (byte)((r1.Next() % 245) + 11);
-            else // Shoes will give 0-10 exp per step
-                romData[0x330fc] = (byte)((r1.Next() % 10) + 1);
-
-        }
 
         private int randoCont(int contcase)
         {
@@ -554,88 +550,7 @@ namespace DW3Randomizer
             return returnnum;
         }
 
-        private void randsagestone()
-        {
-            int HUAStone = r1.Next() % 2;
-            int HUAStoneChance = r1.Next() % 12;
-            if (rad_HUAStoneOn.Checked || (rad_HUAStoneRand.Checked && HUAStone == 1))
-                romData[0x13293] = 0x1f;
-            else if (HUAStoneChance == 10)
-                romData[0x13293] = 0x1f;
-        }
 
-        private void heroitems()
-        {
-            // Gives party of a random consumable item
-            int heroitem = r1.Next() % 7;
-            switch (heroitem)
-            {
-                case 0:
-                    romData[0x1ef20] = 0x56; // Invis Herb
-                    break;
-                case 1:
-                    romData[0x1ef20] = 0x65; // Medical Herb
-                    break;
-                case 2:
-                    romData[0x1ef20] = 0x66; // Antidote Herb
-                    break;
-                case 3:
-                    romData[0x1ef20] = 0x67; // Fairy Water
-                    break;
-                case 4:
-                    romData[0x1ef20] = 0x68; // Wing of Wyvern;
-                    break;
-                case 5:
-                    romData[0x1ef20] = 0x73; // Poison Moth Powder
-                    break;
-                case 6:
-                    romData[0x1ef20] = 0x74; // Spiders Web
-                    break;
-            }
-
-        }
-
-        private void doubleattack()
-        {
-            romData[0x115f8] = 0x00;
-        }
-
-        private void fixHeroSpell()
-        {
-            romData[0x1ef72] = 0x07;
-        }
-
-        private void dw4RNG()
-        {
-            // Implement DW4 RNG so any currently known manipulations won't work.
-
-            romData[0x3c351] = romData[0x7c351] = 0xAD;
-            romData[0x3c352] = romData[0x7c352] = 0xd2;
-            romData[0x3c353] = romData[0x7c353] = 0x06;
-            romData[0x3c354] = romData[0x7c354] = 0x4c;
-            romData[0x3c355] = romData[0x7c355] = 0x53;
-            romData[0x3c356] = romData[0x7c356] = 0xc3;
-            romData[0x3c357] = romData[0x7c357] = 0xf0;
-            romData[0x3c358] = romData[0x7c358] = 0xfb;
-            romData[0x3c359] = romData[0x7c359] = 0x4c;
-            romData[0x3c35a] = romData[0x7c35a] = 0x0a;
-            romData[0x3c35b] = romData[0x7c35b] = 0xc9;
-            romData[0x3c35c] = romData[0x7c35c] = 0x20;
-            romData[0x3c35d] = romData[0x7c35d] = 0x41;
-            romData[0x3c35e] = romData[0x7c35e] = 0xc3;
-            romData[0x3c35f] = romData[0x7c35f] = 0xca;
-            romData[0x3c360] = romData[0x7c360] = 0xd0;
-            romData[0x3c361] = romData[0x7c361] = 0xfa;
-            romData[0x3c362] = romData[0x7c362] = 0x60;
-            romData[0x3c363] = romData[0x7c363] = 0xe6;
-            romData[0x3c364] = romData[0x7c364] = 0x1c;
-            romData[0x3c365] = romData[0x7c365] = 0xcd;
-            romData[0x3c366] = romData[0x7c366] = 0xd2;
-            romData[0x3c367] = romData[0x7c367] = 0x06;
-            romData[0x3c368] = romData[0x7c368] = 0x4c;
-            romData[0x3c369] = romData[0x7c369] = 0x47;
-            romData[0x3c36a] = romData[0x7c36a] = 0xc3;
-        }
 
         private void noOrbs()
         {
@@ -664,15 +579,6 @@ namespace DW3Randomizer
             romData[0x36ccf] = 0xac;
         }
 
-        private void speedUpMenus()
-        {
-            // Speed up item menu loading
-            romData[0x2b0d] = 0x00;
-            romData[0x2b0e] = 0xf0;
-            romData[0x2b0f] = 0x01;
-            romData[0x2b10] = 0x00;
-        }
-
         private void removeParryFight()
         {
             byte[] parryFightFix1 = { 0xbd, 0x9b, 0x6a, 0x29, 0xdf, 0x9d, 0x9b, 0x6a, 0x60 };
@@ -688,43 +594,7 @@ namespace DW3Randomizer
             romData[0xb5f7] = 0x16; // Slime Snaii > Slime Snail
         }
 
-        private void cod()
-        {
-            // All ROM hacks will revive ALL characters on a ColdAsACod.
-            // There will be a temporary graphical error if you use less than four characters, but I'm going to leave it be.
-            byte[] codData1 = { 0xa0, 0x00, // Make sure Y is 0 first.
-                0xb9, 0x3c, 0x07,
-                0xc9, 0x80,
-                0x90, 0x03, // If less than 0x80, skip.
-                0x20, 0xb2, 0xbf, // JSR to a bunch of unused code, which will have the "revive one character code" that I'm replacing.
-                0xc8, 0xc8, // Increment Y twice (Y is used to revive the characters)
-                0xc0, 0x08, // Compare Y with 08
-                0xd0, 0xf0, // If not equal, go back to the JSR mentioned above
-                0xa0, 0x00, // Set Y back to 0 to make sure the game doesn't think something is up
-                0xea, 0xea, 0xea, 0xea, 0xea,
-                0xea, 0xea, 0xea, 0xea, 0xea,
-                0xea, 0xea }; // 12 NOPs, since I have nothing else to do.
-            byte[] codData2 = { 0xa9, 0x80, // Load 80, the status for alive
-                0x99, 0x3c, 0x07, // store to two status bytes
-                0x99, 0x3d, 0x07,
-                0xb9, 0x24, 0x07, // Load max HP
-                0x99, 0x1c, 0x07, // save max HP
-                0xb9, 0x25, 0x07, // second byte
-                0x99, 0x1d, 0x07,
-                0xb9, 0x34, 0x07, // Load max MP
-                0x99, 0x2c, 0x07, // save max MP
-                0xb9, 0x35, 0x07, // second byte
-                0x99, 0x2d, 0x07,
-                0x60 }; // end JSR
-
-            for (int lnI = 0; lnI < codData1.Length; lnI++)
-                romData[0x22b3 + lnI] = codData1[lnI];
-            for (int lnI = 0; lnI < codData2.Length; lnI++)
-                romData[0x3fc2 + lnI] = codData2[lnI];
-
-            romData[0x3cc6a] = 0x4c; // Forces a jump out of the king scolding routine, saving at least 13 seconds / party wipe.  There are graphical errors, but I'll take it!
-        }
-
+ 
         private void battleSpeed()
         {
             romData[0x13a65] = 0x01;
@@ -744,300 +614,7 @@ namespace DW3Randomizer
             romData[0x9957] = 1; // Instead of 4 enemy flashes, saving at least 6 frames / hit... probably 12 or even 24 frames / hit.
         }
 
-        private void speedText()
-        {
-            romData[0x3a783] = 0x20;
-            romData[0x3a784] = 0xbd;
-            romData[0x3a785] = 0xbf;
 
-            romData[0x3a9c7] = 0x90;
-            romData[0x3a9c8] = 0x1d;
-            romData[0x3a9c9] = 0xa6;
-            romData[0x3a9ca] = 0x78;
-            romData[0x3a9cb] = 0xf0;
-            romData[0x3a9cc] = 0x06;
-
-            byte[] speedText = { 0xad, 0xd0, 0x6a, 0xf0, 0x03, 0x00, 0x96, 0x2f, 0x20, 0xba, 0xc2, 0xa9, 0x02, 0x8d, 0xd6, 0x06, 0x20, 0x41, 0xc3, 0xa9, 0x00, 0x8d, 0xd6, 0x06, 0x4c, 0x5f, 0xaa };
-            for (int i = 0; i < speedText.Length; i++)
-                romData[0x3bfcd + i] = speedText[i];
-        }
-
-        private void changeCats()
-        {
-            Random r2 = new Random(int.Parse(txtSeed.Text));
-
-            int index = r2.Next() % 10;
-
-            byte[] dogSprite = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x1F, 0x1F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x1C, 0x18,
-                                 0x00, 0x00, 0x00, 0x00, 0x00, 0xE0, 0xF8, 0xF8, 0x00, 0x00, 0x00, 0x00, 0x00, 0xE0, 0x38, 0x18,
-                                 0x1F, 0x3E, 0x3E, 0x3F, 0x3F, 0x1F, 0x0F, 0x17, 0x10, 0x23, 0x23, 0x21, 0x20, 0x13, 0x09, 0x19,
-                                 0x38, 0x7C, 0x7C, 0xFC, 0xFC, 0xCC, 0x48, 0x30, 0xC8, 0xC4, 0xC4, 0x84, 0x24, 0xF4, 0x78, 0x30,
-                                 0x00, 0x00, 0x00, 0x03, 0x07, 0x0F, 0x1F, 0x1F, 0x00, 0x00, 0x00, 0x03, 0x04, 0x0B, 0x14, 0x1A,
-                                 0x00, 0x00, 0xC0, 0x20, 0xF0, 0xF8, 0xF8, 0xF8, 0x00, 0x00, 0xC0, 0xE0, 0x10, 0xC8, 0x28, 0x58,
-                                 0x3F, 0x3D, 0x3C, 0x3C, 0x3E, 0x1F, 0x12, 0x0C, 0x3A, 0x33, 0x23, 0x27, 0x27, 0x13, 0x1E, 0x0C,
-                                 0xFC, 0xBC, 0x3C, 0x3C, 0x78, 0xF0, 0xF0, 0x88, 0x5C, 0xCC, 0xC4, 0xE4, 0xC8, 0xD0, 0x90, 0xF8,
-                                 0x00, 0x00, 0x00, 0x00, 0x00, 0x3E, 0x7F, 0x7F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3E, 0x4F, 0x57,
-                                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x70, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x70,
-                                 0x9F, 0x1F, 0x8F, 0x7F, 0x0F, 0x07, 0x03, 0x02, 0xF7, 0xE7, 0xF0, 0x78, 0x08, 0x04, 0x02, 0x03,
-                                 0xFC, 0xFA, 0xF9, 0xFD, 0xFE, 0xF8, 0xF0, 0x20, 0x8C, 0x0E, 0x0F, 0x07, 0x06, 0x88, 0x90, 0xE0,
-                                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x81, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x81,
-                                 0x9F, 0x0F, 0xCF, 0x5F, 0x2F, 0x0F, 0x1F, 0x3C, 0xF3, 0xF1, 0xF0, 0x78, 0x28, 0x08, 0x13, 0x24,
-                                 0xFE, 0xFC, 0xFD, 0xFE, 0xFF, 0xFF, 0x0D, 0x05, 0xFF, 0x87, 0x07, 0x02, 0x01, 0xF1, 0x0F, 0x07 };
-
-            byte[] yetiSprite = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0B, 0x07, 0x1F, 0x0F, 0x1F, 0x1F, 0x3F, 0x7F,
-                                  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xD0, 0xE0, 0xF8, 0xF0, 0xF8, 0xF8, 0xFC, 0xFE,
-                                  0x00, 0x00, 0x00, 0x60, 0x60, 0x00, 0x00, 0x00, 0x7F, 0xFF, 0xFF, 0xFF, 0x7F, 0x1F, 0x0F, 0x00,
-                                  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xE0, 0x50, 0xFF, 0xFF, 0xFE, 0xFC, 0xFC, 0xF8, 0xF0, 0x50,
-                                  0x00, 0x00, 0x00, 0x02, 0x05, 0x02, 0x00, 0x06, 0x0B, 0x07, 0x1F, 0x0F, 0x1F, 0x1F, 0x3F, 0x7F,
-                                  0x00, 0x00, 0x00, 0x40, 0xA0, 0x40, 0x00, 0x60, 0xD0, 0xE0, 0xF8, 0xF0, 0xF8, 0xF8, 0xFC, 0xFE,
-                                  0x07, 0x63, 0x63, 0x03, 0x01, 0x00, 0x00, 0x00, 0xFF, 0xFE, 0x7E, 0x3E, 0x3F, 0x1F, 0x0F, 0x00,
-                                  0xE0, 0xC0, 0xC0, 0xC6, 0x86, 0x00, 0xE0, 0x50, 0xFE, 0x7F, 0x7F, 0x7F, 0xFE, 0xF8, 0xF0, 0x50,
-                                  0x00, 0x00, 0x00, 0x0C, 0x06, 0x0C, 0x00, 0x0C, 0x03, 0x07, 0x0F, 0x0F, 0x0F, 0x1F, 0x1F, 0x3F,
-                                  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xE8, 0xF0, 0xFC, 0xF8, 0xFC, 0xF8, 0xFC, 0xFE,
-                                  0x3C, 0x38, 0x70, 0x70, 0x60, 0x00, 0x07, 0x1F, 0x3F, 0x0F, 0x1F, 0x1F, 0x7F, 0x1F, 0x0F, 0x1F,
-                                  0x00, 0x00, 0x18, 0x18, 0x00, 0x00, 0x00, 0x80, 0xFF, 0xFF, 0xFF, 0xFE, 0xFC, 0xFC, 0xF8, 0x80,
-                                  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xE8, 0xF0, 0xFC, 0xF8, 0xFC, 0xF8, 0xFC, 0xFE,
-                                  0x3C, 0x38, 0x70, 0x70, 0x60, 0x00, 0x00, 0x00, 0x3F, 0x0F, 0x1F, 0x1F, 0x7F, 0x1F, 0x0F, 0x00,
-                                  0x60, 0x60, 0x00, 0x00, 0x00, 0x00, 0x38, 0xFC, 0xFF, 0xFF, 0xFF, 0xFF, 0xFE, 0xFE, 0xFC, 0xFC };
-
-            byte[] tigerSprite = { 0x37, 0x3F, 0x3F, 0x1F, 0x3F, 0x3F, 0x3F, 0x1F, 0x37, 0x29, 0x29, 0x11, 0x2E, 0x31, 0x2E, 0x1B,
-                                   0xEC, 0xFC, 0xFC, 0xF8, 0xFC, 0xFC, 0xFC, 0xF8, 0xEC, 0x94, 0x94, 0x88, 0x74, 0x8C, 0x74, 0xD8,
-                                   0x7F, 0xFF, 0xFF, 0xFF, 0xFF, 0x3F, 0x1E, 0x00, 0x6F, 0x82, 0xFF, 0xA2, 0xF7, 0x23, 0x1E, 0x00,
-                                   0xFF, 0xFF, 0xFF, 0xFC, 0xFC, 0xFC, 0xFC, 0xFC, 0xFF, 0x45, 0xFF, 0x44, 0xEC, 0xC4, 0x84, 0xFC,
-                                   0x37, 0x3F, 0x3F, 0x1C, 0x31, 0x33, 0x3D, 0x1B, 0x37, 0x2E, 0x29, 0x17, 0x2F, 0x3F, 0x2F, 0x1F,
-                                   0xEC, 0xFC, 0xFC, 0x38, 0x8C, 0xCC, 0xBC, 0xD8, 0xEC, 0x74, 0x94, 0xE8, 0xF4, 0xFC, 0xF4, 0xF8,
-                                   0xFB, 0xFC, 0xFB, 0x38, 0x3C, 0x3D, 0x1E, 0x00, 0xFF, 0x97, 0xF7, 0x27, 0x33, 0x23, 0x1E, 0x00,
-                                   0xDE, 0x3F, 0xDF, 0x1F, 0x3F, 0xBE, 0xFC, 0xFC, 0xF6, 0xE1, 0xEF, 0xE5, 0xC9, 0xCE, 0x84, 0xFC,
-                                   0x0F, 0x7F, 0x7F, 0x03, 0x01, 0x19, 0x0F, 0x3B, 0x0F, 0x76, 0x63, 0x7C, 0x3F, 0x1F, 0x0E, 0x3C,
-                                   0xD8, 0xF8, 0xF8, 0xF0, 0xF8, 0xFC, 0xFC, 0xF8, 0xD8, 0x48, 0xA8, 0x30, 0xD8, 0x94, 0x64, 0x38,
-                                   0x7B, 0x67, 0x7F, 0x47, 0x4F, 0x4F, 0x3E, 0x3E, 0x7D, 0x5B, 0x71, 0x7F, 0x71, 0x7F, 0x22, 0x3E,
-                                   0xF0, 0xFB, 0xFB, 0xFF, 0xFC, 0xF8, 0xC0, 0x00, 0x30, 0x2B, 0xAB, 0x3D, 0xB4, 0xB8, 0xC0, 0x00,
-                                   0xD8, 0xF8, 0xF8, 0xF0, 0xF8, 0xFC, 0xFC, 0xF8, 0xD8, 0x48, 0xA8, 0x30, 0xD8, 0x94, 0x64, 0x38,
-                                   0x1F, 0x27, 0x3F, 0x47, 0x4F, 0x4F, 0x3C, 0x00, 0x1C, 0x3E, 0x33, 0x7F, 0x70, 0x77, 0x3C, 0x00,
-                                   0xF3, 0xFB, 0xFF, 0xFE, 0xFC, 0xF8, 0xF8, 0xF8, 0x33, 0x6B, 0xFD, 0x8A, 0x3C, 0x88, 0x98, 0xF8 };
-
-            byte[] puppySprite = { 0x00, 0x0C, 0x1F, 0x1F, 0x1F, 0x07, 0x07, 0x0F, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00,
-                                   0x00, 0x30, 0xF8, 0xF8, 0xF8, 0xE0, 0xE0, 0xF0, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00,
-                                   0x0F, 0x0F, 0x07, 0x0F, 0x1F, 0x1F, 0x1B, 0x38, 0x03, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                   0xE0, 0xF4, 0xFC, 0xF8, 0xF8, 0xFC, 0xEC, 0x00, 0xE0, 0x14, 0x0C, 0xD8, 0x70, 0x00, 0x00, 0x00,
-                                   0x00, 0x0C, 0x1F, 0x1F, 0x1F, 0x05, 0x05, 0x0F, 0x00, 0x00, 0x00, 0x04, 0x0C, 0x02, 0x02, 0x00,
-                                   0x00, 0x30, 0xF8, 0xF8, 0xF8, 0xA0, 0xA0, 0xF0, 0x00, 0x00, 0x00, 0x20, 0x30, 0x40, 0x40, 0x00,
-                                   0x0E, 0x2F, 0x3F, 0x1F, 0x1F, 0x1F, 0x1B, 0x38, 0x01, 0x20, 0x38, 0x17, 0x00, 0x00, 0x00, 0x00,
-                                   0x70, 0xF0, 0xF0, 0xF8, 0xF8, 0xFC, 0xEC, 0x00, 0x80, 0x00, 0x10, 0xE0, 0x00, 0x00, 0x00, 0x00,
-                                   0x00, 0x03, 0x03, 0x07, 0x1F, 0x17, 0x77, 0xFF, 0x00, 0x00, 0x01, 0x01, 0x00, 0x08, 0x08, 0x00,
-                                   0x00, 0x00, 0x80, 0x80, 0x80, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00,
-                                   0x7F, 0xFF, 0x7F, 0x07, 0x07, 0x03, 0x03, 0x01, 0x80, 0x01, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                   0xF8, 0xFE, 0xFF, 0xFD, 0xFC, 0x1C, 0xB8, 0xB0, 0x80, 0x02, 0x03, 0x01, 0x00, 0x00, 0x00, 0x00,
-                                   0x00, 0x00, 0x80, 0x80, 0x80, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00,
-                                   0x7F, 0xFF, 0x7F, 0x07, 0x0F, 0x0D, 0x1C, 0x18, 0x80, 0x01, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                   0xF9, 0xFF, 0xFE, 0xFC, 0xFC, 0xFE, 0x1E, 0x06, 0x81, 0x03, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00 };
-
-            byte[] foxSprite = { 0x00, 0x00, 0x00, 0x03, 0x07, 0x07, 0x0F, 0x1F, 0x00, 0x00, 0x00, 0x02, 0x06, 0x06, 0x0F, 0x1F,
-                                 0x00, 0x00, 0x00, 0x40, 0xE0, 0xE0, 0xF0, 0xF8, 0x00, 0x00, 0x00, 0x40, 0x60, 0x60, 0xF0, 0xF8,
-                                 0x0F, 0x03, 0x07, 0x0F, 0x0F, 0x06, 0x03, 0x07, 0x0F, 0x03, 0x07, 0x0F, 0x0F, 0x06, 0x03, 0x01,
-                                 0xF0, 0xC0, 0xF0, 0xF8, 0xF8, 0x30, 0x30, 0x00, 0xF0, 0xC0, 0xF0, 0xF8, 0xF8, 0x00, 0x00, 0x00,
-                                 0x00, 0x00, 0x02, 0x06, 0x06, 0x07, 0x0D, 0x1D, 0x00, 0x00, 0x02, 0x04, 0x04, 0x07, 0x0F, 0x1F,
-                                 0x00, 0x00, 0x40, 0x60, 0x60, 0xE0, 0xB0, 0xB8, 0x00, 0x00, 0x40, 0x20, 0x20, 0xE0, 0xF0, 0xF8,
-                                 0x0F, 0x03, 0x07, 0x0F, 0x0F, 0x06, 0x03, 0x07, 0x0C, 0x01, 0x06, 0x0F, 0x0F, 0x06, 0x03, 0x00,
-                                 0xF0, 0xC0, 0xE0, 0xF0, 0xF0, 0x30, 0x60, 0x00, 0x30, 0x80, 0x60, 0xF0, 0xF0, 0x30, 0x00, 0x00,
-                                 0x00, 0x00, 0x08, 0x0C, 0x0C, 0x1E, 0xAF, 0xEF, 0x00, 0x00, 0x08, 0x04, 0x04, 0x1E, 0x3F, 0xFF,
-                                 0x00, 0x00, 0x00, 0x00, 0x01, 0x03, 0x03, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03,
-                                 0x7F, 0x3F, 0x07, 0x03, 0x03, 0x01, 0x00, 0x01, 0x0F, 0x07, 0x07, 0x03, 0x03, 0x01, 0x00, 0x00,
-                                 0xC7, 0xF7, 0xFF, 0xFE, 0xF8, 0xB0, 0x90, 0xB0, 0xC7, 0xF7, 0xFF, 0xFE, 0xF8, 0xB0, 0x00, 0x00,
-                                 0x00, 0x00, 0x00, 0x02, 0x06, 0x06, 0x06, 0x0E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x0E,
-                                 0x7F, 0x1F, 0x17, 0x03, 0x03, 0x03, 0x06, 0x0C, 0x0F, 0x07, 0x07, 0x03, 0x03, 0x03, 0x00, 0x00,
-                                 0x0E, 0xFE, 0xFE, 0xFC, 0xF8, 0x18, 0x04, 0x0C, 0x0E, 0xFE, 0xFE, 0xFC, 0xF8, 0x18, 0x00, 0x00 };
-
-            byte[] dw4CatSprite = { 0x00, 0x00, 0x00, 0x02, 0x06, 0x07, 0x0F, 0x1F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00,
-                                    0x00, 0x00, 0x00, 0x40, 0x60, 0xE0, 0xF0, 0xF8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00,
-                                    0x0F, 0x07, 0x0F, 0x1F, 0x1F, 0x0C, 0x0C, 0x00, 0x03, 0x04, 0x02, 0x04, 0x00, 0x00, 0x00, 0x00,
-                                    0xF0, 0xC0, 0xE0, 0xF0, 0xF0, 0x60, 0xC0, 0xE0, 0xC0, 0x00, 0xC0, 0x20, 0x00, 0x00, 0x00, 0x00,
-                                    0x00, 0x00, 0x00, 0x02, 0x06, 0x07, 0x0D, 0x1D, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x02, 0x0A,
-                                    0x00, 0x00, 0x00, 0x40, 0x60, 0xE0, 0xB0, 0xB8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x40, 0x50,
-                                    0x0E, 0x03, 0x07, 0x0F, 0x0F, 0x06, 0x03, 0x07, 0x01, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                    0x70, 0xC0, 0xE0, 0xF0, 0xF0, 0x30, 0x60, 0x00, 0x80, 0x00, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                    0x00, 0x00, 0x00, 0x08, 0x0C, 0x1E, 0x0F, 0x2F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x16, 0x50,
-                                    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                    0x7F, 0x3F, 0x07, 0x03, 0x03, 0x03, 0x06, 0x0C, 0x0D, 0x02, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                    0x06, 0xF1, 0xF9, 0xFE, 0xF8, 0x18, 0x04, 0x0C, 0x00, 0xA0, 0xA0, 0xA0, 0x00, 0x00, 0x00, 0x00,
-                                    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                    0x7F, 0x3F, 0x07, 0x03, 0x03, 0x01, 0x00, 0x01, 0x0D, 0x02, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                    0xC0, 0xF6, 0xF9, 0xFE, 0xF8, 0xB0, 0x90, 0xB0, 0x40, 0x50, 0x90, 0x20, 0x00, 0x00, 0x00, 0x00 };
-
-            byte[] lionSprite = { 0x27, 0x3F, 0x1F, 0x7F, 0x4F, 0x47, 0x6F, 0x27, 0x27, 0x3F, 0x1F, 0x7F, 0x7F, 0x7F, 0x7F, 0x3F,
-                                  0xE4, 0xFC, 0xF8, 0xFE, 0xF2, 0xE2, 0xF6, 0xE4, 0xE4, 0xFC, 0xF8, 0xFE, 0xFE, 0xFE, 0xFE, 0xFC,
-                                  0x4F, 0xA7, 0xA5, 0xA0, 0xE7, 0x21, 0x1E, 0x00, 0x7F, 0xFF, 0xFF, 0xFF, 0xFF, 0x3F, 0x1E, 0x00,
-                                  0xFE, 0xEA, 0xAE, 0x08, 0xC8, 0x08, 0x08, 0xF8, 0xFE, 0xFE, 0xFE, 0xF8, 0xF8, 0xF8, 0xF8, 0xF8,
-                                  0x27, 0x3F, 0x19, 0x6E, 0x57, 0x37, 0x7A, 0x51, 0x27, 0x3F, 0x1F, 0x6F, 0x7D, 0x3C, 0x7F, 0x7F,
-                                  0xE4, 0xFC, 0x98, 0x76, 0xEA, 0xEC, 0x5E, 0x8A, 0xE4, 0xFC, 0xF8, 0xF6, 0xBE, 0x3C, 0xFE, 0xFA,
-                                  0x70, 0x99, 0x97, 0x63, 0x20, 0x21, 0x1E, 0x00, 0x7F, 0xFF, 0xFD, 0x7F, 0x3F, 0x3F, 0x1E, 0x00,
-                                  0x0C, 0x9A, 0xEA, 0xD2, 0x12, 0x0C, 0x08, 0xF8, 0xFC, 0xFE, 0xBE, 0xFE, 0xFE, 0xFC, 0xF8, 0xF8,
-                                  0x07, 0x0F, 0x0F, 0x03, 0x0D, 0x1E, 0x5E, 0x4F, 0x07, 0x0F, 0x0F, 0x0F, 0x1F, 0x1B, 0x73, 0x7C,
-                                  0xEC, 0xF9, 0xFE, 0xFD, 0xFE, 0xE4, 0xE2, 0xF2, 0xEC, 0xF9, 0xFE, 0xFD, 0xFE, 0xFC, 0xFE, 0xFE,
-                                  0x07, 0x1F, 0x3F, 0x08, 0x10, 0x10, 0x08, 0x0F, 0x78, 0x21, 0x1F, 0x0F, 0x1F, 0x1F, 0x0F, 0x0F,
-                                  0xFA, 0x94, 0x12, 0x92, 0x92, 0xE4, 0xBC, 0x80, 0xFE, 0xFC, 0xFE, 0xFE, 0xFE, 0xFC, 0xBC, 0x80,
-                                  0xEC, 0xF9, 0xFE, 0xFD, 0xFE, 0xE4, 0xE2, 0xF2, 0xEC, 0xF9, 0xFE, 0xFD, 0xFE, 0xFC, 0xFE, 0xFE,
-                                  0x06, 0x1E, 0x3F, 0x09, 0x10, 0x10, 0x0F, 0x00, 0x7B, 0x23, 0x1F, 0x0F, 0x1F, 0x1F, 0x0F, 0x00,
-                                  0x7A, 0x14, 0x12, 0xE2, 0x02, 0xC2, 0x44, 0x7C, 0xFE, 0xFC, 0xFE, 0xFE, 0xFE, 0xFE, 0x7C, 0x7C };
-
-            byte[] dinoSprite = { 0x30, 0x1B, 0x1B, 0x1D, 0x0D, 0x0E, 0x06, 0x07, 0x7B, 0x3F, 0x2F, 0x2F, 0x17, 0x17, 0x0B, 0x1B,
-                                  0x00, 0x60, 0xF0, 0x70, 0x78, 0xF8, 0xF8, 0x7E, 0xE0, 0xF0, 0xF8, 0xF8, 0xFC, 0xFC, 0xFE, 0xFF,
-                                  0x17, 0x3B, 0x6B, 0x7D, 0x1F, 0x0C, 0x1C, 0x00, 0x39, 0x7C, 0xFC, 0xFE, 0x7E, 0x1F, 0x3E, 0x3C,
-                                  0xBE, 0xD8, 0xE8, 0xE8, 0xDC, 0xDC, 0x30, 0x3C, 0xFF, 0xFE, 0x7C, 0x7C, 0x3E, 0x3E, 0xFC, 0x7E,
-                                  0x60, 0x36, 0x2F, 0x2E, 0x1E, 0x1B, 0x0F, 0x05, 0xF7, 0x7F, 0x7F, 0x7F, 0x33, 0x37, 0x7F, 0x1F,
-                                  0x00, 0xC0, 0xE0, 0xE0, 0xF0, 0xB0, 0xE0, 0x40, 0xC0, 0xE0, 0xF0, 0xF0, 0x98, 0xD8, 0xF0, 0xF8,
-                                  0x7B, 0x1C, 0x1F, 0x3F, 0x3F, 0x1B, 0x38, 0x00, 0xFF, 0x7F, 0x3C, 0x78, 0x78, 0x3C, 0x7F, 0x78,
-                                  0xB8, 0x7C, 0xF6, 0xF6, 0xF8, 0xB8, 0x60, 0x78, 0xFC, 0xFE, 0x7F, 0x3F, 0x3E, 0x7C, 0xF8, 0xFC,
-                                  0x00, 0x1E, 0x3D, 0x37, 0x3F, 0x7F, 0xB9, 0xF5, 0x1E, 0x3F, 0x67, 0x6F, 0x7F, 0xE3, 0xC7, 0xCF,
-                                  0x03, 0x06, 0x06, 0x8E, 0x8E, 0x8E, 0x0E, 0x0E, 0x06, 0x0D, 0x8D, 0xDD, 0xDD, 0xDD, 0x9D, 0xDD,
-                                  0xFB, 0x16, 0x0D, 0x08, 0x0B, 0x07, 0x06, 0x1E, 0x9F, 0xFB, 0x17, 0x17, 0x17, 0x0F, 0x1F, 0x3F,
-                                  0xDE, 0xBE, 0xBE, 0x7C, 0xD8, 0x60, 0xE0, 0x00, 0xFD, 0xFD, 0xFD, 0xFA, 0xE4, 0xF8, 0xF0, 0xE0,
-                                  0x03, 0x06, 0x06, 0x8E, 0x8E, 0x8E, 0x0E, 0x0E, 0x06, 0x0D, 0x8D, 0xDD, 0xDD, 0xDD, 0x9D, 0xDD,
-                                  0xE6, 0x03, 0x0C, 0x0B, 0x0B, 0x07, 0x01, 0x0F, 0x9F, 0xFF, 0x17, 0x17, 0x17, 0x0F, 0x0F, 0x1F,
-                                  0xDE, 0xFE, 0xFE, 0x7C, 0xD8, 0x80, 0x80, 0x80, 0xFD, 0xFD, 0xFD, 0xFA, 0xE4, 0xF8, 0xC0, 0xC0 };
-
-            byte[] gbaAniSprite = { 0x00, 0x10, 0x1A, 0x04, 0x0E, 0x04, 0x08, 0x06, 0x30, 0x3B, 0x2F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F,
-                                    0x00, 0x08, 0x58, 0x20, 0x70, 0x20, 0x10, 0x60, 0x0C, 0xDC, 0xF4, 0xFC, 0xF8, 0xF8, 0xF8, 0xF8,
-                                    0x1C, 0x7E, 0x28, 0x0E, 0x08, 0x0E, 0x0E, 0x06, 0x7F, 0xBF, 0xFF, 0x3F, 0x1F, 0x1F, 0x1F, 0x09,
-                                    0x38, 0x3C, 0x5C, 0x50, 0x50, 0xB0, 0x60, 0x00, 0xFC, 0xFE, 0xBA, 0xFE, 0xF8, 0xF8, 0xF0, 0xE0,
-                                    0x00, 0x20, 0x34, 0x08, 0x1C, 0x08, 0x1B, 0x0C, 0x60, 0x77, 0x5F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3B,
-                                    0x00, 0x10, 0xB0, 0x40, 0xE0, 0x40, 0x60, 0xC0, 0x18, 0xB8, 0xE8, 0xF0, 0xF0, 0xF0, 0xF0, 0x70,
-                                    0x27, 0x78, 0x6B, 0x1C, 0x1F, 0x1F, 0x0D, 0x00, 0x78, 0xFF, 0xB4, 0xF3, 0x30, 0x38, 0x1F, 0x0F,
-                                    0x90, 0x7C, 0x68, 0xE0, 0xE0, 0xE0, 0xE0, 0xC0, 0x7C, 0xFA, 0xBC, 0x38, 0x30, 0x70, 0xF0, 0x20,
-                                    0x00, 0x00, 0x02, 0x05, 0x0F, 0x0F, 0x1E, 0x0F, 0x00, 0x07, 0x0F, 0x1F, 0x1F, 0x3F, 0x3F, 0x33,
-                                    0x00, 0x40, 0xC0, 0x80, 0xE0, 0xC0, 0xE0, 0xC0, 0x60, 0xE0, 0xA0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0,
-                                    0x1C, 0x00, 0x35, 0x0D, 0x18, 0x17, 0x0E, 0x0C, 0x23, 0x3F, 0x4B, 0x73, 0x27, 0x2F, 0x1F, 0x13,
-                                    0x80, 0x68, 0x8C, 0xC4, 0xCC, 0x28, 0xC0, 0x00, 0xF8, 0xF4, 0xFE, 0xFE, 0x3E, 0xFC, 0xF8, 0xE0,
-                                    0x00, 0x40, 0xC0, 0x80, 0xE0, 0xC0, 0xE0, 0xC0, 0x60, 0xE0, 0xA0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0,
-                                    0x1C, 0x00, 0x35, 0x0B, 0x1B, 0x18, 0x0D, 0x00, 0x23, 0x3F, 0x4B, 0x75, 0x25, 0x27, 0x13, 0x1F,
-                                    0xF8, 0x64, 0x84, 0xAC, 0x48, 0xE8, 0xE0, 0xC0, 0xFE, 0xFA, 0xFE, 0xFE, 0xFC, 0xFC, 0xF8, 0x20 };
-
-            // index == 0 uses default sprite
-
-            if (index == 1)
-            {
-                for (int lni = 0; lni < dogSprite.Length; lni++)
-                    romData[0x23060 + lni] = dogSprite[lni];
-                convertStrToHex("Woof", 0x46a58, false);
-                convertStrToHex("Woof", 0x514cb, false);
-                convertStrToHex("Woof", 0x52dd7, false);
-                convertStrToHex("Woof", 0x52e1f, false);
-                convertStrToHex("Woof", 0x55e59, false);
-            }
-
-            else if (index == 2)
-            {
-                for (int lni = 0; lni < yetiSprite.Length; lni++)
-                    romData[0x23060 + lni] = yetiSprite[lni];
-                convertStrToHex("Roar", 0x46a58, false);
-                convertStrToHex("Roar", 0x514cb, false);
-                convertStrToHex("Roar", 0x52dd7, false);
-                convertStrToHex("Roar", 0x52e1f, false);
-                convertStrToHex("Roar", 0x55e59, false);
-            }
-            else if (index == 3)
-            {
-                for (int lni = 0; lni < tigerSprite.Length; lni++)
-                    romData[0x23060 + lni] = tigerSprite[lni];
-                convertStrToHex("Grrr", 0x46a58, false);
-                convertStrToHex("Grrr", 0x514cb, false);
-                convertStrToHex("Grrr", 0x52dd7, false);
-                convertStrToHex("Grrr", 0x52e1f, false);
-                convertStrToHex("Grrr", 0x55e59, false);
-            }
-            else if (index == 4)
-            {
-                for (int lni = 0; lni < puppySprite.Length; lni++)
-                    romData[0x23060 + lni] = puppySprite[lni];
-                convertStrToHex("Woof", 0x46a58, false);
-                convertStrToHex("Woof", 0x514cb, false);
-                convertStrToHex("Woof", 0x52dd7, false);
-                convertStrToHex("Woof", 0x52e1f, false);
-                convertStrToHex("Woof", 0x55e59, false);
-            }
-            else if (index == 5)
-            {
-                for (int lni = 0; lni < foxSprite.Length; lni++)
-                    romData[0x23060 + lni] = foxSprite[lni];
-                romData[0x46a58] = romData[0x514cb] = romData[0x52dd7] = romData[0x52e1f] = romData[0x55e59] = 0x27; // C
-                romData[0x46a59] = romData[0x514cc] = romData[0x52dd8] = romData[0x52e20] = romData[0x55e5a] = 0x12; // h
-                romData[0x46a5a] = romData[0x514cd] = romData[0x52dd9] = romData[0x52e21] = romData[0x55e5b] = 0x0b; // a
-                romData[0x46a5b] = romData[0x514ce] = romData[0x52dda] = romData[0x52e22] = romData[0x55e5c] = 0x1e; // t
-                convertStrToHex("Chat", 0x46a58, false);
-                convertStrToHex("Chat", 0x514cb, false);
-                convertStrToHex("Chat", 0x52dd7, false);
-                convertStrToHex("Chat", 0x52e1f, false);
-                convertStrToHex("Chat", 0x55e59, false);
-            }
-            else if (index == 6)
-            {
-                for (int lni = 0; lni < dw4CatSprite.Length; lni++)
-                    romData[0x23060 + lni] = dw4CatSprite[lni];
-                convertStrToHex("Prrr", 0x46a58, false);
-                convertStrToHex("Prrr", 0x514cb, false);
-                convertStrToHex("Prrr", 0x52dd7, false);
-                convertStrToHex("Prrr", 0x52e1f, false);
-                convertStrToHex("Prrr", 0x55e59, false);
-            }
-            else if (index == 7)
-            {
-                for (int lni = 0; lni < lionSprite.Length; lni++)
-                    romData[0x23060 + lni] = lionSprite[lni];
-                convertStrToHex("Roar", 0x46a58, false);
-                convertStrToHex("Roar", 0x514cb, false);
-                convertStrToHex("Roar", 0x52dd7, false);
-                convertStrToHex("Roar", 0x52e1f, false);
-                convertStrToHex("Roar", 0x55e59, false);
-            }
-            else if (index == 8)
-            {
-                for (int lni = 0; lni < dinoSprite.Length; lni++)
-                    romData[0x23060 + lni] = dinoSprite[lni];
-                convertStrToHex("Roar", 0x46a58, false);
-                convertStrToHex("Roar", 0x514cb, false);
-                convertStrToHex("Roar", 0x52dd7, false);
-                convertStrToHex("Roar", 0x52e1f, false);
-                convertStrToHex("Roar", 0x55e59, false);
-            }
-            else if (index == 9)
-            {
-                for (int lni = 0; lni < gbaAniSprite.Length; lni++)
-                    romData[0x23060 + lni] = gbaAniSprite[lni];
-                convertStrToHex("Roar", 0x46a58, false);
-                convertStrToHex("Roar", 0x514cb, false);
-                convertStrToHex("Roar", 0x52dd7, false);
-                convertStrToHex("Roar", 0x52e1f, false);
-                convertStrToHex("Roar", 0x55e59, false);
-            }
-        }
-
-        private void invisibleNPCs()
-        {
-            for (int lni = 0; lni < 32; lni++)
-                romData[0x1fff0 + lni] = 0x00;
-            for (int lni = 0; lni < (16 * 16 * 5); lni++)
-                romData[0x21880 + lni] = 0x00;
-            for (int lni = 0; lni < (16 * 16 * 3) + (7 * 16); lni++)
-                romData[0x21de0 + lni] = 0x00;
-            for (int lni = 0; lni < (16 * 16 * 9) + (1 * 16); lni++)
-                romData[0x22290 + lni] = 0x00;
-            for (int lni = 0; lni < (16 * 16 * 9) + (9 * 16); lni++)
-                romData[0x22c60 + lni] = 0x00;
-            for (int lni = 0; lni < (16 * 16 * 4) + (16 * 1); lni++)
-                romData[0x23610 + lni] = 0x00;
-            for (int lni = 0; lni < (16 * 16) + (14 * 16); lni++)
-                romData[0x23af0 + lni] = 0x00;
-        }
-
-        private void invisbleShips()
-        {
-            for (int lni = 0; lni < (16 * 16) * 20; lni++)
-                romData[0x22150 + lni] = 0x00;
-            for (int lni = 0; lni < 32; lni++)
-                romData[0x235f0 + lni] = 0x00;
-            for (int lni = 0; lni < (16 * 16) * 13; lni++)
-                romData[0x23a20 + lni] = 0x00;
-        }
 
         private void chngDftParty()
         {
@@ -3408,6 +2985,8 @@ namespace DW3Randomizer
         {
             Random r2 = new Random(int.Parse(txtSeed.Text));
 
+            randClass = true;
+
             int[] availableClasses = new int[8];
             int stringIndex = 0;
 
@@ -3882,245 +3461,7 @@ namespace DW3Randomizer
 
                 }
         */
-        private void randEquip()
-        {
-            // Totally randomize weapons, armor, shields, helmets (13efb-13f1d, 1a00e-1a08b for pricing)
 
-            // Used if chk_UseVanEquipValues
-            int[] attackPower = { 2, 7, 12 };
-            int[] attackPower2 = { 14, 28, 40, 34, 15, 10, 30, 18, 48, 24, 100, 80, 90, 16, 48, 33, 110, 100, 55, 50, 65, 5, 55, 85, 30, 120, 63, 77, 35, 55 }; //20
-            int[] armorDefPower = { 4, 8, 12 };
-            int[] armorDefPower2 = { 10, 28, 25, 32, 40, 20, 75, 22, 8, 23, 30, 65, 40, 20, 2, 40, 16, 50, 45, 55, 35 }; //38
-            int[] shieldDefPower = { 4, 12, 40, 50, 35, 7, 30 }; //45
-            int[] helmetDefPower = { 6, 16, 10, 35, 8, 45, 2, 25 };
-
-            List<int> attackPowerList = new List<int>(attackPower);
-            List<int> attackPowerList2 = new List<int>(attackPower2);
-            List<int> armorDefPowerList = new List<int>(armorDefPower);
-            List<int> armorDefPowerList2 = new List<int>(armorDefPower2);
-            List<int> shieldDefPowerList = new List<int>(shieldDefPower);
-            List<int> helmetDefPowerList = new List<int>(helmetDefPower);
-
-            bool removeStartEqRestrictions = false;
-            bool useVanilla = false;
-
-            if (rad_AdjStartEqOn.Checked || ((r1.Next() % 2 == 1) && rad_AdjStartEqRand.Checked)) removeStartEqRestrictions = true;
-            if (rad_VanEqValOn.Checked || ((r1.Next() % 2 == 1) && rad_VanEqValRand.Checked)) useVanilla = true;
-
-            if (addRemakeEquip)
-            {
-                attackPowerList2[2] = 35;
-                attackPowerList2[7] = 95;
-                attackPowerList2[8] = 110;
-                attackPowerList2[16] = 85;
-                armorDefPowerList2[17] = 58;
-                shieldDefPowerList[1] = 2;
-                helmetDefPowerList[7] = 18;
-            }
-            if (removeStartEqRestrictions)
-            {
-                for (int lnI = 0; lnI < attackPower2.Length; lnI++)
-                    attackPowerList.Add(attackPower2[lnI]);
-                for (int lnI = 0; lnI < armorDefPower2.Length; lnI++)
-                    armorDefPowerList.Add(armorDefPower2[lnI]);
-            }
-
-
-            for (int lnI = 0; lnI <= 70; lnI++)
-            {
-                byte power = 0;
-
-                if (removeStartEqRestrictions)
-                {
-                    if (useVanilla)
-                    {
-                        int index = 0;
-
-                        if (lnI < 32)
-                        {
-                            index = r1.Next() % attackPowerList.Count;
-                            power = (byte)(attackPowerList[index]);
-                            attackPowerList.RemoveAt(index);
-                        }
-                        else if (lnI < 56)
-                        {
-                            index = r1.Next() % armorDefPowerList.Count;
-                            power = (byte)(armorDefPowerList[index]);
-                            armorDefPowerList.RemoveAt(index);
-                        }
-                        else if (lnI < 63)
-                        {
-                            index = r1.Next() % shieldDefPowerList.Count;
-                            power = (byte)(shieldDefPowerList[index]);
-                            shieldDefPowerList.RemoveAt(index);
-                        }
-                        else
-                        {
-                            index = r1.Next() % helmetDefPowerList.Count;
-                            power = (byte)(helmetDefPowerList[index]);
-                            helmetDefPowerList.RemoveAt(index);
-                        }
-                    }
-                    else
-                    {
-                        if (lnI < 32)
-                            while (power < 2)
-                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 243252); // max 130
-                        else if (lnI < 56)
-                            while (power < 2)
-                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 395284); // max 80
-                        else if (lnI < 63)
-                            while (power < 2)
-                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 574959); // max 55
-                        else
-                            while (power < 2)
-                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 903507); // max 35
-                    }
-                }
-                else
-                {
-                    if (useVanilla) // Randomize the values of starting equipment separately from all equipment
-                    {
-                        int index = 0;
-
-                        if (lnI == 0 || lnI == 1 || lnI == 2)
-                        {
-                            index = r1.Next() % attackPowerList.Count;
-                            power = (byte)(attackPowerList[index]);
-                            attackPowerList.RemoveAt(index);
-                        }
-                        else if (lnI == 32 || lnI == 34 || lnI == 48)
-                        {
-                            index = r1.Next() % armorDefPowerList.Count;
-                            power = (byte)(armorDefPowerList[index]);
-                            armorDefPowerList.RemoveAt(index);
-                        }
-                        else if (lnI < 32)
-                        {
-                            index = r1.Next() % attackPowerList2.Count;
-                            power = (byte)(attackPowerList2[index]);
-                            attackPowerList2.RemoveAt(index);
-                        }
-                        else if (lnI < 56)
-                        {
-                            index = r1.Next() % armorDefPowerList2.Count;
-                            power = (byte)(armorDefPowerList2[index]);
-                            armorDefPowerList2.RemoveAt(index);
-                        }
-                        else if (lnI < 63)
-                        {
-                            index = r1.Next() % shieldDefPowerList.Count;
-                            power = (byte)(shieldDefPowerList[index]);
-                            shieldDefPowerList.RemoveAt(index);
-                        }
-                        else
-                        {
-                            index = r1.Next() % helmetDefPowerList.Count;
-                            power = (byte)(helmetDefPowerList[index]);
-                            helmetDefPowerList.RemoveAt(index);
-                        }
-                    }
-                    else
-                    {
-                        if (lnI == 0 || lnI == 1 || lnI == 2 || lnI == 32 || lnI == 34 || lnI == 48)
-                            while (power < 2)
-                                power = (byte)(r1.Next() % 12);
-                        else if (lnI < 32)
-                            while (power < 2)
-                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 243252); // max 130
-                        else if (lnI < 56)
-                            while (power < 2)
-                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 395284); // max 80
-                        else if (lnI < 63)
-                            while (power < 2)
-                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 574959); // max 55
-                        else
-                            while (power < 2)
-                                power = (byte)(Math.Pow(r1.Next() % 1000, 2.5) / 903507); // max 35
-                    }
-                }
-                romData[0x279a0 + lnI] = power;
-
-                if (adjustEquipmentPrice) adjustEqPrices(lnI, power);
-
-                if (lnI < 80)
-                {
-                    if (lnI <= 2)
-                    {
-                        if ((romData[0x123b + lnI] % 16) >= 8)
-                            romData[0x123b + lnI] -= (byte)((romData[0x123b + lnI] % 8) + 1);
-                    }
-                }
-            }
-        }
-
-        private void adjustEqPrices(int lnI, int power)
-        {
-            // You want a max price of about 20000, shields 18300, helmets 15000 - Will be slightly higher if using standard powers
-            double price = Math.Round((lnI < 32 ? Math.Pow(power, 2.04) : lnI < 56 ? Math.Pow(power, 2.26) : lnI < 63 ? Math.Pow(power, 2.45) : Math.Pow(power, 2.7)), 0);
-            // TO DO:  Round to the nearest 10 (after 100GP), 50(after 1000 GP), or 100 (after 2500 GP)
-            price = (float)Math.Round(price, 0);
-
-            //// Remove any price adjustment first.
-            romData[0x11be + lnI] -= (byte)(romData[0x11be + lnI] % 4);
-            if (price >= 10000)
-            {
-                romData[0x11be + lnI] += 3; // Now multiply by 1000
-                price /= 1000;
-            }
-            else if (price >= 1000)
-            {
-                romData[0x11be + lnI] += 2; // Now multiply by 100
-                price /= 100;
-            }
-            else if (price >= 100)
-            {
-                romData[0x11be + lnI] += 1; // Now multiply by 10
-                price /= 10;
-            }
-            else
-            {
-                romData[0x11be + lnI] += 0;
-            }
-
-
-            // Must keep special effects if romData is >= 128
-            if (lnI < 80)
-            {
-                if (romData[0x123b + lnI] >= 128)
-                    romData[0x123b + lnI] = (byte)(128 + price);
-                else
-                    romData[0x123b + lnI] = (byte)(price);
-            }
-            /*
-            // You want a max price of about 20000, shields 18300, helmets 15000 - Will be slightly higher if using standard powers
-            double price = Math.Round((lnI < 32 ? Math.Pow(power, 2.04) : lnI < 56 ? Math.Pow(power, 2.26) : lnI < 63 ? Math.Pow(power, 2.45) : Math.Pow(power, 2.7)), 0);
-            // TO DO:  Round to the nearest 10 (after 100GP), 50(after 1000 GP), or 100 (after 2500 GP)
-            price = (float)Math.Round(price, 0);
-
-            //// Remove any price adjustment first.
-            romData[0x11be + lnI] -= (byte)(romData[0x11be + lnI] % 4);
-            if (price >= 10000)
-            {
-                romData[0x11be + lnI] += 3; // Now multiply by 1000
-                price /= 1000;
-            }
-            else if (price >= 1000)
-            {
-                romData[0x11be + lnI] += 2; // Now multiply by 100
-                price /= 100;
-            }
-            else if (price >= 100)
-            {
-                romData[0x11be + lnI] += 1; // Now multiply by 10
-                price /= 10;
-            }
-            else
-            {
-                romData[0x11be + lnI] += 0;
-            }
-            */
-        }
 
         private void whoCanEquip()
         {
@@ -4136,457 +3477,6 @@ namespace DW3Randomizer
             }
         }
 
-        private void weapArmPower()
-        {
-            int curseOffset1 = 0;
-            int curseOffset2 = 0;
-
-            //remove 8 characters to account for the :'s. Removal of water blaster to account for Curse *'s in equipment possibility
-            convertStrToHex(" Herb", 0xafb8, false);
-            convertStrToHex(" Seed", 0xb007, false);
-
-            dispEqPower = true;
-            for (int lnI = 0; lnI < 71; lnI++)
-            {
-                byte value = romData[0x11be + lnI];
-                bool checkCurse = (value & 0x08) == 0x08;
-
-                int iatp = (int)romData[0x279a0 + lnI];
-                int iatph = iatp / 100;
-                iatp = iatp % 100;
-                int iatpt = iatp / 10;
-                int iatpo = iatp % 10;
-
-                byte batph = 0x01;
-                byte batpt = 0x02;
-                byte batpo = 0x03;
-
-                if (iatph == 0)
-                    batph = 0x3F;
-                else if (iatph > 0)
-                    batph = 0x02;
-                else if (iatph == 2)
-                    batph = 0x03;
-                else if (iatph == 3)
-                    batph = 0x04;
-                else if (iatph == 4)
-                    batph = 0x05;
-                else if (iatph == 5)
-                    batph = 0x06;
-                else if (iatph == 6)
-                    batph = 0x07;
-                else if (iatph == 7)
-                    batph = 0x08;
-                else if (iatph == 8)
-                    batph = 0x09;
-                else if (iatph == 9)
-                    batph = 0x0a;
-
-                if (iatpt == 0)
-                {
-                    if (iatph == 0)
-                        batpt = 0x3f;
-                    else
-                        batpt = 0x01;
-                }
-                else if (iatpt == 1)
-                    batpt = 0x02;
-                else if (iatpt == 2)
-                    batpt = 0x03;
-                else if (iatpt == 3)
-                    batpt = 0x04;
-                else if (iatpt == 4)
-                    batpt = 0x05;
-                else if (iatpt == 5)
-                    batpt = 0x06;
-                else if (iatpt == 6)
-                    batpt = 0x07;
-                else if (iatpt == 7)
-                    batpt = 0x08;
-                else if (iatpt == 8)
-                    batpt = 0x09;
-                else if (iatpt == 9)
-                    batpt = 0x0a;
-
-                if (iatpo == 0)
-                    batpo = 0x01;
-                else if (iatpo == 1)
-                    batpo = 0x02;
-                else if (iatpo == 2)
-                    batpo = 0x03;
-                else if (iatpo == 3)
-                    batpo = 0x04;
-                else if (iatpo == 4)
-                    batpo = 0x05;
-                else if (iatpo == 5)
-                    batpo = 0x06;
-                else if (iatpo == 6)
-                    batpo = 0x07;
-                else if (iatpo == 7)
-                    batpo = 0x08;
-                else if (iatpo == 8)
-                    batpo = 0x09;
-                else if (iatpo == 9)
-                    batpo = 0x0a;
-
-
-                if (lnI == 0)
-                {
-                    convertStrToHex("CypStk", 0xad11, true);
-                }
-                else if (lnI == 1)
-                {
-                    convertStrToHex("Club", 0xad18, true);
-                }
-                else if (lnI == 2)
-                {
-                    convertStrToHex("CprSwd", 0xad1d, true);
-                }
-                else if (lnI == 3)
-                {
-                    convertStrToHex("MgcKn", 0xad24, true);
-                }
-                else if (lnI == 4)
-                {
-                    convertStrToHex("IrSpr", 0xad2a, true);
-                }
-                else if (lnI == 5)
-                {
-                    if (addRemakeEquip == false)
-                        convertStrToHex("BtlAxe", 0xad30, true);
-                }
-                else if (lnI == 6)
-                {
-                    convertStrToHex("BrdSw", 0xad37, true);
-                }
-                else if (lnI == 7)
-                {
-                    convertStrToHex("WzWnd", 0xad3d, true);
-                }
-                else if (lnI == 8)
-                {
-                    convertStrToHex("PsnNdl", 0xad43, true);
-                }
-                else if (lnI == 9)
-                {
-                    convertStrToHex("IrnCl", 0xad4a, true);
-                }
-                else if (lnI == 10)
-                {
-                    if (addRemakeEquip == false)
-                        convertStrToHex("ThnWh", 0xad50, true);
-                }
-                else if (lnI == 11)
-                {
-                    if (addRemakeEquip == false)
-                        convertStrToHex("GntShr", 0xad56, true);
-                }
-                else if (lnI == 12)
-                {
-                    convertStrToHex("ChSkl", 0xad5d, true);
-                }
-                else if (lnI == 13)
-                {
-                    convertStrToHex("ThorSw", 0xad63, true);
-                }
-                else if (lnI == 14)
-                {
-                    convertStrToHex("SnwSwd", 0xad6a, true);
-                }
-                else if (lnI == 15)
-                {
-                    convertStrToHex("DmnAx", 0xad71, true);
-                }
-                else if (lnI == 16)
-                {
-                    convertStrToHex("RainStf", 0xad77, true);
-                }
-                else if (lnI == 17)
-                {
-                    convertStrToHex("GaiaSwd", 0xad7f, true);
-                }
-                else if (lnI == 18)
-                {
-                    convertStrToHex("RfltStf", 0xad87, true);
-                }
-                else if (lnI == 19)
-                {
-                    convertStrToHex("DstnSwd", 0xad8f, true);
-                }
-                else if (lnI == 20)
-                {
-                    convertStrToHex("MEdgeSwd", 0xad97, true);
-                }
-                else if (lnI == 21)
-                {
-                    convertStrToHex("FrcStf", 0xada0, true);
-                }
-                else if (lnI == 22)
-                {
-                    convertStrToHex("IlsnSwd", 0xada7, true);
-                }
-                else if (lnI == 23)
-                {
-                    convertStrToHex("ZmbSlshr", 0xadaf, true);
-                }
-                else if (lnI == 24)
-                {
-                    convertStrToHex("FcnSwd", 0xadb8, true);
-                }
-                else if (lnI == 25)
-                {
-                    if (addRemakeEquip == false)
-                        convertStrToHex("SldgHmr", 0xadbf, true);
-                }
-                else if (lnI == 26)
-                {
-                    convertStrToHex("ThndSwd", 0xadc7, true);
-                }
-                else if (lnI == 27)
-                {
-                    convertStrToHex("ThndStf", 0xadcf, true);
-                }
-                else if (lnI == 28)
-                {
-                    convertStrToHex("KingSwd", 0xadd7, true);
-                }
-                else if (lnI == 29)
-                {
-                    convertStrToHex("OrochiSwd", 0xaddf, true);
-                }
-                else if (lnI == 30)
-                {
-                    convertStrToHex("DrgnKlr", 0xade9, true);
-                }
-                else if (lnI == 31)
-                {
-                    convertStrToHex("JdgmtStf", 0xadf1, true);
-                }
-                else if (lnI == 32)
-                {
-                    convertStrToHex("Clothes", 0xadfa, true);
-                }
-                else if (lnI == 33)
-                {
-                    convertStrToHex("TrngSt", 0xae02, true);
-                }
-                else if (lnI == 34)
-                {
-                    convertStrToHex("LthrAr", 0xae09, true);
-                }
-                else if (lnI == 35)
-                {
-                    convertStrToHex("FlshCl", 0xae10, true);
-                }
-                else if (lnI == 36)
-                {
-                    convertStrToHex("HalfPlAr", 0xae17, true);
-                }
-                else if (lnI == 37)
-                {
-                    convertStrToHex("FullPlAr", 0xae20, true);
-                }
-                else if (lnI == 38)
-                {
-                    convertStrToHex("MagicAr", 0xae29, true);
-                }
-                else if (lnI == 39)
-                {
-                    convertStrToHex("EvCloak", 0xae31, true);
-                }
-                else if (lnI == 40)
-                {
-                    convertStrToHex("RadiantAr", 0xae39, true);
-                }
-                else if (lnI == 41)
-                {
-                    convertStrToHex("IronAp", 0xae43, true);
-                }
-                else if (lnI == 42)
-                {
-                    convertStrToHex("AnimalSuit", 0xae4a, true);
-                }
-                else if (lnI == 43)
-                {
-                    convertStrToHex("FightSuit", 0xae55, true);
-                }
-                else if (lnI == 44)
-                {
-                    convertStrToHex("ScrdRb", 0xae5f, true);
-                }
-                else if (lnI == 45)
-                {
-                    convertStrToHex("HadesAr", 0xae66, true);
-                }
-                else if (lnI == 46)
-                {
-                    convertStrToHex("WtrFlyCl", 0xae6e, true);
-                }
-                else if (lnI == 47)
-                {
-                    convertStrToHex("ChMail", 0xae77, true);
-                }
-                else if (lnI == 48)
-                {
-                    convertStrToHex("WayfrCl", 0xae7e, true);
-                }
-                else if (lnI == 49)
-                {
-                    convertStrToHex("RevealSwmst", 0xae86, true);
-                }
-                else if (lnI == 50)
-                {
-                    convertStrToHex("MgBikini", 0xae92, true);
-                }
-                else if (lnI == 51)
-                {
-                    convertStrToHex("ShellAr", 0xae9b, true);
-                }
-                else if (lnI == 52)
-                {
-                    if (addRemakeEquip == false)
-                        convertStrToHex("TerrafmAr", 0xaea3, true);
-                }
-                else if (lnI == 53)
-                {
-                    convertStrToHex("DrgMail", 0xaead, true);
-                }
-                else if (lnI == 54)
-                {
-                    convertStrToHex("SwedgeAr", 0xaeb5, true);
-                }
-                else if (lnI == 55)
-                {
-                    convertStrToHex("AngelRb", 0xaebe, true);
-                }
-                else if (lnI == 56)
-                {
-                    convertStrToHex("LthrShld", 0xaec6, true);
-                }
-                else if (lnI == 57)
-                {
-                    if (addRemakeEquip == false)
-                        convertStrToHex("IrnShld", 0xaecf, true);
-                }
-                else if (lnI == 58)
-                {
-                    convertStrToHex("StrShld", 0xaed7, true);
-                }
-                else if (lnI == 59)
-                {
-                    convertStrToHex("HeroShld", 0xaedf, true);
-                }
-                else if (lnI == 60)
-                {
-                    convertStrToHex("SrwShld", 0xaee8, true);
-                }
-                else if (lnI == 61)
-                {
-                    convertStrToHex("BrzShld", 0xaef0, true);
-                }
-                else if (lnI == 62)
-                {
-                    convertStrToHex("SlvShld", 0xaef8, true);
-                }
-                else if (lnI == 63)
-                {
-                    convertStrToHex("Gold Crown", 0xaf00, true);
-                }
-                else if (lnI == 64)
-                {
-                    convertStrToHex("IrHmt", 0xaf0b, true);
-                }
-                else if (lnI == 65)
-                {
-                    convertStrToHex("MystHt", 0xaf11, true);
-                }
-                else if (lnI == 66)
-                {
-                    convertStrToHex("UnlyHmt", 0xaf18, true);
-                }
-                else if (lnI == 67)
-                {
-                    convertStrToHex("Turbn", 0xaf20, true);
-                }
-                else if (lnI == 68)
-                {
-                    convertStrToHex("NohMask", 0xaf26, true);
-                }
-                else if (lnI == 69)
-                {
-                    convertStrToHex("LthHmt", 0xaf2e, true);
-                }
-                else if (lnI == 70)
-                {
-                    if (addRemakeEquip == false)
-                        convertStrToHex("IrMsk", 0xaf35, true);
-                }
-                if (lnI < 32)
-                {
-                    romData[0xb0e0 + lnI * 6 + curseOffset1] = 0x25; // A
-                    romData[0xb0e0 + lnI * 6 + 1 + curseOffset1] = 0x75; // :
-                    romData[0xb0e0 + lnI * 6 + 2 + curseOffset1] = batph; // Hundreds
-                    romData[0xb0e0 + lnI * 6 + 3 + curseOffset1] = batpt; // Tens
-                    romData[0xb0e0 + lnI * 6 + 4 + curseOffset1] = batpo; // Ones
-                    if (checkCurse)
-                    {
-                        romData[0xb0e0 + lnI * 6 + 5 + curseOffset1] = 0x5a; // *
-                        romData[0xb0e0 + lnI * 6 + 6 + curseOffset1] = 0xff; // Break
-                        curseOffset1 += 1;
-                    }
-                    else
-                        romData[0xb0e0 + lnI * 6 + 5 + curseOffset1] = 0xff; // Break
-                }
-                else if (lnI < 64)
-                {
-                    romData[0xb0e0 + lnI * 6 + curseOffset1] = 0x28; // D
-                    romData[0xb0e0 + lnI * 6 + 1 + curseOffset1] = 0x75; // :
-                    romData[0xb0e0 + lnI * 6 + 2 + curseOffset1] = batph; // Hundreds
-                    romData[0xb0e0 + lnI * 6 + 3 + curseOffset1] = batpt; // Tens
-                    romData[0xb0e0 + lnI * 6 + 4 + curseOffset1] = batpo; // Ones
-                    if (checkCurse)
-                    {
-                        romData[0xb0e0 + lnI * 6 + 5 + curseOffset1] = 0x5a; // *
-                        romData[0xb0e0 + lnI * 6 + 6 + curseOffset1] = 0xff; // Break
-                        curseOffset1 += 1;
-                    }
-                    else
-                        romData[0xb0e0 + lnI * 6 + 5 + curseOffset1] = 0xff; // Break
-                }
-                else
-                {
-                    romData[0xb27b + (lnI - 64) * 6 + curseOffset2] = 0x28; // D
-                    romData[0xb27b + (lnI - 64) * 6 + 1 + curseOffset2] = 0x75; // :
-                    romData[0xb27b + (lnI - 64) * 6 + 2 + curseOffset2] = batph; // Hundreds
-                    romData[0xb27b + (lnI - 64) * 6 + 3 + curseOffset2] = batpt; // Tens
-                    romData[0xb27b + (lnI - 64) * 6 + 4 + curseOffset2] = batpo; // Ones
-                    if (checkCurse)
-                    {
-                        romData[0xb27b + (lnI - 64) * 6 + 5 + curseOffset2] = 0x5a; // *
-                        romData[0xb27b + (lnI - 64) * 6 + 6 + curseOffset2] = 0xff; // Break
-                        curseOffset2 += 1;
-                    }
-                    else
-                        romData[0xb27b + (lnI - 64) * 6 + 5 + curseOffset2] = 0xff; // Break
-                }
-            }
-            convertStrToHex("Amulet&Life&Happiness&Claw&Armband&Satori&&Ring&Pepper&Stone&Ra&Drought&Darkness&Change&Life&&Ball&Key&Key&Key&Ruby&Powder&Scroll&&Seed&Seed&&Seed&Seed&Life&Herb&Herb&Water&Wyvern&World$Tree&&Love&Herb&", 0xb2a5 + curseOffset2, true);
-
-            for (int lnI = 0; lnI < (9 - curseOffset2); lnI++)
-                romData[0xb371 + lnI] = 0x00;
-        }
-        /*
-                private void remCurse(int offset)
-                {
-                    byte value = romData[0x11be + offset];
-                    bool checkCurse = (value & 0x08) == 0x08;
-
-                    if (checkCurse)
-                    {
-                        romData[0x11be + offset] = (byte)(value - 8);
-                    }
-                }
-        */
         private void removeFightPenalty()
         {
             romData[0x1507] = romData[0x1508] = romData[0x1509] = romData[0x150a] = 0xea;
@@ -5303,281 +4193,6 @@ namespace DW3Randomizer
 
         }
 
-        private void changeGhostToCasket()
-        {
-            // Changes ghost sprite to casket
-            byte[] caskettop1_green = { 0x00, 0x00, 0x00, 0x07, 0x0f, 0x1f, 0x3f, 0x7f, 0x00, 0x00, 0x07, 0x0f, 0x18, 0x30, 0x63, 0xc3,
-                                        0x00, 0x00, 0x00, 0x80, 0xf0, 0xfe, 0xfe, 0xfe, 0x00, 0x00, 0x80, 0xf0, 0x7e, 0x0f, 0x03, 0x03};
-            byte[] caskettop2_green = { 0x3f, 0x5f, 0x2f, 0x17, 0x08, 0x07, 0x00, 0x00, 0xe0, 0xf0, 0x78, 0x3f, 0x1f, 0x0f, 0x07, 0x00,
-                                        0xfe, 0xfe, 0xf0, 0x8e, 0x70, 0x80, 0x00, 0x00, 0x03, 0x0f, 0x7f, 0xff, 0xfe, 0xf0, 0x80, 0x00};// 0x21d80
-            byte[] casketbottom1_green = { 0x00, 0x01, 0x03, 0x07, 0x0f, 0x1f, 0x1f, 0x1f, 0x01, 0x03, 0x06, 0x0c, 0x18, 0x31, 0x31, 0x30,
-                                           0x00, 0x80, 0xc0, 0xe0, 0xf0, 0xf8, 0xf8, 0xf8, 0x80, 0xc0, 0x60, 0x30, 0x18, 0x8c, 0x8c, 0x0c,
-                                           0x2f, 0x2f, 0x0f, 0x17, 0x17, 0x10, 0x07, 0x00, 0x38, 0x38, 0x18, 0x1c, 0x1f, 0x1f, 0x0f, 0x07,
-                                           0xf4, 0xf4, 0xf0, 0xe8, 0xe8, 0x08, 0xe0, 0x00, 0x1c, 0x1c, 0x18, 0x38, 0xf8, 0xf8, 0xf0, 0xe0};
-            byte[] casketbottom2_green = { 0x00, 0x07, 0x10, 0x17, 0x17, 0x0f, 0x2f, 0x2f, 0x07, 0x0f, 0x1f, 0x1f, 0x1c, 0x18, 0x38, 0x38,
-                                           0x00, 0xe0, 0x08, 0xe8, 0xe8, 0xf0, 0xf4, 0xf4, 0xe0, 0xf0, 0xf8, 0xf8, 0x38, 0x18, 0x1c, 0x1c,
-                                           0x1f, 0x1f, 0x1f, 0x0f, 0x07, 0x03, 0x01, 0x00, 0x30, 0x31, 0x31, 0x18, 0x0c, 0x06, 0x03, 0x01,
-                                           0xf8, 0xf8, 0xf8, 0xf0, 0xe0, 0xc0, 0x80, 0x00, 0x0c, 0x8c, 0x8c, 0x18, 0x30, 0x60, 0xc0, 0x80};
-            byte[] caskettop1_white = { 0x00, 0x00, 0x07, 0x08, 0x17, 0x2f, 0x5c, 0xbc, 0x00, 0x00, 0x00, 0x07, 0x0f, 0x1f, 0x3f, 0x7f,
-                                        0x00, 0x00, 0x80, 0x70, 0x8e, 0xf1, 0xfd, 0xfd, 0x00, 0x00, 0x00, 0x80, 0xf0, 0xfe, 0xfe, 0xfe};
-            byte[] caskettop2_white = { 0xdf, 0xaf, 0x57, 0x28, 0x17, 0x08, 0x07, 0x00, 0x3f, 0x5f, 0x2f, 0x17, 0x08, 0x07, 0x00, 0x00,
-                                        0xfd, 0xf1, 0x8f, 0x71, 0x8e, 0x70, 0x80, 0x00, 0xfe, 0xfe, 0xf0, 0x8e, 0x70, 0x80, 0x00, 0x00};
-            byte[] casketbottom1_white = { 0x01, 0x02, 0x05, 0x0b, 0x17, 0x2e, 0x2e, 0x2f, 0x00, 0x01, 0x03, 0x07, 0x0f, 0x1f, 0x1f, 0x1f,
-                                           0x80, 0x40, 0xa0, 0xd0, 0xe8, 0x74, 0x74, 0xf4, 0x00, 0x80, 0xc0, 0xe0, 0xf0, 0xf8, 0xf8, 0xf8,
-                                           0x17, 0x17, 0x17, 0x0b, 0x08, 0x0f, 0x08, 0x07, 0x2f, 0x2f, 0x0f, 0x17, 0x17, 0x10, 0x07, 0x00,
-                                           0xe8, 0xe8, 0xe8, 0xd0, 0x10, 0xf0, 0x10, 0xe0, 0xf4, 0xf4, 0xf0, 0xe8, 0xe8, 0x08, 0xe0, 0x00};
-            byte[] casketbottom2_white = { 0x07, 0x08, 0x0f, 0x08, 0x0b, 0x17, 0x17, 0x17, 0x00, 0x07, 0x10, 0x17, 0x17, 0x0f, 0x2f, 0x2f,
-                                           0xe0, 0x10, 0xf0, 0x10, 0xd0, 0xe8, 0xe8, 0xe8, 0x00, 0xe0, 0x08, 0xe8, 0xe8, 0xf0, 0xf4, 0xf4,
-                                           0x2f, 0x2e, 0x2e, 0x17, 0x0b, 0x05, 0x02, 0x01, 0x1f, 0x1f, 0x1f, 0x0f, 0x07, 0x03, 0x01, 0x00,
-                                           0xf4, 0x74, 0x74, 0xe8, 0xd0, 0xa0, 0x40, 0x80, 0xf8, 0xf8, 0xf8, 0xf0, 0xe0, 0xc0, 0x80, 0x00};
-            byte[] caskettop1_blue = { 0x00, 0x00, 0x07, 0x0f, 0x18, 0x30, 0x63, 0xc3, 0x00, 0x00, 0x07, 0x08, 0x17, 0x2f, 0x5c, 0xbc,
-                                       0x00, 0x00, 0x80, 0xf0, 0x7e, 0x0f, 0x03, 0x03, 0x00, 0x00, 0x80, 0x70, 0x8e, 0xf1, 0xfd, 0xfd};
-            byte[] caskettop2_blue = { 0xe0, 0xf0, 0x78, 0x3f, 0x1f, 0x0f, 0x07, 0x00, 0xdf, 0xaf, 0x57, 0x28, 0x17, 0x08, 0x07, 0x00,
-                                       0x03, 0x0f, 0x7f, 0xff, 0xfe, 0xf0, 0x80, 0x00, 0xfd, 0xf1, 0x8f, 0x71, 0x8e, 0x70, 0x80, 0x00};
-            byte[] casketbottom1_blue = { 0x01, 0x03, 0x06, 0x0c, 0x18, 0x31, 0x31, 0x30, 0x01, 0x02, 0x05, 0x0b, 0x17, 0x2e, 0x2e, 0x2f,
-                                          0x80, 0xc0, 0x60, 0x30, 0x18, 0x8c, 0x8c, 0x0c, 0x80, 0x40, 0xa0, 0xd0, 0xe8, 0x74, 0x74, 0xf4,
-                                          0x38, 0x38, 0x18, 0x1c, 0x1f, 0x1f, 0x0f, 0x07, 0x17, 0x17, 0x17, 0x0b, 0x08, 0x0f, 0x08, 0x07,
-                                          0x1c, 0x1c, 0x18, 0x38, 0xf8, 0xf8, 0xf0, 0xe0, 0xe8, 0xe8, 0xe8, 0xd0, 0x10, 0xf0, 0x10, 0xe0};
-            byte[] casketbottom2_blue = { 0x07, 0x0f, 0x1f, 0x1f, 0x1c, 0x18, 0x38, 0x38, 0x07, 0x08, 0x0f, 0x08, 0x0b, 0x17, 0x17, 0x17,
-                                          0xe0, 0xf0, 0xf8, 0xf8, 0x38, 0x18, 0x1c, 0x1c, 0xe0, 0x10, 0xf0, 0x10, 0xd0, 0xe8, 0xe8, 0xe8,
-                                          0x30, 0x31, 0x31, 0x18, 0x0c, 0x06, 0x03, 0x01, 0x2f, 0x2e, 0x2e, 0x17, 0x0b, 0x05, 0x02, 0x01,
-                                          0x0c, 0x8c, 0x8c, 0x18, 0x30, 0x60, 0xc0, 0x80, 0xf4, 0x74, 0x74, 0xe8, 0xd0, 0xa0, 0x40, 0x80};
-
-            List<byte> caskettop1 = new List<byte>();
-            List<byte> caskettop2 = new List<byte>();
-            List<byte> casketbottom1 = new List<byte>();
-            List<byte> casketbottom2 = new List<byte>();
-
-            int colorpick = 0;
-
-            Random r2 = new Random(int.Parse(txtSeed.Text));
-
-            if (randColor) colorpick = r2.Next() % 3;
-
-            if (colorpick == 0)
-            {
-                for (int lni = 0; lni < caskettop1_green.Length; lni++)
-                    caskettop1.Add(caskettop1_green[lni]);
-                for (int lni = 0; lni < caskettop2_green.Length; lni++)
-                    caskettop2.Add(caskettop2_green[lni]);
-                for (int lni = 0; lni < casketbottom1_green.Length; lni++)
-                    casketbottom1.Add(casketbottom1_green[lni]);
-                for (int lni = 0; lni < casketbottom2_green.Length; lni++)
-                    casketbottom2.Add(casketbottom2_green[lni]);
-            }
-            else if (colorpick == 1)
-            {
-                for (int lni = 0; lni < caskettop1_white.Length; lni++)
-                    caskettop1.Add(caskettop1_white[lni]);
-                for (int lni = 0; lni < caskettop2_white.Length; lni++)
-                    caskettop2.Add(caskettop2_white[lni]);
-                for (int lni = 0; lni < casketbottom1_white.Length; lni++)
-                    casketbottom1.Add(casketbottom1_white[lni]);
-                for (int lni = 0; lni < casketbottom2_white.Length; lni++)
-                    casketbottom2.Add(casketbottom2_white[lni]);
-            }
-            else
-            {
-                for (int lni = 0; lni < caskettop1_blue.Length; lni++)
-                    caskettop1.Add(caskettop1_blue[lni]);
-                for (int lni = 0; lni < caskettop2_blue.Length; lni++)
-                    caskettop2.Add(caskettop2_blue[lni]);
-                for (int lni = 0; lni < casketbottom1_blue.Length; lni++)
-                    casketbottom1.Add(casketbottom1_blue[lni]);
-                for (int lni = 0; lni < casketbottom2_blue.Length; lni++)
-                    casketbottom2.Add(casketbottom2_blue[lni]);
-            }
-
-            for (int lni = 0; lni < caskettop1.Count; lni++)
-                romData[0x21d80 + lni] = caskettop1[lni];
-            for (int lni = 0; lni < caskettop2.Count; lni++)
-                romData[0x21da0 + lni] = romData[0x21dc0 + lni] = caskettop2[lni];
-            for (int lni = 0; lni < casketbottom1.Count; lni++)
-                romData[0x22c20 + lni] = casketbottom1[lni];
-            for (int lni = 0; lni < casketbottom2.Count; lni++)
-                romData[0x22ba0 + lni] = romData[0x22be0 + lni] = casketbottom2[lni];
-
-            // changes references from ghost to pall (synonym for casket).
-            convertStrToHex("pall and throws it away. ", 0x424f1, false);
-            convertStrToHex("puts the < into [^s pall.", 0x4255f, false);
-            convertStrToHex(" into [^s pall.", 0x42569, false);
-            convertStrToHex("puts it into [^s pall.", 0x425fb, false);
-            convertStrToHex("pall. ", 0x42629, false);
-            convertStrToHex("pall and puts it in [^s Tool Bag. ", 0x42647, false);
-            convertStrToHex("pall and puts it into [^s pall. ", 0x42681, false);
-            convertStrToHex("pall and returns it to [^s pall.  ", 0x4272b, false);
-            convertStrToHex("pall and places the < in it. ", 0x42901, false);
-            convertStrToHex("put it into this pall", 0x450c6, false);
-            romData[0x450db] = 0x69;
-            romData[0x450dc] = 0x60;
-            romData[0x450dd] = 0xef;
-            convertStrToHex("put it into this pall", 0x452c9, false);
-        }
-
-        private void randomizeInnPrices()
-        {
-            for (int lnI = 0; lnI < 26; lnI++)
-            {
-                int innPrice = (r1.Next() % 20) + 1;
-                romData[0x367c1 + lnI] -= (byte)(romData[0x367c1 + lnI] % 32);
-                romData[0x367c1 + lnI] += (byte)innPrice;
-            }
-
-        }
-
-        private void randStatGains()
-        {
-            //// Randomize starting stats.
-            // Give each hero from 22HP (min for Wizard) to about 36 HP.  (Hero)  Just so everybody has a chance!
-            romData[0x1eed7] = (byte)((r1.Next() % 13) + 5 + 9);
-            // Remove the baseline for HP...
-            romData[0x24f4] = 0xea;
-            romData[0x24f5] = 0x4c;
-            romData[0x24f6] = 0xfa;
-            romData[0x24f7] = 0xa4;
-            // ... and MP...
-            romData[0x2555] = 0xea;
-            romData[0x2556] = 0x4c;
-            romData[0x2557] = 0x5b;
-            romData[0x2558] = 0xa5;
-            // ... and the rest!  But we also need to prevent someone gaining 200 points in a stat...
-            romData[0x247c] = 0xa9;
-            romData[0x247d] = 0x00;
-            romData[0x247e] = 0x8d;
-            romData[0x247f] = 0x05;
-            romData[0x2480] = 0x00;
-            romData[0x2481] = 0x4c;
-            romData[0x2482] = 0x7d;
-            romData[0x2483] = 0xa4;
-
-            // TRY TWO
-            // Max array:  [7, 5]
-            // ORDER:  Hero, Wizard, Pilgrim, Sage, Soldier, Merchant, Fighter, Goof-off
-            int[,] heroL41Gains = new int[,] {
-                               { 134, 77, 166, 121, 69 },
-                               { 33, 125, 106, 143, 108 },
-                               { 55, 79, 110, 120, 107 },
-                               { 80, 90, 127, 79, 97 },
-                               { 149, 37, 191, 32, 33 },
-                               { 96, 75, 122, 54, 60 },
-                               { 188, 191, 143, 145, 43 },
-                               { 36, 47, 84, 210, 52 }
-                               };
-
-            //heroL41Gains[8, 0] = 0;
-            // Randomize the four multipliers from 8 to 32.  Each multiplier has six bytes.
-
-            int randomstate = 0;
-            if (rad_RandStatsSilly.Checked) randomstate = 1;
-            else if (rad_RandStatsRid.Checked) randomstate = 2;
-            else if (rad_RandStatsLud.Checked) randomstate = 3;
-            else if (rad_RandStatsRand.Checked) randomstate = (r1.Next() % 3) + 1;
-
-            for (int lnI = 0; lnI < 2; lnI++)
-                for (int lnJ = 0; lnJ < 5; lnJ++)
-                {
-                    int byteToUse2 = 0x281b + (lnI * 5) + lnJ;
-                    romData[byteToUse2] = (byte)(((r1.Next() % 4) + 1) * 8);
-                }
-
-            // Randomize the levels to the next multiplier from 0 to 24.(First 4 bytes)  Always make the 5th byte "99" (63 hex).
-            // Calculate the base gain based on the four multipliers.  Try to get as close to the target gain for each stat as possible.
-            // Char byteToUse - 0x4a15b, 0x4a17f, 0x4a1a3, 0x4a1c7, 0x4a1eb, 0x4a20f, 0x4a22d, 0x4a24b
-            int byteToUse = 0x290e;
-            // 40 bytes for strength, 40 bytes for agility, 40 bytes for vitality, 40 bytes for luck, 40 bytes for intelligence, in that order.  NOT in character order, statistic order!
-            for (int lnJ = 0; lnJ < 5; lnJ++)
-            {
-                for (int lnI = 0; lnI < 8; lnI++)
-                {
-                    if (randomstate == 1 || randomstate == 2)
-                    {
-                        int randomDir = (r1.Next() % 3);
-                        int difference = heroL41Gains[lnI, lnJ] / (rad_RandStatsSilly.Checked ? 4 : 2);
-                        if (randomDir == 0)
-                            heroL41Gains[lnI, lnJ] -= (r1.Next() % difference);
-                        if (randomDir == 1)
-                            heroL41Gains[lnI, lnJ] += (r1.Next() % difference);
-                    }
-                    if (randomstate == 3)
-                    {
-                        if (lnJ == 2)
-                            heroL41Gains[lnI, lnJ] = (r1.Next() % (lnI == 0 || lnI >= 4 ? 140 : 170)) + (lnI == 0 || lnI >= 4 ? 110 : 80);
-                        else if (lnJ == 0)
-                            heroL41Gains[lnI, lnJ] = (r1.Next() % (lnI == 0 || lnI >= 4 ? 180 : 220)) + (lnI == 0 || lnI >= 4 ? 70 : 30);
-                        else
-                            heroL41Gains[lnI, lnJ] = (r1.Next() % (lnJ == 4 && lnI <= 3 ? 180 : 210) + (lnJ == 4 && lnI <= 3 ? 70 : 40));
-                    }
-
-                    int[] levels = { 0, 0, 0, 0, 99 };
-                    for (int lnK = 0; lnK < 4; lnK++)
-                        levels[lnK] = (byte)(r1.Next() % 50);
-                    Array.Sort(levels);
-                    //for (int lnK = 0; lnK < 4; lnK++)
-                    //{
-                    //    if ((lnK == 0 && baseStat % 2 == 1) || (lnK == 1 && baseStat % 4 >= 2) || (lnK == 2 && baseStat % 8 >= 4) || (lnK == 3 && baseStat % 16 >= 8))
-                    //        romData[byteToUse + lnK] = (byte)(128 + levels[lnK]);
-                    //    else
-                    //        romData[byteToUse + lnK] = (byte)(levels[lnK]);
-                    //}
-
-                    //if (baseStat >= 16)
-                    //    romData[byteToUse + 4] = 99 + 128;
-                    //else
-                    //    romData[byteToUse + 4] = 99;
-
-                    // Averages:  8-16 = .6/level, 24-32 = 1.6/level, 40-48 = 2.6/level, 56-64 = 3.6/level, 72-80 = 4.6/level, 88-96 = 5.6/level, 104-112 = 6.6/level
-                    // Maximize base stat at 12 (5.6/level at 8 multiplier)
-                    // Now to figure out the multiplier to use (+ 0) and the base multiplier (+ 5)
-                    double[] diffs = { 0.0, 0.0, 0.0, 0.0 };
-                    int[] baseMult = { 0, 0, 0, 0 };
-                    for (int lnK = 0; lnK < 2; lnK++)
-                    {
-                        for (baseMult[lnK] = 1; baseMult[lnK] <= 12; baseMult[lnK]++)
-                        {
-                            int byteToUse2 = 0x281b + (lnK * 5); // multipliers
-                            double stat = 0.0;
-                            int multLevel = 0;
-
-                            for (int lnL = 2; lnL <= 40; lnL++)
-                            {
-                                int multLevelToUse = (levels[multLevel]);
-                                if (lnL > multLevelToUse)
-                                    multLevel++;
-                                stat += Math.Floor((((double)baseMult[lnK] * romData[byteToUse2 + multLevel]) - 8) / 16) + 0.85;
-                            }
-                            //baseMult[lnK] = (int)Math.Round(heroL41Gains[lnI, lnJ] / stat);
-                            diffs[lnK] = Math.Abs(stat - heroL41Gains[lnI, lnJ]);
-                            if (stat > heroL41Gains[lnI, lnJ]) break;
-                        }
-                    }
-
-                    double lowDiff = 9999;
-                    int lowMult = 0;
-                    int ultiBaseMult = 0;
-                    for (int lnK = 0; lnK < 2; lnK++)
-                    {
-                        if (diffs[lnK] < lowDiff)
-                        {
-                            lowDiff = diffs[lnK];
-                            lowMult = lnK;
-                            ultiBaseMult = baseMult[lnK];
-                        }
-                    }
-
-                    romData[byteToUse] = (byte)((lowMult == 0 ? 0 : 128) + levels[0]);
-                    romData[byteToUse + 1] = (byte)((ultiBaseMult >= 8 ? 128 : 0) + (levels[1] - levels[0]));
-                    romData[byteToUse + 2] = (byte)((ultiBaseMult % 8 >= 4 ? 128 : 0) + (levels[2] - levels[1]));
-                    romData[byteToUse + 3] = (byte)((ultiBaseMult % 4 >= 2 ? 128 : 0) + (levels[3] - levels[2]));
-                    romData[byteToUse + 4] = (byte)((ultiBaseMult % 2 >= 1 ? 128 : 0) + 127);
-
-                    //romData[byteToUse] += (byte)(32 * lowMult);
-                    //romData[byteToUse + 5] = (byte)ultiBaseMult;
-
-                    byteToUse += 5;
-                }
-
-            }
-        }
 
         private void markZoneSides()
         {
@@ -7095,123 +5710,6 @@ namespace DW3Randomizer
             }
         }
 
-        private void lowerCaseMenus()
-        // changes caps menus to lower case
-        {
-            convertStrToHex("Another World", 0x38942, false);
-            convertStrToHex("Non Equipped", 0x38a71, false);
-            convertStrToHex("Sex", 0x39139, false);
-            convertStrToHex("Level", 0x39140, false);
-            convertStrToHex("Attack", 0x3925c, false);
-            convertStrToHex("Power", 0x39264, false);
-            convertStrToHex("Defense", 0x3926e, false);
-            convertStrToHex("Power", 0x39277, false);
-            convertStrToHex("Talk", 0x3940c, false);
-            convertStrToHex("Spell", 0x39411, false);
-            convertStrToHex("Status", 0x39417, false);
-            convertStrToHex("Item", 0x3941e, false);
-            convertStrToHex("Search", 0x39423, false);
-            convertStrToHex("Equip", 0x3942a, false);
-            convertStrToHex("Use", 0x3943b, false);
-            convertStrToHex("Transfer", 0x3943f, false);
-            convertStrToHex("Discard", 0x39448, false);
-            convertStrToHex("Buy", 0x3945b, false);
-            convertStrToHex("Sell", 0x3945f, false);
-            convertStrToHex("Detoxicate", 0x3946f, false);
-            convertStrToHex("Uncurse", 0x3947a, false);
-            convertStrToHex("Revive", 0x39482, false);
-            convertStrToHex("Fight", 0x39494, false);
-            convertStrToHex("Spell", 0x3949a, false);
-            convertStrToHex("Run", 0x394a0, false);
-            convertStrToHex("Item", 0x394a4, false);
-            convertStrToHex("Fight", 0x394b4, false);
-            convertStrToHex("Spell", 0x394ba, false);
-            convertStrToHex("Parry", 0x394c0, false);
-            convertStrToHex("Item", 0x394c6, false);
-            convertStrToHex("Fight", 0x394d6, false);
-            convertStrToHex("Run", 0x394dc, false);
-            convertStrToHex("Parry", 0x394e0, false);
-            convertStrToHex("Item", 0x394e6, false);
-            convertStrToHex("Fight", 0x394f6, false);
-            convertStrToHex("Parry", 0x394fc, false);
-            convertStrToHex("Item", 0x39502, false);
-            convertStrToHex("Yes", 0x39516, false);
-            convertStrToHex("No", 0x3951a, false);
-            convertStrToHex("Info", 0x39528, false);
-            convertStrToHex("Condition", 0x3952d, false);
-            convertStrToHex("Formation", 0x39537, false);
-            convertStrToHex("Gold", 0x39565, false);
-            convertStrToHex("Item", 0x3956a, false);
-            convertStrToHex("Use", 0x3957a, false);
-            convertStrToHex("Equip", 0x3957e, false);
-            convertStrToHex("Back", 0x39793, false);
-            convertStrToHex("End", 0x39798, false);
-            convertStrToHex("Male", 0x397bc, false);
-            convertStrToHex("Female", 0x397c1, false);
-            convertStrToHex("Add Member", 0x39838, false);
-            convertStrToHex("Leave Member", 0x39843, false);
-            convertStrToHex("See List", 0x39850, false);
-            convertStrToHex("Use", 0x398cf, false);
-            convertStrToHex("Transfer", 0x398d3, false);
-            convertStrToHex("Discard", 0x398dc, false);
-            convertStrToHex("Appraise", 0x398e4, false);
-            convertStrToHex("Adventure Log 1", 0x39939, false);
-            convertStrToHex("Adventure Log 2", 0x39954, false);
-            convertStrToHex("Adventure Log 1", 0x3996f, false);
-            convertStrToHex("Adventure Log 2", 0x3997f, false);
-            convertStrToHex("Adventure Log 3", 0x3999a, false);
-            convertStrToHex("Adventure Log 1", 0x399b6, false);
-            convertStrToHex("Adventure Log 3", 0x399c5, false);
-            convertStrToHex("Adventure Log 2", 0x399e0, false);
-            convertStrToHex("Adventure Log 3", 0x399f0, false);
-            convertStrToHex("Adventure Log 1", 0x39a0b, false);
-            convertStrToHex("Adventure Log 2", 0x39a1b, false);
-            convertStrToHex("Adventure Log 3", 0x39a2b, false);
-            convertStrToHex("Input Your Name", 0x39a9a, false);
-            convertStrToHex("Level", 0x39abb, false);
-            convertStrToHex("Adventure Log 1", 0x39af3, false);
-            convertStrToHex("Adventure Log 2", 0x39b11, false);
-            convertStrToHex("Adventure Log 1", 0x39b2f, false);
-            convertStrToHex("Adventure Log 2", 0x39b42, false);
-            convertStrToHex("Adventure Log 3", 0x39b60, false);
-            convertStrToHex("Adventure Log 1", 0x39b7e, false);
-            convertStrToHex("Adventure Log 3", 0x39b91, false);
-            convertStrToHex("Adventure Log 2", 0x39baf, false);
-            convertStrToHex("Adventure Log 3", 0x39bc2, false);
-            convertStrToHex("Adventure Log 1", 0x39be0, false);
-            convertStrToHex("Adventure Log 2", 0x39bf3, false);
-            convertStrToHex("Adventure Log 3", 0x39c06, false);
-            convertStrToHex("Continue a Quest", 0x39c24, false);
-            convertStrToHex("Begin a New Quest", 0x39c35, false);
-            convertStrToHex("Copy a Quest", 0x39c47, false);
-            convertStrToHex("Erase a Quest", 0x39c54, false);
-            convertStrToHex("Change Message Speed", 0x39c62, false);
-            convertStrToHex("Continue a Quest", 0x39c82, false);
-            convertStrToHex("Erase a Quest", 0x39c93, false);
-            convertStrToHex("Change Message Speed", 0x39ca1, false);
-            convertStrToHex("Begin a New Quest", 0x39cc1, false);
-            convertStrToHex("Command", 0x39d3b, false);
-            convertStrToHex("Status", 0x39d43, false);
-            convertStrToHex("Item", 0x39d4a, false);
-            convertStrToHex("Whom", 0x39d4f, false);
-            convertStrToHex("Spell", 0x39d54, false);
-            convertStrToHex("Equip", 0x39d5a, false);
-            convertStrToHex("Weapon", 0x39d60, false);
-            convertStrToHex("Armor", 0x39d67, false);
-            convertStrToHex("Shield", 0x39d6d, false);
-            convertStrToHex("Helmet", 0x39d74, false);
-            convertStrToHex("Class", 0x39d7b, false);
-            convertStrToHex("Sex", 0x39d81, false);
-            convertStrToHex("Name", 0x39d85, false);
-            convertStrToHex("Fight", 0x39d8d, false);
-            convertStrToHex("To", 0x39d93, false);
-            convertStrToHex("and", 0x3a541, false);
-            convertStrToHex("Spell", 0x3a552, false);
-            convertStrToHex("Item", 0x3a561, false);
-            convertStrToHex("Equip", 0x3a571, false);
-            convertStrToHex("ndition", 0x3a5d2, false);
-            convertStrToHex("rmation", 0x3a5dd, false);
-        }
 
         private void randSpriteColors()
         {
@@ -7771,514 +6269,7 @@ namespace DW3Randomizer
                 romData[0x42bc7 + lni] = dreamRubyText[lni];
         }
 
-        private void randomNPCSprites()
-        {
-            byte[] dw1MerchantSprite = { 0x00, 0x00, 0x00, 0x18, 0x07, 0x10, 0x08, 0x07, 0x07, 0x0F, 0x1F, 0x1F, 0x1F, 0x0F, 0x07, 0x38,
-                                         0x40, 0xC0, 0xC0, 0xFF, 0x00, 0x00, 0x1E, 0x00, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x1F, 0x1E, 0x00,
-                                         0x03, 0x03, 0x02, 0xFC, 0x00, 0x00, 0xF8, 0xF8, 0xFC, 0xFC, 0xFC, 0xFC, 0xFC, 0xF8, 0x00, 0xF8,
-                                         0x00, 0x00, 0x07, 0x18, 0x05, 0x1D, 0x0E, 0x0D, 0x07, 0x0F, 0x1F, 0x1F, 0x1A, 0x02, 0x01, 0x02,
-                                         0xC0, 0xC1, 0x40, 0x3D, 0x00, 0x00, 0x1E, 0x00, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x1F, 0x1E, 0x00,
-                                         0x02, 0x87, 0x0F, 0xBE, 0x00, 0x00, 0xF8, 0xF8, 0xFC, 0xF8, 0xF0, 0xF0, 0xFC, 0xF8, 0x00, 0xF8,
-                                         0x00, 0x00, 0x1E, 0x01, 0x0A, 0x1B, 0x07, 0x0A, 0x07, 0x0F, 0x1F, 0x1F, 0x05, 0x04, 0x08, 0x05,
-                                         0x00, 0x00, 0x00, 0xC0, 0x38, 0x80, 0x00, 0x60, 0xE0, 0xF0, 0xF8, 0xF8, 0xF8, 0x78, 0xF0, 0x80,
-                                         0x01, 0x21, 0x00, 0x2F, 0x01, 0x00, 0x1F, 0x1F, 0x1E, 0x3E, 0x3F, 0x3E, 0x3E, 0x1F, 0x00, 0x1F,
-                                         0xC0, 0xE0, 0xE0, 0xF8, 0xC0, 0x00, 0xF0, 0x00, 0x30, 0x18, 0x18, 0x18, 0x38, 0xF0, 0xF0, 0x00,
-                                         0x0D, 0x2F, 0x07, 0x2F, 0x00, 0x00, 0x1F, 0x01, 0x12, 0x30, 0x38, 0x3F, 0x3F, 0x1F, 0x1E, 0x01,
-                                         0x80, 0x80, 0x80, 0xF8, 0x00, 0x00, 0xF0, 0xF0, 0x70, 0x78, 0x78, 0xF8, 0xF8, 0xF0, 0x00, 0xF0 };
-            byte[] dw2MerchantSprite = { 0x07, 0x07, 0x0F, 0x0F, 0x0F, 0x0F, 0x20, 0x40, 0x07, 0x07, 0x0F, 0x0F, 0x0F, 0x00, 0x3F, 0x7F,
-                                         0xC0, 0xC0, 0xC0, 0x3F, 0x00, 0x00, 0x1E, 0x00, 0xFF, 0x7F, 0x3F, 0x3F, 0x3F, 0x3F, 0x00, 0x1E,
-                                         0x03, 0x03, 0x07, 0xFE, 0x00, 0x78, 0x00, 0x00, 0xFF, 0xFF, 0xF8, 0xF8, 0xFC, 0x00, 0x78, 0x00,
-                                         0x00, 0x00, 0x00, 0x05, 0x0F, 0x0C, 0x20, 0x41, 0x07, 0x07, 0x0F, 0x0A, 0x00, 0x03, 0x3F, 0x7E,
-                                         0xC0, 0xC1, 0xC0, 0x3F, 0x00, 0x00, 0x1E, 0x00, 0xFF, 0x7E, 0x3F, 0x3E, 0x3F, 0x3F, 0x00, 0x1E,
-                                         0x03, 0x83, 0x07, 0xFE, 0x00, 0x78, 0x00, 0x00, 0xFF, 0x7F, 0xF8, 0x78, 0xFC, 0x00, 0x78, 0x00,
-                                         0x00, 0x00, 0x00, 0x05, 0x07, 0x01, 0x00, 0x08, 0x07, 0x07, 0x0F, 0x02, 0x00, 0x06, 0x0F, 0x07,
-                                         0x00, 0x00, 0x00, 0x80, 0xC0, 0xF0, 0x00, 0x60, 0xF0, 0xF0, 0xF8, 0x78, 0x38, 0x00, 0xF8, 0xFC,
-                                         0x00, 0x18, 0x01, 0x1F, 0x00, 0x00, 0x00, 0x00, 0x1F, 0x07, 0x1E, 0x07, 0x1F, 0x0F, 0x1E, 0x00,
-                                         0xE0, 0xE0, 0xC0, 0xFC, 0x00, 0x00, 0x78, 0x00, 0xFC, 0xFC, 0x3C, 0x3C, 0xFC, 0xF8, 0x00, 0xF8,
-                                         0x00, 0x18, 0x00, 0x1F, 0x00, 0x00, 0x01, 0x00, 0x1F, 0x07, 0x1F, 0x07, 0x1F, 0x0F, 0x00, 0x03,
-                                         0x70, 0x30, 0x70, 0xFC, 0x00, 0x00, 0xE0, 0x00, 0xFC, 0xFC, 0x8C, 0xCC, 0xFC, 0xFC, 0x18, 0xE0 };
-            byte[] dw4Taloon = { 0x00, 0x00, 0x10, 0x38, 0x1F, 0x3F, 0x3C, 0x7F, 0x07, 0x0F, 0x1F, 0x37, 0x17, 0x34, 0x13, 0x50, 
-                                 0xDD, 0xDD, 0xFD, 0x6F, 0x3F, 0x3F, 0x1F, 0x00, 0xE2, 0xF7, 0xE2, 0x50, 0x3F, 0x0A, 0x0A, 0x00, 
-                                 0xBB, 0xBB, 0xBE, 0xF4, 0xFC, 0xFC, 0xFC, 0x78, 0x47, 0xEF, 0x46, 0x08, 0xFC, 0xA8, 0xF8, 0x00, 
-                                 0x00, 0x05, 0x1F, 0x3F, 0x1F, 0x3F, 0x2F, 0x6F, 0x07, 0x0F, 0x1F, 0x3D, 0x1A, 0x3A, 0x11, 0x5B, 
-                                 0xF7, 0xF3, 0xE3, 0x03, 0x3F, 0x3F, 0x1F, 0x00, 0x9C, 0x9F, 0xFE, 0x3E, 0x3E, 0x0A, 0x0A, 0x00, 
-                                 0xE7, 0xEF, 0xEE, 0xE0, 0xFC, 0xFC, 0xFC, 0x78, 0x3F, 0xF9, 0xB8, 0xBC, 0xBC, 0xA8, 0xFC, 0x00, 
-                                 0x10, 0x7D, 0x3F, 0x3F, 0x3F, 0x7F, 0x7F, 0x7F, 0x1F, 0x7F, 0x3F, 0x2F, 0x17, 0x17, 0x63, 0x74, 
-                                 0x00, 0x00, 0x10, 0x90, 0xF0, 0xFC, 0xFE, 0xBE, 0xC0, 0xE0, 0xE0, 0xE0, 0xE0, 0xE0, 0x2C, 0xCC, 
-                                 0x3F, 0x3F, 0x2F, 0x60, 0x7F, 0x7F, 0x3F, 0x3C, 0x0F, 0x33, 0x13, 0x3F, 0x3F, 0x2A, 0x3E, 0x00, 
-                                 0xFF, 0xFF, 0xBF, 0x7E, 0xF0, 0xF0, 0xF0, 0x00, 0xE2, 0xEC, 0xE0, 0x90, 0xE0, 0xA0, 0xA0, 0x00, 
-                                 0x3F, 0x3F, 0x27, 0x60, 0x7F, 0x7F, 0x3F, 0x01, 0x03, 0x33, 0x1F, 0x3F, 0x3F, 0x2A, 0x2B, 0x00, 
-                                 0xFF, 0xBF, 0x3F, 0x7E, 0xF0, 0xF0, 0xF0, 0xE0, 0xE2, 0xEC, 0xE0, 0x90, 0xE0, 0xA0, 0xF0, 0x00 };
-            byte[] dw4Merchant = { 0x00, 0x00, 0x00, 0x00, 0x18, 0x1F, 0x0F, 0x0F, 0x07, 0x0F, 0x0F, 0x0F, 0x1F, 0x1F, 0x3F, 0x7F, 
-                                   0x8B, 0xC8, 0x08, 0x08, 0x0F, 0x00, 0x1F, 0x1F, 0x77, 0x37, 0x37, 0x17, 0x30, 0x3F, 0x1F, 0x00, 
-                                   0xD2, 0x17, 0x13, 0x73, 0x80, 0x78, 0x78, 0x00, 0xEC, 0xE8, 0xEC, 0x88, 0x7C, 0xFC, 0x00, 0x00, 
-                                   0x00, 0x00, 0x00, 0x03, 0x1F, 0x1F, 0x0F, 0x0F, 0x07, 0x0F, 0x0F, 0x0F, 0x1E, 0x1A, 0x31, 0x7A, 
-                                   0xEF, 0xE7, 0x08, 0x0E, 0x01, 0x1E, 0x1E, 0x00, 0x1C, 0x1F, 0x37, 0x11, 0x3E, 0x3F, 0x00, 0x00, 
-                                   0xF2, 0xE7, 0x13, 0x13, 0xF0, 0x00, 0xF8, 0xF8, 0x3C, 0xF8, 0xEC, 0xE8, 0x0C, 0xFC, 0xF8, 0x00, 
-                                   0x00, 0x00, 0x00, 0x3C, 0x1F, 0x3F, 0x3F, 0x1F, 0x0F, 0x1F, 0x1F, 0x3F, 0x0F, 0x0B, 0x30, 0x09, 
-                                   0x00, 0x00, 0x00, 0x00, 0x80, 0xF0, 0xF0, 0x10, 0xC0, 0xE0, 0xE0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 
-                                   0x1E, 0x3E, 0x08, 0x09, 0x39, 0x00, 0x1F, 0x1F, 0x03, 0x1F, 0x37, 0x36, 0x06, 0x3F, 0x1F, 0x00, 
-                                   0x20, 0x90, 0xD0, 0xD8, 0x80, 0xF0, 0xF0, 0x00, 0xD0, 0x68, 0x28, 0x20, 0x78, 0xF8, 0x00, 0x00, 
-                                   0x1E, 0x1E, 0x07, 0x3B, 0x00, 0x1E, 0x1F, 0x01, 0x03, 0x11, 0x38, 0x04, 0x3F, 0x3F, 0x01, 0x00, 
-                                   0x20, 0x10, 0x90, 0x10, 0x18, 0x00, 0xF0, 0xF0, 0xD0, 0xE8, 0x68, 0xE8, 0xE0, 0xF8, 0xF0, 0x00 };
-            byte[] dw2PriestJ = { 0x01, 0x03, 0x03, 0x03, 0x00, 0x03, 0x03, 0x0F, 0x01, 0x03, 0x03, 0x03, 0x03, 0x01, 0x01, 0x0E,
-                                  0xE0, 0xF0, 0xF0, 0xF0, 0x00, 0xF0, 0xF0, 0xFC, 0xE0, 0xF0, 0xF0, 0xF0, 0xF0, 0x20, 0x20, 0x1C,
-                                  0x1F, 0x1F, 0x3F, 0x31, 0x0F, 0x0F, 0x18, 0x07, 0x1F, 0x1F, 0x1F, 0x16, 0x0F, 0x0F, 0x1F, 0x18,
-                                  0x3E, 0x3E, 0xFE, 0xEC, 0xDC, 0xDC, 0x5E, 0x80, 0xFE, 0xFE, 0x32, 0xD0, 0xFC, 0xFC, 0xFE, 0x7E,
-                                  0x1F, 0x1F, 0x3F, 0x31, 0x0F, 0x0F, 0x1F, 0x00, 0x1F, 0x1F, 0x0F, 0x06, 0x0F, 0x0F, 0x1F, 0x1F,
-                                  0x3E, 0x3E, 0xFE, 0xE4, 0xDC, 0xDC, 0x86, 0x78, 0xFE, 0xFE, 0x3C, 0xD8, 0xFC, 0xFC, 0xFE, 0x86,
-                                  0x03, 0x07, 0x07, 0x07, 0x03, 0x04, 0x07, 0x1F, 0x03, 0x07, 0x07, 0x07, 0x07, 0x07, 0x03, 0x1C,
-                                  0xC0, 0xE0, 0xE0, 0xE0, 0xC0, 0x20, 0xE0, 0xF8, 0xC0, 0xE0, 0xE0, 0xE0, 0xE0, 0xE0, 0xC0, 0x38,
-                                  0x3F, 0x3F, 0x1F, 0x00, 0x1F, 0x1F, 0x30, 0x0F, 0x3F, 0x3F, 0x1F, 0x0F, 0x1F, 0x1F, 0x3F, 0x30,
-                                  0xFC, 0xFE, 0xFF, 0x07, 0xF8, 0xF8, 0xFC, 0x00, 0xFC, 0xFE, 0xFE, 0xF4, 0xF8, 0xF8, 0xFC, 0xFC,
-                                  0x03, 0x07, 0x07, 0x07, 0x00, 0x07, 0x07, 0x03, 0x03, 0x07, 0x07, 0x07, 0x07, 0x02, 0x02, 0x00,
-                                  0xE0, 0xF0, 0xF0, 0xF0, 0x30, 0xC0, 0xF0, 0xE0, 0xE0, 0xF0, 0xF0, 0xF0, 0xF0, 0x70, 0x30, 0x00,
-                                  0x05, 0x0B, 0x1F, 0x1E, 0x07, 0x0F, 0x08, 0x07, 0x07, 0x0F, 0x03, 0x05, 0x07, 0x0F, 0x0F, 0x18,
-                                  0xF0, 0xF8, 0xF8, 0x30, 0xF8, 0xFC, 0x7C, 0x80, 0xF0, 0xF8, 0xF8, 0xC8, 0xC8, 0xFC, 0xFC, 0x7E,
-                                  0x05, 0x0B, 0x0F, 0x0F, 0x07, 0x0F, 0x0F, 0x00, 0x07, 0x0F, 0x03, 0x04, 0x06, 0x0F, 0x0F, 0x1F,
-                                  0xF0, 0xF8, 0xF8, 0x80, 0xF8, 0xFC, 0x0C, 0xF0, 0xF0, 0xF8, 0xF8, 0x78, 0x78, 0xFC, 0xFC, 0x0E,
-                                  0x07, 0x0F, 0x0F, 0x0F, 0x0C, 0x03, 0x0F, 0x07, 0x07, 0x0F, 0x0F, 0x0F, 0x0F, 0x0E, 0x0C, 0x00,
-                                  0xC0, 0xE0, 0xE0, 0xE0, 0x00, 0xE0, 0xE0, 0xC0, 0xC0, 0xE0, 0xE0, 0xE0, 0xE0, 0x40, 0x40, 0x00,
-                                  0x0F, 0x1F, 0x1F, 0x0C, 0x1F, 0x3F, 0x3E, 0x01, 0x0F, 0x1F, 0x1F, 0x13, 0x13, 0x3F, 0x3F, 0x7E,
-                                  0xA0, 0xD0, 0xF8, 0x78, 0xE0, 0xF0, 0x10, 0xE0, 0xE0, 0xF0, 0xC0, 0xA0, 0xE0, 0xF0, 0xF0, 0x18,
-                                  0x0F, 0x1F, 0x1F, 0x01, 0x1F, 0x3F, 0x30, 0x0F, 0x0F, 0x1F, 0x1F, 0x1E, 0x1E, 0x3F, 0x3F, 0x70,
-                                  0xA0, 0xD0, 0xF0, 0xF0, 0xE0, 0xF0, 0xF0, 0x00, 0xE0, 0xF0, 0xC0, 0x20, 0x60, 0xF0, 0xF0, 0xF8 };
-            byte[] dw2PriestE = { 0x00, 0x00, 0x00, 0x07, 0x07, 0x0F, 0x07, 0x1A, 0x07, 0x0F, 0x1F, 0x1F, 0x18, 0x12, 0x3A, 0x3D, 
-                                  0x00, 0x00, 0x00, 0xE0, 0xE0, 0xF0, 0xE0, 0x58, 0xE0, 0xF0, 0xF8, 0xF8, 0x18, 0x48, 0x5C, 0xBC, 
-                                  0x38, 0x74, 0x77, 0x7B, 0x3C, 0x1F, 0x3F, 0x7F, 0x3F, 0x7F, 0x7F, 0x7F, 0x3F, 0x1F, 0x3F, 0x70, 
-                                  0x1C, 0x2E, 0xEE, 0xDE, 0x3C, 0xF8, 0xFC, 0xFC, 0xFC, 0xFE, 0xFE, 0xFE, 0xFC, 0xF8, 0xFC, 0xFC, 
-                                  0x38, 0x74, 0x77, 0x7B, 0x3C, 0x1F, 0x3F, 0x3F, 0x3F, 0x7F, 0x7F, 0x7F, 0x3F, 0x1F, 0x3F, 0x3F, 
-                                  0x1C, 0x2E, 0xEE, 0xDE, 0x3C, 0xF8, 0xFC, 0xFE, 0xFC, 0xFE, 0xFE, 0xFE, 0xFC, 0xF8, 0xFC, 0x0E, 
-                                  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x0F, 0x0F, 0x1F, 0x1F, 0x1F, 0x3F, 0x3F, 
-                                  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xE0, 0xF0, 0xF0, 0xF8, 0xF8, 0xF8, 0xFC, 0xFC, 
-                                  0x20, 0x70, 0x7C, 0x7F, 0x3F, 0x1F, 0x3F, 0x3F, 0x3F, 0x7F, 0x7F, 0x7F, 0x39, 0x19, 0x3F, 0x3F, 
-                                  0x04, 0x0E, 0x3E, 0xFE, 0xFC, 0xF8, 0xFC, 0xFC, 0xFC, 0xFE, 0xFE, 0xFE, 0x9C, 0x98, 0xFC, 0x0C, 
-                                  0x00, 0x00, 0x00, 0x1E, 0x1C, 0x1E, 0x1C, 0x0C, 0x1F, 0x3F, 0x3F, 0x3F, 0x03, 0x09, 0x0B, 0x13, 
-                                  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xE0, 0xC0, 0xE0, 0xF0, 0xF0, 0xF8, 0xF8, 0xF8, 0xF8, 
-                                  0x03, 0x05, 0x0D, 0x3B, 0x07, 0x3F, 0x3F, 0x1F, 0x1F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x01, 
-                                  0xF0, 0xF8, 0xF8, 0xF8, 0xF0, 0xF0, 0xF8, 0xFC, 0xF8, 0xF8, 0xF8, 0xF8, 0xF0, 0xF0, 0xF8, 0xFC, 
-                                  0x03, 0x05, 0x0D, 0x3B, 0x07, 0x3F, 0x3F, 0x1F, 0x1F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x1E, 
-                                  0xF0, 0xF8, 0xF8, 0xF8, 0xF0, 0xF8, 0xFC, 0xFE, 0xF8, 0xF8, 0xF8, 0xF8, 0xF0, 0xF8, 0xFC, 0x1E, 
-                                  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x03, 0x07, 0x0F, 0x0F, 0x1F, 0x1F, 0x1F, 0x1F, 
-                                  0x00, 0x00, 0x00, 0x78, 0x38, 0x78, 0x38, 0x30, 0xF8, 0xFC, 0xFC, 0xFC, 0xC0, 0x90, 0xD0, 0xC8, 
-                                  0x0F, 0x1F, 0x1F, 0x1F, 0x0F, 0x0F, 0x1F, 0x3F, 0x1F, 0x1F, 0x1F, 0x1F, 0x0F, 0x0F, 0x1F, 0x3F, 
-                                  0xC0, 0xA0, 0xB0, 0xDC, 0xE0, 0xFC, 0xFC, 0xF8, 0xF8, 0xFC, 0xFC, 0xFC, 0xFC, 0xFC, 0xFC, 0x80, 
-                                  0x0F, 0x1F, 0x1F, 0x1F, 0x0F, 0x1F, 0x3F, 0x7F, 0x1F, 0x1F, 0x1F, 0x1F, 0x0F, 0x1F, 0x3F, 0x78, 
-                                  0xC0, 0xA0, 0xB0, 0xDC, 0xE0, 0xFC, 0xFC, 0xF8, 0xF8, 0xFC, 0xFC, 0xFC, 0xFC, 0xFC, 0xFC, 0x78 };
-            byte[] dw2King = { 0x01, 0x17, 0x1F, 0x1F, 0x1F, 0x07, 0x00, 0x20, 0x00, 0x00, 0x00, 0x00, 0x18, 0x1F, 0x1F, 0x3F, 
-                               0x80, 0xE8, 0xF8, 0xFA, 0xFA, 0xE2, 0x00, 0x03, 0x02, 0x07, 0x07, 0x02, 0x1A, 0xF8, 0xFA, 0xF8, 
-                               0x30, 0x70, 0x7A, 0x1F, 0x7F, 0x3F, 0x3F, 0x00, 0x3F, 0x7F, 0x7F, 0x7F, 0x1F, 0x3F, 0x3F, 0x7F, 
-                               0x0F, 0x0E, 0x5C, 0xFC, 0xFC, 0xFC, 0x0E, 0xF0, 0xFC, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE, 
-                               0x80, 0xE8, 0xF8, 0xF8, 0xFA, 0xE2, 0x02, 0x00, 0x00, 0x02, 0x07, 0x07, 0x1A, 0xFA, 0xF8, 0xFA, 
-                               0x30, 0x70, 0x7A, 0x3F, 0x1F, 0x3F, 0x70, 0x0F, 0x3F, 0x7F, 0x7F, 0x1F, 0x1F, 0x3F, 0x7F, 0x7F, 
-                               0x0F, 0x0F, 0x5E, 0xF8, 0xF8, 0xFC, 0xFE, 0x00, 0xFC, 0xFE, 0xFE, 0xFA, 0xFA, 0xFE, 0xFE, 0xFE, 
-                               0x00, 0x0A, 0x0E, 0x0E, 0x07, 0x06, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x07, 0x0F, 0x0F, 
-                               0x48, 0x78, 0x38, 0x38, 0x90, 0xF0, 0xF8, 0x78, 0x00, 0x80, 0xC8, 0xF8, 0xE8, 0xA0, 0x20, 0x98, 
-                               0x03, 0x0F, 0x1F, 0x1F, 0x1F, 0x1F, 0x3F, 0x00, 0x1E, 0x1E, 0x1F, 0x1F, 0x1F, 0x1F, 0x3F, 0x7F, 
-                               0xA0, 0x80, 0xE0, 0x78, 0x70, 0x78, 0x40, 0xBC, 0x78, 0x78, 0xF0, 0xF8, 0xF8, 0xF8, 0xFC, 0xFC, 
-                               0x00, 0x0A, 0x0E, 0x0F, 0x07, 0x06, 0x00, 0x01, 0x00, 0x01, 0x01, 0x00, 0x01, 0x07, 0x0F, 0x0E, 
-                               0x48, 0x38, 0x38, 0xF8, 0x90, 0xF0, 0x78, 0xF8, 0x80, 0xC0, 0xC8, 0xF8, 0xE8, 0x20, 0xA0, 0x18, 
-                               0x04, 0x0C, 0x1F, 0x1F, 0x1F, 0x3F, 0x61, 0x1E, 0x1E, 0x1F, 0x1F, 0x1F, 0x1F, 0x3F, 0x7F, 0xFF, 
-                               0xA0, 0x80, 0x60, 0x78, 0x70, 0x78, 0xFC, 0x00, 0x78, 0xF8, 0xF0, 0xF8, 0xF8, 0xF8, 0xFC, 0xFC, 
-                               0x01, 0x17, 0x1F, 0x1F, 0x59, 0x47, 0x4F, 0x37, 0x00, 0x40, 0xE1, 0xE7, 0x5E, 0x5A, 0x12, 0x79, 
-                               0x80, 0xE8, 0xF8, 0xF8, 0x98, 0xE0, 0xF0, 0xEC, 0x00, 0x00, 0x80, 0xE0, 0x78, 0x58, 0x48, 0x9C, 
-                               0xF2, 0xF8, 0x7E, 0x1F, 0x1E, 0x1F, 0x31, 0x0F, 0x3F, 0x3F, 0x7F, 0x5F, 0x5F, 0x5F, 0x7F, 0x3F, 
-                               0x4E, 0x16, 0x7A, 0xF8, 0x78, 0xFC, 0xFC, 0x00, 0xFE, 0xFE, 0xE6, 0xE4, 0xF8, 0xFC, 0xFC, 0xFE, 
-                               0x01, 0x17, 0x1F, 0x5F, 0x59, 0x47, 0x0F, 0xC7, 0x40, 0xE0, 0xE1, 0x47, 0x5E, 0x1A, 0x52, 0x09, 
-                               0xF2, 0x78, 0x3E, 0x1F, 0x1E, 0x3F, 0x7F, 0x00, 0x3F, 0x7F, 0x7F, 0x5F, 0x5F, 0x7F, 0x7F, 0x7F, 
-                               0x4C, 0x1E, 0x7E, 0xF8, 0x7E, 0xF8, 0x0C, 0xF0, 0xFC, 0xFE, 0xFE, 0xFE, 0xF8, 0xF8, 0xFC, 0xFC, 
-                               0x12, 0x1F, 0x1F, 0x1F, 0x09, 0x0E, 0x1F, 0x1E, 0x00, 0x00, 0x10, 0x1E, 0x17, 0x05, 0x04, 0x19, 
-                               0x00, 0x50, 0xF0, 0xF0, 0xE0, 0x60, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0xE0, 0xF0, 0xF0, 
-                               0x04, 0x01, 0x07, 0x1F, 0x0F, 0x1F, 0x3F, 0x00, 0x1F, 0x1F, 0x0E, 0x1E, 0x1F, 0x1F, 0x3F, 0x3F, 
-                               0x80, 0xD0, 0x78, 0x78, 0xF8, 0xFC, 0x86, 0x78, 0xF8, 0xF8, 0xF8, 0xF8, 0xF8, 0xFC, 0xFE, 0xFF, 
-                               0x12, 0x1F, 0x1F, 0x1F, 0x09, 0x0E, 0x1F, 0x1E, 0x00, 0x00, 0x10, 0x1E, 0x17, 0x05, 0x04, 0x19, 
-                               0x04, 0x01, 0x07, 0x1F, 0x0F, 0x1F, 0x03, 0x3C, 0x1F, 0x1F, 0x0F, 0x1F, 0x1F, 0x1F, 0x3F, 0x3F, 
-                               0x80, 0xD0, 0xF8, 0x98, 0xF8, 0xF8, 0xFC, 0x00, 0xF8, 0xF8, 0xF8, 0xF8, 0x98, 0xF8, 0xFC, 0xFE };
-            byte[] dw1Girl = { 0x07, 0x0F, 0x0F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x07, 0x0F, 0x0F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 
-                               0x0F, 0x27, 0x30, 0x30, 0x3F, 0x1F, 0x3F, 0x3F, 0x1F, 0x1F, 0x0F, 0x0F, 0x0F, 0x1F, 0x3F, 0x3F, 
-                               0xFA, 0xF2, 0x00, 0x00, 0xF8, 0xF8, 0xFC, 0xFE, 0xFC, 0xFC, 0xF8, 0xF8, 0xF8, 0xF8, 0xFC, 0x8E, 
-                               0x03, 0x07, 0x0F, 0x0F, 0x1F, 0x1F, 0x1F, 0x1F, 0x03, 0x07, 0x0F, 0x0F, 0x1F, 0x1F, 0x1F, 0x1F, 
-                               0x07, 0x03, 0x1D, 0x1F, 0x0F, 0x0F, 0x0F, 0x0F, 0x07, 0x0F, 0x1F, 0x1F, 0x07, 0x05, 0x04, 0x01, 
-                               0xC0, 0xE0, 0xF0, 0xF0, 0xF8, 0xF8, 0xF8, 0xF8, 0xC0, 0xE0, 0xF0, 0xF0, 0xF8, 0xF8, 0xF8, 0xF8, 
-                               0x1C, 0x1D, 0x08, 0x09, 0x1F, 0x1F, 0x3F, 0x3F, 0x07, 0x0E, 0x0F, 0x0E, 0x1E, 0x1F, 0x3F, 0x23, 
-                               0x70, 0xB0, 0x80, 0x80, 0xE0, 0xF0, 0xF0, 0xF8, 0xF0, 0x70, 0x60, 0x60, 0x60, 0xF0, 0xF0, 0xF8, 
-                               0x06, 0x0F, 0x0B, 0x08, 0x1F, 0x1F, 0x3F, 0x3F, 0x01, 0x08, 0x0C, 0x0F, 0x1F, 0x1F, 0x3F, 0x3F, 
-                               0x70, 0xB0, 0x00, 0x00, 0xE0, 0xF0, 0xF8, 0xFC, 0xF0, 0x70, 0xE0, 0xE0, 0xE0, 0xF0, 0xF8, 0x1C, 
-                               0x07, 0x0C, 0x0B, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x07, 0x0F, 0x0F, 0x1F, 0x1E, 0x1A, 0x12, 0x18, 
-                               0xE0, 0x30, 0xD0, 0xF8, 0xF8, 0xF8, 0xF8, 0xF8, 0xE0, 0xF0, 0xF0, 0xF8, 0x78, 0x58, 0x48, 0x18, 
-                               0x03, 0x23, 0x31, 0x31, 0x3F, 0x0F, 0x1F, 0x3F, 0x1E, 0x1F, 0x0F, 0x0F, 0x0F, 0x0F, 0x1F, 0x31, 
-                               0xCC, 0xCC, 0x80, 0x80, 0xF0, 0xF8, 0xFC, 0xFC, 0x70, 0xF0, 0xF0, 0xF0, 0xF0, 0xF8, 0xFC, 0xFC };
-            byte[] dw2Girl = { 0x07, 0x0F, 0x0F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x07, 0x0F, 0x0F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 
-                               0x1F, 0x1F, 0x1F, 0x37, 0x21, 0x00, 0x00, 0x07, 0x1F, 0x0F, 0x0F, 0x07, 0x0F, 0x0F, 0x1F, 0x1F, 
-                               0xF8, 0xF8, 0xFC, 0xE6, 0xC4, 0x00, 0x00, 0x00, 0xF8, 0xF0, 0xF0, 0xE0, 0xF0, 0xF0, 0xF8, 0xFC, 
-                               0x03, 0x07, 0x0F, 0x0F, 0x1F, 0x1F, 0x1F, 0x1F, 0x03, 0x07, 0x0F, 0x0F, 0x1F, 0x1F, 0x1F, 0x1F, 
-                               0x07, 0x03, 0x0D, 0x0F, 0x0F, 0x0F, 0x0F, 0x07, 0x07, 0x0F, 0x0F, 0x0F, 0x0F, 0x04, 0x04, 0x00, 
-                               0xE0, 0xF0, 0xF0, 0xF8, 0xF8, 0xF8, 0xF8, 0xF8, 0xE0, 0xF0, 0xF0, 0xF8, 0xF8, 0xF8, 0x78, 0xF8, 
-                               0x00, 0x01, 0x03, 0x07, 0x06, 0x00, 0x00, 0x00, 0x07, 0x0E, 0x0C, 0x01, 0x09, 0x0F, 0x1F, 0x1F,
-                               0x78, 0x78, 0x30, 0xF0, 0x00, 0x00, 0x00, 0xE0, 0xF8, 0xF8, 0xF0, 0xF0, 0xF0, 0xF8, 0xF8, 0x1C,
-                               0x00, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00, 0x07, 0x07, 0x0F, 0x0F, 0x03, 0x0F, 0x0F, 0x1F, 0x1F, 
-                               0x78, 0xF8, 0xF0, 0xF0, 0x60, 0x00, 0x00, 0x00, 0xF8, 0x78, 0x30, 0x90, 0x90, 0xF8, 0xF8, 0xFC, 
-                               0x07, 0x0C, 0x0B, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x07, 0x0F, 0x0F, 0x1F, 0x1F, 0x1A, 0x1A, 0x1C, 
-                               0xE0, 0x30, 0xD0, 0xF8, 0xF8, 0xF8, 0xF8, 0xF8, 0xE0, 0xF0, 0xF0, 0xF8, 0xF8, 0x58, 0x58, 0x38, 
-                               0x30, 0x30, 0x38, 0x37, 0x20, 0x00, 0x00, 0x0E, 0x3F, 0x2F, 0x27, 0x06, 0x0F, 0x0F, 0x1F, 0x31, 
-                               0x0C, 0x0C, 0x1C, 0xEC, 0x08, 0x00, 0x00, 0x00, 0xFC, 0xF4, 0xE4, 0x60, 0xF0, 0xF0, 0xF8, 0xF8 };
-            byte[] dw4Girl = { 0x07, 0x0F, 0x0F, 0x0F, 0x1F, 0x1F, 0x1F, 0x1F, 0x07, 0x0F, 0x0F, 0x0F, 0x1F, 0x1F, 0x1F, 0x1F, 
-                               0x1F, 0x1F, 0x07, 0x00, 0x00, 0x00, 0x0F, 0x1F, 0x1F, 0x0F, 0x0F, 0x07, 0x0F, 0x0F, 0x1F, 0x10, 
-                               0xF8, 0xF8, 0xFC, 0x0C, 0x00, 0x00, 0x00, 0xFC, 0xF8, 0xF0, 0xE0, 0xE0, 0xF0, 0xF0, 0xF8, 0xFC, 
-                               0x03, 0x07, 0x0F, 0x0F, 0x0F, 0x1F, 0x1F, 0x1F, 0x03, 0x07, 0x0F, 0x0F, 0x0F, 0x1F, 0x1E, 0x1F, 
-                               0x07, 0x03, 0x1D, 0x1F, 0x1F, 0x0B, 0x0B, 0x07, 0x07, 0x0F, 0x1F, 0x1F, 0x1B, 0x04, 0x04, 0x00, 
-                               0xC0, 0xE0, 0xF0, 0xF0, 0xF0, 0xF8, 0xF8, 0xF8, 0xC0, 0xE0, 0xF0, 0xF0, 0xF0, 0xF8, 0x78, 0xF8, 
-                               0x1E, 0x17, 0x01, 0x00, 0x00, 0x00, 0x0F, 0x1F, 0x03, 0x0E, 0x0E, 0x07, 0x0F, 0x0F, 0x1F, 0x10, 
-                               0x38, 0x98, 0xD8, 0xD0, 0xC0, 0x00, 0x00, 0xFC, 0xF8, 0x78, 0x38, 0x30, 0x30, 0xF0, 0xF8, 0xFC, 
-                               0x06, 0x07, 0x03, 0x00, 0x00, 0x00, 0x00, 0x1F, 0x01, 0x08, 0x0C, 0x07, 0x0F, 0x0F, 0x1F, 0x1F, 
-                               0x38, 0x98, 0x98, 0x10, 0x00, 0x00, 0xF0, 0xFC, 0xF8, 0x78, 0x78, 0xF0, 0xF0, 0xF0, 0xF8, 0x0C, 
-                               0x07, 0x0C, 0x0B, 0x0F, 0x1F, 0x1D, 0x1D, 0x1F, 0x07, 0x0F, 0x0F, 0x0F, 0x1D, 0x1A, 0x12, 0x18, 
-                               0xE0, 0x30, 0xD0, 0xF0, 0xF8, 0xB8, 0xB8, 0xF8, 0xE0, 0xF0, 0xF0, 0xF0, 0xB8, 0x58, 0x48, 0x18, 
-                               0x1B, 0x1B, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3F, 0x06, 0x07, 0x07, 0x07, 0x0F, 0x0F, 0x1F, 0x3F, 
-                               0xD8, 0xD8, 0x1C, 0x0C, 0x00, 0x00, 0xF0, 0xF8, 0x68, 0xE0, 0xE0, 0xE0, 0xF0, 0xF0, 0xF8, 0x08 };
-            byte[] dw1OldMan = { 0x01, 0x03, 0x03, 0x07, 0x07, 0x47, 0xC7, 0xFF, 0x01, 0x03, 0x03, 0x07, 0x07, 0x07, 0x07, 0x1F, 
-                                 0xE0, 0xF0, 0xE0, 0xE0, 0xF0, 0xF0, 0xF0, 0xF8, 0xE0, 0xF0, 0xE0, 0xE0, 0xF0, 0xF0, 0xF0, 0xF8, 
-                                 0x7F, 0x7F, 0x7F, 0x7F, 0x5F, 0x4F, 0x4F, 0x5F, 0x3F, 0x3F, 0x3F, 0x3F, 0x1F, 0x0F, 0x0F, 0x10, 
-                                 0xFC, 0xFE, 0xFE, 0xFE, 0xFC, 0xF8, 0xFC, 0xFE, 0xFC, 0xFE, 0xF8, 0xF8, 0xFC, 0xF8, 0xFC, 0xFE, 
-                                 0x01, 0x03, 0x03, 0x07, 0x07, 0x07, 0x07, 0x4F, 0x01, 0x03, 0x03, 0x07, 0x07, 0x07, 0x07, 0x0F, 
-                                 0xFF, 0xFF, 0x7F, 0x7F, 0x5F, 0x4F, 0x1F, 0x3F, 0x1F, 0x3F, 0x1F, 0x1F, 0x1F, 0x0F, 0x1F, 0x3F, 
-                                 0xFE, 0xFE, 0xFE, 0xFE, 0xFC, 0xF8, 0xF8, 0xFC, 0xFE, 0xFC, 0xFC, 0xFE, 0xFC, 0xF8, 0xF8, 0x84, 
-                                 0x03, 0x07, 0x07, 0x0F, 0x0F, 0x0F, 0x0F, 0x0F, 0x03, 0x07, 0x07, 0x0F, 0x0F, 0x0F, 0x04, 0x05, 
-                                 0x03, 0x07, 0x07, 0x0F, 0x0F, 0x0F, 0x0F, 0x0F, 0x03, 0x07, 0x07, 0x0F, 0x0F, 0x0F, 0x04, 0x05, 
-                                 0xE0, 0xD0, 0xC0, 0xC0, 0xC0, 0xE0, 0xE0, 0xE0, 0xE0, 0xD0, 0xC0, 0xC0, 0xC0, 0xE0, 0xE0, 0xE0, 
-                                 0x07, 0x03, 0x01, 0x01, 0x03, 0x07, 0x1F, 0x3F, 0x08, 0x0C, 0x1E, 0x1F, 0x0F, 0x0F, 0x1F, 0x31, 
-                                 0xF0, 0xF0, 0xF0, 0xF8, 0xF8, 0xF8, 0xF8, 0xFC, 0xF0, 0xF0, 0x70, 0x18, 0x98, 0xC8, 0xE0, 0xFC, 
-                                 0x0F, 0x0F, 0x0F, 0x1F, 0x1F, 0x1F, 0x1F, 0x3F, 0x0F, 0x0F, 0x0F, 0x19, 0x11, 0x1F, 0x1F, 0x3F, 
-                                 0xE0, 0xC0, 0x80, 0x80, 0xC0, 0xE0, 0xF8, 0xFC, 0xD0, 0xF0, 0xF8, 0xF8, 0xF0, 0xF0, 0xF8, 0x8C, 
-                                 0x07, 0x03, 0x01, 0x01, 0x03, 0x07, 0x1F, 0x3F, 0x0B, 0x0F, 0x1F, 0x1F, 0x0F, 0x0F, 0x1F, 0x3F, 
-                                 0xC0, 0xE0, 0xE0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xC0, 0xE0, 0xE0, 0xF0, 0xF0, 0xF0, 0x20, 0xA0, 
-                                 0x0F, 0x0F, 0x0F, 0x1F, 0x1F, 0x1F, 0x1F, 0x3F, 0x0F, 0x0F, 0x0C, 0x1C, 0x1E, 0x1F, 0x1F, 0x31, 
-                                 0xE0, 0xC0, 0x80, 0x80, 0xC0, 0xE0, 0xF8, 0xF8, 0xD0, 0xF0, 0xF8, 0xF8, 0xF0, 0xF0, 0xF8, 0xF8, 
-                                 0xF0, 0xF0, 0xF0, 0xF8, 0xF8, 0xF8, 0xF8, 0xFC, 0x70, 0x70, 0x30, 0x38, 0x78, 0x78, 0x78, 0x0C,    
-                                 0x07, 0x0F, 0x07, 0x07, 0x0F, 0x0F, 0x0F, 0x3F, 0x07, 0x0F, 0x07, 0x07, 0x0F, 0x0F, 0x0A, 0x3A, 
-                                 0x80, 0xC0, 0xC0, 0xE0, 0xE0, 0xE0, 0xE0, 0xF2, 0x80, 0xC0, 0xC0, 0xE0, 0xE0, 0xE0, 0xA0, 0xB0, 
-                                 0x7E, 0xF8, 0xF8, 0x78, 0x3C, 0x1E, 0x1F, 0x3F, 0x7D, 0x3F, 0x3F, 0x7F, 0x3F, 0x1F, 0x1F, 0x3F, 
-                                 0xFE, 0x3F, 0x3E, 0x3E, 0x7A, 0xF2, 0xF8, 0xFC, 0x78, 0xFC, 0xF8, 0xF8, 0xF8, 0xF0, 0xF8, 0x0C, 
-                                 0x80, 0xC0, 0xC0, 0xE0, 0xE2, 0xE6, 0xE7, 0xFB, 0x80, 0xC0, 0xC0, 0xE0, 0xE0, 0xE0, 0xA0, 0xB8, 
-                                 0x3E, 0x78, 0x78, 0x78, 0x3C, 0x1E, 0x3F, 0x7F, 0x3D, 0x7F, 0x3F, 0x3F, 0x3F, 0x1F, 0x3F, 0x61, 
-                                 0xFE, 0x3E, 0x3E, 0x3E, 0x7A, 0xF2, 0xF2, 0xFA, 0x7C, 0xF8, 0xF8, 0xFC, 0xF8, 0xF0, 0xF0, 0xF8 };
-            byte[] dw4OldMan = { 0x07, 0x07, 0x00, 0x00, 0x3F, 0x7F, 0xFF, 0xFF, 0x00, 0x08, 0x0F, 0x0F, 0x2F, 0x6F, 0xEF, 0xFF, 
-                                 0xE0, 0xE0, 0x00, 0x00, 0xFC, 0xFE, 0xFF, 0xFF, 0x00, 0x10, 0xF0, 0xF0, 0xF4, 0xF6, 0xF7, 0xFF, 
-                                 0xF7, 0x77, 0x27, 0x3F, 0x3F, 0x3F, 0x7F, 0xFF, 0xFF, 0x79, 0x39, 0x2F, 0x2F, 0x2F, 0x70, 0xFF, 
-                                 0xEF, 0xEE, 0xE4, 0xFC, 0xFC, 0xFC, 0xFE, 0x86, 0xFF, 0x9E, 0x9C, 0xF4, 0xF4, 0x0C, 0xFE, 0xFE, 
-                                 0x07, 0x07, 0x00, 0x00, 0x3F, 0x7F, 0xFF, 0xFF, 0x00, 0x08, 0x0F, 0x0F, 0x2F, 0x6F, 0xEF, 0xFF, 
-                                 0xF7, 0x77, 0x27, 0x3F, 0x3F, 0x3F, 0x7F, 0x61, 0xFF, 0x79, 0x39, 0x2F, 0x2F, 0x30, 0x7F, 0x7F, 
-                                 0xEF, 0xEE, 0xE4, 0xFC, 0xFC, 0xFC, 0xFE, 0xFF, 0xFF, 0x9E, 0x9C, 0xF4, 0xF4, 0xF4, 0x0E, 0xFF, 
-                                 0x1C, 0x3E, 0x3E, 0x2E, 0x36, 0x7D, 0x79, 0x0B, 0x03, 0x01, 0x01, 0x11, 0x19, 0x13, 0x07, 0x36, 
-                                 0x1C, 0x3E, 0x3E, 0x2E, 0x36, 0x7D, 0x79, 0x0B, 0x03, 0x01, 0x01, 0x11, 0x19, 0x13, 0x07, 0x36, 
-                                 0x80, 0x40, 0x00, 0x00, 0xE0, 0xF0, 0xF8, 0xFC, 0x00, 0x80, 0xC0, 0xC0, 0xE0, 0x90, 0x78, 0xFC, 
-                                 0x03, 0x07, 0x0F, 0x1F, 0x3F, 0x3F, 0x3F, 0x03, 0x7E, 0x7E, 0x7D, 0x3D, 0x3D, 0x03, 0x3F, 0x3F, 
-                                 0xFC, 0xFC, 0xF8, 0xF8, 0xF8, 0xF8, 0xFC, 0xFE, 0xFC, 0xFC, 0xF8, 0xF0, 0xF0, 0xF0, 0xFC, 0xFE, 
-                                 0x3F, 0x3F, 0x1F, 0x1F, 0x1F, 0x1F, 0x3F, 0x7F, 0x3F, 0x3F, 0x1F, 0x0F, 0x0F, 0x0F, 0x3F, 0x7F, 
-                                 0xC0, 0xE0, 0xF0, 0xF8, 0xFC, 0xFC, 0xFC, 0xC0, 0x7E, 0x7E, 0xBE, 0xBC, 0xBC, 0xC0, 0xFC, 0xFC, 
-                                 0x03, 0x07, 0x0F, 0x1F, 0x3F, 0x3F, 0x3F, 0x3E, 0x7E, 0x7E, 0x7D, 0x3D, 0x3D, 0x3D, 0x03, 0x3F, 
-                                 0x38, 0x7C, 0x7C, 0x74, 0x6C, 0xBE, 0x9E, 0xD0, 0xC0, 0x80, 0x80, 0x88, 0x98, 0xC8, 0xE0, 0x6C, 
-                                 0x3F, 0x3F, 0x1F, 0x1F, 0x1F, 0x1F, 0x3F, 0x78, 0x3F, 0x3F, 0x1F, 0x0F, 0x0F, 0x0F, 0x3F, 0x7F, 
-                                 0xC0, 0xE0, 0xF0, 0xF8, 0xFC, 0xFC, 0xFC, 0x7C, 0x7E, 0x7E, 0xBE, 0xBC, 0xBC, 0xBC, 0xC0, 0xFC, 
-                                 0xFC, 0xFC, 0xF8, 0xF8, 0xF8, 0xF8, 0xFC, 0x1E, 0xFC, 0xFC, 0xF8, 0xF0, 0xF0, 0xF0, 0xFC, 0xFE, 
-                                 0x03, 0x07, 0x07, 0x0D, 0x3B, 0x77, 0xF7, 0xF4, 0x04, 0x08, 0x08, 0x02, 0x36, 0x7A, 0xE8, 0xEB, 
-                                 0xC0, 0xE0, 0xE0, 0xB0, 0xDC, 0xEE, 0xEF, 0x2F, 0x20, 0x10, 0x10, 0x40, 0x6C, 0x5E, 0x17, 0xD7, 
-                                 0xF9, 0x78, 0x3C, 0x3E, 0x3F, 0x3F, 0x7F, 0x7F, 0xEE, 0x6F, 0x2F, 0x2F, 0x2F, 0x2F, 0x70, 0x7F, 
-                                 0x9F, 0x1E, 0x3C, 0x7C, 0xFC, 0xFC, 0xFE, 0x86, 0x77, 0xF6, 0xF4, 0xF4, 0xF4, 0x0C, 0xFE, 0xFE, 
-                                 0xC0, 0xE0, 0xE0, 0xB0, 0xDC, 0xEE, 0xEF, 0x2F, 0x20, 0x10, 0x10, 0x40, 0x6C, 0x5E, 0x17, 0xD7, 
-                                 0xF9, 0x78, 0x3C, 0x3E, 0x3F, 0x3F, 0x7F, 0x61, 0xEE, 0x6F, 0x2F, 0x2F, 0x2F, 0x30, 0x7F, 0x7F, 
-                                 0x9F, 0x1E, 0x3C, 0x7C, 0xFC, 0xFC, 0xFE, 0xFE, 0x77, 0xF6, 0xF4, 0xF4, 0xF4, 0xF4, 0x0E, 0xFE };
-            byte[] dw1SoldierP1 = { 0x06, 0x08, 0x06, 0x04, 0x0F, 0x0F, 0x3F, 0x3F, 0x07, 0x6F, 0x7F, 0x5F, 0x4F, 0x4B, 0x72, 0x78, 
-                                    0x60, 0x10, 0x60, 0x20, 0xF0, 0xF0, 0xFC, 0xFE, 0xE0, 0xF4, 0xFC, 0xF8, 0xF0, 0xD0, 0x4C, 0x1E, 
-                                    0xFF, 0xFF, 0xEF, 0x00, 0x1F, 0x1F, 0x0F, 0x0F, 0xFE, 0x9F, 0x8F, 0x4F, 0x5F, 0x1F, 0x0F, 0x00, 
-                                    0xF8, 0xF6, 0x96, 0x06, 0xC6, 0x72, 0x70, 0x00, 0x7E, 0xFE, 0xFC, 0xFE, 0xFE, 0x7E, 0x06, 0x00, 
-                                    0x06, 0x08, 0x06, 0x04, 0x0F, 0x0F, 0x3F, 0xFF, 0x47, 0x6F, 0x7F, 0x5F, 0x4F, 0x4B, 0x72, 0xF8, 
-                                    0x60, 0x10, 0x60, 0x20, 0xF0, 0xF0, 0xFC, 0xFE, 0xE0, 0xF4, 0xFC, 0xF8, 0xF0, 0xD0, 0x4C, 0x1E, 
-                                    0xFF, 0xFF, 0x2F, 0x00, 0x1F, 0x1E, 0x0E, 0x00, 0x9E, 0x9F, 0x6F, 0x4F, 0x1F, 0x1E, 0x00, 0x00, 
-                                    0xC2, 0xBC, 0xBC, 0x3C, 0xBC, 0xD8, 0xE0, 0xF0, 0x7E, 0xFE, 0xEE, 0xF6, 0xFE, 0xFE, 0xFE, 0x00, 
-                                    0x07, 0x01, 0x0E, 0x06, 0x1F, 0x0F, 0x0F, 0x0F, 0x0F, 0x1F, 0x1F, 0x1F, 0x1F, 0x0D, 0x04, 0x01, 
-                                    0xC0, 0x60, 0x70, 0x70, 0xF0, 0x70, 0x80, 0xE0, 0xE0, 0xF0, 0xF8, 0xF8, 0xF8, 0xF8, 0xF0, 0xE0, 
-                                    0x07, 0x1B, 0x1B, 0x1B, 0x18, 0x16, 0x0F, 0x0F, 0x1B, 0x1E, 0x1C, 0x0C, 0x1F, 0x1F, 0x1F, 0x00, 
-                                    0xF0, 0xF0, 0xF0, 0x00, 0x78, 0x38, 0x30, 0x00, 0x70, 0x30, 0x70, 0xF0, 0xF8, 0xF8, 0xC0, 0x00, 
-                                    0x07, 0x01, 0x0E, 0x06, 0x1F, 0x0F, 0x0F, 0x0F, 0x0F, 0x1F, 0x1F, 0x1F, 0x1F, 0x0D, 0x04, 0x01, 
-                                    0xC0, 0x60, 0x70, 0x70, 0xF0, 0x70, 0x80, 0xE0, 0xE0, 0xF0, 0xF8, 0xF8, 0xF8, 0xF8, 0xF0, 0xE0, 
-                                    0x00, 0x07, 0x07, 0x07, 0x17, 0x1B, 0x0C, 0x00, 0x07, 0x0F, 0x0D, 0x0E, 0x1F, 0x1F, 0x03, 0x00, 
-                                    0x70, 0xB0, 0xB0, 0x80, 0xB8, 0x38, 0x30, 0xF0, 0xB0, 0xD0, 0xD0, 0xF0, 0xF8, 0xF8, 0xF0, 0x00, 
-                                    0xA0, 0x80, 0x30, 0x20, 0xB8, 0xB0, 0xB0, 0xF0, 0xF0, 0xF8, 0xF8, 0xF8, 0xF8, 0xE0, 0x60, 0xC0, 
-                                    0x0F, 0x0F, 0x0F, 0x00, 0x1F, 0x1F, 0x0F, 0x0F, 0x0D, 0x08, 0x08, 0x0F, 0x1F, 0x1F, 0x0F, 0x00, 
-                                    0xE0, 0xF8, 0xA8, 0x08, 0xF8, 0xF8, 0x70, 0x00, 0x38, 0x38, 0x70, 0xF8, 0xF8, 0xF8, 0x00, 0x00, 
-                                    0x03, 0x06, 0x0E, 0x0E, 0x0F, 0x0E, 0x01, 0x07, 0x07, 0x0F, 0x1F, 0x1F, 0x1F, 0x1F, 0x0F, 0x07, 
-                                    0xE0, 0x80, 0x30, 0x20, 0xB8, 0xB0, 0xB0, 0xB0, 0xF0, 0xF8, 0xF8, 0xF8, 0xF8, 0xE0, 0x60, 0xC0, 
-                                    0x0F, 0x0F, 0x0F, 0x03, 0x1F, 0x1F, 0x0E, 0x00, 0x0D, 0x09, 0x08, 0x0C, 0x1F, 0x1F, 0x00, 0x00, 
-                                    0xE0, 0xF0, 0xE0, 0x80, 0xB8, 0xF8, 0xF0, 0xF0, 0xE0, 0x30, 0x30, 0x70, 0xF8, 0xF8, 0xF0, 0x00 };
-            byte[] dw1SoldierP2 = { 0x06, 0x0E, 0x0E, 0x0E, 0x0E, 0x06, 0x38, 0x7B, 0x07, 0x2F, 0x3F, 0x1F, 0x0F, 0x0F, 0x3F, 0x7F, 
-                                    0x60, 0x70, 0x70, 0x70, 0x70, 0x60, 0x1C, 0xDF, 0xE2, 0xF6, 0xFE, 0xFA, 0xF2, 0xF2, 0xFE, 0xFF, 
-                                    0x37, 0x7F, 0x7F, 0x40, 0x47, 0x22, 0x02, 0x00, 0x7F, 0x9F, 0x9F, 0xFF, 0xFF, 0x7E, 0x3C, 0x00, 
-                                    0xEE, 0xFE, 0xF0, 0x00, 0xF8, 0xF8, 0xF0, 0xF0, 0xF8, 0xF0, 0xF2, 0xF2, 0xF8, 0xF8, 0xF0, 0x00, 
-                                    0x06, 0x0E, 0x0E, 0x0E, 0x0E, 0x06, 0x38, 0x7B, 0x07, 0x2F, 0x3F, 0x1F, 0x0F, 0x0F, 0x3F, 0x7F, 
-                                    0x60, 0x70, 0x70, 0x70, 0x70, 0x60, 0x1C, 0xDC, 0xE0, 0xF6, 0xFE, 0xFA, 0xF2, 0xF2, 0xFE, 0xFE, 
-                                    0x37, 0xDF, 0xCF, 0x40, 0xC7, 0xA3, 0x03, 0x0F, 0xDF, 0xEF, 0xEF, 0x7F, 0xFF, 0xFF, 0xBF, 0x00, 
-                                    0xEF, 0xFF, 0xFF, 0x00, 0xF8, 0xF8, 0x70, 0x00, 0xFB, 0xF1, 0xF1, 0xF2, 0xFA, 0xF8, 0x00, 0x00 };
-            byte[] dw2SoldierP1 = { 0x02, 0x02, 0x07, 0x05, 0x07, 0x17, 0x3F, 0x3F, 0x13, 0x1F, 0x0F, 0x07, 0x04, 0x10, 0x3C, 0x3F, 
-                                    0x42, 0x42, 0xE2, 0xA0, 0xE0, 0xE8, 0xFC, 0xF8, 0xC8, 0xF8, 0xF2, 0xE2, 0x22, 0x0A, 0x3E, 0xFE, 
-                                    0x0F, 0x46, 0x68, 0x1F, 0x1F, 0x1F, 0x0F, 0x0F, 0x3F, 0x27, 0x0F, 0x1F, 0x1F, 0x1F, 0x00, 0x0F, 
-                                    0xF6, 0x66, 0x10, 0xF8, 0xF8, 0xF8, 0x70, 0x00, 0xF8, 0xE0, 0xF2, 0xFB, 0xFB, 0xFB, 0x73, 0x03, 
-                                    0x02, 0x02, 0x07, 0x05, 0x07, 0x17, 0x3F, 0x3F, 0x13, 0x1F, 0x0F, 0x07, 0x04, 0x10, 0x3C, 0x3F, 
-                                    0x41, 0x41, 0xE1, 0xA0, 0xE0, 0xE8, 0xFC, 0xF8, 0xC8, 0xF8, 0xF1, 0xE1, 0x21, 0x09, 0x3D, 0xFD, 
-                                    0x0F, 0x06, 0x18, 0x1F, 0x1F, 0x1F, 0x0E, 0x00, 0x3F, 0x3F, 0x07, 0x07, 0x1F, 0x1F, 0x0E, 0x00, 
-                                    0xF0, 0x63, 0x13, 0xF8, 0xF8, 0xF8, 0xF0, 0xF0, 0xFF, 0xE4, 0xF0, 0xF9, 0xF9, 0xF9, 0x01, 0xF1, 
-                                    0x05, 0x07, 0x0E, 0x13, 0x1B, 0x1B, 0x0B, 0x1A, 0x0B, 0x1B, 0x1F, 0x1F, 0x04, 0x04, 0x07, 0x1F, 
-                                    0x80, 0x20, 0x60, 0xE0, 0xE0, 0xC0, 0xC0, 0x60, 0xC0, 0xE0, 0xE0, 0xE0, 0xE0, 0x40, 0xC0, 0xE0, 
-                                    0x18, 0x0E, 0x06, 0x1B, 0x3B, 0x3B, 0x19, 0x03, 0x1F, 0x19, 0x09, 0x1F, 0x3F, 0x3F, 0x1C, 0x07, 
-                                    0x60, 0xE0, 0x00, 0xE0, 0xF0, 0xF0, 0xE0, 0xE0, 0xE0, 0xE0, 0xE0, 0xE0, 0xF0, 0xF0, 0x00, 0xE0, 
-                                    0x01, 0x07, 0x0F, 0x16, 0x1E, 0x1E, 0x0E, 0x1E, 0x0E, 0x1E, 0x1F, 0x1F, 0x01, 0x01, 0x03, 0x1F, 
-                                    0x80, 0x20, 0x60, 0xE0, 0xE0, 0xC0, 0xC0, 0x60, 0xC0, 0xE0, 0xE0, 0xE0, 0xE0, 0x40, 0xC0, 0xE0, 
-                                    0x1E, 0x0F, 0x01, 0x1E, 0x3E, 0x3E, 0x1E, 0x3E, 0x1F, 0x1E, 0x0E, 0x1F, 0x3F, 0x3F, 0x01, 0x3F, 
-                                    0x20, 0xA0, 0x80, 0xE0, 0xF0, 0xF0, 0xE0, 0x00, 0xE0, 0x60, 0x40, 0xE0, 0xF0, 0xF0, 0xE0, 0x00, 
-                                    0x80, 0xE0, 0x70, 0xE8, 0xF8, 0xF8, 0xF0, 0x78, 0xF0, 0xF8, 0xF8, 0xF8, 0x00, 0x00, 0xC0, 0xF8, 
-                                    0x06, 0x07, 0x00, 0x07, 0x0F, 0x0F, 0x07, 0x07, 0x07, 0x07, 0x03, 0x07, 0x0F, 0x0F, 0x00, 0x07, 
-                                    0x38, 0x30, 0x30, 0xF8, 0xFC, 0xFC, 0xB8, 0xC0, 0xF8, 0xC8, 0xC0, 0xF8, 0xFC, 0xFC, 0x38, 0xC0, 
-                                    0x01, 0x04, 0x06, 0x07, 0x07, 0x03, 0x03, 0x06, 0x03, 0x07, 0x07, 0x07, 0x07, 0x02, 0x03, 0x07,
-                                    0x80, 0xE0, 0x70, 0xE8, 0xF8, 0xF8, 0xF0, 0x78, 0xF0, 0xF8, 0xF8, 0xF8, 0x00, 0x00, 0xC0, 0xF8, 
-                                    0x04, 0x04, 0x03, 0x07, 0x0F, 0x0F, 0x07, 0x00, 0x07, 0x07, 0x00, 0x04, 0x0F, 0x0F, 0x07, 0x00, 
-                                    0x78, 0xF0, 0x00, 0xF8, 0xFC, 0xFC, 0x78, 0x7C, 0xF8, 0xF8, 0xF0, 0xF8, 0xFC, 0xFC, 0x00, 0x7C };
-            byte[] dw2SoldierP2 = { 0x82, 0x86, 0x86, 0x06, 0x07, 0x17, 0x3F, 0x3F, 0x13, 0x1F, 0x8F, 0x87, 0x87, 0x97, 0xBC, 0xBF, 
-                                    0x40, 0x60, 0x60, 0x60, 0xE0, 0xE8, 0xFC, 0xFC, 0xC8, 0xF8, 0xF0, 0xE0, 0xE0, 0xE8, 0x3C, 0xFC, 
-                                    0x0F, 0xDF, 0xC8, 0x1F, 0x1F, 0x1F, 0x0E, 0x00, 0xBF, 0x3F, 0x0F, 0x9F, 0x9F, 0x9F, 0x8E, 0x80, 
-                                    0xF8, 0xF8, 0x10, 0xF8, 0xF8, 0xF8, 0xF0, 0xF0, 0xFC, 0xFC, 0xF8, 0xF8, 0xF8, 0xF8, 0x00, 0xF0, 
-                                    0x42, 0x46, 0x46, 0x06, 0x07, 0x17, 0x3F, 0x3F, 0x13, 0x1F, 0x4F, 0x47, 0x47, 0x57, 0x7C, 0x7F, 
-                                    0x40, 0x60, 0x60, 0x60, 0xE0, 0xE8, 0xFC, 0xFC, 0xC8, 0xF8, 0xF0, 0xE0, 0xE0, 0xE8, 0x3C, 0xFC, 
-                                    0x5F, 0x4F, 0x08, 0x1F, 0x1F, 0x1F, 0x0F, 0x0F, 0x3F, 0x2F, 0x4F, 0x5F, 0x5F, 0x5F, 0x40, 0x4F, 
-                                    0xF8, 0xF6, 0x16, 0xF8, 0xF8, 0xF8, 0x70, 0x00, 0xFC, 0xF8, 0xF0, 0xF8, 0xF8, 0xF8, 0x70, 0x00 };
-            byte[] dw4RagnarP1 = { 0x21, 0x60, 0x65, 0x60, 0x67, 0x67, 0x67, 0x67, 0x01, 0x07, 0x0F, 0x0F, 0x1A, 0x1A, 0x09, 0x0B, 
-                                   0x80, 0x00, 0xA0, 0x00, 0xE0, 0xE0, 0xE0, 0xE0, 0x80, 0xE0, 0xF0, 0xF0, 0x58, 0x58, 0x90, 0xD6, 
-                                   0x7B, 0x04, 0x71, 0x7F, 0x32, 0x26, 0x7F, 0x00, 0x9E, 0x7B, 0x1F, 0x1F, 0x3F, 0x39, 0x71, 0x00, 
-                                   0xD8, 0x2C, 0x8E, 0xFE, 0x4C, 0x64, 0xFE, 0xF0, 0x7F, 0xD3, 0xF8, 0xF8, 0xFC, 0x9C, 0x0E, 0x00, 
-                                   0x01, 0x00, 0x05, 0x20, 0x67, 0x67, 0x67, 0x67, 0x01, 0x07, 0x0F, 0x0F, 0x1A, 0x1A, 0x09, 0x0B, 
-                                   0x80, 0x00, 0xA0, 0x00, 0xE0, 0xE0, 0xE0, 0xE0, 0x80, 0xE0, 0xF0, 0xF0, 0x58, 0x58, 0x90, 0xD0, 
-                                   0x7B, 0x64, 0x61, 0x0F, 0x72, 0x26, 0x0F, 0x0F, 0x1E, 0x1B, 0x9F, 0xFF, 0x1F, 0x39, 0x00, 0x00, 
-                                   0xD8, 0x28, 0x9C, 0xFC, 0x4E, 0x64, 0xF0, 0x00, 0x7E, 0xD7, 0xE3, 0xE0, 0xFE, 0x9C, 0x80, 0x00, 
-                                   0x13, 0x30, 0x3D, 0x30, 0x37, 0x3F, 0x37, 0x37, 0x03, 0x07, 0x0F, 0x0F, 0x02, 0x02, 0x04, 0x06, 
-                                   0xF0, 0x18, 0x0C, 0x04, 0x04, 0x04, 0x00, 0xF0, 0xF0, 0xF8, 0xFC, 0xFC, 0xFC, 0xFC, 0xF8, 0x7C, 
-                                   0x06, 0x31, 0x30, 0x0F, 0x02, 0x06, 0x07, 0x0F, 0x7B, 0x0E, 0x0F, 0x3F, 0x0F, 0x19, 0x00, 0x00, 
-                                   0x08, 0x18, 0x7C, 0xFC, 0x44, 0x62, 0x33, 0x00, 0xF8, 0xE0, 0x84, 0x8C, 0xFC, 0xDE, 0x0F, 0x00, 
-                                   0x03, 0x00, 0x0D, 0x00, 0x07, 0x6F, 0x77, 0x3F, 0x03, 0x07, 0x0F, 0x0F, 0x02, 0x02, 0x04, 0x06, 
-                                   0xF0, 0x18, 0x0C, 0x04, 0x04, 0x04, 0x00, 0xF0, 0xF0, 0xF8, 0xFC, 0xFC, 0xFC, 0xFC, 0xF8, 0x7C, 
-                                   0x1E, 0x01, 0x01, 0x07, 0x02, 0x06, 0x0E, 0x00, 0x03, 0x0E, 0x0E, 0x07, 0x0F, 0x19, 0x00, 0x00, 
-                                   0x08, 0xBC, 0xFC, 0xEE, 0x47, 0x62, 0x70, 0xF0, 0xF8, 0x4C, 0x0C, 0x9E, 0xFF, 0x9E, 0x0C, 0x00, 
-                                   0xC8, 0x0C, 0xBC, 0x0C, 0xEC, 0xFC, 0xEC, 0xEC, 0xC0, 0xE0, 0xF0, 0xF0, 0x40, 0x40, 0x20, 0x60, 
-                                   0x18, 0x19, 0x19, 0x3F, 0x3A, 0x76, 0xFC, 0x1E, 0x1F, 0x1E, 0x1E, 0x3F, 0x3F, 0x7B, 0xF0, 0x00, 
-                                   0xE0, 0x80, 0xFC, 0xE0, 0x40, 0x60, 0xE0, 0x00, 0x5C, 0x7C, 0x00, 0x0C, 0xF0, 0x98, 0x00, 0x00, 
-                                   0x0F, 0x18, 0x30, 0x20, 0x20, 0x20, 0x00, 0x0F, 0x0F, 0x1F, 0x3F, 0x3F, 0x3F, 0x3F, 0x1F, 0x3E, 
-                                   0xC0, 0x00, 0xB0, 0x00, 0xE0, 0xF6, 0xEE, 0xFC, 0xC0, 0xE0, 0xF0, 0xF0, 0x40, 0x40, 0x20, 0x60, 
-                                   0x18, 0x36, 0x37, 0x73, 0xE2, 0x46, 0x0C, 0x00, 0x1F, 0x39, 0x38, 0x7C, 0xFF, 0x7B, 0x30, 0x00,
-                                   0xF8, 0xF0, 0xE0, 0xE0, 0xC0, 0x60, 0xE0, 0xF0, 0x40, 0x80, 0x50, 0x60, 0xF0, 0x98, 0x00, 0x00 };
-            byte[] dw4RagnarP2 = { 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x01, 0x07, 0x0F, 0x0F, 0x1F, 0x1F, 0x0F, 0x0F, 
-                                   0x80, 0x80, 0x80, 0x84, 0x86, 0x86, 0x06, 0x06, 0x80, 0xE0, 0xF0, 0xF0, 0xF8, 0xF8, 0xF0, 0xF0, 
-                                   0x18, 0x1F, 0x3F, 0x3F, 0x7F, 0x3F, 0x0F, 0x0F, 0x7F, 0xFF, 0xDF, 0x3F, 0x7F, 0x3F, 0x0F, 0x00, 
-                                   0x1E, 0xF8, 0xFE, 0xFE, 0xF8, 0xFC, 0xF0, 0x00, 0xF8, 0xF7, 0xF1, 0xF9, 0xFE, 0xFC, 0xF0, 0x00, 
-                                   0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x01, 0x07, 0x0F, 0x0F, 0x1F, 0x1F, 0x0F, 0x6F, 
-                                   0x84, 0x86, 0x86, 0x86, 0x86, 0x86, 0x06, 0x06, 0x80, 0xE0, 0xF0, 0xF0, 0xF8, 0xF8, 0xF0, 0xF0, 
-                                   0x18, 0x3F, 0x7F, 0x7F, 0x3F, 0x3F, 0x7F, 0x00, 0xFF, 0xDF, 0x1F, 0x1F, 0x3F, 0x3F, 0x7F, 0x00, 
-                                   0x10, 0xF6, 0xFE, 0xF8, 0xFC, 0xFC, 0xFE, 0xF0, 0xFF, 0xF9, 0xF8, 0xFE, 0xFC, 0xFC, 0xFE, 0x00 };
-            byte[] dw1TownMan = { 0x07, 0x0F, 0x0F, 0x1F, 0x0F, 0x1F, 0x0F, 0x0F, 0x07, 0x0F, 0x0F, 0x1F, 0x0F, 0x1F, 0x07, 0x18, 
-                                  0x27, 0x60, 0x60, 0x60, 0x61, 0x0E, 0x0E, 0x00, 0x3F, 0x7F, 0x7F, 0x1F, 0x1F, 0x0E, 0x00, 0x00, 
-                                  0xE6, 0x06, 0x06, 0x00, 0x80, 0xF0, 0xF0, 0xF0, 0xF8, 0xFC, 0xFE, 0xF8, 0xF8, 0xF0, 0xF0, 0x00, 
-                                  0x07, 0x0F, 0x0F, 0x1F, 0x0F, 0x1F, 0x0F, 0x0F, 0x07, 0x0F, 0x0F, 0x1F, 0x0E, 0x1A, 0x02, 0x18, 
-                                  0xE0, 0xF0, 0xF0, 0xF8, 0xF0, 0xF8, 0xF0, 0xF0, 0xE0, 0xF0, 0xF0, 0xF8, 0x70, 0x58, 0x40, 0x18, 
-                                  0x67, 0x63, 0x63, 0x00, 0x03, 0x0E, 0x0E, 0x00, 0x1E, 0x1F, 0x7F, 0x1F, 0x1F, 0x0E, 0x00, 0x00, 
-                                  0xE4, 0xC6, 0xC6, 0x06, 0xC6, 0xF0, 0xF0, 0xF0, 0x7C, 0xFE, 0xFE, 0xF8, 0xF8, 0xF0, 0xF0, 0x00, 
-                                  0x07, 0x0F, 0x1F, 0x1F, 0x1F, 0x0F, 0x0F, 0x07, 0x07, 0x0F, 0x1F, 0x1F, 0x17, 0x05, 0x04, 0x01, 
-                                  0xE0, 0xF0, 0xF0, 0xF8, 0xF0, 0xF8, 0xF0, 0x20, 0xE0, 0xF0, 0xF0, 0xF8, 0xF0, 0xF8, 0xF0, 0xC0, 
-                                  0x1E, 0x1C, 0x18, 0x00, 0x18, 0x0F, 0x0F, 0x0F, 0x07, 0x0F, 0x1F, 0x1F, 0x1F, 0x0F, 0x0F, 0x00, 
-                                  0xC0, 0xE0, 0x60, 0x60, 0x70, 0x70, 0x70, 0x00, 0xE0, 0xF0, 0xF0, 0x90, 0x90, 0x70, 0x00, 0x00, 
-                                  0x06, 0x0F, 0x1F, 0x00, 0x18, 0x0E, 0x0E, 0x00, 0x07, 0x09, 0x19, 0x1F, 0x1F, 0x0E, 0x00, 0x00, 
-                                  0xC0, 0xC0, 0x80, 0x00, 0x10, 0xF0, 0xF0, 0xF0, 0xE0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0x00 };
-            byte[] dw2TownMan = { 0x03, 0x07, 0x0F, 0x0F, 0x0F, 0x0F, 0x07, 0x0F, 0x03, 0x07, 0x0F, 0x0F, 0x0F, 0x0F, 0x03, 0x0C, 
-                                  0x1F, 0x1F, 0x3F, 0x3F, 0x1C, 0x00, 0x00, 0x1E, 0x0F, 0x0F, 0x1F, 0x1F, 0x1F, 0x0F, 0x0E, 0x1E, 
-                                  0xF8, 0xFC, 0xFE, 0xFE, 0x38, 0x00, 0x78, 0x00, 0xF0, 0xF0, 0xF8, 0xF8, 0xF8, 0xF0, 0x78, 0x00, 
-                                  0x03, 0x07, 0x0F, 0x0F, 0x0F, 0x0F, 0x07, 0x0F, 0x03, 0x07, 0x0D, 0x0D, 0x0C, 0x0A, 0x02, 0x0C, 
-                                  0xC0, 0xE0, 0xF0, 0xF0, 0xF0, 0xF0, 0xE0, 0xF0, 0xC0, 0xE0, 0xF0, 0xF0, 0xF0, 0x50, 0x40, 0x30, 
-                                  0x1E, 0x1E, 0x3F, 0x3F, 0x1E, 0x00, 0x00, 0x1E, 0x0F, 0x0F, 0x1F, 0x1E, 0x1F, 0x0F, 0x0E, 0x1E, 
-                                  0x78, 0x7C, 0xFE, 0xFE, 0x78, 0x00, 0x78, 0x00, 0xF0, 0xF0, 0xF8, 0x78, 0xF8, 0xF0, 0x78, 0x00, 
-                                  0x03, 0x07, 0x07, 0x0F, 0x0F, 0x0F, 0x0F, 0x07, 0x03, 0x07, 0x07, 0x0B, 0x0B, 0x05, 0x04, 0x00, 
-                                  0xC0, 0xE0, 0xE0, 0xF0, 0xF0, 0xF0, 0xE0, 0xC0, 0xC0, 0xE0, 0xE0, 0xF0, 0xF0, 0xF0, 0x60, 0x00, 
-                                  0x03, 0x07, 0x0F, 0x0F, 0x03, 0x00, 0x00, 0x0F, 0x07, 0x0F, 0x0F, 0x07, 0x0F, 0x07, 0x07, 0x0F, 
-                                  0xE0, 0xF0, 0xF0, 0xE0, 0xE0, 0x10, 0x20, 0x80, 0xE0, 0x30, 0x10, 0x80, 0x90, 0xF0, 0xA0, 0x80, 
-                                  0x03, 0x07, 0x0F, 0x0F, 0x03, 0x18, 0x0C, 0x01, 0x07, 0x0F, 0x0F, 0x06, 0x0E, 0x1F, 0x0C, 0x01, 
-                                  0xE0, 0xF0, 0xF0, 0xE0, 0xE0, 0x00, 0x10, 0xE0, 0xE0, 0x30, 0x30, 0x20, 0x70, 0xF0, 0xF0, 0xE0 };
-            byte[] dw4TownMan = { 0x07, 0x0F, 0x1F, 0x0F, 0x1F, 0x0F, 0x0F, 0x3F, 0x07, 0x0F, 0x1F, 0x0F, 0x1F, 0x0F, 0x0F, 0x3C, 
-                                  0x7F, 0x7F, 0x1F, 0x3F, 0x3E, 0x00, 0x00, 0x0F, 0x3F, 0x1F, 0x1F, 0x3F, 0x3F, 0x0F, 0x0F, 0x0F, 
-                                  0xFE, 0xFF, 0xFB, 0xFF, 0x7C, 0x00, 0x70, 0x00, 0xFC, 0xF8, 0xF8, 0xFC, 0xFC, 0xF0, 0x70, 0x00, 
-                                  0x07, 0x0F, 0x1F, 0x0F, 0x1F, 0x0F, 0x0F, 0x3F, 0x07, 0x0F, 0x1F, 0x0D, 0x1A, 0x02, 0x08, 0x3C, 
-                                  0xE0, 0xF0, 0xF8, 0xF0, 0xF8, 0xF0, 0xF0, 0xFC, 0xE0, 0xF0, 0xF8, 0xB0, 0x58, 0x40, 0x10, 0x3C, 
-                                  0x7F, 0x7D, 0x1C, 0x3F, 0x38, 0x00, 0x0E, 0x00, 0x0F, 0x0F, 0x1F, 0x3C, 0x3F, 0x0F, 0x0E, 0x00, 
-                                  0xFE, 0xBF, 0x3B, 0xFF, 0x1C, 0x00, 0x00, 0xF0, 0xFC, 0xF8, 0xF8, 0x3C, 0xFC, 0xF0, 0xF0, 0xF0, 
-                                  0x0F, 0x1F, 0x1F, 0x1F, 0x0F, 0x0F, 0x0F, 0x07, 0x0F, 0x1F, 0x1F, 0x1B, 0x04, 0x04, 0x00, 0x01, 
-                                  0xC0, 0xE0, 0xF0, 0xF0, 0xF0, 0xF0, 0xE0, 0xC0, 0xC0, 0xE0, 0xF0, 0xF0, 0xF0, 0x70, 0xE0, 0xC0, 
-                                  0x1F, 0x13, 0x07, 0x1F, 0x03, 0x00, 0x00, 0x0F, 0x0F, 0x0F, 0x1F, 0x07, 0x1F, 0x0F, 0x0F, 0x0F, 
-                                  0xE0, 0xF0, 0xF0, 0xF0, 0xF0, 0x00, 0xE0, 0x00, 0x20, 0x10, 0x90, 0x90, 0xF0, 0xE0, 0xE0, 0x00, 
-                                  0x09, 0x03, 0x07, 0x1F, 0x03, 0x00, 0x0E, 0x01, 0x0F, 0x0C, 0x1C, 0x07, 0x1F, 0x0F, 0x0F, 0x01, 
-                                  0xE0, 0xF0, 0xF0, 0xF0, 0xF0, 0x00, 0x00, 0xE0, 0x20, 0x30, 0x70, 0xF0, 0xF0, 0xE0, 0xE0, 0xE0 };
-            byte[] dw4Dwarf = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x1F, 0x3F, 0x1F, 0x00, 0x00, 0x03, 0x07, 0x0F, 0x1F, 0x3F, 0x3F, 
-                                0x00, 0x00, 0x00, 0x00, 0x00, 0xF8, 0xFC, 0xF8, 0x00, 0x00, 0xC0, 0xE0, 0xF0, 0xF8, 0xFC, 0xFC, 
-                                0x4F, 0xEB, 0xC2, 0xC0, 0x1C, 0x00, 0x1E, 0x00, 0x3F, 0x1F, 0x1F, 0x1F, 0x3F, 0x3F, 0x1E, 0x00, 
-                                0xF2, 0xD6, 0x40, 0x00, 0x38, 0x00, 0xF8, 0xF8, 0xFC, 0xF8, 0xF8, 0xF8, 0xFC, 0xFC, 0x00, 0xF8, 
-                                0x00, 0x00, 0x00, 0x00, 0x00, 0xF8, 0xFC, 0xF8, 0x00, 0x00, 0xC0, 0xE0, 0xF0, 0xF8, 0xFC, 0xFC, 
-                                0x4F, 0x6B, 0x02, 0x00, 0x1C, 0x00, 0x1F, 0x1F, 0x3F, 0x1F, 0x1F, 0x1F, 0x3F, 0x3F, 0x00, 0x1F, 
-                                0xF2, 0xD7, 0x43, 0x03, 0x38, 0x00, 0x78, 0x00, 0xFC, 0xF8, 0xF8, 0xF8, 0xFC, 0xFC, 0x78, 0x00, 
-                                0x00, 0x00, 0x00, 0x00, 0x00, 0x1F, 0x3F, 0x1F, 0x00, 0x01, 0x03, 0x07, 0x0F, 0x1F, 0x3A, 0x32, 
-                                0x00, 0x00, 0x00, 0x00, 0x00, 0xF8, 0xFC, 0xF8, 0x00, 0x80, 0xC0, 0xE0, 0xF0, 0xF8, 0x5C, 0x4C, 
-                                0x7F, 0x7F, 0x27, 0x03, 0x19, 0x00, 0x1E, 0x00, 0x0D, 0x0F, 0x1F, 0x1F, 0x3E, 0x3F, 0x1E, 0x00, 
-                                0xF6, 0xF6, 0xE3, 0xC3, 0x9B, 0x00, 0xF8, 0xF8, 0xB8, 0xF8, 0xF8, 0xF8, 0x7C, 0xFC, 0x00, 0xF8, 
-                                0x00, 0x00, 0x00, 0x00, 0x00, 0x1F, 0x3F, 0x1F, 0x00, 0x01, 0x03, 0x07, 0x0F, 0x1F, 0x3A, 0x32, 
-                                0x6F, 0x6F, 0xC7, 0xC3, 0xD9, 0x00, 0x1F, 0x1F, 0x1D, 0x1F, 0x1F, 0x1F, 0x3E, 0x3F, 0x00, 0x1F, 
-                                0xFE, 0xFE, 0xE4, 0xC0, 0x98, 0x00, 0x78, 0x00, 0xB0, 0xF0, 0xF8, 0xF8, 0x7C, 0xFC, 0x78, 0x00, 
-                                0x00, 0x00, 0x00, 0x00, 0x00, 0xF0, 0xF0, 0x18, 0x00, 0x00, 0xC0, 0xE0, 0xF0, 0xF0, 0xF0, 0xF8, 
-                                0x00, 0x00, 0x00, 0x00, 0x00, 0x1F, 0x0F, 0x1F, 0x00, 0x00, 0x07, 0x0F, 0x1F, 0x1F, 0x05, 0x04, 
-                                0x19, 0x13, 0x11, 0x00, 0x07, 0x00, 0x0F, 0x00, 0x1E, 0x1C, 0x1E, 0x0F, 0x1F, 0x1F, 0x0F, 0x00, 
-                                0xF8, 0xF8, 0xDC, 0x04, 0xE8, 0x00, 0xF8, 0xF8, 0x98, 0x18, 0x3C, 0xFC, 0xF0, 0xFC, 0x00, 0xF8, 
-                                0x19, 0x13, 0x13, 0x01, 0x07, 0x00, 0x07, 0x0F, 0x1E, 0x1C, 0x1C, 0x0E, 0x1F, 0x1F, 0x08, 0x0F, 
-                                0xF8, 0x78, 0x9C, 0x84, 0xE8, 0x00, 0xF8, 0x80, 0xD8, 0xF8, 0x7C, 0x7C, 0xF0, 0xFC, 0x78, 0x80, 
-                                0x00, 0x00, 0x00, 0x00, 0x00, 0x1F, 0x0F, 0x1F, 0x00, 0x00, 0x07, 0x0F, 0x1F, 0x1F, 0x05, 0x04, 
-                                0x1F, 0x1F, 0x3B, 0x20, 0x17, 0x00, 0x1F, 0x1F, 0x19, 0x18, 0x3C, 0x3F, 0x0F, 0x3F, 0x00, 0x1F, 
-                                0x98, 0xC8, 0x88, 0x00, 0xE0, 0x00, 0xF0, 0x00, 0x78, 0x38, 0x78, 0xF0, 0xF8, 0xF8, 0xF0, 0x00, 
-                                0x1F, 0x1E, 0x39, 0x21, 0x17, 0x00, 0x1F, 0x01, 0x1B, 0x1F, 0x3E, 0x3E, 0x0F, 0x3F, 0x1E, 0x01, 
-                                0x98, 0xC8, 0xC8, 0x80, 0xE0, 0x00, 0xE0, 0xF0, 0x78, 0x38, 0x38, 0x70, 0xF8, 0xF8, 0x10, 0xF0 };
 
-            Random r2 = new Random(int.Parse(txtSeed.Text));
-
-
-            // Merchant Randomization
-            int spriteChoice = r2.Next() % 5;
-            if (spriteChoice == 1)
-            {
-               for (int lnI = 0; lnI < dw1MerchantSprite.Length; lnI++)
-                {
-                    romData[0x22ec0 + lnI] = dw1MerchantSprite[lnI];
-                }
-            }
-            else if (spriteChoice == 2)
-            {
-                for (int lnI = 0; lnI < dw2MerchantSprite.Length; lnI++)
-                {
-                    romData[0x22ec0 + lnI] = dw2MerchantSprite[lnI];
-                }
-            }
-            else if (spriteChoice == 3)
-            {
-                for (int lnI = 0; lnI < dw4Taloon.Length; lnI++)
-                {
-                    romData[0x22ec0 + lnI] = dw4Taloon[lnI];
-                }
-            }
-            else if (spriteChoice == 4)
-            {
-                for (int lnI = 0; lnI < dw4Merchant.Length; lnI++)
-                {
-                    romData[0x22ec0 + lnI] = dw4Merchant[lnI];
-                }
-            }
-
-            // Priest Randomization
-            spriteChoice = r2.Next() % 3;
-            if (spriteChoice == 1)
-            {
-                for (int lnI = 0; lnI < dw2PriestJ.Length; lnI++)
-                {
-                    romData[0x21c20 + lnI] = dw2PriestJ[lnI];
-                }
-            }
-            else if (spriteChoice == 2)
-            {
-                for (int lnI = 0; lnI < dw2PriestE.Length; lnI++)
-                {
-                    romData[0x21c20 + lnI] = dw2PriestE[lnI];
-                }
-            }
-
-            // King Randomization
-            spriteChoice = r2.Next() % 2;
-            if (spriteChoice == 1)
-            {
-                for (int lnI = 0; lnI < dw2King.Length; lnI++)
-                {
-                    romData[0x21f70 + lnI] = dw2King[lnI];
-                }
-            }
-
-            // Girl Randomization
-            spriteChoice = r2.Next() % 4;
-            if (spriteChoice == 1)
-            {
-                for (int lnI = 0; lnI < dw1Girl.Length; lnI++)
-                {
-                    romData[0x21880 + lnI] = dw1Girl[lnI];
-                }
-            }
-            else if (spriteChoice == 2)
-            {
-                for (int lnI = 0; lnI < dw2Girl.Length; lnI++)
-                {
-                    romData[0x21880 + lnI] = dw2Girl[lnI];
-                }
-            }
-            else if (spriteChoice == 3)
-            {
-                for (int lnI = 0; lnI < dw4Girl.Length; lnI++)
-                {
-                    romData[0x21880 + lnI] = dw4Girl[lnI];
-                }
-            }
-            // Town Man Randomization
-            spriteChoice = r2.Next() % 3;
-            if (spriteChoice == 1)
-            {
-                for (int lnI = 0; lnI < dw4TownMan.Length; lnI++)
-                {
-                    romData[0x22800 + lnI] = dw4TownMan[lnI];
-                }
-            }
-            // Old Man Randomization
-            spriteChoice = r2.Next() % 3;
-            if (spriteChoice == 1)
-            {
-                for (int lnI = 0; lnI < dw1OldMan.Length; lnI++)
-                {
-                    romData[0x21a80 + lnI] = dw1OldMan[lnI];
-                }
-            }
-            else if (spriteChoice == 2)
-            {
-                for (int lnI = 0; lnI < dw4OldMan.Length; lnI++)
-                {
-                    romData[0x21a80 + lnI] = dw4OldMan[lnI];
-                }
-            }
-            // Town Soldier Randomization
-            spriteChoice = r2.Next() % 2;
-            if (spriteChoice == 1)
-            {
-                for (int lnI = 0; lnI < dw1SoldierP1.Length; lnI++)
-                {
-                    romData[0x22940 + lnI] = dw1SoldierP1[lnI];
-                }
-                for (int lnI = 0; lnI < dw1SoldierP2.Length; lnI++)
-                {
-                    romData[0x22d10 + lnI] = dw1SoldierP2[lnI];
-                }
-            }
-            // Dwarf Randomization
-            spriteChoice = r2.Next() % 3;
-            if (spriteChoice == 1)
-            {
-                for (int lnI = 0; lnI < dw4Dwarf.Length; lnI++)
-                {
-                    romData[0x23610 + lnI] = dw4Dwarf[lnI];
-                }
-            }
-
-        }
 
         private void changeHeroAge()
         {
@@ -9101,87 +7092,7 @@ namespace DW3Randomizer
             }
         }
 
-        private void changeRemakeEq()
-        {
-            addRemakeEquip = true;
-            if (dispEqPower)
-            {
-                convertStrToHex("HlyLnc", 0xad30, false);
-                convertStrToHex("BstCl", 0xad50, true);
-                convertStrToHex("JustAb", 0xad56, true);
-                convertStrToHex("DrgClaw", 0xadbf, true);
-                convertStrToHex("NinjaSuit", 0xaea3, true);
-                convertStrToHex("Pot Lid", 0xaecf, true);
-                convertStrToHex("BlkHd", 0xaf35, true);
-            }
-            else
-            {
-                // First line of equipment names
-                convertStrToHex("Holy&Broad&Wizard^s&Poison&Iron&Beast&Justice", 0xad30, false);
-                convertStrToHex("Dragon&Thunder&Staff$of&Sword$of&Orochi&Dragon&Staff$of&Clothes&Trainging&Leather&Flashy&Half$Plate&Full$Plate&Magic&Cloak$of&Armor$of&Water$Flying&Chain&Wayfarer^s&Revealing&Magic&Shell&Ninja&Dragon&Swordedge&Angel^s&Leather&Pot&Shield$of&Shield$of&Bronze&Silver&Golden&$$$$", 0xadca, false);
-                convertStrToHex("Unluck&Turban&Noh&Leather&Black", 0xaf1b, false);
 
-                // Second line of equipment names
-                convertStrToHex("Lance&Sword&Wand&Needle&Claw&Claw&Abacus&Sickle&Sword&Sword&Axe&Rain&Gaia&Reflection&Destruction&Sword&Force&Illusion&Slasher&Sword&Claw", 0xb0f9, false);
-                convertStrToHex("Suit&Mail&Armor&Robe&Shield&Lid&Strength&Heroes&Sorrow&Shield&Shield&Crown&$$$$$$$$$", 0xb227, false);
-                convertStrToHex("Hood", 0xb29a, false);
-            }
-
-            int[] prices = { 2300, 24000, 25000, 17000, 4200, 50, 1200 };
-            int[] itemToChange = { 0x05, 0x0a, 0x0b, 0x19, 0x34, 0x39, 0x46 };
-            int[] powers = { 35, 95, 110, 85, 58, 2, 18 };
-            int[] whocanequip = { 0x0c, 0x40, 0x20, 0x40, 0x40, 0xff, 0x40 };
-            int[] effect = { 0x01, 0x01, 0x01, 0x01, 0x1d, 0x01, 0x01 };
-
-            int price = 0;
-
-            if (adjustEquipmentPrice == false)
-            {
-                for (int lnI = 0; lnI < itemToChange.Length; lnI++)
-                {
-                    romData[0x11be + itemToChange[lnI]] -= (byte)(romData[0x11be + itemToChange[lnI]] % 4);
-                    price = prices[lnI];
-                    //                int priceToUse = (romData[0x123b + itemstoAdjust[lnI]] >= 128 ? romData[0x123b + itemstoAdjust[lnI]] - 128 : romData[0x123b + itemstoAdjust[lnI]]);
-                    if (price >= 10000)
-                    {
-                        romData[0x11be + itemToChange[lnI]] += 3; // Now multiply by 1000
-                        romData[0x123b + itemToChange[lnI]] = (byte)(romData[0x123b + itemToChange[lnI]] >= 128 ? (price / 1000) + 128 : price / 1000);
-                    }
-                    else if (price >= 1000)
-                    {
-                        romData[0x11be + itemToChange[lnI]] += 2; // Now multiply by 100
-                        romData[0x123b + itemToChange[lnI]] = (byte)(romData[0x123b + itemToChange[lnI]] >= 128 ? (price / 100) + 128 : price / 100);
-                    }
-                    else if (price >= 100)
-                    {
-                        romData[0x11be + itemToChange[lnI]] += 1; // Now multiply by 10
-                        romData[0x123b + itemToChange[lnI]] = (byte)(romData[0x123b + itemToChange[lnI]] >= 128 ? (price / 10) + 128 : price / 10);
-                    }
-                    else
-                    {
-                        romData[0x123b + itemToChange[lnI]] = (byte)(romData[0x123b + itemToChange[lnI]] >= 128 ? price + 128 : price);
-                    }
-                }
-            }
-
-            if (rad_RandClassEqOff.Checked || ((r1.Next() % 2 == 0) && rad_RandClassEqRand.Checked))
-            {
-                for (int lnI = 0; lnI < itemToChange.Length; lnI++)
-                {
-                    romData[0x1147 + itemToChange[lnI]] = (byte)whocanequip[lnI];
-                    if (romData[0x1196 + itemToChange[lnI]] != 255 && romData[0x1196 + itemToChange[lnI]] != 0 && itemToChange[lnI] < 32)
-                        romData[0x1196 + itemToChange[lnI]] = (byte)whocanequip[lnI];
-                }
-            }
-
-        }
-
-        private void fixFFigherSprite()
-        {
-            romData[0x16f25] = 0x5d;
-            romData[0x16f26] = 0x80;
-            romData[0x16f27] = 0x55;
-        }
 
         private void randStartGold()
         {
@@ -9352,40 +7263,6 @@ namespace DW3Randomizer
             lblIntensityDesc.Text = "Comparison complete!  (DW3Compare.txt)";
         }
 
-        private void changeEnd()
-        {
-            convertStrToHex("0Thus, ", 0x29536, false);
-            romData[0x2953d] = 0xf0; // Hero 8 Char
-            convertStrToHex(" became known", 0x2953e, true);
-            convertStrToHex(" as Erdrick in some stories and", 0x2954c, true);
-            convertStrToHex(" Loto in others.", 0x2956c, true);
-            convertStrToHex("  ", 0x2957d, true);
-            convertStrToHex("  ", 0x29580, true);
-            convertStrToHex("0After a while, our hero and", 0x29583, true);
-            convertStrToHex(" the rest of the party went", 0x295a0, true);
-            convertStrToHex(" their separate ways.", 0x295bc, true);
-            convertStrToHex("  ", 0x295d2, true);
-            convertStrToHex("0The hero^s sword, armor, and", 0x295d5, true);
-            convertStrToHex(" amulet were left behind for", 0x295f3, true);
-            convertStrToHex(" future generations bearing", 0x29610, true);
-            convertStrToHex(" the name Erdrick.", 0x2962c, true);
-            convertStrToHex("  ", 0x2963f, true);
-            convertStrToHex("0Unfortunately, records of", 0x29642, true);
-            convertStrToHex(" Erdrick^s party were lost", 0x2965d, true);
-            convertStrToHex(" with time.", 0x29678, true);
-            convertStrToHex("  ", 0x29684, true);
-            convertStrToHex(" Dragon Warrior III Randomizer", 0x29687, true);
-            convertStrToHex("  ", 0x296a6, true);
-            convertStrToHex("0Originally Developed By:", 0x296a9, true);
-            convertStrToHex("0 gameboyf9", 0x296c3, true);
-            convertStrToHex("  ", 0x296cf, true);
-            convertStrToHex("0Currently Developed By:", 0x296d2, true);
-            convertStrToHex("0 endymionls", 0x296eb, true);
-            convertStrToHex("  ", 0x296f8, true);
-            convertStrToHex("0                      ", 0x296fb, true);
-            convertStrToHex("            ", 0x29713, true);
-            convertStrToHex("Thank you for playing!     ", 0x1f777, false);
-        }
 
         private StreamWriter compareComposeString(string intro, StreamWriter writer, int startAddress, int length, int skip = 1, string delimiter = "")
         {
@@ -9532,26 +7409,6 @@ namespace DW3Randomizer
             runChecksum();
         }
 
-        private void grpMonsterStat_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cboClass1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cboClass2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cboClass3_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnCompareBrowse_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -9619,24 +7476,19 @@ namespace DW3Randomizer
             return writer;
         }
 
-        private void determineChecksBanks(out int b1, out int b2, out int b3, int num)
-        {
-            b3 = num / 16;
-            b2 = (num - b3 * 16) / 4;
-            b1 = (num - b2 * 4) % 4;
-        }
-
         private void determineChecks(object sender, EventArgs e)
         {
+            flagscalc flagscalc = new flagscalc();
+
             string flags = txtFlags.Text;
-            int number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(0, 1)));
+            int number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(0, 1)));
             int bank1 = 0; // Generally 0,1,2
             int bank2 = 0; // Generally 4-10, may be combined with bank 1
             int bank3 = 0; // Generally 16-42
             chk_GenCompareFile.Checked = (number % 2 == 1);
 
             // Adjustments
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(2, 1)));
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(2, 1)));
             bank3 = number; // cboExpGains - 11 options
             switch (bank3)
             {
@@ -9678,7 +7530,7 @@ namespace DW3Randomizer
                     break;
             }
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(3, 1)));
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(3, 1)));
             bank3 = number;
             switch(bank3)
             {
@@ -9714,7 +7566,7 @@ namespace DW3Randomizer
                     break;
             }
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(4, 1)));
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(4, 1)));
             bank2 = number % 16; // cboGoldReq - 6 options
             switch (bank2)
             {
@@ -9738,8 +7590,8 @@ namespace DW3Randomizer
                     break;
             }
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(5, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(5, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_IncBattSpeedOff.Checked = true;
             else if (bank1 == 1) rad_IncBattSpeedOn.Checked = true;
             else if (bank1 == 2) rad_IncBattSpeedRand.Checked = true;
@@ -9750,8 +7602,8 @@ namespace DW3Randomizer
             else if (bank3 == 1) rad_SpeedUpMenusOn.Checked = true;
             else if (bank3 == 2) rad_SpeedUpMenuRand.Checked = true;
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(6, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(6, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_RmManipOff.Checked = true;
             else if (bank1 == 1) rad_RmManipOn.Checked = true;
             else if (bank1 == 2) rad_RmManipRand.Checked = true;
@@ -9762,8 +7614,8 @@ namespace DW3Randomizer
             else if (bank3 == 1) rad_codOn.Checked = true;
             else if (bank3 == 2) rad_codRand.Checked = true;
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(7, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(7, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_LamiaOff.Checked = true;
             else if (bank1 == 1) rad_LamiaOn.Checked = true;
             else if (bank1 == 2) rad_LamiaRand.Checked = true;
@@ -9774,8 +7626,8 @@ namespace DW3Randomizer
             else if (bank3 == 1) rad_DoubleAttOn.Checked = true;
             else if (bank3 == 2) rad_DoubleAttRand.Checked = true;
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(8,1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(8,1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_PartyItemsOff.Checked = true;
             else if (bank1 == 1) rad_PartyItemsOn.Checked = true;
             else if (bank1 == 2) rad_PartyItemsRand.Checked = true;
@@ -9786,8 +7638,8 @@ namespace DW3Randomizer
             else if (bank3 == 1) rad_InvisNPCOn.Checked = true;
             else if (bank3 == 2) rad_InvisNPCRand.Checked = true;
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(9, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(9, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_RandSageStoneOff.Checked = true;
             else if (bank1 == 1) rad_RandSageStoneOn.Checked = true;
             else if (bank1 == 2) rad_RandSageStoneRand.Checked = true;
@@ -9798,8 +7650,8 @@ namespace DW3Randomizer
             else if (bank3 == 1) rad_SoHRoLEffOn.Checked = true;
             else if (bank3 == 2) rad_SoHRoLEffRand.Checked = true;
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(10, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(10, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_BigOff.Checked = true;
             else if (bank1 == 1) rad_BigOn.Checked = true;
             else if (bank1 == 2) rad_BigRand.Checked = true;
@@ -9810,8 +7662,8 @@ namespace DW3Randomizer
             else if (bank3 == 1) rad_RandSpellStrOn.Checked = true;
             else if (bank3 == 2) rad_RandSpellStrRand.Checked = true;
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(11, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(11, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_NonMagMPOff.Checked = true;
             else if (bank1 == 1) rad_NonMagMPOn.Checked = true;
             else if (bank1 == 2) rad_NonMagMPRand.Checked = true;
@@ -9819,7 +7671,7 @@ namespace DW3Randomizer
             else if (bank2 == 1) rad_FourJobFiestaOn.Checked = true;
             else if (bank2 == 2) rad_FourJobFiestaRand.Checked = true;
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(12, 1)));
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(12, 1)));
             bank2 = number % 16; // cboGoldReq - 6 options
             switch (bank2)
             {
@@ -9843,13 +7695,13 @@ namespace DW3Randomizer
             // - 13
 
             // Monsters
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(14, 1)));
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(14, 1)));
             /*
             optStatSilly.Checked = (number % 4 == 0);
             optStatMedium.Checked = (number % 4 == 1);
             optStatHeavy.Checked = (number % 4 == 2);
             */
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_RandExpOff.Checked = true;
             else if (bank1 == 1) rad_RandExpOn.Checked = true;
             else if (bank1 == 2) rad_RandExpRand.Checked = true;
@@ -9860,8 +7712,8 @@ namespace DW3Randomizer
             else if (bank3 == 1) rad_RandDropOn.Checked = true;
             else if (bank3 == 2) rad_RandDropRand.Checked = true;
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(15, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(15, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_RandEnePatOff.Checked = true;
             else if (bank1 == 1) rad_RandEnePatOn.Checked = true;
             else if (bank1 == 2) rad_RandEnePatRand.Checked = true;
@@ -9875,8 +7727,8 @@ namespace DW3Randomizer
             // - 16
 
             // Map
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(17, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(17, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_RandMapsOff.Checked = true;
             else if (bank1 == 1) rad_RandMapsOn.Checked = true;
             else if (bank1 == 2) rad_RandMapsRand.Checked = true;
@@ -9887,8 +7739,8 @@ namespace DW3Randomizer
             else if (bank3 == 1) rad_RandMonstZoneOn.Checked = true;
             else if (bank3 == 2) rad_RandMonstZoneRand.Checked = true;
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(18, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(18, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_RandTownsOff.Checked = true;
             else if (bank1 == 1) rad_RandTownsOn.Checked = true;
             else if (bank1 == 2) rad_RandTownsRand.Checked = true;
@@ -9899,8 +7751,8 @@ namespace DW3Randomizer
             else if (bank3 == 1) rad_RandShrinesOn.Checked = true;
             else if (bank3 == 2) rad_RandShrinesRand.Checked = true;
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(19, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(19, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_LancelCaveOff.Checked = true;
             else if (bank1 == 1) rad_LancelCaveOn.Checked = true;
             else if (bank1 == 2) rad_LancelCaveRand.Checked = true;
@@ -9911,8 +7763,8 @@ namespace DW3Randomizer
             else if (bank3 == 1) rad_BaramosCastOn.Checked = true;
             else if (bank3 == 2) rad_BaramosCastRand.Checked = true;
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(20, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(20, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_DrgQnCastOff.Checked = true;
             else if (bank1 == 1) rad_DrgQnCastOn.Checked = true;
             else if (bank1 == 2) rad_DrgQnCastRand.Checked= true;
@@ -9923,8 +7775,8 @@ namespace DW3Randomizer
             else if (bank3 == 1) rad_CharlockOn.Checked = true;
             else if (bank3 == 2) rad_CharlockRand.Checked = true;
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(21, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(21, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_NoNewTownOff.Checked = true;
             else if (bank1 == 1) rad_NoNewTownOn.Checked = true;
             else if (bank1 == 2) rad_NoNewTownRand.Checked = true;
@@ -9932,8 +7784,8 @@ namespace DW3Randomizer
             // - 22
 
             // Treasures & Equipment
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(23, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(23, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_RandTreasOff.Checked = true;
             else if (bank1 == 1) rad_RandTreasOn.Checked = true;
             else if (bank1 == 2) rad_RandTreasRand.Checked = true;
@@ -9944,8 +7796,8 @@ namespace DW3Randomizer
             else if (bank3 == 1) rad_RmRedKeysOn.Checked = true;
             else if (bank3 == 2) rad_RmRedKeysRand.Checked = true;
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(24, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(24, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_AddGoldClawOff.Checked = true;
             else if (bank1 == 1) rad_AddGoldClawOn.Checked = true;
             else if (bank1 == 2) rad_AddGoldClawRand.Checked = true;
@@ -9956,8 +7808,8 @@ namespace DW3Randomizer
             else if (bank3 == 1) rad_AdjEqPriceOn.Checked = true;
             else if (bank3 == 2) rad_AdjEqPriceRand.Checked = true;
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(25, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(25, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_VanEqValOff.Checked = true;
             else if (bank1 == 1) rad_VanEqValOn.Checked = true;
             else if (bank1 == 2) rad_VanEqValRand.Checked = true;
@@ -9968,8 +7820,8 @@ namespace DW3Randomizer
             else if (bank3 == 1) rad_RandClassEqOn.Checked = true;
             else if (bank3 == 2) rad_RandClassEqRand.Checked = true;
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(26, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(26, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_RmFightPenOff.Checked = true;
             else if (bank1 == 1) rad_RmFightPenOn.Checked = true;
             else if (bank1 == 2) rad_RmFightPenRand.Checked = true;
@@ -9982,8 +7834,8 @@ namespace DW3Randomizer
             // - 27
 
             // Item & Weapon Shops & Inns
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(28, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(28, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_RandInnOff.Checked = true;
             else if (bank1 == 1) rad_RandInnOn.Checked = true;
             else if (bank1 == 2) rad_RandInnRand.Checked = true;
@@ -9994,8 +7846,8 @@ namespace DW3Randomizer
             else if (bank3 == 1) rad_RandItemShopOn.Checked = true;
             else if (bank3 == 2) rad_RandItemShopRand.Checked = true;
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(29, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(29, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_SellUnsellableOff.Checked = true;
             else if (bank1 == 1) rad_SellUnsellableOn.Checked = true;
             else if (bank1 == 2) rad_SellUnsellableRand.Checked = true;
@@ -10006,8 +7858,8 @@ namespace DW3Randomizer
             else if (bank3 == 1) rad_AcornsOn.Checked = true;
             else if (bank3 == 2) rad_AcornsRand.Checked = true;
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(30, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(30, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_StrSeedOff.Checked = true;
             else if (bank1 == 1) rad_StrSeedOn.Checked = true;
             else if (bank1 == 2) rad_StrSeedRand.Checked = true;
@@ -10018,8 +7870,8 @@ namespace DW3Randomizer
             else if (bank3 == 1) rad_IntSeedOn.Checked = true;
             else if (bank3 == 2) rad_IntSeedRand.Checked = true;
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(31, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(31, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_VitSeedOff.Checked = true;
             else if (bank1 == 1) rad_VitSeedOn.Checked = true;
             else if (bank1 == 2) rad_VitSeedRand.Checked = true;
@@ -10030,8 +7882,8 @@ namespace DW3Randomizer
             else if (bank3 == 1) rad_WorldTreeOn.Checked = true;
             else if (bank3 == 2) rad_WorldTreeRand.Checked = true;
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(32, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(32, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_PoisonMothOff.Checked = true;
             else if (bank1 == 1) rad_PoisonMothOn.Checked = true;
             else if (bank1 == 2) rad_PoisonMothRand.Checked = true;
@@ -10042,8 +7894,8 @@ namespace DW3Randomizer
             else if (bank3 == 1) rad_SatoriOn.Checked = true;
             else if (bank3 == 2) rad_SatoriRand.Checked = true;
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(33, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(33, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_MetoriteArmbandOff.Checked = true;
             else if (bank1 == 1) rad_MetoriteArmbandOn.Checked = true;
             else if (bank2 == 2) rad_MetoriteArmbandRand.Checked = true;
@@ -10054,8 +7906,8 @@ namespace DW3Randomizer
             else if (bank3 == 1) rad_EchoingFluteOn.Checked = true;
             else if (bank3 == 2) rad_EchoingFluteRand.Checked = true;
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(34, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(34, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_SilverHarpOff.Checked = true;
             else if (bank1 == 1) rad_SilverHarpOn.Checked = true;
             else if (bank1 == 2) rad_SilverHarpRand.Checked = true;
@@ -10066,8 +7918,8 @@ namespace DW3Randomizer
             else if (bank3 == 1) rad_ShoesOfHappinessOn.Checked = true;
             else if (bank3 == 2) rad_ShoesOfHappinessRand.Checked = true;
 
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(35, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(35, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_LampOfDarknessOff.Checked = true;
             else if (bank1 == 1) rad_LampOfDarknessOn.Checked = true;
             else if (bank1 == 2) rad_LampOfDarknessRand.Checked = true;            
@@ -10075,8 +7927,8 @@ namespace DW3Randomizer
             // - 36
 
             // Characters
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(37, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(37, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) chk_RandSage.Checked = false;
             else if (bank1 == 1) chk_RandSage.Checked = true;
             if (bank2 == 0) chk_RandHero.Checked = false;
@@ -10085,8 +7937,8 @@ namespace DW3Randomizer
             // - 38
 
             // Fixes
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(39, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(39, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_RmParryBugOff.Checked = true;
             else if (bank1 == 1) rad_RmParryBugOn.Checked = true;
             else if (bank1 == 2) rad_RmParryBugRand.Checked = true;
@@ -10097,8 +7949,8 @@ namespace DW3Randomizer
             // - 40
 
             // Cosmetic
-            number = convertChartoIntCapsOnly(Convert.ToChar(flags.Substring(41, 1)));
-            determineChecksBanks(out bank1, out bank2, out bank3, number);
+            number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(41, 1)));
+            flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
             if (bank1 == 0) rad_LevelUpTxtOff.Checked = true;
             else if (bank1 == 1) rad_LevelUpTxtOn.Checked = true;
             else if (bank2 == 2) rad_LevelUpTxtRand.Checked = true;
@@ -10114,11 +7966,13 @@ namespace DW3Randomizer
         {
             if (loading) return;
 
+            flagscalc flagscalc = new flagscalc();
+
             string flags = "";
             int bank1 = 0; // 0,1,2
             int bank2 = 0; // 4-10
             int bank3 = 0; // 16-42
-            flags += convertIntToCharCapsOnly((chk_GenCompareFile.Checked ? 1 : 0)); // 0
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags((chk_GenCompareFile.Checked ? 1 : 0)); // 0
 
             flags += "-"; // 1
             // Adjustments
@@ -10135,7 +7989,7 @@ namespace DW3Randomizer
             else if (rad_ExpGain500.Checked) bank3 = 32;
             else if (rad_ExpGain750.Checked) bank3 = 33;
             else if (rad_ExpGain1000.Checked) bank3 = 34;
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 2
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 2
 
             bank1 = bank2 = bank3 = 0;
             if (rad_EncRateRand.Checked) bank3 = 16;
@@ -10148,7 +8002,7 @@ namespace DW3Randomizer
             else if (rad_EncRate200.Checked) bank3 = 25;
             else if (rad_EncRate300.Checked) bank3 = 26;
             else if (rad_EncRate400.Checked) bank3 = 32;
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 3
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 3
 
             bank1 = bank2 = bank3 = 0;
             if (rad_GoldGainRand.Checked) bank2 = 4;
@@ -10157,48 +8011,48 @@ namespace DW3Randomizer
             else if (rad_GoldGain100.Checked) bank2 = 8;
             else if (rad_GoldGain150.Checked) bank2 = 9;
             else if (rad_GoldGain200.Checked) bank2 = 10;
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 4
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 4
 
             bank1 = bank2 = bank3 = 0;
             bank1 += ((rad_IncBattSpeedOff.Checked ? 0 : 0) + (rad_IncBattSpeedOn.Checked ? 1 : 0) + (rad_IncBattSpeedRand.Checked ? 2 : 0));
             bank2 += ((rad_SpeedTextOff.Checked ? 0 : 0) + (rad_SpeedTextOn.Checked ? 4 : 0) + (rad_SpeedTextRand.Checked ? 8 : 0));
             bank3 += ((rad_SpeedUpMenuOff.Checked ? 0 : 0) + (rad_SpeedUpMenusOn.Checked ? 16 : 0) + (rad_SpeedUpMenuRand.Checked ? 32 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 5
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 5
 
             bank1 = bank2 = bank3 = 0;
             bank1 += ((rad_RmManipOff.Checked ? 0 : 0) + (rad_RmManipOn.Checked ? 1 : 0) + (rad_RmManipRand.Checked ? 2 : 0));
             bank2 += ((rad_StartGoldOff.Checked ? 0 : 0) + (rad_StartGoldOn.Checked ? 4 : 0) + (rad_StartGoldRand.Checked ? 8 : 0));
             bank3 += ((rad_codOff.Checked ? 0 : 0) + (rad_codOn.Checked ? 16 : 0) + (rad_codRand.Checked ? 32 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 6
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 6
 
             bank1 = bank2 = bank3 = 0;
             bank1 += ((rad_LamiaOff.Checked ? 0 : 0) + (rad_LamiaOn.Checked ? 1 : 0) + (rad_LamiaRand.Checked ? 2 : 0));
             bank2 += ((rad_DispEqPowerOff.Checked ? 0 : 0) + (rad_DispEqPowerOn.Checked ? 4 : 0) + (rad_DispEqPowerRand.Checked ? 8 : 0));
             bank3 += ((rad_DoubleAttOff.Checked ? 0 : 0) + (rad_DoubleAttOn.Checked ? 16 : 0) + (rad_DoubleAttRand.Checked ? 32 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 7
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 7
 
             bank1 = bank2 = bank3 = 0;
             bank1 += ((rad_PartyItemsOff.Checked ? 0 : 0) + (rad_PartyItemsOn.Checked ? 1 : 0) + (rad_PartyItemsRand.Checked ? 2 : 0));
             bank2 += ((rad_InvisShipBirdOff.Checked ? 0 : 0) + (rad_InvisShipBirdOn.Checked ? 4 : 0) + (rad_InvisShipBirdRand.Checked ? 8 : 0));
             bank3 += ((rad_InvisNPCOff.Checked ? 0 : 0) + (rad_InvisNPCOn.Checked ? 16 : 0) + (rad_InvisNPCRand.Checked ? 32 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 8
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 8
 
             bank1 = bank2 = bank3 = 0;
             bank1 += ((rad_RandSageStoneOff.Checked ? 0 : 0) + (rad_RandSageStoneOn.Checked ? 1 : 0) + (rad_RandSageStoneRand.Checked ? 2 : 0));
             bank2 += ((rad_HUAStoneOff.Checked ? 0 : 0) + (rad_HUAStoneOn.Checked ? 4 : 0) + (rad_HUAStoneRand.Checked ? 8 : 0));
             bank3 += ((rad_SoHRoLEffOff.Checked ? 0 : 0) + (rad_SoHRoLEffOn.Checked ? 16 : 0) + (rad_SoHRoLEffRand.Checked ? 32 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 9
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 9
 
             bank1 = bank2 = bank3 = 0;
             bank1 = ((rad_BigOff.Checked ? 0 : 0) + (rad_BigOn.Checked ? 1 : 0) + (rad_BigRand.Checked ? 2 : 0));
             bank2 = ((rad_RandSpellLearningOff.Checked ? 0 : 0) + (rad_RandSpellLearningOn.Checked ? 4 : 0) + (rad_RandSpellLearningRand.Checked ? 8 : 0));
             bank3 = ((rad_RandSpellStrOff.Checked ? 0 : 0) + (rad_RandSpellStrOn.Checked ? 16 : 0) + (rad_RandSpellStrRand.Checked ? 32 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 10
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 10
 
             bank1 = bank2 = bank3 = 0;
             bank1 = ((rad_NonMagMPOff.Checked ? 0 : 0) + (rad_NonMagMPOn.Checked ? 1 : 0) + (rad_NonMagMPRand.Checked ? 2 : 0));
             bank2 = ((rad_FourJobFiestaOff.Checked ? 0 : 0) + (rad_FourJobFiestaOn.Checked ? 4 : 0) + (rad_FourJobFiestaRand.Checked ? 8 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 11
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 11
 
             bank1 = bank2 = bank3 = 0;
             if (rad_RandStatsOff.Checked) bank2 = 4;
@@ -10206,7 +8060,7 @@ namespace DW3Randomizer
             else if (rad_RandStatsRid.Checked) bank2 = 6;
             else if (rad_RandStatsLud.Checked) bank2 = 8;
             else if (rad_RandStatsRand.Checked) bank2 = 9;
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 12
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 12
 
             flags += "-"; // 13
 
@@ -10215,13 +8069,13 @@ namespace DW3Randomizer
             bank1 += ((rad_RandExpOff.Checked ? 0 : 0) + (rad_RandExpOn.Checked ? 1 : 0) + (rad_RandExpRand.Checked ? 2 : 0));
             bank2 += ((rad_RandGoldOff.Checked ? 0 : 0) + (rad_RandGoldOn.Checked ? 4 : 0) + (rad_RandGoldRand.Checked ? 8 : 0));
             bank3 += ((rad_RandDropOff.Checked ? 0 : 0) + (rad_RandDropOn.Checked ? 16 : 0) + (rad_RandDropRand.Checked ? 32 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 14
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 14
 
             bank1 = bank2 = bank3 = 0;
             bank1 += ((rad_RandEnePatOff.Checked ? 0 : 0) + (rad_RandEnePatOn.Checked ? 1 : 0) + (rad_RandEnePatRand.Checked ? 2 : 0));
             bank2 += ((rad_RmDupDropOff.Checked ? 0 : 0) + (rad_RmDupDropOn.Checked ? 4 : 0) + (rad_RmDupDropRand.Checked ? 8 : 0));
             bank3 += ((rad_RmMetalRunOff.Checked ? 0 : 0) + (rad_RmMetalRunOn.Checked ? 16 : 0) + (rad_RmMetalRunRand.Checked ? 32 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 15
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 15
 
             flags += "-"; //16
 
@@ -10230,29 +8084,29 @@ namespace DW3Randomizer
             bank1 = ((rad_RandMapsOff.Checked ? 0 : 0) + (rad_RandMapsOn.Checked ? 1 : 0) + (rad_RandMapsRand.Checked ? 2 : 0));
             bank2 = ((rad_SmallMapOff.Checked ? 0 : 0) + (rad_SmallMapOn.Checked ? 4 : 0) + (rad_SmallMapRand.Checked ? 8 : 0));
             bank3 = ((rad_RandMonstZoneOff.Checked ? 0 : 0) + ((rad_RandMonstZoneOn.Checked ? 16 : 0) + (rad_RandMonstZoneRand.Checked ? 32 : 0)));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 17
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 17
 
             bank1 = bank2 = bank3 = 0;
             bank1 = ((rad_RandTownsOff.Checked ? 0 : 0) + (rad_RandTownsOn.Checked ? 1 : 0) + (rad_RandTownsRand.Checked ? 2 : 0));
             bank2 = ((rad_RandCavesOff.Checked ? 0 : 0) + (rad_RandCavesOn.Checked ? 4 : 0) + (rad_RandCavesRand.Checked ? 8 : 0));
             bank3 = ((rad_RandShrinesOff.Checked ? 0 : 0) + (rad_RandShrinesOn.Checked ? 16 : 0) + (rad_RandShrinesRand.Checked ? 32 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 18
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 18
 
             bank1 = bank2 = bank3 = 0;
             bank1 = ((rad_LancelCaveOff.Checked ? 0 : 0) + (rad_LancelCaveOn.Checked ? 1 : 0) + (rad_LancelCaveRand.Checked ? 2 : 0));
             bank2 = ((rad_CaveOfNecroOff.Checked ? 0 : 0) + (rad_CaveOfNecroOn.Checked ? 4 : 0) + (rad_CaveOfNecroRand.Checked ? 8 : 0));
             bank3 = ((rad_BaramosCastOff.Checked ? 0 : 0) + (rad_BaramosCastOn.Checked ? 16 : 0) + (rad_BaramosCastRand.Checked ? 32 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 19
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 19
 
             bank1 = bank2 = bank3 = 0;
             bank1 = ((rad_DrgQnCastOff.Checked ? 0 : 0) + (rad_DrgQnCastOn.Checked ? 1 : 0) + (rad_DrgQnCastRand.Checked ? 2 : 0));
             bank2 = ((rad_DisAlefGlitchOff.Checked ? 0 : 0) + (rad_DisAlefGlitchOn.Checked ? 4 : 0) + (rad_DisAlefGlitchRand.Checked ? 8 : 0));
             bank3 = ((rad_CharlockOff.Checked ? 0 : 0) + (rad_CharlockOn.Checked ? 16 : 0) + (rad_CharlockRand.Checked ? 32 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 20
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 20
 
             bank1 = bank2 = bank3 = 0;
             bank1 = ((rad_NoNewTownOff.Checked ? 0 : 0) + (rad_NoNewTownOn.Checked ? 1 : 0) + (rad_NoNewTownRand.Checked ? 2 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 21
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 21
 
             flags += "-"; //22
 
@@ -10261,25 +8115,25 @@ namespace DW3Randomizer
             bank1 = ((rad_RandTreasOff.Checked ? 0 : 0) + (rad_RandTreasOn.Checked ? 1 : 0) + (rad_RandTreasRand.Checked ? 2 : 0));
             bank2 = ((rad_OrbDftOff.Checked ? 0 : 0) + (rad_OrbDftOn.Checked ? 4 : 0) + (rad_OrbDftRand.Checked ? 8 : 0));
             bank3 = ((rad_RmRedKeysOff.Checked ? 0 : 0) + (rad_RmRedKeysOn.Checked ? 16 : 0) + (rad_RmRedKeysRand.Checked ? 32 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 23
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 23
 
             bank1 = bank2 = bank3 = 0;
             bank1 = ((rad_AddGoldClawOff.Checked ? 0 : 0) + (rad_AddGoldClawOn.Checked ? 1 : 0) + (rad_AddGoldClawRand.Checked ? 2 : 0));
             bank2 = ((rad_RandEqPwrOff.Checked ? 0 : 0) + (rad_RandEqPwrOn.Checked ? 4 : 0) + (rad_RandEqPwrRand.Checked ? 8 : 0));
             bank3 = ((rad_AdjEqPriceOff.Checked ? 0 : 0) + (rad_AdjEqPriceOn.Checked ? 16 : 0) + (rad_AdjEqPriceRand.Checked ? 32 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 24
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 24
 
             bank1 = bank2 = bank3 = 0;
             bank1 = ((rad_VanEqValOff.Checked ? 0 : 0) + (rad_VanEqValOn.Checked ? 1 : 0) + (rad_VanEqValRand.Checked ? 2 : 0));
             bank2 = ((rad_AddRemakeOff.Checked ? 0 : 0) + (rad_AddRemakeOn.Checked ? 4 : 0) + (rad_AddRemakeRand.Checked ? 8 : 0));
             bank3 = ((rad_RandClassEqOff.Checked ? 0 : 0) + (rad_RandClassEqOn.Checked ? 16 : 0) + (rad_RandClassEqRand.Checked ? 32 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); //25
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); //25
 
             bank1 = bank2 = bank3 = 0;
             bank1 = ((rad_RmFightPenOff.Checked ? 0 : 0) + (rad_RmFightPenOn.Checked ? 1 : 0) + (rad_RmFightPenRand.Checked ? 2 : 0));
             bank2 = ((rad_AdjStartEqOff.Checked ? 0 : 0) + (rad_AdjStartEqOn.Checked ? 4 : 0) + (rad_AdjStartEqRand.Checked ? 8 : 0));
             bank3 = 0; // Placeholder for Randomize Item Effects
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); //26
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); //26
 
             flags += "-"; // 27
 
@@ -10288,61 +8142,61 @@ namespace DW3Randomizer
             bank1 = ((rad_RandInnOff.Checked ? 0 : 0) + (rad_RandInnOn.Checked ? 1 : 0) + (rad_RandInnRand.Checked ? 2 : 0));
             bank2 = ((rad_RandWeapShopOff.Checked ? 0 : 0) + (rad_RandWeapShopOn.Checked ? 4 : 0) + (rad_RandWeapShopRand.Checked ? 8 : 0));
             bank3 = ((rad_RandItemShopOff.Checked ? 0 : 0) + (rad_RandItemShopOn.Checked ? 16 : 0) + (rad_RandItemShopRand.Checked ? 32 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 28
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 28
 
             bank1 = bank2 = bank3 = 0;
             bank1 = ((rad_SellUnsellableOff.Checked ? 0 : 0) + (rad_SellUnsellableOn.Checked ? 1 : 0) + (rad_SellUnsellableRand.Checked ? 2 : 0));
             bank2 = ((rad_CaturdayOff.Checked ? 0 : 0) + (rad_CaturdayOn.Checked ? 4 : 0) + (rad_CaturdayRand.Checked ? 8 : 0));
             bank3 = ((rad_AcornsOff.Checked ? 0 : 0) + (rad_AcornsOn.Checked ? 16 : 0) + (rad_AcornsRand.Checked ? 32 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); //29
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); //29
 
             bank1 = bank2 = bank3 = 0;
             bank1 = ((rad_StrSeedOff.Checked ? 0 : 0) + (rad_StrSeedOn.Checked ? 1 : 0) + (rad_StrSeedRand.Checked ? 2 : 0));
             bank2 = ((rad_AgiSeedOff.Checked ? 0 : 0) + (rad_AgiSeedOn.Checked ? 4 : 0) + (rad_AgiSeedRand.Checked ? 8 : 0));
             bank3 = ((rad_IntSeedOff.Checked ? 0 : 0) + (rad_IntSeedOn.Checked ? 16 : 0) + (rad_IntSeedRand.Checked ? 32 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 30
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 30
 
             bank1 = bank2 = bank3 = 0;
             bank1 = ((rad_VitSeedOff.Checked ? 0 : 0) + (rad_VitSeedOn.Checked ? 1 : 0) + (rad_VitSeedRand.Checked ? 2 : 0));
             bank2 = ((rad_LucSeedOff.Checked ? 0 : 0) + (rad_LucSeedOn.Checked ? 4 : 0) + (rad_LucSeedRand.Checked ? 8 : 0));
             bank3 = ((rad_WorldTreeOff.Checked ? 0 : 0) + (rad_WorldTreeOn.Checked ? 16 : 0) + (rad_WorldTreeRand.Checked ? 32 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 31
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 31
 
             bank1 = bank2 = bank3 = 0;
             bank1 = ((rad_PoisonMothOff.Checked ? 0 : 0) + (rad_PoisonMothOn.Checked ? 1 : 0) + (rad_PoisonMothRand.Checked ? 2 : 0));
             bank2 = ((rad_StoneOfLifeOff.Checked ? 0 : 0) + (rad_StoneOfLifeOn.Checked ? 4 : 0) + (rad_StoneOfLifeRand.Checked ? 8 : 0));
             bank3 = ((rad_SatoriOff.Checked ? 0 : 0) + (rad_SatoriOn.Checked ? 16 : 0) + (rad_SatoriRand.Checked ? 32 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 32
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 32
 
             bank1 = bank2 = bank3 = 0;
             bank1 = ((rad_MetoriteArmbandOff.Checked ? 0 : 0) + (rad_MetoriteArmbandOn.Checked ? 1 : 0) + (rad_MetoriteArmbandRand.Checked ? 2 : 0));
             bank2 = ((rad_WizardRingOff.Checked ? 0 : 0) + (rad_WizardRingOn.Checked ? 4 : 0) + (rad_WizardRingRand.Checked ? 8 : 0));
             bank3 = ((rad_EchoingFluteOff.Checked ? 0 : 0) + (rad_EchoingFluteOn.Checked ? 16 : 0) + (rad_EchoingFluteRand.Checked ? 32 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 33
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 33
 
             bank1 = bank2 = bank3 = 0;
             bank1 = ((rad_SilverHarpOff.Checked ? 0 : 0) + (rad_SilverHarpOn.Checked ? 1 : 0) + (rad_SilverHarpRand.Checked ? 2 : 0));
             bank2 = ((rad_RingOfLifeOff.Checked ? 0 : 0) + (rad_RingOfLifeOn.Checked ? 4 : 0) + (rad_RingOfLifeRand.Checked ? 8 : 0));
             bank3 = ((rad_ShoesOfHappinessOff.Checked ? 0 : 0) + (rad_ShoesOfHappinessOn.Checked ? 16 : 0) + (rad_ShoesOfHappinessRand.Checked ? 32 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 34
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 34
 
             bank1 = bank2 = bank3 = 0;
             bank1 = ((rad_LampOfDarknessOff.Checked ? 0 : 0) + (rad_LampOfDarknessOn.Checked ? 1 : 0) + (rad_LampOfDarknessRand.Checked ? 2 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 35
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 35
 
             flags += "-"; // 36
             // Characters
             bank1 = bank2 = bank3 = 0;
             bank1 = ((chk_RandSage.Checked ? 1 : 0));
             bank2 = ((chk_RandHero.Checked ? 4 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 37
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 37
 
             flags += "-"; // 38
             // Fixes
             bank1 = bank2 = bank3 = 0;
             bank1 = ((rad_RmParryBugOff.Checked ? 0 : 0) + (rad_RmParryBugOn.Checked ? 1 : 0) + (rad_RmParryBugRand.Checked ? 2 : 0));
             bank2 = ((rad_FixHeroSpellOff.Checked ? 0 : 0) + (rad_FixHeroSpellOn.Checked ? 4 : 0) + (rad_FixHeroSpellRand.Checked ? 8 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 39
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 39
 
             flags += "-"; // 40
             // Cosmetic
@@ -10350,106 +8204,10 @@ namespace DW3Randomizer
             bank1 = ((rad_LevelUpTxtOff.Checked ? 0 : 0) + (rad_LevelUpTxtOn.Checked ? 1 : 0) + (rad_LevelUpTxtRand.Checked ? 2 : 0));
             bank2 = ((rad_RandHeroAgeOff.Checked ? 0 : 0) + (rad_RandHeroAgeOn.Checked ? 4 : 0) + (rad_RandHeroAgeRand.Checked ? 8 : 0));
             bank3 = ((rad_GhostToCasketOff.Checked ? 0 : 0) + (rad_GhostToCasketOn.Checked ? 16 : 0) + (rad_GhostToCasketRand.Checked ? 32 : 0));
-            flags += convertIntToCharCapsOnly(bank1 + bank2 + bank3); // 41
+            flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 41
 
             txtFlags.Text = flags;
             enableDisableFields(null, null);
-        }
-
-        private string convertIntToCharCapsOnly(int number)
-        {
-            switch (number)
-            {
-                case 0: return "A";
-                case 1: return "B";
-                case 2: return "C";
-                case 4: return "D";
-                case 5: return "E";
-                case 6: return "F";
-                case 8: return "G";
-                case 9: return "H";
-                case 10: return "I";
-                case 16: return "J";
-                case 17: return "K";
-                case 18: return "L";
-                case 20: return "M";
-                case 21: return "N";
-                case 22: return "O";
-                case 24: return "P";
-                case 25: return "Q";
-                case 26: return "R";
-                case 32: return "S";
-                case 33: return "T";
-                case 34: return "U";
-                case 36: return "V";
-                case 37: return "W";
-                case 38: return "X";
-                case 40: return "Y";
-                case 41: return "Z";
-                case 42: return "!";
-            }
-            return Convert.ToChar(65 + number).ToString();
-        }
-
-        private string convertIntToChar(int number)
-        {
-            if (number >= 0 && number <= 9)
-                return number.ToString();
-            if (number >= 10 && number <= 35)
-                return Convert.ToChar(55 + number).ToString();
-            if (number >= 36 && number <= 61)
-                return Convert.ToChar(61 + number).ToString();
-            if (number == 62) return "!";
-            if (number == 63) return "@";
-            return "";
-        }
-
-        private int convertChartoIntCapsOnly(char character)
-        {
-            switch(character)
-            {
-                case 'A': return 0;
-                case 'B': return 1;
-                case 'C': return 2;
-                case 'D': return 4;
-                case 'E': return 5;
-                case 'F': return 6;
-                case 'G': return 8;
-                case 'H': return 9;
-                case 'I': return 10;
-                case 'J': return 16;
-                case 'K': return 17;
-                case 'L': return 18;
-                case 'M': return 20;
-                case 'N': return 21;
-                case 'O': return 22;
-                case 'P': return 24;
-                case 'Q': return 25;
-                case 'R': return 26;
-                case 'S': return 32;
-                case 'T': return 33;
-                case 'U': return 34;
-                case 'V': return 36;
-                case 'W': return 37;
-                case 'X': return 38;
-                case 'Y': return 40;
-                case 'Z': return 41;
-                case '!': return 42;
-            }
-            return character;
-        }
-
-        private int convertChartoInt(char character)
-        {
-            if (character >= Convert.ToChar("0") && character <= Convert.ToChar("9"))
-                return character - 48;
-            if (character >= Convert.ToChar("A") && character <= Convert.ToChar("Z"))
-                return character - 55;
-            if (character >= Convert.ToChar("a") && character <= Convert.ToChar("z"))
-                return character - 61;
-            if (character == Convert.ToChar("!")) return 62;
-            if (character == Convert.ToChar("@")) return 63;
-            return 0;
         }
 
         private void btnCopyChecksum_Click(object sender, EventArgs e)
@@ -10466,264 +8224,6 @@ namespace DW3Randomizer
         {
             var filePaths = (string[])e.Data.GetData(DataFormats.FileDrop);
             txtFileName.Text = filePaths[0];
-        }
-
-        private void convertStrToHex(string textToConvert, int startaddress, bool needBreak)
-        {
-            int offset = 0;
-            char[] characterArray = textToConvert.ToCharArray();
-            foreach (char c in textToConvert)
-            {
-                switch (c)
-                {
-                    case ' ':
-                        romData[startaddress + offset] = 0x00;
-                        break;
-                    case '0':
-                        romData[startaddress + offset] = 0x01;
-                        break;
-                    case '1':
-                        romData[startaddress + offset] = 0x02;
-                        break;
-                    case '2':
-                        romData[startaddress + offset] = 0x03;
-                        break;
-                    case '3':
-                        romData[startaddress + offset] = 0x04;
-                        break;
-                    case '4':
-                        romData[startaddress + offset] = 0x05;
-                        break;
-                    case '5':
-                        romData[startaddress + offset] = 0x06;
-                        break;
-                    case '6':
-                        romData[startaddress + offset] = 0x07;
-                        break;
-                    case '7':
-                        romData[startaddress + offset] = 0x08;
-                        break;
-                    case '8':
-                        romData[startaddress + offset] = 0x09;
-                        break;
-                    case '9':
-                        romData[startaddress + offset] = 0x0a;
-                        break;
-                    case 'a':
-                        romData[startaddress + offset] = 0x0b;
-                        break;
-                    case 'b':
-                        romData[startaddress + offset] = 0x0c;
-                        break;
-                    case 'c':
-                        romData[startaddress + offset] = 0x0d;
-                        break;
-                    case 'd':
-                        romData[startaddress + offset] = 0x0e;
-                        break;
-                    case 'e':
-                        romData[startaddress + offset] = 0x0f;
-                        break;
-                    case 'f':
-                        romData[startaddress + offset] = 0x10;
-                        break;
-                    case 'g':
-                        romData[startaddress + offset] = 0x11;
-                        break;
-                    case 'h':
-                        romData[startaddress + offset] = 0x12;
-                        break;
-                    case 'i':
-                        romData[startaddress + offset] = 0x13;
-                        break;
-                    case 'j':
-                        romData[startaddress + offset] = 0x14;
-                        break;
-                    case 'k':
-                        romData[startaddress + offset] = 0x15;
-                        break;
-                    case 'l':
-                        romData[startaddress + offset] = 0x16;
-                        break;
-                    case 'm':
-                        romData[startaddress + offset] = 0x17;
-                        break;
-                    case 'n':
-                        romData[startaddress + offset] = 0x18;
-                        break;
-                    case 'o':
-                        romData[startaddress + offset] = 0x19;
-                        break;
-                    case 'p':
-                        romData[startaddress + offset] = 0x1a;
-                        break;
-                    case 'q':
-                        romData[startaddress + offset] = 0x1b;
-                        break;
-                    case 'r':
-                        romData[startaddress + offset] = 0x1c;
-                        break;
-                    case 's':
-                        romData[startaddress + offset] = 0x1d;
-                        break;
-                    case 't':
-                        romData[startaddress + offset] = 0x1e;
-                        break;
-                    case 'u':
-                        romData[startaddress + offset] = 0x1f;
-                        break;
-                    case 'v':
-                        romData[startaddress + offset] = 0x20;
-                        break;
-                    case 'w':
-                        romData[startaddress + offset] = 0x21;
-                        break;
-                    case 'x':
-                        romData[startaddress + offset] = 0x22;
-                        break;
-                    case 'y':
-                        romData[startaddress + offset] = 0x23;
-                        break;
-                    case 'z':
-                        romData[startaddress + offset] = 0x24;
-                        break;
-                    case 'A':
-                        romData[startaddress + offset] = 0x25;
-                        break;
-                    case 'B':
-                        romData[startaddress + offset] = 0x26;
-                        break;
-                    case 'C':
-                        romData[startaddress + offset] = 0x27;
-                        break;
-                    case 'D':
-                        romData[startaddress + offset] = 0x28;
-                        break;
-                    case 'E':
-                        romData[startaddress + offset] = 0x29;
-                        break;
-                    case 'F':
-                        romData[startaddress + offset] = 0x2a;
-                        break;
-                    case 'G':
-                        romData[startaddress + offset] = 0x2b;
-                        break;
-                    case 'H':
-                        romData[startaddress + offset] = 0x2c;
-                        break;
-                    case 'I':
-                        romData[startaddress + offset] = 0x2d;
-                        break;
-                    case 'J':
-                        romData[startaddress + offset] = 0x2e;
-                        break;
-                    case 'K':
-                        romData[startaddress + offset] = 0x2f;
-                        break;
-                    case 'L':
-                        romData[startaddress + offset] = 0x30;
-                        break;
-                    case 'M':
-                        romData[startaddress + offset] = 0x31;
-                        break;
-                    case 'N':
-                        romData[startaddress + offset] = 0x32;
-                        break;
-                    case 'O':
-                        romData[startaddress + offset] = 0x33;
-                        break;
-                    case 'P':
-                        romData[startaddress + offset] = 0x34;
-                        break;
-                    case 'Q':
-                        romData[startaddress + offset] = 0x35;
-                        break;
-                    case 'R':
-                        romData[startaddress + offset] = 0x36;
-                        break;
-                    case 'S':
-                        romData[startaddress + offset] = 0x37;
-                        break;
-                    case 'T':
-                        romData[startaddress + offset] = 0x38;
-                        break;
-                    case 'U':
-                        romData[startaddress + offset] = 0x39;
-                        break;
-                    case 'V':
-                        romData[startaddress + offset] = 0x3a;
-                        break;
-                    case 'W':
-                        romData[startaddress + offset] = 0x3b;
-                        break;
-                    case 'X':
-                        romData[startaddress + offset] = 0x3c;
-                        break;
-                    case 'Y':
-                        romData[startaddress + offset] = 0x3d;
-                        break;
-                    case 'Z':
-                        romData[startaddress + offset] = 0x3e;
-                        break;
-                    case '$':
-                        romData[startaddress + offset] = 0x50;
-                        break;
-                    case '}':
-                        romData[startaddress + offset] = 0x60;
-                        break;
-                    case '"':
-                        romData[startaddress + offset] = 0x65;
-                        break;
-                    case '^':
-                        romData[startaddress + offset] = 0x68;
-                        break;
-                    case '.':
-                        romData[startaddress + offset] = 0x6c;
-                        break;
-                    case ',':
-                        romData[startaddress + offset] = 0x6a;
-                        break;
-                    case '(':
-                        romData[startaddress + offset] = 0x6d;
-                        break;
-                    case ')':
-                        romData[startaddress + offset] = 0x6e;
-                        break;
-                    case '?':
-                        romData[startaddress + offset] = 0x6f;
-                        break;
-                    case '!':
-                        romData[startaddress + offset] = 0x70;
-                        break;
-                    case ';':
-                        romData[startaddress + offset] = 0x71;
-                        break;
-                    case ':':
-                        romData[startaddress + offset] = 0x75;
-                        break;
-                    case '{':
-                        romData[startaddress + offset] = 0xc0;
-                        break;
-                    case '@':
-                        romData[startaddress + offset] = 0xee;
-                        break;
-                    case '<':
-                        romData[startaddress + offset] = 0xf4;
-                        break;
-                    case '[':
-                        romData[startaddress + offset] = 0xf5;
-                        break;
-                    case ']':
-                        romData[startaddress + offset] = 0xf8;
-                        break;
-                    case '&':
-                        romData[startaddress + offset] = 0xff;
-                        break;
-                }
-                offset += 1;
-            }
-            if (needBreak)
-                romData[startaddress + offset] = 0xff;
         }
 
         private void enableDisableFields(object sender, DragEventArgs e)
