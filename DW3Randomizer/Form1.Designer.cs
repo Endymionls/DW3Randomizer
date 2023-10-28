@@ -50,6 +50,7 @@ namespace DW3Randomizer
             this.lblIntensityDesc = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.grp_RandStats = new System.Windows.Forms.GroupBox();
             this.rad_RandStatsRand = new System.Windows.Forms.RadioButton();
             this.rad_RandStatsLud = new System.Windows.Forms.RadioButton();
@@ -835,6 +836,17 @@ namespace DW3Randomizer
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Adjustments";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(512, 593);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(113, 24);
+            this.checkBox1.TabIndex = 601;
+            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.ThreeState = true;
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // grp_RandStats
             // 
