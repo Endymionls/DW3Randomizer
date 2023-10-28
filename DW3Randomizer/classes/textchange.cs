@@ -464,7 +464,12 @@ namespace DW3Randomizer
             convertStrToHex("rmation", 0x3a5dd, false, ref romData);
         }
 
-        public void weapArmPower(ref byte[] romData, out bool dispEqPower, bool addRemakeEquip)
+        public void slimeSnail(ref byte[] romData)
+        {
+            romData[0xb5f7] = 0x16; // Slime Snaii > Slime Snail
+        }
+
+        public void weapArmPower(ref byte[] romData, bool dispEqPower, bool addRemakeEquip)
         {
             textchange textchange = new textchange();
 
@@ -475,7 +480,6 @@ namespace DW3Randomizer
             textchange.convertStrToHex(" Herb", 0xafb8, false, ref romData);
             textchange.convertStrToHex(" Seed", 0xb007, false, ref romData);
 
-            dispEqPower = true;
             for (int lnI = 0; lnI < 71; lnI++)
             {
                 byte value = romData[0x11be + lnI];

@@ -8,6 +8,25 @@ namespace DW3Randomizer.classes
 {
     public class optimizations
     {
+        public void battleSpeed(ref byte[] romData)
+        {
+            romData[0x13a65] = 0x01;
+            romData[0x13a66] = 0x04;
+            romData[0x13a67] = 0x08;
+            romData[0x13a68] = 0x0c;
+            romData[0x13a69] = 0x10;
+            romData[0x13a6a] = 0x18;
+            romData[0x13a6b] = 0x20;
+            romData[0x852] = 2; // instead of 16 - animation of transition into battle removed, saving 14 frames / start of battle.
+            romData[0x8ce] = 1; // instead of 12 - flashes to start a battle, saving 11 frames / start of battle.
+            romData[0x980d] = 1; // instead of 8 - Magic spell flashing, saving 7 or 14 frames / spell casted
+            romData[0x9827] = 0xea; // NEXT 3 LINES:  1 flash -> 0 flashes
+            romData[0x9828] = 0xea;
+            romData[0x9829] = 0xea;
+            romData[0x9882] = 2; // instead of 12 - Frames of shaking when YOU are hit... saving 10 frames / hit
+            romData[0x9957] = 1; // Instead of 4 enemy flashes, saving at least 6 frames / hit... probably 12 or even 24 frames / hit.
+        }
+
         public void cod(ref byte[] romData)
         {
             // All ROM hacks will revive ALL characters on a ColdAsACod.
@@ -61,6 +80,15 @@ namespace DW3Randomizer.classes
             byte[] speedText = { 0xad, 0xd0, 0x6a, 0xf0, 0x03, 0x00, 0x96, 0x2f, 0x20, 0xba, 0xc2, 0xa9, 0x02, 0x8d, 0xd6, 0x06, 0x20, 0x41, 0xc3, 0xa9, 0x00, 0x8d, 0xd6, 0x06, 0x4c, 0x5f, 0xaa };
             for (int i = 0; i < speedText.Length; i++)
                 romData[0x3bfcd + i] = speedText[i];
+        }
+
+        public void noOrbs(ref byte[] romData, out bool noLamia)
+        {
+            // Allows getting Lamia without orbs
+
+            romData[0x3794b] = 0xea;
+            romData[0x3794c] = 0xea;
+            noLamia = true;
         }
 
         public void speedUpMenus(ref byte[] romData)

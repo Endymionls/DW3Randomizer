@@ -87,7 +87,12 @@
   <ItemGroup>
     <Compile Include="classes\bugFixes.cs" />
     <Compile Include="classes\flagscalc.cs" />
+    <Compile Include="classes\maps.cs" />
+    <Compile Include="classes\monsters.cs" />
     <Compile Include="classes\optimizations.cs" />
+    <Compile Include="classes\partyAndJobChange.cs" />
+    <Compile Include="classes\randomizerTools.cs" />
+    <Compile Include="classes\romtools.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

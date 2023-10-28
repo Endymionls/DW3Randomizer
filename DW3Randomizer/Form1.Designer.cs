@@ -50,6 +50,7 @@ namespace DW3Randomizer
             this.lblIntensityDesc = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.grp_RandStats = new System.Windows.Forms.GroupBox();
             this.rad_RandStatsRand = new System.Windows.Forms.RadioButton();
             this.rad_RandStatsLud = new System.Windows.Forms.RadioButton();
@@ -157,7 +158,7 @@ namespace DW3Randomizer
             this.rad_RmManipOff = new System.Windows.Forms.RadioButton();
             this.grp_SpeedUpMenus = new System.Windows.Forms.GroupBox();
             this.rad_SpeedUpMenuRand = new System.Windows.Forms.RadioButton();
-            this.rad_SpeedUpMenusOn = new System.Windows.Forms.RadioButton();
+            this.rad_SpeedUpMenuOn = new System.Windows.Forms.RadioButton();
             this.rad_SpeedUpMenuOff = new System.Windows.Forms.RadioButton();
             this.grp_SpeedUpText = new System.Windows.Forms.GroupBox();
             this.rad_SpeedTextRand = new System.Windows.Forms.RadioButton();
@@ -516,7 +517,6 @@ namespace DW3Randomizer
             this.lblHash = new System.Windows.Forms.Label();
             this.txtSeed = new System.Windows.Forms.TextBox();
             this.btn_chksumHash = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.grp_RandStats.SuspendLayout();
@@ -837,6 +837,17 @@ namespace DW3Randomizer
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Adjustments";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(512, 593);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(113, 24);
+            this.checkBox1.TabIndex = 601;
+            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.ThreeState = true;
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // grp_RandStats
             // 
@@ -2171,7 +2182,7 @@ namespace DW3Randomizer
             // grp_SpeedUpMenus
             // 
             this.grp_SpeedUpMenus.Controls.Add(this.rad_SpeedUpMenuRand);
-            this.grp_SpeedUpMenus.Controls.Add(this.rad_SpeedUpMenusOn);
+            this.grp_SpeedUpMenus.Controls.Add(this.rad_SpeedUpMenuOn);
             this.grp_SpeedUpMenus.Controls.Add(this.rad_SpeedUpMenuOff);
             this.grp_SpeedUpMenus.Location = new System.Drawing.Point(6, 360);
             this.grp_SpeedUpMenus.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -2195,17 +2206,17 @@ namespace DW3Randomizer
             this.rad_SpeedUpMenuRand.UseVisualStyleBackColor = true;
             this.rad_SpeedUpMenuRand.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
-            // rad_SpeedUpMenusOn
+            // rad_SpeedUpMenuOn
             // 
-            this.rad_SpeedUpMenusOn.AutoSize = true;
-            this.rad_SpeedUpMenusOn.Location = new System.Drawing.Point(76, 26);
-            this.rad_SpeedUpMenusOn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.rad_SpeedUpMenusOn.Name = "rad_SpeedUpMenusOn";
-            this.rad_SpeedUpMenusOn.Size = new System.Drawing.Size(55, 24);
-            this.rad_SpeedUpMenusOn.TabIndex = 1;
-            this.rad_SpeedUpMenusOn.Text = "On";
-            this.rad_SpeedUpMenusOn.UseVisualStyleBackColor = true;
-            this.rad_SpeedUpMenusOn.CheckedChanged += new System.EventHandler(this.determineFlags);
+            this.rad_SpeedUpMenuOn.AutoSize = true;
+            this.rad_SpeedUpMenuOn.Location = new System.Drawing.Point(76, 26);
+            this.rad_SpeedUpMenuOn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.rad_SpeedUpMenuOn.Name = "rad_SpeedUpMenuOn";
+            this.rad_SpeedUpMenuOn.Size = new System.Drawing.Size(55, 24);
+            this.rad_SpeedUpMenuOn.TabIndex = 1;
+            this.rad_SpeedUpMenuOn.Text = "On";
+            this.rad_SpeedUpMenuOn.UseVisualStyleBackColor = true;
+            this.rad_SpeedUpMenuOn.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // rad_SpeedUpMenuOff
             // 
@@ -6643,17 +6654,6 @@ namespace DW3Randomizer
             this.btn_chksumHash.UseVisualStyleBackColor = true;
             this.btn_chksumHash.Click += new System.EventHandler(this.btn_chksumHash_Click);
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(512, 593);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(113, 24);
-            this.checkBox1.TabIndex = 601;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.ThreeState = true;
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -6981,7 +6981,7 @@ namespace DW3Randomizer
         private System.Windows.Forms.RadioButton rad_SpeedTextOff;
         private System.Windows.Forms.GroupBox grp_SpeedUpMenus;
         private System.Windows.Forms.RadioButton rad_SpeedUpMenuRand;
-        private System.Windows.Forms.RadioButton rad_SpeedUpMenusOn;
+        private System.Windows.Forms.RadioButton rad_SpeedUpMenuOn;
         private System.Windows.Forms.RadioButton rad_SpeedUpMenuOff;
         private System.Windows.Forms.GroupBox grp_RandStartGold;
         private System.Windows.Forms.GroupBox grp_RmManips;
