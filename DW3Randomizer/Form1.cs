@@ -27,9 +27,9 @@ namespace DW3Randomizer
     public partial class Form1 : Form
     {
 
-        readonly string versionNumber = "2.5.4.1";
-        readonly string revisionDate = "10/28/2023";
-        readonly int buildnumber = 276; // build starting 8/18/23
+        readonly string versionNumber = "2.5.4.2";
+        readonly string revisionDate = "10/30/2023";
+        readonly int buildnumber = 277; // build starting 8/18/23
         readonly string SotWFlags = "A-QLINNDAKMBG-NB-NNABA-EMDB-NNNMNNNB-A-E-N";
         readonly string TradSotWFlags = "A-QLINNDAKMAG-JB-NAABA-BMAB-NNNMNNNB-A-B-D";
         readonly string jffFlags = "A-QLINNNBNNEG-NN-NNNNB-NNNE-NNNMNNNB-E-E-N";
@@ -115,7 +115,7 @@ namespace DW3Randomizer
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            txtSeed.Text = (DateTime.Now.Ticks % 2147483647).ToString();
+            txtSeed.Text = (DateTime.Now.Ticks % 9223372036854775807).ToString();
             string shortVersion = versionNumber.Replace(".", "");
 
             try
@@ -237,7 +237,7 @@ namespace DW3Randomizer
 
         private void btnNewSeed_Click(object sender, EventArgs e)
         {
-            txtSeed.Text = (DateTime.Now.Ticks % 2147483647).ToString();
+            txtSeed.Text = (DateTime.Now.Ticks % 9223372036854775807).ToString();
         }
 
         private void btnRandomize_Click(object sender, EventArgs e)
@@ -284,7 +284,7 @@ namespace DW3Randomizer
             {
                 try
                 {
-                    Random testSeed = new Random(int.Parse(txtSeed.Text));
+                    Random testSeed = new Random((int)long.Parse(txtSeed.Text));
                 }
                 catch
                 {
@@ -559,17 +559,16 @@ namespace DW3Randomizer
             int itemWeaponShopsInnsTab3 = 37 * ((rad_SilverHarpOn.Checked ? 1 : (rad_SilverHarpRand.Checked ? 2 : 0)) + (rad_RingOfLifeOn.Checked ? 4 : (rad_RingOfLifeRand.Checked ? 8 : 0)) +
                 (rad_ShoesOfHappinessOn.Checked ? 16 : (rad_ShoesOfHappinessRand.Checked ? 32 : 0)) + (rad_LampOfDarknessOn.Checked ? 64 : (rad_LampOfDarknessRand.Checked ? 128 : 0)));
 
-            int fixesTab = 31 * ((rad_RmParryBugOn.Checked ? 1 : (rad_RmParryBugRand.Checked ? 2 : 0)) + (rad_FixHeroSpellOn.Checked ? 4 : (rad_FixHeroSpellRand.Checked ? 8 : 0)));
+            int fixesTab = 39 * ((rad_RmParryBugOn.Checked ? 1 : (rad_RmParryBugRand.Checked ? 2 : 0)) + (rad_FixHeroSpellOn.Checked ? 4 : (rad_FixHeroSpellRand.Checked ? 8 : 0)));
 
-            int cosmeticTab = 37 * ((rad_LevelUpTxtOn.Checked ? 1 : (rad_LevelUpTxtRand.Checked ? 2 : 0)) + (rad_RandHeroAgeOn.Checked ? 4 : (rad_RandHeroAgeRand.Checked ? 8 : 0)) +
+            int cosmeticTab = 41 * ((rad_LevelUpTxtOn.Checked ? 1 : (rad_LevelUpTxtRand.Checked ? 2 : 0)) + (rad_RandHeroAgeOn.Checked ? 4 : (rad_RandHeroAgeRand.Checked ? 8 : 0)) +
                 (rad_GhostToCasketOn.Checked ? 16 : (rad_GhostToCasketRand.Checked ? 32 : 0)));
 
-            int values = 41 * ((int)romData[0x3d126] + (2 * (int)romData[0x123b1 + 10]) + (4 * (int)romData[0x134f9]) + (8 * (int)romData[0x2a15]) +
-                (16 * (int)romData[0x2a54]) + (32 * (int)romData[0x281b + 10]) + (64 * (int)romData[0x281b + 11]) + (128 * (int)romData[0x367c1 + 10]) +
-                (256 * (int)romData[0x36862]) + (512 * (int)romData[0x368e2]) + (1024 * (int)romData[0x1147 + 10]) + (2048 * (int)romData[0x279a0]) +
-                (4096 * (int)romData[0x11be + 10]) + (8192 * (int)romData[0x2925a]) + (16384 * (int)romData[0x2922b]) + (32768 * (int)romData[0x292c2]) +
-                (65536 * (int)romData[0x2914f]) + (131072 * (int)romData[0x32e3 + (230)]) + (262144 * (int)romData[0x32e3 + 480]) + (524288 * (int)romData[0x32e3 + 10])) +
-                (1048576 * (int)romData[0x1ef20]);
+            int values = 43 * (romData[0x2914f] + (2 * romData[0x134b1]) + (4 * romData[0x330fc]) + (8 * romData[0x279a0 + 3]) + (16 * romData[0x32e3]) + (32 * romData[0x32e3 + (10 * 23) + 9]) +
+                (64 * romData[0x2922b])); 
+
+            // Starting Gold + First Spell Strength + Shoes Effect Strength + 3rd Weapon Strength + Monster level 1 + Monster 10 Item Dropped +
+            // Final Key Shrine Item
 
             int hashNumber = adjustmentTab + adjustmentTab2 + adjustmentTab3 + adjustmentTab4 + mapTab1 + mapTab2 + monstersTab + treasureEquipmentTab1 + treasureEquipmentTab2 +
                 itemWeaponShopsInnsTab1 + itemWeaponShopsInnsTab2 + itemWeaponShopsInnsTab3 + fixesTab + cosmeticTab + values;

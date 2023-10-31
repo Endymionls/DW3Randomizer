@@ -156,7 +156,7 @@ namespace DW3Randomizer.classes
 
         public void randomizeGender(string txtSeed, ref int Gender1, ref int Gender2, ref int Gender3, bool Gender1Rand, bool Gender2Rand, bool Gender3Rand)
         {
-            Random r2 = new Random(int.Parse(txtSeed));
+            Random r2 = new Random((int)long.Parse(txtSeed));
             int g1 = r2.Next() % 2;
             int g2 = r2.Next() % 2;
             int g3 = r2.Next() % 2;
