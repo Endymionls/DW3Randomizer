@@ -53,20 +53,18 @@ namespace DW3Randomizer
 
         }
 
-        public void randsagestone(ref byte[] romData, ref Random r1, bool HUAStoneOn, bool HUAStoneRand)
+        public void randsagestone(ref byte[] romData, ref Random r1, int HUAStone)
         {
-            int HUAStone = r1.Next() % 2;
+            int HUAStoneRandom = r1.Next() % 2;
             int HUAStoneChance = r1.Next() % 12;
-            if (HUAStoneOn || (HUAStoneRand && HUAStone == 1))
-                romData[0x13293] = 0x1f;
-            else if (HUAStoneChance == 10)
+            if (HUAStone == 1 || (HUAStone == 2 && HUAStoneRandom == 1) || HUAStoneChance == 10)
                 romData[0x13293] = 0x1f;
         }
 
-        public void randshoes(ref byte[] romData, ref Random r1, bool BigOn, bool BigRand)
+        public void randshoes(ref byte[] romData, ref Random r1, int BigSoHRoL)
         {
             int BigEffect = r1.Next() % 2;
-            if (BigOn || (BigRand && BigEffect == 1)) // Shoes will give 11-255 exp per step
+            if (BigSoHRoL == 1 || (BigSoHRoL == 2 && BigEffect == 1)) // Shoes will give 11-255 exp per step
                 romData[0x330fc] = (byte)((r1.Next() % 245) + 11);
             else // Shoes will give 0-10 exp per step
                 romData[0x330fc] = (byte)((r1.Next() % 10) + 1);

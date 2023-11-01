@@ -420,6 +420,22 @@ namespace DW3Randomizer.classes
 
         }
 
+        public int GetCheckboxValue (CheckBox checkbox)
+        {
+
+            switch (checkbox.CheckState)
+            {
+                case CheckState.Unchecked: 
+                    return 0;
+                case CheckState.Checked: 
+                    return 1;
+                case CheckState.Indeterminate:
+                    return 2;
+                default:
+                    throw new InvalidOperationException("Invalid checkbox state");
+            }
+        }
+
         public int[] inverted_power_curve(int min, int max, int arraySize, double powToUse, ref Random r1)
         {
             int range = max - min;
