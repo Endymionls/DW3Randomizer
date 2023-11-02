@@ -735,9 +735,8 @@ namespace DW3Randomizer.classes
         }
 
         public void randomizeMapv5(ref byte[] romData, ref Random r1, ref bool randMap, ref int[,] map, ref int[,] map2, ref int[,] island, ref int[,] island2, ref int[,] zone, ref int[] maxIsland, ref List<int> islands,
-            ref int[,] maplocs, ref bool disAlefgardGlitch, bool debugmode, string versionNumber, string txtFileName, string txtSeed, string txtFlags, bool smallMap, bool GenIslandsMonstersZones, bool RandTownsOn, bool RandTownsRand, bool RandCavesOn, 
-            bool RandCavesRand, bool RandShrinesOn, bool RandShrinesRand, bool BaramosCastOn, bool BaramosCastRand, bool DisAlefGlitchOn, bool DisAlefGlitchRand, bool CharlockOn, bool CharlockRand, bool LancelCaveOn, bool LancelCaveRand,
-            bool DrgQnCastOn, bool DrgQnCastRand, bool CaveOfNecroOn, bool CaveOfNecroRand, bool NoNewTownOn, bool NoNewTownRand)
+            ref int[,] maplocs, ref bool disAlefgardGlitch, bool debugmode, string versionNumber, string txtFileName, string txtSeed, string txtFlags, bool smallMap, bool GenIslandsMonstersZones, int RandTowns, int RandCaves,
+            int RandShrines, int BaramosCast, int DisAlefGlitch, int Charlock, int LancelCave, int DrgQnCast, int CaveOfNecro, int NoNewTown)
         {
             string shortVersion = versionNumber.Replace(".", "");
             if (debugmode)
@@ -1092,13 +1091,13 @@ namespace DW3Randomizer.classes
             bool caveRando = false;
             bool townRando = false;
 
-            if (RandShrinesOn || ((r1.Next() % 2 == 1) && RandShrinesRand))
+            if (RandShrines == 1 || ((r1.Next() % 2 == 1) && RandShrines == 2))
                 shrineRando = true;
 
-            if (RandCavesOn || ((r1.Next() % 2 == 1) && RandCavesRand))
+            if (RandCaves == 1 || ((r1.Next() % 2 == 1) && RandCaves == 2))
                 caveRando = true;
 
-            if (RandTownsOn || ((r1.Next() % 2 == 1) && RandTownsRand))
+            if (RandTowns == 1 || ((r1.Next() % 2 == 1) && RandTowns == 2))
                 townRando = true;
 
             if (shrineRando)
@@ -1712,9 +1711,9 @@ namespace DW3Randomizer.classes
                                     if (checkRandoMap(ref maplocs, y, x, maxY, maxX))
                                     {
                                         bool rmMount = false;
-                                        if (BaramosCastOn || ((r1.Next() % 2 == 1) && BaramosCastRand))
+                                        if (BaramosCast == 1 || ((r1.Next() % 2 == 1) && BaramosCast == 2))
                                             rmMount = true;
-                                        if (DisAlefGlitchOn || ((r1.Next() % 2 == 1) && DisAlefGlitchRand))
+                                        if (DisAlefGlitch == 1 || ((r1.Next() % 2 == 1) && DisAlefGlitch == 2))
                                             disAlefgardGlitch = true;
                                         if (disAlefgardGlitch)
                                         {
@@ -1862,7 +1861,7 @@ namespace DW3Randomizer.classes
                             if (charlockLegal)
                             {
                                 bool landBridge = false;
-                                if (CharlockOn || ((r1.Next() % 2 == 1) && CharlockRand))
+                                if (Charlock == 1 || ((r1.Next() % 2 == 1) && Charlock == 2))
                                     landBridge = true;
                                 charlockX = x;
                                 charlockY = y;
@@ -2059,7 +2058,7 @@ namespace DW3Randomizer.classes
                                 if (checkRandoMap(ref maplocs, y, x, maxY, maxX))
                                 {
                                     bool rmMount = false;
-                                    if (LancelCaveOn || ((r1.Next() % 2 == 1) && LancelCaveRand))
+                                    if (LancelCave == 1 || ((r1.Next() % 2 == 1) && LancelCave == 2))
                                         rmMount = true;
                                     for (int lnJ = 0; lnJ < maxX; lnJ++)
                                     {
@@ -2181,7 +2180,7 @@ namespace DW3Randomizer.classes
                                 if (checkRandoMap(ref maplocs, y, x, maxY, maxX))
                                 {
                                     bool rmMount = false;
-                                    if (DrgQnCastOn || ((r1.Next() % 2 == 1) && DrgQnCastRand))
+                                    if (DrgQnCast == 1 || ((r1.Next() % 2 == 1) && DrgQnCast == 2))
                                         rmMount = true;
                                     if (rmMount)
                                     {
@@ -2259,7 +2258,7 @@ namespace DW3Randomizer.classes
                                 if (checkRandoMap(ref maplocs, y, x, maxY, maxX))
                                 {
                                     bool rmMount = false;
-                                    if (CaveOfNecroOn || ((r1.Next() % 2 == 1) && CaveOfNecroRand))
+                                    if (CaveOfNecro == 1 || ((r1.Next() % 2 == 1) && CaveOfNecro == 2))
                                         rmMount = true;
                                     for (int lnJ = x; lnJ < x + maxX; lnJ++)
                                         for (int lnK = y; lnK < y + maxY; lnK++)
@@ -2603,7 +2602,7 @@ namespace DW3Randomizer.classes
                             maxY = 3;
 
                             bool remNewTown = false;
-                            if (NoNewTownOn || ((r1.Next() % 2 == 0) && NoNewTownRand))
+                            if (NoNewTown == 1 || ((r1.Next() % 2 == 0) && NoNewTown == 2))
                                 remNewTown = true;
 
                             if (remNewTown == false)

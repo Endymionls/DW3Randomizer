@@ -8,7 +8,7 @@ namespace DW3Randomizer.classes
 {
     public class monsters
     {
-        public void randEnemyPatterns(ref byte[] romData, ref Random r1, bool RmMetalRunOn, bool RmMetalRunRand)
+        public void randEnemyPatterns(ref byte[] romData, ref Random r1, int RmMetal)
         {
             byte[] monsterSize = { 8, 4, 4, 4, 4, 4, 7, 4, 4, 8, 4, 4, 4, 2, 4, 4,
                 4, 4, 5, 5, 2, 4, 4, 5, 4, 4, 4, 4, 4, 4, 3, 2,
@@ -220,10 +220,10 @@ namespace DW3Randomizer.classes
 
                 if (lnI == 0x31 || lnI == 0x6c) // Metal slime, Metal Babble
                 {
-                    bool rmMetalRun = false;
-                    if (RmMetalRunOn || ((r1.Next() % 2 == 1) && RmMetalRunRand))
-                        rmMetalRun = true;
-                    if (rmMetalRun)
+                    bool rmMetalRunBool = false;
+                    if (RmMetal == 1|| ((r1.Next() % 2 == 1) && RmMetal == 2))
+                        rmMetalRunBool = true;
+                    if (rmMetalRunBool)
                     {
                         enemyPatterns[0] = 7; // run away
                         enemyPatterns[1] = 7; // run away
