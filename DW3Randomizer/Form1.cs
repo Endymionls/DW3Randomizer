@@ -29,7 +29,7 @@ namespace DW3Randomizer
 
         readonly string versionNumber = "2.5.4.2";
         readonly string revisionDate = "10/30/2023";
-        readonly int buildnumber = 278; // build starting 8/18/23
+        readonly int buildnumber = 279; // build starting 8/18/23
         readonly string SotWFlags = "A-QLINNDAKMBG-NB-NNABA-EMDB-NNNMNNNB-A-E-N";
         readonly string TradSotWFlags = "A-QLINNDAKMAG-JB-NAABA-BMAB-NNNMNNNB-A-B-D";
         readonly string jffFlags = "A-QLINNNBNNEG-NN-NNNNB-NNNE-NNNMNNNB-E-E-N";
@@ -530,7 +530,7 @@ namespace DW3Randomizer
                 (randomizerTools.GetCheckboxValue(tchk_IncBatSpeed) == 0 ? 4096 : randomizerTools.GetCheckboxValue(tchk_IncBatSpeed) == 1 ? 8192 : 16384) +
                 (randomizerTools.GetCheckboxValue(tchk_SpeedUpText) == 0 ? 32768 : randomizerTools.GetCheckboxValue(tchk_SpeedUpText) == 1 ? 65536 : 131072));
 
-            int adjustmentTab5 =
+            int adjustmentTab5 = 11 *
                 ((randomizerTools.GetCheckboxValue(tchk_InvisNPC) == 0 ? 1 : randomizerTools.GetCheckboxValue(tchk_InvisNPC) == 1 ? 2 : 4) +
                 (randomizerTools.GetCheckboxValue(tchk_SagesStone) == 0 ? 8 : randomizerTools.GetCheckboxValue(tchk_SagesStone) == 1 ? 16 : 32) +
                 (randomizerTools.GetCheckboxValue(tchk_HUAStone) == 0 ? 64 : randomizerTools.GetCheckboxValue(tchk_HUAStone) == 1 ? 128 : 256) +
@@ -538,48 +538,58 @@ namespace DW3Randomizer
                 (randomizerTools.GetCheckboxValue(tchk_BigSoHRoL) == 0 ? 4096 : randomizerTools.GetCheckboxValue(tchk_BigSoHRoL) == 1 ? 8192 : 16384) +
                 (randomizerTools.GetCheckboxValue(tchk_InvisShipBird) == 0 ? 32768 : randomizerTools.GetCheckboxValue(tchk_InvisShipBird) == 1 ? 65536 : 131072));
 
-            int mapTab1 = 11 * ((rad_RandMapsOn.Checked ? 1 : (rad_RandMapsRand.Checked ? 2 : 0)) + (rad_SmallMapOn.Checked ? 4 : (rad_SmallMapRand.Checked ? 8 : 0)) +
-                (rad_RandMonstZoneOn.Checked ? 16 : (rad_RandMonstZoneRand.Checked ? 32 : 0)) + (rad_RandTownsOn.Checked ? 64 : (rad_RandTownsRand.Checked ? 128 : 0)) +
-                (rad_RandCavesOn.Checked ? 256 : (rad_RandCavesRand.Checked ? 512 : 0)) + (rad_RandShrinesOn.Checked ? 1024 : (rad_RandShrinesRand.Checked ? 2048 : 0)) +
-                (rad_LancelCaveOn.Checked ? 4096 : (rad_LancelCaveRand.Checked ? 8192 : 0)) + (rad_CaveOfNecroOn.Checked ? 16834 : (rad_CaveOfNecroRand.Checked ? 32768 : 0)));
-
-            int mapTab2 = 13 * ((rad_BaramosCastOn.Checked ? 1 : (rad_BaramosCastRand.Checked ? 2 : 0)) + (rad_DrgQnCastOn.Checked ? 4 : (rad_DrgQnCastRand.Checked ? 8 : 0)) +
+            int mapTab1 = 13 *
+                ((randomizerTools.GetCheckboxValue(tchk_RandMaps) == 0 ? 1 : randomizerTools.GetCheckboxValue(tchk_RandMaps) == 1 ? 2 : 4) +
+                (randomizerTools.GetCheckboxValue(tchk_SmallMaps) == 0 ? 8 : randomizerTools.GetCheckboxValue(tchk_SmallMaps) == 1 ? 16 : 32) +
+                (randomizerTools.GetCheckboxValue(tchk_RandMonstZones) == 0 ? 64 : randomizerTools.GetCheckboxValue(tchk_RandMonstZones) == 1 ? 128 : 256) +
+                (randomizerTools.GetCheckboxValue(tchk_RandTowns) == 0 ? 512 : randomizerTools.GetCheckboxValue(tchk_RandTowns) == 1 ? 1024 : 2048) +
+                (randomizerTools.GetCheckboxValue(tchk_RandCaveTower) == 0 ? 4096 : randomizerTools.GetCheckboxValue(tchk_RandCaveTower) == 1 ? 8192 : 16384) +
+                (randomizerTools.GetCheckboxValue(tchk_RandShrines) == 0 ? 32768 : randomizerTools.GetCheckboxValue(tchk_RandShrines) == 1 ? 65536 : 131072));
+                
+                
+            int mapTab2 = 17 * (
+                (randomizerTools.GetCheckboxValue(tchk_RmMountLancel) == 0 ? 1 : randomizerTools.GetCheckboxValue(tchk_RmMountLancel) == 1 ? 2 : 4) +
+                (randomizerTools.GetCheckboxValue(tchk_RmMountNecro) == 0 ? 8 : randomizerTools.GetCheckboxValue(tchk_RmMountNecro) == 1 ? 16 : 32) +
+                (randomizerTools.GetCheckboxValue(tchk_RmMountBaramos) == 0 ? 64 : randomizerTools.GetCheckboxValue(tchk_RmMountBaramos) == 1 ? 128 : 256) +
+                (rad_DrgQnCastOn.Checked ? 4 : (rad_DrgQnCastRand.Checked ? 8 : 0)) +
                 (rad_DisAlefGlitchOn.Checked ? 16 : (rad_DisAlefGlitchRand.Checked ? 32 : 0)) + (rad_CharlockOn.Checked ? 64 : (rad_CharlockRand.Checked ? 128 : 0)) +
-                (rad_NoNewTownOn.Checked ? 256 : (rad_NoNewTownRand.Checked ? 512 : 0)));
+                (rad_NoNewTownOn.Checked ? 256 : (rad_NoNewTownRand.Checked ? 512 : 0))
+                );
 
-            int monstersTab = 17 * ((rad_RandExpOn.Checked ? 1 : (rad_RandExpRand.Checked ? 2 : 0)) + (rad_RandGoldOn.Checked ? 4 : (rad_RandGoldRand.Checked ? 8 : 0)) +
+
+            int monstersTab = 19 * ((rad_RandExpOn.Checked ? 1 : (rad_RandExpRand.Checked ? 2 : 0)) + (rad_RandGoldOn.Checked ? 4 : (rad_RandGoldRand.Checked ? 8 : 0)) +
                 (rad_RandDropOn.Checked ? 16 : (rad_RandDropRand.Checked ? 32 : 0)) + (rad_RandEnePatOn.Checked ? 64 : (rad_RandEnePatRand.Checked ? 128 : 0)) +
                 (rad_RmDupDropOn.Checked ? 256 : (rad_RmDupDropRand.Checked ? 512 : 0)) + (rad_RmMetalRunOn.Checked ? 1024 : (rad_RmMetalRunRand.Checked ? 2048 : 0)));
 
-            int treasureEquipmentTab1 = 19 * ((rad_RandTreasOn.Checked ? 1 : (rad_RandTreasRand.Checked ? 2 : 0)) + (rad_OrbDftOn.Checked ? 4 : (rad_OrbDftRand.Checked ? 8 : 0)) +
+            int treasureEquipmentTab1 = 23 * ((rad_RandTreasOn.Checked ? 1 : (rad_RandTreasRand.Checked ? 2 : 0)) + (rad_OrbDftOn.Checked ? 4 : (rad_OrbDftRand.Checked ? 8 : 0)) +
                 (rad_RmRedKeysOn.Checked ? 16 : (rad_RmRedKeysRand.Checked ? 32 : 0)) + (rad_AddGoldClawOn.Checked ? 64 : (rad_AddGoldClawRand.Checked ? 128 : 0)) +
                 (rad_RandEqPwrOn.Checked ? 256 : (rad_RandEqPwrRand.Checked ? 512 : 0)) + (rad_AdjEqPriceOn.Checked ? 1024 : (rad_AdjEqPriceRand.Checked ? 2048 : 0)) +
                 (rad_VanEqValOn.Checked ? 4096 : (rad_VanEqValRand.Checked ? 8192 : 0)) + (rad_AddRemakeOn.Checked ? 16384 : (rad_AddRemakeRand.Checked ? 32768 : 0)));
 
-            int treasureEquipmentTab2 = 23 * ((rad_RandClassEqOn.Checked ? 1 : (rad_RandClassEqRand.Checked ? 2 : 0)) + (rad_RmFightPenOn.Checked ? 4 : (rad_RmFightPenRand.Checked ? 8 : 0)) +
+            int treasureEquipmentTab2 = 29 * ((rad_RandClassEqOn.Checked ? 1 : (rad_RandClassEqRand.Checked ? 2 : 0)) + (rad_RmFightPenOn.Checked ? 4 : (rad_RmFightPenRand.Checked ? 8 : 0)) +
                 (rad_AdjStartEqOn.Checked ? 16 : (rad_AdjStartEqRand.Checked ? 32 : 0)) + (rad_RandItemEffOn.Checked ? 64 : (rad_RandItemEffRand.Checked ? 128 : 0)));
 
-            int itemWeaponShopsInnsTab1 = 29 * ((rad_RandInnOn.Checked ? 1 : (rad_RandInnRand.Checked ? 2 : 0)) + (rad_RandWeapShopOn.Checked ? 4 : (rad_RandWeapShopRand.Checked ? 8 : 0)) +
+            int itemWeaponShopsInnsTab1 = 31 * ((rad_RandInnOn.Checked ? 1 : (rad_RandInnRand.Checked ? 2 : 0)) + (rad_RandWeapShopOn.Checked ? 4 : (rad_RandWeapShopRand.Checked ? 8 : 0)) +
                 (rad_RandItemShopOn.Checked ? 16 : (rad_RandItemShopRand.Checked ? 32 : 0)) + (rad_SellUnsellableOn.Checked ? 64 : (rad_SellUnsellableRand.Checked ? 128 : 0)) +
                 (rad_CaturdayOn.Checked ? 256 : (rad_CaturdayRand.Checked ? 512 : 0)) + (rad_AcornsOn.Checked ? 1024 : (rad_AcornsRand.Checked ? 2048 : 0)) +
                 (rad_StrSeedOn.Checked ? 4096 : (rad_StrSeedRand.Checked ? 8192 : 0)) + (rad_AgiSeedOn.Checked ? 16384 : (rad_AgiSeedRand.Checked ? 32768 : 0)) +
                 (rad_IntSeedOn.Checked ? 65536 : (rad_IntSeedRand.Checked ? 131072 : 0)));
 
-            int itemWeaponShopsInnsTab2 = 31 * ((rad_VitSeedOn.Checked ? 1 : (rad_VitSeedRand.Checked ? 2 : 0)) + (rad_LucSeedOn.Checked ? 4 : (rad_LucSeedRand.Checked ? 8 : 0)) +
+            int itemWeaponShopsInnsTab2 = 37 * ((rad_VitSeedOn.Checked ? 1 : (rad_VitSeedRand.Checked ? 2 : 0)) + (rad_LucSeedOn.Checked ? 4 : (rad_LucSeedRand.Checked ? 8 : 0)) +
                 (rad_WorldTreeOn.Checked ? 16 : (rad_WorldTreeRand.Checked ? 32 : 0)) + (rad_PoisonMothOn.Checked ? 64 : (rad_PoisonMothRand.Checked ? 128 : 0)) +
                 (rad_StoneOfLifeOn.Checked ? 256 : (rad_StoneOfLifeRand.Checked ? 512 : 0)) + (rad_SatoriOn.Checked ? 1024 : (rad_SatoriRand.Checked ? 2048 : 0)) +
                 (rad_MetoriteArmbandOn.Checked ? 4096 : (rad_MetoriteArmbandRand.Checked ? 8192 : 0)) + (rad_WizardRingOn.Checked ? 16384 : (rad_WizardRingRand.Checked ? 32768 : 0)) +
                 (rad_EchoingFluteOn.Checked ? 65536 : (rad_EchoingFluteRand.Checked ? 131072 : 0)));
 
-            int itemWeaponShopsInnsTab3 = 37 * ((rad_SilverHarpOn.Checked ? 1 : (rad_SilverHarpRand.Checked ? 2 : 0)) + (rad_RingOfLifeOn.Checked ? 4 : (rad_RingOfLifeRand.Checked ? 8 : 0)) +
+            int itemWeaponShopsInnsTab3 = 43 * ((rad_SilverHarpOn.Checked ? 1 : (rad_SilverHarpRand.Checked ? 2 : 0)) + (rad_RingOfLifeOn.Checked ? 4 : (rad_RingOfLifeRand.Checked ? 8 : 0)) +
                 (rad_ShoesOfHappinessOn.Checked ? 16 : (rad_ShoesOfHappinessRand.Checked ? 32 : 0)) + (rad_LampOfDarknessOn.Checked ? 64 : (rad_LampOfDarknessRand.Checked ? 128 : 0)));
 
-            int fixesTab = 39 * ((rad_RmParryBugOn.Checked ? 1 : (rad_RmParryBugRand.Checked ? 2 : 0)) + (rad_FixHeroSpellOn.Checked ? 4 : (rad_FixHeroSpellRand.Checked ? 8 : 0)));
+            int fixesTab = 47 * ((rad_RmParryBugOn.Checked ? 1 : (rad_RmParryBugRand.Checked ? 2 : 0)) + (rad_FixHeroSpellOn.Checked ? 4 : (rad_FixHeroSpellRand.Checked ? 8 : 0)));
 
-            int cosmeticTab = 41 * ((rad_LevelUpTxtOn.Checked ? 1 : (rad_LevelUpTxtRand.Checked ? 2 : 0)) + (rad_RandHeroAgeOn.Checked ? 4 : (rad_RandHeroAgeRand.Checked ? 8 : 0)) +
+            int cosmeticTab = 51 * ((rad_LevelUpTxtOn.Checked ? 1 : (rad_LevelUpTxtRand.Checked ? 2 : 0)) + (rad_RandHeroAgeOn.Checked ? 4 : (rad_RandHeroAgeRand.Checked ? 8 : 0)) +
                 (rad_GhostToCasketOn.Checked ? 16 : (rad_GhostToCasketRand.Checked ? 32 : 0)));
 
-            int values = 43 * (romData[0x2914f] + (2 * romData[0x134b1]) + (4 * romData[0x330fc]) + (8 * romData[0x279a0 + 3]) + (16 * romData[0x32e3]) + (32 * romData[0x32e3 + (10 * 23) + 9]) +
+            int values = 53 * (romData[0x2914f] + (2 * romData[0x134b1]) + (4 * romData[0x330fc]) + (8 * romData[0x279a0 + 3]) + (16 * romData[0x32e3]) + (32 * romData[0x32e3 + (10 * 23) + 9]) +
                 (64 * romData[0x2922b])); 
 
             // Starting Gold + First Spell Strength + Shoes Effect Strength + 3rd Weapon Strength + Monster level 1 + Monster 10 Item Dropped +
@@ -1194,39 +1204,39 @@ namespace DW3Randomizer
             // Map
             number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(17, 1)));
             flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
-            if (bank1 == 0) rad_RandMapsOff.Checked = true;
-            else if (bank1 == 1) rad_RandMapsOn.Checked = true;
-            else if (bank1 == 2) rad_RandMapsRand.Checked = true;
-            if (bank2 == 0) rad_SmallMapOff.Checked = true;
-            else if (bank2 == 1) rad_SmallMapOn.Checked = true;
-            else if (bank2 == 2) rad_SmallMapRand.Checked = true;
-            if (bank3 == 0) rad_RandMonstZoneOff.Checked = true;
-            else if (bank3 == 1) rad_RandMonstZoneOn.Checked = true;
-            else if (bank3 == 2) rad_RandMonstZoneRand.Checked = true;
+            if (bank1 == 0) tchk_RandMaps.CheckState = CheckState.Unchecked;
+            else if (bank1 == 1) tchk_RandMaps.CheckState = CheckState.Checked;
+            else if (bank1 == 2) tchk_RandMaps.CheckState = CheckState.Indeterminate;
+            if (bank2 == 0) tchk_RandMaps.CheckState = CheckState.Unchecked;
+            else if (bank2 == 1) tchk_RandMaps.CheckState = CheckState.Checked;
+            else if (bank2 == 2) tchk_RandMaps.CheckState = CheckState.Indeterminate;
+            if (bank3 == 0) tchk_RandMonstZones.CheckState = CheckState.Unchecked;
+            else if (bank3 == 1) tchk_RandMonstZones.CheckState = CheckState.Checked;
+            else if (bank3 == 2) tchk_RandMonstZones.CheckState = CheckState.Indeterminate;
 
             number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(18, 1)));
             flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
-            if (bank1 == 0) rad_RandTownsOff.Checked = true;
-            else if (bank1 == 1) rad_RandTownsOn.Checked = true;
-            else if (bank1 == 2) rad_RandTownsRand.Checked = true;
-            if (bank2 == 0) rad_RandCavesOff.Checked = true;
-            else if (bank2 == 1) rad_RandCavesOn.Checked = true;
-            else if (bank2 == 2) rad_RandCavesRand.Checked = true;
-            if (bank3 == 0) rad_RandShrinesOff.Checked = true;
-            else if (bank3 == 1) rad_RandShrinesOn.Checked = true;
-            else if (bank3 == 2) rad_RandShrinesRand.Checked = true;
+            if (bank1 == 0) tchk_RandTowns.CheckState = CheckState.Unchecked;
+            else if (bank1 == 1) tchk_RandTowns.CheckState = CheckState.Checked;
+            else if (bank1 == 2) tchk_RandTowns.CheckState = CheckState.Indeterminate;
+            if (bank2 == 0) tchk_RandCaveTower.CheckState = CheckState.Unchecked;
+            else if (bank2 == 1) tchk_RandCaveTower.CheckState = CheckState.Checked;
+            else if (bank2 == 2) tchk_RandCaveTower.CheckState = CheckState.Indeterminate;
+            if (bank3 == 0) tchk_RandShrines.CheckState = CheckState.Unchecked;
+            else if (bank3 == 1) tchk_RandShrines.CheckState = CheckState.Checked;
+            else if (bank3 == 2) tchk_RandShrines.CheckState = CheckState.Indeterminate;
 
             number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(19, 1)));
             flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
-            if (bank1 == 0) rad_LancelCaveOff.Checked = true;
-            else if (bank1 == 1) rad_LancelCaveOn.Checked = true;
-            else if (bank1 == 2) rad_LancelCaveRand.Checked = true;
-            if (bank2 == 0) rad_CaveOfNecroOff.Checked = true;
-            else if (bank2 == 1) rad_CaveOfNecroOn.Checked = true;
-            else if (bank2 == 2) rad_CaveOfNecroRand.Checked = true;
-            if (bank3 == 0) rad_BaramosCastOff.Checked = true;
-            else if (bank3 == 1) rad_BaramosCastOn.Checked = true;
-            else if (bank3 == 2) rad_BaramosCastRand.Checked = true;
+            if (bank1 == 0) tchk_RmMountLancel.CheckState = CheckState.Unchecked;
+            else if (bank1 == 1) tchk_RmMountLancel.CheckState = CheckState.Checked;
+            else if (bank1 == 2) tchk_RmMountLancel.CheckState = CheckState.Indeterminate;
+            if (bank2 == 0) tchk_RmMountNecro.CheckState = CheckState.Unchecked;
+            else if (bank2 == 1) tchk_RmMountNecro.CheckState = CheckState.Checked;
+            else if (bank2 == 2) tchk_RmMountNecro.CheckState = CheckState.Indeterminate;
+            if (bank3 == 0) tchk_RmMountBaramos.CheckState = CheckState.Unchecked;
+            else if (bank3 == 1) tchk_RmMountBaramos.CheckState = CheckState.Checked;
+            else if (bank3 == 2) tchk_RmMountBaramos.CheckState = CheckState.Indeterminate;
 
             number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(20, 1)));
             flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
@@ -1547,21 +1557,21 @@ namespace DW3Randomizer
 
             // Map
             bank1 = bank2 = bank3 = 0;
-            bank1 = ((rad_RandMapsOff.Checked ? 0 : 0) + (rad_RandMapsOn.Checked ? 1 : 0) + (rad_RandMapsRand.Checked ? 2 : 0));
-            bank2 = ((rad_SmallMapOff.Checked ? 0 : 0) + (rad_SmallMapOn.Checked ? 4 : 0) + (rad_SmallMapRand.Checked ? 8 : 0));
-            bank3 = ((rad_RandMonstZoneOff.Checked ? 0 : 0) + ((rad_RandMonstZoneOn.Checked ? 16 : 0) + (rad_RandMonstZoneRand.Checked ? 32 : 0)));
+            bank1 = randomizerTools.GetCheckboxValue(tchk_RandMaps);
+            bank2 = 4 * randomizerTools.GetCheckboxValue(tchk_RandMaps);
+            bank3 = 16 * randomizerTools.GetCheckboxValue(tchk_RandMonstZones);
             flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 17
 
             bank1 = bank2 = bank3 = 0;
-            bank1 = ((rad_RandTownsOff.Checked ? 0 : 0) + (rad_RandTownsOn.Checked ? 1 : 0) + (rad_RandTownsRand.Checked ? 2 : 0));
-            bank2 = ((rad_RandCavesOff.Checked ? 0 : 0) + (rad_RandCavesOn.Checked ? 4 : 0) + (rad_RandCavesRand.Checked ? 8 : 0));
-            bank3 = ((rad_RandShrinesOff.Checked ? 0 : 0) + (rad_RandShrinesOn.Checked ? 16 : 0) + (rad_RandShrinesRand.Checked ? 32 : 0));
+            bank1 = randomizerTools.GetCheckboxValue(tchk_RandTowns);
+            bank2 = 4 * randomizerTools.GetCheckboxValue(tchk_RandCaveTower);
+            bank3 = 16 * randomizerTools.GetCheckboxValue(tchk_RandShrines);
             flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 18
 
             bank1 = bank2 = bank3 = 0;
-            bank1 = ((rad_LancelCaveOff.Checked ? 0 : 0) + (rad_LancelCaveOn.Checked ? 1 : 0) + (rad_LancelCaveRand.Checked ? 2 : 0));
-            bank2 = ((rad_CaveOfNecroOff.Checked ? 0 : 0) + (rad_CaveOfNecroOn.Checked ? 4 : 0) + (rad_CaveOfNecroRand.Checked ? 8 : 0));
-            bank3 = ((rad_BaramosCastOff.Checked ? 0 : 0) + (rad_BaramosCastOn.Checked ? 16 : 0) + (rad_BaramosCastRand.Checked ? 32 : 0));
+            bank1 = randomizerTools.GetCheckboxValue(tchk_RmMountLancel);
+            bank2 = 4 * randomizerTools.GetCheckboxValue(tchk_RmMountNecro);
+            bank3 = 16 * randomizerTools.GetCheckboxValue(tchk_RmMountBaramos);
             flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 19
 
             bank1 = bank2 = bank3 = 0;
