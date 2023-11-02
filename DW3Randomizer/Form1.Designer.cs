@@ -129,56 +129,26 @@ namespace DW3Randomizer
             this.tchk_RandGold = new System.Windows.Forms.CheckBox();
             this.tchk_RandExp = new System.Windows.Forms.CheckBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.grp_RandItemEff = new System.Windows.Forms.GroupBox();
-            this.rad_RandItemEffRand = new System.Windows.Forms.RadioButton();
-            this.rad_RandItemEffOn = new System.Windows.Forms.RadioButton();
-            this.rad_RandItemEffOff = new System.Windows.Forms.RadioButton();
-            this.grp_AddRemake = new System.Windows.Forms.GroupBox();
-            this.rad_AddRemakeRand = new System.Windows.Forms.RadioButton();
-            this.rad_AddRemakeOn = new System.Windows.Forms.RadioButton();
-            this.rad_AddRemakeOff = new System.Windows.Forms.RadioButton();
-            this.grp_AdjStartEq = new System.Windows.Forms.GroupBox();
-            this.rad_AdjStartEqRand = new System.Windows.Forms.RadioButton();
-            this.rad_AdjStartEqOn = new System.Windows.Forms.RadioButton();
-            this.rad_AdjStartEqOff = new System.Windows.Forms.RadioButton();
-            this.grp_AddGoldClaw = new System.Windows.Forms.GroupBox();
-            this.rad_AddGoldClawRand = new System.Windows.Forms.RadioButton();
-            this.rad_AddGoldClawOn = new System.Windows.Forms.RadioButton();
-            this.rad_AddGoldClawOff = new System.Windows.Forms.RadioButton();
-            this.grp_RmFightPen = new System.Windows.Forms.GroupBox();
-            this.rad_RmFightPenRand = new System.Windows.Forms.RadioButton();
-            this.rad_RmFightPenOn = new System.Windows.Forms.RadioButton();
-            this.rad_RmFightPenOff = new System.Windows.Forms.RadioButton();
-            this.grp_VanEqVal = new System.Windows.Forms.GroupBox();
-            this.rad_VanEqValRand = new System.Windows.Forms.RadioButton();
-            this.rad_VanEqValOn = new System.Windows.Forms.RadioButton();
-            this.rad_VanEqValOff = new System.Windows.Forms.RadioButton();
-            this.grp_RandClassEq = new System.Windows.Forms.GroupBox();
-            this.rad_RandClassEqRand = new System.Windows.Forms.RadioButton();
-            this.rad_RandClassEqOn = new System.Windows.Forms.RadioButton();
-            this.rad_RandClassEqOff = new System.Windows.Forms.RadioButton();
-            this.grp_AdjEqPrice = new System.Windows.Forms.GroupBox();
-            this.rad_AdjEqPriceRand = new System.Windows.Forms.RadioButton();
-            this.rad_AdjEqPriceOn = new System.Windows.Forms.RadioButton();
-            this.rad_AdjEqPriceOff = new System.Windows.Forms.RadioButton();
-            this.grp_RmRedKeys = new System.Windows.Forms.GroupBox();
-            this.rad_RmRedKeysRand = new System.Windows.Forms.RadioButton();
-            this.rad_RmRedKeysOn = new System.Windows.Forms.RadioButton();
-            this.rad_RmRedKeysOff = new System.Windows.Forms.RadioButton();
-            this.grp_RandEqPwr = new System.Windows.Forms.GroupBox();
-            this.rad_RandEqPwrRand = new System.Windows.Forms.RadioButton();
-            this.rad_RandEqPwrOn = new System.Windows.Forms.RadioButton();
-            this.rad_RandEqPwrOff = new System.Windows.Forms.RadioButton();
-            this.grp_OrbDft = new System.Windows.Forms.GroupBox();
-            this.rad_OrbDftRand = new System.Windows.Forms.RadioButton();
-            this.rad_OrbDftOn = new System.Windows.Forms.RadioButton();
-            this.rad_OrbDftOff = new System.Windows.Forms.RadioButton();
-            this.grp_RandTreas = new System.Windows.Forms.GroupBox();
-            this.rad_RandTreasRand = new System.Windows.Forms.RadioButton();
-            this.rad_RandTreasOn = new System.Windows.Forms.RadioButton();
-            this.rad_RandTreasOff = new System.Windows.Forms.RadioButton();
+            this.tchk_RandItemEff = new System.Windows.Forms.CheckBox();
+            this.tchk_RmRedKey = new System.Windows.Forms.CheckBox();
+            this.tchk_GreenSilvOrb = new System.Windows.Forms.CheckBox();
+            this.tchk_AddGoldClaw = new System.Windows.Forms.CheckBox();
+            this.tchk_RandTreasures = new System.Windows.Forms.CheckBox();
+            this.tchk_AdjEqPrices = new System.Windows.Forms.CheckBox();
+            this.tchk_RandEqClass = new System.Windows.Forms.CheckBox();
+            this.tchk_RmFigherPen = new System.Windows.Forms.CheckBox();
+            this.tchk_RemStartCap = new System.Windows.Forms.CheckBox();
+            this.tchk_VanEqVals = new System.Windows.Forms.CheckBox();
+            this.tchk_RandEqPower = new System.Windows.Forms.CheckBox();
+            this.tchk_AddRemakeEq = new System.Windows.Forms.CheckBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.tchk_AnimalSuit = new System.Windows.Forms.CheckBox();
+            this.tchk_SellKeyItems = new System.Windows.Forms.CheckBox();
+            this.tchk_RandInnPrice = new System.Windows.Forms.CheckBox();
+            this.tchk_RandWeapShop = new System.Windows.Forms.CheckBox();
+            this.tchk_RandItemShop = new System.Windows.Forms.CheckBox();
             this.grp_AddToItemShop = new System.Windows.Forms.GroupBox();
+            this.tchk_AcornsOfLife = new System.Windows.Forms.CheckBox();
             this.grp_LampOfDarkness = new System.Windows.Forms.GroupBox();
             this.rad_LampOfDarknessRand = new System.Windows.Forms.RadioButton();
             this.rad_LampOfDarknessOn = new System.Windows.Forms.RadioButton();
@@ -243,30 +213,6 @@ namespace DW3Randomizer
             this.rad_StrSeedRand = new System.Windows.Forms.RadioButton();
             this.rad_StrSeedOn = new System.Windows.Forms.RadioButton();
             this.rad_StrSeedOff = new System.Windows.Forms.RadioButton();
-            this.grp_Acorns = new System.Windows.Forms.GroupBox();
-            this.rad_AcornsRand = new System.Windows.Forms.RadioButton();
-            this.rad_AcornsOn = new System.Windows.Forms.RadioButton();
-            this.rad_AcornsOff = new System.Windows.Forms.RadioButton();
-            this.grp_Caturday = new System.Windows.Forms.GroupBox();
-            this.rad_CaturdayRand = new System.Windows.Forms.RadioButton();
-            this.rad_CaturdayOn = new System.Windows.Forms.RadioButton();
-            this.rad_CaturdayOff = new System.Windows.Forms.RadioButton();
-            this.grp_SellUnsellable = new System.Windows.Forms.GroupBox();
-            this.rad_SellUnsellableRand = new System.Windows.Forms.RadioButton();
-            this.rad_SellUnsellableOn = new System.Windows.Forms.RadioButton();
-            this.rad_SellUnsellableOff = new System.Windows.Forms.RadioButton();
-            this.grp_RandItemShop = new System.Windows.Forms.GroupBox();
-            this.rad_RandItemShopRand = new System.Windows.Forms.RadioButton();
-            this.rad_RandItemShopOn = new System.Windows.Forms.RadioButton();
-            this.rad_RandItemShopOff = new System.Windows.Forms.RadioButton();
-            this.grp_RandWeapShop = new System.Windows.Forms.GroupBox();
-            this.rad_RandWeapShopRand = new System.Windows.Forms.RadioButton();
-            this.rad_RandWeapShopOn = new System.Windows.Forms.RadioButton();
-            this.rad_RandWeapShopOff = new System.Windows.Forms.RadioButton();
-            this.grp_RandInn = new System.Windows.Forms.GroupBox();
-            this.rad_RandInnRand = new System.Windows.Forms.RadioButton();
-            this.rad_RandInnOn = new System.Windows.Forms.RadioButton();
-            this.rad_RandInnOff = new System.Windows.Forms.RadioButton();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.grp_Class = new System.Windows.Forms.GroupBox();
             this.grp_ClassInclude = new System.Windows.Forms.GroupBox();
@@ -406,18 +352,6 @@ namespace DW3Randomizer
             this.tabPage8.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            this.grp_RandItemEff.SuspendLayout();
-            this.grp_AddRemake.SuspendLayout();
-            this.grp_AdjStartEq.SuspendLayout();
-            this.grp_AddGoldClaw.SuspendLayout();
-            this.grp_RmFightPen.SuspendLayout();
-            this.grp_VanEqVal.SuspendLayout();
-            this.grp_RandClassEq.SuspendLayout();
-            this.grp_AdjEqPrice.SuspendLayout();
-            this.grp_RmRedKeys.SuspendLayout();
-            this.grp_RandEqPwr.SuspendLayout();
-            this.grp_OrbDft.SuspendLayout();
-            this.grp_RandTreas.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.grp_AddToItemShop.SuspendLayout();
             this.grp_LampOfDarkness.SuspendLayout();
@@ -436,12 +370,6 @@ namespace DW3Randomizer
             this.grp_IntSeed.SuspendLayout();
             this.grp_AgiSeed.SuspendLayout();
             this.grp_StrSeed.SuspendLayout();
-            this.grp_Acorns.SuspendLayout();
-            this.grp_Caturday.SuspendLayout();
-            this.grp_SellUnsellable.SuspendLayout();
-            this.grp_RandItemShop.SuspendLayout();
-            this.grp_RandWeapShop.SuspendLayout();
-            this.grp_RandInn.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.grp_Class.SuspendLayout();
             this.grp_ClassInclude.SuspendLayout();
@@ -1713,18 +1641,18 @@ namespace DW3Randomizer
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.grp_RandItemEff);
-            this.tabPage4.Controls.Add(this.grp_AddRemake);
-            this.tabPage4.Controls.Add(this.grp_AdjStartEq);
-            this.tabPage4.Controls.Add(this.grp_AddGoldClaw);
-            this.tabPage4.Controls.Add(this.grp_RmFightPen);
-            this.tabPage4.Controls.Add(this.grp_VanEqVal);
-            this.tabPage4.Controls.Add(this.grp_RandClassEq);
-            this.tabPage4.Controls.Add(this.grp_AdjEqPrice);
-            this.tabPage4.Controls.Add(this.grp_RmRedKeys);
-            this.tabPage4.Controls.Add(this.grp_RandEqPwr);
-            this.tabPage4.Controls.Add(this.grp_OrbDft);
-            this.tabPage4.Controls.Add(this.grp_RandTreas);
+            this.tabPage4.Controls.Add(this.tchk_RandItemEff);
+            this.tabPage4.Controls.Add(this.tchk_RmRedKey);
+            this.tabPage4.Controls.Add(this.tchk_GreenSilvOrb);
+            this.tabPage4.Controls.Add(this.tchk_AddGoldClaw);
+            this.tabPage4.Controls.Add(this.tchk_RandTreasures);
+            this.tabPage4.Controls.Add(this.tchk_AdjEqPrices);
+            this.tabPage4.Controls.Add(this.tchk_RandEqClass);
+            this.tabPage4.Controls.Add(this.tchk_RmFigherPen);
+            this.tabPage4.Controls.Add(this.tchk_RemStartCap);
+            this.tabPage4.Controls.Add(this.tchk_VanEqVals);
+            this.tabPage4.Controls.Add(this.tchk_RandEqPower);
+            this.tabPage4.Controls.Add(this.tchk_AddRemakeEq);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
@@ -1733,651 +1661,176 @@ namespace DW3Randomizer
             this.tabPage4.Text = "Treasures & Equipment";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // grp_RandItemEff
+            // tchk_RandItemEff
             // 
-            this.grp_RandItemEff.Controls.Add(this.rad_RandItemEffRand);
-            this.grp_RandItemEff.Controls.Add(this.rad_RandItemEffOn);
-            this.grp_RandItemEff.Controls.Add(this.rad_RandItemEffOff);
-            this.grp_RandItemEff.Location = new System.Drawing.Point(510, 94);
-            this.grp_RandItemEff.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_RandItemEff.Name = "grp_RandItemEff";
-            this.grp_RandItemEff.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_RandItemEff.Size = new System.Drawing.Size(163, 41);
-            this.grp_RandItemEff.TabIndex = 141;
-            this.grp_RandItemEff.TabStop = false;
-            this.grp_RandItemEff.Text = "Randomize Item Effects";
-            this.adjustments.SetToolTip(this.grp_RandItemEff, "Randomizes the effect of items.");
-            this.grp_RandItemEff.Visible = false;
+            this.tchk_RandItemEff.AutoSize = true;
+            this.tchk_RandItemEff.Enabled = false;
+            this.tchk_RandItemEff.Location = new System.Drawing.Point(490, 7);
+            this.tchk_RandItemEff.Name = "tchk_RandItemEff";
+            this.tchk_RandItemEff.Size = new System.Drawing.Size(138, 17);
+            this.tchk_RandItemEff.TabIndex = 153;
+            this.tchk_RandItemEff.Text = "Randomize Item Effects";
+            this.tchk_RandItemEff.ThreeState = true;
+            this.adjustments.SetToolTip(this.tchk_RandItemEff, "Randomizes the effect of items.");
+            this.tchk_RandItemEff.UseVisualStyleBackColor = true;
+            this.tchk_RandItemEff.Visible = false;
+            this.tchk_RandItemEff.Click += new System.EventHandler(this.determineFlags);
             // 
-            // rad_RandItemEffRand
+            // tchk_RmRedKey
             // 
-            this.rad_RandItemEffRand.AutoSize = true;
-            this.rad_RandItemEffRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_RandItemEffRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RandItemEffRand.Name = "rad_RandItemEffRand";
-            this.rad_RandItemEffRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_RandItemEffRand.TabIndex = 2;
-            this.rad_RandItemEffRand.Text = "Random";
-            this.rad_RandItemEffRand.UseVisualStyleBackColor = true;
-            this.rad_RandItemEffRand.CheckedChanged += new System.EventHandler(this.determineFlags);
+            this.tchk_RmRedKey.AutoSize = true;
+            this.tchk_RmRedKey.Location = new System.Drawing.Point(225, 78);
+            this.tchk_RmRedKey.Name = "tchk_RmRedKey";
+            this.tchk_RmRedKey.Size = new System.Drawing.Size(240, 17);
+            this.tchk_RmRedKey.TabIndex = 152;
+            this.tchk_RmRedKey.Text = "Remove Redundant Keys from Treasure Pool";
+            this.tchk_RmRedKey.ThreeState = true;
+            this.adjustments.SetToolTip(this.tchk_RmRedKey, "Removes lower tier keys from areas if a higher tier one is found there.");
+            this.tchk_RmRedKey.UseVisualStyleBackColor = true;
+            this.tchk_RmRedKey.Click += new System.EventHandler(this.determineFlags);
             // 
-            // rad_RandItemEffOn
+            // tchk_GreenSilvOrb
             // 
-            this.rad_RandItemEffOn.AutoSize = true;
-            this.rad_RandItemEffOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_RandItemEffOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RandItemEffOn.Name = "rad_RandItemEffOn";
-            this.rad_RandItemEffOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_RandItemEffOn.TabIndex = 1;
-            this.rad_RandItemEffOn.Text = "On";
-            this.rad_RandItemEffOn.UseVisualStyleBackColor = true;
-            this.rad_RandItemEffOn.CheckedChanged += new System.EventHandler(this.determineFlags);
+            this.tchk_GreenSilvOrb.AutoSize = true;
+            this.tchk_GreenSilvOrb.Location = new System.Drawing.Point(225, 54);
+            this.tchk_GreenSilvOrb.Name = "tchk_GreenSilvOrb";
+            this.tchk_GreenSilvOrb.Size = new System.Drawing.Size(247, 17);
+            this.tchk_GreenSilvOrb.TabIndex = 151;
+            this.tchk_GreenSilvOrb.Text = "Green and Silver Orb Locations can have Orbs";
+            this.tchk_GreenSilvOrb.ThreeState = true;
+            this.adjustments.SetToolTip(this.tchk_GreenSilvOrb, "Allows Green and Silver Orbs to be found in their default locations.");
+            this.tchk_GreenSilvOrb.UseVisualStyleBackColor = true;
+            this.tchk_GreenSilvOrb.Click += new System.EventHandler(this.determineFlags);
             // 
-            // rad_RandItemEffOff
+            // tchk_AddGoldClaw
             // 
-            this.rad_RandItemEffOff.AutoSize = true;
-            this.rad_RandItemEffOff.Checked = true;
-            this.rad_RandItemEffOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_RandItemEffOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RandItemEffOff.Name = "rad_RandItemEffOff";
-            this.rad_RandItemEffOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_RandItemEffOff.TabIndex = 0;
-            this.rad_RandItemEffOff.TabStop = true;
-            this.rad_RandItemEffOff.Text = "Off";
-            this.rad_RandItemEffOff.UseVisualStyleBackColor = true;
-            this.rad_RandItemEffOff.CheckedChanged += new System.EventHandler(this.determineFlags);
+            this.tchk_AddGoldClaw.AutoSize = true;
+            this.tchk_AddGoldClaw.Location = new System.Drawing.Point(225, 31);
+            this.tchk_AddGoldClaw.Name = "tchk_AddGoldClaw";
+            this.tchk_AddGoldClaw.Size = new System.Drawing.Size(189, 17);
+            this.tchk_AddGoldClaw.TabIndex = 150;
+            this.tchk_AddGoldClaw.Text = "Add Golden Claw to Treasure Pool";
+            this.tchk_AddGoldClaw.ThreeState = true;
+            this.adjustments.SetToolTip(this.tchk_AddGoldClaw, "Add the Golden Claw to the Treasure Pool (1 will be put in a random chest).");
+            this.tchk_AddGoldClaw.UseVisualStyleBackColor = true;
+            this.tchk_AddGoldClaw.Click += new System.EventHandler(this.determineFlags);
             // 
-            // grp_AddRemake
+            // tchk_RandTreasures
             // 
-            this.grp_AddRemake.Controls.Add(this.rad_AddRemakeRand);
-            this.grp_AddRemake.Controls.Add(this.rad_AddRemakeOn);
-            this.grp_AddRemake.Controls.Add(this.rad_AddRemakeOff);
-            this.grp_AddRemake.Location = new System.Drawing.Point(510, 49);
-            this.grp_AddRemake.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_AddRemake.Name = "grp_AddRemake";
-            this.grp_AddRemake.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_AddRemake.Size = new System.Drawing.Size(163, 41);
-            this.grp_AddRemake.TabIndex = 137;
-            this.grp_AddRemake.TabStop = false;
-            this.grp_AddRemake.Text = "Add Remake Equipment";
-            this.adjustments.SetToolTip(this.grp_AddRemake, "Add equipment from remakes for Pilgrim, Merchant, and Fighter.");
+            this.tchk_RandTreasures.AutoSize = true;
+            this.tchk_RandTreasures.Location = new System.Drawing.Point(225, 7);
+            this.tchk_RandTreasures.Name = "tchk_RandTreasures";
+            this.tchk_RandTreasures.Size = new System.Drawing.Size(129, 17);
+            this.tchk_RandTreasures.TabIndex = 149;
+            this.tchk_RandTreasures.Text = "Randomize Treasures";
+            this.tchk_RandTreasures.ThreeState = true;
+            this.adjustments.SetToolTip(this.tchk_RandTreasures, "Randomizes treasures found in chests and on the ground.");
+            this.tchk_RandTreasures.UseVisualStyleBackColor = true;
+            this.tchk_RandTreasures.Click += new System.EventHandler(this.determineFlags);
             // 
-            // rad_AddRemakeRand
+            // tchk_AdjEqPrices
             // 
-            this.rad_AddRemakeRand.AutoSize = true;
-            this.rad_AddRemakeRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_AddRemakeRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_AddRemakeRand.Name = "rad_AddRemakeRand";
-            this.rad_AddRemakeRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_AddRemakeRand.TabIndex = 2;
-            this.rad_AddRemakeRand.Text = "Random";
-            this.rad_AddRemakeRand.UseVisualStyleBackColor = true;
-            this.rad_AddRemakeRand.CheckedChanged += new System.EventHandler(this.determineFlags);
+            this.tchk_AdjEqPrices.AutoSize = true;
+            this.tchk_AdjEqPrices.Location = new System.Drawing.Point(7, 150);
+            this.tchk_AdjEqPrices.Name = "tchk_AdjEqPrices";
+            this.tchk_AdjEqPrices.Size = new System.Drawing.Size(140, 17);
+            this.tchk_AdjEqPrices.TabIndex = 148;
+            this.tchk_AdjEqPrices.Text = "Adjust Equipment Prices";
+            this.tchk_AdjEqPrices.ThreeState = true;
+            this.adjustments.SetToolTip(this.tchk_AdjEqPrices, "Adjusts equipment prices based on power.");
+            this.tchk_AdjEqPrices.UseVisualStyleBackColor = true;
+            this.tchk_AdjEqPrices.Click += new System.EventHandler(this.determineFlags);
             // 
-            // rad_AddRemakeOn
+            // tchk_RandEqClass
             // 
-            this.rad_AddRemakeOn.AutoSize = true;
-            this.rad_AddRemakeOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_AddRemakeOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_AddRemakeOn.Name = "rad_AddRemakeOn";
-            this.rad_AddRemakeOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_AddRemakeOn.TabIndex = 1;
-            this.rad_AddRemakeOn.Text = "On";
-            this.rad_AddRemakeOn.UseVisualStyleBackColor = true;
-            this.rad_AddRemakeOn.CheckedChanged += new System.EventHandler(this.determineFlags);
+            this.tchk_RandEqClass.AutoSize = true;
+            this.tchk_RandEqClass.Location = new System.Drawing.Point(7, 126);
+            this.tchk_RandEqClass.Name = "tchk_RandEqClass";
+            this.tchk_RandEqClass.Size = new System.Drawing.Size(168, 17);
+            this.tchk_RandEqClass.TabIndex = 147;
+            this.tchk_RandEqClass.Text = "Randomize Equipping Classes";
+            this.tchk_RandEqClass.ThreeState = true;
+            this.adjustments.SetToolTip(this.tchk_RandEqClass, "Randomizes which classes can equip equipment.");
+            this.tchk_RandEqClass.UseVisualStyleBackColor = true;
+            this.tchk_RandEqClass.Click += new System.EventHandler(this.determineFlags);
             // 
-            // rad_AddRemakeOff
+            // tchk_RmFigherPen
             // 
-            this.rad_AddRemakeOff.AutoSize = true;
-            this.rad_AddRemakeOff.Checked = true;
-            this.rad_AddRemakeOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_AddRemakeOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_AddRemakeOff.Name = "rad_AddRemakeOff";
-            this.rad_AddRemakeOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_AddRemakeOff.TabIndex = 0;
-            this.rad_AddRemakeOff.TabStop = true;
-            this.rad_AddRemakeOff.Text = "Off";
-            this.rad_AddRemakeOff.UseVisualStyleBackColor = true;
-            this.rad_AddRemakeOff.CheckedChanged += new System.EventHandler(this.determineFlags);
+            this.tchk_RmFigherPen.AutoSize = true;
+            this.tchk_RmFigherPen.Location = new System.Drawing.Point(7, 102);
+            this.tchk_RmFigherPen.Name = "tchk_RmFigherPen";
+            this.tchk_RmFigherPen.Size = new System.Drawing.Size(189, 17);
+            this.tchk_RmFigherPen.TabIndex = 146;
+            this.tchk_RmFigherPen.Text = "Remove Fighter Equipping Penalty";
+            this.tchk_RmFigherPen.ThreeState = true;
+            this.adjustments.SetToolTip(this.tchk_RmFigherPen, "Removes the penalty some equipment has for fighters.");
+            this.tchk_RmFigherPen.UseVisualStyleBackColor = true;
+            this.tchk_RmFigherPen.Click += new System.EventHandler(this.determineFlags);
             // 
-            // grp_AdjStartEq
+            // tchk_RemStartCap
             // 
-            this.grp_AdjStartEq.Controls.Add(this.rad_AdjStartEqRand);
-            this.grp_AdjStartEq.Controls.Add(this.rad_AdjStartEqOn);
-            this.grp_AdjStartEq.Controls.Add(this.rad_AdjStartEqOff);
-            this.grp_AdjStartEq.Location = new System.Drawing.Point(341, 94);
-            this.grp_AdjStartEq.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_AdjStartEq.Name = "grp_AdjStartEq";
-            this.grp_AdjStartEq.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_AdjStartEq.Size = new System.Drawing.Size(163, 41);
-            this.grp_AdjStartEq.TabIndex = 140;
-            this.grp_AdjStartEq.TabStop = false;
-            this.grp_AdjStartEq.Text = "Adjust Start Equipment";
-            this.adjustments.SetToolTip(this.grp_AdjStartEq, "Starting equipment is not limited in power when randomized.");
+            this.tchk_RemStartCap.AutoSize = true;
+            this.tchk_RemStartCap.Location = new System.Drawing.Point(7, 78);
+            this.tchk_RemStartCap.Name = "tchk_RemStartCap";
+            this.tchk_RemStartCap.Size = new System.Drawing.Size(208, 17);
+            this.tchk_RemStartCap.TabIndex = 145;
+            this.tchk_RemStartCap.Text = "Remove Caps from Starting Equipment";
+            this.tchk_RemStartCap.ThreeState = true;
+            this.adjustments.SetToolTip(this.tchk_RemStartCap, "Starting equipment is not limited in power when randomized.");
+            this.tchk_RemStartCap.UseVisualStyleBackColor = true;
+            this.tchk_RemStartCap.Click += new System.EventHandler(this.determineFlags);
             // 
-            // rad_AdjStartEqRand
+            // tchk_VanEqVals
             // 
-            this.rad_AdjStartEqRand.AutoSize = true;
-            this.rad_AdjStartEqRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_AdjStartEqRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_AdjStartEqRand.Name = "rad_AdjStartEqRand";
-            this.rad_AdjStartEqRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_AdjStartEqRand.TabIndex = 2;
-            this.rad_AdjStartEqRand.Text = "Random";
-            this.rad_AdjStartEqRand.UseVisualStyleBackColor = true;
-            this.rad_AdjStartEqRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_AdjStartEqOn
-            // 
-            this.rad_AdjStartEqOn.AutoSize = true;
-            this.rad_AdjStartEqOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_AdjStartEqOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_AdjStartEqOn.Name = "rad_AdjStartEqOn";
-            this.rad_AdjStartEqOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_AdjStartEqOn.TabIndex = 1;
-            this.rad_AdjStartEqOn.Text = "On";
-            this.rad_AdjStartEqOn.UseVisualStyleBackColor = true;
-            this.rad_AdjStartEqOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_AdjStartEqOff
-            // 
-            this.rad_AdjStartEqOff.AutoSize = true;
-            this.rad_AdjStartEqOff.Checked = true;
-            this.rad_AdjStartEqOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_AdjStartEqOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_AdjStartEqOff.Name = "rad_AdjStartEqOff";
-            this.rad_AdjStartEqOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_AdjStartEqOff.TabIndex = 0;
-            this.rad_AdjStartEqOff.TabStop = true;
-            this.rad_AdjStartEqOff.Text = "Off";
-            this.rad_AdjStartEqOff.UseVisualStyleBackColor = true;
-            this.rad_AdjStartEqOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_AddGoldClaw
-            // 
-            this.grp_AddGoldClaw.Controls.Add(this.rad_AddGoldClawRand);
-            this.grp_AddGoldClaw.Controls.Add(this.rad_AddGoldClawOn);
-            this.grp_AddGoldClaw.Controls.Add(this.rad_AddGoldClawOff);
-            this.grp_AddGoldClaw.Location = new System.Drawing.Point(510, 4);
-            this.grp_AddGoldClaw.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_AddGoldClaw.Name = "grp_AddGoldClaw";
-            this.grp_AddGoldClaw.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_AddGoldClaw.Size = new System.Drawing.Size(163, 41);
-            this.grp_AddGoldClaw.TabIndex = 133;
-            this.grp_AddGoldClaw.TabStop = false;
-            this.grp_AddGoldClaw.Text = "Add Golden Claw to Pool";
-            this.adjustments.SetToolTip(this.grp_AddGoldClaw, "Add the Golden Claw to the Treasure Pool (1 will be put in a random chest).");
-            // 
-            // rad_AddGoldClawRand
-            // 
-            this.rad_AddGoldClawRand.AutoSize = true;
-            this.rad_AddGoldClawRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_AddGoldClawRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_AddGoldClawRand.Name = "rad_AddGoldClawRand";
-            this.rad_AddGoldClawRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_AddGoldClawRand.TabIndex = 2;
-            this.rad_AddGoldClawRand.Text = "Random";
-            this.rad_AddGoldClawRand.UseVisualStyleBackColor = true;
-            this.rad_AddGoldClawRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_AddGoldClawOn
-            // 
-            this.rad_AddGoldClawOn.AutoSize = true;
-            this.rad_AddGoldClawOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_AddGoldClawOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_AddGoldClawOn.Name = "rad_AddGoldClawOn";
-            this.rad_AddGoldClawOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_AddGoldClawOn.TabIndex = 1;
-            this.rad_AddGoldClawOn.Text = "On";
-            this.rad_AddGoldClawOn.UseVisualStyleBackColor = true;
-            this.rad_AddGoldClawOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_AddGoldClawOff
-            // 
-            this.rad_AddGoldClawOff.AutoSize = true;
-            this.rad_AddGoldClawOff.Checked = true;
-            this.rad_AddGoldClawOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_AddGoldClawOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_AddGoldClawOff.Name = "rad_AddGoldClawOff";
-            this.rad_AddGoldClawOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_AddGoldClawOff.TabIndex = 0;
-            this.rad_AddGoldClawOff.TabStop = true;
-            this.rad_AddGoldClawOff.Text = "Off";
-            this.rad_AddGoldClawOff.UseVisualStyleBackColor = true;
-            this.rad_AddGoldClawOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_RmFightPen
-            // 
-            this.grp_RmFightPen.Controls.Add(this.rad_RmFightPenRand);
-            this.grp_RmFightPen.Controls.Add(this.rad_RmFightPenOn);
-            this.grp_RmFightPen.Controls.Add(this.rad_RmFightPenOff);
-            this.grp_RmFightPen.Location = new System.Drawing.Point(173, 94);
-            this.grp_RmFightPen.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_RmFightPen.Name = "grp_RmFightPen";
-            this.grp_RmFightPen.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_RmFightPen.Size = new System.Drawing.Size(163, 41);
-            this.grp_RmFightPen.TabIndex = 139;
-            this.grp_RmFightPen.TabStop = false;
-            this.grp_RmFightPen.Text = "Remove Fighter Penalty";
-            this.adjustments.SetToolTip(this.grp_RmFightPen, "Removes the penalty some equipment has for fighters.");
-            // 
-            // rad_RmFightPenRand
-            // 
-            this.rad_RmFightPenRand.AutoSize = true;
-            this.rad_RmFightPenRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_RmFightPenRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RmFightPenRand.Name = "rad_RmFightPenRand";
-            this.rad_RmFightPenRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_RmFightPenRand.TabIndex = 2;
-            this.rad_RmFightPenRand.Text = "Random";
-            this.rad_RmFightPenRand.UseVisualStyleBackColor = true;
-            this.rad_RmFightPenRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_RmFightPenOn
-            // 
-            this.rad_RmFightPenOn.AutoSize = true;
-            this.rad_RmFightPenOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_RmFightPenOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RmFightPenOn.Name = "rad_RmFightPenOn";
-            this.rad_RmFightPenOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_RmFightPenOn.TabIndex = 1;
-            this.rad_RmFightPenOn.Text = "On";
-            this.rad_RmFightPenOn.UseVisualStyleBackColor = true;
-            this.rad_RmFightPenOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_RmFightPenOff
-            // 
-            this.rad_RmFightPenOff.AutoSize = true;
-            this.rad_RmFightPenOff.Checked = true;
-            this.rad_RmFightPenOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_RmFightPenOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RmFightPenOff.Name = "rad_RmFightPenOff";
-            this.rad_RmFightPenOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_RmFightPenOff.TabIndex = 0;
-            this.rad_RmFightPenOff.TabStop = true;
-            this.rad_RmFightPenOff.Text = "Off";
-            this.rad_RmFightPenOff.UseVisualStyleBackColor = true;
-            this.rad_RmFightPenOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_VanEqVal
-            // 
-            this.grp_VanEqVal.Controls.Add(this.rad_VanEqValRand);
-            this.grp_VanEqVal.Controls.Add(this.rad_VanEqValOn);
-            this.grp_VanEqVal.Controls.Add(this.rad_VanEqValOff);
-            this.grp_VanEqVal.Location = new System.Drawing.Point(341, 49);
-            this.grp_VanEqVal.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_VanEqVal.Name = "grp_VanEqVal";
-            this.grp_VanEqVal.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_VanEqVal.Size = new System.Drawing.Size(163, 41);
-            this.grp_VanEqVal.TabIndex = 136;
-            this.grp_VanEqVal.TabStop = false;
-            this.grp_VanEqVal.Text = "Vanilla Equipment Values";
-            this.adjustments.SetToolTip(this.grp_VanEqVal, "Uses values of actual equipment instead of a random number when randomizing power" +
+            this.tchk_VanEqVals.AutoSize = true;
+            this.tchk_VanEqVals.Location = new System.Drawing.Point(7, 54);
+            this.tchk_VanEqVals.Name = "tchk_VanEqVals";
+            this.tchk_VanEqVals.Size = new System.Drawing.Size(167, 17);
+            this.tchk_VanEqVals.TabIndex = 144;
+            this.tchk_VanEqVals.Text = "Use Vanilla Equipment Values";
+            this.tchk_VanEqVals.ThreeState = true;
+            this.adjustments.SetToolTip(this.tchk_VanEqVals, "Uses values of actual equipment instead of a random number when randomizing power" +
         ".");
+            this.tchk_VanEqVals.UseVisualStyleBackColor = true;
+            this.tchk_VanEqVals.Click += new System.EventHandler(this.determineFlags);
             // 
-            // rad_VanEqValRand
+            // tchk_RandEqPower
             // 
-            this.rad_VanEqValRand.AutoSize = true;
-            this.rad_VanEqValRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_VanEqValRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_VanEqValRand.Name = "rad_VanEqValRand";
-            this.rad_VanEqValRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_VanEqValRand.TabIndex = 2;
-            this.rad_VanEqValRand.Text = "Random";
-            this.rad_VanEqValRand.UseVisualStyleBackColor = true;
-            this.rad_VanEqValRand.CheckedChanged += new System.EventHandler(this.determineFlags);
+            this.tchk_RandEqPower.AutoSize = true;
+            this.tchk_RandEqPower.Location = new System.Drawing.Point(7, 31);
+            this.tchk_RandEqPower.Margin = new System.Windows.Forms.Padding(2);
+            this.tchk_RandEqPower.Name = "tchk_RandEqPower";
+            this.tchk_RandEqPower.Size = new System.Drawing.Size(165, 17);
+            this.tchk_RandEqPower.TabIndex = 143;
+            this.tchk_RandEqPower.Text = "Randomize Equipment Power";
+            this.tchk_RandEqPower.ThreeState = true;
+            this.adjustments.SetToolTip(this.tchk_RandEqPower, "Randomizes the power of weapons, armor, helmets, and shields.");
+            this.tchk_RandEqPower.UseVisualStyleBackColor = true;
+            this.tchk_RandEqPower.Click += new System.EventHandler(this.determineFlags);
             // 
-            // rad_VanEqValOn
+            // tchk_AddRemakeEq
             // 
-            this.rad_VanEqValOn.AutoSize = true;
-            this.rad_VanEqValOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_VanEqValOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_VanEqValOn.Name = "rad_VanEqValOn";
-            this.rad_VanEqValOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_VanEqValOn.TabIndex = 1;
-            this.rad_VanEqValOn.Text = "On";
-            this.rad_VanEqValOn.UseVisualStyleBackColor = true;
-            this.rad_VanEqValOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_VanEqValOff
-            // 
-            this.rad_VanEqValOff.AutoSize = true;
-            this.rad_VanEqValOff.Checked = true;
-            this.rad_VanEqValOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_VanEqValOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_VanEqValOff.Name = "rad_VanEqValOff";
-            this.rad_VanEqValOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_VanEqValOff.TabIndex = 0;
-            this.rad_VanEqValOff.TabStop = true;
-            this.rad_VanEqValOff.Text = "Off";
-            this.rad_VanEqValOff.UseVisualStyleBackColor = true;
-            this.rad_VanEqValOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_RandClassEq
-            // 
-            this.grp_RandClassEq.Controls.Add(this.rad_RandClassEqRand);
-            this.grp_RandClassEq.Controls.Add(this.rad_RandClassEqOn);
-            this.grp_RandClassEq.Controls.Add(this.rad_RandClassEqOff);
-            this.grp_RandClassEq.Location = new System.Drawing.Point(4, 94);
-            this.grp_RandClassEq.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_RandClassEq.Name = "grp_RandClassEq";
-            this.grp_RandClassEq.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_RandClassEq.Size = new System.Drawing.Size(163, 41);
-            this.grp_RandClassEq.TabIndex = 138;
-            this.grp_RandClassEq.TabStop = false;
-            this.grp_RandClassEq.Text = "Randomize Equipping Class";
-            // 
-            // rad_RandClassEqRand
-            // 
-            this.rad_RandClassEqRand.AutoSize = true;
-            this.rad_RandClassEqRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_RandClassEqRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RandClassEqRand.Name = "rad_RandClassEqRand";
-            this.rad_RandClassEqRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_RandClassEqRand.TabIndex = 2;
-            this.rad_RandClassEqRand.Text = "Random";
-            this.rad_RandClassEqRand.UseVisualStyleBackColor = true;
-            this.rad_RandClassEqRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_RandClassEqOn
-            // 
-            this.rad_RandClassEqOn.AutoSize = true;
-            this.rad_RandClassEqOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_RandClassEqOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RandClassEqOn.Name = "rad_RandClassEqOn";
-            this.rad_RandClassEqOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_RandClassEqOn.TabIndex = 1;
-            this.rad_RandClassEqOn.Text = "On";
-            this.rad_RandClassEqOn.UseVisualStyleBackColor = true;
-            this.rad_RandClassEqOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_RandClassEqOff
-            // 
-            this.rad_RandClassEqOff.AutoSize = true;
-            this.rad_RandClassEqOff.Checked = true;
-            this.rad_RandClassEqOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_RandClassEqOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RandClassEqOff.Name = "rad_RandClassEqOff";
-            this.rad_RandClassEqOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_RandClassEqOff.TabIndex = 0;
-            this.rad_RandClassEqOff.TabStop = true;
-            this.rad_RandClassEqOff.Text = "Off";
-            this.rad_RandClassEqOff.UseVisualStyleBackColor = true;
-            this.rad_RandClassEqOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_AdjEqPrice
-            // 
-            this.grp_AdjEqPrice.Controls.Add(this.rad_AdjEqPriceRand);
-            this.grp_AdjEqPrice.Controls.Add(this.rad_AdjEqPriceOn);
-            this.grp_AdjEqPrice.Controls.Add(this.rad_AdjEqPriceOff);
-            this.grp_AdjEqPrice.Location = new System.Drawing.Point(173, 49);
-            this.grp_AdjEqPrice.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_AdjEqPrice.Name = "grp_AdjEqPrice";
-            this.grp_AdjEqPrice.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_AdjEqPrice.Size = new System.Drawing.Size(163, 41);
-            this.grp_AdjEqPrice.TabIndex = 135;
-            this.grp_AdjEqPrice.TabStop = false;
-            this.grp_AdjEqPrice.Text = "Adjust Equipment Prices";
-            this.adjustments.SetToolTip(this.grp_AdjEqPrice, "Adjusts equipment prices based on power.");
-            // 
-            // rad_AdjEqPriceRand
-            // 
-            this.rad_AdjEqPriceRand.AutoSize = true;
-            this.rad_AdjEqPriceRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_AdjEqPriceRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_AdjEqPriceRand.Name = "rad_AdjEqPriceRand";
-            this.rad_AdjEqPriceRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_AdjEqPriceRand.TabIndex = 2;
-            this.rad_AdjEqPriceRand.Text = "Random";
-            this.rad_AdjEqPriceRand.UseVisualStyleBackColor = true;
-            this.rad_AdjEqPriceRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_AdjEqPriceOn
-            // 
-            this.rad_AdjEqPriceOn.AutoSize = true;
-            this.rad_AdjEqPriceOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_AdjEqPriceOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_AdjEqPriceOn.Name = "rad_AdjEqPriceOn";
-            this.rad_AdjEqPriceOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_AdjEqPriceOn.TabIndex = 1;
-            this.rad_AdjEqPriceOn.Text = "On";
-            this.rad_AdjEqPriceOn.UseVisualStyleBackColor = true;
-            this.rad_AdjEqPriceOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_AdjEqPriceOff
-            // 
-            this.rad_AdjEqPriceOff.AutoSize = true;
-            this.rad_AdjEqPriceOff.Checked = true;
-            this.rad_AdjEqPriceOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_AdjEqPriceOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_AdjEqPriceOff.Name = "rad_AdjEqPriceOff";
-            this.rad_AdjEqPriceOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_AdjEqPriceOff.TabIndex = 0;
-            this.rad_AdjEqPriceOff.TabStop = true;
-            this.rad_AdjEqPriceOff.Text = "Off";
-            this.rad_AdjEqPriceOff.UseVisualStyleBackColor = true;
-            this.rad_AdjEqPriceOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_RmRedKeys
-            // 
-            this.grp_RmRedKeys.Controls.Add(this.rad_RmRedKeysRand);
-            this.grp_RmRedKeys.Controls.Add(this.rad_RmRedKeysOn);
-            this.grp_RmRedKeys.Controls.Add(this.rad_RmRedKeysOff);
-            this.grp_RmRedKeys.Location = new System.Drawing.Point(341, 4);
-            this.grp_RmRedKeys.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_RmRedKeys.Name = "grp_RmRedKeys";
-            this.grp_RmRedKeys.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_RmRedKeys.Size = new System.Drawing.Size(163, 41);
-            this.grp_RmRedKeys.TabIndex = 132;
-            this.grp_RmRedKeys.TabStop = false;
-            this.grp_RmRedKeys.Text = "Remove Redundant Keys";
-            this.adjustments.SetToolTip(this.grp_RmRedKeys, "Removes lower tier keys from areas if a higher tier one is found there.");
-            // 
-            // rad_RmRedKeysRand
-            // 
-            this.rad_RmRedKeysRand.AutoSize = true;
-            this.rad_RmRedKeysRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_RmRedKeysRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RmRedKeysRand.Name = "rad_RmRedKeysRand";
-            this.rad_RmRedKeysRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_RmRedKeysRand.TabIndex = 2;
-            this.rad_RmRedKeysRand.Text = "Random";
-            this.rad_RmRedKeysRand.UseVisualStyleBackColor = true;
-            this.rad_RmRedKeysRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_RmRedKeysOn
-            // 
-            this.rad_RmRedKeysOn.AutoSize = true;
-            this.rad_RmRedKeysOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_RmRedKeysOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RmRedKeysOn.Name = "rad_RmRedKeysOn";
-            this.rad_RmRedKeysOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_RmRedKeysOn.TabIndex = 1;
-            this.rad_RmRedKeysOn.Text = "On";
-            this.rad_RmRedKeysOn.UseVisualStyleBackColor = true;
-            this.rad_RmRedKeysOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_RmRedKeysOff
-            // 
-            this.rad_RmRedKeysOff.AutoSize = true;
-            this.rad_RmRedKeysOff.Checked = true;
-            this.rad_RmRedKeysOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_RmRedKeysOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RmRedKeysOff.Name = "rad_RmRedKeysOff";
-            this.rad_RmRedKeysOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_RmRedKeysOff.TabIndex = 0;
-            this.rad_RmRedKeysOff.TabStop = true;
-            this.rad_RmRedKeysOff.Text = "Off";
-            this.rad_RmRedKeysOff.UseVisualStyleBackColor = true;
-            this.rad_RmRedKeysOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_RandEqPwr
-            // 
-            this.grp_RandEqPwr.Controls.Add(this.rad_RandEqPwrRand);
-            this.grp_RandEqPwr.Controls.Add(this.rad_RandEqPwrOn);
-            this.grp_RandEqPwr.Controls.Add(this.rad_RandEqPwrOff);
-            this.grp_RandEqPwr.Location = new System.Drawing.Point(4, 49);
-            this.grp_RandEqPwr.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_RandEqPwr.Name = "grp_RandEqPwr";
-            this.grp_RandEqPwr.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_RandEqPwr.Size = new System.Drawing.Size(163, 41);
-            this.grp_RandEqPwr.TabIndex = 134;
-            this.grp_RandEqPwr.TabStop = false;
-            this.grp_RandEqPwr.Text = "Randomize Equipment Power";
-            this.adjustments.SetToolTip(this.grp_RandEqPwr, "Randomizes the power of weapons, armor, helmets, and shields.");
-            // 
-            // rad_RandEqPwrRand
-            // 
-            this.rad_RandEqPwrRand.AutoSize = true;
-            this.rad_RandEqPwrRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_RandEqPwrRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RandEqPwrRand.Name = "rad_RandEqPwrRand";
-            this.rad_RandEqPwrRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_RandEqPwrRand.TabIndex = 2;
-            this.rad_RandEqPwrRand.Text = "Random";
-            this.rad_RandEqPwrRand.UseVisualStyleBackColor = true;
-            this.rad_RandEqPwrRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_RandEqPwrOn
-            // 
-            this.rad_RandEqPwrOn.AutoSize = true;
-            this.rad_RandEqPwrOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_RandEqPwrOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RandEqPwrOn.Name = "rad_RandEqPwrOn";
-            this.rad_RandEqPwrOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_RandEqPwrOn.TabIndex = 1;
-            this.rad_RandEqPwrOn.Text = "On";
-            this.rad_RandEqPwrOn.UseVisualStyleBackColor = true;
-            this.rad_RandEqPwrOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_RandEqPwrOff
-            // 
-            this.rad_RandEqPwrOff.AutoSize = true;
-            this.rad_RandEqPwrOff.Checked = true;
-            this.rad_RandEqPwrOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_RandEqPwrOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RandEqPwrOff.Name = "rad_RandEqPwrOff";
-            this.rad_RandEqPwrOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_RandEqPwrOff.TabIndex = 0;
-            this.rad_RandEqPwrOff.TabStop = true;
-            this.rad_RandEqPwrOff.Text = "Off";
-            this.rad_RandEqPwrOff.UseVisualStyleBackColor = true;
-            this.rad_RandEqPwrOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_OrbDft
-            // 
-            this.grp_OrbDft.Controls.Add(this.rad_OrbDftRand);
-            this.grp_OrbDft.Controls.Add(this.rad_OrbDftOn);
-            this.grp_OrbDft.Controls.Add(this.rad_OrbDftOff);
-            this.grp_OrbDft.Location = new System.Drawing.Point(173, 4);
-            this.grp_OrbDft.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_OrbDft.Name = "grp_OrbDft";
-            this.grp_OrbDft.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_OrbDft.Size = new System.Drawing.Size(163, 41);
-            this.grp_OrbDft.TabIndex = 131;
-            this.grp_OrbDft.TabStop = false;
-            this.grp_OrbDft.Text = "Green and Silver Orb Default";
-            this.adjustments.SetToolTip(this.grp_OrbDft, "Allows Green and Silver Orbs to be found in their default locations.");
-            // 
-            // rad_OrbDftRand
-            // 
-            this.rad_OrbDftRand.AutoSize = true;
-            this.rad_OrbDftRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_OrbDftRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_OrbDftRand.Name = "rad_OrbDftRand";
-            this.rad_OrbDftRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_OrbDftRand.TabIndex = 2;
-            this.rad_OrbDftRand.Text = "Random";
-            this.rad_OrbDftRand.UseVisualStyleBackColor = true;
-            this.rad_OrbDftRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_OrbDftOn
-            // 
-            this.rad_OrbDftOn.AutoSize = true;
-            this.rad_OrbDftOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_OrbDftOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_OrbDftOn.Name = "rad_OrbDftOn";
-            this.rad_OrbDftOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_OrbDftOn.TabIndex = 1;
-            this.rad_OrbDftOn.Text = "On";
-            this.rad_OrbDftOn.UseVisualStyleBackColor = true;
-            this.rad_OrbDftOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_OrbDftOff
-            // 
-            this.rad_OrbDftOff.AutoSize = true;
-            this.rad_OrbDftOff.Checked = true;
-            this.rad_OrbDftOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_OrbDftOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_OrbDftOff.Name = "rad_OrbDftOff";
-            this.rad_OrbDftOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_OrbDftOff.TabIndex = 0;
-            this.rad_OrbDftOff.TabStop = true;
-            this.rad_OrbDftOff.Text = "Off";
-            this.rad_OrbDftOff.UseVisualStyleBackColor = true;
-            this.rad_OrbDftOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_RandTreas
-            // 
-            this.grp_RandTreas.Controls.Add(this.rad_RandTreasRand);
-            this.grp_RandTreas.Controls.Add(this.rad_RandTreasOn);
-            this.grp_RandTreas.Controls.Add(this.rad_RandTreasOff);
-            this.grp_RandTreas.Location = new System.Drawing.Point(4, 4);
-            this.grp_RandTreas.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_RandTreas.Name = "grp_RandTreas";
-            this.grp_RandTreas.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_RandTreas.Size = new System.Drawing.Size(163, 41);
-            this.grp_RandTreas.TabIndex = 130;
-            this.grp_RandTreas.TabStop = false;
-            this.grp_RandTreas.Text = "Randomize Treasures";
-            this.adjustments.SetToolTip(this.grp_RandTreas, "Randomizes treasures found in chests and on the ground.");
-            // 
-            // rad_RandTreasRand
-            // 
-            this.rad_RandTreasRand.AutoSize = true;
-            this.rad_RandTreasRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_RandTreasRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RandTreasRand.Name = "rad_RandTreasRand";
-            this.rad_RandTreasRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_RandTreasRand.TabIndex = 2;
-            this.rad_RandTreasRand.Text = "Random";
-            this.rad_RandTreasRand.UseVisualStyleBackColor = true;
-            this.rad_RandTreasRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_RandTreasOn
-            // 
-            this.rad_RandTreasOn.AutoSize = true;
-            this.rad_RandTreasOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_RandTreasOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RandTreasOn.Name = "rad_RandTreasOn";
-            this.rad_RandTreasOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_RandTreasOn.TabIndex = 1;
-            this.rad_RandTreasOn.Text = "On";
-            this.rad_RandTreasOn.UseVisualStyleBackColor = true;
-            this.rad_RandTreasOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_RandTreasOff
-            // 
-            this.rad_RandTreasOff.AutoSize = true;
-            this.rad_RandTreasOff.Checked = true;
-            this.rad_RandTreasOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_RandTreasOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RandTreasOff.Name = "rad_RandTreasOff";
-            this.rad_RandTreasOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_RandTreasOff.TabIndex = 0;
-            this.rad_RandTreasOff.TabStop = true;
-            this.rad_RandTreasOff.Text = "Off";
-            this.rad_RandTreasOff.UseVisualStyleBackColor = true;
-            this.rad_RandTreasOff.CheckedChanged += new System.EventHandler(this.determineFlags);
+            this.tchk_AddRemakeEq.AutoSize = true;
+            this.tchk_AddRemakeEq.Location = new System.Drawing.Point(7, 7);
+            this.tchk_AddRemakeEq.Margin = new System.Windows.Forms.Padding(2);
+            this.tchk_AddRemakeEq.Name = "tchk_AddRemakeEq";
+            this.tchk_AddRemakeEq.Size = new System.Drawing.Size(141, 17);
+            this.tchk_AddRemakeEq.TabIndex = 142;
+            this.tchk_AddRemakeEq.Text = "Add Remake Equipment";
+            this.tchk_AddRemakeEq.ThreeState = true;
+            this.adjustments.SetToolTip(this.tchk_AddRemakeEq, "Replaces some equipment to add equipment from remakes for Pilgrim, Merchant, and " +
+        "Fighter.");
+            this.tchk_AddRemakeEq.UseVisualStyleBackColor = true;
+            this.tchk_AddRemakeEq.Click += new System.EventHandler(this.determineFlags);
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.tchk_AnimalSuit);
+            this.tabPage6.Controls.Add(this.tchk_SellKeyItems);
+            this.tabPage6.Controls.Add(this.tchk_RandInnPrice);
+            this.tabPage6.Controls.Add(this.tchk_RandWeapShop);
+            this.tabPage6.Controls.Add(this.tchk_RandItemShop);
             this.tabPage6.Controls.Add(this.grp_AddToItemShop);
-            this.tabPage6.Controls.Add(this.grp_Caturday);
-            this.tabPage6.Controls.Add(this.grp_SellUnsellable);
-            this.tabPage6.Controls.Add(this.grp_RandItemShop);
-            this.tabPage6.Controls.Add(this.grp_RandWeapShop);
-            this.tabPage6.Controls.Add(this.grp_RandInn);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Size = new System.Drawing.Size(678, 422);
@@ -2385,8 +1838,74 @@ namespace DW3Randomizer
             this.tabPage6.Text = "Item & Weapon Shops & Inns";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
+            // tchk_AnimalSuit
+            // 
+            this.tchk_AnimalSuit.AutoSize = true;
+            this.tchk_AnimalSuit.Location = new System.Drawing.Point(7, 103);
+            this.tchk_AnimalSuit.Name = "tchk_AnimalSuit";
+            this.tchk_AnimalSuit.Size = new System.Drawing.Size(214, 17);
+            this.tchk_AnimalSuit.TabIndex = 170;
+            this.tchk_AnimalSuit.Text = "Guarantee Animal Suit in Weapon Shop";
+            this.tchk_AnimalSuit.ThreeState = true;
+            this.adjustments.SetToolTip(this.tchk_AnimalSuit, "Ensures that the Animal Suit will be found in at least 1 Weapon Shop.");
+            this.tchk_AnimalSuit.UseVisualStyleBackColor = true;
+            this.tchk_AnimalSuit.Click += new System.EventHandler(this.determineFlags);
+            // 
+            // tchk_SellKeyItems
+            // 
+            this.tchk_SellKeyItems.AutoSize = true;
+            this.tchk_SellKeyItems.Location = new System.Drawing.Point(7, 79);
+            this.tchk_SellKeyItems.Name = "tchk_SellKeyItems";
+            this.tchk_SellKeyItems.Size = new System.Drawing.Size(118, 17);
+            this.tchk_SellKeyItems.TabIndex = 169;
+            this.tchk_SellKeyItems.Text = "Sell Most Key Items";
+            this.tchk_SellKeyItems.ThreeState = true;
+            this.adjustments.SetToolTip(this.tchk_SellKeyItems, "Sell many key items. Selling before use can lead to progression blocks.");
+            this.tchk_SellKeyItems.UseVisualStyleBackColor = true;
+            this.tchk_SellKeyItems.Click += new System.EventHandler(this.determineFlags);
+            // 
+            // tchk_RandInnPrice
+            // 
+            this.tchk_RandInnPrice.AutoSize = true;
+            this.tchk_RandInnPrice.Location = new System.Drawing.Point(7, 55);
+            this.tchk_RandInnPrice.Name = "tchk_RandInnPrice";
+            this.tchk_RandInnPrice.Size = new System.Drawing.Size(129, 17);
+            this.tchk_RandInnPrice.TabIndex = 168;
+            this.tchk_RandInnPrice.Text = "Randomize Inn Prices";
+            this.tchk_RandInnPrice.ThreeState = true;
+            this.adjustments.SetToolTip(this.tchk_RandInnPrice, "Randomizes inn prices.");
+            this.tchk_RandInnPrice.UseVisualStyleBackColor = true;
+            this.tchk_RandInnPrice.Click += new System.EventHandler(this.determineFlags);
+            // 
+            // tchk_RandWeapShop
+            // 
+            this.tchk_RandWeapShop.AutoSize = true;
+            this.tchk_RandWeapShop.Location = new System.Drawing.Point(7, 31);
+            this.tchk_RandWeapShop.Name = "tchk_RandWeapShop";
+            this.tchk_RandWeapShop.Size = new System.Drawing.Size(156, 17);
+            this.tchk_RandWeapShop.TabIndex = 167;
+            this.tchk_RandWeapShop.Text = "Randomize Weapon Shops";
+            this.tchk_RandWeapShop.ThreeState = true;
+            this.adjustments.SetToolTip(this.tchk_RandWeapShop, "Randomizes weapons and armor found in Weapon Shops.");
+            this.tchk_RandWeapShop.UseVisualStyleBackColor = true;
+            this.tchk_RandWeapShop.Click += new System.EventHandler(this.determineFlags);
+            // 
+            // tchk_RandItemShop
+            // 
+            this.tchk_RandItemShop.AutoSize = true;
+            this.tchk_RandItemShop.Location = new System.Drawing.Point(7, 7);
+            this.tchk_RandItemShop.Name = "tchk_RandItemShop";
+            this.tchk_RandItemShop.Size = new System.Drawing.Size(135, 17);
+            this.tchk_RandItemShop.TabIndex = 166;
+            this.tchk_RandItemShop.Text = "Randomize Item Shops";
+            this.tchk_RandItemShop.ThreeState = true;
+            this.adjustments.SetToolTip(this.tchk_RandItemShop, "Randomizes items for sale in Item Shops.");
+            this.tchk_RandItemShop.UseVisualStyleBackColor = true;
+            this.tchk_RandItemShop.Click += new System.EventHandler(this.determineFlags);
+            // 
             // grp_AddToItemShop
             // 
+            this.grp_AddToItemShop.Controls.Add(this.tchk_AcornsOfLife);
             this.grp_AddToItemShop.Controls.Add(this.grp_LampOfDarkness);
             this.grp_AddToItemShop.Controls.Add(this.grp_ShoesOfHappiness);
             this.grp_AddToItemShop.Controls.Add(this.grp_RingOfLife);
@@ -2403,16 +1922,27 @@ namespace DW3Randomizer
             this.grp_AddToItemShop.Controls.Add(this.grp_IntSeed);
             this.grp_AddToItemShop.Controls.Add(this.grp_AgiSeed);
             this.grp_AddToItemShop.Controls.Add(this.grp_StrSeed);
-            this.grp_AddToItemShop.Controls.Add(this.grp_Acorns);
-            this.grp_AddToItemShop.Location = new System.Drawing.Point(3, 94);
+            this.grp_AddToItemShop.Location = new System.Drawing.Point(241, 7);
             this.grp_AddToItemShop.Margin = new System.Windows.Forms.Padding(2);
             this.grp_AddToItemShop.Name = "grp_AddToItemShop";
             this.grp_AddToItemShop.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_AddToItemShop.Size = new System.Drawing.Size(670, 240);
+            this.grp_AddToItemShop.Size = new System.Drawing.Size(434, 413);
             this.grp_AddToItemShop.TabIndex = 165;
             this.grp_AddToItemShop.TabStop = false;
             this.grp_AddToItemShop.Text = "Add to Item Shops Pool";
             this.adjustments.SetToolTip(this.grp_AddToItemShop, "Add specific items to Item Shop pool.");
+            // 
+            // tchk_AcornsOfLife
+            // 
+            this.tchk_AcornsOfLife.AutoSize = true;
+            this.tchk_AcornsOfLife.Location = new System.Drawing.Point(7, 24);
+            this.tchk_AcornsOfLife.Name = "tchk_AcornsOfLife";
+            this.tchk_AcornsOfLife.Size = new System.Drawing.Size(91, 17);
+            this.tchk_AcornsOfLife.TabIndex = 182;
+            this.tchk_AcornsOfLife.Text = "Acorns of Life";
+            this.tchk_AcornsOfLife.ThreeState = true;
+            this.tchk_AcornsOfLife.UseVisualStyleBackColor = true;
+            this.tchk_AcornsOfLife.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // grp_LampOfDarkness
             // 
@@ -2471,7 +2001,7 @@ namespace DW3Randomizer
             this.grp_ShoesOfHappiness.Controls.Add(this.rad_ShoesOfHappinessRand);
             this.grp_ShoesOfHappiness.Controls.Add(this.rad_ShoesOfHappinessOn);
             this.grp_ShoesOfHappiness.Controls.Add(this.rad_ShoesOfHappinessOff);
-            this.grp_ShoesOfHappiness.Location = new System.Drawing.Point(503, 151);
+            this.grp_ShoesOfHappiness.Location = new System.Drawing.Point(10, 241);
             this.grp_ShoesOfHappiness.Margin = new System.Windows.Forms.Padding(2);
             this.grp_ShoesOfHappiness.Name = "grp_ShoesOfHappiness";
             this.grp_ShoesOfHappiness.Padding = new System.Windows.Forms.Padding(2);
@@ -2523,7 +2053,7 @@ namespace DW3Randomizer
             this.grp_RingOfLife.Controls.Add(this.rad_RingOfLifeRand);
             this.grp_RingOfLife.Controls.Add(this.rad_RingOfLifeOn);
             this.grp_RingOfLife.Controls.Add(this.rad_RingOfLifeOff);
-            this.grp_RingOfLife.Location = new System.Drawing.Point(337, 151);
+            this.grp_RingOfLife.Location = new System.Drawing.Point(183, 241);
             this.grp_RingOfLife.Margin = new System.Windows.Forms.Padding(2);
             this.grp_RingOfLife.Name = "grp_RingOfLife";
             this.grp_RingOfLife.Padding = new System.Windows.Forms.Padding(2);
@@ -2679,7 +2209,7 @@ namespace DW3Randomizer
             this.grp_WizardRing.Controls.Add(this.rad_WizardRingRand);
             this.grp_WizardRing.Controls.Add(this.rad_WizardRingOn);
             this.grp_WizardRing.Controls.Add(this.rad_WizardRingOff);
-            this.grp_WizardRing.Location = new System.Drawing.Point(503, 106);
+            this.grp_WizardRing.Location = new System.Drawing.Point(170, 196);
             this.grp_WizardRing.Margin = new System.Windows.Forms.Padding(2);
             this.grp_WizardRing.Name = "grp_WizardRing";
             this.grp_WizardRing.Padding = new System.Windows.Forms.Padding(2);
@@ -2887,7 +2417,7 @@ namespace DW3Randomizer
             this.grp_PoisonMoth.Controls.Add(this.rad_PoisonMothRand);
             this.grp_PoisonMoth.Controls.Add(this.rad_PoisonMothOn);
             this.grp_PoisonMoth.Controls.Add(this.rad_PoisonMothOff);
-            this.grp_PoisonMoth.Location = new System.Drawing.Point(503, 61);
+            this.grp_PoisonMoth.Location = new System.Drawing.Point(177, 322);
             this.grp_PoisonMoth.Margin = new System.Windows.Forms.Padding(2);
             this.grp_PoisonMoth.Name = "grp_PoisonMoth";
             this.grp_PoisonMoth.Padding = new System.Windows.Forms.Padding(2);
@@ -3095,7 +2625,7 @@ namespace DW3Randomizer
             this.grp_IntSeed.Controls.Add(this.rad_IntSeedRand);
             this.grp_IntSeed.Controls.Add(this.rad_IntSeedOn);
             this.grp_IntSeed.Controls.Add(this.rad_IntSeedOff);
-            this.grp_IntSeed.Location = new System.Drawing.Point(503, 16);
+            this.grp_IntSeed.Location = new System.Drawing.Point(2, 322);
             this.grp_IntSeed.Margin = new System.Windows.Forms.Padding(2);
             this.grp_IntSeed.Name = "grp_IntSeed";
             this.grp_IntSeed.Padding = new System.Windows.Forms.Padding(2);
@@ -3245,323 +2775,6 @@ namespace DW3Randomizer
             this.rad_StrSeedOff.Text = "Off";
             this.rad_StrSeedOff.UseVisualStyleBackColor = true;
             this.rad_StrSeedOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_Acorns
-            // 
-            this.grp_Acorns.Controls.Add(this.rad_AcornsRand);
-            this.grp_Acorns.Controls.Add(this.rad_AcornsOn);
-            this.grp_Acorns.Controls.Add(this.rad_AcornsOff);
-            this.grp_Acorns.Location = new System.Drawing.Point(4, 16);
-            this.grp_Acorns.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_Acorns.Name = "grp_Acorns";
-            this.grp_Acorns.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_Acorns.Size = new System.Drawing.Size(163, 41);
-            this.grp_Acorns.TabIndex = 165;
-            this.grp_Acorns.TabStop = false;
-            this.grp_Acorns.Text = "Acorns of Life";
-            // 
-            // rad_AcornsRand
-            // 
-            this.rad_AcornsRand.AutoSize = true;
-            this.rad_AcornsRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_AcornsRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_AcornsRand.Name = "rad_AcornsRand";
-            this.rad_AcornsRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_AcornsRand.TabIndex = 2;
-            this.rad_AcornsRand.Text = "Random";
-            this.rad_AcornsRand.UseVisualStyleBackColor = true;
-            this.rad_AcornsRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_AcornsOn
-            // 
-            this.rad_AcornsOn.AutoSize = true;
-            this.rad_AcornsOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_AcornsOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_AcornsOn.Name = "rad_AcornsOn";
-            this.rad_AcornsOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_AcornsOn.TabIndex = 1;
-            this.rad_AcornsOn.Text = "On";
-            this.rad_AcornsOn.UseVisualStyleBackColor = true;
-            this.rad_AcornsOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_AcornsOff
-            // 
-            this.rad_AcornsOff.AutoSize = true;
-            this.rad_AcornsOff.Checked = true;
-            this.rad_AcornsOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_AcornsOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_AcornsOff.Name = "rad_AcornsOff";
-            this.rad_AcornsOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_AcornsOff.TabIndex = 0;
-            this.rad_AcornsOff.TabStop = true;
-            this.rad_AcornsOff.Text = "Off";
-            this.rad_AcornsOff.UseVisualStyleBackColor = true;
-            this.rad_AcornsOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_Caturday
-            // 
-            this.grp_Caturday.Controls.Add(this.rad_CaturdayRand);
-            this.grp_Caturday.Controls.Add(this.rad_CaturdayOn);
-            this.grp_Caturday.Controls.Add(this.rad_CaturdayOff);
-            this.grp_Caturday.Location = new System.Drawing.Point(510, 49);
-            this.grp_Caturday.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_Caturday.Name = "grp_Caturday";
-            this.grp_Caturday.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_Caturday.Size = new System.Drawing.Size(163, 41);
-            this.grp_Caturday.TabIndex = 164;
-            this.grp_Caturday.TabStop = false;
-            this.grp_Caturday.Text = "Caturday";
-            this.adjustments.SetToolTip(this.grp_Caturday, "Ensures that the Animal Suit will be found in at least 1 Weapon Shp.");
-            // 
-            // rad_CaturdayRand
-            // 
-            this.rad_CaturdayRand.AutoSize = true;
-            this.rad_CaturdayRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_CaturdayRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_CaturdayRand.Name = "rad_CaturdayRand";
-            this.rad_CaturdayRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_CaturdayRand.TabIndex = 2;
-            this.rad_CaturdayRand.Text = "Random";
-            this.rad_CaturdayRand.UseVisualStyleBackColor = true;
-            this.rad_CaturdayRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_CaturdayOn
-            // 
-            this.rad_CaturdayOn.AutoSize = true;
-            this.rad_CaturdayOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_CaturdayOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_CaturdayOn.Name = "rad_CaturdayOn";
-            this.rad_CaturdayOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_CaturdayOn.TabIndex = 1;
-            this.rad_CaturdayOn.Text = "On";
-            this.rad_CaturdayOn.UseVisualStyleBackColor = true;
-            this.rad_CaturdayOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_CaturdayOff
-            // 
-            this.rad_CaturdayOff.AutoSize = true;
-            this.rad_CaturdayOff.Checked = true;
-            this.rad_CaturdayOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_CaturdayOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_CaturdayOff.Name = "rad_CaturdayOff";
-            this.rad_CaturdayOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_CaturdayOff.TabIndex = 0;
-            this.rad_CaturdayOff.TabStop = true;
-            this.rad_CaturdayOff.Text = "Off";
-            this.rad_CaturdayOff.UseVisualStyleBackColor = true;
-            this.rad_CaturdayOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_SellUnsellable
-            // 
-            this.grp_SellUnsellable.Controls.Add(this.rad_SellUnsellableRand);
-            this.grp_SellUnsellable.Controls.Add(this.rad_SellUnsellableOn);
-            this.grp_SellUnsellable.Controls.Add(this.rad_SellUnsellableOff);
-            this.grp_SellUnsellable.Location = new System.Drawing.Point(341, 49);
-            this.grp_SellUnsellable.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_SellUnsellable.Name = "grp_SellUnsellable";
-            this.grp_SellUnsellable.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_SellUnsellable.Size = new System.Drawing.Size(163, 41);
-            this.grp_SellUnsellable.TabIndex = 163;
-            this.grp_SellUnsellable.TabStop = false;
-            this.grp_SellUnsellable.Text = "Sell Unsellable Items";
-            this.adjustments.SetToolTip(this.grp_SellUnsellable, "Sell many key items. Be sure to use them before selling.");
-            // 
-            // rad_SellUnsellableRand
-            // 
-            this.rad_SellUnsellableRand.AutoSize = true;
-            this.rad_SellUnsellableRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_SellUnsellableRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_SellUnsellableRand.Name = "rad_SellUnsellableRand";
-            this.rad_SellUnsellableRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_SellUnsellableRand.TabIndex = 2;
-            this.rad_SellUnsellableRand.Text = "Random";
-            this.rad_SellUnsellableRand.UseVisualStyleBackColor = true;
-            this.rad_SellUnsellableRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_SellUnsellableOn
-            // 
-            this.rad_SellUnsellableOn.AutoSize = true;
-            this.rad_SellUnsellableOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_SellUnsellableOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_SellUnsellableOn.Name = "rad_SellUnsellableOn";
-            this.rad_SellUnsellableOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_SellUnsellableOn.TabIndex = 1;
-            this.rad_SellUnsellableOn.Text = "On";
-            this.rad_SellUnsellableOn.UseVisualStyleBackColor = true;
-            this.rad_SellUnsellableOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_SellUnsellableOff
-            // 
-            this.rad_SellUnsellableOff.AutoSize = true;
-            this.rad_SellUnsellableOff.Checked = true;
-            this.rad_SellUnsellableOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_SellUnsellableOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_SellUnsellableOff.Name = "rad_SellUnsellableOff";
-            this.rad_SellUnsellableOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_SellUnsellableOff.TabIndex = 0;
-            this.rad_SellUnsellableOff.TabStop = true;
-            this.rad_SellUnsellableOff.Text = "Off";
-            this.rad_SellUnsellableOff.UseVisualStyleBackColor = true;
-            this.rad_SellUnsellableOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_RandItemShop
-            // 
-            this.grp_RandItemShop.Controls.Add(this.rad_RandItemShopRand);
-            this.grp_RandItemShop.Controls.Add(this.rad_RandItemShopOn);
-            this.grp_RandItemShop.Controls.Add(this.rad_RandItemShopOff);
-            this.grp_RandItemShop.Location = new System.Drawing.Point(173, 49);
-            this.grp_RandItemShop.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_RandItemShop.Name = "grp_RandItemShop";
-            this.grp_RandItemShop.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_RandItemShop.Size = new System.Drawing.Size(163, 41);
-            this.grp_RandItemShop.TabIndex = 162;
-            this.grp_RandItemShop.TabStop = false;
-            this.grp_RandItemShop.Text = "Randomize Item Shops";
-            this.adjustments.SetToolTip(this.grp_RandItemShop, "Randomizes items found in Item Shops.");
-            // 
-            // rad_RandItemShopRand
-            // 
-            this.rad_RandItemShopRand.AutoSize = true;
-            this.rad_RandItemShopRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_RandItemShopRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RandItemShopRand.Name = "rad_RandItemShopRand";
-            this.rad_RandItemShopRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_RandItemShopRand.TabIndex = 2;
-            this.rad_RandItemShopRand.Text = "Random";
-            this.rad_RandItemShopRand.UseVisualStyleBackColor = true;
-            this.rad_RandItemShopRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_RandItemShopOn
-            // 
-            this.rad_RandItemShopOn.AutoSize = true;
-            this.rad_RandItemShopOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_RandItemShopOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RandItemShopOn.Name = "rad_RandItemShopOn";
-            this.rad_RandItemShopOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_RandItemShopOn.TabIndex = 1;
-            this.rad_RandItemShopOn.Text = "On";
-            this.rad_RandItemShopOn.UseVisualStyleBackColor = true;
-            this.rad_RandItemShopOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_RandItemShopOff
-            // 
-            this.rad_RandItemShopOff.AutoSize = true;
-            this.rad_RandItemShopOff.Checked = true;
-            this.rad_RandItemShopOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_RandItemShopOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RandItemShopOff.Name = "rad_RandItemShopOff";
-            this.rad_RandItemShopOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_RandItemShopOff.TabIndex = 0;
-            this.rad_RandItemShopOff.TabStop = true;
-            this.rad_RandItemShopOff.Text = "Off";
-            this.rad_RandItemShopOff.UseVisualStyleBackColor = true;
-            this.rad_RandItemShopOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_RandWeapShop
-            // 
-            this.grp_RandWeapShop.Controls.Add(this.rad_RandWeapShopRand);
-            this.grp_RandWeapShop.Controls.Add(this.rad_RandWeapShopOn);
-            this.grp_RandWeapShop.Controls.Add(this.rad_RandWeapShopOff);
-            this.grp_RandWeapShop.Location = new System.Drawing.Point(4, 49);
-            this.grp_RandWeapShop.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_RandWeapShop.Name = "grp_RandWeapShop";
-            this.grp_RandWeapShop.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_RandWeapShop.Size = new System.Drawing.Size(163, 41);
-            this.grp_RandWeapShop.TabIndex = 161;
-            this.grp_RandWeapShop.TabStop = false;
-            this.grp_RandWeapShop.Text = "Randomize Weapon Shops";
-            this.adjustments.SetToolTip(this.grp_RandWeapShop, "Randomizes weapons and armor found in Weapon Shops.");
-            // 
-            // rad_RandWeapShopRand
-            // 
-            this.rad_RandWeapShopRand.AutoSize = true;
-            this.rad_RandWeapShopRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_RandWeapShopRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RandWeapShopRand.Name = "rad_RandWeapShopRand";
-            this.rad_RandWeapShopRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_RandWeapShopRand.TabIndex = 2;
-            this.rad_RandWeapShopRand.Text = "Random";
-            this.rad_RandWeapShopRand.UseVisualStyleBackColor = true;
-            this.rad_RandWeapShopRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_RandWeapShopOn
-            // 
-            this.rad_RandWeapShopOn.AutoSize = true;
-            this.rad_RandWeapShopOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_RandWeapShopOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RandWeapShopOn.Name = "rad_RandWeapShopOn";
-            this.rad_RandWeapShopOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_RandWeapShopOn.TabIndex = 1;
-            this.rad_RandWeapShopOn.Text = "On";
-            this.rad_RandWeapShopOn.UseVisualStyleBackColor = true;
-            this.rad_RandWeapShopOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_RandWeapShopOff
-            // 
-            this.rad_RandWeapShopOff.AutoSize = true;
-            this.rad_RandWeapShopOff.Checked = true;
-            this.rad_RandWeapShopOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_RandWeapShopOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RandWeapShopOff.Name = "rad_RandWeapShopOff";
-            this.rad_RandWeapShopOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_RandWeapShopOff.TabIndex = 0;
-            this.rad_RandWeapShopOff.TabStop = true;
-            this.rad_RandWeapShopOff.Text = "Off";
-            this.rad_RandWeapShopOff.UseVisualStyleBackColor = true;
-            this.rad_RandWeapShopOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_RandInn
-            // 
-            this.grp_RandInn.Controls.Add(this.rad_RandInnRand);
-            this.grp_RandInn.Controls.Add(this.rad_RandInnOn);
-            this.grp_RandInn.Controls.Add(this.rad_RandInnOff);
-            this.grp_RandInn.Location = new System.Drawing.Point(4, 4);
-            this.grp_RandInn.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_RandInn.Name = "grp_RandInn";
-            this.grp_RandInn.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_RandInn.Size = new System.Drawing.Size(163, 41);
-            this.grp_RandInn.TabIndex = 160;
-            this.grp_RandInn.TabStop = false;
-            this.grp_RandInn.Text = "Randomize Inn Prices";
-            this.adjustments.SetToolTip(this.grp_RandInn, "Randomizes inn prices.");
-            // 
-            // rad_RandInnRand
-            // 
-            this.rad_RandInnRand.AutoSize = true;
-            this.rad_RandInnRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_RandInnRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RandInnRand.Name = "rad_RandInnRand";
-            this.rad_RandInnRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_RandInnRand.TabIndex = 2;
-            this.rad_RandInnRand.Text = "Random";
-            this.rad_RandInnRand.UseVisualStyleBackColor = true;
-            this.rad_RandInnRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_RandInnOn
-            // 
-            this.rad_RandInnOn.AutoSize = true;
-            this.rad_RandInnOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_RandInnOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RandInnOn.Name = "rad_RandInnOn";
-            this.rad_RandInnOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_RandInnOn.TabIndex = 1;
-            this.rad_RandInnOn.Text = "On";
-            this.rad_RandInnOn.UseVisualStyleBackColor = true;
-            this.rad_RandInnOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_RandInnOff
-            // 
-            this.rad_RandInnOff.AutoSize = true;
-            this.rad_RandInnOff.Checked = true;
-            this.rad_RandInnOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_RandInnOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RandInnOff.Name = "rad_RandInnOff";
-            this.rad_RandInnOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_RandInnOff.TabIndex = 0;
-            this.rad_RandInnOff.TabStop = true;
-            this.rad_RandInnOff.Text = "Off";
-            this.rad_RandInnOff.UseVisualStyleBackColor = true;
-            this.rad_RandInnOff.CheckedChanged += new System.EventHandler(this.determineFlags);
             // 
             // tabPage3
             // 
@@ -5153,32 +4366,11 @@ namespace DW3Randomizer
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabPage4.ResumeLayout(false);
-            this.grp_RandItemEff.ResumeLayout(false);
-            this.grp_RandItemEff.PerformLayout();
-            this.grp_AddRemake.ResumeLayout(false);
-            this.grp_AddRemake.PerformLayout();
-            this.grp_AdjStartEq.ResumeLayout(false);
-            this.grp_AdjStartEq.PerformLayout();
-            this.grp_AddGoldClaw.ResumeLayout(false);
-            this.grp_AddGoldClaw.PerformLayout();
-            this.grp_RmFightPen.ResumeLayout(false);
-            this.grp_RmFightPen.PerformLayout();
-            this.grp_VanEqVal.ResumeLayout(false);
-            this.grp_VanEqVal.PerformLayout();
-            this.grp_RandClassEq.ResumeLayout(false);
-            this.grp_RandClassEq.PerformLayout();
-            this.grp_AdjEqPrice.ResumeLayout(false);
-            this.grp_AdjEqPrice.PerformLayout();
-            this.grp_RmRedKeys.ResumeLayout(false);
-            this.grp_RmRedKeys.PerformLayout();
-            this.grp_RandEqPwr.ResumeLayout(false);
-            this.grp_RandEqPwr.PerformLayout();
-            this.grp_OrbDft.ResumeLayout(false);
-            this.grp_OrbDft.PerformLayout();
-            this.grp_RandTreas.ResumeLayout(false);
-            this.grp_RandTreas.PerformLayout();
+            this.tabPage4.PerformLayout();
             this.tabPage6.ResumeLayout(false);
+            this.tabPage6.PerformLayout();
             this.grp_AddToItemShop.ResumeLayout(false);
+            this.grp_AddToItemShop.PerformLayout();
             this.grp_LampOfDarkness.ResumeLayout(false);
             this.grp_LampOfDarkness.PerformLayout();
             this.grp_ShoesOfHappiness.ResumeLayout(false);
@@ -5211,18 +4403,6 @@ namespace DW3Randomizer
             this.grp_AgiSeed.PerformLayout();
             this.grp_StrSeed.ResumeLayout(false);
             this.grp_StrSeed.PerformLayout();
-            this.grp_Acorns.ResumeLayout(false);
-            this.grp_Acorns.PerformLayout();
-            this.grp_Caturday.ResumeLayout(false);
-            this.grp_Caturday.PerformLayout();
-            this.grp_SellUnsellable.ResumeLayout(false);
-            this.grp_SellUnsellable.PerformLayout();
-            this.grp_RandItemShop.ResumeLayout(false);
-            this.grp_RandItemShop.PerformLayout();
-            this.grp_RandWeapShop.ResumeLayout(false);
-            this.grp_RandWeapShop.PerformLayout();
-            this.grp_RandInn.ResumeLayout(false);
-            this.grp_RandInn.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.grp_Class.ResumeLayout(false);
             this.grp_ClassInclude.ResumeLayout(false);
@@ -5378,78 +4558,6 @@ namespace DW3Randomizer
         private System.Windows.Forms.RadioButton rad_RmParryBugRand;
         private System.Windows.Forms.RadioButton rad_RmParryBugOn;
         private System.Windows.Forms.RadioButton rad_RmParryBugOff;
-        private System.Windows.Forms.GroupBox grp_AddGoldClaw;
-        private System.Windows.Forms.RadioButton rad_AddGoldClawRand;
-        private System.Windows.Forms.RadioButton rad_AddGoldClawOn;
-        private System.Windows.Forms.RadioButton rad_AddGoldClawOff;
-        private System.Windows.Forms.GroupBox grp_RmRedKeys;
-        private System.Windows.Forms.RadioButton rad_RmRedKeysRand;
-        private System.Windows.Forms.RadioButton rad_RmRedKeysOn;
-        private System.Windows.Forms.RadioButton rad_RmRedKeysOff;
-        private System.Windows.Forms.GroupBox grp_OrbDft;
-        private System.Windows.Forms.RadioButton rad_OrbDftRand;
-        private System.Windows.Forms.RadioButton rad_OrbDftOn;
-        private System.Windows.Forms.RadioButton rad_OrbDftOff;
-        private System.Windows.Forms.GroupBox grp_RandTreas;
-        private System.Windows.Forms.RadioButton rad_RandTreasOn;
-        private System.Windows.Forms.RadioButton rad_RandTreasOff;
-        private System.Windows.Forms.GroupBox grp_AddRemake;
-        private System.Windows.Forms.RadioButton rad_AddRemakeRand;
-        private System.Windows.Forms.RadioButton rad_AddRemakeOn;
-        private System.Windows.Forms.RadioButton rad_AddRemakeOff;
-        private System.Windows.Forms.GroupBox grp_VanEqVal;
-        private System.Windows.Forms.RadioButton rad_VanEqValRand;
-        private System.Windows.Forms.RadioButton rad_VanEqValOn;
-        private System.Windows.Forms.RadioButton rad_VanEqValOff;
-        private System.Windows.Forms.GroupBox grp_AdjEqPrice;
-        private System.Windows.Forms.RadioButton rad_AdjEqPriceRand;
-        private System.Windows.Forms.RadioButton rad_AdjEqPriceOn;
-        private System.Windows.Forms.RadioButton rad_AdjEqPriceOff;
-        private System.Windows.Forms.GroupBox grp_RandEqPwr;
-        private System.Windows.Forms.RadioButton rad_RandEqPwrRand;
-        private System.Windows.Forms.RadioButton rad_RandEqPwrOn;
-        private System.Windows.Forms.RadioButton rad_RandEqPwrOff;
-        private System.Windows.Forms.GroupBox grp_RandItemEff;
-        private System.Windows.Forms.RadioButton rad_RandItemEffRand;
-        private System.Windows.Forms.RadioButton rad_RandItemEffOn;
-        private System.Windows.Forms.RadioButton rad_RandItemEffOff;
-        private System.Windows.Forms.GroupBox grp_AdjStartEq;
-        private System.Windows.Forms.RadioButton rad_AdjStartEqRand;
-        private System.Windows.Forms.RadioButton rad_AdjStartEqOn;
-        private System.Windows.Forms.RadioButton rad_AdjStartEqOff;
-        private System.Windows.Forms.GroupBox grp_RmFightPen;
-        private System.Windows.Forms.RadioButton rad_RmFightPenRand;
-        private System.Windows.Forms.RadioButton rad_RmFightPenOn;
-        private System.Windows.Forms.RadioButton rad_RmFightPenOff;
-        private System.Windows.Forms.GroupBox grp_RandClassEq;
-        private System.Windows.Forms.RadioButton rad_RandClassEqRand;
-        private System.Windows.Forms.RadioButton rad_RandClassEqOn;
-        private System.Windows.Forms.RadioButton rad_RandClassEqOff;
-        private System.Windows.Forms.RadioButton rad_RandTreasRand;
-        private System.Windows.Forms.GroupBox grp_Caturday;
-        private System.Windows.Forms.RadioButton rad_CaturdayRand;
-        private System.Windows.Forms.RadioButton rad_CaturdayOn;
-        private System.Windows.Forms.RadioButton rad_CaturdayOff;
-        private System.Windows.Forms.GroupBox grp_SellUnsellable;
-        private System.Windows.Forms.RadioButton rad_SellUnsellableRand;
-        private System.Windows.Forms.RadioButton rad_SellUnsellableOn;
-        private System.Windows.Forms.RadioButton rad_SellUnsellableOff;
-        private System.Windows.Forms.GroupBox grp_RandItemShop;
-        private System.Windows.Forms.RadioButton rad_RandItemShopRand;
-        private System.Windows.Forms.RadioButton rad_RandItemShopOn;
-        private System.Windows.Forms.RadioButton rad_RandItemShopOff;
-        private System.Windows.Forms.GroupBox grp_RandWeapShop;
-        private System.Windows.Forms.RadioButton rad_RandWeapShopRand;
-        private System.Windows.Forms.RadioButton rad_RandWeapShopOn;
-        private System.Windows.Forms.RadioButton rad_RandWeapShopOff;
-        private System.Windows.Forms.GroupBox grp_RandInn;
-        private System.Windows.Forms.RadioButton rad_RandInnRand;
-        private System.Windows.Forms.RadioButton rad_RandInnOn;
-        private System.Windows.Forms.RadioButton rad_RandInnOff;
-        private System.Windows.Forms.GroupBox grp_Acorns;
-        private System.Windows.Forms.RadioButton rad_AcornsRand;
-        private System.Windows.Forms.RadioButton rad_AcornsOn;
-        private System.Windows.Forms.RadioButton rad_AcornsOff;
         private System.Windows.Forms.GroupBox grp_AddToItemShop;
         private System.Windows.Forms.GroupBox grp_IntSeed;
         private System.Windows.Forms.RadioButton rad_IntSeedRand;
@@ -5646,6 +4754,24 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox tchk_RmDupItemPool;
         private System.Windows.Forms.CheckBox tchk_RandEnAttPat;
         private System.Windows.Forms.CheckBox tchk_RmMetalRun;
+        private System.Windows.Forms.CheckBox tchk_AddRemakeEq;
+        private System.Windows.Forms.CheckBox tchk_RandEqPower;
+        private System.Windows.Forms.CheckBox tchk_VanEqVals;
+        private System.Windows.Forms.CheckBox tchk_RemStartCap;
+        private System.Windows.Forms.CheckBox tchk_RmFigherPen;
+        private System.Windows.Forms.CheckBox tchk_RandEqClass;
+        private System.Windows.Forms.CheckBox tchk_AdjEqPrices;
+        private System.Windows.Forms.CheckBox tchk_RandTreasures;
+        private System.Windows.Forms.CheckBox tchk_AddGoldClaw;
+        private System.Windows.Forms.CheckBox tchk_GreenSilvOrb;
+        private System.Windows.Forms.CheckBox tchk_RmRedKey;
+        private System.Windows.Forms.CheckBox tchk_RandItemEff;
+        private System.Windows.Forms.CheckBox tchk_RandItemShop;
+        private System.Windows.Forms.CheckBox tchk_RandWeapShop;
+        private System.Windows.Forms.CheckBox tchk_RandInnPrice;
+        private System.Windows.Forms.CheckBox tchk_SellKeyItems;
+        private System.Windows.Forms.CheckBox tchk_AnimalSuit;
+        private System.Windows.Forms.CheckBox tchk_AcornsOfLife;
     }
 }
 

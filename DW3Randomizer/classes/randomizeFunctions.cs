@@ -251,7 +251,7 @@ namespace DW3Randomizer
         }
 
 
-        public void randTreasures(ref byte[] romData, ref Random r1, bool disAlefgardGlitch, bool RmRedKeysOn, bool RmRedKeysRand, bool AddGoldClawOn, bool AddGoldClawRand, bool OrbDftOn, bool OrbDftRand, bool noLamia, bool randMap)
+        public void randTreasures(ref byte[] romData, ref Random r1, bool disAlefgardGlitch, int RmRedKeys, int AddGoldClaw, int OrbDft, bool noLamia, bool randMap)
         {
             randomizerTools randomizerTools = new randomizerTools();
 
@@ -420,11 +420,11 @@ namespace DW3Randomizer
             bool addGoldClaw = false;
             bool defaultOrb = false;
 
-            if (RmRedKeysOn || ((r1.Next() % 2 == 1) && RmRedKeysRand))
+            if (RmRedKeys == 1 || ((r1.Next() % 2 == 1) && RmRedKeys == 2))
                 rmRedKey = true;
-            if (AddGoldClawOn || ((r1.Next() % 2 == 1) && AddGoldClawRand))
+            if (AddGoldClaw == 1 || ((r1.Next() % 2 == 1) && AddGoldClaw == 2))
                 addGoldClaw = true;
-            if (OrbDftOn || ((r1.Next() % 2 == 1) && OrbDftRand))
+            if (OrbDft == 1 || ((r1.Next() % 2 == 1) && OrbDft == 2))
                 defaultOrb = true;
 
             for (int lnJ = 0; lnJ < keyItems.Length; lnJ++)

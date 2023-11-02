@@ -244,7 +244,7 @@ namespace DW3Randomizer
             }
         }
 
-        public void randEquip(ref byte[] romData, ref Random r1, bool AdjStartEqOn, bool AdjStartEqRand, bool VanEqValOn, bool VanEqValRand, bool addRemakeEquip, bool adjustEquipmentPrice)
+        public void randEquip(ref byte[] romData, ref Random r1, int AdjStartEq, int VanEqVal, bool addRemakeEquip, bool adjustEquipmentPrice)
         {
             itemsAndequipment itemsAndequipment = new itemsAndequipment();
             // Totally randomize weapons, armor, shields, helmets (13efb-13f1d, 1a00e-1a08b for pricing)
@@ -267,8 +267,8 @@ namespace DW3Randomizer
             bool removeStartEqRestrictions = false;
             bool useVanilla = false;
 
-            if (AdjStartEqOn || ((r1.Next() % 2 == 1) && AdjStartEqRand)) removeStartEqRestrictions = true;
-            if (VanEqValOn || ((r1.Next() % 2 == 1) && VanEqValRand)) useVanilla = true;
+            if (AdjStartEq == 1 || ((r1.Next() % 2 == 1) && AdjStartEq == 2)) removeStartEqRestrictions = true;
+            if (VanEqVal == 1 || ((r1.Next() % 2 == 1) && VanEqVal == 2)) useVanilla = true;
 
             if (addRemakeEquip)
             {
