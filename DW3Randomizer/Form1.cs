@@ -29,7 +29,7 @@ namespace DW3Randomizer
 
         readonly string versionNumber = "2.5.4.2";
         readonly string revisionDate = "11/2/2023";
-        readonly int buildnumber = 280; // build starting 8/18/23
+        readonly int buildnumber = 279; // build starting 8/18/23
         readonly string SotWFlags = "A-QLINNDAKMBG-NB-NNABA-EMDB-NNNMNNNB-A-E-N";
         readonly string TradSotWFlags = "A-QLINNDAKMAG-JB-NAABA-BMAB-NNNMNNNB-A-B-D";
         readonly string jffFlags = "A-QLINNNBNNEG-NN-NNNNB-NNNE-NNNMNNNB-E-E-N";
@@ -539,7 +539,7 @@ namespace DW3Randomizer
                 (randomizerTools.GetCheckboxValue(tchk_BigSoHRoL) == 0 ? 4096 : randomizerTools.GetCheckboxValue(tchk_BigSoHRoL) == 1 ? 8192 : 16384) +
                 (randomizerTools.GetCheckboxValue(tchk_InvisShipBird) == 0 ? 32768 : randomizerTools.GetCheckboxValue(tchk_InvisShipBird) == 1 ? 65536 : 131072));
 
-            int mapTab1 = 13 *
+            int mapTab1 = 11 * ((rad_RandMapsOn.Checked ? 1 : (rad_RandMapsRand.Checked ? 2 : 0)) + (rad_SmallMapOn.Checked ? 4 : (rad_SmallMapRand.Checked ? 8 : 0)) +
                 ((randomizerTools.GetCheckboxValue(tchk_RandMaps) == 0 ? 1 : randomizerTools.GetCheckboxValue(tchk_RandMaps) == 1 ? 2 : 4) +
                 (randomizerTools.GetCheckboxValue(tchk_SmallMaps) == 0 ? 8 : randomizerTools.GetCheckboxValue(tchk_SmallMaps) == 1 ? 16 : 32) +
                 (randomizerTools.GetCheckboxValue(tchk_RandMonstZones) == 0 ? 64 : randomizerTools.GetCheckboxValue(tchk_RandMonstZones) == 1 ? 128 : 256) +
@@ -548,7 +548,7 @@ namespace DW3Randomizer
                 (randomizerTools.GetCheckboxValue(tchk_RandShrines) == 0 ? 32768 : randomizerTools.GetCheckboxValue(tchk_RandShrines) == 1 ? 65536 : 131072));
 
 
-            long mapTab2 = 17 * (
+            int monstersTab = 17 * ((rad_RandExpOn.Checked ? 1 : (rad_RandExpRand.Checked ? 2 : 0)) + (rad_RandGoldOn.Checked ? 4 : (rad_RandGoldRand.Checked ? 8 : 0)) +
                 (randomizerTools.GetCheckboxValue(tchk_RmMountLancel) == 0 ? 1 : randomizerTools.GetCheckboxValue(tchk_RmMountLancel) == 1 ? 2 : 4) +
                 (randomizerTools.GetCheckboxValue(tchk_RmMountNecro) == 0 ? 8 : randomizerTools.GetCheckboxValue(tchk_RmMountNecro) == 1 ? 16 : 32) +
                 (randomizerTools.GetCheckboxValue(tchk_RmMountBaramos) == 0 ? 64 : randomizerTools.GetCheckboxValue(tchk_RmMountBaramos) == 1 ? 128 : 256) +
@@ -558,7 +558,7 @@ namespace DW3Randomizer
                 (randomizerTools.GetCheckboxValue(tchk_RmNoEncounter) == 0 ? 262144 : randomizerTools.GetCheckboxValue(tchk_RmNoEncounter) == 1 ? 524288 : 1048576)
                 );
 
-
+            int treasureEquipmentTab1 = 19 * ((rad_RandTreasOn.Checked ? 1 : (rad_RandTreasRand.Checked ? 2 : 0)) + (rad_OrbDftOn.Checked ? 4 : (rad_OrbDftRand.Checked ? 8 : 0)) +
             int monstersTab = 19 * (
                 (randomizerTools.GetCheckboxValue(tchk_RandExp) == 0 ? 1 : randomizerTools.GetCheckboxValue(tchk_RandExp) == 1 ? 2 : 4) +
                 (randomizerTools.GetCheckboxValue(tchk_RandGold) == 0 ? 8 : randomizerTools.GetCheckboxValue(tchk_RandGold) == 1 ? 16 : 32) +
