@@ -148,71 +148,23 @@ namespace DW3Randomizer
             this.tchk_RandWeapShop = new System.Windows.Forms.CheckBox();
             this.tchk_RandItemShop = new System.Windows.Forms.CheckBox();
             this.grp_AddToItemShop = new System.Windows.Forms.GroupBox();
+            this.tchk_PoisonMothPowder = new System.Windows.Forms.CheckBox();
+            this.tchk_LeafOfTheWorldTree = new System.Windows.Forms.CheckBox();
+            this.tchk_StoneOfLife = new System.Windows.Forms.CheckBox();
+            this.tchk_WizardsRing = new System.Windows.Forms.CheckBox();
+            this.tchk_BookOfSatori = new System.Windows.Forms.CheckBox();
+            this.tchk_RingOfLife = new System.Windows.Forms.CheckBox();
+            this.tchk_ShoesOfHappiness = new System.Windows.Forms.CheckBox();
+            this.tchk_MeteoriteArmband = new System.Windows.Forms.CheckBox();
+            this.tchk_LampOfDarkness = new System.Windows.Forms.CheckBox();
+            this.tchk_SilverHarp = new System.Windows.Forms.CheckBox();
+            this.tchk_EchoingFlute = new System.Windows.Forms.CheckBox();
+            this.tchk_LuckSeed = new System.Windows.Forms.CheckBox();
+            this.tchk_VitSeed = new System.Windows.Forms.CheckBox();
+            this.tchk_IntSeed = new System.Windows.Forms.CheckBox();
+            this.tchk_AgiSeed = new System.Windows.Forms.CheckBox();
+            this.tchk_StrSeed = new System.Windows.Forms.CheckBox();
             this.tchk_AcornsOfLife = new System.Windows.Forms.CheckBox();
-            this.grp_LampOfDarkness = new System.Windows.Forms.GroupBox();
-            this.rad_LampOfDarknessRand = new System.Windows.Forms.RadioButton();
-            this.rad_LampOfDarknessOn = new System.Windows.Forms.RadioButton();
-            this.rad_LampOfDarknessOff = new System.Windows.Forms.RadioButton();
-            this.grp_ShoesOfHappiness = new System.Windows.Forms.GroupBox();
-            this.rad_ShoesOfHappinessRand = new System.Windows.Forms.RadioButton();
-            this.rad_ShoesOfHappinessOn = new System.Windows.Forms.RadioButton();
-            this.rad_ShoesOfHappinessOff = new System.Windows.Forms.RadioButton();
-            this.grp_RingOfLife = new System.Windows.Forms.GroupBox();
-            this.rad_RingOfLifeRand = new System.Windows.Forms.RadioButton();
-            this.rad_RingOfLifeOn = new System.Windows.Forms.RadioButton();
-            this.rad_RingOfLifeOff = new System.Windows.Forms.RadioButton();
-            this.grp_SilverHarp = new System.Windows.Forms.GroupBox();
-            this.rad_SilverHarpRand = new System.Windows.Forms.RadioButton();
-            this.rad_SilverHarpOn = new System.Windows.Forms.RadioButton();
-            this.rad_SilverHarpOff = new System.Windows.Forms.RadioButton();
-            this.grp_EchoingFlute = new System.Windows.Forms.GroupBox();
-            this.rad_EchoingFluteRand = new System.Windows.Forms.RadioButton();
-            this.rad_EchoingFluteOn = new System.Windows.Forms.RadioButton();
-            this.rad_EchoingFluteOff = new System.Windows.Forms.RadioButton();
-            this.grp_WizardRing = new System.Windows.Forms.GroupBox();
-            this.rad_WizardRingRand = new System.Windows.Forms.RadioButton();
-            this.rad_WizardRingOn = new System.Windows.Forms.RadioButton();
-            this.rad_WizardRingOff = new System.Windows.Forms.RadioButton();
-            this.grp_MetoriteArmband = new System.Windows.Forms.GroupBox();
-            this.rad_MetoriteArmbandRand = new System.Windows.Forms.RadioButton();
-            this.rad_MetoriteArmbandOn = new System.Windows.Forms.RadioButton();
-            this.rad_MetoriteArmbandOff = new System.Windows.Forms.RadioButton();
-            this.grp_Satori = new System.Windows.Forms.GroupBox();
-            this.rad_SatoriRand = new System.Windows.Forms.RadioButton();
-            this.rad_SatoriOn = new System.Windows.Forms.RadioButton();
-            this.rad_SatoriOff = new System.Windows.Forms.RadioButton();
-            this.grp_StoneOfLife = new System.Windows.Forms.GroupBox();
-            this.rad_StoneOfLifeRand = new System.Windows.Forms.RadioButton();
-            this.rad_StoneOfLifeOn = new System.Windows.Forms.RadioButton();
-            this.rad_StoneOfLifeOff = new System.Windows.Forms.RadioButton();
-            this.grp_PoisonMoth = new System.Windows.Forms.GroupBox();
-            this.rad_PoisonMothRand = new System.Windows.Forms.RadioButton();
-            this.rad_PoisonMothOn = new System.Windows.Forms.RadioButton();
-            this.rad_PoisonMothOff = new System.Windows.Forms.RadioButton();
-            this.grp_LucSeed = new System.Windows.Forms.GroupBox();
-            this.rad_LucSeedRand = new System.Windows.Forms.RadioButton();
-            this.rad_LucSeedOn = new System.Windows.Forms.RadioButton();
-            this.rad_LucSeedOff = new System.Windows.Forms.RadioButton();
-            this.grp_VitSeed = new System.Windows.Forms.GroupBox();
-            this.rad_VitSeedRand = new System.Windows.Forms.RadioButton();
-            this.rad_VitSeedOn = new System.Windows.Forms.RadioButton();
-            this.rad_VitSeedOff = new System.Windows.Forms.RadioButton();
-            this.grp_WorldTree = new System.Windows.Forms.GroupBox();
-            this.rad_WorldTreeRand = new System.Windows.Forms.RadioButton();
-            this.rad_WorldTreeOn = new System.Windows.Forms.RadioButton();
-            this.rad_WorldTreeOff = new System.Windows.Forms.RadioButton();
-            this.grp_IntSeed = new System.Windows.Forms.GroupBox();
-            this.rad_IntSeedRand = new System.Windows.Forms.RadioButton();
-            this.rad_IntSeedOn = new System.Windows.Forms.RadioButton();
-            this.rad_IntSeedOff = new System.Windows.Forms.RadioButton();
-            this.grp_AgiSeed = new System.Windows.Forms.GroupBox();
-            this.rad_AgiSeedRand = new System.Windows.Forms.RadioButton();
-            this.rad_AgiSeedOn = new System.Windows.Forms.RadioButton();
-            this.rad_AgiSeedOff = new System.Windows.Forms.RadioButton();
-            this.grp_StrSeed = new System.Windows.Forms.GroupBox();
-            this.rad_StrSeedRand = new System.Windows.Forms.RadioButton();
-            this.rad_StrSeedOn = new System.Windows.Forms.RadioButton();
-            this.rad_StrSeedOff = new System.Windows.Forms.RadioButton();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.grp_Class = new System.Windows.Forms.GroupBox();
             this.grp_ClassInclude = new System.Windows.Forms.GroupBox();
@@ -354,22 +306,6 @@ namespace DW3Randomizer
             this.tabPage4.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.grp_AddToItemShop.SuspendLayout();
-            this.grp_LampOfDarkness.SuspendLayout();
-            this.grp_ShoesOfHappiness.SuspendLayout();
-            this.grp_RingOfLife.SuspendLayout();
-            this.grp_SilverHarp.SuspendLayout();
-            this.grp_EchoingFlute.SuspendLayout();
-            this.grp_WizardRing.SuspendLayout();
-            this.grp_MetoriteArmband.SuspendLayout();
-            this.grp_Satori.SuspendLayout();
-            this.grp_StoneOfLife.SuspendLayout();
-            this.grp_PoisonMoth.SuspendLayout();
-            this.grp_LucSeed.SuspendLayout();
-            this.grp_VitSeed.SuspendLayout();
-            this.grp_WorldTree.SuspendLayout();
-            this.grp_IntSeed.SuspendLayout();
-            this.grp_AgiSeed.SuspendLayout();
-            this.grp_StrSeed.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.grp_Class.SuspendLayout();
             this.grp_ClassInclude.SuspendLayout();
@@ -467,7 +403,7 @@ namespace DW3Randomizer
             // 
             // btnRandomize
             // 
-            this.btnRandomize.Location = new System.Drawing.Point(608, 684);
+            this.btnRandomize.Location = new System.Drawing.Point(608, 628);
             this.btnRandomize.Name = "btnRandomize";
             this.btnRandomize.Size = new System.Drawing.Size(77, 23);
             this.btnRandomize.TabIndex = 262;
@@ -553,7 +489,7 @@ namespace DW3Randomizer
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(686, 448);
+            this.tabControl1.Size = new System.Drawing.Size(686, 404);
             this.tabControl1.TabIndex = 40;
             // 
             // tabPage1
@@ -586,7 +522,7 @@ namespace DW3Randomizer
             this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage1.Size = new System.Drawing.Size(678, 422);
+            this.tabPage1.Size = new System.Drawing.Size(678, 378);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Adjustments";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -603,7 +539,7 @@ namespace DW3Randomizer
             this.tchk_InvisShipBird.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_InvisShipBird, "Ships and Bird are invisible on world map.");
             this.tchk_InvisShipBird.UseVisualStyleBackColor = true;
-            this.tchk_InvisShipBird.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_InvisShipBird.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_BigSoHRoL
             // 
@@ -618,7 +554,7 @@ namespace DW3Randomizer
             this.adjustments.SetToolTip(this.tchk_BigSoHRoL, "Randomizes Shoes of Happiness and Ring of Life Effect between 11 and 256 per step" +
         "");
             this.tchk_BigSoHRoL.UseVisualStyleBackColor = true;
-            this.tchk_BigSoHRoL.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_BigSoHRoL.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_SoHRoLEff
             // 
@@ -632,7 +568,7 @@ namespace DW3Randomizer
             this.tchk_SoHRoLEff.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_SoHRoLEff, "Randomizes Shoes of Happiness and Ring of Life Effect between 1 and 10 per step");
             this.tchk_SoHRoLEff.UseVisualStyleBackColor = true;
-            this.tchk_SoHRoLEff.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_SoHRoLEff.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_HUAStone
             // 
@@ -646,7 +582,7 @@ namespace DW3Randomizer
             this.tchk_HUAStone.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_HUAStone, "Guarantees the Sage\'s Stone will cast HealUsAll");
             this.tchk_HUAStone.UseVisualStyleBackColor = true;
-            this.tchk_HUAStone.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_HUAStone.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_SagesStone
             // 
@@ -659,7 +595,7 @@ namespace DW3Randomizer
             this.tchk_SagesStone.Text = "Randomize Sage\'s Stone";
             this.tchk_SagesStone.ThreeState = true;
             this.tchk_SagesStone.UseVisualStyleBackColor = true;
-            this.tchk_SagesStone.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_SagesStone.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_InvisNPC
             // 
@@ -673,7 +609,7 @@ namespace DW3Randomizer
             this.tchk_InvisNPC.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_InvisNPC, "Makes NPCs invisible (but you can still interact with them)");
             this.tchk_InvisNPC.UseVisualStyleBackColor = true;
-            this.tchk_InvisNPC.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_InvisNPC.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_FourJobFiesta
             // 
@@ -688,7 +624,7 @@ namespace DW3Randomizer
             this.adjustments.SetToolTip(this.tchk_FourJobFiesta, "Allows the hero to be removed from the party, the hero to change classes, and any" +
         " hero to become a sage.");
             this.tchk_FourJobFiesta.UseVisualStyleBackColor = true;
-            this.tchk_FourJobFiesta.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_FourJobFiesta.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_PartyItems
             // 
@@ -702,7 +638,7 @@ namespace DW3Randomizer
             this.tchk_PartyItems.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_PartyItems, "Party starts with a random consumable item.");
             this.tchk_PartyItems.UseVisualStyleBackColor = true;
-            this.tchk_PartyItems.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_PartyItems.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_NoOrb
             // 
@@ -716,7 +652,7 @@ namespace DW3Randomizer
             this.tchk_NoOrb.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_NoOrb, "Do not need orbs to hatch Lamia.");
             this.tchk_NoOrb.UseVisualStyleBackColor = true;
-            this.tchk_NoOrb.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_NoOrb.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_DoubleAttack
             // 
@@ -730,7 +666,7 @@ namespace DW3Randomizer
             this.tchk_DoubleAttack.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_DoubleAttack, "Party physical attacks hit twice (is not influenced by Falcon Sword).");
             this.tchk_DoubleAttack.UseVisualStyleBackColor = true;
-            this.tchk_DoubleAttack.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_DoubleAttack.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_NonMPJobs
             // 
@@ -744,7 +680,7 @@ namespace DW3Randomizer
             this.tchk_NonMPJobs.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_NonMPJobs, "Non-MP gaining jobs gain MP at level up based on intelligence.");
             this.tchk_NonMPJobs.UseVisualStyleBackColor = true;
-            this.tchk_NonMPJobs.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_NonMPJobs.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RandSpellStr
             // 
@@ -773,7 +709,7 @@ namespace DW3Randomizer
             this.adjustments.SetToolTip(this.tchk_RandSpellLearn, "Randomizes the class and level spells are learned. Field and battle spells are le" +
         "arned separately.");
             this.tchk_RandSpellLearn.UseVisualStyleBackColor = true;
-            this.tchk_RandSpellLearn.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RandSpellLearn.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_DispEqPower
             // 
@@ -787,7 +723,7 @@ namespace DW3Randomizer
             this.tchk_DispEqPower.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_DispEqPower, "Display equipment power as part of equipment name.");
             this.tchk_DispEqPower.UseVisualStyleBackColor = true;
-            this.tchk_DispEqPower.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_DispEqPower.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_Cod
             // 
@@ -801,7 +737,7 @@ namespace DW3Randomizer
             this.tchk_Cod.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_Cod, "All party members are brought back to life when party is wiped.");
             this.tchk_Cod.UseVisualStyleBackColor = true;
-            this.tchk_Cod.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_Cod.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RandStartGold
             // 
@@ -815,7 +751,7 @@ namespace DW3Randomizer
             this.tchk_RandStartGold.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RandStartGold, "Randomizes gold given by king between 1 and 256.");
             this.tchk_RandStartGold.UseVisualStyleBackColor = true;
-            this.tchk_RandStartGold.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RandStartGold.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RmManips
             // 
@@ -829,7 +765,7 @@ namespace DW3Randomizer
             this.tchk_RmManips.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RmManips, "Changes game\'s random number generation to remove known manipulations.");
             this.tchk_RmManips.UseVisualStyleBackColor = true;
-            this.tchk_RmManips.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RmManips.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_SpeedUpMenus
             // 
@@ -843,7 +779,7 @@ namespace DW3Randomizer
             this.tchk_SpeedUpMenus.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_SpeedUpMenus, "Speeds up how quickly menus change.");
             this.tchk_SpeedUpMenus.UseVisualStyleBackColor = true;
-            this.tchk_SpeedUpMenus.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_SpeedUpMenus.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_SpeedUpText
             // 
@@ -857,7 +793,7 @@ namespace DW3Randomizer
             this.tchk_SpeedUpText.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_SpeedUpText, "Speeds up how quickly text is displayed.");
             this.tchk_SpeedUpText.UseVisualStyleBackColor = true;
-            this.tchk_SpeedUpText.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_SpeedUpText.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_IncBatSpeed
             // 
@@ -871,7 +807,7 @@ namespace DW3Randomizer
             this.tchk_IncBatSpeed.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_IncBatSpeed, "Removes frames of animation to speed up battles.");
             this.tchk_IncBatSpeed.UseVisualStyleBackColor = true;
-            this.tchk_IncBatSpeed.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_IncBatSpeed.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // grp_RandStats
             // 
@@ -1386,7 +1322,7 @@ namespace DW3Randomizer
             this.tchk_RmNoEncounter.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RmNoEncounter, "Separates Baramos Castle and Pit to disable no encounter glitch");
             this.tchk_RmNoEncounter.UseVisualStyleBackColor = true;
-            this.tchk_RmNoEncounter.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RmNoEncounter.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_NoNewTown
             // 
@@ -1399,7 +1335,7 @@ namespace DW3Randomizer
             this.tchk_NoNewTown.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_NoNewTown, "Removes New Town from being generated on the overworld map");
             this.tchk_NoNewTown.UseVisualStyleBackColor = true;
-            this.tchk_NoNewTown.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_NoNewTown.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RmMoatCharlock
             // 
@@ -1412,7 +1348,7 @@ namespace DW3Randomizer
             this.tchk_RmMoatCharlock.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RmMoatCharlock, "Fills in water around Charlock Castle with land");
             this.tchk_RmMoatCharlock.UseVisualStyleBackColor = true;
-            this.tchk_RmMoatCharlock.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RmMoatCharlock.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RmMountDQC
             // 
@@ -1425,7 +1361,7 @@ namespace DW3Randomizer
             this.tchk_RmMountDQC.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RmMountDQC, "Removes mountains around Dragon Queen\'s Castle");
             this.tchk_RmMountDQC.UseVisualStyleBackColor = true;
-            this.tchk_RmMountDQC.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RmMountDQC.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RmMountBaramos
             // 
@@ -1438,7 +1374,7 @@ namespace DW3Randomizer
             this.tchk_RmMountBaramos.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RmMountBaramos, "Removes mountains around Baramos\' Castle");
             this.tchk_RmMountBaramos.UseVisualStyleBackColor = true;
-            this.tchk_RmMountBaramos.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RmMountBaramos.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RmMountNecro
             // 
@@ -1451,7 +1387,7 @@ namespace DW3Randomizer
             this.tchk_RmMountNecro.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RmMountNecro, "Removes mountains around Cave of Necrogond");
             this.tchk_RmMountNecro.UseVisualStyleBackColor = true;
-            this.tchk_RmMountNecro.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RmMountNecro.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RmMountLancel
             // 
@@ -1464,7 +1400,7 @@ namespace DW3Randomizer
             this.tchk_RmMountLancel.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RmMountLancel, "Removes mountains around Lancel Cave");
             this.tchk_RmMountLancel.UseVisualStyleBackColor = true;
-            this.tchk_RmMountLancel.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RmMountLancel.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RandShrines
             // 
@@ -1477,7 +1413,7 @@ namespace DW3Randomizer
             this.tchk_RandShrines.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RandShrines, "Randomizes continents that shrines are found on");
             this.tchk_RandShrines.UseVisualStyleBackColor = true;
-            this.tchk_RandShrines.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RandShrines.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RandCaveTower
             // 
@@ -1490,7 +1426,7 @@ namespace DW3Randomizer
             this.tchk_RandCaveTower.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RandCaveTower, "Randomizes continents that caves and towers are found on");
             this.tchk_RandCaveTower.UseVisualStyleBackColor = true;
-            this.tchk_RandCaveTower.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RandCaveTower.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RandTowns
             // 
@@ -1503,7 +1439,7 @@ namespace DW3Randomizer
             this.tchk_RandTowns.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RandTowns, "Randomizes continents that towns are found on");
             this.tchk_RandTowns.UseVisualStyleBackColor = true;
-            this.tchk_RandTowns.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RandTowns.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RandMonstZones
             // 
@@ -1516,7 +1452,7 @@ namespace DW3Randomizer
             this.tchk_RandMonstZones.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RandMonstZones, "Randomizes zones that monsters are found in");
             this.tchk_RandMonstZones.UseVisualStyleBackColor = true;
-            this.tchk_RandMonstZones.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RandMonstZones.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_SmallMaps
             // 
@@ -1529,7 +1465,7 @@ namespace DW3Randomizer
             this.tchk_SmallMaps.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_SmallMaps, "Reduces the size of the light and dark world maps.");
             this.tchk_SmallMaps.UseVisualStyleBackColor = true;
-            this.tchk_SmallMaps.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_SmallMaps.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RandMaps
             // 
@@ -1542,7 +1478,7 @@ namespace DW3Randomizer
             this.tchk_RandMaps.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RandMaps, "Randomize light and dark world maps");
             this.tchk_RandMaps.UseVisualStyleBackColor = true;
-            this.tchk_RandMaps.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RandMaps.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tabPage2
             // 
@@ -1572,7 +1508,7 @@ namespace DW3Randomizer
             this.tchk_RmMetalRun.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RmMetalRun, "Removes high run rate from metal monsters");
             this.tchk_RmMetalRun.UseVisualStyleBackColor = true;
-            this.tchk_RmMetalRun.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RmMetalRun.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RandEnAttPat
             // 
@@ -1585,7 +1521,7 @@ namespace DW3Randomizer
             this.tchk_RandEnAttPat.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RandEnAttPat, "Randomizes the attacks and patterns that enemy monsters can use");
             this.tchk_RandEnAttPat.UseVisualStyleBackColor = true;
-            this.tchk_RandEnAttPat.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RandEnAttPat.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RmDupItemPool
             // 
@@ -1598,7 +1534,7 @@ namespace DW3Randomizer
             this.tchk_RmDupItemPool.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RmDupItemPool, "Removes duplicate consumable items from drop table");
             this.tchk_RmDupItemPool.UseVisualStyleBackColor = true;
-            this.tchk_RmDupItemPool.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RmDupItemPool.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RandDrops
             // 
@@ -1611,7 +1547,7 @@ namespace DW3Randomizer
             this.tchk_RandDrops.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RandDrops, "Randomizes drops from monsters");
             this.tchk_RandDrops.UseVisualStyleBackColor = true;
-            this.tchk_RandDrops.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RandDrops.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RandGold
             // 
@@ -1624,7 +1560,7 @@ namespace DW3Randomizer
             this.tchk_RandGold.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RandGold, "Randomizes gold granted by monsters by + or - 25%");
             this.tchk_RandGold.UseVisualStyleBackColor = true;
-            this.tchk_RandGold.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RandGold.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RandExp
             // 
@@ -1637,7 +1573,7 @@ namespace DW3Randomizer
             this.tchk_RandExp.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RandExp, "Randomizes experience granted by monsters by + or - 25%");
             this.tchk_RandExp.UseVisualStyleBackColor = true;
-            this.tchk_RandExp.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RandExp.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tabPage4
             // 
@@ -1674,7 +1610,7 @@ namespace DW3Randomizer
             this.adjustments.SetToolTip(this.tchk_RandItemEff, "Randomizes the effect of items.");
             this.tchk_RandItemEff.UseVisualStyleBackColor = true;
             this.tchk_RandItemEff.Visible = false;
-            this.tchk_RandItemEff.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RandItemEff.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RmRedKey
             // 
@@ -1687,7 +1623,7 @@ namespace DW3Randomizer
             this.tchk_RmRedKey.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RmRedKey, "Removes lower tier keys from areas if a higher tier one is found there.");
             this.tchk_RmRedKey.UseVisualStyleBackColor = true;
-            this.tchk_RmRedKey.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RmRedKey.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_GreenSilvOrb
             // 
@@ -1700,7 +1636,7 @@ namespace DW3Randomizer
             this.tchk_GreenSilvOrb.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_GreenSilvOrb, "Allows Green and Silver Orbs to be found in their default locations.");
             this.tchk_GreenSilvOrb.UseVisualStyleBackColor = true;
-            this.tchk_GreenSilvOrb.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_GreenSilvOrb.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_AddGoldClaw
             // 
@@ -1713,7 +1649,7 @@ namespace DW3Randomizer
             this.tchk_AddGoldClaw.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_AddGoldClaw, "Add the Golden Claw to the Treasure Pool (1 will be put in a random chest).");
             this.tchk_AddGoldClaw.UseVisualStyleBackColor = true;
-            this.tchk_AddGoldClaw.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_AddGoldClaw.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RandTreasures
             // 
@@ -1726,7 +1662,7 @@ namespace DW3Randomizer
             this.tchk_RandTreasures.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RandTreasures, "Randomizes treasures found in chests and on the ground.");
             this.tchk_RandTreasures.UseVisualStyleBackColor = true;
-            this.tchk_RandTreasures.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RandTreasures.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_AdjEqPrices
             // 
@@ -1739,7 +1675,7 @@ namespace DW3Randomizer
             this.tchk_AdjEqPrices.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_AdjEqPrices, "Adjusts equipment prices based on power.");
             this.tchk_AdjEqPrices.UseVisualStyleBackColor = true;
-            this.tchk_AdjEqPrices.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_AdjEqPrices.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RandEqClass
             // 
@@ -1752,7 +1688,7 @@ namespace DW3Randomizer
             this.tchk_RandEqClass.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RandEqClass, "Randomizes which classes can equip equipment.");
             this.tchk_RandEqClass.UseVisualStyleBackColor = true;
-            this.tchk_RandEqClass.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RandEqClass.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RmFigherPen
             // 
@@ -1765,7 +1701,7 @@ namespace DW3Randomizer
             this.tchk_RmFigherPen.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RmFigherPen, "Removes the penalty some equipment has for fighters.");
             this.tchk_RmFigherPen.UseVisualStyleBackColor = true;
-            this.tchk_RmFigherPen.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RmFigherPen.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RemStartCap
             // 
@@ -1778,7 +1714,7 @@ namespace DW3Randomizer
             this.tchk_RemStartCap.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RemStartCap, "Starting equipment is not limited in power when randomized.");
             this.tchk_RemStartCap.UseVisualStyleBackColor = true;
-            this.tchk_RemStartCap.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RemStartCap.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_VanEqVals
             // 
@@ -1792,7 +1728,7 @@ namespace DW3Randomizer
             this.adjustments.SetToolTip(this.tchk_VanEqVals, "Uses values of actual equipment instead of a random number when randomizing power" +
         ".");
             this.tchk_VanEqVals.UseVisualStyleBackColor = true;
-            this.tchk_VanEqVals.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_VanEqVals.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RandEqPower
             // 
@@ -1806,7 +1742,7 @@ namespace DW3Randomizer
             this.tchk_RandEqPower.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RandEqPower, "Randomizes the power of weapons, armor, helmets, and shields.");
             this.tchk_RandEqPower.UseVisualStyleBackColor = true;
-            this.tchk_RandEqPower.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RandEqPower.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_AddRemakeEq
             // 
@@ -1821,7 +1757,7 @@ namespace DW3Randomizer
             this.adjustments.SetToolTip(this.tchk_AddRemakeEq, "Replaces some equipment to add equipment from remakes for Pilgrim, Merchant, and " +
         "Fighter.");
             this.tchk_AddRemakeEq.UseVisualStyleBackColor = true;
-            this.tchk_AddRemakeEq.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_AddRemakeEq.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tabPage6
             // 
@@ -1849,7 +1785,7 @@ namespace DW3Randomizer
             this.tchk_AnimalSuit.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_AnimalSuit, "Ensures that the Animal Suit will be found in at least 1 Weapon Shop.");
             this.tchk_AnimalSuit.UseVisualStyleBackColor = true;
-            this.tchk_AnimalSuit.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_AnimalSuit.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_SellKeyItems
             // 
@@ -1862,7 +1798,7 @@ namespace DW3Randomizer
             this.tchk_SellKeyItems.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_SellKeyItems, "Sell many key items. Selling before use can lead to progression blocks.");
             this.tchk_SellKeyItems.UseVisualStyleBackColor = true;
-            this.tchk_SellKeyItems.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_SellKeyItems.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RandInnPrice
             // 
@@ -1875,7 +1811,7 @@ namespace DW3Randomizer
             this.tchk_RandInnPrice.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RandInnPrice, "Randomizes inn prices.");
             this.tchk_RandInnPrice.UseVisualStyleBackColor = true;
-            this.tchk_RandInnPrice.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RandInnPrice.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RandWeapShop
             // 
@@ -1888,7 +1824,7 @@ namespace DW3Randomizer
             this.tchk_RandWeapShop.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RandWeapShop, "Randomizes weapons and armor found in Weapon Shops.");
             this.tchk_RandWeapShop.UseVisualStyleBackColor = true;
-            this.tchk_RandWeapShop.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RandWeapShop.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RandItemShop
             // 
@@ -1901,36 +1837,228 @@ namespace DW3Randomizer
             this.tchk_RandItemShop.ThreeState = true;
             this.adjustments.SetToolTip(this.tchk_RandItemShop, "Randomizes items for sale in Item Shops.");
             this.tchk_RandItemShop.UseVisualStyleBackColor = true;
-            this.tchk_RandItemShop.Click += new System.EventHandler(this.determineFlags);
+            this.tchk_RandItemShop.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // grp_AddToItemShop
             // 
+            this.grp_AddToItemShop.Controls.Add(this.tchk_PoisonMothPowder);
+            this.grp_AddToItemShop.Controls.Add(this.tchk_LeafOfTheWorldTree);
+            this.grp_AddToItemShop.Controls.Add(this.tchk_StoneOfLife);
+            this.grp_AddToItemShop.Controls.Add(this.tchk_WizardsRing);
+            this.grp_AddToItemShop.Controls.Add(this.tchk_BookOfSatori);
+            this.grp_AddToItemShop.Controls.Add(this.tchk_RingOfLife);
+            this.grp_AddToItemShop.Controls.Add(this.tchk_ShoesOfHappiness);
+            this.grp_AddToItemShop.Controls.Add(this.tchk_MeteoriteArmband);
+            this.grp_AddToItemShop.Controls.Add(this.tchk_LampOfDarkness);
+            this.grp_AddToItemShop.Controls.Add(this.tchk_SilverHarp);
+            this.grp_AddToItemShop.Controls.Add(this.tchk_EchoingFlute);
+            this.grp_AddToItemShop.Controls.Add(this.tchk_LuckSeed);
+            this.grp_AddToItemShop.Controls.Add(this.tchk_VitSeed);
+            this.grp_AddToItemShop.Controls.Add(this.tchk_IntSeed);
+            this.grp_AddToItemShop.Controls.Add(this.tchk_AgiSeed);
+            this.grp_AddToItemShop.Controls.Add(this.tchk_StrSeed);
             this.grp_AddToItemShop.Controls.Add(this.tchk_AcornsOfLife);
-            this.grp_AddToItemShop.Controls.Add(this.grp_LampOfDarkness);
-            this.grp_AddToItemShop.Controls.Add(this.grp_ShoesOfHappiness);
-            this.grp_AddToItemShop.Controls.Add(this.grp_RingOfLife);
-            this.grp_AddToItemShop.Controls.Add(this.grp_SilverHarp);
-            this.grp_AddToItemShop.Controls.Add(this.grp_EchoingFlute);
-            this.grp_AddToItemShop.Controls.Add(this.grp_WizardRing);
-            this.grp_AddToItemShop.Controls.Add(this.grp_MetoriteArmband);
-            this.grp_AddToItemShop.Controls.Add(this.grp_Satori);
-            this.grp_AddToItemShop.Controls.Add(this.grp_StoneOfLife);
-            this.grp_AddToItemShop.Controls.Add(this.grp_PoisonMoth);
-            this.grp_AddToItemShop.Controls.Add(this.grp_LucSeed);
-            this.grp_AddToItemShop.Controls.Add(this.grp_VitSeed);
-            this.grp_AddToItemShop.Controls.Add(this.grp_WorldTree);
-            this.grp_AddToItemShop.Controls.Add(this.grp_IntSeed);
-            this.grp_AddToItemShop.Controls.Add(this.grp_AgiSeed);
-            this.grp_AddToItemShop.Controls.Add(this.grp_StrSeed);
             this.grp_AddToItemShop.Location = new System.Drawing.Point(241, 7);
             this.grp_AddToItemShop.Margin = new System.Windows.Forms.Padding(2);
             this.grp_AddToItemShop.Name = "grp_AddToItemShop";
             this.grp_AddToItemShop.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_AddToItemShop.Size = new System.Drawing.Size(434, 413);
+            this.grp_AddToItemShop.Size = new System.Drawing.Size(434, 169);
             this.grp_AddToItemShop.TabIndex = 165;
             this.grp_AddToItemShop.TabStop = false;
             this.grp_AddToItemShop.Text = "Add to Item Shops Pool";
             this.adjustments.SetToolTip(this.grp_AddToItemShop, "Add specific items to Item Shop pool.");
+            // 
+            // tchk_PoisonMothPowder
+            // 
+            this.tchk_PoisonMothPowder.AutoSize = true;
+            this.tchk_PoisonMothPowder.Location = new System.Drawing.Point(269, 120);
+            this.tchk_PoisonMothPowder.Name = "tchk_PoisonMothPowder";
+            this.tchk_PoisonMothPowder.Size = new System.Drawing.Size(124, 17);
+            this.tchk_PoisonMothPowder.TabIndex = 197;
+            this.tchk_PoisonMothPowder.Text = "Poison Moth Powder";
+            this.tchk_PoisonMothPowder.ThreeState = true;
+            this.tchk_PoisonMothPowder.UseVisualStyleBackColor = true;
+            this.tchk_PoisonMothPowder.CheckStateChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // tchk_LeafOfTheWorldTree
+            // 
+            this.tchk_LeafOfTheWorldTree.AutoSize = true;
+            this.tchk_LeafOfTheWorldTree.Location = new System.Drawing.Point(269, 96);
+            this.tchk_LeafOfTheWorldTree.Name = "tchk_LeafOfTheWorldTree";
+            this.tchk_LeafOfTheWorldTree.Size = new System.Drawing.Size(133, 17);
+            this.tchk_LeafOfTheWorldTree.TabIndex = 196;
+            this.tchk_LeafOfTheWorldTree.Text = "Leaf of the World Tree";
+            this.tchk_LeafOfTheWorldTree.ThreeState = true;
+            this.tchk_LeafOfTheWorldTree.UseVisualStyleBackColor = true;
+            this.tchk_LeafOfTheWorldTree.CheckStateChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // tchk_StoneOfLife
+            // 
+            this.tchk_StoneOfLife.AutoSize = true;
+            this.tchk_StoneOfLife.Location = new System.Drawing.Point(269, 72);
+            this.tchk_StoneOfLife.Name = "tchk_StoneOfLife";
+            this.tchk_StoneOfLife.Size = new System.Drawing.Size(86, 17);
+            this.tchk_StoneOfLife.TabIndex = 195;
+            this.tchk_StoneOfLife.Text = "Stone of Life";
+            this.tchk_StoneOfLife.ThreeState = true;
+            this.tchk_StoneOfLife.UseVisualStyleBackColor = true;
+            this.tchk_StoneOfLife.CheckStateChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // tchk_WizardsRing
+            // 
+            this.tchk_WizardsRing.AutoSize = true;
+            this.tchk_WizardsRing.Location = new System.Drawing.Point(269, 48);
+            this.tchk_WizardsRing.Name = "tchk_WizardsRing";
+            this.tchk_WizardsRing.Size = new System.Drawing.Size(91, 17);
+            this.tchk_WizardsRing.TabIndex = 194;
+            this.tchk_WizardsRing.Text = "Wizard\'s Ring";
+            this.tchk_WizardsRing.ThreeState = true;
+            this.tchk_WizardsRing.UseVisualStyleBackColor = true;
+            this.tchk_WizardsRing.CheckStateChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // tchk_BookOfSatori
+            // 
+            this.tchk_BookOfSatori.AutoSize = true;
+            this.tchk_BookOfSatori.Location = new System.Drawing.Point(269, 24);
+            this.tchk_BookOfSatori.Name = "tchk_BookOfSatori";
+            this.tchk_BookOfSatori.Size = new System.Drawing.Size(93, 17);
+            this.tchk_BookOfSatori.TabIndex = 193;
+            this.tchk_BookOfSatori.Text = "Book of Satori";
+            this.tchk_BookOfSatori.ThreeState = true;
+            this.tchk_BookOfSatori.UseVisualStyleBackColor = true;
+            this.tchk_BookOfSatori.CheckStateChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // tchk_RingOfLife
+            // 
+            this.tchk_RingOfLife.AutoSize = true;
+            this.tchk_RingOfLife.Location = new System.Drawing.Point(135, 144);
+            this.tchk_RingOfLife.Name = "tchk_RingOfLife";
+            this.tchk_RingOfLife.Size = new System.Drawing.Size(80, 17);
+            this.tchk_RingOfLife.TabIndex = 192;
+            this.tchk_RingOfLife.Text = "Ring of Life";
+            this.tchk_RingOfLife.ThreeState = true;
+            this.tchk_RingOfLife.UseVisualStyleBackColor = true;
+            this.tchk_RingOfLife.CheckStateChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // tchk_ShoesOfHappiness
+            // 
+            this.tchk_ShoesOfHappiness.AutoSize = true;
+            this.tchk_ShoesOfHappiness.Location = new System.Drawing.Point(135, 120);
+            this.tchk_ShoesOfHappiness.Name = "tchk_ShoesOfHappiness";
+            this.tchk_ShoesOfHappiness.Size = new System.Drawing.Size(121, 17);
+            this.tchk_ShoesOfHappiness.TabIndex = 191;
+            this.tchk_ShoesOfHappiness.Text = "Shoes of Happiness";
+            this.tchk_ShoesOfHappiness.ThreeState = true;
+            this.tchk_ShoesOfHappiness.UseVisualStyleBackColor = true;
+            this.tchk_ShoesOfHappiness.CheckStateChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // tchk_MeteoriteArmband
+            // 
+            this.tchk_MeteoriteArmband.AutoSize = true;
+            this.tchk_MeteoriteArmband.Location = new System.Drawing.Point(135, 96);
+            this.tchk_MeteoriteArmband.Name = "tchk_MeteoriteArmband";
+            this.tchk_MeteoriteArmband.Size = new System.Drawing.Size(115, 17);
+            this.tchk_MeteoriteArmband.TabIndex = 190;
+            this.tchk_MeteoriteArmband.Text = "Meteorite Armband";
+            this.tchk_MeteoriteArmband.ThreeState = true;
+            this.tchk_MeteoriteArmband.UseVisualStyleBackColor = true;
+            this.tchk_MeteoriteArmband.CheckStateChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // tchk_LampOfDarkness
+            // 
+            this.tchk_LampOfDarkness.AutoSize = true;
+            this.tchk_LampOfDarkness.Location = new System.Drawing.Point(135, 72);
+            this.tchk_LampOfDarkness.Name = "tchk_LampOfDarkness";
+            this.tchk_LampOfDarkness.Size = new System.Drawing.Size(112, 17);
+            this.tchk_LampOfDarkness.TabIndex = 189;
+            this.tchk_LampOfDarkness.Text = "Lamp of Darkness";
+            this.tchk_LampOfDarkness.ThreeState = true;
+            this.tchk_LampOfDarkness.UseVisualStyleBackColor = true;
+            this.tchk_LampOfDarkness.CheckStateChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // tchk_SilverHarp
+            // 
+            this.tchk_SilverHarp.AutoSize = true;
+            this.tchk_SilverHarp.Location = new System.Drawing.Point(135, 48);
+            this.tchk_SilverHarp.Name = "tchk_SilverHarp";
+            this.tchk_SilverHarp.Size = new System.Drawing.Size(78, 17);
+            this.tchk_SilverHarp.TabIndex = 3;
+            this.tchk_SilverHarp.Text = "Silver Harp";
+            this.tchk_SilverHarp.ThreeState = true;
+            this.tchk_SilverHarp.UseVisualStyleBackColor = true;
+            this.tchk_SilverHarp.CheckStateChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // tchk_EchoingFlute
+            // 
+            this.tchk_EchoingFlute.AutoSize = true;
+            this.tchk_EchoingFlute.Location = new System.Drawing.Point(135, 24);
+            this.tchk_EchoingFlute.Name = "tchk_EchoingFlute";
+            this.tchk_EchoingFlute.Size = new System.Drawing.Size(91, 17);
+            this.tchk_EchoingFlute.TabIndex = 188;
+            this.tchk_EchoingFlute.Text = "Echoing Flute";
+            this.tchk_EchoingFlute.ThreeState = true;
+            this.tchk_EchoingFlute.UseVisualStyleBackColor = true;
+            this.tchk_EchoingFlute.CheckStateChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // tchk_LuckSeed
+            // 
+            this.tchk_LuckSeed.AutoSize = true;
+            this.tchk_LuckSeed.Location = new System.Drawing.Point(7, 144);
+            this.tchk_LuckSeed.Name = "tchk_LuckSeed";
+            this.tchk_LuckSeed.Size = new System.Drawing.Size(78, 17);
+            this.tchk_LuckSeed.TabIndex = 187;
+            this.tchk_LuckSeed.Text = "Luck Seed";
+            this.tchk_LuckSeed.ThreeState = true;
+            this.tchk_LuckSeed.UseVisualStyleBackColor = true;
+            this.tchk_LuckSeed.CheckStateChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // tchk_VitSeed
+            // 
+            this.tchk_VitSeed.AutoSize = true;
+            this.tchk_VitSeed.Location = new System.Drawing.Point(7, 120);
+            this.tchk_VitSeed.Name = "tchk_VitSeed";
+            this.tchk_VitSeed.Size = new System.Drawing.Size(84, 17);
+            this.tchk_VitSeed.TabIndex = 186;
+            this.tchk_VitSeed.Text = "Vitality Seed";
+            this.tchk_VitSeed.ThreeState = true;
+            this.tchk_VitSeed.UseVisualStyleBackColor = true;
+            this.tchk_VitSeed.CheckStateChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // tchk_IntSeed
+            // 
+            this.tchk_IntSeed.AutoSize = true;
+            this.tchk_IntSeed.Location = new System.Drawing.Point(7, 96);
+            this.tchk_IntSeed.Name = "tchk_IntSeed";
+            this.tchk_IntSeed.Size = new System.Drawing.Size(108, 17);
+            this.tchk_IntSeed.TabIndex = 185;
+            this.tchk_IntSeed.Text = "Intelligence Seed";
+            this.tchk_IntSeed.ThreeState = true;
+            this.tchk_IntSeed.UseVisualStyleBackColor = true;
+            this.tchk_IntSeed.CheckStateChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // tchk_AgiSeed
+            // 
+            this.tchk_AgiSeed.AutoSize = true;
+            this.tchk_AgiSeed.Location = new System.Drawing.Point(7, 72);
+            this.tchk_AgiSeed.Name = "tchk_AgiSeed";
+            this.tchk_AgiSeed.Size = new System.Drawing.Size(81, 17);
+            this.tchk_AgiSeed.TabIndex = 184;
+            this.tchk_AgiSeed.Text = "Agility Seed";
+            this.tchk_AgiSeed.ThreeState = true;
+            this.tchk_AgiSeed.UseVisualStyleBackColor = true;
+            this.tchk_AgiSeed.CheckStateChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // tchk_StrSeed
+            // 
+            this.tchk_StrSeed.AutoSize = true;
+            this.tchk_StrSeed.Location = new System.Drawing.Point(7, 48);
+            this.tchk_StrSeed.Name = "tchk_StrSeed";
+            this.tchk_StrSeed.Size = new System.Drawing.Size(94, 17);
+            this.tchk_StrSeed.TabIndex = 183;
+            this.tchk_StrSeed.Text = "Strength Seed";
+            this.tchk_StrSeed.ThreeState = true;
+            this.tchk_StrSeed.UseVisualStyleBackColor = true;
+            this.tchk_StrSeed.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_AcornsOfLife
             // 
@@ -1944,838 +2072,6 @@ namespace DW3Randomizer
             this.tchk_AcornsOfLife.UseVisualStyleBackColor = true;
             this.tchk_AcornsOfLife.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
-            // grp_LampOfDarkness
-            // 
-            this.grp_LampOfDarkness.Controls.Add(this.rad_LampOfDarknessRand);
-            this.grp_LampOfDarkness.Controls.Add(this.rad_LampOfDarknessOn);
-            this.grp_LampOfDarkness.Controls.Add(this.rad_LampOfDarknessOff);
-            this.grp_LampOfDarkness.Location = new System.Drawing.Point(4, 196);
-            this.grp_LampOfDarkness.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_LampOfDarkness.Name = "grp_LampOfDarkness";
-            this.grp_LampOfDarkness.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_LampOfDarkness.Size = new System.Drawing.Size(163, 41);
-            this.grp_LampOfDarkness.TabIndex = 181;
-            this.grp_LampOfDarkness.TabStop = false;
-            this.grp_LampOfDarkness.Text = "Lamp of Darkness";
-            // 
-            // rad_LampOfDarknessRand
-            // 
-            this.rad_LampOfDarknessRand.AutoSize = true;
-            this.rad_LampOfDarknessRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_LampOfDarknessRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_LampOfDarknessRand.Name = "rad_LampOfDarknessRand";
-            this.rad_LampOfDarknessRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_LampOfDarknessRand.TabIndex = 2;
-            this.rad_LampOfDarknessRand.Text = "Random";
-            this.rad_LampOfDarknessRand.UseVisualStyleBackColor = true;
-            this.rad_LampOfDarknessRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_LampOfDarknessOn
-            // 
-            this.rad_LampOfDarknessOn.AutoSize = true;
-            this.rad_LampOfDarknessOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_LampOfDarknessOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_LampOfDarknessOn.Name = "rad_LampOfDarknessOn";
-            this.rad_LampOfDarknessOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_LampOfDarknessOn.TabIndex = 1;
-            this.rad_LampOfDarknessOn.Text = "On";
-            this.rad_LampOfDarknessOn.UseVisualStyleBackColor = true;
-            this.rad_LampOfDarknessOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_LampOfDarknessOff
-            // 
-            this.rad_LampOfDarknessOff.AutoSize = true;
-            this.rad_LampOfDarknessOff.Checked = true;
-            this.rad_LampOfDarknessOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_LampOfDarknessOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_LampOfDarknessOff.Name = "rad_LampOfDarknessOff";
-            this.rad_LampOfDarknessOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_LampOfDarknessOff.TabIndex = 0;
-            this.rad_LampOfDarknessOff.TabStop = true;
-            this.rad_LampOfDarknessOff.Text = "Off";
-            this.rad_LampOfDarknessOff.UseVisualStyleBackColor = true;
-            this.rad_LampOfDarknessOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_ShoesOfHappiness
-            // 
-            this.grp_ShoesOfHappiness.Controls.Add(this.rad_ShoesOfHappinessRand);
-            this.grp_ShoesOfHappiness.Controls.Add(this.rad_ShoesOfHappinessOn);
-            this.grp_ShoesOfHappiness.Controls.Add(this.rad_ShoesOfHappinessOff);
-            this.grp_ShoesOfHappiness.Location = new System.Drawing.Point(10, 241);
-            this.grp_ShoesOfHappiness.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_ShoesOfHappiness.Name = "grp_ShoesOfHappiness";
-            this.grp_ShoesOfHappiness.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_ShoesOfHappiness.Size = new System.Drawing.Size(163, 41);
-            this.grp_ShoesOfHappiness.TabIndex = 180;
-            this.grp_ShoesOfHappiness.TabStop = false;
-            this.grp_ShoesOfHappiness.Text = "Shoes of Happiness";
-            // 
-            // rad_ShoesOfHappinessRand
-            // 
-            this.rad_ShoesOfHappinessRand.AutoSize = true;
-            this.rad_ShoesOfHappinessRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_ShoesOfHappinessRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_ShoesOfHappinessRand.Name = "rad_ShoesOfHappinessRand";
-            this.rad_ShoesOfHappinessRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_ShoesOfHappinessRand.TabIndex = 2;
-            this.rad_ShoesOfHappinessRand.Text = "Random";
-            this.rad_ShoesOfHappinessRand.UseVisualStyleBackColor = true;
-            this.rad_ShoesOfHappinessRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_ShoesOfHappinessOn
-            // 
-            this.rad_ShoesOfHappinessOn.AutoSize = true;
-            this.rad_ShoesOfHappinessOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_ShoesOfHappinessOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_ShoesOfHappinessOn.Name = "rad_ShoesOfHappinessOn";
-            this.rad_ShoesOfHappinessOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_ShoesOfHappinessOn.TabIndex = 1;
-            this.rad_ShoesOfHappinessOn.Text = "On";
-            this.rad_ShoesOfHappinessOn.UseVisualStyleBackColor = true;
-            this.rad_ShoesOfHappinessOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_ShoesOfHappinessOff
-            // 
-            this.rad_ShoesOfHappinessOff.AutoSize = true;
-            this.rad_ShoesOfHappinessOff.Checked = true;
-            this.rad_ShoesOfHappinessOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_ShoesOfHappinessOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_ShoesOfHappinessOff.Name = "rad_ShoesOfHappinessOff";
-            this.rad_ShoesOfHappinessOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_ShoesOfHappinessOff.TabIndex = 0;
-            this.rad_ShoesOfHappinessOff.TabStop = true;
-            this.rad_ShoesOfHappinessOff.Text = "Off";
-            this.rad_ShoesOfHappinessOff.UseVisualStyleBackColor = true;
-            this.rad_ShoesOfHappinessOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_RingOfLife
-            // 
-            this.grp_RingOfLife.Controls.Add(this.rad_RingOfLifeRand);
-            this.grp_RingOfLife.Controls.Add(this.rad_RingOfLifeOn);
-            this.grp_RingOfLife.Controls.Add(this.rad_RingOfLifeOff);
-            this.grp_RingOfLife.Location = new System.Drawing.Point(183, 241);
-            this.grp_RingOfLife.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_RingOfLife.Name = "grp_RingOfLife";
-            this.grp_RingOfLife.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_RingOfLife.Size = new System.Drawing.Size(163, 41);
-            this.grp_RingOfLife.TabIndex = 179;
-            this.grp_RingOfLife.TabStop = false;
-            this.grp_RingOfLife.Text = "Ring of Life";
-            // 
-            // rad_RingOfLifeRand
-            // 
-            this.rad_RingOfLifeRand.AutoSize = true;
-            this.rad_RingOfLifeRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_RingOfLifeRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RingOfLifeRand.Name = "rad_RingOfLifeRand";
-            this.rad_RingOfLifeRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_RingOfLifeRand.TabIndex = 2;
-            this.rad_RingOfLifeRand.Text = "Random";
-            this.rad_RingOfLifeRand.UseVisualStyleBackColor = true;
-            this.rad_RingOfLifeRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_RingOfLifeOn
-            // 
-            this.rad_RingOfLifeOn.AutoSize = true;
-            this.rad_RingOfLifeOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_RingOfLifeOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RingOfLifeOn.Name = "rad_RingOfLifeOn";
-            this.rad_RingOfLifeOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_RingOfLifeOn.TabIndex = 1;
-            this.rad_RingOfLifeOn.Text = "On";
-            this.rad_RingOfLifeOn.UseVisualStyleBackColor = true;
-            this.rad_RingOfLifeOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_RingOfLifeOff
-            // 
-            this.rad_RingOfLifeOff.AutoSize = true;
-            this.rad_RingOfLifeOff.Checked = true;
-            this.rad_RingOfLifeOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_RingOfLifeOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_RingOfLifeOff.Name = "rad_RingOfLifeOff";
-            this.rad_RingOfLifeOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_RingOfLifeOff.TabIndex = 0;
-            this.rad_RingOfLifeOff.TabStop = true;
-            this.rad_RingOfLifeOff.Text = "Off";
-            this.rad_RingOfLifeOff.UseVisualStyleBackColor = true;
-            this.rad_RingOfLifeOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_SilverHarp
-            // 
-            this.grp_SilverHarp.Controls.Add(this.rad_SilverHarpRand);
-            this.grp_SilverHarp.Controls.Add(this.rad_SilverHarpOn);
-            this.grp_SilverHarp.Controls.Add(this.rad_SilverHarpOff);
-            this.grp_SilverHarp.Location = new System.Drawing.Point(170, 151);
-            this.grp_SilverHarp.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_SilverHarp.Name = "grp_SilverHarp";
-            this.grp_SilverHarp.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_SilverHarp.Size = new System.Drawing.Size(163, 41);
-            this.grp_SilverHarp.TabIndex = 178;
-            this.grp_SilverHarp.TabStop = false;
-            this.grp_SilverHarp.Text = "Silver Harp";
-            // 
-            // rad_SilverHarpRand
-            // 
-            this.rad_SilverHarpRand.AutoSize = true;
-            this.rad_SilverHarpRand.Location = new System.Drawing.Point(93, 19);
-            this.rad_SilverHarpRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_SilverHarpRand.Name = "rad_SilverHarpRand";
-            this.rad_SilverHarpRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_SilverHarpRand.TabIndex = 2;
-            this.rad_SilverHarpRand.Text = "Random";
-            this.rad_SilverHarpRand.UseVisualStyleBackColor = true;
-            this.rad_SilverHarpRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_SilverHarpOn
-            // 
-            this.rad_SilverHarpOn.AutoSize = true;
-            this.rad_SilverHarpOn.Location = new System.Drawing.Point(50, 19);
-            this.rad_SilverHarpOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_SilverHarpOn.Name = "rad_SilverHarpOn";
-            this.rad_SilverHarpOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_SilverHarpOn.TabIndex = 1;
-            this.rad_SilverHarpOn.Text = "On";
-            this.rad_SilverHarpOn.UseVisualStyleBackColor = true;
-            this.rad_SilverHarpOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_SilverHarpOff
-            // 
-            this.rad_SilverHarpOff.AutoSize = true;
-            this.rad_SilverHarpOff.Checked = true;
-            this.rad_SilverHarpOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_SilverHarpOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_SilverHarpOff.Name = "rad_SilverHarpOff";
-            this.rad_SilverHarpOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_SilverHarpOff.TabIndex = 0;
-            this.rad_SilverHarpOff.TabStop = true;
-            this.rad_SilverHarpOff.Text = "Off";
-            this.rad_SilverHarpOff.UseVisualStyleBackColor = true;
-            this.rad_SilverHarpOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_EchoingFlute
-            // 
-            this.grp_EchoingFlute.Controls.Add(this.rad_EchoingFluteRand);
-            this.grp_EchoingFlute.Controls.Add(this.rad_EchoingFluteOn);
-            this.grp_EchoingFlute.Controls.Add(this.rad_EchoingFluteOff);
-            this.grp_EchoingFlute.Location = new System.Drawing.Point(4, 151);
-            this.grp_EchoingFlute.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_EchoingFlute.Name = "grp_EchoingFlute";
-            this.grp_EchoingFlute.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_EchoingFlute.Size = new System.Drawing.Size(163, 41);
-            this.grp_EchoingFlute.TabIndex = 177;
-            this.grp_EchoingFlute.TabStop = false;
-            this.grp_EchoingFlute.Text = "Echoing Flute";
-            // 
-            // rad_EchoingFluteRand
-            // 
-            this.rad_EchoingFluteRand.AutoSize = true;
-            this.rad_EchoingFluteRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_EchoingFluteRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_EchoingFluteRand.Name = "rad_EchoingFluteRand";
-            this.rad_EchoingFluteRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_EchoingFluteRand.TabIndex = 2;
-            this.rad_EchoingFluteRand.Text = "Random";
-            this.rad_EchoingFluteRand.UseVisualStyleBackColor = true;
-            this.rad_EchoingFluteRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_EchoingFluteOn
-            // 
-            this.rad_EchoingFluteOn.AutoSize = true;
-            this.rad_EchoingFluteOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_EchoingFluteOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_EchoingFluteOn.Name = "rad_EchoingFluteOn";
-            this.rad_EchoingFluteOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_EchoingFluteOn.TabIndex = 1;
-            this.rad_EchoingFluteOn.Text = "On";
-            this.rad_EchoingFluteOn.UseVisualStyleBackColor = true;
-            this.rad_EchoingFluteOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_EchoingFluteOff
-            // 
-            this.rad_EchoingFluteOff.AutoSize = true;
-            this.rad_EchoingFluteOff.Checked = true;
-            this.rad_EchoingFluteOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_EchoingFluteOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_EchoingFluteOff.Name = "rad_EchoingFluteOff";
-            this.rad_EchoingFluteOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_EchoingFluteOff.TabIndex = 0;
-            this.rad_EchoingFluteOff.TabStop = true;
-            this.rad_EchoingFluteOff.Text = "Off";
-            this.rad_EchoingFluteOff.UseVisualStyleBackColor = true;
-            this.rad_EchoingFluteOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_WizardRing
-            // 
-            this.grp_WizardRing.Controls.Add(this.rad_WizardRingRand);
-            this.grp_WizardRing.Controls.Add(this.rad_WizardRingOn);
-            this.grp_WizardRing.Controls.Add(this.rad_WizardRingOff);
-            this.grp_WizardRing.Location = new System.Drawing.Point(170, 196);
-            this.grp_WizardRing.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_WizardRing.Name = "grp_WizardRing";
-            this.grp_WizardRing.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_WizardRing.Size = new System.Drawing.Size(163, 41);
-            this.grp_WizardRing.TabIndex = 176;
-            this.grp_WizardRing.TabStop = false;
-            this.grp_WizardRing.Text = "Wizard\'s Ring";
-            // 
-            // rad_WizardRingRand
-            // 
-            this.rad_WizardRingRand.AutoSize = true;
-            this.rad_WizardRingRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_WizardRingRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_WizardRingRand.Name = "rad_WizardRingRand";
-            this.rad_WizardRingRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_WizardRingRand.TabIndex = 2;
-            this.rad_WizardRingRand.Text = "Random";
-            this.rad_WizardRingRand.UseVisualStyleBackColor = true;
-            this.rad_WizardRingRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_WizardRingOn
-            // 
-            this.rad_WizardRingOn.AutoSize = true;
-            this.rad_WizardRingOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_WizardRingOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_WizardRingOn.Name = "rad_WizardRingOn";
-            this.rad_WizardRingOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_WizardRingOn.TabIndex = 1;
-            this.rad_WizardRingOn.Text = "On";
-            this.rad_WizardRingOn.UseVisualStyleBackColor = true;
-            this.rad_WizardRingOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_WizardRingOff
-            // 
-            this.rad_WizardRingOff.AutoSize = true;
-            this.rad_WizardRingOff.Checked = true;
-            this.rad_WizardRingOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_WizardRingOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_WizardRingOff.Name = "rad_WizardRingOff";
-            this.rad_WizardRingOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_WizardRingOff.TabIndex = 0;
-            this.rad_WizardRingOff.TabStop = true;
-            this.rad_WizardRingOff.Text = "Off";
-            this.rad_WizardRingOff.UseVisualStyleBackColor = true;
-            this.rad_WizardRingOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_MetoriteArmband
-            // 
-            this.grp_MetoriteArmband.Controls.Add(this.rad_MetoriteArmbandRand);
-            this.grp_MetoriteArmband.Controls.Add(this.rad_MetoriteArmbandOn);
-            this.grp_MetoriteArmband.Controls.Add(this.rad_MetoriteArmbandOff);
-            this.grp_MetoriteArmband.Location = new System.Drawing.Point(337, 106);
-            this.grp_MetoriteArmband.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_MetoriteArmband.Name = "grp_MetoriteArmband";
-            this.grp_MetoriteArmband.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_MetoriteArmband.Size = new System.Drawing.Size(163, 41);
-            this.grp_MetoriteArmband.TabIndex = 175;
-            this.grp_MetoriteArmband.TabStop = false;
-            this.grp_MetoriteArmband.Text = "Meteorite Armband";
-            // 
-            // rad_MetoriteArmbandRand
-            // 
-            this.rad_MetoriteArmbandRand.AutoSize = true;
-            this.rad_MetoriteArmbandRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_MetoriteArmbandRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_MetoriteArmbandRand.Name = "rad_MetoriteArmbandRand";
-            this.rad_MetoriteArmbandRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_MetoriteArmbandRand.TabIndex = 2;
-            this.rad_MetoriteArmbandRand.Text = "Random";
-            this.rad_MetoriteArmbandRand.UseVisualStyleBackColor = true;
-            this.rad_MetoriteArmbandRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_MetoriteArmbandOn
-            // 
-            this.rad_MetoriteArmbandOn.AutoSize = true;
-            this.rad_MetoriteArmbandOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_MetoriteArmbandOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_MetoriteArmbandOn.Name = "rad_MetoriteArmbandOn";
-            this.rad_MetoriteArmbandOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_MetoriteArmbandOn.TabIndex = 1;
-            this.rad_MetoriteArmbandOn.Text = "On";
-            this.rad_MetoriteArmbandOn.UseVisualStyleBackColor = true;
-            this.rad_MetoriteArmbandOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_MetoriteArmbandOff
-            // 
-            this.rad_MetoriteArmbandOff.AutoSize = true;
-            this.rad_MetoriteArmbandOff.Checked = true;
-            this.rad_MetoriteArmbandOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_MetoriteArmbandOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_MetoriteArmbandOff.Name = "rad_MetoriteArmbandOff";
-            this.rad_MetoriteArmbandOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_MetoriteArmbandOff.TabIndex = 0;
-            this.rad_MetoriteArmbandOff.TabStop = true;
-            this.rad_MetoriteArmbandOff.Text = "Off";
-            this.rad_MetoriteArmbandOff.UseVisualStyleBackColor = true;
-            this.rad_MetoriteArmbandOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_Satori
-            // 
-            this.grp_Satori.Controls.Add(this.rad_SatoriRand);
-            this.grp_Satori.Controls.Add(this.rad_SatoriOn);
-            this.grp_Satori.Controls.Add(this.rad_SatoriOff);
-            this.grp_Satori.Location = new System.Drawing.Point(171, 106);
-            this.grp_Satori.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_Satori.Name = "grp_Satori";
-            this.grp_Satori.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_Satori.Size = new System.Drawing.Size(163, 41);
-            this.grp_Satori.TabIndex = 174;
-            this.grp_Satori.TabStop = false;
-            this.grp_Satori.Text = "Book of Satori";
-            // 
-            // rad_SatoriRand
-            // 
-            this.rad_SatoriRand.AutoSize = true;
-            this.rad_SatoriRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_SatoriRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_SatoriRand.Name = "rad_SatoriRand";
-            this.rad_SatoriRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_SatoriRand.TabIndex = 2;
-            this.rad_SatoriRand.Text = "Random";
-            this.rad_SatoriRand.UseVisualStyleBackColor = true;
-            this.rad_SatoriRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_SatoriOn
-            // 
-            this.rad_SatoriOn.AutoSize = true;
-            this.rad_SatoriOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_SatoriOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_SatoriOn.Name = "rad_SatoriOn";
-            this.rad_SatoriOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_SatoriOn.TabIndex = 1;
-            this.rad_SatoriOn.Text = "On";
-            this.rad_SatoriOn.UseVisualStyleBackColor = true;
-            this.rad_SatoriOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_SatoriOff
-            // 
-            this.rad_SatoriOff.AutoSize = true;
-            this.rad_SatoriOff.Checked = true;
-            this.rad_SatoriOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_SatoriOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_SatoriOff.Name = "rad_SatoriOff";
-            this.rad_SatoriOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_SatoriOff.TabIndex = 0;
-            this.rad_SatoriOff.TabStop = true;
-            this.rad_SatoriOff.Text = "Off";
-            this.rad_SatoriOff.UseVisualStyleBackColor = true;
-            this.rad_SatoriOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_StoneOfLife
-            // 
-            this.grp_StoneOfLife.Controls.Add(this.rad_StoneOfLifeRand);
-            this.grp_StoneOfLife.Controls.Add(this.rad_StoneOfLifeOn);
-            this.grp_StoneOfLife.Controls.Add(this.rad_StoneOfLifeOff);
-            this.grp_StoneOfLife.Location = new System.Drawing.Point(4, 106);
-            this.grp_StoneOfLife.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_StoneOfLife.Name = "grp_StoneOfLife";
-            this.grp_StoneOfLife.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_StoneOfLife.Size = new System.Drawing.Size(163, 41);
-            this.grp_StoneOfLife.TabIndex = 173;
-            this.grp_StoneOfLife.TabStop = false;
-            this.grp_StoneOfLife.Text = "Stone of Life";
-            // 
-            // rad_StoneOfLifeRand
-            // 
-            this.rad_StoneOfLifeRand.AutoSize = true;
-            this.rad_StoneOfLifeRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_StoneOfLifeRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_StoneOfLifeRand.Name = "rad_StoneOfLifeRand";
-            this.rad_StoneOfLifeRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_StoneOfLifeRand.TabIndex = 2;
-            this.rad_StoneOfLifeRand.Text = "Random";
-            this.rad_StoneOfLifeRand.UseVisualStyleBackColor = true;
-            this.rad_StoneOfLifeRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_StoneOfLifeOn
-            // 
-            this.rad_StoneOfLifeOn.AutoSize = true;
-            this.rad_StoneOfLifeOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_StoneOfLifeOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_StoneOfLifeOn.Name = "rad_StoneOfLifeOn";
-            this.rad_StoneOfLifeOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_StoneOfLifeOn.TabIndex = 1;
-            this.rad_StoneOfLifeOn.Text = "On";
-            this.rad_StoneOfLifeOn.UseVisualStyleBackColor = true;
-            this.rad_StoneOfLifeOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_StoneOfLifeOff
-            // 
-            this.rad_StoneOfLifeOff.AutoSize = true;
-            this.rad_StoneOfLifeOff.Checked = true;
-            this.rad_StoneOfLifeOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_StoneOfLifeOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_StoneOfLifeOff.Name = "rad_StoneOfLifeOff";
-            this.rad_StoneOfLifeOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_StoneOfLifeOff.TabIndex = 0;
-            this.rad_StoneOfLifeOff.TabStop = true;
-            this.rad_StoneOfLifeOff.Text = "Off";
-            this.rad_StoneOfLifeOff.UseVisualStyleBackColor = true;
-            this.rad_StoneOfLifeOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_PoisonMoth
-            // 
-            this.grp_PoisonMoth.Controls.Add(this.rad_PoisonMothRand);
-            this.grp_PoisonMoth.Controls.Add(this.rad_PoisonMothOn);
-            this.grp_PoisonMoth.Controls.Add(this.rad_PoisonMothOff);
-            this.grp_PoisonMoth.Location = new System.Drawing.Point(177, 322);
-            this.grp_PoisonMoth.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_PoisonMoth.Name = "grp_PoisonMoth";
-            this.grp_PoisonMoth.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_PoisonMoth.Size = new System.Drawing.Size(163, 41);
-            this.grp_PoisonMoth.TabIndex = 172;
-            this.grp_PoisonMoth.TabStop = false;
-            this.grp_PoisonMoth.Text = "Poison Moth Powder";
-            // 
-            // rad_PoisonMothRand
-            // 
-            this.rad_PoisonMothRand.AutoSize = true;
-            this.rad_PoisonMothRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_PoisonMothRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_PoisonMothRand.Name = "rad_PoisonMothRand";
-            this.rad_PoisonMothRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_PoisonMothRand.TabIndex = 2;
-            this.rad_PoisonMothRand.Text = "Random";
-            this.rad_PoisonMothRand.UseVisualStyleBackColor = true;
-            this.rad_PoisonMothRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_PoisonMothOn
-            // 
-            this.rad_PoisonMothOn.AutoSize = true;
-            this.rad_PoisonMothOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_PoisonMothOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_PoisonMothOn.Name = "rad_PoisonMothOn";
-            this.rad_PoisonMothOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_PoisonMothOn.TabIndex = 1;
-            this.rad_PoisonMothOn.Text = "On";
-            this.rad_PoisonMothOn.UseVisualStyleBackColor = true;
-            this.rad_PoisonMothOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_PoisonMothOff
-            // 
-            this.rad_PoisonMothOff.AutoSize = true;
-            this.rad_PoisonMothOff.Checked = true;
-            this.rad_PoisonMothOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_PoisonMothOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_PoisonMothOff.Name = "rad_PoisonMothOff";
-            this.rad_PoisonMothOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_PoisonMothOff.TabIndex = 0;
-            this.rad_PoisonMothOff.TabStop = true;
-            this.rad_PoisonMothOff.Text = "Off";
-            this.rad_PoisonMothOff.UseVisualStyleBackColor = true;
-            this.rad_PoisonMothOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_LucSeed
-            // 
-            this.grp_LucSeed.Controls.Add(this.rad_LucSeedRand);
-            this.grp_LucSeed.Controls.Add(this.rad_LucSeedOn);
-            this.grp_LucSeed.Controls.Add(this.rad_LucSeedOff);
-            this.grp_LucSeed.Location = new System.Drawing.Point(171, 61);
-            this.grp_LucSeed.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_LucSeed.Name = "grp_LucSeed";
-            this.grp_LucSeed.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_LucSeed.Size = new System.Drawing.Size(163, 41);
-            this.grp_LucSeed.TabIndex = 170;
-            this.grp_LucSeed.TabStop = false;
-            this.grp_LucSeed.Text = "Luck Seed";
-            // 
-            // rad_LucSeedRand
-            // 
-            this.rad_LucSeedRand.AutoSize = true;
-            this.rad_LucSeedRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_LucSeedRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_LucSeedRand.Name = "rad_LucSeedRand";
-            this.rad_LucSeedRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_LucSeedRand.TabIndex = 2;
-            this.rad_LucSeedRand.Text = "Random";
-            this.rad_LucSeedRand.UseVisualStyleBackColor = true;
-            this.rad_LucSeedRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_LucSeedOn
-            // 
-            this.rad_LucSeedOn.AutoSize = true;
-            this.rad_LucSeedOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_LucSeedOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_LucSeedOn.Name = "rad_LucSeedOn";
-            this.rad_LucSeedOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_LucSeedOn.TabIndex = 1;
-            this.rad_LucSeedOn.Text = "On";
-            this.rad_LucSeedOn.UseVisualStyleBackColor = true;
-            this.rad_LucSeedOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_LucSeedOff
-            // 
-            this.rad_LucSeedOff.AutoSize = true;
-            this.rad_LucSeedOff.Checked = true;
-            this.rad_LucSeedOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_LucSeedOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_LucSeedOff.Name = "rad_LucSeedOff";
-            this.rad_LucSeedOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_LucSeedOff.TabIndex = 0;
-            this.rad_LucSeedOff.TabStop = true;
-            this.rad_LucSeedOff.Text = "Off";
-            this.rad_LucSeedOff.UseVisualStyleBackColor = true;
-            this.rad_LucSeedOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_VitSeed
-            // 
-            this.grp_VitSeed.Controls.Add(this.rad_VitSeedRand);
-            this.grp_VitSeed.Controls.Add(this.rad_VitSeedOn);
-            this.grp_VitSeed.Controls.Add(this.rad_VitSeedOff);
-            this.grp_VitSeed.Location = new System.Drawing.Point(4, 61);
-            this.grp_VitSeed.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_VitSeed.Name = "grp_VitSeed";
-            this.grp_VitSeed.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_VitSeed.Size = new System.Drawing.Size(163, 41);
-            this.grp_VitSeed.TabIndex = 169;
-            this.grp_VitSeed.TabStop = false;
-            this.grp_VitSeed.Text = "Vitality Seed";
-            // 
-            // rad_VitSeedRand
-            // 
-            this.rad_VitSeedRand.AutoSize = true;
-            this.rad_VitSeedRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_VitSeedRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_VitSeedRand.Name = "rad_VitSeedRand";
-            this.rad_VitSeedRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_VitSeedRand.TabIndex = 2;
-            this.rad_VitSeedRand.Text = "Random";
-            this.rad_VitSeedRand.UseVisualStyleBackColor = true;
-            this.rad_VitSeedRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_VitSeedOn
-            // 
-            this.rad_VitSeedOn.AutoSize = true;
-            this.rad_VitSeedOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_VitSeedOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_VitSeedOn.Name = "rad_VitSeedOn";
-            this.rad_VitSeedOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_VitSeedOn.TabIndex = 1;
-            this.rad_VitSeedOn.Text = "On";
-            this.rad_VitSeedOn.UseVisualStyleBackColor = true;
-            this.rad_VitSeedOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_VitSeedOff
-            // 
-            this.rad_VitSeedOff.AutoSize = true;
-            this.rad_VitSeedOff.Checked = true;
-            this.rad_VitSeedOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_VitSeedOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_VitSeedOff.Name = "rad_VitSeedOff";
-            this.rad_VitSeedOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_VitSeedOff.TabIndex = 0;
-            this.rad_VitSeedOff.TabStop = true;
-            this.rad_VitSeedOff.Text = "Off";
-            this.rad_VitSeedOff.UseVisualStyleBackColor = true;
-            this.rad_VitSeedOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_WorldTree
-            // 
-            this.grp_WorldTree.Controls.Add(this.rad_WorldTreeRand);
-            this.grp_WorldTree.Controls.Add(this.rad_WorldTreeOn);
-            this.grp_WorldTree.Controls.Add(this.rad_WorldTreeOff);
-            this.grp_WorldTree.Location = new System.Drawing.Point(337, 61);
-            this.grp_WorldTree.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_WorldTree.Name = "grp_WorldTree";
-            this.grp_WorldTree.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_WorldTree.Size = new System.Drawing.Size(163, 41);
-            this.grp_WorldTree.TabIndex = 171;
-            this.grp_WorldTree.TabStop = false;
-            this.grp_WorldTree.Text = "Leaf of World Tree";
-            // 
-            // rad_WorldTreeRand
-            // 
-            this.rad_WorldTreeRand.AutoSize = true;
-            this.rad_WorldTreeRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_WorldTreeRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_WorldTreeRand.Name = "rad_WorldTreeRand";
-            this.rad_WorldTreeRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_WorldTreeRand.TabIndex = 2;
-            this.rad_WorldTreeRand.Text = "Random";
-            this.rad_WorldTreeRand.UseVisualStyleBackColor = true;
-            this.rad_WorldTreeRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_WorldTreeOn
-            // 
-            this.rad_WorldTreeOn.AutoSize = true;
-            this.rad_WorldTreeOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_WorldTreeOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_WorldTreeOn.Name = "rad_WorldTreeOn";
-            this.rad_WorldTreeOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_WorldTreeOn.TabIndex = 1;
-            this.rad_WorldTreeOn.Text = "On";
-            this.rad_WorldTreeOn.UseVisualStyleBackColor = true;
-            this.rad_WorldTreeOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_WorldTreeOff
-            // 
-            this.rad_WorldTreeOff.AutoSize = true;
-            this.rad_WorldTreeOff.Checked = true;
-            this.rad_WorldTreeOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_WorldTreeOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_WorldTreeOff.Name = "rad_WorldTreeOff";
-            this.rad_WorldTreeOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_WorldTreeOff.TabIndex = 0;
-            this.rad_WorldTreeOff.TabStop = true;
-            this.rad_WorldTreeOff.Text = "Off";
-            this.rad_WorldTreeOff.UseVisualStyleBackColor = true;
-            this.rad_WorldTreeOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_IntSeed
-            // 
-            this.grp_IntSeed.Controls.Add(this.rad_IntSeedRand);
-            this.grp_IntSeed.Controls.Add(this.rad_IntSeedOn);
-            this.grp_IntSeed.Controls.Add(this.rad_IntSeedOff);
-            this.grp_IntSeed.Location = new System.Drawing.Point(2, 322);
-            this.grp_IntSeed.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_IntSeed.Name = "grp_IntSeed";
-            this.grp_IntSeed.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_IntSeed.Size = new System.Drawing.Size(163, 41);
-            this.grp_IntSeed.TabIndex = 168;
-            this.grp_IntSeed.TabStop = false;
-            this.grp_IntSeed.Text = "Intelligence Seed";
-            // 
-            // rad_IntSeedRand
-            // 
-            this.rad_IntSeedRand.AutoSize = true;
-            this.rad_IntSeedRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_IntSeedRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_IntSeedRand.Name = "rad_IntSeedRand";
-            this.rad_IntSeedRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_IntSeedRand.TabIndex = 2;
-            this.rad_IntSeedRand.Text = "Random";
-            this.rad_IntSeedRand.UseVisualStyleBackColor = true;
-            this.rad_IntSeedRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_IntSeedOn
-            // 
-            this.rad_IntSeedOn.AutoSize = true;
-            this.rad_IntSeedOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_IntSeedOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_IntSeedOn.Name = "rad_IntSeedOn";
-            this.rad_IntSeedOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_IntSeedOn.TabIndex = 1;
-            this.rad_IntSeedOn.Text = "On";
-            this.rad_IntSeedOn.UseVisualStyleBackColor = true;
-            this.rad_IntSeedOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_IntSeedOff
-            // 
-            this.rad_IntSeedOff.AutoSize = true;
-            this.rad_IntSeedOff.Checked = true;
-            this.rad_IntSeedOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_IntSeedOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_IntSeedOff.Name = "rad_IntSeedOff";
-            this.rad_IntSeedOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_IntSeedOff.TabIndex = 0;
-            this.rad_IntSeedOff.TabStop = true;
-            this.rad_IntSeedOff.Text = "Off";
-            this.rad_IntSeedOff.UseVisualStyleBackColor = true;
-            this.rad_IntSeedOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_AgiSeed
-            // 
-            this.grp_AgiSeed.Controls.Add(this.rad_AgiSeedRand);
-            this.grp_AgiSeed.Controls.Add(this.rad_AgiSeedOn);
-            this.grp_AgiSeed.Controls.Add(this.rad_AgiSeedOff);
-            this.grp_AgiSeed.Location = new System.Drawing.Point(337, 16);
-            this.grp_AgiSeed.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_AgiSeed.Name = "grp_AgiSeed";
-            this.grp_AgiSeed.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_AgiSeed.Size = new System.Drawing.Size(163, 41);
-            this.grp_AgiSeed.TabIndex = 167;
-            this.grp_AgiSeed.TabStop = false;
-            this.grp_AgiSeed.Text = "Agility Seed";
-            // 
-            // rad_AgiSeedRand
-            // 
-            this.rad_AgiSeedRand.AutoSize = true;
-            this.rad_AgiSeedRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_AgiSeedRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_AgiSeedRand.Name = "rad_AgiSeedRand";
-            this.rad_AgiSeedRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_AgiSeedRand.TabIndex = 2;
-            this.rad_AgiSeedRand.Text = "Random";
-            this.rad_AgiSeedRand.UseVisualStyleBackColor = true;
-            this.rad_AgiSeedRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_AgiSeedOn
-            // 
-            this.rad_AgiSeedOn.AutoSize = true;
-            this.rad_AgiSeedOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_AgiSeedOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_AgiSeedOn.Name = "rad_AgiSeedOn";
-            this.rad_AgiSeedOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_AgiSeedOn.TabIndex = 1;
-            this.rad_AgiSeedOn.Text = "On";
-            this.rad_AgiSeedOn.UseVisualStyleBackColor = true;
-            this.rad_AgiSeedOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_AgiSeedOff
-            // 
-            this.rad_AgiSeedOff.AutoSize = true;
-            this.rad_AgiSeedOff.Checked = true;
-            this.rad_AgiSeedOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_AgiSeedOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_AgiSeedOff.Name = "rad_AgiSeedOff";
-            this.rad_AgiSeedOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_AgiSeedOff.TabIndex = 0;
-            this.rad_AgiSeedOff.TabStop = true;
-            this.rad_AgiSeedOff.Text = "Off";
-            this.rad_AgiSeedOff.UseVisualStyleBackColor = true;
-            this.rad_AgiSeedOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // grp_StrSeed
-            // 
-            this.grp_StrSeed.Controls.Add(this.rad_StrSeedRand);
-            this.grp_StrSeed.Controls.Add(this.rad_StrSeedOn);
-            this.grp_StrSeed.Controls.Add(this.rad_StrSeedOff);
-            this.grp_StrSeed.Location = new System.Drawing.Point(171, 16);
-            this.grp_StrSeed.Margin = new System.Windows.Forms.Padding(2);
-            this.grp_StrSeed.Name = "grp_StrSeed";
-            this.grp_StrSeed.Padding = new System.Windows.Forms.Padding(2);
-            this.grp_StrSeed.Size = new System.Drawing.Size(163, 41);
-            this.grp_StrSeed.TabIndex = 166;
-            this.grp_StrSeed.TabStop = false;
-            this.grp_StrSeed.Text = "Strength Seed";
-            // 
-            // rad_StrSeedRand
-            // 
-            this.rad_StrSeedRand.AutoSize = true;
-            this.rad_StrSeedRand.Location = new System.Drawing.Point(92, 19);
-            this.rad_StrSeedRand.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_StrSeedRand.Name = "rad_StrSeedRand";
-            this.rad_StrSeedRand.Size = new System.Drawing.Size(65, 17);
-            this.rad_StrSeedRand.TabIndex = 2;
-            this.rad_StrSeedRand.Text = "Random";
-            this.rad_StrSeedRand.UseVisualStyleBackColor = true;
-            this.rad_StrSeedRand.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_StrSeedOn
-            // 
-            this.rad_StrSeedOn.AutoSize = true;
-            this.rad_StrSeedOn.Location = new System.Drawing.Point(49, 19);
-            this.rad_StrSeedOn.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_StrSeedOn.Name = "rad_StrSeedOn";
-            this.rad_StrSeedOn.Size = new System.Drawing.Size(39, 17);
-            this.rad_StrSeedOn.TabIndex = 1;
-            this.rad_StrSeedOn.Text = "On";
-            this.rad_StrSeedOn.UseVisualStyleBackColor = true;
-            this.rad_StrSeedOn.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
-            // rad_StrSeedOff
-            // 
-            this.rad_StrSeedOff.AutoSize = true;
-            this.rad_StrSeedOff.Checked = true;
-            this.rad_StrSeedOff.Location = new System.Drawing.Point(6, 19);
-            this.rad_StrSeedOff.Margin = new System.Windows.Forms.Padding(2);
-            this.rad_StrSeedOff.Name = "rad_StrSeedOff";
-            this.rad_StrSeedOff.Size = new System.Drawing.Size(39, 17);
-            this.rad_StrSeedOff.TabIndex = 0;
-            this.rad_StrSeedOff.TabStop = true;
-            this.rad_StrSeedOff.Text = "Off";
-            this.rad_StrSeedOff.UseVisualStyleBackColor = true;
-            this.rad_StrSeedOff.CheckedChanged += new System.EventHandler(this.determineFlags);
-            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.grp_Class);
@@ -2784,7 +2080,7 @@ namespace DW3Randomizer
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(678, 422);
+            this.tabPage3.Size = new System.Drawing.Size(678, 378);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Tavern Members";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -4152,7 +3448,7 @@ namespace DW3Randomizer
             // chk_GenCompareFile
             // 
             this.chk_GenCompareFile.AutoSize = true;
-            this.chk_GenCompareFile.Location = new System.Drawing.Point(220, 688);
+            this.chk_GenCompareFile.Location = new System.Drawing.Point(220, 632);
             this.chk_GenCompareFile.Name = "chk_GenCompareFile";
             this.chk_GenCompareFile.Size = new System.Drawing.Size(134, 17);
             this.chk_GenCompareFile.TabIndex = 260;
@@ -4165,7 +3461,7 @@ namespace DW3Randomizer
             // chk_GenIslandsMonstersZones
             // 
             this.chk_GenIslandsMonstersZones.AutoSize = true;
-            this.chk_GenIslandsMonstersZones.Location = new System.Drawing.Point(372, 688);
+            this.chk_GenIslandsMonstersZones.Location = new System.Drawing.Point(372, 632);
             this.chk_GenIslandsMonstersZones.Name = "chk_GenIslandsMonstersZones";
             this.chk_GenIslandsMonstersZones.Size = new System.Drawing.Size(229, 17);
             this.chk_GenIslandsMonstersZones.TabIndex = 261;
@@ -4318,7 +3614,7 @@ namespace DW3Randomizer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(698, 717);
+            this.ClientSize = new System.Drawing.Size(698, 659);
             this.Controls.Add(this.btn_chksumHash);
             this.Controls.Add(this.lblHash);
             this.Controls.Add(this.label12);
@@ -4371,38 +3667,6 @@ namespace DW3Randomizer
             this.tabPage6.PerformLayout();
             this.grp_AddToItemShop.ResumeLayout(false);
             this.grp_AddToItemShop.PerformLayout();
-            this.grp_LampOfDarkness.ResumeLayout(false);
-            this.grp_LampOfDarkness.PerformLayout();
-            this.grp_ShoesOfHappiness.ResumeLayout(false);
-            this.grp_ShoesOfHappiness.PerformLayout();
-            this.grp_RingOfLife.ResumeLayout(false);
-            this.grp_RingOfLife.PerformLayout();
-            this.grp_SilverHarp.ResumeLayout(false);
-            this.grp_SilverHarp.PerformLayout();
-            this.grp_EchoingFlute.ResumeLayout(false);
-            this.grp_EchoingFlute.PerformLayout();
-            this.grp_WizardRing.ResumeLayout(false);
-            this.grp_WizardRing.PerformLayout();
-            this.grp_MetoriteArmband.ResumeLayout(false);
-            this.grp_MetoriteArmband.PerformLayout();
-            this.grp_Satori.ResumeLayout(false);
-            this.grp_Satori.PerformLayout();
-            this.grp_StoneOfLife.ResumeLayout(false);
-            this.grp_StoneOfLife.PerformLayout();
-            this.grp_PoisonMoth.ResumeLayout(false);
-            this.grp_PoisonMoth.PerformLayout();
-            this.grp_LucSeed.ResumeLayout(false);
-            this.grp_LucSeed.PerformLayout();
-            this.grp_VitSeed.ResumeLayout(false);
-            this.grp_VitSeed.PerformLayout();
-            this.grp_WorldTree.ResumeLayout(false);
-            this.grp_WorldTree.PerformLayout();
-            this.grp_IntSeed.ResumeLayout(false);
-            this.grp_IntSeed.PerformLayout();
-            this.grp_AgiSeed.ResumeLayout(false);
-            this.grp_AgiSeed.PerformLayout();
-            this.grp_StrSeed.ResumeLayout(false);
-            this.grp_StrSeed.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.grp_Class.ResumeLayout(false);
             this.grp_ClassInclude.ResumeLayout(false);
@@ -4559,70 +3823,6 @@ namespace DW3Randomizer
         private System.Windows.Forms.RadioButton rad_RmParryBugOn;
         private System.Windows.Forms.RadioButton rad_RmParryBugOff;
         private System.Windows.Forms.GroupBox grp_AddToItemShop;
-        private System.Windows.Forms.GroupBox grp_IntSeed;
-        private System.Windows.Forms.RadioButton rad_IntSeedRand;
-        private System.Windows.Forms.RadioButton rad_IntSeedOn;
-        private System.Windows.Forms.RadioButton rad_IntSeedOff;
-        private System.Windows.Forms.GroupBox grp_AgiSeed;
-        private System.Windows.Forms.RadioButton rad_AgiSeedRand;
-        private System.Windows.Forms.RadioButton rad_AgiSeedOn;
-        private System.Windows.Forms.RadioButton rad_AgiSeedOff;
-        private System.Windows.Forms.GroupBox grp_StrSeed;
-        private System.Windows.Forms.RadioButton rad_StrSeedRand;
-        private System.Windows.Forms.RadioButton rad_StrSeedOn;
-        private System.Windows.Forms.RadioButton rad_StrSeedOff;
-        private System.Windows.Forms.GroupBox grp_PoisonMoth;
-        private System.Windows.Forms.RadioButton rad_PoisonMothRand;
-        private System.Windows.Forms.RadioButton rad_PoisonMothOn;
-        private System.Windows.Forms.RadioButton rad_PoisonMothOff;
-        private System.Windows.Forms.GroupBox grp_LucSeed;
-        private System.Windows.Forms.RadioButton rad_LucSeedRand;
-        private System.Windows.Forms.RadioButton rad_LucSeedOn;
-        private System.Windows.Forms.RadioButton rad_LucSeedOff;
-        private System.Windows.Forms.GroupBox grp_VitSeed;
-        private System.Windows.Forms.RadioButton rad_VitSeedRand;
-        private System.Windows.Forms.RadioButton rad_VitSeedOn;
-        private System.Windows.Forms.RadioButton rad_VitSeedOff;
-        private System.Windows.Forms.GroupBox grp_WorldTree;
-        private System.Windows.Forms.RadioButton rad_WorldTreeRand;
-        private System.Windows.Forms.RadioButton rad_WorldTreeOn;
-        private System.Windows.Forms.RadioButton rad_WorldTreeOff;
-        private System.Windows.Forms.GroupBox grp_RingOfLife;
-        private System.Windows.Forms.RadioButton rad_RingOfLifeRand;
-        private System.Windows.Forms.RadioButton rad_RingOfLifeOn;
-        private System.Windows.Forms.RadioButton rad_RingOfLifeOff;
-        private System.Windows.Forms.GroupBox grp_SilverHarp;
-        private System.Windows.Forms.RadioButton rad_SilverHarpRand;
-        private System.Windows.Forms.RadioButton rad_SilverHarpOn;
-        private System.Windows.Forms.RadioButton rad_SilverHarpOff;
-        private System.Windows.Forms.GroupBox grp_EchoingFlute;
-        private System.Windows.Forms.RadioButton rad_EchoingFluteRand;
-        private System.Windows.Forms.RadioButton rad_EchoingFluteOn;
-        private System.Windows.Forms.RadioButton rad_EchoingFluteOff;
-        private System.Windows.Forms.GroupBox grp_WizardRing;
-        private System.Windows.Forms.RadioButton rad_WizardRingRand;
-        private System.Windows.Forms.RadioButton rad_WizardRingOn;
-        private System.Windows.Forms.RadioButton rad_WizardRingOff;
-        private System.Windows.Forms.GroupBox grp_MetoriteArmband;
-        private System.Windows.Forms.RadioButton rad_MetoriteArmbandRand;
-        private System.Windows.Forms.RadioButton rad_MetoriteArmbandOn;
-        private System.Windows.Forms.RadioButton rad_MetoriteArmbandOff;
-        private System.Windows.Forms.GroupBox grp_Satori;
-        private System.Windows.Forms.RadioButton rad_SatoriRand;
-        private System.Windows.Forms.RadioButton rad_SatoriOn;
-        private System.Windows.Forms.RadioButton rad_SatoriOff;
-        private System.Windows.Forms.GroupBox grp_StoneOfLife;
-        private System.Windows.Forms.RadioButton rad_StoneOfLifeRand;
-        private System.Windows.Forms.RadioButton rad_StoneOfLifeOn;
-        private System.Windows.Forms.RadioButton rad_StoneOfLifeOff;
-        private System.Windows.Forms.GroupBox grp_LampOfDarkness;
-        private System.Windows.Forms.RadioButton rad_LampOfDarknessRand;
-        private System.Windows.Forms.RadioButton rad_LampOfDarknessOn;
-        private System.Windows.Forms.RadioButton rad_LampOfDarknessOff;
-        private System.Windows.Forms.GroupBox grp_ShoesOfHappiness;
-        private System.Windows.Forms.RadioButton rad_ShoesOfHappinessRand;
-        private System.Windows.Forms.RadioButton rad_ShoesOfHappinessOn;
-        private System.Windows.Forms.RadioButton rad_ShoesOfHappinessOff;
         private System.Windows.Forms.GroupBox grp_ChName;
         private System.Windows.Forms.GroupBox grp_ChName3;
         private System.Windows.Forms.RadioButton rad_ChName3Rand;
@@ -4772,6 +3972,22 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox tchk_SellKeyItems;
         private System.Windows.Forms.CheckBox tchk_AnimalSuit;
         private System.Windows.Forms.CheckBox tchk_AcornsOfLife;
+        private System.Windows.Forms.CheckBox tchk_StrSeed;
+        private System.Windows.Forms.CheckBox tchk_AgiSeed;
+        private System.Windows.Forms.CheckBox tchk_IntSeed;
+        private System.Windows.Forms.CheckBox tchk_LuckSeed;
+        private System.Windows.Forms.CheckBox tchk_VitSeed;
+        private System.Windows.Forms.CheckBox tchk_SilverHarp;
+        private System.Windows.Forms.CheckBox tchk_EchoingFlute;
+        private System.Windows.Forms.CheckBox tchk_LampOfDarkness;
+        private System.Windows.Forms.CheckBox tchk_RingOfLife;
+        private System.Windows.Forms.CheckBox tchk_ShoesOfHappiness;
+        private System.Windows.Forms.CheckBox tchk_MeteoriteArmband;
+        private System.Windows.Forms.CheckBox tchk_PoisonMothPowder;
+        private System.Windows.Forms.CheckBox tchk_LeafOfTheWorldTree;
+        private System.Windows.Forms.CheckBox tchk_StoneOfLife;
+        private System.Windows.Forms.CheckBox tchk_WizardsRing;
+        private System.Windows.Forms.CheckBox tchk_BookOfSatori;
     }
 }
 

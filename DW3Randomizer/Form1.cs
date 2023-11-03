@@ -395,7 +395,7 @@ namespace DW3Randomizer
                 if (randomizerTools.GetCheckboxValue(tchk_RandMonstZones) == 1 || (randomizerTools.GetCheckboxValue(tchk_RandMonstZones) == 2 && evalRandTemp == 1))
                     monsters.randMonsterZones(ref romData, ref r1, monsterOrder);
                 evalRandTemp = r1.Next() % 2;
-                if ((rad_SellUnsellableRand.Checked && evalRandTemp == 1) || (rad_SellUnsellableOn.Checked)) 
+                if ((randomizerTools.GetCheckboxValue(tchk_SellKeyItems) == 2 && evalRandTemp == 1) || randomizerTools.GetCheckboxValue(tchk_SellKeyItems) == 1 )
                     itemsAndequipment.forceItemSell(ref romData, ref r1);
                 evalRandTemp = r1.Next() % 2;
                 if (randomizerTools.GetCheckboxValue(tchk_DispEqPower) == 1 || (randomizerTools.GetCheckboxValue(tchk_DispEqPower) == 2 && evalRandTemp == 1))
@@ -427,16 +427,18 @@ namespace DW3Randomizer
                 bool randstores = false;
                 evalRandTemp = r1.Next() % 2;
                 evalRandTemp2 = r1.Next() % 2;
-                if ((rad_RandItemShopRand.Checked && evalRandTemp == 1) || (rad_RandItemShopOn.Checked) || (rad_RandWeapShopRand.Checked && evalRandTemp2 == 1) || (rad_RandWeapShopOn.Checked)) randstores = true;
+                if ((randomizerTools.GetCheckboxValue(tchk_RandItemShop) == 2 && evalRandTemp == 1) || randomizerTools.GetCheckboxValue(tchk_RandItemShop) == 1 || (randomizerTools.GetCheckboxValue(tchk_RandWeapShop) == 2 && evalRandTemp2 == 1) || randomizerTools.GetCheckboxValue(tchk_RandWeapShop) == 1) 
+                        randstores = true;
                 if (randstores) 
-                    randomizeFunctions.randStores(ref romData, ref r1, rad_AcornsOn.Checked, rad_AcornsRand.Checked, rad_StrSeedOn.Checked, rad_StrSeedRand.Checked, rad_AgiSeedOn.Checked, rad_AgiSeedRand.Checked, rad_VitSeedOn.Checked,
-                        rad_VitSeedRand.Checked, rad_IntSeedOn.Checked, rad_IntSeedRand.Checked, rad_LucSeedOn.Checked, rad_LucSeedRand.Checked, rad_WorldTreeOn.Checked, rad_WorldTreeRand.Checked, rad_PoisonMothOn.Checked, 
-                        rad_PoisonMothRand.Checked, rad_StoneOfLifeOn.Checked, rad_StoneOfLifeRand.Checked, rad_SatoriOn.Checked, rad_SatoriRand.Checked, rad_MetoriteArmbandOn.Checked, rad_MetoriteArmbandRand.Checked,
-                        rad_WizardRingOn.Checked, rad_WizardRingRand.Checked, rad_EchoingFluteOn.Checked, rad_EchoingFluteRand.Checked, rad_SilverHarpOn.Checked, rad_SilverHarpRand.Checked, rad_RingOfLifeOn.Checked, rad_RingOfLifeRand.Checked,
-                        rad_ShoesOfHappinessOn.Checked, rad_ShoesOfHappinessRand.Checked, rad_LampOfDarknessOn.Checked, rad_LampOfDarknessRand.Checked, rad_RandWeapShopOn.Checked, rad_RandWeapShopRand.Checked, rad_CaturdayOn.Checked,
-                        rad_CaturdayRand.Checked, rad_RandItemShopOn.Checked, rad_RandItemShopRand.Checked, txtSeed.Text);
+                    randomizeFunctions.randStores(ref romData, ref r1, randomizerTools.GetCheckboxValue(tchk_AcornsOfLife), randomizerTools.GetCheckboxValue(tchk_StrSeed), 
+                        randomizerTools.GetCheckboxValue(tchk_AgiSeed), randomizerTools.GetCheckboxValue(tchk_VitSeed), randomizerTools.GetCheckboxValue(tchk_IntSeed), 
+                        randomizerTools.GetCheckboxValue(tchk_LuckSeed), randomizerTools.GetCheckboxValue(tchk_LeafOfTheWorldTree), randomizerTools.GetCheckboxValue(tchk_PoisonMothPowder),
+                        randomizerTools.GetCheckboxValue(tchk_StoneOfLife), randomizerTools.GetCheckboxValue(tchk_BookOfSatori), randomizerTools.GetCheckboxValue(tchk_MeteoriteArmband),
+                        randomizerTools.GetCheckboxValue(tchk_WizardsRing), randomizerTools.GetCheckboxValue(tchk_EchoingFlute), randomizerTools.GetCheckboxValue(tchk_SilverHarp),
+                        randomizerTools.GetCheckboxValue(tchk_RingOfLife), randomizerTools.GetCheckboxValue(tchk_ShoesOfHappiness), randomizerTools.GetCheckboxValue(tchk_LampOfDarkness),
+                        randomizerTools.GetCheckboxValue(tchk_RandWeapShop), randomizerTools.GetCheckboxValue(tchk_AnimalSuit), randomizerTools.GetCheckboxValue(tchk_RandItemShop), txtSeed.Text);
                 evalRandTemp = r1.Next() % 2;
-                if (rad_RandInnOn.Checked || (rad_RandInnRand.Checked && evalRandTemp == 1)) 
+                if (randomizerTools.GetCheckboxValue(tchk_RandInnPrice) == 1 || (randomizerTools.GetCheckboxValue(tchk_RandInnPrice) == 2 && evalRandTemp == 1)) 
                     randomizeFunctions.randomizeInnPrices(ref romData, ref r1);
                 evalRandTemp = r1.Next() % 2;
                 if (rad_RandStatsSilly.Checked || rad_RandStatsRid.Checked || rad_RandStatsLud.Checked || (rad_RandStatsRand.Checked && evalRandTemp == 1)) 
@@ -588,24 +590,36 @@ namespace DW3Randomizer
                 (randomizerTools.GetCheckboxValue(tchk_RandWeapShop) == 0 ? 8 : randomizerTools.GetCheckboxValue(tchk_RandWeapShop) == 1 ? 16 : 32) +
                 (randomizerTools.GetCheckboxValue(tchk_RandInnPrice) == 0 ? 64 : randomizerTools.GetCheckboxValue(tchk_RandInnPrice) == 1 ? 128 : 256) +
                 (randomizerTools.GetCheckboxValue(tchk_SellKeyItems) == 0 ? 512 : randomizerTools.GetCheckboxValue(tchk_SellKeyItems) == 1 ? 1024 : 2048) +
-                (rad_StrSeedOn.Checked ? 4096 : (rad_StrSeedRand.Checked ? 8192 : 0)) + (rad_AgiSeedOn.Checked ? 16384 : (rad_AgiSeedRand.Checked ? 32768 : 0)) +
-                (rad_IntSeedOn.Checked ? 65536 : (rad_IntSeedRand.Checked ? 131072 : 0)));
+                (randomizerTools.GetCheckboxValue(tchk_AcornsOfLife) == 0 ? 4096 : randomizerTools.GetCheckboxValue(tchk_AcornsOfLife) == 1 ? 8192 : 16384) +
+                (randomizerTools.GetCheckboxValue(tchk_StrSeed) == 0 ? 32768 : randomizerTools.GetCheckboxValue(tchk_StrSeed) == 1 ? 65536 : 131072));
 
-            int itemWeaponShopsInnsTab2 = 37 * ((rad_VitSeedOn.Checked ? 1 : (rad_VitSeedRand.Checked ? 2 : 0)) + (rad_LucSeedOn.Checked ? 4 : (rad_LucSeedRand.Checked ? 8 : 0)) +
-                (rad_WorldTreeOn.Checked ? 16 : (rad_WorldTreeRand.Checked ? 32 : 0)) + (rad_PoisonMothOn.Checked ? 64 : (rad_PoisonMothRand.Checked ? 128 : 0)) +
-                (rad_StoneOfLifeOn.Checked ? 256 : (rad_StoneOfLifeRand.Checked ? 512 : 0)) + (rad_SatoriOn.Checked ? 1024 : (rad_SatoriRand.Checked ? 2048 : 0)) +
-                (rad_MetoriteArmbandOn.Checked ? 4096 : (rad_MetoriteArmbandRand.Checked ? 8192 : 0)) + (rad_WizardRingOn.Checked ? 16384 : (rad_WizardRingRand.Checked ? 32768 : 0)) +
-                (rad_EchoingFluteOn.Checked ? 65536 : (rad_EchoingFluteRand.Checked ? 131072 : 0)));
+            int itemWeaponShopsInnsTab2 = 37 * (
+                (randomizerTools.GetCheckboxValue(tchk_AgiSeed) == 0 ? 1 : randomizerTools.GetCheckboxValue(tchk_AgiSeed) == 1 ? 2 : 4) +
+                (randomizerTools.GetCheckboxValue(tchk_IntSeed) == 0 ? 8 : randomizerTools.GetCheckboxValue(tchk_IntSeed) == 1 ? 16 : 32) +
+                (randomizerTools.GetCheckboxValue(tchk_VitSeed) == 0 ? 64 : randomizerTools.GetCheckboxValue(tchk_VitSeed) == 1 ? 128 : 256) +
+                (randomizerTools.GetCheckboxValue(tchk_LuckSeed) == 0 ? 512 : randomizerTools.GetCheckboxValue(tchk_LuckSeed) == 1 ? 1024 : 2048) +
+                (randomizerTools.GetCheckboxValue(tchk_EchoingFlute) == 0 ? 4096 : randomizerTools.GetCheckboxValue(tchk_EchoingFlute) == 1 ? 8192 : 16384) +
+                (randomizerTools.GetCheckboxValue(tchk_SilverHarp) == 0 ? 32768 : randomizerTools.GetCheckboxValue(tchk_SilverHarp) == 1 ? 65536 : 131072));
 
-            int itemWeaponShopsInnsTab3 = 43 * ((rad_SilverHarpOn.Checked ? 1 : (rad_SilverHarpRand.Checked ? 2 : 0)) + (rad_RingOfLifeOn.Checked ? 4 : (rad_RingOfLifeRand.Checked ? 8 : 0)) +
-                (rad_ShoesOfHappinessOn.Checked ? 16 : (rad_ShoesOfHappinessRand.Checked ? 32 : 0)) + (rad_LampOfDarknessOn.Checked ? 64 : (rad_LampOfDarknessRand.Checked ? 128 : 0)));
+            int itemWeaponShopsInnsTab3 = 43 * (
+                (randomizerTools.GetCheckboxValue(tchk_LampOfDarkness) == 0 ? 1 : randomizerTools.GetCheckboxValue(tchk_LampOfDarkness) == 1 ? 2 : 4) +
+                (randomizerTools.GetCheckboxValue(tchk_MeteoriteArmband) == 0 ? 8 : randomizerTools.GetCheckboxValue(tchk_MeteoriteArmband) == 1 ? 16 : 32) +
+                (randomizerTools.GetCheckboxValue(tchk_RingOfLife) == 0 ? 64 : randomizerTools.GetCheckboxValue(tchk_RingOfLife) == 1 ? 128 : 256) +
+                (randomizerTools.GetCheckboxValue(tchk_ShoesOfHappiness) == 0 ? 512 : randomizerTools.GetCheckboxValue(tchk_ShoesOfHappiness) == 1 ? 1024 : 2048) +
+                (randomizerTools.GetCheckboxValue(tchk_LeafOfTheWorldTree) == 0 ? 4096 : randomizerTools.GetCheckboxValue(tchk_LeafOfTheWorldTree) == 1 ? 8192 : 16384) +
+                (randomizerTools.GetCheckboxValue(tchk_PoisonMothPowder) == 0 ? 32768 : randomizerTools.GetCheckboxValue(tchk_PoisonMothPowder) == 1 ? 66536 : 131072));
 
-            int fixesTab = 47 * ((rad_RmParryBugOn.Checked ? 1 : (rad_RmParryBugRand.Checked ? 2 : 0)) + (rad_FixHeroSpellOn.Checked ? 4 : (rad_FixHeroSpellRand.Checked ? 8 : 0)));
+            int itemWeaponShopsInnTab4 = 47 * (
+                (randomizerTools.GetCheckboxValue(tchk_StoneOfLife) == 0 ? 1 : randomizerTools.GetCheckboxValue(tchk_StoneOfLife) == 1 ? 2 : 4) +
+                (randomizerTools.GetCheckboxValue(tchk_BookOfSatori) == 0 ? 8 : randomizerTools.GetCheckboxValue(tchk_BookOfSatori) == 1 ? 16 : 32) +
+                (randomizerTools.GetCheckboxValue(tchk_WizardsRing) == 0 ? 64 : randomizerTools.GetCheckboxValue(tchk_WizardsRing) == 1 ? 128 : 256));
 
-            int cosmeticTab = 51 * ((rad_LevelUpTxtOn.Checked ? 1 : (rad_LevelUpTxtRand.Checked ? 2 : 0)) + (rad_RandHeroAgeOn.Checked ? 4 : (rad_RandHeroAgeRand.Checked ? 8 : 0)) +
+            int fixesTab = 51 * ((rad_RmParryBugOn.Checked ? 1 : (rad_RmParryBugRand.Checked ? 2 : 0)) + (rad_FixHeroSpellOn.Checked ? 4 : (rad_FixHeroSpellRand.Checked ? 8 : 0)));
+
+            int cosmeticTab = 53 * ((rad_LevelUpTxtOn.Checked ? 1 : (rad_LevelUpTxtRand.Checked ? 2 : 0)) + (rad_RandHeroAgeOn.Checked ? 4 : (rad_RandHeroAgeRand.Checked ? 8 : 0)) +
                 (rad_GhostToCasketOn.Checked ? 16 : (rad_GhostToCasketRand.Checked ? 32 : 0)));
 
-            int values = 53 * (romData[0x2914f] + (2 * romData[0x134b1]) + (4 * romData[0x330fc]) + (8 * romData[0x279a0 + 3]) + (16 * romData[0x32e3]) + (32 * romData[0x32e3 + (10 * 23) + 9]) +
+            int values = 57 * (romData[0x2914f] + (2 * romData[0x134b1]) + (4 * romData[0x330fc]) + (8 * romData[0x279a0 + 3]) + (16 * romData[0x32e3]) + (32 * romData[0x32e3 + (10 * 23) + 9]) +
                 (64 * romData[0x2922b])); 
 
             // Starting Gold + First Spell Strength + Shoes Effect Strength + 3rd Weapon Strength + Monster level 1 + Monster 10 Item Dropped +
@@ -1348,75 +1362,75 @@ namespace DW3Randomizer
             if (bank2 == 0) tchk_AnimalSuit.CheckState = CheckState.Unchecked;
             else if (bank2 == 1) tchk_AnimalSuit.CheckState = CheckState.Checked;
             else if (bank2 == 2) tchk_AnimalSuit.CheckState = CheckState.Indeterminate;
-            if (bank3 == 0) rad_AcornsOff.Checked = true;
-            else if (bank3 == 1) rad_AcornsOn.Checked = true;
-            else if (bank3 == 2) rad_AcornsRand.Checked = true;
+            if (bank3 == 0) tchk_AcornsOfLife.CheckState = CheckState.Unchecked;
+            else if (bank3 == 1) tchk_AcornsOfLife.CheckState = CheckState.Checked;
+            else if (bank3 == 2) tchk_AcornsOfLife.CheckState = CheckState.Indeterminate;
 
             number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(30, 1)));
             flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
-            if (bank1 == 0) rad_StrSeedOff.Checked = true;
-            else if (bank1 == 1) rad_StrSeedOn.Checked = true;
-            else if (bank1 == 2) rad_StrSeedRand.Checked = true;
-            if (bank2 == 0) rad_AgiSeedOff.Checked = true;
-            else if (bank2 == 1) rad_AgiSeedOn.Checked = true;
-            else if (bank2 == 2) rad_AgiSeedRand.Checked = true;
-            if (bank3 == 0) rad_IntSeedOff.Checked = true;
-            else if (bank3 == 1) rad_IntSeedOn.Checked = true;
-            else if (bank3 == 2) rad_IntSeedRand.Checked = true;
+            if (bank1 == 0) tchk_StrSeed.CheckState = CheckState.Unchecked;
+            else if (bank1 == 1) tchk_StrSeed.CheckState = CheckState.Checked;
+            else if (bank1 == 2) tchk_StrSeed.CheckState = CheckState.Indeterminate;
+            if (bank2 == 0) tchk_AgiSeed.CheckState = CheckState.Unchecked;
+            else if (bank2 == 1) tchk_AgiSeed.CheckState = CheckState.Checked;
+            else if (bank2 == 2) tchk_AgiSeed.CheckState = CheckState.Indeterminate;
+            if (bank3 == 0) tchk_IntSeed.CheckState = CheckState.Unchecked;
+            else if (bank3 == 1) tchk_IntSeed.CheckState = CheckState.Checked;
+            else if (bank3 == 2) tchk_IntSeed.CheckState = CheckState.Indeterminate;
 
             number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(31, 1)));
             flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
-            if (bank1 == 0) rad_VitSeedOff.Checked = true;
-            else if (bank1 == 1) rad_VitSeedOn.Checked = true;
-            else if (bank1 == 2) rad_VitSeedRand.Checked = true;
-            if (bank2 == 0) rad_LucSeedOff.Checked = true;
-            else if (bank2 == 1) rad_LucSeedOn.Checked = true;
-            else if (bank2 == 2) rad_LucSeedRand.Checked = true;
-            if (bank3 == 0) rad_WorldTreeOff.Checked = true;
-            else if (bank3 == 1) rad_WorldTreeOn.Checked = true;
-            else if (bank3 == 2) rad_WorldTreeRand.Checked = true;
+            if (bank1 == 0) tchk_VitSeed.CheckState = CheckState.Unchecked;
+            else if (bank1 == 1) tchk_VitSeed.CheckState = CheckState.Checked;
+            else if (bank1 == 2) tchk_VitSeed.CheckState = CheckState.Indeterminate;
+            if (bank2 == 0) tchk_LuckSeed.CheckState = CheckState.Unchecked;
+            else if (bank2 == 1) tchk_LuckSeed.CheckState = CheckState.Checked;
+            else if (bank2 == 2) tchk_LuckSeed.CheckState = CheckState.Indeterminate;
+            if (bank3 == 0) tchk_LeafOfTheWorldTree.CheckState = CheckState.Unchecked;
+            else if (bank3 == 1) tchk_LeafOfTheWorldTree.CheckState = CheckState.Checked;
+            else if (bank3 == 2) tchk_LeafOfTheWorldTree.CheckState = CheckState.Indeterminate;
 
             number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(32, 1)));
             flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
-            if (bank1 == 0) rad_PoisonMothOff.Checked = true;
-            else if (bank1 == 1) rad_PoisonMothOn.Checked = true;
-            else if (bank1 == 2) rad_PoisonMothRand.Checked = true;
-            if (bank2 == 0) rad_StoneOfLifeOff.Checked = true;
-            else if (bank2 == 1) rad_StoneOfLifeOn.Checked = true;
-            else if (bank2 == 2) rad_StoneOfLifeRand.Checked = true;
-            if (bank3 == 0) rad_SatoriOff.Checked = true;
-            else if (bank3 == 1) rad_SatoriOn.Checked = true;
-            else if (bank3 == 2) rad_SatoriRand.Checked = true;
+            if (bank1 == 0) tchk_PoisonMothPowder.CheckState = CheckState.Unchecked;
+            else if (bank1 == 1) tchk_PoisonMothPowder.CheckState = CheckState.Checked;
+            else if (bank1 == 2) tchk_PoisonMothPowder.CheckState = CheckState.Indeterminate;
+            if (bank2 == 0) tchk_StoneOfLife.CheckState = CheckState.Unchecked;
+            else if (bank2 == 1) tchk_StoneOfLife.CheckState = CheckState.Checked;
+            else if (bank2 == 2) tchk_StoneOfLife.CheckState = CheckState.Indeterminate;
+            if (bank3 == 0) tchk_BookOfSatori.CheckState = CheckState.Unchecked;
+            else if (bank3 == 1) tchk_BookOfSatori.CheckState = CheckState.Checked;
+            else if (bank3 == 2) tchk_BookOfSatori.CheckState = CheckState.Indeterminate;
 
             number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(33, 1)));
             flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
-            if (bank1 == 0) rad_MetoriteArmbandOff.Checked = true;
-            else if (bank1 == 1) rad_MetoriteArmbandOn.Checked = true;
-            else if (bank2 == 2) rad_MetoriteArmbandRand.Checked = true;
-            if (bank2 == 0) rad_WizardRingOff.Checked = true;
-            else if (bank2 == 1) rad_WizardRingOn.Checked = true;
-            else if (bank2 == 2) rad_WizardRingRand.Checked = true;
-            if (bank3 == 0) rad_EchoingFluteOff.Checked = true;
-            else if (bank3 == 1) rad_EchoingFluteOn.Checked = true;
-            else if (bank3 == 2) rad_EchoingFluteRand.Checked = true;
+            if (bank1 == 0) tchk_MeteoriteArmband.CheckState = CheckState.Unchecked;
+            else if (bank1 == 1) tchk_MeteoriteArmband.CheckState = CheckState.Checked;
+            else if (bank2 == 2) tchk_MeteoriteArmband.CheckState = CheckState.Indeterminate;
+            if (bank2 == 0) tchk_WizardsRing.CheckState = CheckState.Unchecked;
+            else if (bank2 == 1) tchk_WizardsRing.CheckState = CheckState.Checked;
+            else if (bank2 == 2) tchk_WizardsRing.CheckState = CheckState.Indeterminate;
+            if (bank3 == 0) tchk_EchoingFlute.CheckState = CheckState.Unchecked;
+            else if (bank3 == 1) tchk_EchoingFlute.CheckState = CheckState.Checked;
+            else if (bank3 == 2) tchk_EchoingFlute.CheckState = CheckState.Indeterminate;
 
             number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(34, 1)));
             flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
-            if (bank1 == 0) rad_SilverHarpOff.Checked = true;
-            else if (bank1 == 1) rad_SilverHarpOn.Checked = true;
-            else if (bank1 == 2) rad_SilverHarpRand.Checked = true;
-            if (bank2 == 0) rad_RingOfLifeOff.Checked = true;
-            else if (bank2 == 1) rad_RingOfLifeOn.Checked = true;
-            else if (bank2 == 2) rad_RingOfLifeRand.Checked = true;
-            if (bank3 == 0) rad_ShoesOfHappinessOff.Checked = true;
-            else if (bank3 == 1) rad_ShoesOfHappinessOn.Checked = true;
-            else if (bank3 == 2) rad_ShoesOfHappinessRand.Checked = true;
+            if (bank1 == 0) tchk_SilverHarp.CheckState = CheckState.Unchecked;
+            else if (bank1 == 1) tchk_SilverHarp.CheckState = CheckState.Checked;
+            else if (bank1 == 2) tchk_SilverHarp.CheckState = CheckState.Indeterminate;
+            if (bank2 == 0) tchk_RingOfLife.CheckState = CheckState.Unchecked;
+            else if (bank2 == 1) tchk_RingOfLife.CheckState = CheckState.Checked;
+            else if (bank2 == 2) tchk_RingOfLife.CheckState = CheckState.Indeterminate;
+            if (bank3 == 0) tchk_ShoesOfHappiness.CheckState = CheckState.Unchecked;
+            else if (bank3 == 1) tchk_ShoesOfHappiness.CheckState = CheckState.Checked;
+            else if (bank3 == 2) tchk_ShoesOfHappiness.CheckState = CheckState.Indeterminate;
 
             number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(35, 1)));
             flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
-            if (bank1 == 0) rad_LampOfDarknessOff.Checked = true;
-            else if (bank1 == 1) rad_LampOfDarknessOn.Checked = true;
-            else if (bank1 == 2) rad_LampOfDarknessRand.Checked = true;            
+            if (bank1 == 0) tchk_LampOfDarkness.CheckState = CheckState.Unchecked;
+            else if (bank1 == 1) tchk_LampOfDarkness.CheckState = CheckState.Checked;
+            else if (bank1 == 2) tchk_LampOfDarkness.CheckState = CheckState.Indeterminate;
             
             // - 36
 
@@ -1568,14 +1582,7 @@ namespace DW3Randomizer
 
             bank1 = bank2 = bank3 = 0;
             bank1 = randomizerTools.GetCheckboxValue(tchk_RandEnAttPat);
-            if (randomizerTools.GetCheckboxValue(tchk_RandDrops) > 0)
-            {
-                bank2 = 4 * randomizerTools.GetCheckboxValue(tchk_RmDupItemPool);
-            }
-            else
-            {
-                bank2 = 0;
-            }
+            bank2 = 4 * randomizerTools.GetCheckboxValue(tchk_RmDupItemPool);
             bank3 = 16 * randomizerTools.GetCheckboxValue(tchk_RmMetalRun);
             flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 15
 
@@ -1584,72 +1591,30 @@ namespace DW3Randomizer
             // Map
             bank1 = bank2 = bank3 = 0;
             bank1 = randomizerTools.GetCheckboxValue(tchk_RandMaps);
-            if (randomizerTools.GetCheckboxValue(tchk_RandMaps) > 0)
-            {
-                bank2 = 4 * randomizerTools.GetCheckboxValue(tchk_SmallMaps);
-                bank3 = 16 * randomizerTools.GetCheckboxValue(tchk_RandMonstZones);
-            }
-            else
-            {   
-                bank2 = 0;
-                bank3 = 0;
-            }
+            bank2 = 4 * randomizerTools.GetCheckboxValue(tchk_SmallMaps);
+            bank3 = 16 * randomizerTools.GetCheckboxValue(tchk_RandMonstZones);
             flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 17
 
             bank1 = bank2 = bank3 = 0;
-            if (randomizerTools.GetCheckboxValue(tchk_RandMaps) > 0)
-            {
-                bank1 = randomizerTools.GetCheckboxValue(tchk_RandTowns);
-                bank2 = 4 * randomizerTools.GetCheckboxValue(tchk_RandCaveTower);
-                bank3 = 16 * randomizerTools.GetCheckboxValue(tchk_RandShrines);
-            }
-            else
-            {
-                bank1 = 0;
-                bank2 = 0;
-                bank3 = 0;
-            }
+            bank1 = randomizerTools.GetCheckboxValue(tchk_RandTowns);
+            bank2 = 4 * randomizerTools.GetCheckboxValue(tchk_RandCaveTower);
+            bank3 = 16 * randomizerTools.GetCheckboxValue(tchk_RandShrines);
             flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 18
 
             bank1 = bank2 = bank3 = 0;
-            if (randomizerTools.GetCheckboxValue(tchk_RandMaps) > 0)
-            {
-                bank1 = randomizerTools.GetCheckboxValue(tchk_RmMountLancel);
-                bank2 = 4 * randomizerTools.GetCheckboxValue(tchk_RmMountNecro);
-                bank3 = 16 * randomizerTools.GetCheckboxValue(tchk_RmMountBaramos);
-            }
-            else
-            {
-                bank1 = 0;
-                bank2 = 0;
-                bank3 = 0;
-            }
+            bank1 = randomizerTools.GetCheckboxValue(tchk_RmMountLancel);
+            bank2 = 4 * randomizerTools.GetCheckboxValue(tchk_RmMountNecro);
+            bank3 = 16 * randomizerTools.GetCheckboxValue(tchk_RmMountBaramos);
             flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 19
 
             bank1 = bank2 = bank3 = 0;
-            if (randomizerTools.GetCheckboxValue(tchk_RandMaps) > 0)
-            {
-                bank1 = randomizerTools.GetCheckboxValue(tchk_RmMountDQC);
-                bank2 = 4 * randomizerTools.GetCheckboxValue(tchk_RmNoEncounter);
-                bank3 = 16 * randomizerTools.GetCheckboxValue(tchk_RmMoatCharlock);
-            }
-            else
-            {
-                bank1 = 0;
-                bank2 = 0;
-                bank3 = 0;
-            }
+            bank1 = randomizerTools.GetCheckboxValue(tchk_RmMountDQC);
+            bank2 = 4 * randomizerTools.GetCheckboxValue(tchk_RmNoEncounter);
+            bank3 = 16 * randomizerTools.GetCheckboxValue(tchk_RmMoatCharlock);
             flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 20
 
             bank1 = bank2 = bank3 = 0;
-            if (randomizerTools.GetCheckboxValue(tchk_RandMaps) > 0)
-            {
-                bank1 = randomizerTools.GetCheckboxValue(tchk_NoNewTown);
-            }
-            else
-            {
-                bank1 = 0;
-            }
+            bank1 = randomizerTools.GetCheckboxValue(tchk_NoNewTown);
             flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 21
 
             flags += "-"; //22
@@ -1657,27 +1622,12 @@ namespace DW3Randomizer
             // Treasures & Equipment
             bank1 = bank2 = bank3 = 0;
             bank1 = randomizerTools.GetCheckboxValue(tchk_RandTreasures);
-            if (randomizerTools.GetCheckboxValue(tchk_RandTreasures) > 0)
-            {
-                bank2 = 4 * randomizerTools.GetCheckboxValue(tchk_GreenSilvOrb);
-                bank3 = 16 * randomizerTools.GetCheckboxValue(tchk_RmRedKey);
-            }
-            else
-            {
-                bank2 = 0;
-                bank3 = 0;
-            }
+            bank2 = 4 * randomizerTools.GetCheckboxValue(tchk_GreenSilvOrb);
+            bank3 = 16 * randomizerTools.GetCheckboxValue(tchk_RmRedKey);
             flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 23
 
             bank1 = bank2 = bank3 = 0;
-            if (randomizerTools.GetCheckboxValue(tchk_RandTreasures) > 0)
-            {
-                bank1 = randomizerTools.GetCheckboxValue(tchk_AddGoldClaw);
-            }
-            else
-            {
-                bank1 = 0;
-            }
+            bank1 = randomizerTools.GetCheckboxValue(tchk_AddGoldClaw);
             bank2 = 4 * randomizerTools.GetCheckboxValue(tchk_RandEqPower);
             bank3 = 16 * randomizerTools.GetCheckboxValue(tchk_AdjEqPrices);
             flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 24
@@ -1710,37 +1660,37 @@ namespace DW3Randomizer
             flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); //29
 
             bank1 = bank2 = bank3 = 0;
-            bank1 = ((rad_StrSeedOff.Checked ? 0 : 0) + (rad_StrSeedOn.Checked ? 1 : 0) + (rad_StrSeedRand.Checked ? 2 : 0));
-            bank2 = ((rad_AgiSeedOff.Checked ? 0 : 0) + (rad_AgiSeedOn.Checked ? 4 : 0) + (rad_AgiSeedRand.Checked ? 8 : 0));
-            bank3 = ((rad_IntSeedOff.Checked ? 0 : 0) + (rad_IntSeedOn.Checked ? 16 : 0) + (rad_IntSeedRand.Checked ? 32 : 0));
+            bank1 = randomizerTools.GetCheckboxValue(tchk_StrSeed);
+            bank2 = 4 * randomizerTools.GetCheckboxValue(tchk_AgiSeed);
+            bank3 = 16 * randomizerTools.GetCheckboxValue(tchk_IntSeed);
             flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 30
 
             bank1 = bank2 = bank3 = 0;
-            bank1 = ((rad_VitSeedOff.Checked ? 0 : 0) + (rad_VitSeedOn.Checked ? 1 : 0) + (rad_VitSeedRand.Checked ? 2 : 0));
-            bank2 = ((rad_LucSeedOff.Checked ? 0 : 0) + (rad_LucSeedOn.Checked ? 4 : 0) + (rad_LucSeedRand.Checked ? 8 : 0));
-            bank3 = ((rad_WorldTreeOff.Checked ? 0 : 0) + (rad_WorldTreeOn.Checked ? 16 : 0) + (rad_WorldTreeRand.Checked ? 32 : 0));
+            bank1 = randomizerTools.GetCheckboxValue(tchk_VitSeed);
+            bank2 = 4 * randomizerTools.GetCheckboxValue(tchk_LuckSeed);
+            bank3 = 16 * randomizerTools.GetCheckboxValue(tchk_LeafOfTheWorldTree);
             flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 31
 
             bank1 = bank2 = bank3 = 0;
-            bank1 = ((rad_PoisonMothOff.Checked ? 0 : 0) + (rad_PoisonMothOn.Checked ? 1 : 0) + (rad_PoisonMothRand.Checked ? 2 : 0));
-            bank2 = ((rad_StoneOfLifeOff.Checked ? 0 : 0) + (rad_StoneOfLifeOn.Checked ? 4 : 0) + (rad_StoneOfLifeRand.Checked ? 8 : 0));
-            bank3 = ((rad_SatoriOff.Checked ? 0 : 0) + (rad_SatoriOn.Checked ? 16 : 0) + (rad_SatoriRand.Checked ? 32 : 0));
+            bank1 = randomizerTools.GetCheckboxValue(tchk_PoisonMothPowder);
+            bank2 = 4 * randomizerTools.GetCheckboxValue(tchk_StoneOfLife);
+            bank3 = 16 * randomizerTools.GetCheckboxValue(tchk_BookOfSatori);
             flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 32
 
             bank1 = bank2 = bank3 = 0;
-            bank1 = ((rad_MetoriteArmbandOff.Checked ? 0 : 0) + (rad_MetoriteArmbandOn.Checked ? 1 : 0) + (rad_MetoriteArmbandRand.Checked ? 2 : 0));
-            bank2 = ((rad_WizardRingOff.Checked ? 0 : 0) + (rad_WizardRingOn.Checked ? 4 : 0) + (rad_WizardRingRand.Checked ? 8 : 0));
-            bank3 = ((rad_EchoingFluteOff.Checked ? 0 : 0) + (rad_EchoingFluteOn.Checked ? 16 : 0) + (rad_EchoingFluteRand.Checked ? 32 : 0));
+            bank1 = randomizerTools.GetCheckboxValue(tchk_MeteoriteArmband);
+            bank2 = 4 * randomizerTools.GetCheckboxValue(tchk_WizardsRing);
+            bank3 = 16 * randomizerTools.GetCheckboxValue(tchk_EchoingFlute);
             flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 33
 
             bank1 = bank2 = bank3 = 0;
-            bank1 = ((rad_SilverHarpOff.Checked ? 0 : 0) + (rad_SilverHarpOn.Checked ? 1 : 0) + (rad_SilverHarpRand.Checked ? 2 : 0));
-            bank2 = ((rad_RingOfLifeOff.Checked ? 0 : 0) + (rad_RingOfLifeOn.Checked ? 4 : 0) + (rad_RingOfLifeRand.Checked ? 8 : 0));
-            bank3 = ((rad_ShoesOfHappinessOff.Checked ? 0 : 0) + (rad_ShoesOfHappinessOn.Checked ? 16 : 0) + (rad_ShoesOfHappinessRand.Checked ? 32 : 0));
+            bank1 = randomizerTools.GetCheckboxValue(tchk_SilverHarp);
+            bank2 = 4 * randomizerTools.GetCheckboxValue(tchk_RingOfLife);
+            bank3 = 16 * randomizerTools.GetCheckboxValue(tchk_ShoesOfHappiness);
             flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 34
 
             bank1 = bank2 = bank3 = 0;
-            bank1 = ((rad_LampOfDarknessOff.Checked ? 0 : 0) + (rad_LampOfDarknessOn.Checked ? 1 : 0) + (rad_LampOfDarknessRand.Checked ? 2 : 0));
+            bank1 = randomizerTools.GetCheckboxValue(tchk_LampOfDarkness);
             flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 35
 
             flags += "-"; // 36
@@ -1788,8 +1738,6 @@ namespace DW3Randomizer
         private void enableDisableFields(object sender, DragEventArgs e)
         {
             randomizerTools randomizerTools = new randomizerTools();
-
-            int looper = 0;
             
             if (optSotWFlags.Checked == true)
             {
@@ -1930,28 +1878,28 @@ namespace DW3Randomizer
             }
             if (randomizerTools.GetCheckboxValue(this.tchk_AddRemakeEq) > 0)
                 this.tchk_RmFigherPen.CheckState = CheckState.Checked;
-            if (this.rad_RandItemShopOn.Checked || this.rad_RandItemShopRand.Checked)
+            if (randomizerTools.GetCheckboxValue(this.tchk_RandItemShop) > 0)
                 this.grp_AddToItemShop.Visible = true;
             else
             {
                 this.grp_AddToItemShop.Visible = false;
-                this.rad_AcornsOff.Checked = true;
-                this.rad_StrSeedOff.Checked = true;
-                this.rad_AgiSeedOff.Checked = true;
-                this.rad_VitSeedOff.Checked = true;
-                this.rad_IntSeedOff.Checked = true;
-                this.rad_LucSeedOff.Checked = true;
-                this.rad_WorldTreeOff.Checked = true;
-                this.rad_PoisonMothOff.Checked = true;
-                this.rad_StoneOfLifeOff.Checked = true;
-                this.rad_SatoriOff.Checked = true;
-                this.rad_MetoriteArmbandOff.Checked = true;
-                this.rad_WizardRingOff.Checked = true;
-                this.rad_EchoingFluteOff.Checked = true;
-                this.rad_SilverHarpOff.Checked = true;
-                this.rad_RingOfLifeOff.Checked = true;
-                this.rad_ShoesOfHappinessOff.Checked = true;
-                this.rad_LampOfDarknessOff.Checked = true;
+                this.tchk_AcornsOfLife.CheckState = CheckState.Unchecked;
+                this.tchk_StrSeed.CheckState = CheckState.Unchecked;
+                this.tchk_AgiSeed.CheckState = CheckState.Unchecked;
+                this.tchk_VitSeed.CheckState = CheckState.Unchecked;
+                this.tchk_IntSeed.CheckState = CheckState.Unchecked;
+                this.tchk_LuckSeed.CheckState = CheckState.Unchecked;
+                this.tchk_LeafOfTheWorldTree.CheckState = CheckState.Unchecked;
+                this.tchk_PoisonMothPowder.CheckState = CheckState.Unchecked;
+                this.tchk_StoneOfLife.CheckState = CheckState.Unchecked;
+                this.tchk_BookOfSatori.CheckState = CheckState.Unchecked;
+                this.tchk_MeteoriteArmband.CheckState = CheckState.Unchecked;
+                this.tchk_WizardsRing.CheckState = CheckState.Unchecked;
+                this.tchk_EchoingFlute.CheckState = CheckState.Unchecked;
+                this.tchk_SilverHarp.CheckState = CheckState.Unchecked;
+                this.tchk_RingOfLife.CheckState = CheckState.Unchecked;
+                this.tchk_ShoesOfHappiness.CheckState = CheckState.Unchecked;
+                this.tchk_LampOfDarkness.CheckState = CheckState.Unchecked;
             }
             if (rad_ChName1Manual.Checked) this.txt_ChName1.Visible = true;
             else this.txt_ChName1.Visible = false;

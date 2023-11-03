@@ -101,10 +101,10 @@ namespace DW3Randomizer
             romData[0x2914f] = (byte)((r1.Next() % 255) + 1);
         }
 
-        public void randStores(ref byte[] romData, ref Random r1, bool AcornsOn, bool AcornsRand, bool StrSeedOn, bool StrSeedRand, bool AgiSeedOn, bool AgiSeedRand, bool VitSeedOn, bool VitSeedRand, bool IntSeedOn, bool IntSeedRand,
-            bool LucSeedOn, bool LucSeedRand, bool WorldTreeOn, bool WorldTreeRand, bool PoisonMothOn, bool PoisonMothRand, bool StoneOfLifeOn, bool StoneOfLifeRand, bool SatoriOn, bool SatoriRand, bool MetoriteArmbandOn, bool MetoriteArmbandRand,
-            bool WizardRingOn, bool WizardRingRand, bool EchoingFluteOn, bool EchoingFluteRand, bool SilverHarpOn, bool SilverHarpRand, bool RingOfLifeOn, bool RingOfLifeRand, bool ShoesOfHappinessOn, bool ShoesOfHappinessRand,
-            bool LampOfDarknessOn, bool LampOfDarknessRand, bool RandWeapShopOn, bool RandWeapShopRand, bool CaturdayOn, bool CaturdayRand, bool RandItemShopOn, bool RandItemShopRand, string txtSeed)
+        public void randStores(ref byte[] romData, ref Random r1, int Acorns, int StrSeed, int AgiSeed, int VitSeed, int IntSeed,
+            int LucSeed, int WorldTree, int PoisonMoth, int StoneOfLife, int Satori, int MetoriteArmband,
+            int WizardRing, int EchoingFlute, int SilverHarp, int RingOfLife, int ShoesOfHappiness,
+            int LampOfDarkness, int RandWeapShop, int Caturday, int RandItemShop, string txtSeed)
         {
             // Totally randomize stores (19 weapon stores, 24 item stores, 248 items total)  No store can have more than 12 items.
             // I would just create random values for 248 items, then determine weapon and item stores out of that!
@@ -127,55 +127,55 @@ namespace DW3Randomizer
             }
 
             // Add Acorns of Life
-            if (AcornsOn || (AcornsRand && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x64);
+            if (Acorns == 1 || (Acorns ==2 && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x64);
 
             // Add Strength Seed
-            if (StrSeedOn || (StrSeedRand && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x5f);
+            if (StrSeed == 1 || (StrSeed == 2 && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x5f);
 
             // Add Agility Seed
-            if (AgiSeedOn || (AgiSeedRand && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x60);
+            if (AgiSeed == 1 || (AgiSeed == 2 && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x60);
 
             // Add Vitality Seed
-            if (VitSeedOn || (VitSeedRand && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x61);
+            if (VitSeed == 1 || (VitSeed == 2 && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x61);
 
             // Add Intelligence Seed
-            if (IntSeedOn || (IntSeedRand && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x62);
+            if (IntSeed == 1 || (IntSeed == 2 && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x62);
 
             // Add Luck Seed
-            if (LucSeedOn || (LucSeedRand && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x63);
+            if (LucSeed == 1 || (LucSeed == 2 && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x63);
 
             // Add Leaf of the World Tree
-            if (WorldTreeOn || (WorldTreeRand && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x69);
+            if (WorldTree == 1 || (WorldTree == 2 && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x69);
 
             // Add Poison Moth Powder
-            if (PoisonMothOn || (PoisonMothRand && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x73);
+            if (PoisonMoth == 1 || (PoisonMoth == 2 && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x73);
 
             // Add Stone of Life
-            if (StoneOfLifeOn || (StoneOfLifeRand && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x55);
+            if (StoneOfLife == 1 || (StoneOfLife == 2 && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x55);
 
             // Add Book of Satori
-            if (SatoriOn || (SatoriRand && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x4c);
+            if (Satori == 1 || (Satori == 2 && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x4c);
 
             // Add Meterorite Armband to Item Shop Items
-            if (MetoriteArmbandOn || (MetoriteArmbandRand && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x4b);
+            if (MetoriteArmband == 1 || (MetoriteArmband == 2 && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x4b);
 
             // Add Wizards Ring
-            if (WizardRingOn || (WizardRingRand && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x4e);
+            if (WizardRing == 1 || (WizardRing == 2 && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x4e);
 
             // Add Echoing Flute to Item Shop Items
-            if (EchoingFluteOn || (EchoingFluteRand && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x6f);
+            if (EchoingFlute == 1 || (EchoingFlute == 2 && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x6f);
 
             // Add Silver Harp to Item Shop Items
-            if (SilverHarpOn || (SilverHarpRand && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x71);
+            if (SilverHarp == 1 || (SilverHarp == 2 && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x71);
 
             // Add Ring of Life to Item Shop Items
-            if (RingOfLifeOn || (RingOfLifeRand && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x48);
+            if (RingOfLife == 1 || (RingOfLife == 2 && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x48);
 
             // Add Shoes of Happiness to Item Shop Items
-            if (ShoesOfHappinessOn || (ShoesOfHappinessRand && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x49);
+            if (ShoesOfHappiness == 1 || (ShoesOfHappiness == 2 && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x49);
 
             // Add Lamp of Darkness
-            if (LampOfDarknessOn || (LampOfDarknessRand && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x53);
+            if (LampOfDarkness == 1 || (LampOfDarkness == 2 && (r1.Next() % 2 == 1))) legalStoreItemsList.Add(0x53);
 
 
 
@@ -183,7 +183,7 @@ namespace DW3Randomizer
             int[] weaponStores = { 0x36838, 0x3683f, 0x36846, 0x3684d, 0x36854, 0x3685b, 0x36862, 0x36869, 0x3686e, 0x36874, 0x3687a, 0x36880, 0x36887, 0x3688d, 0x36893, 0x3689a, 0x368a1, 0x368a7, 0x368ae }; // 42
             int[] itemStores = { 0x368b4, 0x368b7, 0x368be, 0x368c4, 0x368ca, 0x368d0, 0x368d6, 0x368db, 0x368e0, 0x368e2, 0x368e6, 0x368ec, 0x368f2, 0x368f4, 0x368fa, 0x368ff, 0x36905, 0x36908, 0x3690e, 0x36914, 0x3691a, 0x36920, 0x36927, 0x3692b }; // 22
 
-            if (RandWeapShopOn || (RandWeapShopRand && (r1.Next() % 2 == 1)))
+            if (RandWeapShop == 1 || (RandWeapShop == 2 && (r1.Next() % 2 == 1)))
             {
                 for (int lnI = 0; lnI < weaponStores.Length; lnI++)
                 {
@@ -210,7 +210,7 @@ namespace DW3Randomizer
                         lnJ++;
                     } while (!lastItem);
                 }
-                if (CaturdayOn || (CaturdayRand && (r1.Next() % 2 == 1)))
+                if (Caturday == 1 || (Caturday == 2 && (r1.Next() % 2 == 1)))
                 {
                     Random caturday = new Random(int.Parse(txtSeed));
 
@@ -219,7 +219,7 @@ namespace DW3Randomizer
                     romData[catWeaponStores[selectStore]] = 0x2a;
                 }
             }
-            if (RandItemShopOn || (RandItemShopRand && (r1.Next() % 2 == 1)))
+            if (RandItemShop == 1 || (RandItemShop == 2 && (r1.Next() % 2 == 1)))
             {
                 for (int lnI = 0; lnI < itemStores.Length; lnI++)
                 {
