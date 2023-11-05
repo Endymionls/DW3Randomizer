@@ -45,7 +45,7 @@ namespace DW3Randomizer
                 case 38: return "X";
                 case 40: return "Y";
                 case 41: return "Z";
-                case 42: return "!";
+                case 42: return "#";
             }
             return Convert.ToChar(65 + number).ToString();
         }
@@ -79,7 +79,7 @@ namespace DW3Randomizer
                 case 'X': return 38;
                 case 'Y': return 40;
                 case 'Z': return 41;
-                case '!': return 42;
+                case '#': return 42;
             }
             return character;
         }

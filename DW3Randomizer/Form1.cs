@@ -28,12 +28,12 @@ namespace DW3Randomizer
     {
 
         readonly string versionNumber = "2.5.4.2";
-        readonly string revisionDate = "11/2/2023";
-        readonly int buildnumber = 279; // build starting 8/18/23
-        readonly string SotWFlags = "A-QLINNDAKMBG-NB-NNABA-EMDB-NNNMNNNB-A-E-N";
+        readonly string revisionDate = "11/4/2023";
+        readonly int buildnumber = 280; // build starting 8/18/23
+        readonly string SotWFlags = "A-QLINNDAKMBG-NB-NNABA-EMDB-NNNNNNNB-A-E-N";
         readonly string TradSotWFlags = "A-QLINNDAKMAG-JB-NAABA-BMAB-NNNMNNNB-A-B-D";
         readonly string jffFlags = "A-QLINNNBNNEG-NN-NNNNB-NNNE-NNNMNNNB-E-E-N";
-        readonly string randomFlags = "A-JJD!!!!!!IH-!!-!!!!C-!!!H-!!!!!!!C-E-I-!";
+        readonly string randomFlags = "A-JJD######IH-##-####C-###H-#######C-E-I-#";
         readonly string quickVanila = "A-NOGNAAAAAAD-AA-AAAAA-AAAA-AAAAAAAA-A-E-A";
         readonly bool debugmode = false;
         Random r1;
@@ -115,40 +115,49 @@ namespace DW3Randomizer
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            txtSeed.Text = (DateTime.Now.Ticks % 9223372036854775807).ToString();
+            txtSeed.Text = (DateTime.Now.Ticks % 2147483647).ToString();
             string shortVersion = versionNumber.Replace(".", "");
-
             try
             {
                 using (TextReader reader = File.OpenText("lastFile" + shortVersion + ".txt"))
                 {
                     txtFileName.Text = reader.ReadLine();
                     txtFlags.Text = reader.ReadLine();
+
                     determineChecks(null, null);
+
                     if (reader.ReadLine() == "True") rad_ChName1Off.Checked = true;
                     if (reader.ReadLine() == "True") rad_ChName1Manual.Checked = true;
                     if (reader.ReadLine() == "True") rad_ChName1Rand.Checked = true;
+
                     if (reader.ReadLine() == "True") rad_ChName2Off.Checked = true;
                     if (reader.ReadLine() == "True") rad_ChName2Manual.Checked = true;
                     if (reader.ReadLine() == "True") rad_ChName2Rand.Checked = true;
+
                     if (reader.ReadLine() == "True") rad_ChName3Off.Checked = true;
                     if (reader.ReadLine() == "True") rad_ChName3Manual.Checked = true;
                     if (reader.ReadLine() == "True") rad_ChName3Rand.Checked = true;
+
                     txt_ChName1.Text = reader.ReadLine();
                     txt_ChName2.Text = reader.ReadLine();
                     txt_ChName3.Text = reader.ReadLine();
+
                     if (reader.ReadLine() == "True") rad_Gender1Off.Checked = true;
                     if (reader.ReadLine() == "True") rad_Gender1Manual.Checked = true;
                     if (reader.ReadLine() == "True") rad_Gender1Rand.Checked = true;
+
                     if (reader.ReadLine() == "True") rad_Gender2Off.Checked = true;
                     if (reader.ReadLine() == "True") rad_Gender2Manual.Checked = true;
                     if (reader.ReadLine() == "True") rad_Gender2Rand.Checked = true;
+
                     if (reader.ReadLine() == "True") rad_Gender3Off.Checked = true;
                     if (reader.ReadLine() == "True") rad_Gender3Manual.Checked = true;
                     if (reader.ReadLine() == "True") rad_Gender3Rand.Checked = true;
+
                     cbo_Gender1.SelectedIndex = Convert.ToInt32(reader.ReadLine());
                     cbo_Gender2.SelectedIndex = Convert.ToInt32(reader.ReadLine());
                     cbo_Gender3.SelectedIndex = Convert.ToInt32(reader.ReadLine());
+
                     if (reader.ReadLine() == "True")
                         chk_RandSoldier.Checked = true;
                     else
@@ -173,47 +182,114 @@ namespace DW3Randomizer
                         chk_RandGoofOff.Checked = true;
                     else
                         chk_RandGoofOff.Checked = false;
-                    if (reader.ReadLine() == "True")
-                        chk_RandSage.Checked = true;
-                    else
-                        chk_RandSage.Checked = false;
-                    if (reader.ReadLine() == "True")
-                        chk_RandHero.Checked = true;
-                    else
-                        chk_RandHero.Checked = false;
+
                     if (reader.ReadLine() == "True") rad_Class1Off.Checked = true;
                     if (reader.ReadLine() == "True") rad_Class1Manual.Checked = true;
                     if (reader.ReadLine() == "True") rad_Class1Rand.Checked = true;
+
                     if (reader.ReadLine() == "True") rad_Class2Off.Checked = true;
                     if (reader.ReadLine() == "True") rad_Class2Manual.Checked = true;
                     if (reader.ReadLine() == "True") rad_Class2Rand.Checked = true;
+
                     if (reader.ReadLine() == "True") rad_Class3Off.Checked = true;
                     if (reader.ReadLine() == "True") rad_Class3Manual.Checked = true;
                     if (reader.ReadLine() == "True") rad_Class3Rand.Checked = true;
+
                     cbo_Class1.SelectedIndex = Convert.ToInt32(reader.ReadLine());
                     cbo_Class2.SelectedIndex = Convert.ToInt32(reader.ReadLine());
                     cbo_Class3.SelectedIndex = Convert.ToInt32(reader.ReadLine());
-                    if (reader.ReadLine() == "True") rad_StdCaseOff.Checked = true;
-                    if (reader.ReadLine() == "True") rad_StdCaseOn.Checked = true;
-                    if (reader.ReadLine() == "True") rad_StdCaseRand.Checked = true;
-                    if (reader.ReadLine() == "True") rad_SlimeSnailOff.Checked = true;
-                    if (reader.ReadLine() == "True") rad_SlimeSnailOn.Checked = true;
-                    if (reader.ReadLine() == "True") rad_SlimeSnailRand.Checked = true;
-                    if (reader.ReadLine() == "True") rad_RandSpriteColOff.Checked = true;
-                    if (reader.ReadLine() == "True") rad_RandSpriteColOn.Checked = true;
-                    if (reader.ReadLine() == "True") rad_RandSpriteColRand.Checked = true;
-                    if (reader.ReadLine() == "True") rad_ChCatsOff.Checked = true;
-                    if (reader.ReadLine() == "True") rad_ChCatsOn.Checked = true;
-                    if (reader.ReadLine() == "True") rad_ChCatsRand.Checked = true;
-                    if (reader.ReadLine() == "True") rad_FFightSpriteOff.Checked = true;
-                    if (reader.ReadLine() == "True") rad_FFightSpriteOn.Checked = true;
-                    if (reader.ReadLine() == "True") rad_FFightSpriteRand.Checked = true;
-                    if (reader.ReadLine() == "True") rad_RandNPCOff.Checked = true;
-                    if (reader.ReadLine() == "True") rad_RandNPCOn.Checked = true;
-                    if (reader.ReadLine() == "True") rad_RandNPCRand.Checked = true;
-                    if (reader.ReadLine() == "True") rad_FHeroOff.Checked = true;
-                    if (reader.ReadLine() == "True") rad_FHeroOn.Checked = true;
-                    if (reader.ReadLine() == "True") rad_FHeroRand.Checked = true;
+
+                    string line = reader.ReadLine();
+                    switch (line)
+                    {
+                        case "Checked":
+                            tchk_StdCaseMenus.CheckState = CheckState.Checked;
+                            break;
+                        case "Unchecked":
+                            tchk_StdCaseMenus.CheckState = CheckState.Unchecked;
+                            break;
+                        case "Indeterminate":
+                            tchk_StdCaseMenus.CheckState = CheckState.Indeterminate;
+                            break;
+                    }
+                    line = reader.ReadLine();
+                    switch (line)
+                    {
+                        case "Checked":
+                            tchk_FixSlimeSnail.CheckState = CheckState.Checked;
+                            break;
+                        case "Unchecked":
+                            tchk_FixSlimeSnail.CheckState = CheckState.Unchecked;
+                            break;
+                        case "Indeterminate":
+                            tchk_FixSlimeSnail.CheckState = CheckState.Indeterminate;
+                            break;
+                    }
+                    line = reader.ReadLine();
+                    switch (line)
+                    {
+                        case "Checked":
+                            tchk_RandSpriteColor.CheckState = CheckState.Checked;
+                            break;
+                        case "Unchecked":
+                            tchk_RandSpriteColor.CheckState = CheckState.Unchecked;
+                            break;
+                        case "Indeterminate":
+                            tchk_RandSpriteColor.CheckState = CheckState.Indeterminate;
+                            break;
+                    }
+                    line = reader.ReadLine();
+                    switch (line)
+                    {
+                        case "Checked":
+                            tchk_ChangeCats.CheckState = CheckState.Checked;
+                            break;
+                        case "Unchecked":
+                            tchk_ChangeCats.CheckState = CheckState.Unchecked;
+                            break;
+                        case "Indeterminate":
+                            tchk_ChangeCats.CheckState = CheckState.Indeterminate;
+                            break;
+                    }
+                    line = reader.ReadLine();
+                    switch (line)
+                    {
+                        case "Checked":
+                            tchk_FixFFighterSprite.CheckState = CheckState.Checked;
+                            break;
+                        case "Unchecked":
+                            tchk_FixFFighterSprite.CheckState = CheckState.Unchecked;
+                            break;
+                        case "Indeterminate":
+                            tchk_FixFFighterSprite.CheckState = CheckState.Indeterminate;
+                            break;
+                    }
+                    line = reader.ReadLine();
+                    switch (line)
+                    {
+                        case "Checked":
+                            tchk_RandNPCSprites.CheckState = CheckState.Checked;
+                            break;
+                        case "Unchecked":
+                            tchk_RandNPCSprites.CheckState = CheckState.Unchecked;
+                            break;
+                        case "Indeterminate":
+                            tchk_RandNPCSprites.CheckState = CheckState.Indeterminate;
+                            break;
+                    }
+                    line = reader.ReadLine();
+                    switch (line)
+                    {
+                        case "Checked":
+                            tchk_FemaleHero.CheckState = CheckState.Checked;
+                            break;
+                        case "Unchecked":
+                            tchk_FemaleHero.CheckState = CheckState.Unchecked;
+                            break;
+                        case "Indeterminate":
+                            tchk_FemaleHero.CheckState = CheckState.Indeterminate;
+                            break;
+                    }
                     runChecksum();
                 }
             }
@@ -237,7 +313,7 @@ namespace DW3Randomizer
 
         private void btnNewSeed_Click(object sender, EventArgs e)
         {
-            txtSeed.Text = (DateTime.Now.Ticks % 9223372036854775807).ToString();
+            txtSeed.Text = (DateTime.Now.Ticks % 2147483647).ToString();
         }
 
         private void btnRandomize_Click(object sender, EventArgs e)
@@ -284,13 +360,14 @@ namespace DW3Randomizer
             {
                 try
                 {
-                    Random testSeed = new Random((int)long.Parse(txtSeed.Text));
+                    Random testSeed = new Random(int.Parse(txtSeed.Text));
                 }
                 catch
                 {
                     MessageBox.Show("Invalid seed.  It must be a number from 0 to 2147483648.");
                     return;
                 }
+
                 int evalRandTemp = 0; // this will evaluate if Rand is selected on specific options
                 int evalRandTemp2 = 0;
                 int evalCosmeticTemp = 0;
@@ -314,7 +391,7 @@ namespace DW3Randomizer
                 if (randomizerTools.GetCheckboxValue(tchk_Cod) == 1 || (randomizerTools.GetCheckboxValue(tchk_Cod) == 2 && evalRandTemp == 1)) 
                     optimizations.cod(ref romData);
                 evalRandTemp = r1.Next() % 2;
-                if (rad_FixHeroSpellOn.Checked || (rad_FixHeroSpellRand.Checked && evalRandTemp == 1)) 
+                if (randomizerTools.GetCheckboxValue(tchk_RmHeroSpellGlitch) == 1 || (randomizerTools.GetCheckboxValue(tchk_RmHeroSpellGlitch) == 2 && evalRandTemp == 1)) 
                     bugFixes.fixHeroSpell(ref romData);
                 evalRandTemp = r1.Next() % 2;
                 if (randomizerTools.GetCheckboxValue(tchk_SpeedUpText) == 1 || (randomizerTools.GetCheckboxValue(tchk_SpeedUpText) == 2 && evalRandTemp == 1)) 
@@ -332,13 +409,13 @@ namespace DW3Randomizer
                 if (randomizerTools.GetCheckboxValue(tchk_SpeedUpMenus) == 1 || (randomizerTools.GetCheckboxValue(tchk_SpeedUpMenus) == 2 && evalRandTemp == 1)) 
                     optimizations.speedUpMenus(ref romData);
                 evalRandTemp = r1.Next() % 2;
-                if (rad_RmParryBugOn.Checked || (rad_RmParryBugRand.Checked && evalRandTemp == 1)) 
+                if (randomizerTools.GetCheckboxValue(tchk_RmParryBug) == 1 || (randomizerTools.GetCheckboxValue(tchk_RmParryBug) == 2 && evalRandTemp == 1)) 
                     bugFixes.removeParryFight(ref romData);
                 evalCosmeticTemp = randomCosmeticIncrement.Next() % 2;
-                if (rad_StdCaseOn.Checked || (rad_StdCaseRand.Checked && evalCosmeticTemp == 1))
+                if (randomizerTools.GetCheckboxValue(tchk_StdCaseMenus) == 1 || (randomizerTools.GetCheckboxValue(tchk_StdCaseMenus) == 2 && evalCosmeticTemp == 1))
                     textchange.lowerCaseMenus(ref romData);
                 evalCosmeticTemp = randomCosmeticIncrement.Next() % 2;
-                if (rad_SlimeSnailOn.Checked || (rad_SlimeSnailRand.Checked && evalRandTemp == 1))
+                if (randomizerTools.GetCheckboxValue(tchk_FixSlimeSnail) == 1|| (randomizerTools.GetCheckboxValue(tchk_FixSlimeSnail) == 2 && evalRandTemp == 1))
                     textchange.slimeSnail(ref romData);
                 evalCosmeticTemp = randomCosmeticIncrement.Next() % 2;
                 if (rad_Gender1Rand.Checked || rad_Gender2Rand.Checked || rad_Gender3Rand.Checked)
@@ -444,21 +521,21 @@ namespace DW3Randomizer
                 if (rad_RandStatsSilly.Checked || rad_RandStatsRid.Checked || rad_RandStatsLud.Checked || (rad_RandStatsRand.Checked && evalRandTemp == 1)) 
                     partyStatChange.randStatGains(ref romData, ref r1, rad_RandStatsSilly.Checked, rad_RandStatsRid.Checked, rad_RandStatsLud.Checked, rad_RandStatsRand.Checked);
                 evalRandTemp = r1.Next() % 2;
-                if (rad_FHeroOn.Checked || (rad_FHeroRand.Checked && evalRandTemp == 1)) fHero = true;
+                if (randomizerTools.GetCheckboxValue(tchk_FemaleHero) == 1 || (randomizerTools.GetCheckboxValue(tchk_FemaleHero) == 2 && evalRandTemp == 1)) fHero = true;
                 evalRandTemp = r1.Next() % 2;
-                if (rad_RandHeroAgeOn.Checked || (rad_RandHeroAgeRand.Checked && evalRandTemp == 1)) 
+                if (randomizerTools.GetCheckboxValue(tchk_RandHeroAge) == 1 || (randomizerTools.GetCheckboxValue(tchk_RandHeroAge) == 2 && evalRandTemp == 1)) 
                     spritechange.changeHeroAge(ref romData, ref r1, fHero);
                 evalCosmeticTemp = randomCosmeticIncrement.Next() % 2;
-                if (rad_RandSpriteColOn.Checked || (rad_RandSpriteColRand.Checked && evalRandTemp == 1))
+                if (randomizerTools.GetCheckboxValue(tchk_RandSpriteColor) == 1 || (randomizerTools.GetCheckboxValue(tchk_RandSpriteColor) == 2 && evalRandTemp == 1))
                     spritechange.randSpriteColors(ref romData, ref randColor, txtSeed.Text);
                 evalRandTemp = r1.Next() % 2;
                 if (randomizerTools.GetCheckboxValue(tchk_RandStartGold) == 1 || (randomizerTools.GetCheckboxValue(tchk_RandStartGold) == 2 && evalRandTemp == 1))
                     randomizeFunctions.randStartGold(ref romData, ref r1);
                 evalRandTemp = r1.Next() % 2;
-                if (rad_GhostToCasketOn.Checked || (rad_GhostToCasketRand.Checked && evalRandTemp == 1))
+                if (randomizerTools.GetCheckboxValue(tchk_GhostsToCaskets) == 1 || (randomizerTools.GetCheckboxValue(tchk_GhostsToCaskets) == 2 && evalRandTemp == 1))
                     spritechange.changeGhostToCasket(ref romData, txtSeed.Text, randColor);
                 evalCosmeticTemp = randomCosmeticIncrement.Next() % 2;
-                if (rad_ChCatsOn.Checked || (rad_ChCatsRand.Checked && evalCosmeticTemp == 1))
+                if (randomizerTools.GetCheckboxValue(tchk_ChangeCats) == 1 || (randomizerTools.GetCheckboxValue(tchk_ChangeCats) == 2 && evalCosmeticTemp == 1))
                     spritechange.changeCats(ref romData, txtSeed.Text);
                 evalRandTemp = r1.Next() % 2;
                 if (randomizerTools.GetCheckboxValue(tchk_InvisNPC) == 1 || (randomizerTools.GetCheckboxValue(tchk_InvisNPC) == 2 && evalRandTemp == 1)) 
@@ -473,16 +550,16 @@ namespace DW3Randomizer
                 if (randomizerTools.GetCheckboxValue(tchk_PartyItems) == 1 || (randomizerTools.GetCheckboxValue(tchk_PartyItems) == 2 && evalRandTemp == 1))
                     itemsAndequipment.heroitems(ref romData, ref r1);
                 evalCosmeticTemp = randomCosmeticIncrement.Next() % 2;
-                if (rad_FFightSpriteOn.Checked || (rad_FFightSpriteRand.Checked && evalCosmeticTemp == 1))
+                if (randomizerTools.GetCheckboxValue(tchk_FixFFighterSprite) == 1 || (randomizerTools.GetCheckboxValue(tchk_FixFFighterSprite) == 2 && evalCosmeticTemp == 1))
                     romData = spritechange.fixFFigherSprite(ref romData);
                 evalCosmeticTemp = randomCosmeticIncrement.Next() % 2;
-                if (rad_RandNPCOn.Checked || (rad_RandNPCRand.Checked && evalCosmeticTemp == 1))
+                if (randomizerTools.GetCheckboxValue(tchk_RandNPCSprites) == 1 || (randomizerTools.GetCheckboxValue(tchk_RandNPCSprites) == 2 && evalCosmeticTemp == 1))
                     spritechange.randomNPCSprites(ref romData, txtSeed.Text);
                 evalRandTemp = r1.Next() % 2;
                 if (randomizerTools.GetCheckboxValue(tchk_NonMPJobs) == 1 || (randomizerTools.GetCheckboxValue(tchk_NonMPJobs) == 2 && evalRandTemp == 1))
                     partyStatChange.nonMagicMP(ref romData);
                 evalRandTemp = r1.Next() % 2;
-                if (rad_LevelUpTxtOn.Checked || (rad_LevelUpTxtRand.Checked && (randomCosmeticIncrement.Next () % 2 == 1 )))
+                if (randomizerTools.GetCheckboxValue(tchk_ChLevelUpText) == 1 || (randomizerTools.GetCheckboxValue(tchk_ChLevelUpText) == 2 && (randomCosmeticIncrement.Next () % 2 == 1 )))
                     textchange.levelUpText(ref romData);
 
                 // if (chkRandItemEffects.Checked) randItemEffects(rni);
@@ -491,9 +568,11 @@ namespace DW3Randomizer
                 string Descript = lblIntensityDesc.Text;
                 string Compare = txtCompare.Text;
                 string newChecksum = lblNewChecksum.Text;
+                
                 romtools.saveRom(true, ref romData, versionNumber, txtFileName.Text, txtSeed.Text, txtFlags.Text, ref Descript, ref Compare, ref newChecksum);
                 lblIntensityDesc.Text = Descript;
                 txtCompare.Text = Compare;
+                lbl_statChecksum.Text = "New Hash:";
                 lblNewChecksum.Text = newChecksum;
                 // romtools.saveRom(false, ref romData, versionNumber);
                 string IntensityDesc = "";
@@ -507,18 +586,18 @@ namespace DW3Randomizer
         private void runHash()
         {
             randomizerTools randomizerTools = new randomizerTools();
-            int adjustmentTab = (rad_ExpGain0.Checked ? 1 : (rad_ExpGain25.Checked ? 2 : (rad_ExpGain50.Checked ? 4 : (rad_ExpGain100.Checked ? 8 : (rad_ExpGain150.Checked ? 16 :
+            long adjustmentTab = (rad_ExpGain0.Checked ? 1 : (rad_ExpGain25.Checked ? 2 : (rad_ExpGain50.Checked ? 4 : (rad_ExpGain100.Checked ? 8 : (rad_ExpGain150.Checked ? 16 :
                 (rad_ExpGain200.Checked ? 32 : (rad_ExpGain300.Checked ? 64 : (rad_ExpGain400.Checked ? 128 : (rad_ExpGain500.Checked ? 256 : (rad_ExpGain750.Checked ? 512 :
                 (rad_ExpGain1000.Checked ? 1024 : (rad_ExpGainRand.Checked ? 2048 : 0))))))))))) + (rad_GoldGain1.Checked ? 4096 : (rad_GoldGain50.Checked ? 8192 : (rad_GoldGain100.Checked ? 16384 :
                 (rad_GoldGain150.Checked ? 32768 : (rad_GoldGain200.Checked ? 65536 : (rad_GoldGainRand.Checked ? 131072 : 0)))))));
 
-            int adjustmentTab2 = 3 *
+            long adjustmentTab2 = 3 *
                 ((rad_EncRate0.Checked ? 1 : (rad_EncRate25.Checked ? 2 : (rad_EncRate50.Checked ? 4 : (rad_EncRate75.Checked ? 8 : (rad_EncRate100.Checked ? 16 :
                 (rad_EncRate150.Checked ? 32 : (rad_EncRate200.Checked ? 64 : (rad_EncRate300.Checked ? 128 : (rad_EncRate400.Checked ? 256 : (rad_EncRateRand.Checked ? 512 : 0)))))))))) +
                 (rad_RandStatsSilly.Checked ? 1024 : (rad_RandStatsRid.Checked ? 2048 : (rad_RandStatsLud.Checked ? 4096 : (rad_RandStatsRand.Checked ? 8192 : 0)))) +
                 (randomizerTools.GetCheckboxValue(tchk_SpeedUpMenus) == 0 ? 16384 : randomizerTools.GetCheckboxValue(tchk_SpeedUpMenus) == 1 ? 32768 : 65536));
 
-            int adjustmentTab3 = 5 *
+            long adjustmentTab3 = 5 *
                 ((randomizerTools.GetCheckboxValue(tchk_RmManips) == 0 ? 1 : randomizerTools.GetCheckboxValue(tchk_RmManips) == 1 ? 2 : 4) +
                 (randomizerTools.GetCheckboxValue(tchk_Cod) == 0 ? 8 : randomizerTools.GetCheckboxValue(tchk_Cod) == 1 ? 16 : 32) +
                 (randomizerTools.GetCheckboxValue(tchk_DispEqPower) == 0 ? 64 : randomizerTools.GetCheckboxValue(tchk_DispEqPower) == 1 ? 128 : 256) +
@@ -526,7 +605,7 @@ namespace DW3Randomizer
                 (randomizerTools.GetCheckboxValue(tchk_RandSpellStr) == 0 ? 4096 : randomizerTools.GetCheckboxValue(tchk_RandSpellStr) == 1 ? 8192 : 16384) +
                 (randomizerTools.GetCheckboxValue(tchk_NonMPJobs) == 0 ? 32768 : randomizerTools.GetCheckboxValue(tchk_NonMPJobs) == 1 ? 65536 : 131072));
 
-            int adjustmentTab4 = 7 *
+            long adjustmentTab4 = 7 *
                 ((randomizerTools.GetCheckboxValue(tchk_DoubleAttack) == 0 ? 1 : randomizerTools.GetCheckboxValue(tchk_DoubleAttack) == 1 ? 2 : 4) +
                 (randomizerTools.GetCheckboxValue(tchk_NoOrb) == 0 ? 8 : randomizerTools.GetCheckboxValue(tchk_NoOrb) == 1 ? 16 : 32) +
                 (randomizerTools.GetCheckboxValue(tchk_PartyItems) == 0 ? 64 : randomizerTools.GetCheckboxValue(tchk_PartyItems) == 1 ? 128 : 256) +
@@ -534,7 +613,7 @@ namespace DW3Randomizer
                 (randomizerTools.GetCheckboxValue(tchk_IncBatSpeed) == 0 ? 4096 : randomizerTools.GetCheckboxValue(tchk_IncBatSpeed) == 1 ? 8192 : 16384) +
                 (randomizerTools.GetCheckboxValue(tchk_SpeedUpText) == 0 ? 32768 : randomizerTools.GetCheckboxValue(tchk_SpeedUpText) == 1 ? 65536 : 131072));
 
-            int adjustmentTab5 = 11 *
+            long adjustmentTab5 = 11 *
                 ((randomizerTools.GetCheckboxValue(tchk_InvisNPC) == 0 ? 1 : randomizerTools.GetCheckboxValue(tchk_InvisNPC) == 1 ? 2 : 4) +
                 (randomizerTools.GetCheckboxValue(tchk_SagesStone) == 0 ? 8 : randomizerTools.GetCheckboxValue(tchk_SagesStone) == 1 ? 16 : 32) +
                 (randomizerTools.GetCheckboxValue(tchk_HUAStone) == 0 ? 64 : randomizerTools.GetCheckboxValue(tchk_HUAStone) == 1 ? 128 : 256) +
@@ -542,7 +621,7 @@ namespace DW3Randomizer
                 (randomizerTools.GetCheckboxValue(tchk_BigSoHRoL) == 0 ? 4096 : randomizerTools.GetCheckboxValue(tchk_BigSoHRoL) == 1 ? 8192 : 16384) +
                 (randomizerTools.GetCheckboxValue(tchk_InvisShipBird) == 0 ? 32768 : randomizerTools.GetCheckboxValue(tchk_InvisShipBird) == 1 ? 65536 : 131072));
 
-            int mapTab1 = 11 * (
+            long mapTab1 = 11 * (
                 (randomizerTools.GetCheckboxValue(tchk_RandMaps) == 0 ? 1 : randomizerTools.GetCheckboxValue(tchk_RandMaps) == 1 ? 2 : 4) +
                 (randomizerTools.GetCheckboxValue(tchk_SmallMaps) == 0 ? 8 : randomizerTools.GetCheckboxValue(tchk_SmallMaps) == 1 ? 16 : 32) +
                 (randomizerTools.GetCheckboxValue(tchk_RandMonstZones) == 0 ? 64 : randomizerTools.GetCheckboxValue(tchk_RandMonstZones) == 1 ? 128 : 256) +
@@ -551,7 +630,7 @@ namespace DW3Randomizer
                 (randomizerTools.GetCheckboxValue(tchk_RandShrines) == 0 ? 32768 : randomizerTools.GetCheckboxValue(tchk_RandShrines) == 1 ? 65536 : 131072));
 
 
-            int mapTab2 = 17 * (
+            long mapTab2 = 17 * (
                 (randomizerTools.GetCheckboxValue(tchk_RmMountLancel) == 0 ? 1 : randomizerTools.GetCheckboxValue(tchk_RmMountLancel) == 1 ? 2 : 4) +
                 (randomizerTools.GetCheckboxValue(tchk_RmMountNecro) == 0 ? 8 : randomizerTools.GetCheckboxValue(tchk_RmMountNecro) == 1 ? 16 : 32) +
                 (randomizerTools.GetCheckboxValue(tchk_RmMountBaramos) == 0 ? 64 : randomizerTools.GetCheckboxValue(tchk_RmMountBaramos) == 1 ? 128 : 256) +
@@ -561,7 +640,7 @@ namespace DW3Randomizer
                 (randomizerTools.GetCheckboxValue(tchk_RmNoEncounter) == 0 ? 262144 : randomizerTools.GetCheckboxValue(tchk_RmNoEncounter) == 1 ? 524288 : 1048576)
                 );
 
-            int monstersTab = 19 * (
+            long monstersTab = 19 * (
                 (randomizerTools.GetCheckboxValue(tchk_RandExp) == 0 ? 1 : randomizerTools.GetCheckboxValue(tchk_RandExp) == 1 ? 2 : 4) +
                 (randomizerTools.GetCheckboxValue(tchk_RandGold) == 0 ? 8 : randomizerTools.GetCheckboxValue(tchk_RandGold) == 1 ? 16 : 32) +
                 (randomizerTools.GetCheckboxValue(tchk_RandDrops) == 0 ? 64 : randomizerTools.GetCheckboxValue(tchk_RandDrops) == 1 ? 128 : 256) +
@@ -569,7 +648,7 @@ namespace DW3Randomizer
                 (randomizerTools.GetCheckboxValue(tchk_RandEnAttPat) == 0 ? 4096 : randomizerTools.GetCheckboxValue(tchk_RandEnAttPat) == 1 ? 8192 : 16384) +
                 (randomizerTools.GetCheckboxValue(tchk_RmMetalRun) == 0 ? 32768 : randomizerTools.GetCheckboxValue(tchk_RmMetalRun) == 1 ? 65536 : 131072));
 
-            int treasureEquipmentTab1 = 23 * (
+            long treasureEquipmentTab1 = 23 * (
                 (randomizerTools.GetCheckboxValue(tchk_AddRemakeEq) == 0 ? 1 : randomizerTools.GetCheckboxValue(tchk_AddRemakeEq) == 1 ? 2 : 4) +
                 (randomizerTools.GetCheckboxValue(tchk_RandEqPower) == 0 ? 8 : randomizerTools.GetCheckboxValue(tchk_RandEqPower) == 1 ? 16 : 32) +
                 (randomizerTools.GetCheckboxValue(tchk_VanEqVals) == 0 ? 64 : randomizerTools.GetCheckboxValue(tchk_VanEqVals) == 1 ? 128 : 256) +
@@ -577,7 +656,7 @@ namespace DW3Randomizer
                 (randomizerTools.GetCheckboxValue(tchk_RmFigherPen) == 0 ? 4096 : randomizerTools.GetCheckboxValue(tchk_RmFigherPen) == 1 ? 8192 : 16384) +
                 (randomizerTools.GetCheckboxValue(tchk_RandEqClass) == 0 ? 32768 : randomizerTools.GetCheckboxValue(tchk_RandEqClass) == 1 ? 65536 : 131072));
 
-            int treasureEquipmentTab2 = 29 * (
+            long treasureEquipmentTab2 = 29 * (
                 (randomizerTools.GetCheckboxValue(tchk_AdjEqPrices) == 0 ? 1 : randomizerTools.GetCheckboxValue(tchk_AdjEqPrices) == 1 ? 2 : 4) +
                 (randomizerTools.GetCheckboxValue(tchk_RandTreasures) == 0 ? 8 : randomizerTools.GetCheckboxValue(tchk_RandTreasures) == 1 ? 16 : 32) +
                 (randomizerTools.GetCheckboxValue(tchk_AddGoldClaw) == 0 ? 64 : randomizerTools.GetCheckboxValue(tchk_AddGoldClaw) == 1 ? 128 : 256) +
@@ -585,7 +664,7 @@ namespace DW3Randomizer
                 (randomizerTools.GetCheckboxValue(tchk_RmRedKey) == 0 ? 4096 : randomizerTools.GetCheckboxValue(tchk_RmRedKey) == 1 ? 8192 : 16384) +
                 (randomizerTools.GetCheckboxValue(tchk_RandItemEff) == 0 ? 32768 : randomizerTools.GetCheckboxValue(tchk_RandItemEff) == 1 ? 65536 : 131072));
 
-            int itemWeaponShopsInnsTab1 = 31 * (
+            long itemWeaponShopsInnsTab1 = 31 * (
                 (randomizerTools.GetCheckboxValue(tchk_RandItemShop) == 0 ? 1 : randomizerTools.GetCheckboxValue(tchk_RandItemShop) == 1 ? 2 : 4) +
                 (randomizerTools.GetCheckboxValue(tchk_RandWeapShop) == 0 ? 8 : randomizerTools.GetCheckboxValue(tchk_RandWeapShop) == 1 ? 16 : 32) +
                 (randomizerTools.GetCheckboxValue(tchk_RandInnPrice) == 0 ? 64 : randomizerTools.GetCheckboxValue(tchk_RandInnPrice) == 1 ? 128 : 256) +
@@ -593,7 +672,7 @@ namespace DW3Randomizer
                 (randomizerTools.GetCheckboxValue(tchk_AcornsOfLife) == 0 ? 4096 : randomizerTools.GetCheckboxValue(tchk_AcornsOfLife) == 1 ? 8192 : 16384) +
                 (randomizerTools.GetCheckboxValue(tchk_StrSeed) == 0 ? 32768 : randomizerTools.GetCheckboxValue(tchk_StrSeed) == 1 ? 65536 : 131072));
 
-            int itemWeaponShopsInnsTab2 = 37 * (
+            long itemWeaponShopsInnsTab2 = 37 * (
                 (randomizerTools.GetCheckboxValue(tchk_AgiSeed) == 0 ? 1 : randomizerTools.GetCheckboxValue(tchk_AgiSeed) == 1 ? 2 : 4) +
                 (randomizerTools.GetCheckboxValue(tchk_IntSeed) == 0 ? 8 : randomizerTools.GetCheckboxValue(tchk_IntSeed) == 1 ? 16 : 32) +
                 (randomizerTools.GetCheckboxValue(tchk_VitSeed) == 0 ? 64 : randomizerTools.GetCheckboxValue(tchk_VitSeed) == 1 ? 128 : 256) +
@@ -601,7 +680,7 @@ namespace DW3Randomizer
                 (randomizerTools.GetCheckboxValue(tchk_EchoingFlute) == 0 ? 4096 : randomizerTools.GetCheckboxValue(tchk_EchoingFlute) == 1 ? 8192 : 16384) +
                 (randomizerTools.GetCheckboxValue(tchk_SilverHarp) == 0 ? 32768 : randomizerTools.GetCheckboxValue(tchk_SilverHarp) == 1 ? 65536 : 131072));
 
-            int itemWeaponShopsInnsTab3 = 43 * (
+            long itemWeaponShopsInnsTab3 = 43 * (
                 (randomizerTools.GetCheckboxValue(tchk_LampOfDarkness) == 0 ? 1 : randomizerTools.GetCheckboxValue(tchk_LampOfDarkness) == 1 ? 2 : 4) +
                 (randomizerTools.GetCheckboxValue(tchk_MeteoriteArmband) == 0 ? 8 : randomizerTools.GetCheckboxValue(tchk_MeteoriteArmband) == 1 ? 16 : 32) +
                 (randomizerTools.GetCheckboxValue(tchk_RingOfLife) == 0 ? 64 : randomizerTools.GetCheckboxValue(tchk_RingOfLife) == 1 ? 128 : 256) +
@@ -609,18 +688,22 @@ namespace DW3Randomizer
                 (randomizerTools.GetCheckboxValue(tchk_LeafOfTheWorldTree) == 0 ? 4096 : randomizerTools.GetCheckboxValue(tchk_LeafOfTheWorldTree) == 1 ? 8192 : 16384) +
                 (randomizerTools.GetCheckboxValue(tchk_PoisonMothPowder) == 0 ? 32768 : randomizerTools.GetCheckboxValue(tchk_PoisonMothPowder) == 1 ? 66536 : 131072));
 
-            int itemWeaponShopsInnTab4 = 47 * (
+            long itemWeaponShopsInnTab4 = 47 * (
                 (randomizerTools.GetCheckboxValue(tchk_StoneOfLife) == 0 ? 1 : randomizerTools.GetCheckboxValue(tchk_StoneOfLife) == 1 ? 2 : 4) +
                 (randomizerTools.GetCheckboxValue(tchk_BookOfSatori) == 0 ? 8 : randomizerTools.GetCheckboxValue(tchk_BookOfSatori) == 1 ? 16 : 32) +
                 (randomizerTools.GetCheckboxValue(tchk_WizardsRing) == 0 ? 64 : randomizerTools.GetCheckboxValue(tchk_WizardsRing) == 1 ? 128 : 256));
 
-            int fixesTab = 51 * ((rad_RmParryBugOn.Checked ? 1 : (rad_RmParryBugRand.Checked ? 2 : 0)) + (rad_FixHeroSpellOn.Checked ? 4 : (rad_FixHeroSpellRand.Checked ? 8 : 0)));
+            long fixesTab = 51 * (
+                (randomizerTools.GetCheckboxValue(tchk_RmParryBug) == 0 ? 1 : randomizerTools.GetCheckboxValue(tchk_RmParryBug) == 1 ? 2 : 4) +
+                (randomizerTools.GetCheckboxValue(tchk_RmHeroSpellGlitch) == 0 ? 8 : randomizerTools.GetCheckboxValue(tchk_RmHeroSpellGlitch) == 1 ? 16 : 32));
 
-            int cosmeticTab = 53 * ((rad_LevelUpTxtOn.Checked ? 1 : (rad_LevelUpTxtRand.Checked ? 2 : 0)) + (rad_RandHeroAgeOn.Checked ? 4 : (rad_RandHeroAgeRand.Checked ? 8 : 0)) +
-                (rad_GhostToCasketOn.Checked ? 16 : (rad_GhostToCasketRand.Checked ? 32 : 0)));
+            long cosmeticTab = 53 * (
+                (randomizerTools.GetCheckboxValue(tchk_RandHeroAge) == 0 ? 1 : randomizerTools.GetCheckboxValue(tchk_RandHeroAge) == 1 ? 2 : 4) +
+                (randomizerTools.GetCheckboxValue(tchk_ChLevelUpText) == 0 ? 8 : randomizerTools.GetCheckboxValue(tchk_ChLevelUpText) == 1 ? 16 : 32) +
+                (randomizerTools.GetCheckboxValue(tchk_GhostsToCaskets) == 0 ? 64 : randomizerTools.GetCheckboxValue(tchk_GhostsToCaskets) == 1 ? 128 : 256));
 
-            int values = 57 * (romData[0x2914f] + (2 * romData[0x134b1]) + (4 * romData[0x330fc]) + (8 * romData[0x279a0 + 3]) + (16 * romData[0x32e3]) + (32 * romData[0x32e3 + (10 * 23) + 9]) +
-                (64 * romData[0x2922b])); 
+            long values = 57 * (romData[0x2914f] + (2 * romData[0x134b1]) + (4 * romData[0x330fc]) + (8 * romData[0x279a0 + 3]) + (16 * romData[0x32e3]) + (32 * romData[0x32e3 + (10 * 23) + 9]) +
+                (64 * romData[0x2922b]) + (128 * romData[0x279c0]) + (256 * romData[0x290e])); 
 
             // Starting Gold + First Spell Strength + Shoes Effect Strength + 3rd Weapon Strength + Monster level 1 + Monster 10 Item Dropped +
             // Final Key Shrine Item
@@ -882,71 +965,70 @@ namespace DW3Randomizer
                 {
                     writer.WriteLine(txtFileName.Text);
                     writer.WriteLine(txtFlags.Text);
+
                     writer.WriteLine(rad_ChName1Off.Checked);
                     writer.WriteLine(rad_ChName1Manual.Checked);
                     writer.WriteLine(rad_ChName1Rand.Checked);
+
                     writer.WriteLine(rad_ChName2Off.Checked);
                     writer.WriteLine(rad_ChName2Manual.Checked);
                     writer.WriteLine(rad_ChName2Rand.Checked);
+
                     writer.WriteLine(rad_ChName3Off.Checked);
                     writer.WriteLine(rad_ChName3Manual.Checked);
                     writer.WriteLine(rad_ChName3Rand.Checked);
+
                     writer.WriteLine(txt_ChName1.Text);
                     writer.WriteLine(txt_ChName2.Text);
                     writer.WriteLine(txt_ChName3.Text);
+
                     writer.WriteLine(rad_Gender1Off.Checked);
                     writer.WriteLine(rad_Gender1Manual.Checked);
                     writer.WriteLine(rad_Gender1Rand.Checked);
+
                     writer.WriteLine(rad_Gender2Off.Checked);
                     writer.WriteLine(rad_Gender2Manual.Checked);
                     writer.WriteLine(rad_Gender2Rand.Checked);
+
                     writer.WriteLine(rad_Gender3Off.Checked);
                     writer.WriteLine(rad_Gender3Manual.Checked);
                     writer.WriteLine(rad_Gender3Rand.Checked);
+
                     writer.WriteLine(cbo_Gender1.SelectedIndex);
                     writer.WriteLine(cbo_Gender2.SelectedIndex);
                     writer.WriteLine(cbo_Gender3.SelectedIndex);
+
                     writer.WriteLine(chk_RandSoldier.Checked);
                     writer.WriteLine(chk_RandPilgrim.Checked);
                     writer.WriteLine(chk_RandWizard.Checked);
                     writer.WriteLine(chk_RandFighter.Checked);
                     writer.WriteLine(chk_RandMerchant.Checked);
                     writer.WriteLine(chk_RandGoofOff.Checked);
-                    writer.WriteLine(chk_RandSage.Checked);
-                    writer.WriteLine(chk_RandHero.Checked);
+
                     writer.WriteLine(rad_Class1Off.Checked);
                     writer.WriteLine(rad_Class1Manual.Checked);
                     writer.WriteLine(rad_Class1Rand.Checked);
+
                     writer.WriteLine(rad_Class2Off.Checked);
                     writer.WriteLine(rad_Class2Manual.Checked);
                     writer.WriteLine(rad_Class2Rand.Checked);
+
                     writer.WriteLine(rad_Class3Off.Checked);
                     writer.WriteLine(rad_Class3Manual.Checked);
                     writer.WriteLine(rad_Class3Rand.Checked);
+
                     writer.WriteLine(cbo_Class1.SelectedIndex);
                     writer.WriteLine(cbo_Class2.SelectedIndex);
                     writer.WriteLine(cbo_Class3.SelectedIndex);
-                    writer.WriteLine(rad_StdCaseOff.Checked);
-                    writer.WriteLine(rad_StdCaseOn.Checked);
-                    writer.WriteLine(rad_StdCaseRand.Checked);
-                    writer.WriteLine(rad_SlimeSnailOff.Checked);
-                    writer.WriteLine(rad_SlimeSnailOn.Checked);
-                    writer.WriteLine(rad_SlimeSnailRand.Checked);
-                    writer.WriteLine(rad_RandSpriteColOff.Checked);
-                    writer.WriteLine(rad_RandSpriteColOn.Checked);
-                    writer.WriteLine(rad_RandSpriteColRand.Checked);
-                    writer.WriteLine(rad_ChCatsOff.Checked);
-                    writer.WriteLine(rad_ChCatsOn.Checked);
-                    writer.WriteLine(rad_ChCatsRand.Checked);
-                    writer.WriteLine(rad_FFightSpriteOff.Checked);
-                    writer.WriteLine(rad_FFightSpriteOn.Checked);
-                    writer.WriteLine(rad_FFightSpriteRand.Checked);
-                    writer.WriteLine(rad_RandNPCOff.Checked);
-                    writer.WriteLine(rad_RandNPCOn.Checked);
-                    writer.WriteLine(rad_RandNPCRand.Checked);
-                    writer.WriteLine(rad_FHeroOff.Checked);
-                    writer.WriteLine(rad_FHeroOn.Checked);
-                    writer.WriteLine(rad_FHeroRand.Checked);
+
+                    writer.WriteLine(tchk_StdCaseMenus.CheckState);
+                    writer.WriteLine(tchk_FixSlimeSnail.CheckState);
+                    writer.WriteLine(tchk_RandSpriteColor.CheckState);
+
+                    writer.WriteLine(tchk_ChangeCats.CheckState);
+                    writer.WriteLine(tchk_FixFFighterSprite.CheckState);
+                    writer.WriteLine(tchk_RandNPCSprites.CheckState);
+                    writer.WriteLine(tchk_FemaleHero.CheckState);
                 }
             }
         }
@@ -1447,27 +1529,27 @@ namespace DW3Randomizer
             // Fixes
             number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(39, 1)));
             flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
-            if (bank1 == 0) rad_RmParryBugOff.Checked = true;
-            else if (bank1 == 1) rad_RmParryBugOn.Checked = true;
-            else if (bank1 == 2) rad_RmParryBugRand.Checked = true;
-            if (bank2 == 0) rad_FixHeroSpellOff.Checked = true;
-            else if (bank2 == 1) rad_FixHeroSpellOn.Checked = true;
-            else if (bank2 == 2) rad_FixHeroSpellRand.Checked = true;
+            if (bank1 == 0) tchk_RmParryBug.CheckState = CheckState.Unchecked;
+            else if (bank1 == 1) tchk_RmParryBug.CheckState = CheckState.Checked;
+            else if (bank1 == 2) tchk_RmParryBug.CheckState = CheckState.Indeterminate;
+            if (bank2 == 0) tchk_RmHeroSpellGlitch.CheckState = CheckState.Unchecked;
+            else if (bank2 == 1) tchk_RmHeroSpellGlitch.CheckState = CheckState.Checked;
+            else if (bank2 == 2) tchk_RmHeroSpellGlitch.CheckState = CheckState.Indeterminate;
 
             // - 40
 
             // Cosmetic
             number = flagscalc.convertChartoIntCapsOnlyForFlags(Convert.ToChar(flags.Substring(41, 1)));
             flagscalc.determineChecksBanks(out bank1, out bank2, out bank3, number);
-            if (bank1 == 0) rad_LevelUpTxtOff.Checked = true;
-            else if (bank1 == 1) rad_LevelUpTxtOn.Checked = true;
-            else if (bank2 == 2) rad_LevelUpTxtRand.Checked = true;
-            if (bank2 == 0) rad_RandHeroAgeOff.Checked = true;
-            else if (bank2 == 1) rad_RandHeroAgeOn.Checked = true;
-            else if (bank2 == 2) rad_RandHeroAgeRand.Checked = true;
-            if (bank3 == 0) rad_GhostToCasketOff.Checked = true;
-            else if (bank3 == 1) rad_GhostToCasketOn.Checked = true;
-            else if (bank3 == 2) rad_GhostToCasketRand.Checked = true;
+            if (bank1 == 0) tchk_ChLevelUpText.CheckState = CheckState.Unchecked;
+            else if (bank1 == 1) tchk_ChLevelUpText.CheckState = CheckState.Checked;
+            else if (bank2 == 2) tchk_ChLevelUpText.CheckState = CheckState.Indeterminate;
+            if (bank2 == 0) tchk_RandHeroAge.CheckState = CheckState.Unchecked;
+            else if (bank2 == 1) tchk_RandHeroAge.CheckState = CheckState.Checked;
+            else if (bank2 == 2) tchk_RandHeroAge.CheckState = CheckState.Indeterminate;
+            if (bank3 == 0) tchk_GhostsToCaskets.CheckState = CheckState.Unchecked;
+            else if (bank3 == 1) tchk_GhostsToCaskets.CheckState = CheckState.Checked;
+            else if (bank3 == 2) tchk_GhostsToCaskets.CheckState = CheckState.Indeterminate;
         }
 
         private void determineFlags(object sender, EventArgs e)
@@ -1703,16 +1785,16 @@ namespace DW3Randomizer
             flags += "-"; // 38
             // Fixes
             bank1 = bank2 = bank3 = 0;
-            bank1 = ((rad_RmParryBugOff.Checked ? 0 : 0) + (rad_RmParryBugOn.Checked ? 1 : 0) + (rad_RmParryBugRand.Checked ? 2 : 0));
-            bank2 = ((rad_FixHeroSpellOff.Checked ? 0 : 0) + (rad_FixHeroSpellOn.Checked ? 4 : 0) + (rad_FixHeroSpellRand.Checked ? 8 : 0));
+            bank1 = randomizerTools.GetCheckboxValue(tchk_RmParryBug);
+            bank2 = 4 * randomizerTools.GetCheckboxValue(tchk_RmHeroSpellGlitch);
             flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 39
 
             flags += "-"; // 40
             // Cosmetic
             bank1 = bank2 = bank3 = 0;
-            bank1 = ((rad_LevelUpTxtOff.Checked ? 0 : 0) + (rad_LevelUpTxtOn.Checked ? 1 : 0) + (rad_LevelUpTxtRand.Checked ? 2 : 0));
-            bank2 = ((rad_RandHeroAgeOff.Checked ? 0 : 0) + (rad_RandHeroAgeOn.Checked ? 4 : 0) + (rad_RandHeroAgeRand.Checked ? 8 : 0));
-            bank3 = ((rad_GhostToCasketOff.Checked ? 0 : 0) + (rad_GhostToCasketOn.Checked ? 16 : 0) + (rad_GhostToCasketRand.Checked ? 32 : 0));
+            bank1 = randomizerTools.GetCheckboxValue(tchk_ChLevelUpText);
+            bank2 = 4 * randomizerTools.GetCheckboxValue(tchk_RandHeroAge);
+            bank3 = 16 * randomizerTools.GetCheckboxValue(tchk_GhostsToCaskets);
             flags += flagscalc.convertIntToCharCapsOnlyForFlags(bank1 + bank2 + bank3); // 41
 
             txtFlags.Text = flags;
@@ -1782,13 +1864,13 @@ namespace DW3Randomizer
                 this.rad_Class1Rand.Checked = true;
                 this.rad_Class2Rand.Checked = true;
                 this.rad_Class3Rand.Checked = true;
-                this.rad_StdCaseRand.Checked = true;
-                this.rad_SlimeSnailRand.Checked = true;
-                this.rad_FHeroRand.Checked = true;
-                this.rad_RandSpriteColRand.Checked = true;
-                this.rad_RandNPCRand.Checked = true;
-                this.rad_ChCatsRand.Checked = true;
-                this.rad_FFightSpriteRand.Checked = true;
+                this.tchk_StdCaseMenus.CheckState = CheckState.Indeterminate;
+                this.tchk_FixSlimeSnail.CheckState = CheckState.Indeterminate;
+                this.tchk_FemaleHero.CheckState = CheckState.Indeterminate;
+                this.tchk_RandSpriteColor.CheckState = CheckState.Indeterminate;
+                this.tchk_RandNPCSprites.CheckState = CheckState.Indeterminate;
+                this.tchk_ChangeCats.CheckState = CheckState.Indeterminate;
+                this.tchk_FixFFighterSprite.CheckState = CheckState.Indeterminate;
                 determineChecks(null, null);
             }
             else if (optManualFlags.Checked == true)
