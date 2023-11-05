@@ -10,7 +10,7 @@ namespace DW3Randomizer
     {
         public void setrandomization(ref Random r1, ref Random randomFlagIncrement, ref Random randomCosmeticIncrement, string txtSeed, int buildnumber, bool genCompareFile)
         {
-            r1 = new Random((int)long.Parse(txtSeed));
+            r1 = new Random(int.Parse(txtSeed));
             randomFlagIncrement = new Random(int.Parse(txtSeed));
             randomCosmeticIncrement = new Random(int.Parse(txtSeed));
 
