@@ -27,9 +27,9 @@ namespace DW3Randomizer
     public partial class Form1 : Form
     {
 
-        readonly string versionNumber = "2.5.4.2";
-        readonly string revisionDate = "11/4/2023";
-        readonly int buildnumber = 280; // build starting 8/18/23
+        readonly string versionNumber = "2.5.4.3";
+        readonly string revisionDate = "11/5/2023";
+        readonly int buildnumber = 281; // build starting 8/18/23
         readonly string SotWFlags = "A-QLINNDAKMBG-NB-NNABA-EMDB-NNNNNNNB-A-E-N";
         readonly string TradSotWFlags = "A-QLINNDAKMAG-JB-NAABA-BMAB-NNNMNNNB-A-B-D";
         readonly string jffFlags = "A-QLINNNBNNEG-NN-NNNNB-NNNE-NNNMNNNB-E-E-N";
@@ -956,7 +956,7 @@ namespace DW3Randomizer
 
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private void btn_SaveSettings_Click(object sender, EventArgs e)
         {
             if (txtFileName.Text != "")
             {
@@ -1031,6 +1031,11 @@ namespace DW3Randomizer
                     writer.WriteLine(tchk_FemaleHero.CheckState);
                 }
             }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+ 
         }
 
         private void txtFileName_Leave(object sender, EventArgs e)

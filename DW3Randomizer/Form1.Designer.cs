@@ -256,6 +256,7 @@ namespace DW3Randomizer
             this.lblHash = new System.Windows.Forms.Label();
             this.txtSeed = new System.Windows.Forms.TextBox();
             this.btn_chksumHash = new System.Windows.Forms.Button();
+            this.btn_SaveSettings = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.grp_RandStats.SuspendLayout();
@@ -354,7 +355,7 @@ namespace DW3Randomizer
             this.btnRandomize.Location = new System.Drawing.Point(608, 628);
             this.btnRandomize.Name = "btnRandomize";
             this.btnRandomize.Size = new System.Drawing.Size(77, 23);
-            this.btnRandomize.TabIndex = 272;
+            this.btnRandomize.TabIndex = 273;
             this.btnRandomize.Text = "Randomize!";
             this.btnRandomize.UseVisualStyleBackColor = true;
             this.btnRandomize.Click += new System.EventHandler(this.btnRandomize_Click);
@@ -2947,7 +2948,7 @@ namespace DW3Randomizer
             // chk_GenCompareFile
             // 
             this.chk_GenCompareFile.AutoSize = true;
-            this.chk_GenCompareFile.Location = new System.Drawing.Point(220, 632);
+            this.chk_GenCompareFile.Location = new System.Drawing.Point(9, 632);
             this.chk_GenCompareFile.Name = "chk_GenCompareFile";
             this.chk_GenCompareFile.Size = new System.Drawing.Size(134, 17);
             this.chk_GenCompareFile.TabIndex = 270;
@@ -2960,7 +2961,7 @@ namespace DW3Randomizer
             // chk_GenIslandsMonstersZones
             // 
             this.chk_GenIslandsMonstersZones.AutoSize = true;
-            this.chk_GenIslandsMonstersZones.Location = new System.Drawing.Point(372, 632);
+            this.chk_GenIslandsMonstersZones.Location = new System.Drawing.Point(161, 632);
             this.chk_GenIslandsMonstersZones.Name = "chk_GenIslandsMonstersZones";
             this.chk_GenIslandsMonstersZones.Size = new System.Drawing.Size(229, 17);
             this.chk_GenIslandsMonstersZones.TabIndex = 271;
@@ -3108,11 +3109,22 @@ namespace DW3Randomizer
             this.btn_chksumHash.UseVisualStyleBackColor = true;
             this.btn_chksumHash.Click += new System.EventHandler(this.btn_chksumHash_Click);
             // 
+            // btn_SaveSettings
+            // 
+            this.btn_SaveSettings.Location = new System.Drawing.Point(504, 628);
+            this.btn_SaveSettings.Name = "btn_SaveSettings";
+            this.btn_SaveSettings.Size = new System.Drawing.Size(89, 23);
+            this.btn_SaveSettings.TabIndex = 272;
+            this.btn_SaveSettings.Text = "Save Settings";
+            this.btn_SaveSettings.UseVisualStyleBackColor = true;
+            this.btn_SaveSettings.Click += new System.EventHandler(this.btn_SaveSettings_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(698, 659);
+            this.Controls.Add(this.btn_SaveSettings);
             this.Controls.Add(this.btn_chksumHash);
             this.Controls.Add(this.lblHash);
             this.Controls.Add(this.label12);
@@ -3423,6 +3435,7 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox tchk_FemaleHero;
         private System.Windows.Forms.CheckBox tchk_RandNPCSprites;
         private System.Windows.Forms.CheckBox tchk_RandSpriteColor;
+        private System.Windows.Forms.Button btn_SaveSettings;
     }
 }
 

@@ -1757,7 +1757,7 @@ namespace DW3Randomizer.classes
                                                 map[y + 2, x + 5] = 0x06;
                                                 map[y + 3, x + 5] = 0x06;
                                             }
-                                            // draw swamp
+                                            // draw grass
                                             for (int lnj = 1; lnj < 4; lnj++)
                                             {
                                                 map[y + 1, x + lnj] = 0x02;
