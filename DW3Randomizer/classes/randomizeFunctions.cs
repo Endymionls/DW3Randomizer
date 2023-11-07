@@ -251,7 +251,8 @@ namespace DW3Randomizer
         }
 
 
-        public void randTreasures(ref byte[] romData, ref Random r1, bool disAlefgardGlitch, int RmRedKeys, int AddGoldClaw, int OrbDft, bool noLamia, bool randMap)
+        public void randTreasures(ref byte[] romData, ref Random r1, bool disAlefgardGlitch, int RmRedKeys, int AddGoldClaw, int OrbDft, bool noLamia, bool randMap, int NoEmpty, int NoGold,
+            int NoManEater, int NoMimic)
         {
             randomizerTools randomizerTools = new randomizerTools();
 
@@ -342,26 +343,61 @@ namespace DW3Randomizer
 
             List<byte> treasureList = new List<byte>();
             List<byte> legalTreasuresList = new List<byte>();
-            byte[] legalTreasures = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
+            byte[] legalEquipment = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
                                           0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
                                           0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
                                           0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f,
                                           0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x48, 0x49, 0x4b, 0x4c, 0x4e,
                                           0x55, 0x56, 0x5e, 0x5f };
-            byte[] legalTreasures2 = {0x60, 0x62, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6c,
-                                          0x73, 0x74,
-                                          0x88, 0x90, 0x98, 0xa0, 0xa8, 0xb0, 0xb8, 0xc0, 0xc8, 0xd0, 0xd8, 0xe0, 0xe8, 0xf0, 0xf8,
-                                          0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff, 0xfd, 0xfe, 0xff };
+            byte[] legalItems = {0x60, 0x62, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6c,
+                                          0x73, 0x74 };
+            byte[] goldChests = { 0x88, 0x90, 0x98, 0xa0, 0xa8, 0xb0, 0xb8, 0xc0, 0xc8, 0xd0, 0xd8, 0xe0, 0xe8, 0xf0, 0xf8 };
+            
+            /*
+            byte[] maneaterchests = { 0xfd };
+            byte[] mimicChests = { 0xfe };
+            byte[] emptyChests = { 0xff };
+            */
 
             // Populate legalTreasuresList so we can add additional items if selected (First half)
-            for (int lnI = 0; lnI < legalTreasures.Length; lnI++)
+            for (int lnI = 0; lnI < legalEquipment.Length; lnI++)
             {
-                legalTreasuresList.Add(legalTreasures[lnI]);
+                legalTreasuresList.Add(legalEquipment[lnI]);
             }
             // Populate legalTreasuresList so we can add additional items if selected (Second half)
-            for (int lnI = 0; lnI < legalTreasures2.Length; lnI++)
+            for (int lnI = 0; lnI < legalItems.Length; lnI++)
             {
-                legalTreasuresList.Add(legalTreasures2[lnI]);
+                legalTreasuresList.Add(legalItems[lnI]);
+            }
+
+            // If No Gold Chests is unchecked or Indeterminate and Random 0, add Gold Chests to the Treasure Pool
+            if (NoGold == 0 || (NoGold == 2 && r1.Next() % 2 == 0))
+            {
+                for (int lnI = 0; lnI < goldChests.Length; lnI++)
+                {
+                    legalTreasuresList.Add(goldChests[lnI]);
+                }
+            }
+
+            int localNoEmpty = 0;
+            int localNoManEater = 0;
+            int localNoMimic = 0;
+
+            if (NoEmpty == 1 || (NoEmpty == 2 && r1.Next() % 2 == 1)) 
+                localNoEmpty = 1;
+            if (NoManEater == 1 || (NoManEater == 2 && r1.Next() % 2 == 1))
+                localNoManEater = 1;
+            if (NoMimic == 1 || (NoMimic == 2 && r1.Next() % 2 == 1))
+                localNoMimic = 1;
+
+            for (int lnI = 0; lnI < 5; lnI++)
+            {
+                if (localNoManEater == 0)
+                    legalTreasuresList.Add(0xfd);
+                if (localNoMimic == 0)
+                    legalTreasuresList.Add(0xfe);
+                if (localNoEmpty == 0)
+                    legalTreasuresList.Add(0xff);
             }
 
             for (int lnI = 0; lnI < allTreasureList.Count; lnI++)

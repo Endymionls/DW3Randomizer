@@ -129,6 +129,10 @@ namespace DW3Randomizer
             this.tchk_RandGold = new System.Windows.Forms.CheckBox();
             this.tchk_RandExp = new System.Windows.Forms.CheckBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tchk_RmEmptyChests = new System.Windows.Forms.CheckBox();
+            this.tchk_RmGoldChests = new System.Windows.Forms.CheckBox();
+            this.tchk_RmMimics = new System.Windows.Forms.CheckBox();
+            this.tchk_RmManEaterChests = new System.Windows.Forms.CheckBox();
             this.tchk_RandItemEff = new System.Windows.Forms.CheckBox();
             this.tchk_RmRedKey = new System.Windows.Forms.CheckBox();
             this.tchk_GreenSilvOrb = new System.Windows.Forms.CheckBox();
@@ -1526,6 +1530,10 @@ namespace DW3Randomizer
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.tchk_RmEmptyChests);
+            this.tabPage4.Controls.Add(this.tchk_RmGoldChests);
+            this.tabPage4.Controls.Add(this.tchk_RmMimics);
+            this.tabPage4.Controls.Add(this.tchk_RmManEaterChests);
             this.tabPage4.Controls.Add(this.tchk_RandItemEff);
             this.tabPage4.Controls.Add(this.tchk_RmRedKey);
             this.tabPage4.Controls.Add(this.tchk_GreenSilvOrb);
@@ -1545,6 +1553,58 @@ namespace DW3Randomizer
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Treasures & Equipment";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // tchk_RmEmptyChests
+            // 
+            this.tchk_RmEmptyChests.AutoSize = true;
+            this.tchk_RmEmptyChests.Location = new System.Drawing.Point(225, 174);
+            this.tchk_RmEmptyChests.Name = "tchk_RmEmptyChests";
+            this.tchk_RmEmptyChests.Size = new System.Drawing.Size(133, 17);
+            this.tchk_RmEmptyChests.TabIndex = 147;
+            this.tchk_RmEmptyChests.Text = "Remove Empty Chests";
+            this.tchk_RmEmptyChests.ThreeState = true;
+            this.adjustments.SetToolTip(this.tchk_RmEmptyChests, "Removes Empty Chests from treasure pool.");
+            this.tchk_RmEmptyChests.UseVisualStyleBackColor = true;
+            this.tchk_RmEmptyChests.CheckStateChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // tchk_RmGoldChests
+            // 
+            this.tchk_RmGoldChests.AutoSize = true;
+            this.tchk_RmGoldChests.Location = new System.Drawing.Point(225, 150);
+            this.tchk_RmGoldChests.Name = "tchk_RmGoldChests";
+            this.tchk_RmGoldChests.Size = new System.Drawing.Size(126, 17);
+            this.tchk_RmGoldChests.TabIndex = 146;
+            this.tchk_RmGoldChests.Text = "Remove Gold Chests";
+            this.tchk_RmGoldChests.ThreeState = true;
+            this.adjustments.SetToolTip(this.tchk_RmGoldChests, "Removes Gold Chests from treasure pool.");
+            this.tchk_RmGoldChests.UseVisualStyleBackColor = true;
+            this.tchk_RmGoldChests.CheckStateChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // tchk_RmMimics
+            // 
+            this.tchk_RmMimics.AutoSize = true;
+            this.tchk_RmMimics.Location = new System.Drawing.Point(225, 126);
+            this.tchk_RmMimics.Name = "tchk_RmMimics";
+            this.tchk_RmMimics.Size = new System.Drawing.Size(101, 17);
+            this.tchk_RmMimics.TabIndex = 145;
+            this.tchk_RmMimics.Text = "Remove Mimics";
+            this.tchk_RmMimics.ThreeState = true;
+            this.adjustments.SetToolTip(this.tchk_RmMimics, "Removes Mimics from treasure pool.");
+            this.tchk_RmMimics.UseVisualStyleBackColor = true;
+            this.tchk_RmMimics.CheckStateChanged += new System.EventHandler(this.determineFlags);
+            // 
+            // tchk_RmManEaterChests
+            // 
+            this.tchk_RmManEaterChests.AutoSize = true;
+            this.tchk_RmManEaterChests.Location = new System.Drawing.Point(225, 102);
+            this.tchk_RmManEaterChests.Name = "tchk_RmManEaterChests";
+            this.tchk_RmManEaterChests.Size = new System.Drawing.Size(153, 17);
+            this.tchk_RmManEaterChests.TabIndex = 144;
+            this.tchk_RmManEaterChests.Text = "Remove Man-Eater-Chests";
+            this.tchk_RmManEaterChests.ThreeState = true;
+            this.adjustments.SetToolTip(this.tchk_RmManEaterChests, "Removes Man-Eater-Chests from treasure pool.");
+            this.tchk_RmManEaterChests.UseVisualStyleBackColor = true;
+            this.tchk_RmManEaterChests.CheckStateChanged += new System.EventHandler(this.determineFlags);
             // 
             // tchk_RandItemEff
             // 
@@ -3436,6 +3496,10 @@ namespace DW3Randomizer
         private System.Windows.Forms.CheckBox tchk_RandNPCSprites;
         private System.Windows.Forms.CheckBox tchk_RandSpriteColor;
         private System.Windows.Forms.Button btn_SaveSettings;
+        private System.Windows.Forms.CheckBox tchk_RmMimics;
+        private System.Windows.Forms.CheckBox tchk_RmManEaterChests;
+        private System.Windows.Forms.CheckBox tchk_RmEmptyChests;
+        private System.Windows.Forms.CheckBox tchk_RmGoldChests;
     }
 }
 
